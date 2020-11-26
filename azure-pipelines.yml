@@ -22,7 +22,7 @@ steps:
       $s| Set-Content -Path $f.FullName -Encoding UTF8
 
     displayName: 'PowerShell Script'
-    enabled: false
+    enabled: true
 
   - task: Maven@3
     displayName: 'Maven azd/pom.xml'
