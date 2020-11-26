@@ -3,6 +3,12 @@ pool:
   demands: maven
 
 steps:
+  - task: JavaToolInstaller@0
+    inputs:
+      versionSpec: '11'
+      jdkArchitectureOption: 'x64'
+      jdkSourceOption: 'PreInstalled'
+
   - powershell: |
       $s = @{
           "o" = "$(system.teamOrganization)"
@@ -26,6 +32,7 @@ steps:
       publishJUnitResults: true
       testResultsFiles: '**/surefire-reports/TEST-*.xml'
       jdkVersionOption: 1.11
+      javaHomeOption: JDKVersion
 
   - task: CopyFiles@2
     displayName: 'Copy jar file'
