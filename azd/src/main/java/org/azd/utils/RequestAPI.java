@@ -19,7 +19,8 @@ import java.util.List;
 public class RequestAPI {
 
     private static final String AUTHORIZATION = "Authorization";
-    private static final ObjectMapper objectMapper = new ObjectMapper();
+    private static final ObjectMapper OBJECTMAPPER = new ObjectMapper();
+    private static final HttpClient CLIENT = HttpClient.newHttpClient();
 
     /**
      *  Encodes the personal access token to base 64
@@ -31,25 +32,48 @@ public class RequestAPI {
                 Base64.getEncoder().encodeToString(("" + ":" + token).getBytes());
     }
 
+    /***
+     * Http request builder
+     * @param requestUrl request url
+     * @param token personal access token
+     * @return HttpRequest object to build
+     */
+    private static HttpRequest.Builder request(String requestUrl, String token) {
+        return HttpRequest
+                .newBuilder()
+                .uri(URI.create(requestUrl))
+                .setHeader(AUTHORIZATION, encodePersonalAccessToken(token));
+    }
+
+    /***
+     * Http request builder
+     * @param requestUrl request url
+     * @return HttpRequest object to build
+     */
+    private static HttpRequest.Builder request(String requestUrl) {
+        return HttpRequest
+                .newBuilder()
+                .uri(URI.create(requestUrl));
+    }
+
+    /***
+     * Response from API for the given request
+     * @param r pass the Http request object
+     * @return String response from API
+     */
+    private static String response(HttpRequest r) {
+        return CLIENT.sendAsync(r, HttpResponse.BodyHandlers.ofString())
+                .thenApply(HttpResponse::body)
+                .join();
+    }
+
     /**
      *  Sends a GET request to REST API
      * @param requestUrl pass the request url
      * @return response string from the API
      */
     public static String get(String requestUrl) {
-
-        HttpClient client = HttpClient.newHttpClient();
-
-        HttpRequest request = HttpRequest
-                .newBuilder()
-                .uri(URI.create(requestUrl))
-                .GET()
-                .header("Accept", "application/json")
-                .build();
-
-        return client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenApply(HttpResponse::body)
-                .join();
+        return response(request(requestUrl).GET().header("Accept", "application/json").build());
     }
 
     /**
@@ -59,20 +83,18 @@ public class RequestAPI {
      * @return response string from the API
      */
     public static String get(String requestUrl, String token) {
+        return response(request(requestUrl, token).GET().header("Accept", "application/json").build());
+    }
 
-        HttpClient client = HttpClient.newHttpClient();
-
-        HttpRequest request = HttpRequest
-                .newBuilder()
-                .uri(URI.create(requestUrl))
-                .GET()
-                .header("Accept", "application/json")
-                .setHeader(AUTHORIZATION, encodePersonalAccessToken(token))
-                .build();
-
-        return client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenApply(HttpResponse::body)
-                .join();
+    /**
+     *  Sends a GET request to REST API with basic authentication
+     * @param requestUrl pass the request url
+     * @param token pass the personal access token
+     * @param contentType specify the content type
+     * @return response string from the API
+     */
+    public static String get(String requestUrl, String token, String contentType) {
+        return response(request(requestUrl, token).GET().header("Accept", contentType).build());
     }
 
     /**
@@ -84,22 +106,11 @@ public class RequestAPI {
      * @return response string from the API if any
      */
     public static String post(String requestUrl, String token, HashMap<String, Object> body) throws IOException {
-
-        String requestBody = objectMapper.writeValueAsString(body);
-
-        HttpClient client = HttpClient.newHttpClient();
-
-        HttpRequest request = HttpRequest
-                .newBuilder()
-                .uri(URI.create(requestUrl))
-                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
-                .header("Content-Type", "application/json")
-                .setHeader(AUTHORIZATION, encodePersonalAccessToken(token))
-                .build();
-
-        return client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenApply(HttpResponse::body)
-                .join();
+        return response(
+                request(requestUrl, token)
+                    .POST(HttpRequest.BodyPublishers.ofString(OBJECTMAPPER.writeValueAsString(body)))
+                    .header("Content-Type", "application/json")
+                    .build());
     }
 
     /**
@@ -111,22 +122,11 @@ public class RequestAPI {
      * @return response string from the API if any
      */
     public static String patch(String requestUrl, String token, HashMap<String, Object> body) throws IOException {
-
-        String requestBody = objectMapper.writeValueAsString(body);
-
-        HttpClient client = HttpClient.newHttpClient();
-
-        HttpRequest request = HttpRequest
-                .newBuilder()
-                .uri(URI.create(requestUrl))
-                .method(RequestMethod.PATCH.toString(), HttpRequest.BodyPublishers.ofString(requestBody))
-                .header("Content-Type", "application/json")
-                .setHeader(AUTHORIZATION, encodePersonalAccessToken(token))
-                .build();
-
-        return client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenApply(HttpResponse::body)
-                .join();
+        return response(
+                request(requestUrl, token)
+                        .method(RequestMethod.PATCH.toString(), HttpRequest.BodyPublishers.ofString(OBJECTMAPPER.writeValueAsString(body)))
+                        .header("Content-Type", "application/json")
+                        .build());
     }
 
     /**
@@ -138,22 +138,11 @@ public class RequestAPI {
      * @return response string from the API if any
      */
     public static String patch(String requestUrl, String token, List<Object> body) throws IOException {
-
-        String requestBody = objectMapper.writeValueAsString(body);
-
-        HttpClient client = HttpClient.newHttpClient();
-
-        HttpRequest request = HttpRequest
-                .newBuilder()
-                .uri(URI.create(requestUrl))
-                .method(RequestMethod.PATCH.toString(), HttpRequest.BodyPublishers.ofString(requestBody))
-                .header("Content-Type", "application/json")
-                .setHeader(AUTHORIZATION, encodePersonalAccessToken(token))
-                .build();
-
-        return client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenApply(HttpResponse::body)
-                .join();
+        return response(
+                request(requestUrl, token)
+                        .method(RequestMethod.PATCH.toString(), HttpRequest.BodyPublishers.ofString(OBJECTMAPPER.writeValueAsString(body)))
+                        .header("Content-Type", "application/json")
+                        .build());
     }
 
     /**
@@ -163,18 +152,6 @@ public class RequestAPI {
      * @return response string from the API if any
      */
     public static String delete(String requestUrl, String token) {
-
-        HttpClient client = HttpClient.newHttpClient();
-
-        HttpRequest request = HttpRequest
-                .newBuilder()
-                .uri(URI.create(requestUrl))
-                .DELETE()
-                .setHeader(AUTHORIZATION, encodePersonalAccessToken(token))
-                .build();
-
-        return client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenApply(HttpResponse::body)
-                .join();
+        return response(request(requestUrl, token).DELETE().build());
     }
 }
