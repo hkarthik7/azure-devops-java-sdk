@@ -11,10 +11,6 @@ import org.azd.utils.AzDDefaultParameters;
 import java.io.File;
 import java.io.IOException;
 
-/***
- * We are not asserting here as the intention is to see if the code work
- * as expected. If the feed already exists the result will be null.
- */
 public class FeedManagementTest {
 
     private static ObjectMapper mapper = new ObjectMapper();

@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
-@SuppressWarnings("serial")
 public class RequestAPITest {
 
     @Test

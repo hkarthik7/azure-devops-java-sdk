@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 public class AzDDefaultParametersTest {
 
     @Test
-    public void shouldCreateAzDDefaultParametersClassandReturnOrganiation() {
+    public void shouldReturnOrganiation() {
         // Given
         String organization = "Test";
         String token = "myPersonalAccessToken";
@@ -22,7 +22,7 @@ public class AzDDefaultParametersTest {
     }
 
     @Test
-    public void shouldCreateAzDDefaultParametersClassandSetDifferentOrganization() {
+    public void shouldSetDifferentOrganization() {
         // Given
         String organization = "Test";
         String token = "myPersonalAccessToken";
@@ -36,7 +36,7 @@ public class AzDDefaultParametersTest {
     }
 
     @Test
-    public void shouldCreateAzDDefaultParametersClassandReturnNull() {
+    public void shouldReturnNull() {
         // When
         AzDDefaultParameters defaultParameters = new AzDDefaultParameters();
 
