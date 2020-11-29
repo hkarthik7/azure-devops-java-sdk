@@ -1,47 +1,133 @@
-jobs:
-- job: Linux
+name: $(Build.BuildID)
 
-  pool:
-    vmImage: ubuntu-latest
-    demands: maven
+trigger:
+- main
 
-  steps:
-    - task: JavaToolInstaller@0
-      inputs:
-        versionSpec: '11'
-        jdkArchitectureOption: 'x64'
-        jdkSourceOption: 'PreInstalled'
+resources:
+- repo: self
 
-    - powershell: |
-        $s = @{
-            "o" = "$(system.teamOrganization)"
-            "t" = "$(system.teamToken)"
-            "p" = "$(system.teamProject)"
-        } | ConvertTo-Json
+stages:
+- stage: Build and Test
 
-        $f = Get-ChildItem -Path $PWD.Path -Filter "_unitTest.json" -Recurse
-        $pom = Get-ChildItem -Path $PWD.Path -Filter "pom.xml" -Recurse
+  jobs:
+  - job: Linux
 
-        $s| Set-Content -Path $f.FullName -Encoding UTF8
+    pool:
+      vmImage: ubuntu-latest
+      demands: maven
 
-      displayName: 'PowerShell Script'
-      enabled: true
+    steps:
+      - task: JavaToolInstaller@0
+        inputs:
+          versionSpec: '11'
+          jdkArchitectureOption: 'x64'
+          jdkSourceOption: 'PreInstalled'
 
-    - task: Maven@3
-      displayName: 'Maven azd/pom.xml'
-      inputs:
-        mavenPomFile: azd/pom.xml
-        goals: test
-        publishJUnitResults: true
-        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+      - powershell: |
+          $s = @{
+              "o" = "$(system.teamOrganization)"
+              "t" = "$(system.teamToken)"
+              "p" = "$(system.teamProject)"
+          } | ConvertTo-Json
 
-- job: Windows
+          $f = Get-ChildItem -Path $PWD.Path -Filter "_unitTest.json" -Recurse
+          $pom = Get-ChildItem -Path $PWD.Path -Filter "pom.xml" -Recurse
 
-  pool:
-    vmImage: vs2017-win2016
-    demands: maven
+          $s| Set-Content -Path $f.FullName -Encoding UTF8
 
-  steps:
+        displayName: 'PowerShell Script'
+        enabled: true
+
+      - task: Maven@3
+        displayName: 'Maven azd/pom.xml'
+        inputs:
+          mavenPomFile: azd/pom.xml
+          goals: test
+          publishJUnitResults: true
+          testResultsFiles: '**/surefire-reports/TEST-*.xml'
+
+  - job: macOS
+
+    pool:
+      vmImage: macOS-latest
+      demands: maven
+
+    steps:
+      - task: JavaToolInstaller@0
+        inputs:
+          versionSpec: '11'
+          jdkArchitectureOption: 'x64'
+          jdkSourceOption: 'PreInstalled'
+
+      - powershell: |
+          $s = @{
+              "o" = "$(system.teamOrganization)"
+              "t" = "$(system.teamToken)"
+              "p" = "$(system.teamProject)"
+          } | ConvertTo-Json
+
+          $f = Get-ChildItem -Path $PWD.Path -Filter "_unitTest.json" -Recurse
+          $pom = Get-ChildItem -Path $PWD.Path -Filter "pom.xml" -Recurse
+
+          $s| Set-Content -Path $f.FullName -Encoding UTF8
+
+        displayName: 'PowerShell Script'
+        enabled: true
+
+      - task: Maven@3
+        displayName: 'Maven azd/pom.xml'
+        inputs:
+          mavenPomFile: azd/pom.xml
+          goals: test
+          publishJUnitResults: true
+          testResultsFiles: '**/surefire-reports/TEST-*.xml'  
+
+  - job: Windows
+
+    pool:
+      vmImage: vs2017-win2016
+      demands: maven
+
+    steps:
+      - task: JavaToolInstaller@0
+        inputs:
+          versionSpec: '11'
+          jdkArchitectureOption: 'x64'
+          jdkSourceOption: 'PreInstalled'
+
+      - powershell: |
+          $s = @{
+              "o" = "$(system.teamOrganization)"
+              "t" = "$(system.teamToken)"
+              "p" = "$(system.teamProject)"
+          } | ConvertTo-Json
+
+          $f = Get-ChildItem -Path $PWD.Path -Filter "_unitTest.json" -Recurse
+          $pom = Get-ChildItem -Path $PWD.Path -Filter "pom.xml" -Recurse
+
+          $s| Set-Content -Path $f.FullName -Encoding UTF8
+
+        displayName: 'PowerShell Script'
+        enabled: true
+
+      - task: Maven@3
+        displayName: 'Maven azd/pom.xml'
+        inputs:
+          mavenPomFile: azd/pom.xml
+          goals: package
+          publishJUnitResults: true
+          testResultsFiles: '**/surefire-reports/TEST-*.xml'
+  
+- stage: Production
+
+  jobs:
+  - job: Deploy
+
+    pool:
+        vmImage: vs2017-win2016
+        demands: maven
+
+    steps:
     - task: JavaToolInstaller@0
       inputs:
         versionSpec: '11'
@@ -79,3 +165,13 @@ jobs:
 
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifact'
+
+    - task: GitHubRelease@1
+      inputs:
+        gitHubConnection: 'hkarthik7'
+        repositoryName: 'hkarthik7/azure-devops-java-sdk'
+        action: 'create'
+        tagSource: 'userSpecifiedTag'
+        tag: 'v$(PACKAGEVERSION)'
+        assets: '$(Build.ArtifactStagingDirectory)/*.jar'
+        changeLogCompareToRelease: 'lastFullRelease'
