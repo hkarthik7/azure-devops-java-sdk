@@ -138,6 +138,6 @@ stages:
         target: '$(Build.SourceVersion)'
         tagSource: 'userSpecifiedTag'
         tag: 'v$(PACKAGEVERSION)'
-        assets: '$(Build.ArtifactStagingDirectory)/*.jar'
+        assets: '$(Build.ArtifactStagingDirectory)/azd/target/*.jar'
         changeLogCompareToRelease: 'lastFullRelease'
         changeLogType: 'commitBased'
