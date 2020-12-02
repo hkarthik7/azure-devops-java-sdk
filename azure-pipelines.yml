@@ -78,7 +78,7 @@ stages:
         displayName: 'Maven azd/pom.xml'
         inputs:
           mavenPomFile: azd/pom.xml
-          goals: package
+          goals: test
           publishJUnitResults: true
           testResultsFiles: '**/surefire-reports/TEST-*.xml'
   
@@ -138,6 +138,6 @@ stages:
         target: '$(Build.SourceVersion)'
         tagSource: 'userSpecifiedTag'
         tag: 'v$(PACKAGEVERSION)'
-        assets: '$(Build.ArtifactStagingDirectory)/azd/target/*.jar'
+        assets: '$(Build.ArtifactStagingDirectory)/azd/target/azd-$(PACKAGEVERSION).jar'
         changeLogCompareToRelease: 'lastFullRelease'
         changeLogType: 'commitBased'
