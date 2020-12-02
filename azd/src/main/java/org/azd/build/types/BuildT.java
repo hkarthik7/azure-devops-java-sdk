@@ -11,8 +11,6 @@ public class BuildT {
     private Links _links;
     @JsonProperty("tags")
     private List<String> tags;
-    @JsonProperty("validationResults")
-    private List<String> validationResults;
     @JsonProperty("plans")
     private List<Plans> plans;
     @JsonProperty("triggerInfo")
@@ -73,7 +71,6 @@ public class BuildT {
         return "BuildT{" +
                 "_links=" + _links +
                 ", tags=" + tags +
-                ", validationResults=" + validationResults +
                 ", plans=" + plans +
                 ", triggerInfo=" + triggerInfo +
                 ", id=" + id +
@@ -118,14 +115,6 @@ public class BuildT {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
-    }
-
-    public List<String> getValidationResults() {
-        return validationResults;
-    }
-
-    public void setValidationResults(List<String> validationResults) {
-        this.validationResults = validationResults;
     }
 
     public List<Plans> getPlans() {
@@ -344,7 +333,7 @@ public class BuildT {
         this.triggeredByBuild = triggeredByBuild;
     }
 
-
+    @JsonIgnoreProperties(ignoreUnknown = true)
     private static class Links {
         @JsonProperty("self")
         private Href self;
@@ -410,6 +399,7 @@ public class BuildT {
         }
     }
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     private static class Href {
         @JsonProperty("href")
         private String href;
@@ -430,6 +420,7 @@ public class BuildT {
         }
     }
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     private static class Plans {
         @JsonProperty("planId")
         private String planId;
@@ -450,6 +441,7 @@ public class BuildT {
         }
     }
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     private static class TriggerInfo {
         @JsonProperty("ci.sourceSha")
         private String sourceSha;
@@ -492,6 +484,7 @@ public class BuildT {
         }
     }
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     private static class Definition {
         @JsonProperty("drafts")
         private List<String> drafts;
@@ -611,6 +604,7 @@ public class BuildT {
         }
     }
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     private static class Project {
         @JsonProperty("id")
         private String id;
@@ -709,6 +703,7 @@ public class BuildT {
 
     }
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     private static class BQueue {
         @JsonProperty("id")
         private String id;
@@ -752,6 +747,7 @@ public class BuildT {
     }
 
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     private static class Pool {
         @JsonProperty("id")
         private String id;
@@ -860,6 +856,7 @@ public class BuildT {
         }
     }
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     private static class OrchestrationPlan {
         @JsonProperty("planId")
         private String planId;
@@ -880,6 +877,7 @@ public class BuildT {
         }
     }
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     private static class Logs {
         @JsonProperty("id")
         private String id;
@@ -922,6 +920,7 @@ public class BuildT {
         }
     }
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     private static class Repository {
         @JsonProperty("id")
         private String id;

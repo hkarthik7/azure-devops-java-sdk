@@ -6,10 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.azd.artifacts.feedmanagement.types.*;
 import org.azd.exceptions.DefaultParametersException;
-import org.azd.utils.AzDDefaultParameters;
-import org.azd.utils.RequestAPI;
-import org.azd.utils.ResourceId;
-import org.azd.utils.Url;
+import org.azd.utils.*;
 
 
 import java.io.IOException;
@@ -25,13 +22,15 @@ public class FeedManagement {
     /***
      * Instance of AzDDefaultParameters
      */
-    private final AzDDefaultParameters defaultParameters;
+    private final AzDDefaultParameters DEFAULT_PARAMETERS;
+    private final ObjectMapper MAPPER = new ObjectMapper();
+    private final String AREA = "packaging";
 
     /***
      * Instantiate the class with instance of AzDDefaultParameters
      * @param defaultParameters instance of AzDDefaultParameters
      */
-    public FeedManagement(AzDDefaultParameters defaultParameters) { this.defaultParameters = defaultParameters; }
+    public FeedManagement(AzDDefaultParameters defaultParameters) { this.DEFAULT_PARAMETERS = defaultParameters; }
 
     /***
      * Create a feed, a container for various package types.
@@ -53,17 +52,6 @@ public class FeedManagement {
             String name, String description, boolean badgesEnabled,
             boolean hideDeletedPackageVersions) throws DefaultParametersException, IOException {
 
-        String project = defaultParameters.getProject() != null ? defaultParameters.getProject() : null;
-
-        String feedUrl = new Url(defaultParameters).buildRequestUrl(
-                ResourceId.PACKAGING,
-                project,
-                "packaging/feeds",
-                null,
-                null,
-                FeedVersion.Version,
-                null);
-
         HashMap<String, Object> requestBody = new HashMap<>() {{
             put("name", name);
             put("description", description);
@@ -71,11 +59,19 @@ public class FeedManagement {
             put("hideDeletedPackageVersions", hideDeletedPackageVersions);
         }};
 
-        String response = RequestAPI.post(feedUrl, defaultParameters.getPersonalAccessToken(), requestBody);
-        ObjectMapper mapper = new ObjectMapper();
-        Feed feed = mapper.readValue(response, new TypeReference<>() {});
+        String r = Request.request(
+                        RequestMethod.POST.toString(),
+                        DEFAULT_PARAMETERS,
+                        ResourceId.PACKAGING,
+                        DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
+                        AREA,
+                        null,
+                        "feeds",
+                        FeedVersion.VERSION,
+                        null,
+                        requestBody);
 
-        return feed;
+        return MAPPER.readValue(r, new TypeReference<Feed>() {});
     }
 
     /***
@@ -93,28 +89,25 @@ public class FeedManagement {
      */
     public FeedView createFeedView(String feedName, String name, String feedViewType, String visibility) throws IOException, DefaultParametersException {
 
-        String project = defaultParameters.getProject() != null ? defaultParameters.getProject() : null;
-
-        String feedUrl = new Url(defaultParameters).buildRequestUrl(
-                ResourceId.PACKAGING,
-                project,
-                "packaging/Feeds",
-                feedName,
-                "views",
-                FeedVersion.Version,
-                null);
-
         HashMap<String, Object> requestBody = new HashMap<>() {{
             put("name", name);
             put("type", feedViewType);
             put("visibility", visibility);
         }};
 
-        String response = RequestAPI.post(feedUrl, defaultParameters.getPersonalAccessToken(), requestBody);
-        ObjectMapper mapper = new ObjectMapper();
-        FeedView feedView = mapper.readValue(response, new TypeReference<>() {});
+        String r = Request.request(
+                        RequestMethod.POST.toString(),
+                        DEFAULT_PARAMETERS,
+                        ResourceId.PACKAGING,
+                        DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
+                        AREA + "/feeds",
+                        feedName,
+                        "views",
+                        FeedVersion.VERSION,
+                        null,
+                        requestBody);
 
-        return feedView;
+        return MAPPER.readValue(r, new TypeReference<FeedView>() {});
     }
 
     /***
@@ -125,21 +118,21 @@ public class FeedManagement {
      * </p>
      * @param feedId Name or Id of the feed.
      * @throws DefaultParametersException throws default parameter exception {@link DefaultParametersException}
+     * @throws IOException throws IO Exception exception {@link IOException}
      */
-    public void deleteFeed(String feedId) throws DefaultParametersException {
+    public void deleteFeed(String feedId) throws DefaultParametersException, IOException {
 
-        String project = defaultParameters.getProject() != null ? defaultParameters.getProject() : null;
-
-        String feedUrl = new Url(defaultParameters).buildRequestUrl(
+        Request.request(
+                RequestMethod.DELETE.toString(),
+                DEFAULT_PARAMETERS,
                 ResourceId.PACKAGING,
-                project,
-                "packaging/Feeds",
+                DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
+                AREA + "/feeds",
                 feedId,
                 null,
-                FeedVersion.Version,
+                FeedVersion.VERSION,
+                null,
                 null);
-
-        RequestAPI.delete(feedUrl, defaultParameters.getPersonalAccessToken());
     }
 
     /***
@@ -150,21 +143,21 @@ public class FeedManagement {
      * @param feedId Name or Id of the feed
      * @param feedViewId Id of the feed view
      * @throws DefaultParametersException throws default parameter exception {@link DefaultParametersException}
+     * @throws IOException throws IO Exception exception {@link IOException}
      */
-    public void deleteFeedView(String feedId, String feedViewId) throws DefaultParametersException {
+    public void deleteFeedView(String feedId, String feedViewId) throws DefaultParametersException, IOException {
 
-        String project = defaultParameters.getProject() != null ? defaultParameters.getProject() : null;
-
-        String feedUrl = new Url(defaultParameters).buildRequestUrl(
+        Request.request(
+                RequestMethod.DELETE.toString(),
+                DEFAULT_PARAMETERS,
                 ResourceId.PACKAGING,
-                project,
-                "packaging/Feeds",
+                DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
+                AREA + "/feeds",
                 feedId,
                 "views/" + feedViewId,
-                FeedVersion.Version,
+                FeedVersion.VERSION,
+                null,
                 null);
-
-        RequestAPI.delete(feedUrl, defaultParameters.getPersonalAccessToken());
     }
 
     /***
@@ -176,26 +169,23 @@ public class FeedManagement {
      * @param feedName Name of id of the feed
      * @return Feed {@link Feed}
      * @throws DefaultParametersException throws default parameter exception {@link DefaultParametersException}
-     * @throws JsonProcessingException --> {@link JsonProcessingException}
+     * @throws IOException throws IO Exception exception {@link IOException}
      */
-    public Feed getFeed(String feedName) throws DefaultParametersException, JsonProcessingException {
+    public Feed getFeed(String feedName) throws DefaultParametersException, IOException {
 
-        String project = defaultParameters.getProject() != null ? defaultParameters.getProject() : null;
+        String r = Request.request(
+                        RequestMethod.GET.toString(),
+                        DEFAULT_PARAMETERS,
+                        ResourceId.PACKAGING,
+                        DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
+                        AREA + "/Feeds",
+                        feedName,
+                        null,
+                        FeedVersion.VERSION,
+                        null,
+                        null);
 
-        String feedUrl = new Url(defaultParameters).buildRequestUrl(
-                ResourceId.PACKAGING,
-                project,
-                "packaging/Feeds",
-                feedName,
-                null,
-                FeedVersion.Version,
-                null);
-
-        String response = RequestAPI.get(feedUrl, defaultParameters.getPersonalAccessToken());
-        ObjectMapper mapper = new ObjectMapper();
-        Feed feed = mapper.readValue(response, new TypeReference<>() {});
-
-        return feed;
+        return MAPPER.readValue(r, new TypeReference<Feed>() {});
     }
 
     /***
@@ -208,30 +198,27 @@ public class FeedManagement {
      * @param includeDeletedUpstreams Include upstreams that have been deleted in the response.
      * @return Feed {@link Feed}
      * @throws DefaultParametersException throws default parameter exception {@link DefaultParametersException}
-     * @throws JsonProcessingException --> {@link JsonProcessingException}
+     * @throws IOException throws IO Exception exception {@link IOException}
      */
-    public Feed getFeed(String feedName, boolean includeDeletedUpstreams) throws DefaultParametersException, JsonProcessingException {
-
-        String project = defaultParameters.getProject() != null ? defaultParameters.getProject() : null;
+    public Feed getFeed(String feedName, boolean includeDeletedUpstreams) throws DefaultParametersException, IOException {
 
         HashMap<String, Object> q = new HashMap<>() {{
             put("includeDeletedUpstreams", includeDeletedUpstreams);
         }};
 
-        String feedUrl = new Url(defaultParameters).buildRequestUrl(
+        String r = Request.request(
+                RequestMethod.GET.toString(),
+                DEFAULT_PARAMETERS,
                 ResourceId.PACKAGING,
-                project,
-                "packaging/Feeds",
+                DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
+                AREA + "/Feeds",
                 feedName,
                 null,
-                FeedVersion.Version,
-                q);
+                FeedVersion.VERSION,
+                q,
+                null);
 
-        String response = RequestAPI.get(feedUrl, defaultParameters.getPersonalAccessToken());
-        ObjectMapper mapper = new ObjectMapper();
-        Feed feed = mapper.readValue(response, new TypeReference<>() {});
-
-        return feed;
+        return MAPPER.readValue(r, new TypeReference<Feed>() {});
     }
 
     /***
@@ -243,26 +230,23 @@ public class FeedManagement {
      * @param feedName Name or Id of the feed.
      * @return Feed Permissions {@link FeedPermissions}
      * @throws DefaultParametersException throws default parameter exception {@link DefaultParametersException}
-     * @throws JsonProcessingException --> {@link JsonProcessingException}
+     * @throws IOException throws IO Exception exception {@link IOException}
      */
-    public FeedPermissions getFeedPermissions(String feedName) throws DefaultParametersException, JsonProcessingException {
+    public FeedPermissions getFeedPermissions(String feedName) throws DefaultParametersException, IOException {
 
-        String project = defaultParameters.getProject() != null ? defaultParameters.getProject() : null;
+        String r = Request.request(
+                        RequestMethod.GET.toString(),
+                        DEFAULT_PARAMETERS,
+                        ResourceId.PACKAGING,
+                        DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
+                        AREA + "/Feeds",
+                        feedName,
+                        "permissions",
+                        FeedVersion.VERSION,
+                        null,
+                        null);
 
-        String feedUrl = new Url(defaultParameters).buildRequestUrl(
-                ResourceId.PACKAGING,
-                project,
-                "packaging/Feeds",
-                feedName,
-                "permissions",
-                FeedVersion.Version,
-                null);
-
-        String response = RequestAPI.get(feedUrl, defaultParameters.getPersonalAccessToken());
-        ObjectMapper mapper = new ObjectMapper();
-        FeedPermissions feedPermissions = mapper.readValue(response, new TypeReference<>() {});
-
-        return feedPermissions;
+        return MAPPER.readValue(r, new TypeReference<FeedPermissions>() {});
     }
 
     /***
@@ -278,13 +262,11 @@ public class FeedManagement {
      * @param includeIds True to include user Ids in the response. Default is false.
      * @return Feed Permissions {@link FeedPermissions}
      * @throws DefaultParametersException throws default parameter exception {@link DefaultParametersException}
-     * @throws JsonProcessingException --> {@link JsonProcessingException}
+     * @throws IOException throws IO Exception exception {@link IOException}
      */
     public FeedPermissions getFeedPermissions(
             String feedName, boolean excludeInheritedPermissions, String identityDescriptor,
-            boolean includeDeletedFeeds, boolean includeIds) throws DefaultParametersException, JsonProcessingException {
-
-        String project = defaultParameters.getProject() != null ? defaultParameters.getProject() : null;
+            boolean includeDeletedFeeds, boolean includeIds) throws DefaultParametersException, IOException {
 
         HashMap<String, Object> q = new HashMap<>() {{
             put("excludeInheritedPermissions", excludeInheritedPermissions);
@@ -293,20 +275,19 @@ public class FeedManagement {
             put("includeIds", includeIds);
         }};
 
-        String feedUrl = new Url(defaultParameters).buildRequestUrl(
+        String r = Request.request(
+                RequestMethod.GET.toString(),
+                DEFAULT_PARAMETERS,
                 ResourceId.PACKAGING,
-                project,
-                "packaging/Feeds",
+                DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
+                AREA + "/Feeds",
                 feedName,
                 "permissions",
-                FeedVersion.Version,
-                q);
+                FeedVersion.VERSION,
+                q,
+                null);
 
-        String response = RequestAPI.get(feedUrl, defaultParameters.getPersonalAccessToken());
-        ObjectMapper mapper = new ObjectMapper();
-        FeedPermissions feedPermissions = mapper.readValue(response, new TypeReference<>() {});
-
-        return feedPermissions;
+        return MAPPER.readValue(r, new TypeReference<FeedPermissions>() {});
     }
 
     /***
@@ -318,26 +299,23 @@ public class FeedManagement {
      * @param feedViewId Name or Id of the view.
      * @return feed view {@link FeedView}
      * @throws DefaultParametersException throws default parameter exception {@link DefaultParametersException}
-     * @throws JsonProcessingException --> {@link JsonProcessingException}
+     * @throws IOException throws IO Exception exception {@link IOException}
      */
-    public FeedView getFeedView(String feedName, String feedViewId) throws DefaultParametersException, JsonProcessingException {
+    public FeedView getFeedView(String feedName, String feedViewId) throws DefaultParametersException, IOException {
 
-        String project = defaultParameters.getProject() != null ? defaultParameters.getProject() : null;
-
-        String feedUrl = new Url(defaultParameters).buildRequestUrl(
+        String r = Request.request(
+                RequestMethod.GET.toString(),
+                DEFAULT_PARAMETERS,
                 ResourceId.PACKAGING,
-                project,
-                "packaging/Feeds",
+                DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
+                AREA + "/Feeds",
                 feedName,
                 "views/" + feedViewId,
-                FeedVersion.Version,
+                FeedVersion.VERSION,
+                null,
                 null);
 
-        String response = RequestAPI.get(feedUrl, defaultParameters.getPersonalAccessToken());
-        ObjectMapper mapper = new ObjectMapper();
-        FeedView feedView = mapper.readValue(response, new TypeReference<>() {});
-
-        return feedView;
+        return MAPPER.readValue(r, new TypeReference<FeedView>() {});
     }
 
     /***
@@ -348,26 +326,23 @@ public class FeedManagement {
      * @param feedName Name or Id of the feed.
      * @return array feed views {@link FeedView}
      * @throws DefaultParametersException throws default parameter exception {@link DefaultParametersException}
-     * @throws JsonProcessingException --> {@link JsonProcessingException}
+     * @throws IOException throws IO Exception exception {@link IOException}
      */
-    public FeedViews getFeedViews(String feedName) throws DefaultParametersException, JsonProcessingException {
+    public FeedViews getFeedViews(String feedName) throws DefaultParametersException, IOException {
 
-        String project = defaultParameters.getProject() != null ? defaultParameters.getProject() : null;
-
-        String feedUrl = new Url(defaultParameters).buildRequestUrl(
+        String r = Request.request(
+                RequestMethod.GET.toString(),
+                DEFAULT_PARAMETERS,
                 ResourceId.PACKAGING,
-                project,
-                "packaging/Feeds",
+                DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
+                AREA + "/Feeds",
                 feedName,
                 "views",
-                FeedVersion.Version,
+                FeedVersion.VERSION,
+                null,
                 null);
 
-        String response = RequestAPI.get(feedUrl, defaultParameters.getPersonalAccessToken());
-        ObjectMapper mapper = new ObjectMapper();
-        FeedViews feedViews = mapper.readValue(response, new TypeReference<>() {});
-
-        return feedViews;
+        return MAPPER.readValue(r, new TypeReference<FeedViews>() {});
     }
 
     /***
@@ -378,26 +353,23 @@ public class FeedManagement {
      * </p>
      * @return array of feeds {@link Feeds}
      * @throws DefaultParametersException throws default parameter exception {@link DefaultParametersException}
-     * @throws JsonProcessingException --> {@link JsonProcessingException}
+     * @throws IOException throws IO Exception exception {@link IOException}
      */
-    public Feeds getFeeds() throws DefaultParametersException, JsonProcessingException {
+    public Feeds getFeeds() throws DefaultParametersException, IOException {
 
-        String project = defaultParameters.getProject() != null ? defaultParameters.getProject() : null;
-
-        String feedUrl = new Url(defaultParameters).buildRequestUrl(
+        String r = Request.request(
+                RequestMethod.GET.toString(),
+                DEFAULT_PARAMETERS,
                 ResourceId.PACKAGING,
-                project,
-                "packaging/Feeds",
+                DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
+                AREA,
                 null,
+                "Feeds",
+                FeedVersion.VERSION,
                 null,
-                FeedVersion.Version,
                 null);
 
-        String response = RequestAPI.get(feedUrl, defaultParameters.getPersonalAccessToken());
-        ObjectMapper mapper = new ObjectMapper();
-        Feeds feeds = mapper.readValue(response, new TypeReference<>() {});
-
-        return feeds;
+        return MAPPER.readValue(r, new TypeReference<Feeds>() {});
     }
 
     /***
@@ -411,13 +383,11 @@ public class FeedManagement {
      * @param includeUrls Resolve names if true
      * @return array of feeds {@link Feeds}
      * @throws DefaultParametersException throws default parameter exception {@link DefaultParametersException}
-     * @throws JsonProcessingException --> {@link JsonProcessingException}
+     * @throws IOException throws IO Exception exception {@link IOException}
      */
     public Feeds getFeeds(
             String feedRole, boolean includeDeletedUpstreams,
-            boolean includeUrls) throws DefaultParametersException, JsonProcessingException {
-
-        String project = defaultParameters.getProject() != null ? defaultParameters.getProject() : null;
+            boolean includeUrls) throws DefaultParametersException, IOException {
 
         HashMap<String, Object> q = new HashMap<>() {{
             put("feedRole", feedRole);
@@ -425,20 +395,19 @@ public class FeedManagement {
             put("includeUrls", includeUrls);
         }};
 
-        String feedUrl = new Url(defaultParameters).buildRequestUrl(
+        String r = Request.request(
+                RequestMethod.GET.toString(),
+                DEFAULT_PARAMETERS,
                 ResourceId.PACKAGING,
-                project,
-                "packaging/Feeds",
+                DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
+                AREA,
                 null,
-                null,
-                FeedVersion.Version,
-                q);
+                "Feeds",
+                FeedVersion.VERSION,
+                q,
+                null);
 
-        String response = RequestAPI.get(feedUrl, defaultParameters.getPersonalAccessToken());
-        ObjectMapper mapper = new ObjectMapper();
-        Feeds feeds = mapper.readValue(response, new TypeReference<>() {});
-
-        return feeds;
+        return MAPPER.readValue(r, new TypeReference<Feeds>() {});
     }
 
     /***
@@ -460,17 +429,6 @@ public class FeedManagement {
             String feedName, String displayName,
             String identityDescriptor, boolean isInheritedRole, String role) throws DefaultParametersException, IOException {
 
-        String project = defaultParameters.getProject() != null ? defaultParameters.getProject() : null;
-
-        String feedUrl = new Url(defaultParameters).buildRequestUrl(
-                ResourceId.PACKAGING,
-                project,
-                "packaging/Feeds",
-                feedName,
-                "permissions",
-                FeedVersion.Version,
-                null);
-
         HashMap<String, Object> h = new HashMap<>() {{
             put("displayName", displayName);
             put("identityDescriptor", identityDescriptor);
@@ -481,11 +439,21 @@ public class FeedManagement {
         List<Object> o = new ArrayList<>(){};
         o.add(h);
 
-        String response = RequestAPI.patch(feedUrl, defaultParameters.getPersonalAccessToken(), o);
-        ObjectMapper mapper = new ObjectMapper();
-        FeedPermissions fP = mapper.readValue(response, new TypeReference<>() {});
+        String r = Request.request(
+                        RequestMethod.PATCH.toString(),
+                        DEFAULT_PARAMETERS,
+                        ResourceId.PACKAGING,
+                        DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
+                        AREA + "/Feeds",
+                        feedName,
+                        "permissions",
+                        FeedVersion.VERSION,
+                        null,
+                        null,
+                        o,
+                        null);
 
-        return fP;
+        return MAPPER.readValue(r, new TypeReference<FeedPermissions>() {});
     }
 
     /***
@@ -507,17 +475,6 @@ public class FeedManagement {
             String feedName, boolean badgesEnabled,  String description,
             boolean hideDeletedPackageVersions, boolean upstreamEnabled) throws DefaultParametersException, IOException {
 
-        String project = defaultParameters.getProject() != null ? defaultParameters.getProject() : null;
-
-        String feedUrl = new Url(defaultParameters).buildRequestUrl(
-                ResourceId.PACKAGING,
-                project,
-                "packaging/Feeds",
-                feedName,
-                null,
-                FeedVersion.Version,
-                null);
-
         HashMap<String, Object> h = new HashMap<>() {{
             put("name", feedName);
             put("badgesEnabled", badgesEnabled);
@@ -529,11 +486,21 @@ public class FeedManagement {
         List<Object> o = new ArrayList<>(){};
         o.add(h);
 
-        String response = RequestAPI.patch(feedUrl, defaultParameters.getPersonalAccessToken(), o);
-        ObjectMapper mapper = new ObjectMapper();
-        Feed feed = mapper.readValue(response, new TypeReference<>() {});
+        String r = Request.request(
+                        RequestMethod.PATCH.toString(),
+                        DEFAULT_PARAMETERS,
+                        ResourceId.PACKAGING,
+                        DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
+                        AREA + "/Feeds",
+                        feedName,
+                        null,
+                        FeedVersion.VERSION,
+                        null,
+                        null,
+                        o,
+                        null);
 
-        return feed;
+        return MAPPER.readValue(r, new TypeReference<Feed>() {});
     }
 
     /***
@@ -551,27 +518,24 @@ public class FeedManagement {
      */
     public FeedView updateFeedView(String feedName, String feedViewName, String feedViewType,  String visibility) throws DefaultParametersException, IOException {
 
-        String project = defaultParameters.getProject() != null ? defaultParameters.getProject() : null;
-
-        String feedUrl = new Url(defaultParameters).buildRequestUrl(
-                ResourceId.PACKAGING,
-                project,
-                "packaging/Feeds",
-                feedName,
-                "views/" + feedViewName,
-                FeedVersion.Version,
-                null);
-
         HashMap<String, Object> h = new HashMap<>() {{
             put("name", feedViewName);
             put("type", feedViewType);
             put("visibility", visibility);
         }};
 
-        String response = RequestAPI.patch(feedUrl, defaultParameters.getPersonalAccessToken(), h);
-        ObjectMapper mapper = new ObjectMapper();
-        FeedView feedView = mapper.readValue(response, new TypeReference<>() {});
+        String r = Request.request(
+                RequestMethod.PATCH.toString(),
+                DEFAULT_PARAMETERS,
+                ResourceId.PACKAGING,
+                DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
+                AREA + "/Feeds",
+                feedName,
+                "views/" + feedViewName,
+                FeedVersion.VERSION,
+                null,
+                h);
 
-        return feedView;
+        return MAPPER.readValue(r, new TypeReference<FeedView>() {});
     }
 }

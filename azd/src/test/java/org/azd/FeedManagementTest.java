@@ -47,12 +47,12 @@ public class FeedManagementTest {
     }
 
     @Test
-    public void shouldDeleteAFeedView() throws DefaultParametersException {
+    public void shouldDeleteAFeedView() throws DefaultParametersException, IOException {
         f.deleteFeedView("myFeed", "TestFeedView");
     }
 
     @Test
-    public void shouldDeleteAFeed() throws DefaultParametersException {
+    public void shouldDeleteAFeed() throws DefaultParametersException, IOException {
         f.deleteFeed("myFeed");
     }
 
