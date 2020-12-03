@@ -76,6 +76,8 @@ public class Git {
      */
     public void deleteRepository(String repositoryId) throws DefaultParametersException, IOException {
 
+        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+
         Request.request(
                 RequestMethod.DELETE.toString(),
                 DEFAULT_PARAMETERS,
@@ -97,6 +99,8 @@ public class Git {
      */
     public void deleteRepositoryFromRecycleBin(String repositoryId) throws DefaultParametersException, IOException {
 
+        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+
         Request.request(
                 RequestMethod.DELETE.toString(),
                 DEFAULT_PARAMETERS,
@@ -117,6 +121,8 @@ public class Git {
      * @throws IOException -> {@link IOException}
      */
     public Map getDeletedRepositories() throws DefaultParametersException, IOException {
+
+        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
 
         String r = Request.request(
                         RequestMethod.GET.toString(),
@@ -140,6 +146,8 @@ public class Git {
      * @throws IOException -> {@link IOException}
      */
     public Map getRecycleBinRepositories() throws DefaultParametersException, IOException {
+
+        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
 
         String r = Request.request(
                         RequestMethod.GET.toString(),
@@ -165,6 +173,8 @@ public class Git {
      */
     public Repository getRepository(String repositoryName) throws DefaultParametersException, IOException {
 
+        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+
         String r = Request.request(
                         RequestMethod.GET.toString(),
                         DEFAULT_PARAMETERS,
@@ -187,6 +197,8 @@ public class Git {
      * @throws IOException -> {@link IOException}
      */
     public Repositories getRepositories() throws DefaultParametersException, IOException {
+
+        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
 
         String r = Request.request(
                         RequestMethod.GET.toString(),
@@ -213,6 +225,8 @@ public class Git {
      * @throws IOException -> {@link IOException}
      */
     public Repository restoreRepositoryFromRecycleBin(String repositoryId, boolean deleted) throws DefaultParametersException, IOException {
+
+        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
 
         HashMap<String, Object> h = new HashMap<>(){{
             put("deleted", deleted);
@@ -243,6 +257,8 @@ public class Git {
      * @throws IOException -> {@link IOException}
      */
     public Repository updateRepository(String repositoryId, String repositoryName, String defaultBranchName) throws DefaultParametersException, IOException {
+
+        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
 
         HashMap<String, Object> h = new HashMap<>(){{
             put("name", repositoryName);
