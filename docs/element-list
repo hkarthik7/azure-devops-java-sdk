@@ -1,0 +1,11 @@
+org.azd.artifacts.feedmanagement.implementation
+org.azd.artifacts.feedmanagement.types
+org.azd.build.builds
+org.azd.build.types
+org.azd.core
+org.azd.core.types
+org.azd.exceptions
+org.azd.git
+org.azd.git.types
+org.azd.utils
+org.azd.validators
