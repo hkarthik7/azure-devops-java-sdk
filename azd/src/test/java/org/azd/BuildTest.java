@@ -108,7 +108,7 @@ public class BuildTest {
 
     @Test
     public void shouldQueueTheBuild() throws IOException, DefaultParametersException {
-        System.out.println(b.queueBuild(9));
+        b.queueBuild(9);
     }
 
     @Test
@@ -154,7 +154,7 @@ public class BuildTest {
 
     @Test
     public void shouldReturnBuildDefinitionRevision() throws IOException, DefaultParametersException {
-        System.out.println(b.getBuildDefinitionRevision(9));
+        b.getBuildDefinitionRevision(9);
     }
 
     @Test
