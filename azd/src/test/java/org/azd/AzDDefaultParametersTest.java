@@ -1,9 +1,10 @@
 package org.azd;
 
-import org.junit.Test;
 import org.azd.utils.AzDDefaultParameters;
+import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 
 
 public class AzDDefaultParametersTest {

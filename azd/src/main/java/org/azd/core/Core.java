@@ -15,7 +15,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /***
- * Build class to manage build API
+ * Core class to manage core API
  * @author Harish karthic
  */
 public class Core {
@@ -489,5 +489,36 @@ public class Core {
                         null);
 
         return MAPPER.readValue(r, new TypeReference<Teams>() {});
+    }
+
+    /***
+     * Update a team's name and/or description.
+     * @param projectName The name or ID (GUID) of the team project containing the team to update.
+     * @param teamName The name or ID of the team to update.
+     * @param description provide the description for your team to update
+     * @return team object {@link Team}
+     * @throws DefaultParametersException -> {@link DefaultParametersException}
+     * @throws IOException -> {@link IOException}
+     */
+    public Team updateTeams(String projectName, String teamName, String description) throws IOException, DefaultParametersException {
+
+        HashMap<String, Object> h = new HashMap<>(){{
+            put("name", teamName);
+            put("description", description);
+        }};
+
+        String r = Request.request(
+                        RequestMethod.PATCH.toString(),
+                        DEFAULT_PARAMETERS,
+                        ResourceId.CORE,
+                        null,
+                        "projects",
+                        projectName,
+                        "teams/" + teamName,
+                        CoreVersion.PROJECT_TEAMS,
+                        null,
+                        h);
+
+        return MAPPER.readValue(r, new TypeReference<Team>() {});
     }
 }

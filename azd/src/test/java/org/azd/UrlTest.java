@@ -1,10 +1,10 @@
 package org.azd;
 
 import org.azd.exceptions.DefaultParametersException;
-import org.junit.Test;
 import org.azd.utils.AzDDefaultParameters;
 import org.azd.utils.ResourceId;
 import org.azd.utils.Url;
+import org.junit.Test;
 
 import java.util.HashMap;
 

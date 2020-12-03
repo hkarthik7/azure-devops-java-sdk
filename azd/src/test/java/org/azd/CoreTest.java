@@ -1,7 +1,6 @@
 package org.azd;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.azd.build.builds.Build;
 import org.azd.core.Core;
 import org.azd.exceptions.DefaultParametersException;
 import org.azd.utils.AzDDefaultParameters;
@@ -98,6 +97,11 @@ public class CoreTest {
     @Test
     public void shouldGetAllProjectTeams() throws DefaultParametersException, IOException {
         c.getTeams();
+    }
+
+    @Test
+    public void shouldUpdateProjectTeams() throws DefaultParametersException, IOException {
+        c.updateTeams("00000000-0000-0000-0000-000000000000", "myTeam", "Description for my super team");
     }
 
 }

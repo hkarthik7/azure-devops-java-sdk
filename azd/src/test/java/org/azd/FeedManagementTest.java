@@ -3,10 +3,9 @@ package org.azd;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.azd.artifacts.feedmanagement.implementation.FeedManagement;
 import org.azd.exceptions.DefaultParametersException;
+import org.azd.utils.AzDDefaultParameters;
 import org.junit.Before;
 import org.junit.Test;
-import org.azd.utils.AzDDefaultParameters;
-
 
 import java.io.File;
 import java.io.IOException;
