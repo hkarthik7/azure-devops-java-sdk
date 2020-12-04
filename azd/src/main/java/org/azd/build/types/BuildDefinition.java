@@ -22,7 +22,7 @@ public class BuildDefinition {
     @JsonProperty("process")
     private Process process;
     @JsonProperty("id")
-    private String id;
+    private int id;
     @JsonProperty("name")
     private String name;
     @JsonProperty("url")
@@ -96,11 +96,11 @@ public class BuildDefinition {
         this.process = process;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
