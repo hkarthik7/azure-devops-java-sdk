@@ -50,9 +50,9 @@ public class Build {
                 DEFAULT_PARAMETERS,
                 ResourceId.BUILD,
                 DEFAULT_PARAMETERS.getProject(),
-                AREA,
+                AREA + "/builds",
                 Integer.toString(buildId),
-                "builds",
+                null,
                 BuildVersion.VERSION,
                 null,
                 null);
@@ -550,7 +550,7 @@ public class Build {
 
     /***
      * Queues a build
-     * @param buildParameters dictionary of parameters to queue the build. Check -> {@link "https://docs.microsoft.com/en-us/rest/api/azure/devops/build/builds/queue?view=azure-devops-rest-6.1"}
+     * @param buildParameters dictionary of parameters to queue the build.
      * @return a build object {@link BuildT}
      * @throws DefaultParametersException -> {@link DefaultParametersException}
      * @throws IOException -> {@link IOException}
