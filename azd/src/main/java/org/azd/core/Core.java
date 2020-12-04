@@ -1,6 +1,5 @@
 package org.azd.core;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.azd.core.types.*;
 import org.azd.exceptions.DefaultParametersException;
@@ -39,19 +38,10 @@ public class Core {
      */
     public Processes getProcesses() throws IOException, DefaultParametersException {
 
-        String r = Request.request(
-                        RequestMethod.GET.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.CORE,
-                        null,
-                        "process/processes",
-                        null,
-                        null,
-                        CoreVersion.VERSION,
-                        null,
-                        null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.CORE,null,
+                        "process/processes",null,null, CoreVersion.VERSION,null,null);
 
-        return MAPPER.readValue(r, new TypeReference<Processes>() {});
+        return MAPPER.readValue(r, Processes.class);
     }
 
     /***
@@ -77,17 +67,8 @@ public class Core {
             }});
         }};
 
-        String r = Request.request(
-                        RequestMethod.POST.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.CORE,
-                        null,
-                        "projects",
-                        null,
-                        null,
-                        CoreVersion.PROJECT,
-                        null,
-                        h);
+        String r = Request.request(RequestMethod.POST.toString(), DEFAULT_PARAMETERS, ResourceId.CORE,null,
+                        "projects",null, null, CoreVersion.PROJECT,null, h);
 
         return MAPPER.readValue(r, Map.class);
     }
@@ -118,17 +99,8 @@ public class Core {
             }});
         }};
 
-        String r = Request.request(
-                        RequestMethod.POST.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.CORE,
-                        null,
-                        "projects",
-                        null,
-                        null,
-                        CoreVersion.PROJECT,
-                        null,
-                        h);
+        String r = Request.request(RequestMethod.POST.toString(), DEFAULT_PARAMETERS, ResourceId.CORE,null,
+                        "projects",null,null, CoreVersion.PROJECT, null, h);
 
         return MAPPER.readValue(r, Map.class);
     }
@@ -147,17 +119,8 @@ public class Core {
      */
     public Map deleteProject(String projectId) throws IOException, DefaultParametersException {
 
-        String r = Request.request(
-                        RequestMethod.DELETE.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.CORE,
-                        null,
-                        "projects",
-                        projectId,
-                        null,
-                        CoreVersion.PROJECT,
-                        null,
-                        null);
+        String r = Request.request(RequestMethod.DELETE.toString(), DEFAULT_PARAMETERS, ResourceId.CORE, null,
+                        "projects", projectId,null, CoreVersion.PROJECT,null,null);
 
         return MAPPER.readValue(r, Map.class);
     }
@@ -171,19 +134,10 @@ public class Core {
      */
     public Project getProject(String projectName) throws IOException, DefaultParametersException {
 
-        String r = Request.request(
-                        RequestMethod.GET.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.CORE,
-                        null,
-                        "projects",
-                        projectName,
-                        null,
-                        CoreVersion.PROJECT,
-                        null,
-                        null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.CORE,null,
+                        "projects", projectName,null, CoreVersion.PROJECT,null,null);
 
-        return MAPPER.readValue(r, new TypeReference<Project>() {});
+        return MAPPER.readValue(r, Project.class);
     }
 
     /***
@@ -202,19 +156,10 @@ public class Core {
             put("includeHistory", includeHistory);
         }};
 
-        String r = Request.request(
-                        RequestMethod.GET.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.CORE,
-                        null,
-                        "projects",
-                        projectName,
-                        null,
-                        CoreVersion.PROJECT,
-                        q,
-                        null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.CORE,null,
+                        "projects", projectName,null, CoreVersion.PROJECT, q,null);
 
-        return MAPPER.readValue(r, new TypeReference<Project>() {});
+        return MAPPER.readValue(r, Project.class);
     }
 
     /***
@@ -226,17 +171,8 @@ public class Core {
      */
     public Map getProjectProperties(String projectId) throws IOException, DefaultParametersException {
 
-        String r = Request.request(
-                        RequestMethod.GET.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.CORE,
-                        null,
-                        "projects",
-                        projectId,
-                        null,
-                        CoreVersion.PROJECT_PROPERTIES,
-                        null,
-                        null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.CORE, null,
+                "projects", projectId, null, CoreVersion.PROJECT_PROPERTIES, null, null);
 
         return MAPPER.readValue(r, Map.class);
     }
@@ -249,19 +185,10 @@ public class Core {
      */
     public Projects getProjects() throws IOException, DefaultParametersException {
 
-        String r = Request.request(
-                        RequestMethod.GET.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.CORE,
-                        null,
-                        "projects",
-                        null,
-                        null,
-                        CoreVersion.PROJECT,
-                        null,
-                        null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.CORE, null,
+                        "projects", null, null, CoreVersion.PROJECT, null, null);
 
-        return MAPPER.readValue(r, new TypeReference<Projects>() {});
+        return MAPPER.readValue(r, Projects.class);
     }
 
     /***
@@ -286,19 +213,10 @@ public class Core {
             put("stateFilter", stateFilter);
         }};
 
-        String r = Request.request(
-                        RequestMethod.GET.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.CORE,
-                        null,
-                        "projects",
-                        null,
-                        null,
-                        CoreVersion.PROJECT,
-                        q,
-                        null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.CORE, null,
+                        "projects", null, null, CoreVersion.PROJECT, q, null);
 
-        return MAPPER.readValue(r, new TypeReference<Projects>() {});
+        return MAPPER.readValue(r, Projects.class);
     }
 
     /***
@@ -313,17 +231,8 @@ public class Core {
     public Map updateProject(String projectId, HashMap<String, Object> projectParameters) throws IOException, DefaultParametersException {
 
 
-        String r = Request.request(
-                        RequestMethod.PATCH.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.CORE,
-                        null,
-                        "projects",
-                        projectId,
-                        null,
-                        CoreVersion.PROJECT,
-                        null,
-                        projectParameters);
+        String r = Request.request(RequestMethod.PATCH.toString(), DEFAULT_PARAMETERS, ResourceId.CORE, null,
+                        "projects", projectId, null, CoreVersion.PROJECT, null, projectParameters);
 
         return MAPPER.readValue(r, Map.class);
     }
@@ -342,17 +251,8 @@ public class Core {
             put("name", teamName);
         }};
 
-        String r = Request.request(
-                        RequestMethod.POST.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.CORE,
-                        null,
-                        "projects",
-                        projectName,
-                        "teams",
-                        CoreVersion.PROJECT_TEAMS,
-                        null,
-                        h);
+        String r = Request.request(RequestMethod.POST.toString(), DEFAULT_PARAMETERS, ResourceId.CORE, null,
+                        "projects", projectName, "teams", CoreVersion.PROJECT_TEAMS, null, h);
 
         return MAPPER.readValue(r, Map.class);
     }
@@ -366,17 +266,8 @@ public class Core {
      */
     public void deleteTeam(String projectName, String teamName) throws IOException, DefaultParametersException {
 
-        Request.request(
-                RequestMethod.DELETE.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.CORE,
-                null,
-                "projects",
-                projectName,
-                "teams/" + teamName,
-                CoreVersion.PROJECT_TEAMS,
-                null,
-                null);
+        Request.request(RequestMethod.DELETE.toString(), DEFAULT_PARAMETERS, ResourceId.CORE, null,
+                "projects", projectName, "teams/" + teamName, CoreVersion.PROJECT_TEAMS, null, null);
     }
 
     /***
@@ -389,19 +280,10 @@ public class Core {
      */
     public Team getTeam(String projectName, String teamName) throws IOException, DefaultParametersException {
 
-        String r = Request.request(
-                        RequestMethod.GET.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.CORE,
-                        null,
-                        "projects",
-                        projectName,
-                        "teams/" + teamName,
-                        CoreVersion.PROJECT_TEAMS,
-                        null,
-                        null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.CORE, null,
+                        "projects", projectName, "teams/" + teamName, CoreVersion.PROJECT_TEAMS, null, null);
 
-        return MAPPER.readValue(r, new TypeReference<Team>() {});
+        return MAPPER.readValue(r, Team.class);
     }
 
     /***
@@ -419,19 +301,10 @@ public class Core {
             put("$expandIdentity", expandIdentity);
         }};
 
-        String r = Request.request(
-                RequestMethod.GET.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.CORE,
-                null,
-                "projects",
-                projectName,
-                "teams/" + teamName,
-                CoreVersion.PROJECT_TEAMS,
-                q,
-                null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.CORE, null,
+                "projects", projectName, "teams/" + teamName, CoreVersion.PROJECT_TEAMS, q, null);
 
-        return MAPPER.readValue(r, new TypeReference<Team>() {});
+        return MAPPER.readValue(r, Team.class);
     }
 
     /***
@@ -442,19 +315,10 @@ public class Core {
      */
     public Teams getTeams() throws IOException, DefaultParametersException {
 
-        String r = Request.request(
-                        RequestMethod.GET.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.CORE,
-                        null,
-                        "teams",
-                        null,
-                        null,
-                        CoreVersion.PROJECT_TEAMS,
-                        null,
-                        null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.CORE, null,
+                        "teams", null, null, CoreVersion.PROJECT_TEAMS, null, null);
 
-        return MAPPER.readValue(r, new TypeReference<Teams>() {});
+        return MAPPER.readValue(r, Teams.class);
     }
 
     /***
@@ -476,19 +340,10 @@ public class Core {
             put("$top", top);
         }};
 
-        String r = Request.request(
-                        RequestMethod.GET.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.CORE,
-                        null,
-                        "teams",
-                        null,
-                        null,
-                        CoreVersion.PROJECT_TEAMS,
-                        q,
-                        null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.CORE, null,
+                        "teams", null, null, CoreVersion.PROJECT_TEAMS, q, null);
 
-        return MAPPER.readValue(r, new TypeReference<Teams>() {});
+        return MAPPER.readValue(r, Teams.class);
     }
 
     /***
@@ -507,18 +362,9 @@ public class Core {
             put("description", description);
         }};
 
-        String r = Request.request(
-                        RequestMethod.PATCH.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.CORE,
-                        null,
-                        "projects",
-                        projectName,
-                        "teams/" + teamName,
-                        CoreVersion.PROJECT_TEAMS,
-                        null,
-                        h);
+        String r = Request.request(RequestMethod.PATCH.toString(), DEFAULT_PARAMETERS, ResourceId.CORE, null,
+                        "projects", projectName, "teams/" + teamName, CoreVersion.PROJECT_TEAMS, null, h);
 
-        return MAPPER.readValue(r, new TypeReference<Team>() {});
+        return MAPPER.readValue(r, Team.class);
     }
 }

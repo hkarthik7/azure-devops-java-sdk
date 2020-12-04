@@ -44,17 +44,8 @@ public class Build {
 
         if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
 
-        Request.request(
-                RequestMethod.DELETE.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.BUILD,
-                DEFAULT_PARAMETERS.getProject(),
-                AREA + "/builds",
-                Integer.toString(buildId),
-                null,
-                BuildVersion.VERSION,
-                null,
-                null);
+        Request.request(RequestMethod.DELETE.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
+                AREA + "/builds", Integer.toString(buildId), null, BuildVersion.VERSION, null, null);
     }
 
     /***
@@ -68,19 +59,10 @@ public class Build {
 
         if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
 
-        String r = Request.request(
-                        RequestMethod.GET.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.BUILD,
-                        DEFAULT_PARAMETERS.getProject(),
-                        AREA + "/builds",
-                        Integer.toString(buildId),
-                        null,
-                        BuildVersion.VERSION,
-                        null,
-                        null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
+                        AREA + "/builds", Integer.toString(buildId), null, BuildVersion.VERSION, null, null);
 
-        return MAPPER.readValue(r, new TypeReference<BuildT>() {});
+        return MAPPER.readValue(r, BuildT.class);
     }
 
     /***
@@ -94,19 +76,10 @@ public class Build {
 
         if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
 
-        String r = Request.request(
-                RequestMethod.GET.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.BUILD,
-                DEFAULT_PARAMETERS.getProject(),
-                AREA + "/builds",
-                Integer.toString(buildId),
-                "changes",
-                BuildVersion.BUILD_CHANGES,
-                null,
-                null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
+                AREA + "/builds", Integer.toString(buildId), "changes", BuildVersion.BUILD_CHANGES,null, null);
 
-        return MAPPER.readValue(r, new TypeReference<BuildChanges>() {});
+        return MAPPER.readValue(r, BuildChanges.class);
     }
 
     /***
@@ -130,19 +103,10 @@ public class Build {
             put("includeSourceChange", includeSourceChange);
         }};
 
-        String r = Request.request(
-                RequestMethod.GET.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.BUILD,
-                DEFAULT_PARAMETERS.getProject(),
-                AREA + "/builds",
-                Integer.toString(buildId),
-                "changes",
-                BuildVersion.BUILD_CHANGES,
-                q,
-                null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
+                AREA + "/builds", Integer.toString(buildId), "changes", BuildVersion.BUILD_CHANGES, q, null);
 
-        return MAPPER.readValue(r, new TypeReference<BuildChanges>() {});
+        return MAPPER.readValue(r, BuildChanges.class);
     }
 
     /***
@@ -157,18 +121,8 @@ public class Build {
 
         if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
 
-        return Request.request(
-                RequestMethod.GET.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.BUILD,
-                DEFAULT_PARAMETERS.getProject(),
-                AREA + "/builds",
-                Integer.toString(buildId),
-                "logs/" + logId,
-                BuildVersion.BUILD_LOGS,
-                null,
-                null,
-                "text");
+        return Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
+                AREA + "/builds", Integer.toString(buildId), "logs/" + logId, BuildVersion.BUILD_LOGS, null, null, "text");
     }
 
     /***
@@ -190,18 +144,8 @@ public class Build {
             put("endLine", endLine);
         }};
 
-        return Request.request(
-                RequestMethod.GET.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.BUILD,
-                DEFAULT_PARAMETERS.getProject(),
-                AREA + "/builds",
-                Integer.toString(buildId),
-                "logs/" + logId,
-                BuildVersion.BUILD_LOGS,
-                q,
-                null,
-                "text");
+        return Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
+                AREA + "/builds", Integer.toString(buildId),"logs/" + logId, BuildVersion.BUILD_LOGS, q, null,"text");
     }
 
     /***
@@ -215,19 +159,10 @@ public class Build {
 
         if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
 
-        String r = Request.request(
-                RequestMethod.GET.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.BUILD,
-                DEFAULT_PARAMETERS.getProject(),
-                AREA + "/builds",
-                Integer.toString(buildId),
-                "logs",
-                BuildVersion.BUILD_LOGS,
-                null,
-                null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
+                AREA + "/builds", Integer.toString(buildId),"logs", BuildVersion.BUILD_LOGS,null,null);
 
-        return MAPPER.readValue(r, new TypeReference<BuildLogs>() {});
+        return MAPPER.readValue(r, BuildLogs.class);
     }
 
     /***
@@ -241,19 +176,10 @@ public class Build {
 
         if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
 
-        String r = Request.request(
-                        RequestMethod.GET.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.BUILD,
-                        DEFAULT_PARAMETERS.getProject(),
-                        AREA + "/builds",
-                        Integer.toString(buildId),
-                        "workitems",
-                        BuildVersion.BUILD_WORK_ITEMS,
-                        null,
-                        null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
+                        AREA + "/builds", Integer.toString(buildId), "workitems", BuildVersion.BUILD_WORK_ITEMS,null,null);
 
-        return MAPPER.readValue(r, new TypeReference<BuildWorkItems>() {});
+        return MAPPER.readValue(r, BuildWorkItems.class);
     }
 
     /***
@@ -272,19 +198,10 @@ public class Build {
             put("$top", top);
         }};
 
-        String r = Request.request(
-                        RequestMethod.GET.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.BUILD,
-                        DEFAULT_PARAMETERS.getProject(),
-                        AREA + "/builds",
-                        Integer.toString(buildId),
-                        "workitems",
-                        BuildVersion.BUILD_WORK_ITEMS,
-                        q,
-                        null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
+                        AREA + "/builds", Integer.toString(buildId),"workitems", BuildVersion.BUILD_WORK_ITEMS, q,null);
 
-        return MAPPER.readValue(r, new TypeReference<BuildWorkItems>() {});
+        return MAPPER.readValue(r, BuildWorkItems.class);
     }
 
     /***
@@ -306,19 +223,10 @@ public class Build {
             put("toBuildId", toBuildId);
         }};
 
-        String r = Request.request(
-                RequestMethod.GET.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.BUILD,
-                DEFAULT_PARAMETERS.getProject(),
-                AREA,
-                null,
-                "changes",
-                BuildVersion.BUILD_CHANGES,
-                q,
-                null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
+                AREA, null, "changes", BuildVersion.BUILD_CHANGES, q,null);
 
-        return MAPPER.readValue(r, new TypeReference<BuildChanges>() {});
+        return MAPPER.readValue(r, BuildChanges.class);
     }
 
     /***
@@ -340,19 +248,10 @@ public class Build {
             put("toBuildId", toBuildId);
         }};
 
-        String r = Request.request(
-                RequestMethod.GET.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.BUILD,
-                DEFAULT_PARAMETERS.getProject(),
-                AREA,
-                null,
-                "workitems",
-                BuildVersion.BUILD_WORK_ITEMS,
-                q,
-                null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
+                AREA, null,"workitems", BuildVersion.BUILD_WORK_ITEMS, q,null);
 
-        return MAPPER.readValue(r, new TypeReference<BuildWorkItems>() {});
+        return MAPPER.readValue(r, BuildWorkItems.class);
     }
 
     /***
@@ -365,19 +264,10 @@ public class Build {
 
         if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
 
-        String r = Request.request(
-                RequestMethod.GET.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.BUILD,
-                DEFAULT_PARAMETERS.getProject(),
-                AREA + "/builds",
-                null,
-                null,
-                BuildVersion.VERSION,
-                null,
-                null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
+                AREA + "/builds",null,null, BuildVersion.VERSION,null,null);
 
-        return MAPPER.readValue(r, new TypeReference<Builds>() {});
+        return MAPPER.readValue(r, Builds.class);
     }
 
     /***
@@ -397,19 +287,10 @@ public class Build {
             put("buildIds", ids);
         }};
 
-        String r = Request.request(
-                RequestMethod.GET.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.BUILD,
-                DEFAULT_PARAMETERS.getProject(),
-                AREA + "/builds",
-                null,
-                null,
-                BuildVersion.VERSION,
-                q,
-                null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
+                AREA + "/builds",null,null, BuildVersion.VERSION, q,null);
 
-        return MAPPER.readValue(r, new TypeReference<Builds>() {});
+        return MAPPER.readValue(r, Builds.class);
     }
 
     /***
@@ -427,19 +308,10 @@ public class Build {
             put("$top", top);
         }};
 
-        String r = Request.request(
-                RequestMethod.GET.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.BUILD,
-                DEFAULT_PARAMETERS.getProject(),
-                AREA + "/builds",
-                null,
-                null,
-                BuildVersion.VERSION,
-                q,
-                null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
+                AREA + "/builds",null,null, BuildVersion.VERSION, q,null);
 
-        return MAPPER.readValue(r, new TypeReference<Builds>() {});
+        return MAPPER.readValue(r, Builds.class);
     }
 
     /***
@@ -476,8 +348,8 @@ public class Build {
 
         if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
 
-        String ids = definitions != null ? Arrays.stream(definitions).mapToObj(String::valueOf).collect(Collectors.joining(",")) : null;
-        String queueIds = queues != null ? Arrays.stream(queues).mapToObj(String::valueOf).collect(Collectors.joining(",")) : null;
+        String ids = (definitions != null) ? Arrays.stream(definitions).mapToObj(String::valueOf).collect(Collectors.joining(",")) : null;
+        String queueIds = (queues != null) ? Arrays.stream(queues).mapToObj(String::valueOf).collect(Collectors.joining(",")) : null;
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("$top", top);
@@ -489,7 +361,7 @@ public class Build {
             put("maxBuildsPerDefinition", maxBuildsPerDefinition);
             put("maxTime", maxTime);
             put("minTime", minTime);
-            put("properties", properties != null ? String.join(",", properties) : null);
+            put("properties", (properties != null) ? String.join(",", properties) : null);
             put("queryOrder", queryOrder);
             put("queues", queueIds);
             put("reasonFilter", reasonFilter);
@@ -501,19 +373,10 @@ public class Build {
             put("tagFilters", tagFilters);
         }};
 
-        String r = Request.request(
-                RequestMethod.GET.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.BUILD,
-                DEFAULT_PARAMETERS.getProject(),
-                AREA + "/builds",
-                null,
-                null,
-                BuildVersion.VERSION,
-                q,
-                null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
+                AREA + "/builds",null,null, BuildVersion.VERSION, q,null);
 
-        return MAPPER.readValue(r, new TypeReference<Builds>() {});
+        return MAPPER.readValue(r, Builds.class);
     }
 
     /***
@@ -535,19 +398,10 @@ public class Build {
                 put("definitionId", d.get().getId());
             }};
 
-            String r = Request.request(
-                    RequestMethod.POST.toString(),
-                    DEFAULT_PARAMETERS,
-                    ResourceId.BUILD,
-                    DEFAULT_PARAMETERS.getProject(),
-                    AREA + "/builds",
-                    null,
-                    null,
-                    BuildVersion.VERSION,
-                    q,
-                    null);
+            String r = Request.request(RequestMethod.POST.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
+                    AREA + "/builds",null,null, BuildVersion.VERSION, q,null);
 
-            return MAPPER.readValue(r, new TypeReference<BuildT>() {});
+            return MAPPER.readValue(r, BuildT.class);
 
         } catch (NoSuchElementException e) {
             throw new NoSuchElementException(MessageFormat.format("Cannot find the pipeline name ''{0}''; Please pass the valid name and try again.", definitionName));
@@ -565,19 +419,10 @@ public class Build {
 
         if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
 
-        String r = Request.request(
-                        RequestMethod.POST.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.BUILD,
-                        DEFAULT_PARAMETERS.getProject(),
-                        AREA + "/builds",
-                        null,
-                        null,
-                        BuildVersion.VERSION,
-                        null,
-                        buildParameters);
+        String r = Request.request(RequestMethod.POST.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
+                        AREA + "/builds", null,null, BuildVersion.VERSION,null, buildParameters);
 
-        return MAPPER.readValue(r, new TypeReference<BuildT>() {});
+        return MAPPER.readValue(r, BuildT.class);
     }
 
     /***
@@ -588,19 +433,10 @@ public class Build {
      */
     public BuildControllers getBuildControllers() throws DefaultParametersException, IOException {
 
-        String r = Request.request(
-                        RequestMethod.GET.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.BUILD,
-                        null,
-                        AREA,
-                        null,
-                        "controllers",
-                        BuildVersion.BUILD_CONTROLLERS,
-                        null,
-                        null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD,null,
+                        AREA,null,"controllers", BuildVersion.BUILD_CONTROLLERS,null,null);
 
-        return MAPPER.readValue(r, new TypeReference<BuildControllers>() {});
+        return MAPPER.readValue(r, BuildControllers.class);
     }
 
     /***
@@ -616,19 +452,10 @@ public class Build {
             put("name", name);
         }};
 
-        String r = Request.request(
-                RequestMethod.GET.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.BUILD,
-                null,
-                AREA,
-                null,
-                "controllers",
-                BuildVersion.BUILD_CONTROLLERS,
-                q,
-                null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD,null,
+                AREA,null,"controllers", BuildVersion.BUILD_CONTROLLERS, q,null);
 
-        return MAPPER.readValue(r, new TypeReference<BuildControllers>() {});
+        return MAPPER.readValue(r, BuildControllers.class);
     }
 
     /***
@@ -640,19 +467,10 @@ public class Build {
      */
     public BuildController getBuildController(int controllerId) throws DefaultParametersException, IOException {
 
-        String r = Request.request(
-                RequestMethod.GET.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.BUILD,
-                null,
-                AREA + "/controllers",
-                Integer.toString(controllerId),
-                null,
-                BuildVersion.BUILD_CONTROLLERS,
-                null,
-                null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD,null,
+                AREA + "/controllers", Integer.toString(controllerId),null, BuildVersion.BUILD_CONTROLLERS,null,null);
 
-        return MAPPER.readValue(r, new TypeReference<BuildController>() {});
+        return MAPPER.readValue(r, BuildController.class);
     }
 
     /***
@@ -666,19 +484,10 @@ public class Build {
 
         if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
 
-        String r = Request.request(
-                        RequestMethod.POST.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.BUILD,
-                        DEFAULT_PARAMETERS.getProject(),
-                        AREA,
-                        null,
-                        "definitions",
-                        BuildVersion.BUILD_DEFINITIONS,
-                        null,
-                        buildParameters);
+        String r = Request.request(RequestMethod.POST.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
+                        AREA,null,"definitions", BuildVersion.BUILD_DEFINITIONS,null, buildParameters);
 
-        return MAPPER.readValue(r, new TypeReference<BuildDefinition>() {});
+        return MAPPER.readValue(r, BuildDefinition.class);
     }
 
     /***
@@ -691,17 +500,8 @@ public class Build {
 
         if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
 
-        Request.request(
-                RequestMethod.DELETE.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.BUILD,
-                DEFAULT_PARAMETERS.getProject(),
-                AREA + "/definitions",
-                Integer.toString(definitionId),
-                null,
-                BuildVersion.BUILD_DEFINITIONS,
-                null,
-                null);
+        Request.request(RequestMethod.DELETE.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
+                AREA + "/definitions", Integer.toString(definitionId),null, BuildVersion.BUILD_DEFINITIONS,null,null);
     }
 
     /***
@@ -715,19 +515,10 @@ public class Build {
 
         if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
 
-            String r = Request.request(
-                            RequestMethod.GET.toString(),
-                            DEFAULT_PARAMETERS,
-                            ResourceId.BUILD,
-                            DEFAULT_PARAMETERS.getProject(),
-                            AREA + "/definitions",
-                            Integer.toString(definitionId),
-                            null,
-                            BuildVersion.BUILD_DEFINITIONS,
-                            null,
-                            null);
+            String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
+                            AREA + "/definitions", Integer.toString(definitionId),null, BuildVersion.BUILD_DEFINITIONS,null,null);
 
-        return MAPPER.readValue(r, new TypeReference<BuildDefinition>() {});
+        return MAPPER.readValue(r, BuildDefinition.class);
     }
 
     /***
@@ -751,17 +542,8 @@ public class Build {
             put("revision", revision);
         }};
 
-        String r = Request.request(
-                        RequestMethod.GET.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.BUILD,
-                        DEFAULT_PARAMETERS.getProject(),
-                        AREA + "/definitions",
-                        Integer.toString(definitionId),
-                        null,
-                        BuildVersion.BUILD_DEFINITIONS,
-                        q,
-                        null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
+                        AREA + "/definitions", Integer.toString(definitionId),null, BuildVersion.BUILD_DEFINITIONS, q,null);
 
         return MAPPER.readValue(r, Map.class);
     }
@@ -777,19 +559,10 @@ public class Build {
 
         if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
 
-        String r = Request.request(
-                RequestMethod.GET.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.BUILD,
-                DEFAULT_PARAMETERS.getProject(),
-                AREA + "/definitions",
-                Integer.toString(definitionId),
-                "revisions",
-                BuildVersion.BUILD_DEFINITION_REVISIONS,
-                null,
-                null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
+                AREA + "/definitions", Integer.toString(definitionId),"revisions", BuildVersion.BUILD_DEFINITION_REVISIONS,null,null);
 
-        return MAPPER.readValue(r, new TypeReference<BuildDefinitionRevisions>() {});
+        return MAPPER.readValue(r, BuildDefinitionRevisions.class);
     }
 
     /***
@@ -802,19 +575,10 @@ public class Build {
 
         if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
 
-        String r = Request.request(
-                RequestMethod.GET.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.BUILD,
-                DEFAULT_PARAMETERS.getProject(),
-                AREA + "/definitions",
-                null,
-                null,
-                BuildVersion.BUILD_DEFINITIONS,
-                null,
-                null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
+                AREA + "/definitions",null,null, BuildVersion.BUILD_DEFINITIONS,null,null);
 
-        return MAPPER.readValue(r, new TypeReference<BuildDefinitions>() {});
+        return MAPPER.readValue(r, BuildDefinitions.class);
 
     }
 
@@ -835,19 +599,10 @@ public class Build {
             put("definitionIds", ids);
         }};
 
-        String r = Request.request(
-                RequestMethod.GET.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.BUILD,
-                DEFAULT_PARAMETERS.getProject(),
-                AREA + "/definitions",
-                null,
-                null,
-                BuildVersion.BUILD_DEFINITIONS,
-                q,
-                null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
+                AREA + "/definitions",null,null, BuildVersion.BUILD_DEFINITIONS, q,null);
 
-        return MAPPER.readValue(r, new TypeReference<BuildDefinitions>() {});
+        return MAPPER.readValue(r, BuildDefinitions.class);
 
     }
 
@@ -866,19 +621,10 @@ public class Build {
             put("$top", top);
         }};
 
-        String r = Request.request(
-                RequestMethod.GET.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.BUILD,
-                DEFAULT_PARAMETERS.getProject(),
-                AREA + "/definitions",
-                null,
-                null,
-                BuildVersion.BUILD_DEFINITIONS,
-                q,
-                null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
+                AREA + "/definitions",null,null, BuildVersion.BUILD_DEFINITIONS, q,null);
 
-        return MAPPER.readValue(r, new TypeReference<BuildDefinitions>() {});
+        return MAPPER.readValue(r, BuildDefinitions.class);
 
     }
 
@@ -897,19 +643,10 @@ public class Build {
             put("name", name);
         }};
 
-        String r = Request.request(
-                RequestMethod.GET.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.BUILD,
-                DEFAULT_PARAMETERS.getProject(),
-                AREA + "/definitions",
-                null,
-                null,
-                BuildVersion.BUILD_DEFINITIONS,
-                q,
-                null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
+                AREA + "/definitions", null, null, BuildVersion.BUILD_DEFINITIONS, q,null);
 
-        return MAPPER.readValue(r, new TypeReference<BuildDefinitions>() {});
+        return MAPPER.readValue(r, BuildDefinitions.class);
 
     }
 
@@ -956,17 +693,8 @@ public class Build {
             put("yamlFilename", yamlFilename);
         }};
 
-        String r = Request.request(
-                        RequestMethod.GET.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.BUILD,
-                        DEFAULT_PARAMETERS.getProject(),
-                        AREA + "/definitions",
-                        null,
-                        null,
-                        BuildVersion.BUILD_DEFINITIONS,
-                        q,
-                        null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
+                        AREA + "/definitions",null,null, BuildVersion.BUILD_DEFINITIONS, q,null);
 
         return MAPPER.readValue(r, Map.class);
 
@@ -980,17 +708,8 @@ public class Build {
             put("deleted", deleted);
         }};
 
-        String r = Request.request(
-                        RequestMethod.PATCH.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.BUILD,
-                        DEFAULT_PARAMETERS.getProject(),
-                        AREA + "/definitions",
-                        Integer.toString(definitionId),
-                        null,
-                        BuildVersion.BUILD_DEFINITIONS,
-                        q,
-                        null);
+        String r = Request.request(RequestMethod.PATCH.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
+                        AREA + "/definitions", Integer.toString(definitionId),null, BuildVersion.BUILD_DEFINITIONS, q,null);
         
         return MAPPER.readValue(r, Map.class);
     }

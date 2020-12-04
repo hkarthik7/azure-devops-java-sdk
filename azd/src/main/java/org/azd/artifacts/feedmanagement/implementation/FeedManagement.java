@@ -1,7 +1,6 @@
 package org.azd.artifacts.feedmanagement.implementation;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.azd.artifacts.feedmanagement.types.*;
 import org.azd.exceptions.DefaultParametersException;
@@ -11,7 +10,6 @@ import org.azd.utils.RequestMethod;
 import org.azd.utils.ResourceId;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -60,19 +58,11 @@ public class FeedManagement {
             put("hideDeletedPackageVersions", hideDeletedPackageVersions);
         }};
 
-        String r = Request.request(
-                        RequestMethod.POST.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.PACKAGING,
+        String r = Request.request(RequestMethod.POST.toString(), DEFAULT_PARAMETERS, ResourceId.PACKAGING,
                         DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
-                        AREA,
-                        null,
-                        "feeds",
-                        FeedVersion.VERSION,
-                        null,
-                        requestBody);
+                        AREA, null, "feeds", FeedVersion.VERSION, null, requestBody);
 
-        return MAPPER.readValue(r, new TypeReference<Feed>() {});
+        return MAPPER.readValue(r, Feed.class);
     }
 
     /***
@@ -96,19 +86,11 @@ public class FeedManagement {
             put("visibility", visibility);
         }};
 
-        String r = Request.request(
-                        RequestMethod.POST.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.PACKAGING,
+        String r = Request.request(RequestMethod.POST.toString(), DEFAULT_PARAMETERS, ResourceId.PACKAGING,
                         DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
-                        AREA + "/feeds",
-                        feedName,
-                        "views",
-                        FeedVersion.VERSION,
-                        null,
-                        requestBody);
+                        AREA + "/feeds", feedName, "views", FeedVersion.VERSION, null, requestBody);
 
-        return MAPPER.readValue(r, new TypeReference<FeedView>() {});
+        return MAPPER.readValue(r, FeedView.class);
     }
 
     /***
@@ -123,17 +105,9 @@ public class FeedManagement {
      */
     public void deleteFeed(String feedId) throws DefaultParametersException, IOException {
 
-        Request.request(
-                RequestMethod.DELETE.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.PACKAGING,
+        Request.request(RequestMethod.DELETE.toString(), DEFAULT_PARAMETERS, ResourceId.PACKAGING,
                 DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
-                AREA + "/feeds",
-                feedId,
-                null,
-                FeedVersion.VERSION,
-                null,
-                null);
+                AREA + "/feeds", feedId, null, FeedVersion.VERSION, null, null);
     }
 
     /***
@@ -148,17 +122,9 @@ public class FeedManagement {
      */
     public void deleteFeedView(String feedId, String feedViewId) throws DefaultParametersException, IOException {
 
-        Request.request(
-                RequestMethod.DELETE.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.PACKAGING,
+        Request.request(RequestMethod.DELETE.toString(), DEFAULT_PARAMETERS, ResourceId.PACKAGING,
                 DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
-                AREA + "/feeds",
-                feedId,
-                "views/" + feedViewId,
-                FeedVersion.VERSION,
-                null,
-                null);
+                AREA + "/feeds", feedId, "views/" + feedViewId, FeedVersion.VERSION, null, null);
     }
 
     /***
@@ -174,19 +140,11 @@ public class FeedManagement {
      */
     public Feed getFeed(String feedName) throws DefaultParametersException, IOException {
 
-        String r = Request.request(
-                        RequestMethod.GET.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.PACKAGING,
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.PACKAGING,
                         DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
-                        AREA + "/Feeds",
-                        feedName,
-                        null,
-                        FeedVersion.VERSION,
-                        null,
-                        null);
+                        AREA + "/Feeds", feedName, null, FeedVersion.VERSION,null, null);
 
-        return MAPPER.readValue(r, new TypeReference<Feed>() {});
+        return MAPPER.readValue(r, Feed.class);
     }
 
     /***
@@ -207,19 +165,11 @@ public class FeedManagement {
             put("includeDeletedUpstreams", includeDeletedUpstreams);
         }};
 
-        String r = Request.request(
-                RequestMethod.GET.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.PACKAGING,
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.PACKAGING,
                 DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
-                AREA + "/Feeds",
-                feedName,
-                null,
-                FeedVersion.VERSION,
-                q,
-                null);
+                AREA + "/Feeds", feedName, null, FeedVersion.VERSION, q, null);
 
-        return MAPPER.readValue(r, new TypeReference<Feed>() {});
+        return MAPPER.readValue(r, Feed.class);
     }
 
     /***
@@ -235,19 +185,11 @@ public class FeedManagement {
      */
     public FeedPermissions getFeedPermissions(String feedName) throws DefaultParametersException, IOException {
 
-        String r = Request.request(
-                        RequestMethod.GET.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.PACKAGING,
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.PACKAGING,
                         DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
-                        AREA + "/Feeds",
-                        feedName,
-                        "permissions",
-                        FeedVersion.VERSION,
-                        null,
-                        null);
+                        AREA + "/Feeds", feedName, "permissions", FeedVersion.VERSION, null, null);
 
-        return MAPPER.readValue(r, new TypeReference<FeedPermissions>() {});
+        return MAPPER.readValue(r, FeedPermissions.class);
     }
 
     /***
@@ -276,19 +218,11 @@ public class FeedManagement {
             put("includeIds", includeIds);
         }};
 
-        String r = Request.request(
-                RequestMethod.GET.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.PACKAGING,
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.PACKAGING,
                 DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
-                AREA + "/Feeds",
-                feedName,
-                "permissions",
-                FeedVersion.VERSION,
-                q,
-                null);
+                AREA + "/Feeds", feedName, "permissions", FeedVersion.VERSION, q, null);
 
-        return MAPPER.readValue(r, new TypeReference<FeedPermissions>() {});
+        return MAPPER.readValue(r, FeedPermissions.class);
     }
 
     /***
@@ -304,19 +238,11 @@ public class FeedManagement {
      */
     public FeedView getFeedView(String feedName, String feedViewId) throws DefaultParametersException, IOException {
 
-        String r = Request.request(
-                RequestMethod.GET.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.PACKAGING,
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.PACKAGING,
                 DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
-                AREA + "/Feeds",
-                feedName,
-                "views/" + feedViewId,
-                FeedVersion.VERSION,
-                null,
-                null);
+                AREA + "/Feeds", feedName, "views/" + feedViewId, FeedVersion.VERSION, null, null);
 
-        return MAPPER.readValue(r, new TypeReference<FeedView>() {});
+        return MAPPER.readValue(r, FeedView.class);
     }
 
     /***
@@ -331,19 +257,11 @@ public class FeedManagement {
      */
     public FeedViews getFeedViews(String feedName) throws DefaultParametersException, IOException {
 
-        String r = Request.request(
-                RequestMethod.GET.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.PACKAGING,
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.PACKAGING,
                 DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
-                AREA + "/Feeds",
-                feedName,
-                "views",
-                FeedVersion.VERSION,
-                null,
-                null);
+                AREA + "/Feeds", feedName, "views", FeedVersion.VERSION, null, null);
 
-        return MAPPER.readValue(r, new TypeReference<FeedViews>() {});
+        return MAPPER.readValue(r, FeedViews.class);
     }
 
     /***
@@ -358,19 +276,11 @@ public class FeedManagement {
      */
     public Feeds getFeeds() throws DefaultParametersException, IOException {
 
-        String r = Request.request(
-                RequestMethod.GET.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.PACKAGING,
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.PACKAGING,
                 DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
-                AREA,
-                null,
-                "Feeds",
-                FeedVersion.VERSION,
-                null,
-                null);
+                AREA, null, "Feeds", FeedVersion.VERSION, null, null);
 
-        return MAPPER.readValue(r, new TypeReference<Feeds>() {});
+        return MAPPER.readValue(r, Feeds.class);
     }
 
     /***
@@ -396,19 +306,11 @@ public class FeedManagement {
             put("includeUrls", includeUrls);
         }};
 
-        String r = Request.request(
-                RequestMethod.GET.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.PACKAGING,
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.PACKAGING,
                 DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
-                AREA,
-                null,
-                "Feeds",
-                FeedVersion.VERSION,
-                q,
-                null);
+                AREA, null, "Feeds", FeedVersion.VERSION, q, null);
 
-        return MAPPER.readValue(r, new TypeReference<Feeds>() {});
+        return MAPPER.readValue(r, Feeds.class);
     }
 
     /***
@@ -437,24 +339,13 @@ public class FeedManagement {
             put("role", role);
         }};
 
-        List<Object> o = new ArrayList<>(){};
-        o.add(h);
+        List<Object> o = List.of(h);
 
-        String r = Request.request(
-                        RequestMethod.PATCH.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.PACKAGING,
+        String r = Request.request(RequestMethod.PATCH.toString(), DEFAULT_PARAMETERS, ResourceId.PACKAGING,
                         DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
-                        AREA + "/Feeds",
-                        feedName,
-                        "permissions",
-                        FeedVersion.VERSION,
-                        null,
-                        null,
-                        o,
-                        null);
+                        AREA + "/Feeds", feedName, "permissions", FeedVersion.VERSION, null, null, o, null);
 
-        return MAPPER.readValue(r, new TypeReference<FeedPermissions>() {});
+        return MAPPER.readValue(r, FeedPermissions.class);
     }
 
     /***
@@ -484,24 +375,13 @@ public class FeedManagement {
             put("upstreamEnabled", upstreamEnabled);
         }};
 
-        List<Object> o = new ArrayList<>(){};
-        o.add(h);
+        List<Object> o = List.of(h);
 
-        String r = Request.request(
-                        RequestMethod.PATCH.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.PACKAGING,
+        String r = Request.request(RequestMethod.PATCH.toString(), DEFAULT_PARAMETERS, ResourceId.PACKAGING,
                         DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
-                        AREA + "/Feeds",
-                        feedName,
-                        null,
-                        FeedVersion.VERSION,
-                        null,
-                        null,
-                        o,
-                        null);
+                        AREA + "/Feeds", feedName, null, FeedVersion.VERSION, null, null, o, null);
 
-        return MAPPER.readValue(r, new TypeReference<Feed>() {});
+        return MAPPER.readValue(r, Feed.class);
     }
 
     /***
@@ -525,18 +405,10 @@ public class FeedManagement {
             put("visibility", visibility);
         }};
 
-        String r = Request.request(
-                RequestMethod.PATCH.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.PACKAGING,
+        String r = Request.request(RequestMethod.PATCH.toString(), DEFAULT_PARAMETERS, ResourceId.PACKAGING,
                 DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
-                AREA + "/Feeds",
-                feedName,
-                "views/" + feedViewName,
-                FeedVersion.VERSION,
-                null,
-                h);
+                AREA + "/Feeds", feedName, "views/" + feedViewName, FeedVersion.VERSION, null, h);
 
-        return MAPPER.readValue(r, new TypeReference<FeedView>() {});
+        return MAPPER.readValue(r, FeedView.class);
     }
 }

@@ -1,6 +1,5 @@
 package org.azd.git;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.azd.exceptions.DefaultParametersException;
 import org.azd.git.types.Repositories;
@@ -53,19 +52,10 @@ public class Git {
             }});
         }};
 
-        String r = Request.request(
-                        RequestMethod.POST.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.GIT,
-                        projectId,
-                        AREA,
-                        null,
-                        "repositories",
-                        GitVersion.VERSION,
-                        null,
-                        h);
+        String r = Request.request(RequestMethod.POST.toString(), DEFAULT_PARAMETERS, ResourceId.GIT, projectId,
+                        AREA, null, "repositories", GitVersion.VERSION, null, h);
 
-        return MAPPER.readValue(r, new TypeReference<Repository>() {});
+        return MAPPER.readValue(r, Repository.class);
     }
 
     /***
@@ -78,17 +68,8 @@ public class Git {
 
         if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
 
-        Request.request(
-                RequestMethod.DELETE.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.GIT,
-                DEFAULT_PARAMETERS.getProject(),
-                AREA + "/repositories",
-                repositoryId,
-                null,
-                GitVersion.VERSION,
-                null,
-                null);
+        Request.request(RequestMethod.DELETE.toString(), DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+                AREA + "/repositories", repositoryId, null, GitVersion.VERSION, null, null);
     }
 
     /***
@@ -101,17 +82,8 @@ public class Git {
 
         if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
 
-        Request.request(
-                RequestMethod.DELETE.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.GIT,
-                DEFAULT_PARAMETERS.getProject(),
-                AREA + "/recycleBin/repositories",
-                repositoryId,
-                null,
-                GitVersion.VERSION,
-                null,
-                null);
+        Request.request(RequestMethod.DELETE.toString(), DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+                AREA + "/recycleBin/repositories", repositoryId, null, GitVersion.VERSION, null, null);
     }
 
     /***
@@ -124,17 +96,8 @@ public class Git {
 
         if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
 
-        String r = Request.request(
-                        RequestMethod.GET.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.GIT,
-                        DEFAULT_PARAMETERS.getProject(),
-                        AREA,
-                        null,
-                        "deletedrepositories",
-                        GitVersion.VERSION,
-                        null,
-                        null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+                        AREA, null, "deletedrepositories", GitVersion.VERSION, null, null);
 
         return MAPPER.readValue(r, Map.class);
     }
@@ -149,17 +112,8 @@ public class Git {
 
         if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
 
-        String r = Request.request(
-                        RequestMethod.GET.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.GIT,
-                        DEFAULT_PARAMETERS.getProject(),
-                        AREA,
-                        null,
-                        "recycleBin/repositories",
-                        GitVersion.VERSION,
-                        null,
-                        null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+                        AREA, null, "recycleBin/repositories", GitVersion.VERSION, null, null);
 
         return MAPPER.readValue(r, Map.class);
     }
@@ -175,19 +129,10 @@ public class Git {
 
         if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
 
-        String r = Request.request(
-                        RequestMethod.GET.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.GIT,
-                        DEFAULT_PARAMETERS.getProject(),
-                        AREA + "/repositories",
-                        repositoryName,
-                        null,
-                        GitVersion.VERSION,
-                        null,
-                        null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+                        AREA + "/repositories", repositoryName, null, GitVersion.VERSION, null, null);
 
-        return MAPPER.readValue(r, new TypeReference<Repository>() {});
+        return MAPPER.readValue(r, Repository.class);
     }
 
     /***
@@ -200,19 +145,10 @@ public class Git {
 
         if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
 
-        String r = Request.request(
-                        RequestMethod.GET.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.GIT,
-                        DEFAULT_PARAMETERS.getProject(),
-                        AREA,
-                        null,
-                        "repositories",
-                        GitVersion.VERSION,
-                        null,
-                        null);
+        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+                        AREA, null, "repositories", GitVersion.VERSION, null, null);
 
-        return MAPPER.readValue(r, new TypeReference<Repositories>() {});
+        return MAPPER.readValue(r, Repositories.class);
     }
 
     /***
@@ -232,19 +168,10 @@ public class Git {
             put("deleted", deleted);
         }};
 
-        String r = Request.request(
-                        RequestMethod.PATCH.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.GIT,
-                        DEFAULT_PARAMETERS.getProject(),
-                        AREA + "/recycleBin/repositories",
-                        repositoryId,
-                        null,
-                        GitVersion.VERSION,
-                        null,
-                        h);
+        String r = Request.request(RequestMethod.PATCH.toString(), DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+                        AREA + "/recycleBin/repositories", repositoryId, null, GitVersion.VERSION, null, h);
 
-        return MAPPER.readValue(r, new TypeReference<Repository>() {});
+        return MAPPER.readValue(r, Repository.class);
     }
 
     /***
@@ -265,18 +192,9 @@ public class Git {
             put("defaultBranch", "refs/heads/" + defaultBranchName);
         }};
 
-        String r = Request.request(
-                        RequestMethod.PATCH.toString(),
-                        DEFAULT_PARAMETERS,
-                        ResourceId.GIT,
-                        DEFAULT_PARAMETERS.getProject(),
-                        AREA + "/repositories",
-                        repositoryId,
-                        null,
-                        GitVersion.VERSION,
-                        null,
-                        h);
+        String r = Request.request(RequestMethod.PATCH.toString(), DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+                        AREA + "/repositories", repositoryId, null, GitVersion.VERSION, null, h);
 
-        return MAPPER.readValue(r, new TypeReference<Repository>() {});
+        return MAPPER.readValue(r, Repository.class);
     }
 }
