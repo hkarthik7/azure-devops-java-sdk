@@ -10,9 +10,8 @@ import org.azd.utils.RequestMethod;
 import org.azd.utils.ResourceId;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.text.MessageFormat;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.azd.validators.AzDDefaultParametersValidator.ValidateDefaultParameters;
@@ -519,33 +518,40 @@ public class Build {
 
     /***
      * Queues a build
-     * @param definitionId pass the pipeline name
+     * @param definitionName pass the pipeline name to queue the build
      * @return a build object {@link BuildT}
      * @throws DefaultParametersException -> {@link DefaultParametersException}
      * @throws IOException -> {@link IOException}
      */
-    // TODO: Change the definition id to automatically fetch the definition name, aka pipeline name.
-    public BuildT queueBuild(int definitionId) throws DefaultParametersException, IOException {
+    public BuildT queueBuild(String definitionName) throws DefaultParametersException, IOException {
 
         if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
 
-        HashMap<String, Object> q = new HashMap<>(){{
-            put("definitionId", definitionId);
-        }};
+        try {
+            var d = getBuildDefinitions().getBuildDefinition()
+                    .stream().filter(id -> (id.getName().equals(definitionName))).findFirst();
 
-        String r = Request.request(
-                RequestMethod.POST.toString(),
-                DEFAULT_PARAMETERS,
-                ResourceId.BUILD,
-                DEFAULT_PARAMETERS.getProject(),
-                AREA + "/builds",
-                null,
-                null,
-                BuildVersion.VERSION,
-                q,
-                null);
+            HashMap<String, Object> q = new HashMap<>() {{
+                put("definitionId", d.get().getId());
+            }};
 
-        return MAPPER.readValue(r, new TypeReference<BuildT>() {});
+            String r = Request.request(
+                    RequestMethod.POST.toString(),
+                    DEFAULT_PARAMETERS,
+                    ResourceId.BUILD,
+                    DEFAULT_PARAMETERS.getProject(),
+                    AREA + "/builds",
+                    null,
+                    null,
+                    BuildVersion.VERSION,
+                    q,
+                    null);
+
+            return MAPPER.readValue(r, new TypeReference<BuildT>() {});
+
+        } catch (NoSuchElementException e) {
+            throw new NoSuchElementException(MessageFormat.format("Cannot find the pipeline name ''{0}''; Please pass the valid name and try again.", definitionName));
+        }
     }
 
     /***
