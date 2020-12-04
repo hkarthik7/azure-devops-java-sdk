@@ -108,7 +108,7 @@ public class BuildTest {
 
     @Test
     public void shouldQueueTheBuild() throws IOException, DefaultParametersException {
-        b.queueBuild(9);
+        b.queueBuild("azure-devops-java-sdk");
     }
 
     @Test
