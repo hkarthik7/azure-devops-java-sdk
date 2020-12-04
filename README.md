@@ -7,6 +7,8 @@
 **azd** SDK helps to manage **Azure DevOps** REST API on ease. This provides functionality to significant services 
 in **Azure DevOps** to manage in granular level.
 
+You can view the [blog post ](https://hkarthik7.github.io/azure%20devops/2020/12/04/AzureDevOpsJavaSDK.html) for details about the library.
+
 Usage of the functions and examples can be found [here](https://github.com/hkarthik7/azure-devops-java-sdk/blob/main/examples).
 
 ## Getting Started

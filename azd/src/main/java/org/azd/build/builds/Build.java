@@ -1,6 +1,5 @@
 package org.azd.build.builds;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.azd.build.types.*;
 import org.azd.exceptions.DefaultParametersException;
@@ -37,7 +36,7 @@ public class Build {
 
     /***
      * Deletes a build.
-     * @param buildId pass the build id to delet
+     * @param buildId pass the build id to delete
      * @throws DefaultParametersException -> {@link DefaultParametersException}
      */
     public void deleteBuild(int buildId) throws DefaultParametersException, IOException {
@@ -168,7 +167,7 @@ public class Build {
     /***
      * Gets the work items associated with a build.
      * @param buildId The ID of the build.
-     * @return an arry of work items associated with the build
+     * @return an array of work items associated with the build
      * @throws DefaultParametersException -> {@link DefaultParametersException}
      * @throws IOException -> {@link IOException}
      */
@@ -186,7 +185,7 @@ public class Build {
      * Gets the work items associated with a build.
      * @param buildId id of the build
      * @param top specify how many top work items to return
-     * @return an arry of work items associated with the build
+     * @return an array of work items associated with the build
      * @throws DefaultParametersException -> {@link DefaultParametersException}
      * @throws IOException -> {@link IOException}
      */
