@@ -4,12 +4,15 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/hkarthik7/azure-devops-java-sdk/blob/main/LICENSE)
 [![Download: azd](https://img.shields.io/github/downloads/hkarthik7/azure-devops-java-sdk/total.svg)](https://github.com/hkarthik7/azure-devops-java-sdk/releases/download/v0.1.0/azd-0.1.0.jar)
 
-**azd** SDK helps to manage **Azure DevOps** REST API on ease. This provides functionality to significant services 
-in **Azure DevOps** to manage in granular level.
+**azd** library helps to manage **Azure DevOps** REST API on ease. This provides functionality to the significant services 
+in **Azure DevOps** and manage in granular level.
 
-You can view the [blog post ](https://hkarthik7.github.io/azure%20devops/2020/12/04/AzureDevOpsJavaSDK.html) for details about the library.
+You can view the [blog post](https://hkarthik7.github.io/azure%20devops/2020/12/04/AzureDevOpsJavaSDK.html) for details about the library.
 
-Usage of the functions and examples can be found [here](https://github.com/hkarthik7/azure-devops-java-sdk/blob/main/examples).
+## Documentation
+
+- [Javadocs](https://hkarthik7.github.io/azd-docs/)
+- [Examples](https://github.com/hkarthik7/azure-devops-java-sdk/blob/main/examples)
 
 ## Getting Started
 
@@ -61,7 +64,7 @@ public class Main {
 
 ## Build Locally
 
-You are going to need JDK version 11 or above and you can download it from [here](https://www.oracle.com/java/technologies/javase-downloads.html).
+You are going to need JDK version 11 or above and can be downloaded from [here](https://www.oracle.com/java/technologies/javase-downloads.html).
 Download Maven from the [official website](https://maven.apache.org/download.cgi). Once it is installed add `JAVA_HOME` to the path as Maven is
 going to need it. You can check if Maven is installed correctly by running `mvn -v`.
 
