@@ -79,4 +79,11 @@ public class GitTest {
     public void shouldUpdateRepository() throws DefaultParametersException, IOException {
         g.updateRepository("00000000-0000-0000-0000-000000000000", "newName", "develop");
     }
+
+    @Test
+    public void shouldcreateANewPullRequest() throws DefaultParametersException, IOException {
+        g.createPullRequest(g.getRepositories().getRepositories().stream().findFirst().get().getId(),
+                "refs/heads/master", "refs/heads/develop", "New feature", "Adding new feature",
+                new String[]{ "d6245f20-2af8-44f4-9451-8107cb2767db" });
+    }
 }
