@@ -61,6 +61,12 @@ public class Main {
 
 ## Build Locally
 
+You are going to need JDK version 11 or above and you can download it from [here](https://www.oracle.com/java/technologies/javase-downloads.html).
+Download Maven from the [official website](https://maven.apache.org/download.cgi). Once it is installed add `JAVA_HOME` to the path as Maven is
+going to need it. You can check if Maven is installed correctly by running `mvn -v`.
+
+Once you have installed `JDK` and `Maven` you can then, 
+
 Clone the repository and navigate to root of the folder where `pom.xml` is placed.
 - Run `mvn clean` to clean the target folder if any exists
 - Update `_unitTest.json` with your organisation name, project name and personal access token.
