@@ -36,7 +36,7 @@ public class CoreTest {
 
     @Test
     public void shouldReturnListOfProcess() throws DefaultParametersException, IOException {
-        c.getProcesses();
+        System.out.println(c.getProcesses());
     }
 
     @Test

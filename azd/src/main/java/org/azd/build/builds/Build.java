@@ -13,7 +13,7 @@ import java.text.MessageFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.azd.validators.AzDDefaultParametersValidator.ValidateDefaultParameters;
+import static org.azd.validators.AzDDefaultParametersValidator.validateDefaultParameters;
 
 /***
  * Build class to manage build API
@@ -41,7 +41,7 @@ public class Build {
      */
     public void deleteBuild(int buildId) throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         Request.request(RequestMethod.DELETE.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                 AREA + "/builds", Integer.toString(buildId), null, BuildVersion.VERSION, null, null);
@@ -56,7 +56,7 @@ public class Build {
      */
     public BuildT getBuild(int buildId) throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                         AREA + "/builds", Integer.toString(buildId), null, BuildVersion.VERSION, null, null);
@@ -73,7 +73,7 @@ public class Build {
      */
     public BuildChanges getBuildChanges(int buildId) throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                 AREA + "/builds", Integer.toString(buildId), "changes", BuildVersion.BUILD_CHANGES,null, null);
@@ -94,7 +94,7 @@ public class Build {
     public BuildChanges getBuildChanges(
             int buildId, int top,  String continuationToken, boolean includeSourceChange) throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         HashMap<String, Object> q = new HashMap<>() {{
             put("$top", top);
@@ -118,7 +118,7 @@ public class Build {
      */
     public String getBuildLog(int buildId, int logId) throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         return Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                 AREA + "/builds", Integer.toString(buildId), "logs/" + logId, BuildVersion.BUILD_LOGS, null, null, "text");
@@ -136,7 +136,7 @@ public class Build {
      */
     public String getBuildLog(int buildId, int logId, long startLine, long endLine) throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("startLine", startLine);
@@ -156,7 +156,7 @@ public class Build {
      */
     public BuildLogs getBuildLogs(int buildId) throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                 AREA + "/builds", Integer.toString(buildId),"logs", BuildVersion.BUILD_LOGS,null,null);
@@ -173,7 +173,7 @@ public class Build {
      */
     public BuildWorkItems getBuildWorkItems(int buildId) throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                         AREA + "/builds", Integer.toString(buildId), "workitems", BuildVersion.BUILD_WORK_ITEMS,null,null);
@@ -191,7 +191,7 @@ public class Build {
      */
     public BuildWorkItems getBuildWorkItems(int buildId, int top) throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("$top", top);
@@ -214,7 +214,7 @@ public class Build {
      */
     public BuildChanges getChangesBetweenBuilds(int fromBuildId, int toBuildId, int top) throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("$top", top);
@@ -239,7 +239,7 @@ public class Build {
      */
     public BuildWorkItems getWorkItemsBetweenBuilds(int fromBuildId, int toBuildId, int top) throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("$top", top);
@@ -261,7 +261,7 @@ public class Build {
      */
     public Builds getBuilds() throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                 AREA + "/builds",null,null, BuildVersion.VERSION,null,null);
@@ -278,7 +278,7 @@ public class Build {
      */
     public Builds getBuilds(int[] buildIds) throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         String ids = Arrays.stream(buildIds).mapToObj(String::valueOf).collect(Collectors.joining(","));
 
@@ -301,7 +301,7 @@ public class Build {
      */
     public Builds getBuilds(int top) throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("$top", top);
@@ -345,7 +345,7 @@ public class Build {
             String repositoryId, String repositoryType, String requestedFor, String resultFilter,
             String statusFilter, String tagFilters) throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         String ids = (definitions != null) ? Arrays.stream(definitions).mapToObj(String::valueOf).collect(Collectors.joining(",")) : null;
         String queueIds = (queues != null) ? Arrays.stream(queues).mapToObj(String::valueOf).collect(Collectors.joining(",")) : null;
@@ -387,7 +387,7 @@ public class Build {
      */
     public BuildT queueBuild(String definitionName) throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         try {
             var d = getBuildDefinitions().getBuildDefinition()
@@ -416,7 +416,7 @@ public class Build {
      */
     public BuildT queueBuild(HashMap<String, Object> buildParameters) throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         String r = Request.request(RequestMethod.POST.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                         AREA + "/builds", null,null, BuildVersion.VERSION,null, buildParameters);
@@ -481,7 +481,7 @@ public class Build {
      */
     public BuildDefinition createBuildDefinition(HashMap<String, Object> buildParameters) throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         String r = Request.request(RequestMethod.POST.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                         AREA,null,"definitions", BuildVersion.BUILD_DEFINITIONS,null, buildParameters);
@@ -497,7 +497,7 @@ public class Build {
      */
     public void deleteBuildDefinition(int definitionId) throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         Request.request(RequestMethod.DELETE.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                 AREA + "/definitions", Integer.toString(definitionId),null, BuildVersion.BUILD_DEFINITIONS,null,null);
@@ -512,7 +512,7 @@ public class Build {
      */
     public BuildDefinition getBuildDefinition(int definitionId) throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
             String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                             AREA + "/definitions", Integer.toString(definitionId),null, BuildVersion.BUILD_DEFINITIONS,null,null);
@@ -533,7 +533,7 @@ public class Build {
     public Map getBuildDefinition(
             int definitionId, boolean includeLatestBuilds, String minMetricsTime, int revision) throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("includeLatestBuilds", includeLatestBuilds);
@@ -556,7 +556,7 @@ public class Build {
      */
     public BuildDefinitionRevisions getBuildDefinitionRevision(int definitionId) throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                 AREA + "/definitions", Integer.toString(definitionId),"revisions", BuildVersion.BUILD_DEFINITION_REVISIONS,null,null);
@@ -572,7 +572,7 @@ public class Build {
      */
     public BuildDefinitions getBuildDefinitions() throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                 AREA + "/definitions",null,null, BuildVersion.BUILD_DEFINITIONS,null,null);
@@ -590,7 +590,7 @@ public class Build {
      */
     public BuildDefinitions getBuildDefinitions(int[] definitionIds) throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         String ids = Arrays.stream(definitionIds).mapToObj(String::valueOf).collect(Collectors.joining(","));
 
@@ -614,7 +614,7 @@ public class Build {
      */
     public BuildDefinitions getBuildDefinitions(int top) throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("$top", top);
@@ -636,7 +636,7 @@ public class Build {
      */
     public BuildDefinitions getBuildDefinitions(String name) throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("name", name);
@@ -674,7 +674,7 @@ public class Build {
             String path, int processType, String queryOrder, String repositoryId,
             String repositoryType, String taskIdFilter, String yamlFilename) throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("builtAfter", builtAfter);
@@ -701,7 +701,7 @@ public class Build {
 
     public Map restoreBuildDefinition(int definitionId,  boolean deleted) throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("deleted", deleted);

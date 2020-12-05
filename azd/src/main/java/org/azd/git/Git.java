@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static org.azd.validators.AzDDefaultParametersValidator.ValidateDefaultParameters;
+import static org.azd.validators.AzDDefaultParametersValidator.validateDefaultParameters;
 
 /***
  * GIT class to manage git API
@@ -66,7 +66,7 @@ public class Git {
      */
     public void deleteRepository(String repositoryId) throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         Request.request(RequestMethod.DELETE.toString(), DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
                 AREA + "/repositories", repositoryId, null, GitVersion.VERSION, null, null);
@@ -80,7 +80,7 @@ public class Git {
      */
     public void deleteRepositoryFromRecycleBin(String repositoryId) throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         Request.request(RequestMethod.DELETE.toString(), DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
                 AREA + "/recycleBin/repositories", repositoryId, null, GitVersion.VERSION, null, null);
@@ -94,7 +94,7 @@ public class Git {
      */
     public Map getDeletedRepositories() throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
                         AREA, null, "deletedrepositories", GitVersion.VERSION, null, null);
@@ -110,7 +110,7 @@ public class Git {
      */
     public Map getRecycleBinRepositories() throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
                         AREA, null, "recycleBin/repositories", GitVersion.VERSION, null, null);
@@ -127,7 +127,7 @@ public class Git {
      */
     public Repository getRepository(String repositoryName) throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
                         AREA + "/repositories", repositoryName, null, GitVersion.VERSION, null, null);
@@ -143,7 +143,7 @@ public class Git {
      */
     public Repositories getRepositories() throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
                         AREA, null, "repositories", GitVersion.VERSION, null, null);
@@ -162,7 +162,7 @@ public class Git {
      */
     public Repository restoreRepositoryFromRecycleBin(String repositoryId, boolean deleted) throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         HashMap<String, Object> h = new HashMap<>(){{
             put("deleted", deleted);
@@ -185,7 +185,7 @@ public class Git {
      */
     public Repository updateRepository(String repositoryId, String repositoryName, String defaultBranchName) throws DefaultParametersException, IOException {
 
-        if(DEFAULT_PARAMETERS.getProject() == null) { ValidateDefaultParameters(); }
+        if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
         HashMap<String, Object> h = new HashMap<>(){{
             put("name", repositoryName);

@@ -7,7 +7,7 @@ import org.azd.exceptions.DefaultParametersException;
 
 import java.util.HashMap;
 
-import static org.azd.validators.AzDDefaultParametersValidator.ValidateDefaultParameters;
+import static org.azd.validators.AzDDefaultParametersValidator.validateDefaultParameters;
 
 /**
  *  Build the request url dynamically to call Azure DevOps REST API
@@ -41,7 +41,7 @@ public class Url {
      */
     private String getLocationUrl(String resourceID) throws DefaultParametersException {
 
-        if (DefaultParameters.getOrganization() == null) { ValidateDefaultParameters(); }
+        if (DefaultParameters.getOrganization() == null) { validateDefaultParameters(); }
 
         String url = this.INSTANCE +
                 DefaultParameters.getOrganization() +
