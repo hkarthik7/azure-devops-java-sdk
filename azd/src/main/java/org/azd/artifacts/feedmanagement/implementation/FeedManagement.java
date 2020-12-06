@@ -58,7 +58,7 @@ public class FeedManagement {
             put("hideDeletedPackageVersions", hideDeletedPackageVersions);
         }};
 
-        String r = Request.request(RequestMethod.POST.toString(), DEFAULT_PARAMETERS, ResourceId.PACKAGING,
+        String r = Request.request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
                         DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
                         AREA, null, "feeds", FeedVersion.VERSION, null, requestBody);
 
@@ -86,7 +86,7 @@ public class FeedManagement {
             put("visibility", visibility);
         }};
 
-        String r = Request.request(RequestMethod.POST.toString(), DEFAULT_PARAMETERS, ResourceId.PACKAGING,
+        String r = Request.request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
                         DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
                         AREA + "/feeds", feedName, "views", FeedVersion.VERSION, null, requestBody);
 
@@ -105,7 +105,7 @@ public class FeedManagement {
      */
     public void deleteFeed(String feedId) throws DefaultParametersException, IOException {
 
-        Request.request(RequestMethod.DELETE.toString(), DEFAULT_PARAMETERS, ResourceId.PACKAGING,
+        Request.request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
                 DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
                 AREA + "/feeds", feedId, null, FeedVersion.VERSION, null, null);
     }
@@ -122,7 +122,7 @@ public class FeedManagement {
      */
     public void deleteFeedView(String feedId, String feedViewId) throws DefaultParametersException, IOException {
 
-        Request.request(RequestMethod.DELETE.toString(), DEFAULT_PARAMETERS, ResourceId.PACKAGING,
+        Request.request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
                 DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
                 AREA + "/feeds", feedId, "views/" + feedViewId, FeedVersion.VERSION, null, null);
     }
@@ -140,7 +140,7 @@ public class FeedManagement {
      */
     public Feed getFeed(String feedName) throws DefaultParametersException, IOException {
 
-        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.PACKAGING,
+        String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
                         DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
                         AREA + "/Feeds", feedName, null, FeedVersion.VERSION,null, null);
 
@@ -165,7 +165,7 @@ public class FeedManagement {
             put("includeDeletedUpstreams", includeDeletedUpstreams);
         }};
 
-        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.PACKAGING,
+        String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
                 DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
                 AREA + "/Feeds", feedName, null, FeedVersion.VERSION, q, null);
 
@@ -185,7 +185,7 @@ public class FeedManagement {
      */
     public FeedPermissions getFeedPermissions(String feedName) throws DefaultParametersException, IOException {
 
-        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.PACKAGING,
+        String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
                         DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
                         AREA + "/Feeds", feedName, "permissions", FeedVersion.VERSION, null, null);
 
@@ -218,7 +218,7 @@ public class FeedManagement {
             put("includeIds", includeIds);
         }};
 
-        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.PACKAGING,
+        String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
                 DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
                 AREA + "/Feeds", feedName, "permissions", FeedVersion.VERSION, q, null);
 
@@ -238,7 +238,7 @@ public class FeedManagement {
      */
     public FeedView getFeedView(String feedName, String feedViewId) throws DefaultParametersException, IOException {
 
-        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.PACKAGING,
+        String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
                 DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
                 AREA + "/Feeds", feedName, "views/" + feedViewId, FeedVersion.VERSION, null, null);
 
@@ -257,7 +257,7 @@ public class FeedManagement {
      */
     public FeedViews getFeedViews(String feedName) throws DefaultParametersException, IOException {
 
-        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.PACKAGING,
+        String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
                 DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
                 AREA + "/Feeds", feedName, "views", FeedVersion.VERSION, null, null);
 
@@ -276,7 +276,7 @@ public class FeedManagement {
      */
     public Feeds getFeeds() throws DefaultParametersException, IOException {
 
-        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.PACKAGING,
+        String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
                 DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
                 AREA, null, "Feeds", FeedVersion.VERSION, null, null);
 
@@ -306,7 +306,7 @@ public class FeedManagement {
             put("includeUrls", includeUrls);
         }};
 
-        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.PACKAGING,
+        String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
                 DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
                 AREA, null, "Feeds", FeedVersion.VERSION, q, null);
 
@@ -341,7 +341,7 @@ public class FeedManagement {
 
         List<Object> o = List.of(h);
 
-        String r = Request.request(RequestMethod.PATCH.toString(), DEFAULT_PARAMETERS, ResourceId.PACKAGING,
+        String r = Request.request(RequestMethod.PATCH, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
                         DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
                         AREA + "/Feeds", feedName, "permissions", FeedVersion.VERSION, null, null, o, null);
 
@@ -377,7 +377,7 @@ public class FeedManagement {
 
         List<Object> o = List.of(h);
 
-        String r = Request.request(RequestMethod.PATCH.toString(), DEFAULT_PARAMETERS, ResourceId.PACKAGING,
+        String r = Request.request(RequestMethod.PATCH, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
                         DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
                         AREA + "/Feeds", feedName, null, FeedVersion.VERSION, null, null, o, null);
 
@@ -405,7 +405,7 @@ public class FeedManagement {
             put("visibility", visibility);
         }};
 
-        String r = Request.request(RequestMethod.PATCH.toString(), DEFAULT_PARAMETERS, ResourceId.PACKAGING,
+        String r = Request.request(RequestMethod.PATCH, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
                 DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
                 AREA + "/Feeds", feedName, "views/" + feedViewName, FeedVersion.VERSION, null, h);
 

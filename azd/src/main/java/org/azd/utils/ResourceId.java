@@ -3,7 +3,7 @@ package org.azd.utils;
 /**
  * Collection of resource ids.
  */
-public class ResourceId {
+public abstract class ResourceId {
 
     // The resource Ids allows to generate the location url for each resource
 

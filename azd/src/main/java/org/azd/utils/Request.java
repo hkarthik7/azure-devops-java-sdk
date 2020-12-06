@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /***
- * Wrapper clss to build request url and to call Azure DevOps REST API
+ * Wrapper class to build request url and to call Azure DevOps REST API
  */
 public class Request {
 
@@ -15,7 +15,7 @@ public class Request {
      * Request the Azure DevOps REST API and builds the request url dynamically based on resource id and endpoints passed
      * @param requestMethod type of request GET, POST, PATCH, DELETE {@link RequestMethod}
      * @param defaultParameters instance of default parameters class
-     * @param resourceId pass the resource id. Refere {@link ResourceId} class
+     * @param resourceId pass the resource id. Refer {@link ResourceId} class
      * @param project name of the project
      * @param area resource area
      * @param id resource id
@@ -28,7 +28,7 @@ public class Request {
      * @throws IOException -> {@link IOException}
      */
     public static String request(
-            String requestMethod,
+            RequestMethod requestMethod,
             AzDDefaultParameters defaultParameters,
             String resourceId,
             String project,
@@ -40,19 +40,19 @@ public class Request {
             HashMap<String, Object> body) throws DefaultParametersException, IOException {
         String requestUrl = new Url(defaultParameters).buildRequestUrl(resourceId, project, area, id, resource, apiVersion, queryString);
 
-        if (requestMethod.equals("GET")) {
+        if (requestMethod.toString().equals("GET")) {
             return RequestAPI.get(requestUrl, defaultParameters.getPersonalAccessToken());
         }
 
-        if (requestMethod.equals("POST")) {
+        if (requestMethod.toString().equals("POST")) {
             return RequestAPI.post(requestUrl, defaultParameters.getPersonalAccessToken(), body);
         }
 
-        if (requestMethod.equals("PATCH")) {
+        if (requestMethod.toString().equals("PATCH")) {
             return RequestAPI.patch(requestUrl, defaultParameters.getPersonalAccessToken(), body);
         }
 
-        if (requestMethod.equals("DELETE")) {
+        if (requestMethod.toString().equals("DELETE")) {
             return RequestAPI.delete(requestUrl, defaultParameters.getPersonalAccessToken());
         }
 
@@ -63,7 +63,7 @@ public class Request {
      * Request the Azure DevOps REST API and builds the request url dynamically based on resource id and endpoints passed
      * @param requestMethod type of request GET, POST, PATCH, DELETE {@link RequestMethod}
      * @param defaultParameters instance of default parameters class
-     * @param resourceId pass the resource id. Refere {@link ResourceId} class
+     * @param resourceId pass the resource id. Refer {@link ResourceId} class
      * @param project name of the project
      * @param area resource area
      * @param id resource id
@@ -77,7 +77,7 @@ public class Request {
      * @throws IOException -> {@link IOException}
      */
     public static String request(
-            String requestMethod,
+            RequestMethod requestMethod,
             AzDDefaultParameters defaultParameters,
             String resourceId,
             String project,
@@ -90,23 +90,23 @@ public class Request {
             String contentType) throws DefaultParametersException, IOException {
         String requestUrl = new Url(defaultParameters).buildRequestUrl(resourceId, project, area, id, resource, apiVersion, queryString);
 
-        if (requestMethod.equals("GET") & (contentType != null)) {
+        if (requestMethod.toString().equals("GET") & (contentType != null)) {
             return RequestAPI.get(requestUrl, defaultParameters.getPersonalAccessToken(), contentType);
         }
 
-        if (requestMethod.equals("GET") & (contentType == null)) {
+        if (requestMethod.toString().equals("GET") & (contentType == null)) {
             return RequestAPI.get(requestUrl, defaultParameters.getPersonalAccessToken());
         }
 
-        if (requestMethod.equals("POST")) {
+        if (requestMethod.toString().equals("POST")) {
             return RequestAPI.post(requestUrl, defaultParameters.getPersonalAccessToken(), body);
         }
 
-        if (requestMethod.equals("PATCH")) {
+        if (requestMethod.toString().equals("PATCH")) {
             return RequestAPI.patch(requestUrl, defaultParameters.getPersonalAccessToken(), body);
         }
 
-        if (requestMethod.equals("DELETE")) {
+        if (requestMethod.toString().equals("DELETE")) {
             return RequestAPI.delete(requestUrl, defaultParameters.getPersonalAccessToken());
         }
 
@@ -117,7 +117,7 @@ public class Request {
      * Request the Azure DevOps REST API and builds the request url dynamically based on resource id and endpoints passed
      * @param requestMethod type of request GET, POST, PATCH, DELETE {@link RequestMethod}
      * @param defaultParameters instance of default parameters class
-     * @param resourceId pass the resource id. Refere {@link ResourceId} class
+     * @param resourceId pass the resource id. Refer {@link ResourceId} class
      * @param project name of the project
      * @param area resource area
      * @param id resource id
@@ -132,7 +132,7 @@ public class Request {
      * @throws IOException -> {@link IOException}
      */
     public static String request(
-            String requestMethod,
+            RequestMethod requestMethod,
             AzDDefaultParameters defaultParameters,
             String resourceId,
             String project,
@@ -146,27 +146,27 @@ public class Request {
             String contentType) throws DefaultParametersException, IOException {
         String requestUrl = new Url(defaultParameters).buildRequestUrl(resourceId, project, area, id, resource, apiVersion, queryString);
 
-        if (requestMethod.equals("GET") & (contentType != null)) {
+        if (requestMethod.toString().equals("GET") & (contentType != null)) {
             return RequestAPI.get(requestUrl, defaultParameters.getPersonalAccessToken(), contentType);
         }
 
-        if (requestMethod.equals("GET") & (contentType == null)) {
+        if (requestMethod.toString().equals("GET") & (contentType == null)) {
             return RequestAPI.get(requestUrl, defaultParameters.getPersonalAccessToken());
         }
 
-        if (requestMethod.equals("POST")) {
+        if (requestMethod.toString().equals("POST")) {
             return RequestAPI.post(requestUrl, defaultParameters.getPersonalAccessToken(), body);
         }
 
-        if (requestMethod.equals("PATCH") & (requestBody == null)) {
+        if (requestMethod.toString().equals("PATCH") & (requestBody == null)) {
             return RequestAPI.patch(requestUrl, defaultParameters.getPersonalAccessToken(), body);
         }
 
-        if (requestMethod.equals("PATCH") & (requestBody != null)) {
+        if (requestMethod.toString().equals("PATCH") & (requestBody != null)) {
             return RequestAPI.patch(requestUrl, defaultParameters.getPersonalAccessToken(), requestBody);
         }
 
-        if (requestMethod.equals("DELETE")) {
+        if (requestMethod.toString().equals("DELETE")) {
             return RequestAPI.delete(requestUrl, defaultParameters.getPersonalAccessToken());
         }
 

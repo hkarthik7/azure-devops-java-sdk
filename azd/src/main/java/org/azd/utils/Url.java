@@ -1,10 +1,11 @@
 package org.azd.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
 
+import java.text.MessageFormat;
 import java.util.HashMap;
 
 import static org.azd.validators.AzDDefaultParametersValidator.validateDefaultParameters;
@@ -22,14 +23,16 @@ import static org.azd.validators.AzDDefaultParametersValidator.validateDefaultPa
 public class Url {
 
     private final String INSTANCE = "https://dev.azure.com/";
-    private final AzDDefaultParameters DefaultParameters;
+    private final AzDDefaultParameters DEFAULT_PARAMETERS;
+    private final ObjectMapper MAPPER = new ObjectMapper();
+
 
     /***
      * This class expects the instance of AzDDefaultParameters to create the request url
      * @param defaultParameters instance of AzDDefaultParameters
      */
     public Url(AzDDefaultParameters defaultParameters) {
-        this.DefaultParameters = defaultParameters;
+        this.DEFAULT_PARAMETERS = defaultParameters;
     }
 
 
@@ -41,16 +44,17 @@ public class Url {
      */
     private String getLocationUrl(String resourceID) throws DefaultParametersException {
 
-        if (DefaultParameters.getOrganization() == null) { validateDefaultParameters(); }
+        if (DEFAULT_PARAMETERS.getOrganization() == null) { validateDefaultParameters(); }
 
-        String url = this.INSTANCE +
-                DefaultParameters.getOrganization() +
-                "/_apis/resourceAreas/" +
-                resourceID +
-                "?api-preview=5.0-preview.1";
+        String url = MessageFormat.format("{0}{1}/_apis/resourceAreas/{2}?api-preview=5.0-preview.1",
+                INSTANCE, DEFAULT_PARAMETERS.getOrganization(), resourceID);
 
-        DeserializeLocationUrl locationUrl = new DeserializeLocationUrl();
-        return (String) locationUrl.deserialize(RequestAPI.get(url));
+        try {
+            String r = MAPPER.readValue(RequestAPI.get(url), LocationUrl.class).getLocationUrl();
+            return r.replaceAll("/$","");
+        } catch (JsonProcessingException e) {
+            throw new AzDException(e.getMessage());
+        }
     }
 
     /**
@@ -111,31 +115,5 @@ public class Url {
      */
     private String getQueryString(String key, Object value) {
         return "&" + key + "=" + value;
-    }
-
-    /**
-     * This class deserializes the json string to object to extract resource area url
-     */
-    private static class DeserializeLocationUrl {
-
-        private final ObjectMapper mapper = new ObjectMapper();
-
-        /**
-         * Deserialize the response string to object of type LocationUrl
-         * @param response pass the response from REST API
-         * @return location url
-         */
-        public Object deserialize(String response) {
-            LocationUrl result = null;
-            try {
-                result = mapper.readValue(response, new TypeReference<>() {});
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }
-            if (result != null) {
-                return result.getLocationUrl().replaceAll("/$","");
-            }
-            return null;
-        }
     }
 }

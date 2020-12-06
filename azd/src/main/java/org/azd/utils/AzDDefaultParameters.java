@@ -11,11 +11,11 @@ import java.util.Map;
  * @author Harish Karthic
  */
 public class AzDDefaultParameters {
-    private String Organization;
-    private String Project;
-    private String PersonalAccessToken;
-    private final ProcessBuilder p = new ProcessBuilder();
-    private final Map<String, String> env = p.environment();
+    private String organization;
+    private String project;
+    private String personalAccessToken;
+    private final ProcessBuilder PROCESS_BUILDER = new ProcessBuilder();
+    private final Map<String, String> ENVIRONMENT = PROCESS_BUILDER.environment();
 
     /***
      * default with no parameters
@@ -29,8 +29,8 @@ public class AzDDefaultParameters {
      * @param personalAccessToken pass the personal access token
      */
     public AzDDefaultParameters(String organization, String personalAccessToken) {
-        this.Organization = organization;
-        this.PersonalAccessToken = personalAccessToken;
+        this.organization = organization;
+        this.personalAccessToken = personalAccessToken;
         setDefaultParameters(organization, null, personalAccessToken);
     }
 
@@ -41,9 +41,9 @@ public class AzDDefaultParameters {
      * @param personalAccessToken pass the personal access token
      */
     public AzDDefaultParameters(String organization, String project, String personalAccessToken) {
-        this.Organization = organization;
-        this.Project = project;
-        this.PersonalAccessToken = personalAccessToken;
+        this.organization = organization;
+        this.project = project;
+        this.personalAccessToken = personalAccessToken;
         setDefaultParameters(organization, project, personalAccessToken);
     }
 
@@ -51,37 +51,37 @@ public class AzDDefaultParameters {
      * Get the default organization name
      * @return organization name
      * */
-    public String getOrganization() { return this.Organization; }
+    public String getOrganization() { return this.organization; }
 
     /**
      * Set the organization name to default
      * @param organization pass the organization name
      * */
-    public void setOrganization(String organization) { this.Organization = organization; }
+    public void setOrganization(String organization) { this.organization = organization; }
 
     /**
      * Get the default Project name
      * @return project name
      * */
-    public String getProject() { return this.Project; }
+    public String getProject() { return this.project; }
 
     /**
      * Set the project name to default
      * @param project pass the project name
      * */
-    public void setProject(String project) { this.Project = project; }
+    public void setProject(String project) { this.project = project; }
 
     /**
      * Get the personal access token
      * @return the personal access token
      * */
-    public String getPersonalAccessToken() { return this.PersonalAccessToken; }
+    public String getPersonalAccessToken() { return this.personalAccessToken; }
 
     /**
      * Set the personal access token
      * @param personalAccessToken pass the personal access token
      * */
-    public void setPersonalAccessToken(String personalAccessToken) { this.PersonalAccessToken = personalAccessToken; }
+    public void setPersonalAccessToken(String personalAccessToken) { this.personalAccessToken = personalAccessToken; }
 
     /**
      * This sets the passed default parameters as environment variables in the process level
@@ -90,11 +90,11 @@ public class AzDDefaultParameters {
      * @param project pass the project name
      * */
     private void setDefaultParameters(String organization, String project, String personalAccessToken) {
-        env.put("AZD_ORG", organization);
-        env.put("AZD_TOKEN", personalAccessToken);
+        ENVIRONMENT.put("AZD_ORG", organization);
+        ENVIRONMENT.put("AZD_TOKEN", personalAccessToken);
 
         if (project != null) {
-            env.put("AZD_PROJECT", project);
+            ENVIRONMENT.put("AZD_PROJECT", project);
         }
     }
 }

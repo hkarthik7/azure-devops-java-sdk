@@ -51,7 +51,7 @@ public class Git {
             }});
         }};
 
-        String r = Request.request(RequestMethod.POST.toString(), DEFAULT_PARAMETERS, ResourceId.GIT, projectId,
+        String r = Request.request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.GIT, projectId,
                         AREA, null, "repositories", GitVersion.VERSION, null, h);
 
         return MAPPER.readValue(r, Repository.class);
@@ -67,7 +67,7 @@ public class Git {
 
         if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
-        Request.request(RequestMethod.DELETE.toString(), DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+        Request.request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
                 AREA + "/repositories", repositoryId, null, GitVersion.VERSION, null, null);
     }
 
@@ -81,7 +81,7 @@ public class Git {
 
         if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
-        Request.request(RequestMethod.DELETE.toString(), DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+        Request.request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
                 AREA + "/recycleBin/repositories", repositoryId, null, GitVersion.VERSION, null, null);
     }
 
@@ -95,7 +95,7 @@ public class Git {
 
         if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
-        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+        String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
                         AREA, null, "deletedrepositories", GitVersion.VERSION, null, null);
 
         return MAPPER.readValue(r, Map.class);
@@ -111,7 +111,7 @@ public class Git {
 
         if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
-        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+        String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
                         AREA, null, "recycleBin/repositories", GitVersion.VERSION, null, null);
 
         return MAPPER.readValue(r, Map.class);
@@ -128,7 +128,7 @@ public class Git {
 
         if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
-        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+        String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
                         AREA + "/repositories", repositoryName, null, GitVersion.VERSION, null, null);
 
         return MAPPER.readValue(r, Repository.class);
@@ -144,7 +144,7 @@ public class Git {
 
         if(DEFAULT_PARAMETERS.getProject() == null) { validateDefaultParameters(); }
 
-        String r = Request.request(RequestMethod.GET.toString(), DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+        String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
                         AREA, null, "repositories", GitVersion.VERSION, null, null);
 
         return MAPPER.readValue(r, Repositories.class);
@@ -167,7 +167,7 @@ public class Git {
             put("deleted", deleted);
         }};
 
-        String r = Request.request(RequestMethod.PATCH.toString(), DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+        String r = Request.request(RequestMethod.PATCH, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
                         AREA + "/recycleBin/repositories", repositoryId, null, GitVersion.VERSION, null, h);
 
         return MAPPER.readValue(r, Repository.class);
@@ -191,7 +191,7 @@ public class Git {
             put("defaultBranch", "refs/heads/" + defaultBranchName);
         }};
 
-        String r = Request.request(RequestMethod.PATCH.toString(), DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+        String r = Request.request(RequestMethod.PATCH, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
                         AREA + "/repositories", repositoryId, null, GitVersion.VERSION, null, h);
 
         return MAPPER.readValue(r, Repository.class);
@@ -229,7 +229,7 @@ public class Git {
             put("reviewers", o);
         }};
 
-        String r = Request.request(RequestMethod.POST.toString(), DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+        String r = Request.request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
                 AREA + "/repositories", repositoryId, "pullrequests", GitVersion.VERSION, null, h);
 
         return MAPPER.readValue(r, PullRequest.class);
