@@ -14,8 +14,6 @@ public class AzDDefaultParameters {
     private String organization;
     private String project;
     private String personalAccessToken;
-    private final ProcessBuilder PROCESS_BUILDER = new ProcessBuilder();
-    private final Map<String, String> ENVIRONMENT = PROCESS_BUILDER.environment();
 
     /***
      * default with no parameters
@@ -90,11 +88,11 @@ public class AzDDefaultParameters {
      * @param project pass the project name
      * */
     private void setDefaultParameters(String organization, String project, String personalAccessToken) {
-        ENVIRONMENT.put("AZD_ORG", organization);
-        ENVIRONMENT.put("AZD_TOKEN", personalAccessToken);
+        System.setProperty("AZD_ORG", organization);
+        System.setProperty("AZD_TOKEN", personalAccessToken);
 
         if (project != null) {
-            ENVIRONMENT.put("AZD_PROJECT", project);
+            System.setProperty("AZD_PROJECT", project);
         }
     }
 }
