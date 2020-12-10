@@ -255,4 +255,92 @@ public class Git {
 
         return null;
     }
+
+    /***
+     * Retrieve a pull request.
+     * @param repositoryName The repository name of the pull request's target branch.
+     * @param pullRequestId The ID of the pull request to retrieve.
+     * @return {@link PullRequest} object
+     */
+    public PullRequest getPullRequest(String repositoryName, int pullRequestId) {
+
+        try {
+
+            String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+                    AREA + "/repositories", repositoryName, "pullrequests/" + pullRequestId, GitVersion.VERSION, null,null);
+
+            return MAPPER.readValue(r, PullRequest.class);
+
+        } catch (Exception e) {
+            AzDException.handleException(e);
+        }
+
+        return null;
+    }
+
+    /***
+     * Retrieve a pull request.
+     * @param pullRequestId The ID of the pull request to retrieve.
+     * @return {@link PullRequest} object
+     */
+    public PullRequest getPullRequestById(int pullRequestId) {
+
+        try {
+
+            String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+                    AREA + "/pullrequests", Integer.toString(pullRequestId), null, GitVersion.VERSION, null,null);
+
+            return MAPPER.readValue(r, PullRequest.class);
+
+        } catch (Exception e) {
+            AzDException.handleException(e);
+        }
+
+        return null;
+    }
+
+    /***
+     * Retrieve all pull requests from a repository
+     * @param repositoryName specify the repository name
+     * @return {@link PullRequest} object
+     */
+    public PullRequest getPullRequests(String repositoryName) {
+
+        try {
+
+            String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+                    AREA + "/repositories", repositoryName, "pullrequests", GitVersion.VERSION, null,null);
+
+            return MAPPER.readValue(r, PullRequest.class);
+
+        } catch (Exception e) {
+            AzDException.handleException(e);
+        }
+
+        return null;
+    }
+
+    /***
+     * Gets all pull requests from a project. To get the pull requests from non-default project you have to call setProject
+     * method from {@link AzDDefaultParameters}.
+     * @return {@link PullRequest} object
+     */
+    public PullRequest getPullRequestsByProject() {
+
+        try {
+
+            String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+                    AREA, null, "pullrequests", GitVersion.VERSION, null,null);
+
+            return MAPPER.readValue(r, PullRequest.class);
+
+        } catch (Exception e) {
+            AzDException.handleException(e);
+        }
+
+        return null;
+    }
+
+    // TODO: Create method for updating pull request
+
 }
