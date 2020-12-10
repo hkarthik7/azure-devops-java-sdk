@@ -77,4 +77,24 @@ public class GitTest {
                 "refs/heads/master", "refs/heads/develop", "New feature", "Adding new feature",
                 new String[]{ "d6245f20-2af8-44f4-9451-8107cb2767db" });
     }
+
+    @Test
+    public void shouldRetrieveAPullRequest() {
+        g.getPullRequest(g.getRepositories().getRepositories().stream().findFirst().get().getName(), 2);
+    }
+
+    @Test
+    public void shouldRetrieveAPullRequestById() {
+        g.getPullRequestById(2);
+    }
+
+    @Test
+    public void shouldRetrieveAllPullRequestsFromARepository() {
+        g.getPullRequests(g.getRepositories().getRepositories().stream().findFirst().get().getName());
+    }
+
+    @Test
+    public void shouldGetPullRequestsByProject() {
+        g.getPullRequestsByProject();
+    }
 }
