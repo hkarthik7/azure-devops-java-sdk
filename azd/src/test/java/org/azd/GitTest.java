@@ -1,8 +1,6 @@
 package org.azd;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.azd.core.Core;
-import org.azd.exceptions.DefaultParametersException;
 import org.azd.git.Git;
 import org.azd.utils.AzDDefaultParameters;
 import org.junit.Before;
@@ -12,76 +10,69 @@ import java.io.File;
 import java.io.IOException;
 
 public class GitTest {
-    private static ObjectMapper mapper = new ObjectMapper();
-    private static String dir;
-    private static File file;
-    private static MockParameters m;
-    private static String organization;
-    private static String token;
-    private static String project;
-    private static AzDDefaultParameters defaultParameters;
+    private static final ObjectMapper MAPPER = new ObjectMapper();
     private static Git g;
 
 
     @Before
     public void init() throws IOException {
-        dir = System.getProperty("user.dir");
-        file = new File(dir + "/src/test/java/org/azd/_unitTest.json");
-        m = mapper.readValue(file, MockParameters.class);
-        organization = m.getO();
-        token = m.getT();
-        project = m.getP();
-        defaultParameters = new AzDDefaultParameters(organization, project, token);
+        String dir = System.getProperty("user.dir");
+        File file = new File(dir + "/src/test/java/org/azd/_unitTest.json");
+        MockParameters m = MAPPER.readValue(file, MockParameters.class);
+        String organization = m.getO();
+        String token = m.getT();
+        String project = m.getP();
+        AzDDefaultParameters defaultParameters = new AzDDefaultParameters(organization, project, token);
         g = new Git(defaultParameters);
     }
 
     @Test
-    public void shouldCreateANewRepository() throws DefaultParametersException, IOException {
+    public void shouldCreateANewRepository() {
         g.createRepository("testRepository", "00000000-0000-0000-0000-000000000000");
     }
 
     @Test
-    public void shouldDeleteRepository() throws DefaultParametersException, IOException {
+    public void shouldDeleteRepository() {
         g.deleteRepository("00000000-0000-0000-0000-000000000000");
     }
 
     @Test
-    public void shouldDeleteRepositoryFromRecycleBin() throws DefaultParametersException, IOException {
+    public void shouldDeleteRepositoryFromRecycleBin() {
         g.deleteRepositoryFromRecycleBin("00000000-0000-0000-0000-000000000000");
     }
 
     @Test
-    public void shouldGetDeletedGitRepositories() throws DefaultParametersException, IOException {
+    public void shouldGetDeletedGitRepositories() {
         g.getDeletedRepositories();
     }
 
     @Test
-    public void shouldGetRecycleBinRepositories() throws DefaultParametersException, IOException {
+    public void shouldGetRecycleBinRepositories() {
         g.getRecycleBinRepositories();
     }
 
     @Test
-    public void shouldGetRepository() throws DefaultParametersException, IOException {
+    public void shouldGetRepository() {
         g.getRepository("testRepository");
     }
 
     @Test
-    public void shouldGetRepositories() throws DefaultParametersException, IOException {
+    public void shouldGetRepositories() {
         g.getRepositories();
     }
 
     @Test
-    public void shouldRestoreRepositoryFromRecycleBin() throws DefaultParametersException, IOException {
+    public void shouldRestoreRepositoryFromRecycleBin() {
         g.restoreRepositoryFromRecycleBin("00000000-0000-0000-0000-000000000000", false);
     }
 
     @Test
-    public void shouldUpdateRepository() throws DefaultParametersException, IOException {
+    public void shouldUpdateRepository() {
         g.updateRepository("00000000-0000-0000-0000-000000000000", "newName", "develop");
     }
 
     @Test
-    public void shouldcreateANewPullRequest() throws DefaultParametersException, IOException {
+    public void shouldCreateANewPullRequest() {
         g.createPullRequest(g.getRepositories().getRepositories().stream().findFirst().get().getId(),
                 "refs/heads/master", "refs/heads/develop", "New feature", "Adding new feature",
                 new String[]{ "d6245f20-2af8-44f4-9451-8107cb2767db" });

@@ -10,7 +10,7 @@ import static org.junit.Assert.assertSame;
 public class AzDDefaultParametersTest {
 
     @Test
-    public void shouldReturnOrganiation() {
+    public void shouldReturnOrganisation() {
         // Given
         String organization = "Test";
         String token = "myPersonalAccessToken";

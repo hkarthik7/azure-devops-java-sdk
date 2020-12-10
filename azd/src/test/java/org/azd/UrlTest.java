@@ -1,5 +1,6 @@
 package org.azd;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.azd.exceptions.DefaultParametersException;
 import org.azd.utils.AzDDefaultParameters;
 import org.azd.utils.ResourceId;
@@ -14,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 public class UrlTest {
 
     @Test
-    public void shouldCreateUrlClassAndReturnProjectUrl() throws DefaultParametersException {
+    public void shouldCreateUrlClassAndReturnProjectUrl() throws DefaultParametersException, JsonProcessingException {
         // Given
         String organization = "Test";
         String token = "myPersonalAccessToken";
@@ -36,7 +37,7 @@ public class UrlTest {
     }
 
     @Test
-    public void shouldCreateUrlClassAndReturnProjectUrlWithQueryParameters() throws DefaultParametersException {
+    public void shouldCreateUrlClassAndReturnProjectUrlWithQueryParameters() throws DefaultParametersException, JsonProcessingException {
         // Given
         String organization = "Test";
         String token = "myPersonalAccessToken";
