@@ -2,10 +2,8 @@ package org.azd.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
 
-import java.text.MessageFormat;
 import java.util.HashMap;
 
 import static org.azd.validators.AzDDefaultParametersValidator.validateDefaultParameters;
@@ -25,6 +23,7 @@ public class Url {
     private final String INSTANCE = "https://dev.azure.com/";
     private final AzDDefaultParameters DEFAULT_PARAMETERS;
     private final ObjectMapper MAPPER = new ObjectMapper();
+    private final String LOCATION_URL_VERSION = "5.0-preview.1";
 
 
     /***
@@ -40,21 +39,23 @@ public class Url {
      *  Gets the resource area url based on resource id passed for the organization
      * @param resourceID pass the resource id
      * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
+     * @throws JsonProcessingException If invalid json primitive is encountered.
      * @return resource area url
      */
-    private String getLocationUrl(String resourceID) throws DefaultParametersException {
+    private String getLocationUrl(String resourceID) throws DefaultParametersException, JsonProcessingException {
 
         if (DEFAULT_PARAMETERS.getOrganization() == null) { validateDefaultParameters(); }
 
-        String url = MessageFormat.format("{0}{1}/_apis/resourceAreas/{2}?api-preview=5.0-preview.1",
-                INSTANCE, DEFAULT_PARAMETERS.getOrganization(), resourceID);
+        String url = new StringBuilder().append(INSTANCE)
+                .append(DEFAULT_PARAMETERS.getOrganization())
+                .append("/_apis/resourceAreas/")
+                .append(resourceID)
+                .append("?api-preview=")
+                .append(LOCATION_URL_VERSION)
+                .toString();
 
-        try {
-            String r = MAPPER.readValue(RequestAPI.get(url), LocationUrl.class).getLocationUrl();
-            return r.replaceAll("/$","");
-        } catch (JsonProcessingException e) {
-            throw new AzDException(e.getMessage());
-        }
+        String r = MAPPER.readValue(RequestAPI.get(url), LocationUrl.class).getLocationUrl();
+        return r.replaceAll("/$","");
     }
 
     /**
@@ -76,7 +77,7 @@ public class Url {
             String id,
             String resource,
             String apiVersion,
-            HashMap<String, Object> queryString) throws DefaultParametersException {
+            HashMap<String, Object> queryString) throws DefaultParametersException, JsonProcessingException {
         // build the request url to dynamically serve the API requests
 
         StringBuilder stringBuilder = new StringBuilder();

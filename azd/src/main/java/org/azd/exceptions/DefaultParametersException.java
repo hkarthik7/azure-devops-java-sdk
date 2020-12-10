@@ -8,7 +8,7 @@ package org.azd.exceptions;
 @SuppressWarnings("serial")
 public class DefaultParametersException extends Exception {
     public DefaultParametersException() {
-        super("Please instantiate 'AzDDefaultParameters' class with mandatory parameters 'organization', 'project' and 'personal access token' before calling any functions in this library.");
+        super("Please instantiate 'AzDDefaultParameters' class with mandatory parameters 'organization', 'project' and 'personal access token' before calling any methods in this library.");
     }
 
     public DefaultParametersException(String message) {

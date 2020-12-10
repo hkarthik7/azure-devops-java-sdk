@@ -2,13 +2,12 @@ package org.azd.core;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.azd.core.types.*;
-import org.azd.exceptions.DefaultParametersException;
+import org.azd.exceptions.AzDException;
 import org.azd.utils.AzDDefaultParameters;
 import org.azd.utils.Request;
 import org.azd.utils.RequestMethod;
 import org.azd.utils.ResourceId;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -33,15 +32,20 @@ public class Core {
     /***
      * Get a list of processes.
      * @return a list of processes
-     * @throws DefaultParametersException -> {@link DefaultParametersException}
-     * @throws IOException -> {@link IOException}
      */
-    public Processes getProcesses() throws IOException, DefaultParametersException {
+    public Processes getProcesses() {
 
-        String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.CORE,null,
-                        "process/processes",null,null, CoreVersion.VERSION,null,null);
+        try {
+            String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.CORE,null,
+                            "process/processes",null,null, CoreVersion.VERSION,null,null);
 
-        return MAPPER.readValue(r, Processes.class);
+            return MAPPER.readValue(r, Processes.class);
+
+        } catch (Exception e) {
+            AzDException.handleException(e);
+        }
+
+        return null;
     }
 
     /***
@@ -49,28 +53,33 @@ public class Core {
      * @param projectName pass the project name
      * @param description pass the description for the project
      * @return object with link to the project
-     * @throws DefaultParametersException -> {@link DefaultParametersException}
-     * @throws IOException -> {@link IOException}
      */
-    public Map createProject(String projectName, String description) throws IOException, DefaultParametersException {
+    public Map createProject(String projectName, String description) {
 
-        LinkedHashMap<String, Object> h = new LinkedHashMap<>() {{
-            put("name", projectName);
-            put("description", description);
-            put("capabilities", new LinkedHashMap<String, Object>() {{
-                put("versioncontrol", new LinkedHashMap<String, Object>() {{
-                    put("sourceControlType", "Git");
+        try {
+            LinkedHashMap<String, Object> h = new LinkedHashMap<>() {{
+                put("name", projectName);
+                put("description", description);
+                put("capabilities", new LinkedHashMap<String, Object>() {{
+                    put("versioncontrol", new LinkedHashMap<String, Object>() {{
+                        put("sourceControlType", "Git");
+                    }});
+                    put("processTemplate", new LinkedHashMap<String, Object>() {{
+                        put("templateTypeId", "6b724908-ef14-45cf-84f8-768b5384da45");
+                    }});
                 }});
-                put("processTemplate", new LinkedHashMap<String, Object>() {{
-                    put("templateTypeId", "6b724908-ef14-45cf-84f8-768b5384da45");
-                }});
-            }});
-        }};
+            }};
 
-        String r = Request.request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.CORE,null,
-                        "projects",null, null, CoreVersion.PROJECT,null, h);
+            String r = Request.request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.CORE,null,
+                            "projects",null, null, CoreVersion.PROJECT,null, h);
 
-        return MAPPER.readValue(r, Map.class);
+            return MAPPER.readValue(r, Map.class);
+
+        } catch (Exception e) {
+            AzDException.handleException(e);
+        }
+
+        return null;
     }
 
     /***
@@ -80,29 +89,34 @@ public class Core {
      * @param sourceControlType type of version control
      * @param templateTypeId pass the process id. Run getProcesses to get the list of process id
      * @return object with link to the project
-     * @throws DefaultParametersException -> {@link DefaultParametersException}
-     * @throws IOException -> {@link IOException}
      */
     public Map createProject(String projectName, String description, String sourceControlType,
-                             String templateTypeId) throws IOException, DefaultParametersException {
+                             String templateTypeId) {
 
-        LinkedHashMap<String, Object> h = new LinkedHashMap<>() {{
-            put("name", projectName);
-            put("description", description);
-            put("capabilities", new LinkedHashMap<String, Object>() {{
-                put("versioncontrol", new LinkedHashMap<String, Object>() {{
-                    put("sourceControlType", sourceControlType);
+        try {
+            LinkedHashMap<String, Object> h = new LinkedHashMap<>() {{
+                put("name", projectName);
+                put("description", description);
+                put("capabilities", new LinkedHashMap<String, Object>() {{
+                    put("versioncontrol", new LinkedHashMap<String, Object>() {{
+                        put("sourceControlType", sourceControlType);
+                    }});
+                    put("processTemplate", new LinkedHashMap<String, Object>() {{
+                        put("templateTypeId", templateTypeId);
+                    }});
                 }});
-                put("processTemplate", new LinkedHashMap<String, Object>() {{
-                    put("templateTypeId", templateTypeId);
-                }});
-            }});
-        }};
+            }};
 
-        String r = Request.request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.CORE,null,
-                        "projects",null,null, CoreVersion.PROJECT, null, h);
+            String r = Request.request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.CORE,null,
+                            "projects",null,null, CoreVersion.PROJECT, null, h);
 
-        return MAPPER.readValue(r, Map.class);
+            return MAPPER.readValue(r, Map.class);
+
+        } catch (Exception e) {
+            AzDException.handleException(e);
+        }
+
+        return null;
     }
 
     /***
@@ -114,30 +128,40 @@ public class Core {
      * </p>
      * @param projectId pass the project id
      * @return object of deleted project with url
-     * @throws DefaultParametersException -> {@link DefaultParametersException}
-     * @throws IOException -> {@link IOException}
      */
-    public Map deleteProject(String projectId) throws IOException, DefaultParametersException {
+    public Map deleteProject(String projectId) {
 
-        String r = Request.request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.CORE, null,
-                        "projects", projectId,null, CoreVersion.PROJECT,null,null);
+        try {
+            String r = Request.request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.CORE, null,
+                            "projects", projectId,null, CoreVersion.PROJECT,null,null);
 
-        return MAPPER.readValue(r, Map.class);
+            return MAPPER.readValue(r, Map.class);
+
+        } catch (Exception e) {
+            AzDException.handleException(e);
+        }
+
+        return null;
     }
 
     /***
      * Get project with the specified id or name
      * @param projectName pass the project name or id
      * @return project object {@link Project}
-     * @throws DefaultParametersException -> {@link DefaultParametersException}
-     * @throws IOException -> {@link IOException}
      */
-    public Project getProject(String projectName) throws IOException, DefaultParametersException {
+    public Project getProject(String projectName) {
 
-        String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.CORE,null,
-                        "projects", projectName,null, CoreVersion.PROJECT,null,null);
-
+        try {
+            String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.CORE,null,
+                            "projects", projectName,null, CoreVersion.PROJECT,null,null);
         return MAPPER.readValue(r, Project.class);
+
+        } catch (Exception e) {
+            AzDException.handleException(e);
+
+        }
+
+        return null;
     }
 
     /***
@@ -146,49 +170,64 @@ public class Core {
      * @param includeCapabilities Include capabilities (such as source control) in the team project result (default: false).
      * @param includeHistory Search within renamed projects (that had such name in the past).
      * @return project object {@link Project}
-     * @throws DefaultParametersException -> {@link DefaultParametersException}
-     * @throws IOException -> {@link IOException}
      */
-    public Project getProject(String projectName, boolean includeCapabilities, boolean includeHistory) throws IOException, DefaultParametersException {
+    public Project getProject(String projectName, boolean includeCapabilities, boolean includeHistory) {
 
-        HashMap<String, Object> q = new HashMap<>() {{
-            put("includeCapabilities", includeCapabilities);
-            put("includeHistory", includeHistory);
-        }};
+        try {
+            HashMap<String, Object> q = new HashMap<>() {{
+                put("includeCapabilities", includeCapabilities);
+                put("includeHistory", includeHistory);
+            }};
 
-        String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.CORE,null,
-                        "projects", projectName,null, CoreVersion.PROJECT, q,null);
+            String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.CORE,null,
+                            "projects", projectName,null, CoreVersion.PROJECT, q,null);
 
-        return MAPPER.readValue(r, Project.class);
+            return MAPPER.readValue(r, Project.class);
+
+        } catch (Exception e) {
+            AzDException.handleException(e);
+        }
+
+        return null;
     }
 
     /***
      * Get a collection of team project properties.
      * @param projectId provide the project guid not the project name
      * @return array of key value pairs
-     * @throws DefaultParametersException -> {@link DefaultParametersException}
-     * @throws IOException -> {@link IOException}
      */
-    public Map getProjectProperties(String projectId) throws IOException, DefaultParametersException {
+    public Map getProjectProperties(String projectId) {
 
-        String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.CORE, null,
-                "projects", projectId, null, CoreVersion.PROJECT_PROPERTIES, null, null);
+        try {
+            String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.CORE, null,
+                    "projects", projectId, null, CoreVersion.PROJECT_PROPERTIES, null, null);
 
-        return MAPPER.readValue(r, Map.class);
+            return MAPPER.readValue(r, Map.class);
+
+        } catch (Exception e) {
+            AzDException.handleException(e);
+        }
+
+        return null;
     }
 
     /***
      * Get all projects in the organization that the authenticated user has access to.
      * @return array of projects {@link Projects}
-     * @throws DefaultParametersException -> {@link DefaultParametersException}
-     * @throws IOException -> {@link IOException}
      */
-    public Projects getProjects() throws IOException, DefaultParametersException {
+    public Projects getProjects() {
 
-        String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.CORE, null,
-                        "projects", null, null, CoreVersion.PROJECT, null, null);
+        try {
+            String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.CORE, null,
+                            "projects", null, null, CoreVersion.PROJECT, null, null);
 
-        return MAPPER.readValue(r, Projects.class);
+            return MAPPER.readValue(r, Projects.class);
+
+        } catch (Exception e) {
+            AzDException.handleException(e);
+        }
+
+        return null;
     }
 
     /***
@@ -199,24 +238,29 @@ public class Core {
      * @param getDefaultTeamImageUrl if true gets the default team image url
      * @param stateFilter allowed values are [all, createPending, deleted, deleting, new, unchanged, wellFormed]
      * @return array of projects {@link Projects}
-     * @throws DefaultParametersException -> {@link DefaultParametersException}
-     * @throws IOException -> {@link IOException}
      */
     public Projects getProjects(int skip, int top, String continuationToken,
-                                boolean getDefaultTeamImageUrl, String stateFilter) throws IOException, DefaultParametersException {
+                                boolean getDefaultTeamImageUrl, String stateFilter) {
 
-        HashMap<String, Object> q = new HashMap<>(){{
-            put("$skip", skip);
-            put("$top", top);
-            put("continuationToken", continuationToken);
-            put("getDefaultTeamImageUrl", getDefaultTeamImageUrl);
-            put("stateFilter", stateFilter);
-        }};
+        try {
+            HashMap<String, Object> q = new HashMap<>(){{
+                put("$skip", skip);
+                put("$top", top);
+                put("continuationToken", continuationToken);
+                put("getDefaultTeamImageUrl", getDefaultTeamImageUrl);
+                put("stateFilter", stateFilter);
+            }};
 
-        String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.CORE, null,
-                        "projects", null, null, CoreVersion.PROJECT, q, null);
+            String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.CORE, null,
+                            "projects", null, null, CoreVersion.PROJECT, q, null);
 
-        return MAPPER.readValue(r, Projects.class);
+            return MAPPER.readValue(r, Projects.class);
+
+        } catch (Exception e) {
+            AzDException.handleException(e);
+        }
+
+        return null;
     }
 
     /***
@@ -225,16 +269,20 @@ public class Core {
      * @param projectParameters HashMap of project parameters to be updated.
      * <p> Refer "https://docs.microsoft.com/en-us/rest/api/azure/devops/core/projects/update?view=azure-devops-rest-6.1" </p>
      * @return an object or team project with url
-     * @throws DefaultParametersException -> {@link DefaultParametersException}
-     * @throws IOException -> {@link IOException}
      */
-    public Map updateProject(String projectId, HashMap<String, Object> projectParameters) throws IOException, DefaultParametersException {
+    public Map updateProject(String projectId, HashMap<String, Object> projectParameters) {
 
+        try {
+            String r = Request.request(RequestMethod.PATCH, DEFAULT_PARAMETERS, ResourceId.CORE, null,
+                            "projects", projectId, null, CoreVersion.PROJECT, null, projectParameters);
 
-        String r = Request.request(RequestMethod.PATCH, DEFAULT_PARAMETERS, ResourceId.CORE, null,
-                        "projects", projectId, null, CoreVersion.PROJECT, null, projectParameters);
+            return MAPPER.readValue(r, Map.class);
 
-        return MAPPER.readValue(r, Map.class);
+        } catch (Exception e) {
+            AzDException.handleException(e);
+        }
+
+        return null;
     }
 
     /***
@@ -242,32 +290,39 @@ public class Core {
      * @param projectName project name or GUID
      * @param teamName pass the team name
      * @return returns web api object
-     * @throws DefaultParametersException -> {@link DefaultParametersException}
-     * @throws IOException -> {@link IOException}
      */
-    public Map createTeam(String projectName, String teamName) throws IOException, DefaultParametersException {
+    public Map createTeam(String projectName, String teamName) {
 
-        HashMap<String, Object> h = new HashMap<>(){{
-            put("name", teamName);
-        }};
+        try {
+            HashMap<String, Object> h = new HashMap<>(){{
+                put("name", teamName);
+            }};
 
-        String r = Request.request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.CORE, null,
-                        "projects", projectName, "teams", CoreVersion.PROJECT_TEAMS, null, h);
+            String r = Request.request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.CORE, null,
+                            "projects", projectName, "teams", CoreVersion.PROJECT_TEAMS, null, h);
 
-        return MAPPER.readValue(r, Map.class);
+            return MAPPER.readValue(r, Map.class);
+
+        } catch (Exception e) {
+            AzDException.handleException(e);
+        }
+
+        return null;
     }
 
     /***
      * Delete a team.
      * @param projectName pass the project name or id
      * @param teamName pass the team name
-     * @throws DefaultParametersException -> {@link DefaultParametersException}
-     * @throws IOException -> {@link IOException}
      */
-    public void deleteTeam(String projectName, String teamName) throws IOException, DefaultParametersException {
+    public void deleteTeam(String projectName, String teamName) {
 
-        Request.request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.CORE, null,
-                "projects", projectName, "teams/" + teamName, CoreVersion.PROJECT_TEAMS, null, null);
+        try {
+            Request.request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.CORE, null,
+                    "projects", projectName, "teams/" + teamName, CoreVersion.PROJECT_TEAMS, null, null);
+        } catch (Exception e) {
+            AzDException.handleException(e);
+        }
     }
 
     /***
@@ -275,15 +330,20 @@ public class Core {
      * @param projectName pass the project name or id
      * @param teamName pass the team name
      * @return team object
-     * @throws DefaultParametersException -> {@link DefaultParametersException}
-     * @throws IOException -> {@link IOException}
      */
-    public Team getTeam(String projectName, String teamName) throws IOException, DefaultParametersException {
+    public Team getTeam(String projectName, String teamName) {
 
-        String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.CORE, null,
-                        "projects", projectName, "teams/" + teamName, CoreVersion.PROJECT_TEAMS, null, null);
+        try {
+            String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.CORE, null,
+                            "projects", projectName, "teams/" + teamName, CoreVersion.PROJECT_TEAMS, null, null);
 
-        return MAPPER.readValue(r, Team.class);
+            return MAPPER.readValue(r, Team.class);
+
+        } catch (Exception e) {
+            AzDException.handleException(e);
+        }
+
+        return null;
     }
 
     /***
@@ -292,33 +352,41 @@ public class Core {
      * @param teamName pass the team name
      * @param expandIdentity if true gets the identity object
      * @return team object
-     * @throws DefaultParametersException -> {@link DefaultParametersException}
-     * @throws IOException -> {@link IOException}
      */
-    public Team getTeam(String projectName, String teamName, boolean expandIdentity) throws IOException, DefaultParametersException {
+    public Team getTeam(String projectName, String teamName, boolean expandIdentity) {
 
-        HashMap<String, Object> q = new HashMap<>(){{
-            put("$expandIdentity", expandIdentity);
-        }};
+        try {
+            HashMap<String, Object> q = new HashMap<>(){{
+                put("$expandIdentity", expandIdentity);
+            }};
 
-        String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.CORE, null,
-                "projects", projectName, "teams/" + teamName, CoreVersion.PROJECT_TEAMS, q, null);
+            String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.CORE, null,
+                    "projects", projectName, "teams/" + teamName, CoreVersion.PROJECT_TEAMS, q, null);
 
-        return MAPPER.readValue(r, Team.class);
+            return MAPPER.readValue(r, Team.class);
+
+        } catch (Exception e) {
+            AzDException.handleException(e);
+        }
+
+        return null;
     }
 
     /***
      * Get a list of all teams.
      * @return array of team
-     * @throws DefaultParametersException -> {@link DefaultParametersException}
-     * @throws IOException -> {@link IOException}
      */
-    public Teams getTeams() throws IOException, DefaultParametersException {
+    public Teams getTeams() {
 
-        String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.CORE, null,
-                        "teams", null, null, CoreVersion.PROJECT_TEAMS, null, null);
+        try {
+            String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.CORE, null,
+                            "teams", null, null, CoreVersion.PROJECT_TEAMS, null, null);
+            return MAPPER.readValue(r, Teams.class);
+        } catch (Exception e) {
+            AzDException.handleException(e);
+        }
 
-        return MAPPER.readValue(r, Teams.class);
+        return null;
     }
 
     /***
@@ -328,22 +396,27 @@ public class Core {
      * @param skip pass to skip number of teams
      * @param top pass to retrieve number of teams
      * @return array of team
-     * @throws DefaultParametersException -> {@link DefaultParametersException}
-     * @throws IOException -> {@link IOException}
      */
-    public Teams getTeams(boolean expandIdentity, String mine, int skip, int top) throws IOException, DefaultParametersException {
+    public Teams getTeams(boolean expandIdentity, String mine, int skip, int top) {
 
-        HashMap<String, Object> q = new HashMap<>(){{
-            put("$expandIdentity", expandIdentity);
-            put("$mine", mine);
-            put("$skip", skip);
-            put("$top", top);
-        }};
+        try {
+            HashMap<String, Object> q = new HashMap<>(){{
+                put("$expandIdentity", expandIdentity);
+                put("$mine", mine);
+                put("$skip", skip);
+                put("$top", top);
+            }};
 
-        String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.CORE, null,
-                        "teams", null, null, CoreVersion.PROJECT_TEAMS, q, null);
+            String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.CORE, null,
+                            "teams", null, null, CoreVersion.PROJECT_TEAMS, q, null);
 
-        return MAPPER.readValue(r, Teams.class);
+            return MAPPER.readValue(r, Teams.class);
+
+        } catch (Exception e) {
+            AzDException.handleException(e);
+        }
+
+        return null;
     }
 
     /***
@@ -352,19 +425,24 @@ public class Core {
      * @param teamName The name or ID of the team to update.
      * @param description provide the description for your team to update
      * @return team object {@link Team}
-     * @throws DefaultParametersException -> {@link DefaultParametersException}
-     * @throws IOException -> {@link IOException}
      */
-    public Team updateTeams(String projectName, String teamName, String description) throws IOException, DefaultParametersException {
+    public Team updateTeams(String projectName, String teamName, String description) {
 
-        HashMap<String, Object> h = new HashMap<>(){{
-            put("name", teamName);
-            put("description", description);
-        }};
+        try {
+            HashMap<String, Object> h = new HashMap<>(){{
+                put("name", teamName);
+                put("description", description);
+            }};
 
-        String r = Request.request(RequestMethod.PATCH, DEFAULT_PARAMETERS, ResourceId.CORE, null,
-                        "projects", projectName, "teams/" + teamName, CoreVersion.PROJECT_TEAMS, null, h);
+            String r = Request.request(RequestMethod.PATCH, DEFAULT_PARAMETERS, ResourceId.CORE, null,
+                            "projects", projectName, "teams/" + teamName, CoreVersion.PROJECT_TEAMS, null, h);
 
-        return MAPPER.readValue(r, Team.class);
+            return MAPPER.readValue(r, Team.class);
+
+        } catch (Exception e) {
+            AzDException.handleException(e);
+        }
+
+        return null;
     }
 }
