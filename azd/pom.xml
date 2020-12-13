@@ -6,7 +6,7 @@
 
   <groupId>org.azd</groupId>
   <artifactId>azd</artifactId>
-  <version>0.1.0</version>
+  <version>0.2.1</version>
 <packaging>jar</packaging>
   <name>azd</name>
 
@@ -72,6 +72,19 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-jar-plugin</artifactId>
           <version>3.0.2</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>3.2.0</version>
+          <executions>
+            <execution>
+              <id>attach-javadocs</id>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
