@@ -3,6 +3,7 @@ package org.azd.git;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.azd.exceptions.AzDException;
 import org.azd.git.types.PullRequest;
+import org.azd.git.types.PullRequests;
 import org.azd.git.types.Repositories;
 import org.azd.git.types.Repository;
 import org.azd.utils.AzDDefaultParameters;
@@ -11,6 +12,7 @@ import org.azd.utils.RequestMethod;
 import org.azd.utils.ResourceId;
 
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 
 /***
  * GIT class to manage git API
@@ -304,14 +306,14 @@ public class Git {
      * @param repositoryName specify the repository name
      * @return {@link PullRequest} object
      */
-    public PullRequest getPullRequests(String repositoryName) {
+    public PullRequests getPullRequests(String repositoryName) {
 
         try {
 
             String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
                     AREA + "/repositories", repositoryName, "pullrequests", GitVersion.VERSION, null,null);
 
-            return MAPPER.readValue(r, PullRequest.class);
+            return MAPPER.readValue(r, PullRequests.class);
 
         } catch (Exception e) {
             AzDException.handleException(e);
@@ -325,14 +327,14 @@ public class Git {
      * method from {@link AzDDefaultParameters}.
      * @return {@link PullRequest} object
      */
-    public PullRequest getPullRequestsByProject() {
+    public PullRequests getPullRequestsByProject() {
 
         try {
 
             String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
                     AREA, null, "pullrequests", GitVersion.VERSION, null,null);
 
-            return MAPPER.readValue(r, PullRequest.class);
+            return MAPPER.readValue(r, PullRequests.class);
 
         } catch (Exception e) {
             AzDException.handleException(e);
@@ -340,7 +342,5 @@ public class Git {
 
         return null;
     }
-
-    // TODO: Create method for updating pull request
 
 }

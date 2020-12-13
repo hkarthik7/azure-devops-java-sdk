@@ -95,6 +95,6 @@ public class GitTest {
 
     @Test
     public void shouldGetPullRequestsByProject() {
-        g.getPullRequestsByProject();
+        g.getPullRequestsByProject().getPullRequests();
     }
 }
