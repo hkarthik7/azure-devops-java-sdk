@@ -12,7 +12,6 @@ import org.azd.utils.RequestMethod;
 import org.azd.utils.ResourceId;
 
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
 
 /***
  * GIT class to manage git API
