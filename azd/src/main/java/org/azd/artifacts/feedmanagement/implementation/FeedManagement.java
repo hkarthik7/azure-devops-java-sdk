@@ -41,7 +41,7 @@ public class FeedManagement {
      * @param description Provide the description for the feed
      * @param badgesEnabled Enable or disable the badge in the feed. Default to false.
      * @param hideDeletedPackageVersions Hides the deleted package version. Default to true.
-     * @return Feed object -> {@link Feed}
+     * @return Feed object {@link Feed}
      */
     public Feed createFeed(
             String name, String description, boolean badgesEnabled,

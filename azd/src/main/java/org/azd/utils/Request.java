@@ -24,8 +24,8 @@ public class Request {
      * @param queryString query string to append the url
      * @param body body of the request to post and patch
      * @return String response from API
-     * @throws DefaultParametersException -> {@link DefaultParametersException}
-     * @throws IOException -> {@link IOException}
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws IOException {@link IOException}
      */
     public static String request(
             RequestMethod requestMethod,
@@ -73,8 +73,8 @@ public class Request {
      * @param body body of the request to post and patch
      * @param contentType content type to pass in the request header
      * @return String response from API
-     * @throws DefaultParametersException -> {@link DefaultParametersException}
-     * @throws IOException -> {@link IOException}
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws IOException {@link IOException}
      */
     public static String request(
             RequestMethod requestMethod,
@@ -128,8 +128,8 @@ public class Request {
      * @param requestBody body of the request to post and patch. This should be a list of HashMap
      * @param contentType content type to pass in the request header
      * @return String response from API
-     * @throws DefaultParametersException -> {@link DefaultParametersException}
-     * @throws IOException -> {@link IOException}
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws IOException {@link IOException}
      */
     public static String request(
             RequestMethod requestMethod,
