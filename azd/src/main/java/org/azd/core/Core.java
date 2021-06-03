@@ -11,6 +11,8 @@ import org.azd.utils.ResourceId;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /***
  * Core class to manage core API
@@ -222,6 +224,31 @@ public class Core {
                             "projects", null, null, CoreVersion.PROJECT, null, null);
 
             return MAPPER.readValue(r, Projects.class);
+
+        } catch (Exception e) {
+            AzDException.handleException(e);
+        }
+
+        return null;
+    }
+
+    /***
+     * Get all projects in the organization that the authenticated user has access to.
+     * @return array of projects {@link Projects}
+     */
+    public Workitems getWorkitems(String projectId, Set<Integer> workItemIds) {
+        if(workItemIds == null || workItemIds.isEmpty()){
+            throw new RuntimeException("getWorkitems: list of ids is mandatory");
+        }
+        String idList = workItemIds.stream().map(f -> f.toString()).collect(Collectors.joining(","));
+                //Arrays.stream(ops).map(f -> f.toString()).collect(Collectors.joining(","))
+        HashMap<String,Object> queryParam = new HashMap();
+        queryParam.put("ids",idList);
+        try {
+            String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.CORE, projectId,
+                            "wit/workitems", null, null, CoreVersion.PROJECT_WORK_ITEMS, queryParam, null);
+
+            return MAPPER.readValue(r, Workitems.class);
 
         } catch (Exception e) {
             AzDException.handleException(e);
