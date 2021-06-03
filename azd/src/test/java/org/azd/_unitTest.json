@@ -1,5 +1,5 @@
 ﻿{
-  "o": "{{ organization name }}",
-  "t": "{{ personal access token }}",
-  "p": "{{ project name }}"
+  "o": "nektiondemo1",
+  "t": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "p": "68f4fdc2-d212-465c-a6aa-edf89beb9b5f"
 }
