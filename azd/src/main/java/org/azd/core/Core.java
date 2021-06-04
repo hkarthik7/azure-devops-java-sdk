@@ -1,6 +1,10 @@
 package org.azd.core;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.unboundid.scim2.common.messages.PatchOperation;
+import com.unboundid.scim2.common.utils.JsonDiff;
 import org.azd.core.types.*;
 import org.azd.exceptions.AzDException;
 import org.azd.utils.AzDDefaultParameters;
@@ -8,10 +12,8 @@ import org.azd.utils.Request;
 import org.azd.utils.RequestMethod;
 import org.azd.utils.ResourceId;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.io.StringReader;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /***
@@ -233,7 +235,7 @@ public class Core {
     }
 
     /***
-     * Get all projects in the organization that the authenticated user has access to.
+     * Get all workItems in the project with ids in workItemIds (that the authenticated user has access to).
      * @return array of projects {@link Projects}
      */
     public Workitems getWorkitems(String projectId, Set<Integer> workItemIds) {
@@ -249,6 +251,35 @@ public class Core {
                             "wit/workitems", null, null, CoreVersion.PROJECT_WORK_ITEMS, queryParam, null);
 
             return MAPPER.readValue(r, Workitems.class);
+
+        } catch (Exception e) {
+            AzDException.handleException(e);
+        }
+
+        return null;
+    }
+
+    /***
+     * Get all workItems in the project with ids in workItemIds (that the authenticated user has access to).
+     * @return array of projects {@link Projects}
+     */
+    public List<PatchOperation> getWorkitemDeltas(String projectId, Integer workItemId) {
+        try {
+            String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.CORE, projectId,
+                            "wit/workitems", ""+workItemId, "revisions", CoreVersion.PROJECT_WORK_ITEM_REVISIONS, null, null);
+
+            JsonNode workingItemRevisions = MAPPER.readTree(new StringReader(r));
+            if(workingItemRevisions.hasNonNull("count") && workingItemRevisions.get("count").asInt()>0) {
+                int amountRevs = workingItemRevisions.get("count").asInt();
+                int finalRev = amountRevs;
+                int prevRev = finalRev-1;
+
+                JsonNode finalRevData = workingItemRevisions.get("value").get(finalRev-1);
+                JsonNode prevRevData = prevRev>0 ? workingItemRevisions.get("value").get(prevRev-1) : MAPPER.nullNode();
+                JsonDiff diff = new JsonDiff();
+                return diff.diff((ObjectNode)prevRevData,(ObjectNode)finalRevData, true);
+            }
+            return new ArrayList<>(); // no deltas
 
         } catch (Exception e) {
             AzDException.handleException(e);
