@@ -260,7 +260,7 @@ public class Core {
     }
 
     /***
-     * Get all workItems in the project with ids in workItemIds (that the authenticated user has access to).
+     * Get all Revisions as deltas for workItems in the project with id = workItemId (that the authenticated user has access to).
      * @return array of projects {@link Projects}
      */
     public List<PatchOperation> getWorkitemDeltas(String projectId, Integer workItemId) {
@@ -268,18 +268,20 @@ public class Core {
             String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.CORE, projectId,
                             "wit/workitems", ""+workItemId, "revisions", CoreVersion.PROJECT_WORK_ITEM_REVISIONS, null, null);
 
-            JsonNode workingItemRevisions = MAPPER.readTree(new StringReader(r));
+            JsonNode workingItemRevisions = MAPPER.readTree(r);
+            List<PatchOperation> result = new ArrayList<>();
             if(workingItemRevisions.hasNonNull("count") && workingItemRevisions.get("count").asInt()>0) {
                 int amountRevs = workingItemRevisions.get("count").asInt();
-                int finalRev = amountRevs;
-                int prevRev = finalRev-1;
+                for(int prevRev = 0;prevRev<amountRevs;prevRev++) {
+                    int nextRev = prevRev + 1;
 
-                JsonNode finalRevData = workingItemRevisions.get("value").get(finalRev-1);
-                JsonNode prevRevData = prevRev>0 ? workingItemRevisions.get("value").get(prevRev-1) : MAPPER.nullNode();
-                JsonDiff diff = new JsonDiff();
-                return diff.diff((ObjectNode)prevRevData,(ObjectNode)finalRevData, true);
+                    JsonNode finalRevData = workingItemRevisions.get("value").get(nextRev - 1);
+                    JsonNode prevRevData = prevRev > 0 ? workingItemRevisions.get("value").get(prevRev - 1) : MAPPER.readTree("{}");
+                    JsonDiff diff = new JsonDiff();
+                    result.addAll(diff.diff((ObjectNode) prevRevData, (ObjectNode) finalRevData, true));
+                }
             }
-            return new ArrayList<>(); // no deltas
+            return result;
 
         } catch (Exception e) {
             AzDException.handleException(e);
