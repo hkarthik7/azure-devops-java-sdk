@@ -6,15 +6,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Workitems {
+public class Workitems<T extends WorkitemFields> {
     @JsonProperty("value")
-    private List<Workitem> value;
+    private List<Workitem<T>> value;
 
-    public List<Workitem> getWorkitems() {
+    public List<Workitem<T>> getWorkitems() {
         return value;
     }
 
-    public void setWorkitems(List<Workitem> value) {
+    public void setWorkitems(List<Workitem<T>> value) {
         this.value = value;
     }
 

@@ -1,46 +1,44 @@
 package org.azd.core.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WorkitemFields {
     @JsonProperty("System.AreaPath")
-    private String areaPath;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    protected String areaPath;
     @JsonProperty("System.TeamProject")
-    private String teamProject;
+    protected String teamProject;
     @JsonProperty("System.IterationPath")
-    private String iterationPath;
+    protected String iterationPath;
     @JsonProperty("System.WorkItemType")
-    private String workItemType;
+    protected String workItemType;
     @JsonProperty("System.State")
-    private String state;
+    protected String state;
     @JsonProperty("System.Reason")
-    private String reason;
+    protected String reason;
     @JsonProperty("System.CreatedDate")
-    private String createdDate;
+    protected String createdDate;
     @JsonProperty("System.ChangedDate")
-    private String changedDate;
-    @JsonProperty("System.CreatedBy")
-    private UserRef createdBy;
-    @JsonProperty("System.ChangedBy")
-    private UserRef changedBy;
+    protected String changedDate;
     @JsonProperty("System.CommentCount")
-    private Integer commentCount;
+    protected Integer commentCount;
     @JsonProperty("System.Title")
-    private String title;
+    protected String title;
     @JsonProperty("System.BoardColumn")
-    private String boardColumn;
+    protected String boardColumn;
     @JsonProperty("System.BoardColumnDone")
-    private Boolean boardColumnDone;
+    protected Boolean boardColumnDone;
     @JsonProperty("Microsoft.VSTS.Common.StateChangeDate")
-    private String stateChangedDate;
+    protected String stateChangedDate;
     @JsonProperty("Microsoft.VSTS.Common.Priority")
-    private Integer priority;
+    protected Integer priority;
     @JsonProperty("WEF_0075D4D8CD7D4C84BFD2B461B5268892_Kanban.Column")
-    private String kanbanColumn;
+    protected String kanbanColumn;
     @JsonProperty("WEF_0075D4D8CD7D4C84BFD2B461B5268892_Kanban.Column.Done")
-    private Boolean kanbanDone;
+    protected Boolean kanbanDone;
 
     public String getAreaPath() {
         return areaPath;
@@ -104,22 +102,6 @@ public class WorkitemFields {
 
     public void setChangedDate(String changedDate) {
         this.changedDate = changedDate;
-    }
-
-    public UserRef getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(UserRef createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public UserRef getChangedBy() {
-        return changedBy;
-    }
-
-    public void setChangedBy(UserRef changedBy) {
-        this.changedBy = changedBy;
     }
 
     public Integer getCommentCount() {
@@ -197,8 +179,6 @@ public class WorkitemFields {
                 ", reason='" + reason + '\'' +
                 ", createdDate='" + createdDate + '\'' +
                 ", changedDate='" + changedDate + '\'' +
-                ", createdBy='" + createdBy + '\'' +
-                ", changedBy='" + changedBy + '\'' +
                 ", commentCount='" + commentCount + '\'' +
                 ", title='" + title + '\'' +
                 ", boardColumn='" + boardColumn + '\'' +

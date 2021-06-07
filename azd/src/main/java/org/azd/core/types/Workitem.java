@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Workitem {
+public class Workitem<T extends WorkitemFields> {
     @JsonProperty("id")
     private Integer id;
     @JsonProperty("rev")
@@ -12,7 +12,7 @@ public class Workitem {
     @JsonProperty("url")
     private String url;
     @JsonProperty("fields")
-    private WorkitemFields fields;
+    private T fields;
 
     public Integer getId() {
         return id;
@@ -38,11 +38,11 @@ public class Workitem {
         this.url = url;
     }
 
-    public WorkitemFields getFields() {
+    public T getFields() {
         return fields;
     }
 
-    public void setFields(WorkitemFields fields) {
+    public void setFields(T fields) {
         this.fields = fields;
     }
 
