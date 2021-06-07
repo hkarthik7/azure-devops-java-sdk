@@ -1,5 +1,7 @@
 package org.azd.core.types;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -15,7 +17,9 @@ import org.azd.utils.RequestMethod;
 import org.azd.utils.ResourceId;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Workitem<T extends WorkitemFields> {
@@ -30,6 +34,8 @@ public class Workitem<T extends WorkitemFields> {
     private String url;
     @JsonProperty("fields")
     private T fields;
+
+
 
     public Integer getId() {
         return id;

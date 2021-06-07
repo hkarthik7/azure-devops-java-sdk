@@ -1,8 +1,9 @@
 package org.azd.core.types;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WorkitemFields {
@@ -39,6 +40,23 @@ public class WorkitemFields {
     protected String kanbanColumn;
     @JsonProperty("WEF_0075D4D8CD7D4C84BFD2B461B5268892_Kanban.Column.Done")
     protected Boolean kanbanDone;
+
+    Map<String, Object> otherFields = new HashMap<>();
+
+    // Capture all other fields that Jackson do not match other members
+    @JsonAnyGetter
+    public Map<String, Object> getOtherFields() {
+        return otherFields;
+    }
+
+    public void setOtherFields(Map<String, Object> otherFieldsParam) {
+        otherFields = otherFieldsParam;
+    }
+
+    @JsonAnySetter
+    public void setOtherField(String name, Object value) {
+        otherFields.put(name, value);
+    }
 
     public String getAreaPath() {
         return areaPath;
