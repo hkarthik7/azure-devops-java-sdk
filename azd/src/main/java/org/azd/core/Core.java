@@ -33,6 +33,10 @@ public class Core {
      */
     public Core(AzDDefaultParameters defaultParameters) { this.DEFAULT_PARAMETERS = defaultParameters; }
 
+    public AzDDefaultParameters getDEFAULT_PARAMETERS() {
+        return DEFAULT_PARAMETERS;
+    }
+
     /***
      * Get a list of processes.
      * @return a list of processes
