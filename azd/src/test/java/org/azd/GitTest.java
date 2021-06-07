@@ -1,6 +1,7 @@
 package org.azd;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.azd.exceptions.DefaultParametersException;
 import org.azd.git.Git;
 import org.azd.utils.AzDDefaultParameters;
 import org.junit.Before;
@@ -27,74 +28,74 @@ public class GitTest {
     }
 
     @Test
-    public void shouldCreateANewRepository() {
+    public void shouldCreateANewRepository() throws DefaultParametersException, IOException {
         g.createRepository("testRepository", "00000000-0000-0000-0000-000000000000");
     }
 
     @Test
-    public void shouldDeleteRepository() {
+    public void shouldDeleteRepository() throws DefaultParametersException, IOException {
         g.deleteRepository("00000000-0000-0000-0000-000000000000");
     }
 
     @Test
-    public void shouldDeleteRepositoryFromRecycleBin() {
+    public void shouldDeleteRepositoryFromRecycleBin() throws DefaultParametersException, IOException {
         g.deleteRepositoryFromRecycleBin("00000000-0000-0000-0000-000000000000");
     }
 
     @Test
-    public void shouldGetDeletedGitRepositories() {
+    public void shouldGetDeletedGitRepositories() throws DefaultParametersException, IOException {
         g.getDeletedRepositories();
     }
 
     @Test
-    public void shouldGetRecycleBinRepositories() {
+    public void shouldGetRecycleBinRepositories() throws DefaultParametersException, IOException {
         g.getRecycleBinRepositories();
     }
 
     @Test
-    public void shouldGetRepository() {
+    public void shouldGetRepository() throws DefaultParametersException, IOException {
         g.getRepository("testRepository");
     }
 
     @Test
-    public void shouldGetRepositories() {
+    public void shouldGetRepositories() throws DefaultParametersException, IOException {
         g.getRepositories();
     }
 
     @Test
-    public void shouldRestoreRepositoryFromRecycleBin() {
+    public void shouldRestoreRepositoryFromRecycleBin() throws DefaultParametersException, IOException {
         g.restoreRepositoryFromRecycleBin("00000000-0000-0000-0000-000000000000", false);
     }
 
     @Test
-    public void shouldUpdateRepository() {
+    public void shouldUpdateRepository() throws DefaultParametersException, IOException {
         g.updateRepository("00000000-0000-0000-0000-000000000000", "newName", "develop");
     }
 
     @Test
-    public void shouldCreateANewPullRequest() {
+    public void shouldCreateANewPullRequest() throws DefaultParametersException, IOException {
         g.createPullRequest(g.getRepositories().getRepositories().stream().findFirst().get().getId(),
                 "refs/heads/master", "refs/heads/develop", "New feature", "Adding new feature",
                 new String[]{ "d6245f20-2af8-44f4-9451-8107cb2767db" });
     }
 
     @Test
-    public void shouldRetrieveAPullRequest() {
+    public void shouldRetrieveAPullRequest() throws DefaultParametersException, IOException {
         g.getPullRequest(g.getRepositories().getRepositories().stream().findFirst().get().getName(), 2);
     }
 
     @Test
-    public void shouldRetrieveAPullRequestById() {
+    public void shouldRetrieveAPullRequestById() throws DefaultParametersException, IOException {
         g.getPullRequestById(2);
     }
 
     @Test
-    public void shouldRetrieveAllPullRequestsFromARepository() {
+    public void shouldRetrieveAllPullRequestsFromARepository() throws DefaultParametersException, IOException {
         g.getPullRequests(g.getRepositories().getRepositories().stream().findFirst().get().getName());
     }
 
     @Test
-    public void shouldGetPullRequestsByProject() {
+    public void shouldGetPullRequestsByProject() throws DefaultParametersException, IOException {
         g.getPullRequestsByProject().getPullRequests();
     }
 }

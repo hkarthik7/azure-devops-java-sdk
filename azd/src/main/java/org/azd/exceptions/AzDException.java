@@ -8,19 +8,13 @@ import java.util.logging.Logger;
  * @author Harish Karthic
  */
 @SuppressWarnings("serial")
-public class AzDException {
+public class AzDException extends Exception {
 
-    private static final Logger LOGGER = Logger.getLogger(AzDException.class.getName());
+    public AzDException() {
+        super("Validate the arguments passed for the parameters;");
+    }
 
-    public static void handleException(Exception e) {
-        if (e.getMessage().contains("Unexpected character")) {
-            LOGGER.log(Level.WARNING, new StringBuilder().append("Invalid Personal Access Token").append("\n").toString());
-        }
-        if(e.getMessage().contains("Unrecognized token")) {
-            LOGGER.log(Level.WARNING, new StringBuilder().append("Invalid Organisation name").append("\n").toString());
-        }
-        else {
-            LOGGER.log(Level.SEVERE, new StringBuilder().append("An Error Occurred: ").append(e.getMessage()).append("\n").toString());
-        }
+    public AzDException(String message) {
+        super("An Error Occurred: " + message);
     }
 }
