@@ -84,13 +84,13 @@ public class Workitem<T extends WorkitemFields> {
      * Get all Revisions as deltas for workItems in the project with id = workItemId (that the authenticated user has access to).
      * @return array of projects {@link Projects}
      */
-    public List<PatchOperation> getWorkitemDeltas(String projectId, AzDDefaultParameters defaultParameters) {
+    public Map<Integer,List<PatchOperation>> getWorkitemDeltas(String projectId, AzDDefaultParameters defaultParameters) {
         try {
             String r = Request.request(RequestMethod.GET, defaultParameters, ResourceId.CORE, projectId,
                     "wit/workitems", ""+id, "revisions", CoreVersion.PROJECT_WORK_ITEM_REVISIONS, null, null);
 
             JsonNode workingItemRevisions = MAPPER.readTree(r);
-            List<PatchOperation> result = new ArrayList<>();
+            Map<Integer,List<PatchOperation>> result = new HashMap();
             if(workingItemRevisions.hasNonNull("count") && workingItemRevisions.get("count").asInt()>0) {
                 int amountRevs = workingItemRevisions.get("count").asInt();
                 for(int prevRev = 0;prevRev<amountRevs;prevRev++) {
@@ -99,7 +99,7 @@ public class Workitem<T extends WorkitemFields> {
                     JsonNode finalRevData = workingItemRevisions.get("value").get(nextRev - 1);
                     JsonNode prevRevData = prevRev > 0 ? workingItemRevisions.get("value").get(prevRev - 1) : MAPPER.readTree("{}");
                     JsonDiff diff = new JsonDiff();
-                    result.addAll(diff.diff((ObjectNode) prevRevData, (ObjectNode) finalRevData, true));
+                    result.put(nextRev,diff.diff((ObjectNode) prevRevData, (ObjectNode) finalRevData, true));
                 }
             }
             return result;

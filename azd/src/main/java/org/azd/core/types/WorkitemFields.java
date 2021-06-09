@@ -55,6 +55,7 @@ public class WorkitemFields {
 
     @JsonAnySetter
     public void setOtherField(String name, Object value) {
+        //TODO check if we recognize what type the value is, and if so, Map it to a type
         otherFields.put(name, value);
     }
 
