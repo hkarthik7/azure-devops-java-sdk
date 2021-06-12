@@ -37,8 +37,8 @@ public class Work implements WorkDetails {
      * Get a team's iterations
      * @param teamName Team ID or team name
      * @return {@link TeamSettingsIterations}
-     * @throws {@link DefaultParametersException}
-     * @throws {@link AzDException}
+     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
+     * @throws AzDException Exception handler
      */
     @Override
     public TeamSettingsIterations getTeamSettingsIterations(String teamName) throws DefaultParametersException, AzDException {
@@ -55,8 +55,8 @@ public class Work implements WorkDetails {
      * @param timeFrame A filter for which iterations are returned based on relative time.
      * Only 'Current' is supported currently. {@link IterationsTimeFrame}
      * @return {@link TeamSettingsIterations}
-     * @throws {@link DefaultParametersException}
-     * @throws {@link AzDException}
+     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
+     * @throws AzDException Exception handler
      */
     @Override
     public TeamSettingsIterations getTeamSettingsIterations(String teamName, IterationsTimeFrame timeFrame) throws DefaultParametersException, AzDException {
@@ -77,8 +77,8 @@ public class Work implements WorkDetails {
      * @param teamName Team ID or team name
      * @param iterationId ID of the iteration
      * @return {@link TeamSettingsIterations}
-     * @throws {@link DefaultParametersException}
-     * @throws {@link AzDException}
+     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
+     * @throws AzDException Exception handler
      */
     @Override
     public IterationWorkItems getTeamIterationWorkItems(String teamName, String iterationId) throws DefaultParametersException, AzDException {
@@ -94,8 +94,8 @@ public class Work implements WorkDetails {
      * @param teamName ID of the iteration
      * @param iterationId Team ID or team name
      * @return {@link TeamSettingsIterations}
-     * @throws {@link DefaultParametersException}
-     * @throws {@link AzDException}
+     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
+     * @throws AzDException Exception handler
      */
     @Override
     public TeamSettingsIteration getTeamSettingsIteration(String teamName, String iterationId) throws DefaultParametersException, AzDException {
@@ -110,8 +110,8 @@ public class Work implements WorkDetails {
      * Delete a team's iteration by iterationId
      * @param teamName Team ID or team name
      * @param iterationId ID of the iteration
-     * @throws {@link DefaultParametersException}
-     * @throws {@link AzDException}
+     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
+     * @throws AzDException Exception handler
      */
     @Override
     public void deleteTeamSettingsIteration(String teamName, String iterationId) throws DefaultParametersException, AzDException {

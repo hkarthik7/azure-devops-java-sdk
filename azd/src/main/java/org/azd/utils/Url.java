@@ -72,6 +72,7 @@ public class Url {
      * @param apiVersion pass the API version
      * @param queryString pass the query string to form the url
      * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
+     * @throws AzDException Exception handler
      * @return resource area url
      */
     public String buildRequestUrl(

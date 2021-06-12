@@ -43,8 +43,8 @@ public class WorkItems implements WorkItemDetails {
      * @param operation The patch operation {@link WorkItemOperation}
      * @param title The title for the work item
      * @return {@link WorkItem}
-     * @throws {@link DefaultParametersException}
-     * @throws {@link AzDException}
+     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
+     * @throws AzDException Exception handler
      */
     @Override
     public WorkItem createWorkItem(String workItemType,
@@ -71,8 +71,8 @@ public class WorkItems implements WorkItemDetails {
      * @param description Description for the work item
      * @param tags Tags for the work item
      * @return {@link WorkItem}
-     * @throws {@link DefaultParametersException}
-     * @throws {@link AzDException}
+     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
+     * @throws AzDException Exception handler
      */
     @Override
     public WorkItem createWorkItem(String workItemType,
@@ -114,8 +114,8 @@ public class WorkItems implements WorkItemDetails {
      * Deletes the specified work item and sends it to the Recycle Bin, so that it can be restored back, if required.
       * @param id ID of the work item to be deleted
      * @return {@link WorkItemDelete}
-     * @throws {@link DefaultParametersException}
-     * @throws {@link AzDException}
+     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
+     * @throws AzDException Exception handler
      */
     @Override
     public WorkItemDelete deleteWorkItem(int id) throws DefaultParametersException, AzDException {
@@ -134,8 +134,8 @@ public class WorkItems implements WorkItemDetails {
      * @param destroy Optional parameter, if set to true, the work item is deleted permanently.
      *                Please note: the destroy action is PERMANENT and cannot be undone.
      * @return {@link WorkItemDelete}
-     * @throws {@link DefaultParametersException}
-     * @throws {@link AzDException}
+     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
+     * @throws AzDException Exception handler
      */
     @Override
     public WorkItemDelete deleteWorkItem(int id, boolean destroy) throws DefaultParametersException, AzDException {
@@ -152,8 +152,8 @@ public class WorkItems implements WorkItemDetails {
      * Returns a single work item.
      * @param id The work item id
      * @return WorkItem {@link WorkItem}
-     * @throws {@link DefaultParametersException} {@link DefaultParametersException}
-     * @throws {@link AzDException} {@link AzDException}
+     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
+     * @throws AzDException Exception handler
      */
     @Override
     public WorkItem getWorkItem(int id) throws DefaultParametersException, AzDException {
@@ -169,8 +169,8 @@ public class WorkItems implements WorkItemDetails {
      * @param expand The expand parameters for work item attributes.
      * Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
      * @return WorkItem {@link WorkItem}
-     * @throws {@link DefaultParametersException}
-     * @throws {@link AzDException}
+     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
+     * @throws AzDException Exception handler
      */
     @Override
     public WorkItem getWorkItem(int id, WorkItemExpand expand) throws DefaultParametersException, AzDException {
@@ -191,8 +191,8 @@ public class WorkItems implements WorkItemDetails {
      * Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
      * @param asOf AsOf UTC date time string
      * @return WorkItem {@link WorkItem}
-     * @throws {@link DefaultParametersException}
-     * @throws {@link AzDException}
+     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
+     * @throws AzDException Exception handler
      */
     @Override
     public WorkItem getWorkItem(int id, WorkItemExpand expand, String asOf) throws DefaultParametersException, AzDException {
@@ -214,8 +214,8 @@ public class WorkItems implements WorkItemDetails {
      * Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
      * @param fields Comma-separated list of requested fields
      * @return WorkItem {@link WorkItem}
-     * @throws {@link DefaultParametersException}
-     * @throws {@link AzDException}
+     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
+     * @throws AzDException Exception handler
      */
     @Override
     public WorkItem getWorkItem(int id, WorkItemExpand expand, String[] fields) throws DefaultParametersException, AzDException {
@@ -238,8 +238,8 @@ public class WorkItems implements WorkItemDetails {
      * @param fields Comma-separated list of requested fields
      * @param asOf AsOf UTC date time string
      * @return WorkItem {@link WorkItem}
-     * @throws {@link DefaultParametersException}
-     * @throws {@link AzDException}
+     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
+     * @throws AzDException Exception handler
      */
     @Override
     public WorkItem getWorkItem(int id, WorkItemExpand expand, String[] fields, String asOf) throws DefaultParametersException, AzDException {
@@ -259,8 +259,8 @@ public class WorkItems implements WorkItemDetails {
      * Returns a list of work items (Maximum 200)
      * @param ids Integer array of requested work item ids. (Maximum 200 ids allowed).
      * @return {@link WorkItemList}
-     * @throws {@link DefaultParametersException}
-     * @throws {@link AzDException}
+     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
+     * @throws AzDException Exception handler
      */
     @Override
     public WorkItemList getWorkItems(int[] ids) throws DefaultParametersException, AzDException {
@@ -278,8 +278,8 @@ public class WorkItems implements WorkItemDetails {
      * @param expand The expand parameters for work item attributes.
      * Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
      * @return {@link WorkItemList}
-     * @throws {@link DefaultParametersException}
-     * @throws {@link AzDException}
+     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
+     * @throws AzDException Exception handler
      */
     @Override
     public WorkItemList getWorkItems(int[] ids, WorkItemExpand expand) throws DefaultParametersException, AzDException {
@@ -301,8 +301,8 @@ public class WorkItems implements WorkItemDetails {
      * Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
      * @param asOf AsOf UTC date time string
      * @return {@link WorkItemList}
-     * @throws {@link DefaultParametersException}
-     * @throws {@link AzDException}
+     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
+     * @throws AzDException Exception handler
      */
     @Override
     public WorkItemList getWorkItems(int[] ids, WorkItemExpand expand, String asOf) throws DefaultParametersException, AzDException {
@@ -325,8 +325,8 @@ public class WorkItems implements WorkItemDetails {
      * Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
      * @param fields Comma-separated list of requested fields
      * @return {@link WorkItemList}
-     * @throws {@link DefaultParametersException}
-     * @throws {@link AzDException}
+     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
+     * @throws AzDException Exception handler
      */
     @Override
     public WorkItemList getWorkItems(int[] ids, WorkItemExpand expand, String[] fields) throws DefaultParametersException, AzDException {
@@ -352,8 +352,8 @@ public class WorkItems implements WorkItemDetails {
      * @param errorPolicy The flag to control error policy in a bulk get work items request.
      * Possible options are {Fail, Omit}. {@link WorkItemErrorPolicy}
      * @return {@link WorkItemList}
-     * @throws {@link DefaultParametersException}
-     * @throws {@link AzDException}
+     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
+     * @throws AzDException Exception handler
      */
     @Override
     public WorkItemList getWorkItems(int[] ids, WorkItemExpand expand, String[] fields, String asOf, WorkItemErrorPolicy errorPolicy) throws DefaultParametersException, AzDException {
@@ -375,8 +375,8 @@ public class WorkItems implements WorkItemDetails {
      * Returns the list of fully hydrated work item revisions.
      * @param workItemId The id of the work item
      * @return {@link WorkItemList}
-     * @throws {@link DefaultParametersException}
-     * @throws {@link AzDException}
+     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
+     * @throws AzDException Exception handler
      */
     @Override
     public WorkItemList getWorkItemRevisions(int workItemId) throws DefaultParametersException, AzDException {
@@ -392,8 +392,8 @@ public class WorkItems implements WorkItemDetails {
      * @param expand The expand parameters for work item attributes.
      * Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
      * @return {@link WorkItemList}
-     * @throws {@link DefaultParametersException}
-     * @throws {@link AzDException}
+     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
+     * @throws AzDException Exception handler
      */
     @Override
     public WorkItemList getWorkItemRevisions(int workItemId, WorkItemExpand expand) throws DefaultParametersException, AzDException {
@@ -414,8 +414,8 @@ public class WorkItems implements WorkItemDetails {
      * @param top Specify top pages to list
      * @param skip Specify to skip pages
      * @return {@link WorkItemList}
-     * @throws {@link DefaultParametersException}
-     * @throws {@link AzDException}
+     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
+     * @throws AzDException Exception handler
      */
     @Override
     public WorkItemList getWorkItemRevisions(int workItemId, WorkItemExpand expand, int top, int skip) throws DefaultParametersException, AzDException {
@@ -436,8 +436,8 @@ public class WorkItems implements WorkItemDetails {
      * @param workItemId The id of the work item
      * @param revisionNumber The work item revision number
      * @return {@link WorkItem}
-     * @throws {@link DefaultParametersException}
-     * @throws {@link AzDException}
+     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
+     * @throws AzDException Exception handler
      */
     @Override
     public WorkItem getWorkItemRevision(int workItemId, int revisionNumber) throws DefaultParametersException, AzDException {
@@ -455,8 +455,8 @@ public class WorkItems implements WorkItemDetails {
      * @param expand The expand parameters for work item attributes.
      * Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
      * @return {@link WorkItem}
-     * @throws {@link DefaultParametersException}
-     * @throws {@link AzDException}
+     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
+     * @throws AzDException Exception handler
      */
     @Override
     public WorkItem getWorkItemRevision(int workItemId, int revisionNumber, WorkItemExpand expand) throws DefaultParametersException, AzDException {
