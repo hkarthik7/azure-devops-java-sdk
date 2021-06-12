@@ -31,3 +31,4 @@ target/
 .classpath
 .project
 *.iml
+/azd/dependency-reduced-pom.xml
