@@ -4,13 +4,23 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.azd</groupId>
+  <groupId>io.github.hkarthik7</groupId>
   <artifactId>azd</artifactId>
-  <version>0.2.1</version>
+  <version>1.2.1</version>
 <packaging>jar</packaging>
-  <name>azd</name>
 
+  <name>azd</name>
+  <description>azd helps to manage Azure DevOps services API on ease and efficiently.</description>
   <url>https://github.com/hkarthik7/azure-devops-java-sdk</url>
+
+  <developers>
+    <developer>
+      <name>Harish Karthic</name>
+      <email>hkarthicb@gmail.com</email>
+      <organization>Open Source</organization>
+      <organizationUrl>https://hkarthik7.github.io/</organizationUrl>
+    </developer>
+  </developers>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -41,7 +51,8 @@
   </dependencies>
 
   <build>
-    <finalName>azd-${project.version}</finalName>
+<!--    <finalName>azd-${project.version}</finalName>-->
+    <pluginManagement>
       <plugins>
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
         <plugin>
@@ -72,6 +83,20 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-jar-plugin</artifactId>
           <version>3.0.2</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-gpg-plugin</artifactId>
+          <version>1.5</version>
+          <executions>
+            <execution>
+              <id>sign-artifacts</id>
+              <phase>verify</phase>
+              <goals>
+                <goal>sign</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -127,5 +152,28 @@
           </executions>
         </plugin>
       </plugins>
+    </pluginManagement>
   </build>
+  <licenses>
+    <license>
+      <name>MIT</name>
+      <url>https://github.com/hkarthik7/azure-devops-java-sdk/blob/main/LICENSE</url>
+    </license>
+  </licenses>
+  <scm>
+    <connection>scm:git:git://github.com/hkarthik7/azure-devops-java-sdk.git</connection>
+    <developerConnection>scm:git:ssh://github.com:hkarthik7/azure-devops-java-sdk.git</developerConnection>
+    <url>https://github.com/hkarthik7/azure-devops-java-sdk/tree/main</url>
+  </scm>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
 </project>
