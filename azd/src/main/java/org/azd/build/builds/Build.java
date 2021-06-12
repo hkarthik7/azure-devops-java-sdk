@@ -1,32 +1,30 @@
 package org.azd.build.builds;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.azd.build.types.*;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
+import org.azd.helpers.JsonMapper;
+import org.azd.interfaces.BuildDetails;
 import org.azd.utils.AzDDefaultParameters;
 import org.azd.utils.Request;
 import org.azd.utils.RequestMethod;
 import org.azd.utils.ResourceId;
 
-import java.io.IOException;
-import java.text.MessageFormat;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
-
-import static org.azd.validators.AzDDefaultParametersValidator.validateDefaultParameters;
 
 /***
  * Build class to manage build API
  * @author Harish karthic
  */
-public class Build {
+public class Build implements BuildDetails {
     /***
      * Instance of AzDDefaultParameters
      */
     private final AzDDefaultParameters DEFAULT_PARAMETERS;
-    private final ObjectMapper MAPPER = new ObjectMapper();
+    private final JsonMapper MAPPER = new JsonMapper();
     private final String AREA = "build";
 
 
@@ -39,40 +37,51 @@ public class Build {
     /***
      * Deletes a build.
      * @param buildId pass the build id to delete
-     * @throws {@link DefaultParametersException} and {@link IOException}
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      */
-    public void deleteBuild(int buildId) throws DefaultParametersException, IOException {
+    @Override
+    public void deleteBuild(int buildId) throws DefaultParametersException, AzDException {
 
-        Request.request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
-                AREA + "/builds", Integer.toString(buildId), null, BuildVersion.VERSION, null, null);
+        try {
+            String r = Request.request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
+                    AREA + "/builds", Integer.toString(buildId), null, BuildVersion.VERSION, null, null);
+            if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
+        } catch (DefaultParametersException | AzDException e) {
+            throw e;
+        }
     }
 
     /***
      * Gets a build
      * @param buildId pass the build id
-     * @throws {@link DefaultParametersException} and {@link IOException}
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return a build object {@link BuildT}
      */
-    public BuildT getBuild(int buildId) throws DefaultParametersException, IOException {
+    @Override
+    public BuildT getBuild(int buildId) throws DefaultParametersException, AzDException {
 
         String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                         AREA + "/builds", Integer.toString(buildId), null, BuildVersion.VERSION, null, null);
 
-        return MAPPER.readValue(r, BuildT.class);
+        return MAPPER.mapJsonResponse(r, BuildT.class);
     }
 
     /***
      * Gets the changes associated with a build
      * @param buildId pass the build id
-     * @throws {@link DefaultParametersException} and {@link IOException}
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return the object of build changes
      */
-    public BuildChanges getBuildChanges(int buildId) throws DefaultParametersException, IOException {
+    @Override
+    public BuildChanges getBuildChanges(int buildId) throws DefaultParametersException, AzDException {
 
         String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                 AREA + "/builds", Integer.toString(buildId), "changes", BuildVersion.BUILD_CHANGES,null, null);
 
-        return MAPPER.readValue(r, BuildChanges.class);
+        return MAPPER.mapJsonResponse(r, BuildChanges.class);
     }
 
     /***
@@ -81,11 +90,13 @@ public class Build {
      * @param top The maximum number of changes to return
      * @param continuationToken pass the continuation token
      * @param includeSourceChange if set to true gets the source changes
-     * @throws {@link DefaultParametersException} and {@link IOException}
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return the object of build changes
      */
+    @Override
     public BuildChanges getBuildChanges(
-            int buildId, int top,  String continuationToken, boolean includeSourceChange) throws DefaultParametersException, IOException {
+            int buildId, int top, String continuationToken, boolean includeSourceChange) throws DefaultParametersException, AzDException {
 
         HashMap<String, Object> q = new HashMap<>() {{
             put("$top", top);
@@ -95,17 +106,19 @@ public class Build {
 
         String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                 AREA + "/builds", Integer.toString(buildId), "changes", BuildVersion.BUILD_CHANGES, q, null);
-        return MAPPER.readValue(r, BuildChanges.class);
+        return MAPPER.mapJsonResponse(r, BuildChanges.class);
     }
 
     /***
      * Gets an individual log file for a build.
      * @param buildId pass the build id
      * @param logId pass the log id
-     * @throws {@link DefaultParametersException} and {@link IOException}
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return logs associated with the build for given id
      */
-    public String getBuildLog(int buildId, int logId) throws DefaultParametersException, IOException {
+    @Override
+    public String getBuildLog(int buildId, int logId) throws DefaultParametersException, AzDException {
 
         return Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                 AREA + "/builds", Integer.toString(buildId), "logs/" + logId, BuildVersion.BUILD_LOGS, null, null, "text");
@@ -117,10 +130,12 @@ public class Build {
      * @param logId pass the log id
      * @param startLine pass the line number from log which you need to fetch
      * @param endLine pass till which line number you need to fetch from the log
-     * @throws {@link DefaultParametersException} and {@link IOException}
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return logs associated with the build for given id
      */
-    public String getBuildLog(int buildId, int logId, long startLine, long endLine) throws DefaultParametersException, IOException {
+    @Override
+    public String getBuildLog(int buildId, int logId, long startLine, long endLine) throws DefaultParametersException, AzDException {
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("startLine", startLine);
@@ -134,39 +149,45 @@ public class Build {
     /***
      * Gets the logs for a build.
      * @param buildId pass the build id
-     * @throws {@link DefaultParametersException} and {@link IOException}
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return the object of build logs with id. This can be used to fetch the particular log with id
      */
-    public BuildLogs getBuildLogs(int buildId) throws DefaultParametersException, IOException {
+    @Override
+    public BuildLogs getBuildLogs(int buildId) throws DefaultParametersException, AzDException {
 
         String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                 AREA + "/builds", Integer.toString(buildId),"logs", BuildVersion.BUILD_LOGS,null,null);
 
-        return MAPPER.readValue(r, BuildLogs.class);
+        return MAPPER.mapJsonResponse(r, BuildLogs.class);
     }
 
     /***
      * Gets the work items associated with a build.
      * @param buildId The ID of the build.
-     * @throws {@link DefaultParametersException} and {@link IOException}
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return an array of work items associated with the build
      */
-    public BuildWorkItems getBuildWorkItems(int buildId) throws DefaultParametersException, IOException {
+    @Override
+    public BuildWorkItems getBuildWorkItems(int buildId) throws DefaultParametersException, AzDException {
 
         String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                         AREA + "/builds", Integer.toString(buildId), "workitems", BuildVersion.BUILD_WORK_ITEMS,null,null);
 
-        return MAPPER.readValue(r, BuildWorkItems.class);
+        return MAPPER.mapJsonResponse(r, BuildWorkItems.class);
     }
 
     /***
      * Gets the work items associated with a build.
      * @param buildId id of the build
      * @param top specify how many top work items to return
-     * @throws {@link DefaultParametersException} and {@link IOException}
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return an array of work items associated with the build
      */
-    public BuildWorkItems getBuildWorkItems(int buildId, int top) throws DefaultParametersException, IOException {
+    @Override
+    public BuildWorkItems getBuildWorkItems(int buildId, int top) throws DefaultParametersException, AzDException {
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("$top", top);
@@ -175,7 +196,7 @@ public class Build {
         String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                         AREA + "/builds", Integer.toString(buildId),"workitems", BuildVersion.BUILD_WORK_ITEMS, q,null);
 
-        return MAPPER.readValue(r, BuildWorkItems.class);
+        return MAPPER.mapJsonResponse(r, BuildWorkItems.class);
     }
 
     /***
@@ -183,10 +204,12 @@ public class Build {
      * @param fromBuildId The ID of the first build.
      * @param toBuildId The ID of the last build.
      * @param top The maximum number of changes to return.
-     * @throws {@link DefaultParametersException} and {@link IOException}
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return an array of changes between the builds
      */
-    public BuildChanges getChangesBetweenBuilds(int fromBuildId, int toBuildId, int top) throws DefaultParametersException, IOException {
+    @Override
+    public BuildChanges getChangesBetweenBuilds(int fromBuildId, int toBuildId, int top) throws DefaultParametersException, AzDException {
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("$top", top);
@@ -197,7 +220,7 @@ public class Build {
         String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                 AREA, null, "changes", BuildVersion.BUILD_CHANGES, q,null);
 
-        return MAPPER.readValue(r, BuildChanges.class);
+        return MAPPER.mapJsonResponse(r, BuildChanges.class);
     }
 
     /***
@@ -205,10 +228,12 @@ public class Build {
      * @param fromBuildId The ID of the first build.
      * @param toBuildId The ID of the last build.
      * @param top The maximum number of changes to return.
-     * @throws {@link DefaultParametersException} and {@link IOException}
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return an array of workitems between the builds
      */
-    public BuildWorkItems getWorkItemsBetweenBuilds(int fromBuildId, int toBuildId, int top) throws DefaultParametersException, IOException {
+    @Override
+    public BuildWorkItems getWorkItemsBetweenBuilds(int fromBuildId, int toBuildId, int top) throws DefaultParametersException, AzDException {
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("$top", top);
@@ -219,29 +244,33 @@ public class Build {
         String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                 AREA, null,"workitems", BuildVersion.BUILD_WORK_ITEMS, q,null);
 
-        return MAPPER.readValue(r, BuildWorkItems.class);
+        return MAPPER.mapJsonResponse(r, BuildWorkItems.class);
     }
 
     /***
      * Gets a list of builds.
-     * @throws {@link DefaultParametersException} and {@link IOException}
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return a build array {@link Builds}
      */
-    public Builds getBuilds() throws DefaultParametersException, IOException {
+    @Override
+    public Builds getBuilds() throws DefaultParametersException, AzDException {
 
         String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                 AREA + "/builds",null,null, BuildVersion.VERSION,null,null);
 
-        return MAPPER.readValue(r, Builds.class);
+        return MAPPER.mapJsonResponse(r, Builds.class);
     }
 
     /***
      * Gets a list of builds.
      * @param buildIds array of build ids
-     * @throws {@link DefaultParametersException} and {@link IOException}
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return an array of build
      */
-    public Builds getBuilds(int[] buildIds) throws DefaultParametersException, IOException {
+    @Override
+    public Builds getBuilds(int[] buildIds) throws DefaultParametersException, AzDException {
 
         String ids = Arrays.stream(buildIds).mapToObj(String::valueOf).collect(Collectors.joining(","));
 
@@ -252,16 +281,18 @@ public class Build {
         String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                 AREA + "/builds",null,null, BuildVersion.VERSION, q,null);
 
-        return MAPPER.readValue(r, Builds.class);
+        return MAPPER.mapJsonResponse(r, Builds.class);
     }
 
     /***
      * Gets a list of builds.
      * @param top specify how many builds to retrieve
-     * @throws {@link DefaultParametersException} and {@link IOException}
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return an array of build
      */
-    public Builds getBuilds(int top) throws DefaultParametersException, IOException {
+    @Override
+    public Builds getBuilds(int top) throws DefaultParametersException, AzDException {
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("$top", top);
@@ -270,7 +301,7 @@ public class Build {
         String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                 AREA + "/builds",null,null, BuildVersion.VERSION, q,null);
 
-        return MAPPER.readValue(r, Builds.class);
+        return MAPPER.mapJsonResponse(r, Builds.class);
     }
 
     /***
@@ -294,15 +325,17 @@ public class Build {
      * @param resultFilter If specified, filters to builds that match this result.
      * @param statusFilter If specified, filters to builds that match this status.
      * @param tagFilters A comma-delimited list of tags. If specified, filters to builds that have the specified tags.
-     * @throws {@link DefaultParametersException} and {@link IOException}
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return an array of build
      */
+    @Override
     public Builds getBuilds(
             int top, String branchName, String buildNumber, String continuationToken, int[] definitions,
             String deletedFilter, int maxBuildsPerDefinition, String maxTime, String minTime,
             String[] properties, String queryOrder, int[] queues, String reasonFilter,
             String repositoryId, String repositoryType, String requestedFor, String resultFilter,
-            String statusFilter, String tagFilters) throws DefaultParametersException, IOException {
+            String statusFilter, String tagFilters) throws DefaultParametersException, AzDException {
 
             String ids = (definitions != null) ? Arrays.stream(definitions).mapToObj(String::valueOf).collect(Collectors.joining(",")) : null;
             String queueIds = (queues != null) ? Arrays.stream(queues).mapToObj(String::valueOf).collect(Collectors.joining(",")) : null;
@@ -332,64 +365,69 @@ public class Build {
         String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                 AREA + "/builds",null,null, BuildVersion.VERSION, q,null);
 
-        return MAPPER.readValue(r, Builds.class);
+        return MAPPER.mapJsonResponse(r, Builds.class);
     }
 
     /***
      * Queues a build
-     * @param definitionName pass the pipeline name to queue the build
-     * @throws {@link DefaultParametersException} and {@link IOException}
+     * @param definitionId pass the pipeline id to queue the build
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return a build object {@link BuildT}
      */
-    public BuildT queueBuild(String definitionName) throws DefaultParametersException, IOException {
-
-        var d = getBuildDefinitions().getBuildDefinition()
-                .stream().filter(id -> (id.getName().equals(definitionName))).findFirst();
+    @Override
+    public BuildT queueBuild(int definitionId) throws DefaultParametersException, AzDException {
 
         HashMap<String, Object> q = new HashMap<>() {{
-            put("definitionId", d.get().getId());
+            put("definitionId", String.valueOf(definitionId));
         }};
 
         String r = Request.request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                 AREA + "/builds",null,null, BuildVersion.VERSION, q,null);
 
-        return MAPPER.readValue(r, BuildT.class);
+        return MAPPER.mapJsonResponse(r, BuildT.class);
     }
 
     /***
      * Queues a build
      * @param buildParameters dictionary of parameters to queue the build.
-     * @throws {@link DefaultParametersException} and {@link IOException}
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return a build object {@link BuildT}
      */
-    public BuildT queueBuild(HashMap<String, Object> buildParameters) throws DefaultParametersException, IOException {
+    @Override
+    public BuildT queueBuild(HashMap<String, Object> buildParameters) throws DefaultParametersException, AzDException {
 
         String r = Request.request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                         AREA + "/builds", null,null, BuildVersion.VERSION,null, buildParameters);
 
-        return MAPPER.readValue(r, BuildT.class);
+        return MAPPER.mapJsonResponse(r, BuildT.class);
     }
 
     /***
      * Gets controllers
-     * @throws {@link DefaultParametersException} and {@link IOException}
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return array of build controller {@link BuildControllers}
      */
-    public BuildControllers getBuildControllers() throws DefaultParametersException, IOException {
+    @Override
+    public BuildControllers getBuildControllers() throws DefaultParametersException, AzDException {
 
         String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.BUILD,null,
                         AREA,null,"controllers", BuildVersion.BUILD_CONTROLLERS,null,null);
 
-        return MAPPER.readValue(r, BuildControllers.class);
+        return MAPPER.mapJsonResponse(r, BuildControllers.class);
     }
 
     /***
      * Gets controller, optionally filtered by name
      * @param name pass the controller name
-     * @throws {@link DefaultParametersException} and {@link IOException}
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return array of build controller {@link BuildControllers}
      */
-    public BuildControllers getBuildControllers(String name) throws DefaultParametersException, IOException {
+    @Override
+    public BuildControllers getBuildControllers(String name) throws DefaultParametersException, AzDException {
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("name", name);
@@ -398,60 +436,76 @@ public class Build {
         String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.BUILD,null,
                 AREA,null,"controllers", BuildVersion.BUILD_CONTROLLERS, q,null);
 
-        return MAPPER.readValue(r, BuildControllers.class);
+        return MAPPER.mapJsonResponse(r, BuildControllers.class);
     }
 
     /***
      * Gets a controller
      * @param controllerId pass the controller id
-     * @throws {@link DefaultParametersException} and {@link IOException}
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return build controller {@link BuildController}
      */
-    public BuildController getBuildController(int controllerId) throws DefaultParametersException, IOException {
+    @Override
+    public BuildController getBuildController(int controllerId) throws DefaultParametersException, AzDException {
 
         String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.BUILD,null,
                 AREA + "/controllers", Integer.toString(controllerId),null, BuildVersion.BUILD_CONTROLLERS,null,null);
 
-        return MAPPER.readValue(r, BuildController.class);
+        return MAPPER.mapJsonResponse(r, BuildController.class);
     }
 
     /***
      * Creates a new definition.
-     * @param buildParameters dictionary of build definition to create the build pipeline.
-     * @throws {@link DefaultParametersException} and {@link IOException}
+     * @param buildDefinitionParameters json string of the build pipeline. Export the build definition from existing pipeline and edit it.
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return build definition {@link BuildDefinition}
      */
-    public BuildDefinition createBuildDefinition(HashMap<String, Object> buildParameters) throws DefaultParametersException, IOException {
+    @Override
+    public BuildDefinition createBuildDefinition(String buildDefinitionParameters) throws DefaultParametersException, AzDException {
+
+        if (buildDefinitionParameters.isEmpty()) throw new AzDException();
+
+        var requestBody = MAPPER.mapJsonResponse(buildDefinitionParameters, HashMap.class);
 
         String r = Request.request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
-                        AREA,null,"definitions", BuildVersion.BUILD_DEFINITIONS,null, buildParameters);
+                        AREA,null,"definitions", BuildVersion.BUILD_DEFINITIONS,null, requestBody);
 
-        return MAPPER.readValue(r, BuildDefinition.class);
+        return MAPPER.mapJsonResponse(r, BuildDefinition.class);
     }
 
     /***
      * Deletes a definition and all associated builds.
      * @param definitionId pass the definition id
-     * @throws {@link DefaultParametersException} and {@link IOException}
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      */
-    public void deleteBuildDefinition(int definitionId) throws DefaultParametersException, IOException {
-
-        Request.request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
-                AREA + "/definitions", Integer.toString(definitionId),null, BuildVersion.BUILD_DEFINITIONS,null,null);
+    @Override
+    public void deleteBuildDefinition(int definitionId) throws DefaultParametersException, AzDException {
+        try {
+            String r = Request.request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
+                    AREA + "/definitions", Integer.toString(definitionId),null, BuildVersion.BUILD_DEFINITIONS,null,null);
+            if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
+        } catch (DefaultParametersException | AzDException e) {
+            throw e;
+        }
     }
 
     /***
      * Gets a definition
      * @param definitionId pass the definition id
-     * @throws {@link DefaultParametersException} and {@link IOException}
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return build definition {@link BuildDefinition}
      */
-    public BuildDefinition getBuildDefinition(int definitionId) throws DefaultParametersException, IOException {
+    @Override
+    public BuildDefinition getBuildDefinition(int definitionId) throws DefaultParametersException, AzDException {
 
         String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                         AREA + "/definitions", Integer.toString(definitionId),null, BuildVersion.BUILD_DEFINITIONS,null,null);
 
-        return MAPPER.readValue(r, BuildDefinition.class);
+        return MAPPER.mapJsonResponse(r, BuildDefinition.class);
     }
 
     /***
@@ -460,11 +514,13 @@ public class Build {
      * @param includeLatestBuilds if specified gets the details of latest build
      * @param minMetricsTime If specified, indicates the date from which metrics should be included.
      * @param revision The revision number to retrieve. If this is not specified, the latest version will be returned.
-     * @throws {@link DefaultParametersException} and {@link IOException}
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return Build definition object
      */
+    @Override
     public Map getBuildDefinition(
-            int definitionId, boolean includeLatestBuilds, String minMetricsTime, int revision) throws DefaultParametersException, IOException {
+            int definitionId, boolean includeLatestBuilds, String minMetricsTime, int revision) throws DefaultParametersException, AzDException {
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("includeLatestBuilds", includeLatestBuilds);
@@ -475,43 +531,49 @@ public class Build {
         String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                         AREA + "/definitions", Integer.toString(definitionId),null, BuildVersion.BUILD_DEFINITIONS, q,null);
 
-        return MAPPER.readValue(r, Map.class);
+        return MAPPER.mapJsonResponse(r, Map.class);
     }
 
     /***
      * Gets all revisions of a definition.
      * @param definitionId The ID of the definition.
-     * @throws {@link DefaultParametersException} and {@link IOException}
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return array of build definition revisions {@link BuildDefinitionRevision}
      */
-    public BuildDefinitionRevisions getBuildDefinitionRevision(int definitionId) throws DefaultParametersException, IOException {
+    @Override
+    public BuildDefinitionRevisions getBuildDefinitionRevision(int definitionId) throws DefaultParametersException, AzDException {
 
         String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                 AREA + "/definitions", Integer.toString(definitionId),"revisions", BuildVersion.BUILD_DEFINITION_REVISIONS,null,null);
 
-        return MAPPER.readValue(r, BuildDefinitionRevisions.class);
+        return MAPPER.mapJsonResponse(r, BuildDefinitionRevisions.class);
     }
 
     /***
      * Gets a list of definitions.
-     * @throws {@link DefaultParametersException} and {@link IOException}
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return build definitions {@link BuildDefinitions}
      */
-    public BuildDefinitions getBuildDefinitions() throws DefaultParametersException, IOException {
+    @Override
+    public BuildDefinitions getBuildDefinitions() throws DefaultParametersException, AzDException {
 
         String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                 AREA + "/definitions",null,null, BuildVersion.BUILD_DEFINITIONS,null,null);
 
-        return MAPPER.readValue(r, BuildDefinitions.class);
+        return MAPPER.mapJsonResponse(r, BuildDefinitions.class);
     }
 
     /***
      * Gets a list of definitions.
      * @param definitionIds array of definition ids
-     * @throws {@link DefaultParametersException} and {@link IOException}
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return build definitions {@link BuildDefinitions}
      */
-    public BuildDefinitions getBuildDefinitions(int[] definitionIds) throws DefaultParametersException, IOException {
+    @Override
+    public BuildDefinitions getBuildDefinitions(int[] definitionIds) throws DefaultParametersException, AzDException {
 
         String ids = Arrays.stream(definitionIds).mapToObj(String::valueOf).collect(Collectors.joining(","));
 
@@ -522,16 +584,18 @@ public class Build {
         String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                 AREA + "/definitions",null,null, BuildVersion.BUILD_DEFINITIONS, q,null);
 
-        return MAPPER.readValue(r, BuildDefinitions.class);
+        return MAPPER.mapJsonResponse(r, BuildDefinitions.class);
     }
 
     /***
      * Gets a list of definitions.
      * @param top definitions to retrieve
-     * @throws {@link DefaultParametersException} and {@link IOException}
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return build definitions {@link BuildDefinitions}
      */
-    public BuildDefinitions getBuildDefinitions(int top) throws DefaultParametersException, IOException {
+    @Override
+    public BuildDefinitions getBuildDefinitions(int top) throws DefaultParametersException, AzDException {
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("$top", top);
@@ -540,16 +604,18 @@ public class Build {
         String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                 AREA + "/definitions",null,null, BuildVersion.BUILD_DEFINITIONS, q,null);
 
-        return MAPPER.readValue(r, BuildDefinitions.class);
+        return MAPPER.mapJsonResponse(r, BuildDefinitions.class);
     }
 
     /***
      * Gets a list of definitions.
      * @param name Name of the build definition
-     * @throws {@link DefaultParametersException} and {@link IOException}
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return build definitions {@link BuildDefinitions}
      */
-    public BuildDefinitions getBuildDefinitions(String name) throws DefaultParametersException, IOException {
+    @Override
+    public BuildDefinitions getBuildDefinitions(String name) throws DefaultParametersException, AzDException {
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("name", name);
@@ -558,7 +624,7 @@ public class Build {
         String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                 AREA + "/definitions", null, null, BuildVersion.BUILD_DEFINITIONS, q,null);
 
-        return MAPPER.readValue(r, BuildDefinitions.class);
+        return MAPPER.mapJsonResponse(r, BuildDefinitions.class);
     }
 
     /***
@@ -576,14 +642,16 @@ public class Build {
      * @param repositoryType If specified, filters to definitions that have a repository of this type.
      * @param taskIdFilter If specified, filters to definitions that use the specified task.
      * @param yamlFilename If specified, filters to YAML definitions that match the given filename.
-     * @throws {@link DefaultParametersException} and {@link IOException}
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return build definitions {@link BuildDefinitions}
      */
+    @Override
     public Map getBuildDefinitions(
             String builtAfter, String continuationToken, boolean includeAllProperties,
             boolean includeLatestBuilds, String minMetricsTime, String notBuiltAfter,
             String path, int processType, String queryOrder, String repositoryId,
-            String repositoryType, String taskIdFilter, String yamlFilename) throws DefaultParametersException, IOException {
+            String repositoryType, String taskIdFilter, String yamlFilename) throws DefaultParametersException, AzDException {
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("builtAfter", builtAfter);
@@ -604,17 +672,19 @@ public class Build {
         String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                         AREA + "/definitions",null,null, BuildVersion.BUILD_DEFINITIONS, q,null);
 
-        return MAPPER.readValue(r, Map.class);
+        return MAPPER.mapJsonResponse(r, Map.class);
     }
 
     /***
      * Restores a deleted definition
      * @param definitionId pass the build definition id
      * @param deleted When false, restores a deleted definition.
-     * @throws {@link DefaultParametersException} and {@link IOException}
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return a {@link BuildDefinition} object
      */
-    public BuildDefinition restoreBuildDefinition(int definitionId,  boolean deleted) throws DefaultParametersException, IOException {
+    @Override
+    public BuildDefinition restoreBuildDefinition(int definitionId, boolean deleted) throws DefaultParametersException, AzDException {
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("deleted", deleted);
@@ -623,6 +693,6 @@ public class Build {
         String r = Request.request(RequestMethod.PATCH, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                         AREA + "/definitions", Integer.toString(definitionId),null, BuildVersion.BUILD_DEFINITIONS, q,null);
 
-        return MAPPER.readValue(r, BuildDefinition.class);
+        return MAPPER.mapJsonResponse(r, BuildDefinition.class);
     }
 }

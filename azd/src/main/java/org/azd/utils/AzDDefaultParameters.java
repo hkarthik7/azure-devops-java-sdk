@@ -1,7 +1,5 @@
 package org.azd.utils;
 
-import java.util.Map;
-
 /**
  * This sets the default parameters to use this library
  * <p>

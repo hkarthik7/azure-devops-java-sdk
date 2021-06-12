@@ -1,8 +1,8 @@
 package org.azd.utils;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
+import org.azd.helpers.JsonMapper;
 
 import java.util.HashMap;
 
@@ -22,7 +22,7 @@ public class Url {
 
     private final String INSTANCE = "https://dev.azure.com/";
     private final AzDDefaultParameters DEFAULT_PARAMETERS;
-    private final ObjectMapper MAPPER = new ObjectMapper();
+    private final JsonMapper MAPPER = new JsonMapper();
     private final String LOCATION_URL_VERSION = "5.0-preview.1";
 
 
@@ -39,10 +39,10 @@ public class Url {
      *  Gets the resource area url based on resource id passed for the organization
      * @param resourceID pass the resource id
      * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
-     * @throws JsonProcessingException If invalid json primitive is encountered.
+     * @throws AzDException If invalid json primitive is encountered.
      * @return resource area url
      */
-    private String getLocationUrl(String resourceID) throws DefaultParametersException, JsonProcessingException {
+    private String getLocationUrl(String resourceID) throws DefaultParametersException, AzDException {
 
         if (DEFAULT_PARAMETERS.getOrganization() == null) { validateDefaultParameters(); }
 
@@ -54,8 +54,12 @@ public class Url {
                 .append(LOCATION_URL_VERSION)
                 .toString();
 
-        String r = MAPPER.readValue(RequestAPI.get(url), LocationUrl.class).getLocationUrl();
-        return r.replaceAll("/$","");
+        try {
+            String r = MAPPER.mapJsonResponse(RequestAPI.get(url), LocationUrl.class).getLocationUrl();
+            return r.replaceAll("/$","");
+        } catch (Exception e) {
+            throw new AzDException("Couldn't find the organisation name: " + DEFAULT_PARAMETERS.getOrganization());
+        }
     }
 
     /**
@@ -77,7 +81,7 @@ public class Url {
             String id,
             String resource,
             String apiVersion,
-            HashMap<String, Object> queryString) throws DefaultParametersException, JsonProcessingException {
+            HashMap<String, Object> queryString) throws DefaultParametersException, AzDException {
         // build the request url to dynamically serve the API requests
 
         StringBuilder stringBuilder = new StringBuilder();

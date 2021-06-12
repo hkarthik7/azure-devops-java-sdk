@@ -1,8 +1,8 @@
 package org.azd.utils;
 
+import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class Request {
      * @param body body of the request to post and patch
      * @return String response from API
      * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws IOException {@link IOException}
+     * @throws AzDException {@link AzDException}
      */
     public static String request(
             RequestMethod requestMethod,
@@ -37,7 +37,7 @@ public class Request {
             String resource,
             String apiVersion,
             HashMap<String, Object> queryString,
-            HashMap<String, Object> body) throws DefaultParametersException, IOException {
+            HashMap<String, Object> body) throws DefaultParametersException, AzDException {
         String requestUrl = new Url(defaultParameters).buildRequestUrl(resourceId, project, area, id, resource, apiVersion, queryString);
 
         if (requestMethod.toString().equals("GET")) {
@@ -74,7 +74,7 @@ public class Request {
      * @param contentType content type to pass in the request header
      * @return String response from API
      * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws IOException {@link IOException}
+     * @throws AzDException {@link AzDException}
      */
     public static String request(
             RequestMethod requestMethod,
@@ -87,7 +87,7 @@ public class Request {
             String apiVersion,
             HashMap<String, Object> queryString,
             HashMap<String, Object> body,
-            String contentType) throws DefaultParametersException, IOException {
+            String contentType) throws DefaultParametersException, AzDException {
         String requestUrl = new Url(defaultParameters).buildRequestUrl(resourceId, project, area, id, resource, apiVersion, queryString);
 
         if (requestMethod.toString().equals("GET") & (contentType != null)) {
@@ -129,7 +129,7 @@ public class Request {
      * @param contentType content type to pass in the request header
      * @return String response from API
      * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws IOException {@link IOException}
+     * @throws AzDException {@link AzDException}
      */
     public static String request(
             RequestMethod requestMethod,
@@ -143,7 +143,7 @@ public class Request {
             HashMap<String, Object> queryString,
             HashMap<String, Object> body,
             List<Object> requestBody,
-            String contentType) throws DefaultParametersException, IOException {
+            String contentType) throws DefaultParametersException, AzDException {
         String requestUrl = new Url(defaultParameters).buildRequestUrl(resourceId, project, area, id, resource, apiVersion, queryString);
 
         if (requestMethod.toString().equals("GET") & (contentType != null)) {
@@ -154,8 +154,12 @@ public class Request {
             return RequestAPI.get(requestUrl, defaultParameters.getPersonalAccessToken());
         }
 
-        if (requestMethod.toString().equals("POST")) {
+        if (requestMethod.toString().equals("POST") & (requestBody == null)) {
             return RequestAPI.post(requestUrl, defaultParameters.getPersonalAccessToken(), body);
+        }
+
+        if (requestMethod.toString().equals("POST") & (requestBody != null)) {
+            return RequestAPI.post(requestUrl, defaultParameters.getPersonalAccessToken(), requestBody);
         }
 
         if (requestMethod.toString().equals("PATCH") & (requestBody == null)) {

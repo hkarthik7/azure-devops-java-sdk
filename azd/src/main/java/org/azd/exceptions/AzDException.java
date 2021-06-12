@@ -1,8 +1,5 @@
 package org.azd.exceptions;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /***
  * Throws the exception from REST API
  * @author Harish Karthic
@@ -14,7 +11,13 @@ public class AzDException extends Exception {
         super("Validate the arguments passed for the parameters;");
     }
 
+    public AzDException(Throwable cause) { super(cause); }
+
     public AzDException(String message) {
         super("An Error Occurred: " + message);
+    }
+
+    public AzDException(String exceptionType, String message) {
+        super(exceptionType + ": " + message);
     }
 }
