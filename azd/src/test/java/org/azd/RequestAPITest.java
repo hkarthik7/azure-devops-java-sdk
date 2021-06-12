@@ -1,6 +1,6 @@
 package org.azd;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
 import org.azd.utils.AzDDefaultParameters;
 import org.azd.utils.RequestAPI;
@@ -8,14 +8,13 @@ import org.azd.utils.ResourceId;
 import org.azd.utils.Url;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
 public class RequestAPITest {
 
     @Test
-    public void shouldMockGetRequestToAPI() throws DefaultParametersException, JsonProcessingException {
+    public void shouldMockGetRequestToAPI() throws DefaultParametersException, AzDException {
         // Given
         String organization = "Test";
         String token = "myPersonalAccessToken";
@@ -35,7 +34,7 @@ public class RequestAPITest {
     }
 
     @Test
-    public void shouldMockPostRequestToAPI() throws DefaultParametersException, IOException {
+    public void shouldMockPostRequestToAPI() throws DefaultParametersException, AzDException {
         // Given
         String organization = "Test";
         String project = "AzD";
@@ -64,7 +63,7 @@ public class RequestAPITest {
     }
 
     @Test
-    public void shouldMockPatchRequestToAPI() throws DefaultParametersException, IOException {
+    public void shouldMockPatchRequestToAPI() throws DefaultParametersException, AzDException {
         // Given
         String organization = "Test";
         String project = "AzD";
@@ -96,7 +95,7 @@ public class RequestAPITest {
     }
 
     @Test
-    public void shouldMockDeleteRequestToAPI() throws DefaultParametersException, JsonProcessingException {
+    public void shouldMockDeleteRequestToAPI() throws DefaultParametersException, AzDException {
         // Given
         String organization = "Test";
         String project = "AzD";

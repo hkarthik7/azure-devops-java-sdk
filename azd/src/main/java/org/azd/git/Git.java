@@ -1,11 +1,13 @@
 package org.azd.git;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.azd.exceptions.AzDException;
+import org.azd.exceptions.DefaultParametersException;
 import org.azd.git.types.PullRequest;
 import org.azd.git.types.PullRequests;
 import org.azd.git.types.Repositories;
 import org.azd.git.types.Repository;
+import org.azd.helpers.JsonMapper;
+import org.azd.interfaces.GitDetails;
 import org.azd.utils.AzDDefaultParameters;
 import org.azd.utils.Request;
 import org.azd.utils.RequestMethod;
@@ -17,13 +19,13 @@ import java.util.*;
  * GIT class to manage git API
  * @author Harish karthic
  */
-public class Git {
+public class Git implements GitDetails {
 
     /***
      * Instance of AzDDefaultParameters
      */
     private final AzDDefaultParameters DEFAULT_PARAMETERS;
-    private final ObjectMapper MAPPER = new ObjectMapper();
+    private final JsonMapper MAPPER = new JsonMapper();
     private final String AREA = "git";
 
     /***
@@ -36,130 +38,117 @@ public class Git {
      * Create a git repository in a team project.
      * @param repositoryName Name of the repository
      * @param projectId id of the project
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return git repository object
      */
-    public Repository createRepository(String repositoryName, String projectId) {
+    @Override
+    public Repository createRepository(String repositoryName, String projectId) throws DefaultParametersException, AzDException {
 
-        try {
-            LinkedHashMap<String, Object> h = new LinkedHashMap<>(){{
-                put("name", repositoryName);
-                put("project", new LinkedHashMap<String, String>(){{
-                    put("id", projectId);
-                }});
-            }};
-            String r = Request.request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.GIT, projectId,
-                            AREA, null, "repositories", GitVersion.VERSION, null, h);
-            return MAPPER.readValue(r, Repository.class);
-        } catch (Exception e) {
-            AzDException.handleException(e);
-        }
-
-        return null;
+        LinkedHashMap<String, Object> h = new LinkedHashMap<>(){{
+            put("name", repositoryName);
+            put("project", new LinkedHashMap<String, String>(){{
+                put("id", projectId);
+            }});
+        }};
+        String r = Request.request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.GIT, projectId,
+                        AREA, null, "repositories", GitVersion.VERSION, null, h);
+        return MAPPER.mapJsonResponse(r, Repository.class);
     }
 
     /***
      * Delete a git repository
      * @param repositoryId pass the repository id
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      */
-    public void deleteRepository(String repositoryId) {
-
+    @Override
+    public void deleteRepository(String repositoryId) throws DefaultParametersException, AzDException {
         try {
-            Request.request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+            String r = Request.request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
                     AREA + "/repositories", repositoryId, null, GitVersion.VERSION, null, null);
-
-        } catch (Exception e) {
-            AzDException.handleException(e);
+            if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
+        } catch (DefaultParametersException | AzDException e) {
+            throw e;
         }
     }
 
     /***
      * Destroy (hard delete) a soft-deleted Git repository.
      * @param repositoryId pass the repository id
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      */
-    public void deleteRepositoryFromRecycleBin(String repositoryId) {
-
+    @Override
+    public void deleteRepositoryFromRecycleBin(String repositoryId) throws DefaultParametersException, AzDException {
         try {
-            Request.request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+            String r = Request.request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
                     AREA + "/recycleBin/repositories", repositoryId, null, GitVersion.VERSION, null, null);
-
-        } catch (Exception e) {
-            AzDException.handleException(e);
+            if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
+        } catch (DefaultParametersException | AzDException e) {
+            throw e;
         }
     }
 
     /***
      * Retrieve deleted git repositories.
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return Git deleted repository object
      */
-    public Map getDeletedRepositories() {
+    @Override
+    public Map getDeletedRepositories() throws DefaultParametersException, AzDException {
 
-        try {
-            String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
-                            AREA, null, "deletedrepositories", GitVersion.VERSION, null, null);
+        String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+                        AREA, null, "deletedrepositories", GitVersion.VERSION, null, null);
 
-            return MAPPER.readValue(r, Map.class);
-
-        } catch (Exception e) {
-            AzDException.handleException(e);
-        }
-
-        return null;
+        return MAPPER.mapJsonResponse(r, Map.class);
     }
 
     /***
      * Retrieve soft-deleted git repositories from the recycle bin.
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return array of git deleted recycle bin repositories
      */
-    public Map getRecycleBinRepositories() {
+    @Override
+    public Map getRecycleBinRepositories() throws DefaultParametersException, AzDException {
 
-        try {
-            String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
-                            AREA, null, "recycleBin/repositories", GitVersion.VERSION, null, null);
+        String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+                        AREA, null, "recycleBin/repositories", GitVersion.VERSION, null, null);
 
-            return MAPPER.readValue(r, Map.class);
-
-        } catch (Exception e) {
-            AzDException.handleException(e);
-        }
-
-        return null;
+        return MAPPER.mapJsonResponse(r, Map.class);
     }
 
     /***
      * Retrieve a git repository.
      * @param repositoryName pass the repository name
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return git repository object
      */
-    public Repository getRepository(String repositoryName) {
+    @Override
+    public Repository getRepository(String repositoryName) throws DefaultParametersException, AzDException {
 
-        try {
-            String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
-                            AREA + "/repositories", repositoryName, null, GitVersion.VERSION, null, null);
+        String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+                        AREA + "/repositories", repositoryName, null, GitVersion.VERSION, null, null);
 
-            return MAPPER.readValue(r, Repository.class);
-
-        } catch (Exception e) {
-            AzDException.handleException(e);
-        }
-
-        return null;
+        return MAPPER.mapJsonResponse(r, Repository.class);
     }
 
     /***
      * Retrieve git repositories.
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return array of git repositories
      */
-    public Repositories getRepositories() {
-        try {
-            String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
-                            AREA, null, "repositories", GitVersion.VERSION, null, null);
+    @Override
+    public Repositories getRepositories() throws DefaultParametersException, AzDException {
 
-            return MAPPER.readValue(r, Repositories.class);
+        String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+                        AREA, null, "repositories", GitVersion.VERSION, null, null);
 
-        } catch (Exception e) {
-            AzDException.handleException(e);
-        }
-        return null;
+        return MAPPER.mapJsonResponse(r, Repositories.class);
     }
 
     /***
@@ -167,25 +156,21 @@ public class Git {
      * Recently deleted repositories go into a soft-delete state for a period of time before they are hard deleted and become unrecoverable.
      * @param repositoryId pass the repository id
      * @param deleted Setting to false will undo earlier deletion and restore the repository.
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return object of git repository
      */
-    public Repository restoreRepositoryFromRecycleBin(String repositoryId, boolean deleted) {
+    @Override
+    public Repository restoreRepositoryFromRecycleBin(String repositoryId, boolean deleted) throws DefaultParametersException, AzDException {
 
-        try {
-            HashMap<String, Object> h = new HashMap<>(){{
-                put("deleted", deleted);
-            }};
+        HashMap<String, Object> h = new HashMap<>(){{
+            put("deleted", deleted);
+        }};
 
-            String r = Request.request(RequestMethod.PATCH, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
-                            AREA + "/recycleBin/repositories", repositoryId, null, GitVersion.VERSION, null, h);
+        String r = Request.request(RequestMethod.PATCH, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+                        AREA + "/recycleBin/repositories", repositoryId, null, GitVersion.VERSION, null, h);
 
-            return MAPPER.readValue(r, Repository.class);
-
-        } catch (Exception e) {
-            AzDException.handleException(e);
-        }
-
-        return null;
+        return MAPPER.mapJsonResponse(r, Repository.class);
     }
 
     /***
@@ -193,26 +178,22 @@ public class Git {
      * @param repositoryId provide the repository id
      * @param repositoryName pass the repository name to rename
      * @param defaultBranchName pass the default branch name to set
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return repository object
      */
-    public Repository updateRepository(String repositoryId, String repositoryName, String defaultBranchName) {
+    @Override
+    public Repository updateRepository(String repositoryId, String repositoryName, String defaultBranchName) throws DefaultParametersException, AzDException {
 
-        try {
-            HashMap<String, Object> h = new HashMap<>(){{
-                put("name", repositoryName);
-                put("defaultBranch", "refs/heads/" + defaultBranchName);
-            }};
+        HashMap<String, Object> h = new HashMap<>(){{
+            put("name", repositoryName);
+            put("defaultBranch", "refs/heads/" + defaultBranchName);
+        }};
 
-            String r = Request.request(RequestMethod.PATCH, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
-                            AREA + "/repositories", repositoryId, null, GitVersion.VERSION, null, h);
+        String r = Request.request(RequestMethod.PATCH, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+                        AREA + "/repositories", repositoryId, null, GitVersion.VERSION, null, h);
 
-            return MAPPER.readValue(r, Repository.class);
-
-        } catch (Exception e) {
-            AzDException.handleException(e);
-        }
-
-        return null;
+        return MAPPER.mapJsonResponse(r, Repository.class);
     }
 
     /***
@@ -223,123 +204,99 @@ public class Git {
      * @param title The title of the pull request.
      * @param description The description of the pull request.
      * @param reviewers A list of reviewers on the pull request along with the state of their votes.
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return an object of git pull request
      */
+    @Override
     public PullRequest createPullRequest(
             String repositoryId, String sourceRefName, String targetRefName,
-            String title, String description, String[] reviewers ) {
+            String title, String description, String[] reviewers) throws DefaultParametersException, AzDException {
 
-        try {
             List<Object> o = new ArrayList<>();
 
-            for (String reviewer : reviewers) {
-                HashMap<String, String> id = new HashMap<>(){{ put("id", reviewer); }};
-                o.add(id);
-            }
-
-            HashMap<String, Object> h = new HashMap<>(){{
-                put("sourceRefName", sourceRefName);
-                put("targetRefName", targetRefName);
-                put("title", title);
-                put("description", description);
-                put("reviewers", o);
-            }};
-
-            String r = Request.request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
-                    AREA + "/repositories", repositoryId, "pullrequests", GitVersion.VERSION, null, h);
-
-            return MAPPER.readValue(r, PullRequest.class);
-
-        } catch (Exception e) {
-            AzDException.handleException(e);
+        for (String reviewer : reviewers) {
+            HashMap<String, String> id = new HashMap<>(){{ put("id", reviewer); }};
+            o.add(id);
         }
 
-        return null;
+        HashMap<String, Object> h = new HashMap<>(){{
+            put("sourceRefName", sourceRefName);
+            put("targetRefName", targetRefName);
+            put("title", title);
+            put("description", description);
+            put("reviewers", o);
+        }};
+
+        String r = Request.request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+                AREA + "/repositories", repositoryId, "pullrequests", GitVersion.VERSION, null, h);
+
+        return MAPPER.mapJsonResponse(r, PullRequest.class);
     }
 
     /***
      * Retrieve a pull request.
      * @param repositoryName The repository name of the pull request's target branch.
      * @param pullRequestId The ID of the pull request to retrieve.
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return {@link PullRequest} object
      */
-    public PullRequest getPullRequest(String repositoryName, int pullRequestId) {
+    @Override
+    public PullRequest getPullRequest(String repositoryName, int pullRequestId) throws DefaultParametersException, AzDException {
 
-        try {
+        String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+                AREA + "/repositories", repositoryName, "pullrequests/" + pullRequestId, GitVersion.VERSION, null,null);
 
-            String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
-                    AREA + "/repositories", repositoryName, "pullrequests/" + pullRequestId, GitVersion.VERSION, null,null);
-
-            return MAPPER.readValue(r, PullRequest.class);
-
-        } catch (Exception e) {
-            AzDException.handleException(e);
-        }
-
-        return null;
+        return MAPPER.mapJsonResponse(r, PullRequest.class);
     }
 
     /***
      * Retrieve a pull request.
      * @param pullRequestId The ID of the pull request to retrieve.
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return {@link PullRequest} object
      */
-    public PullRequest getPullRequestById(int pullRequestId) {
+    @Override
+    public PullRequest getPullRequestById(int pullRequestId) throws DefaultParametersException, AzDException {
+        String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+                AREA + "/pullrequests", Integer.toString(pullRequestId), null, GitVersion.VERSION, null,null);
 
-        try {
 
-            String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
-                    AREA + "/pullrequests", Integer.toString(pullRequestId), null, GitVersion.VERSION, null,null);
-
-            return MAPPER.readValue(r, PullRequest.class);
-
-        } catch (Exception e) {
-            AzDException.handleException(e);
-        }
-
-        return null;
+        return MAPPER.mapJsonResponse(r, PullRequest.class);
     }
 
     /***
      * Retrieve all pull requests from a repository
      * @param repositoryName specify the repository name
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return {@link PullRequest} object
      */
-    public PullRequests getPullRequests(String repositoryName) {
+    @Override
+    public PullRequests getPullRequests(String repositoryName) throws DefaultParametersException, AzDException {
 
-        try {
+        String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+                AREA + "/repositories", repositoryName, "pullrequests", GitVersion.VERSION, null,null);
 
-            String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
-                    AREA + "/repositories", repositoryName, "pullrequests", GitVersion.VERSION, null,null);
-
-            return MAPPER.readValue(r, PullRequests.class);
-
-        } catch (Exception e) {
-            AzDException.handleException(e);
-        }
-
-        return null;
+        return MAPPER.mapJsonResponse(r, PullRequests.class);
     }
 
     /***
      * Gets all pull requests from a project. To get the pull requests from non-default project you have to call setProject
      * method from {@link AzDDefaultParameters}.
+     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws AzDException {@link AzDException}
      * @return {@link PullRequest} object
      */
-    public PullRequests getPullRequestsByProject() {
+    @Override
+    public PullRequests getPullRequestsByProject() throws DefaultParametersException, AzDException {
 
-        try {
+        String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+                AREA, null, "pullrequests", GitVersion.VERSION, null,null);
 
-            String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
-                    AREA, null, "pullrequests", GitVersion.VERSION, null,null);
-
-            return MAPPER.readValue(r, PullRequests.class);
-
-        } catch (Exception e) {
-            AzDException.handleException(e);
-        }
-
-        return null;
+        return MAPPER.mapJsonResponse(r, PullRequests.class);
     }
 
 }

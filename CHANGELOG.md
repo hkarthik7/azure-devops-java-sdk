@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.1
+
+- Major changes 
+   - for exception handling
+   - Decoupled classes by introducing interfaces. This helps to indicate what we support.
+   - Added tests.
+   - Added WorkApi and WorkItems Api.
+
 ## 0.2.1
 
 - Changes to exception handling

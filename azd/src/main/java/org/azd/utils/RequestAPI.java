@@ -1,8 +1,8 @@
 package org.azd.utils;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.azd.exceptions.AzDException;
+import org.azd.helpers.JsonMapper;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -19,7 +19,7 @@ import java.util.List;
 public class RequestAPI {
 
     private static final String AUTHORIZATION = "Authorization";
-    private static final ObjectMapper OBJECTMAPPER = new ObjectMapper();
+    private static final JsonMapper MAPPER = new JsonMapper();
     private static final HttpClient CLIENT = HttpClient.newHttpClient();
 
     /**
@@ -102,15 +102,31 @@ public class RequestAPI {
      * @param requestUrl pass the request url
      * @param token pass the personal access token
      * @param body pass the request body to post the request
-     * @throws IOException throws IO exception
+     * @throws AzDException throws IO exception
      * @return response string from the API if any
      */
-    public static String post(String requestUrl, String token, HashMap<String, Object> body) throws IOException {
+    public static String post(String requestUrl, String token, HashMap<String, Object> body) throws AzDException {
         return response(
                 request(requestUrl, token)
-                    .POST(HttpRequest.BodyPublishers.ofString(OBJECTMAPPER.writeValueAsString(body)))
+                    .POST(HttpRequest.BodyPublishers.ofString(MAPPER.convertToString(body)))
                     .header("Content-Type", "application/json")
                     .build());
+    }
+
+    /**
+     *  Sends a POST request to REST API with basic authentication and request body
+     * @param requestUrl pass the request url
+     * @param token pass the personal access token
+     * @param body pass the request body to post the request (accepts an array of object)
+     * @throws AzDException throws IO exception
+     * @return response string from the API if any
+     */
+    public static String post(String requestUrl, String token, List<Object> body) throws AzDException {
+        return response(
+                request(requestUrl, token)
+                        .POST(HttpRequest.BodyPublishers.ofString(MAPPER.convertToString(body)))
+                        .header("Content-Type", "application/json-patch+json")
+                        .build());
     }
 
     /**
@@ -118,13 +134,13 @@ public class RequestAPI {
      * @param requestUrl pass the request url
      * @param token pass the personal access token
      * @param body pass the request body to update the request
-     * @throws IOException throws IO exception
+     * @throws AzDException throws IO exception
      * @return response string from the API if any
      */
-    public static String patch(String requestUrl, String token, HashMap<String, Object> body) throws IOException {
+    public static String patch(String requestUrl, String token, HashMap<String, Object> body) throws AzDException {
         return response(
                 request(requestUrl, token)
-                        .method(RequestMethod.PATCH.toString(), HttpRequest.BodyPublishers.ofString(OBJECTMAPPER.writeValueAsString(body)))
+                        .method(RequestMethod.PATCH.toString(), HttpRequest.BodyPublishers.ofString(MAPPER.convertToString(body)))
                         .header("Content-Type", "application/json")
                         .build());
     }
@@ -134,13 +150,13 @@ public class RequestAPI {
      * @param requestUrl pass the request url
      * @param token pass the personal access token
      * @param body pass the request body to update the request
-     * @throws IOException throws IO exception
+     * @throws AzDException throws IO exception
      * @return response string from the API if any
      */
-    public static String patch(String requestUrl, String token, List<Object> body) throws IOException {
+    public static String patch(String requestUrl, String token, List<Object> body) throws AzDException {
         return response(
                 request(requestUrl, token)
-                        .method(RequestMethod.PATCH.toString(), HttpRequest.BodyPublishers.ofString(OBJECTMAPPER.writeValueAsString(body)))
+                        .method(RequestMethod.PATCH.toString(), HttpRequest.BodyPublishers.ofString(MAPPER.convertToString(body)))
                         .header("Content-Type", "application/json")
                         .build());
     }
