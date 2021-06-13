@@ -58,7 +58,7 @@ public class Main {
         AzDDefaultParameters defaultParameters = new AzDDefaultParameters(organisation, personalAccessToken);
     
         // call API with the default parameters;
-        Core core = new Core(defaultParameters);
+        CoreApi core = new CoreApi(defaultParameters);
         try {
             // get the list of projects
             core.getProjects();

@@ -21,14 +21,14 @@ public class Main {
         AzDDefaultParameters defaultParameters = new AzDDefaultParameters(organisation, project, personalAccessToken);
     
         // call API with the default parameters;
-        Core core = new Core(defaultParameters);
+        CoreApi core = new CoreApi(defaultParameters);
         try {        
             // create a new project
             // This creates a default project with scrum process
             core.createProject("projectName", "description");
     
             // create project with additional parameters. You can aquire the template type id by
-            // runnung core.getProcesses()
+            // running core.getProcesses()
             core.createProject("projectName", "description", "sourceControlType", "templateTypeId");
     
             // create a new team
@@ -48,7 +48,7 @@ public class Main {
             core.updateProject("projectId", projectParameters);
     
             core.getProcesses().getProcesses().stream().forEach(name -> System.out.println(name.getName()));
-        } catch (IOException | DefaultParametersException e) {
+        } catch (AzDException | DefaultParametersException e) {
             e.printStackTrace();
         }
     }

@@ -21,7 +21,7 @@ public class Main {
         AzDDefaultParameters defaultParameters = new AzDDefaultParameters(organisation, project, personalAccessToken);
     
         // call API with the default parameters;
-        Build build = new Build(defaultParameters);
+        BuildApi build = new BuildApi(defaultParameters);
         try {
         
             // delete a build by id
@@ -51,7 +51,7 @@ public class Main {
             // queue a build with its' definition Id
             build.queueBuild(12);
 
-        } catch (DefaultParametersException | IOException e) {
+        } catch (DefaultParametersException | AzDException e) {
             e.printStackTrace();
         }
     }

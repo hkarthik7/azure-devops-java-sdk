@@ -21,7 +21,7 @@ public class Main {
         AzDDefaultParameters defaultParameters = new AzDDefaultParameters(organisation, project, personalAccessToken);
     
         // call API with the default parameters;
-        Git git = new Git(defaultParameters);
+        GitApi git = new GitApi(defaultParameters);
         try {
             // create a new repository
             git.createRepository("repositoryName", "projectId");
@@ -43,7 +43,7 @@ public class Main {
 
             // update a repository; rename a repository by branch. Just pass the branch name as main/develop;
             git.updateRepository("repositoryId", "repositoryName", "defaultBranchName");
-        } catch (IOException | DefaultParametersException e) {
+        } catch (AzDException | DefaultParametersException e) {
             e.printStackTrace();
         }
     }

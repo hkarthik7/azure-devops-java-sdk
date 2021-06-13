@@ -24,7 +24,7 @@ public class Main {
         AzDDefaultParameters defaultParameters = new AzDDefaultParameters(organisation, project, personalAccessToken);
     
         // call API with the default parameters;
-        FeedManagement feedManagement = new FeedManagement(defaultParameters);
+        FeedManagementApi feedManagement = new FeedManagementApi(defaultParameters);
         try {
             // create new feed
             feedManagement.createFeed("myFeed", "To store maven packages", true, true);
@@ -60,7 +60,7 @@ public class Main {
             // update the existing feed;
             feedManagement.updateFeed("myFeed", true, "My new feed", true, true);
         } 
-        catch (DefaultParametersException | IOException e1) {
+        catch (DefaultParametersException | AzDException e1) {
             e1.printStackTrace();
         }
     }
