@@ -6,22 +6,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Builds {
-    @JsonProperty("value")
-    private List<BuildT> buildTS;
+public class Process {
+    @JsonProperty("phases")
+    private List<Phases> phases;
 
-    public List<BuildT> getBuildResults() {
-        return buildTS;
+    public List<Phases> getPhases() {
+        return phases;
     }
 
-    public void setBuildResults(List<BuildT> value) {
-        this.buildTS = value;
+    public void setPhases(List<Phases> phases) {
+        this.phases = phases;
     }
 
     @Override
     public String toString() {
-        return "Builds{" +
-                "value=" + buildTS +
+        return "Process{" +
+                "phases=" + phases +
                 '}';
     }
 }

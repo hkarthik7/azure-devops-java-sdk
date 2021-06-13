@@ -2,6 +2,8 @@ package org.azd.artifacts.feedmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.definitions.ReferenceLinks;
+import org.azd.core.types.Project;
 
 import java.util.List;
 
@@ -11,6 +13,8 @@ public class Feed {
     private String description;
     @JsonProperty("url")
     private String url;
+    @JsonProperty("_links")
+    private ReferenceLinks _links;
     @JsonProperty("hideDeletedPackageVersions")
     private boolean hideDeletedPackageVersions;
     @JsonProperty("defaultViewId")
@@ -37,6 +41,15 @@ public class Feed {
     private String capabilities;
     @JsonProperty("project")
     private Project project;
+
+    public ReferenceLinks get_links() {
+        return _links;
+    }
+
+    public void set_links(ReferenceLinks _links) {
+        this._links = _links;
+    }
+
 
     public String getDescription() {
         return description;
@@ -161,6 +174,7 @@ public class Feed {
         return "Feed{" +
                 "description='" + description + '\'' +
                 ", url='" + url + '\'' +
+                ", _links=" + _links +
                 ", hideDeletedPackageVersions=" + hideDeletedPackageVersions +
                 ", defaultViewId='" + defaultViewId + '\'' +
                 ", badgesEnabled=" + badgesEnabled +
@@ -175,129 +189,5 @@ public class Feed {
                 ", capabilities='" + capabilities + '\'' +
                 ", project=" + project +
                 '}';
-    }
-
-
-    private static class UpstreamSources {
-        @JsonProperty("id")
-        private String id;
-        @JsonProperty("name")
-        private String name;
-        @JsonProperty("protocol")
-        private String protocol;
-        @JsonProperty("location")
-        private String location;
-        @JsonProperty("displayLocation")
-        private String displayLocation;
-        @JsonProperty("upstreamSourceType")
-        private String upstreamSourceType;
-        @JsonProperty("status")
-        private String status;
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getProtocol() {
-            return protocol;
-        }
-
-        public void setProtocol(String protocol) {
-            this.protocol = protocol;
-        }
-
-        public String getLocation() {
-            return location;
-        }
-
-        public void setLocation(String location) {
-            this.location = location;
-        }
-
-        public String getDisplayLocation() {
-            return displayLocation;
-        }
-
-        public void setDisplayLocation(String displayLocation) {
-            this.displayLocation = displayLocation;
-        }
-
-        public String getUpstreamSourceType() {
-            return upstreamSourceType;
-        }
-
-        public void setUpstreamSourceType(String upstreamSourceType) {
-            this.upstreamSourceType = upstreamSourceType;
-        }
-
-        public String getStatus() {
-            return status;
-        }
-
-        public void setStatus(String status) {
-            this.status = status;
-        }
-
-        @Override
-        public String toString() {
-            return "UpstreamSources{" +
-                    "id='" + id + '\'' +
-                    ", name='" + name + '\'' +
-                    '}';
-        }
-    }
-
-    private static class Project {
-        @JsonProperty("id")
-        private String id;
-        @JsonProperty("name")
-        private String name;
-        @JsonProperty("visibility")
-        private String visibility;
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getVisibility() {
-            return visibility;
-        }
-
-        public void setVisibility(String visibility) {
-            this.visibility = visibility;
-        }
-
-        @Override
-        public String toString() {
-            return "Project{" +
-                    "id='" + id + '\'' +
-                    ", name='" + name + '\'' +
-                    ", visibility='" + visibility + '\'' +
-                    '}';
-        }
     }
 }

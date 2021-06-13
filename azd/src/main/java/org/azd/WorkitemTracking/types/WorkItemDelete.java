@@ -2,7 +2,6 @@ package org.azd.WorkitemTracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonNode;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WorkItemDelete {
@@ -23,7 +22,7 @@ public class WorkItemDelete {
     @JsonProperty("url")
     private String url;
     @JsonProperty("resource")
-    private JsonNode resource;
+    private WorkItem resource;
 
     public int getId() {
         return id;
@@ -89,11 +88,11 @@ public class WorkItemDelete {
         this.url = url;
     }
 
-    public JsonNode getResource() {
+    public WorkItem getResource() {
         return resource;
     }
 
-    public void setResource(JsonNode resource) {
+    public void setResource(WorkItem resource) {
         this.resource = resource;
     }
 

@@ -1,6 +1,6 @@
 package org.azd;
 
-import org.azd.artifacts.feedmanagement.implementation.FeedManagement;
+import org.azd.artifacts.feedmanagement.implementation.FeedManagementApi;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
 import org.azd.helpers.JsonMapper;
@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import java.io.File;
 
-public class FeedManagementTest {
+public class FeedManagementApiTest {
 
     private static final JsonMapper MAPPER = new JsonMapper();
     private static FeedManagementDetails f;
@@ -25,7 +25,7 @@ public class FeedManagementTest {
         String token = m.getT();
         String project = m.getP();
         AzDDefaultParameters defaultParameters = new AzDDefaultParameters(organization, project, token);
-        f = new FeedManagement(defaultParameters);
+        f = new FeedManagementApi(defaultParameters);
     }
 
     @Test(expected = AzDException.class)

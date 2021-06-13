@@ -22,7 +22,7 @@ import java.util.List;
 
 import static org.azd.helpers.URLHelper.encodeSpace;
 
-public class WorkItems implements WorkItemDetails {
+public class WorkItemsApi implements WorkItemDetails {
     /***
      * Instance of AzDDefaultParameters
      */
@@ -35,7 +35,7 @@ public class WorkItems implements WorkItemDetails {
      * Instantiate the class with instance of AzDDefaultParameters
      * @param defaultParameters instance of AzDDefaultParameters
      */
-    public WorkItems(AzDDefaultParameters defaultParameters) { this.DEFAULT_PARAMETERS = defaultParameters; }
+    public WorkItemsApi(AzDDefaultParameters defaultParameters) { this.DEFAULT_PARAMETERS = defaultParameters; }
 
     /***
      * Creates a single work item.

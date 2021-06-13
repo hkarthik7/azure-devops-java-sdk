@@ -1,6 +1,6 @@
 package org.azd;
 
-import org.azd.Work.Iterations.Work;
+import org.azd.Work.Iterations.WorkApi;
 import org.azd.enums.IterationsTimeFrame;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
@@ -13,9 +13,9 @@ import java.io.File;
 
 import static org.junit.Assert.assertEquals;
 
-public class WorkTest {
+public class WorkApiTest {
     private static final JsonMapper MAPPER = new JsonMapper();
-    private static Work w;
+    private static WorkApi w;
 
     @Before
     public void init() throws AzDException {
@@ -26,7 +26,7 @@ public class WorkTest {
         String token = m.getT();
         String project = m.getP();
         AzDDefaultParameters defaultParameters = new AzDDefaultParameters(organization, project, token);
-        w = new Work(defaultParameters);
+        w = new WorkApi(defaultParameters);
     }
 
     @Test

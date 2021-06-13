@@ -17,7 +17,7 @@ import java.util.List;
  * Feed Management class to manage Artifacts API
  * @author Harish karthic
  */
-public class FeedManagement implements FeedManagementDetails {
+public class FeedManagementApi implements FeedManagementDetails {
     /***
      * Instance of AzDDefaultParameters
      */
@@ -29,7 +29,7 @@ public class FeedManagement implements FeedManagementDetails {
      * Instantiate the class with instance of AzDDefaultParameters
      * @param defaultParameters instance of AzDDefaultParameters
      */
-    public FeedManagement(AzDDefaultParameters defaultParameters) { this.DEFAULT_PARAMETERS = defaultParameters; }
+    public FeedManagementApi(AzDDefaultParameters defaultParameters) { this.DEFAULT_PARAMETERS = defaultParameters; }
 
     /***
      * Create a feed, a container for various package types.

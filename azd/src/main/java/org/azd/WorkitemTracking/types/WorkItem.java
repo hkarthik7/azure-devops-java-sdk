@@ -2,7 +2,7 @@ package org.azd.WorkitemTracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonNode;
+import org.azd.common.definitions.ReferenceLinks;
 
 import java.util.List;
 
@@ -13,11 +13,11 @@ public class WorkItem {
     @JsonProperty("rev")
     private int rev;
     @JsonProperty("fields")
-    private JsonNode fields;
+    private WorkItemFields fields;
     @JsonProperty("relations")
-    private List<Relations> relations;
+    private List<WorkItemRelations> relations;
     @JsonProperty("_links")
-    private JsonNode _links;
+    private ReferenceLinks _links;
     @JsonProperty("url")
     private String url;
 
@@ -37,27 +37,27 @@ public class WorkItem {
         this.rev = rev;
     }
 
-    public JsonNode getFields() {
+    public WorkItemFields getFields() {
         return fields;
     }
 
-    public void setFields(JsonNode fields) {
+    public void setFields(WorkItemFields fields) {
         this.fields = fields;
     }
 
-    public JsonNode get_links() {
+    public ReferenceLinks get_links() {
         return _links;
     }
 
-    public void set_links(JsonNode _links) {
+    public void set_links(ReferenceLinks _links) {
         this._links = _links;
     }
 
-    public List<Relations> getRelations() {
+    public List<WorkItemRelations> getRelations() {
         return relations;
     }
 
-    public void setRelations(List<Relations> relations) {
+    public void setRelations(List<WorkItemRelations> relations) {
         this.relations = relations;
     }
 
@@ -79,156 +79,5 @@ public class WorkItem {
                 ", relations=" + relations +
                 ", url='" + url + '\'' +
                 '}';
-    }
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    private static class Relations {
-        @JsonProperty("rel")
-        private String rel;
-        @JsonProperty("url")
-        private String url;
-        @JsonProperty("attributes")
-        private JsonNode attributes;
-
-        public String getRel() {
-            return rel;
-        }
-
-        public void setRel(String rel) {
-            this.rel = rel;
-        }
-
-        public String getUrl() {
-            return url;
-        }
-
-        public void setUrl(String url) {
-            this.url = url;
-        }
-
-        public JsonNode getAttributes() {
-            return attributes;
-        }
-
-        public void setAttributes(JsonNode attributes) {
-            this.attributes = attributes;
-        }
-
-        @Override
-        public String toString() {
-            return "Relations{" +
-                    "rel='" + rel + '\'' +
-                    ", url='" + url + '\'' +
-                    ", attributes=" + attributes +
-                    '}';
-        }
-    }
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    private static class ReferenceLinks {
-        @JsonProperty("self")
-        private References self;
-        @JsonProperty("workItemUpdates")
-        private References workItemUpdates;
-        @JsonProperty("workItemRevisions")
-        private References workItemRevisions;
-        @JsonProperty("workItemComments")
-        private References workItemComments;
-        @JsonProperty("html")
-        private References html;
-        @JsonProperty("workItemType")
-        private References workItemType;
-        @JsonProperty("fields")
-        private References fields;
-
-        public References getSelf() {
-            return self;
-        }
-
-        public void setSelf(References self) {
-            this.self = self;
-        }
-
-        public References getWorkItemUpdates() {
-            return workItemUpdates;
-        }
-
-        public void setWorkItemUpdates(References workItemUpdates) {
-            this.workItemUpdates = workItemUpdates;
-        }
-
-        public References getWorkItemRevisions() {
-            return workItemRevisions;
-        }
-
-        public void setWorkItemRevisions(References workItemRevisions) {
-            this.workItemRevisions = workItemRevisions;
-        }
-
-        public References getWorkItemComments() {
-            return workItemComments;
-        }
-
-        public void setWorkItemComments(References workItemComments) {
-            this.workItemComments = workItemComments;
-        }
-
-        public References getHtml() {
-            return html;
-        }
-
-        public void setHtml(References html) {
-            this.html = html;
-        }
-
-        public References getWorkItemType() {
-            return workItemType;
-        }
-
-        public void setWorkItemType(References workItemType) {
-            this.workItemType = workItemType;
-        }
-
-        public References getFields() {
-            return fields;
-        }
-
-        public void setFields(References fields) {
-            this.fields = fields;
-        }
-
-        @Override
-        public String toString() {
-            return "ReferenceLinks{" +
-                    "self=" + self +
-                    ", workItemUpdates=" + workItemUpdates +
-                    ", workItemRevisions=" + workItemRevisions +
-                    ", workItemComments=" + workItemComments +
-                    ", html=" + html +
-                    ", workItemType=" + workItemType +
-                    ", fields=" + fields +
-                    '}';
-        }
-    }
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    private static class References {
-        @JsonProperty("href")
-        private String href;
-
-        public String getHref() {
-            return href;
-        }
-
-        public void setHref(String href) {
-            this.href = href;
-        }
-
-        @Override
-        public String toString() {
-            return "References{" +
-                    "href='" + href + '\'' +
-                    '}';
-        }
     }
 }

@@ -110,6 +110,4 @@ public class BuildController {
                 ", url='" + url + '\'' +
                 '}';
     }
-
-
 }

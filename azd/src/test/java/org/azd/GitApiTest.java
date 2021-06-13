@@ -2,7 +2,7 @@ package org.azd;
 
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
-import org.azd.git.Git;
+import org.azd.git.GitApi;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.GitDetails;
 import org.azd.utils.AzDDefaultParameters;
@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import java.io.File;
 
-public class GitTest {
+public class GitApiTest {
     private static final JsonMapper MAPPER = new JsonMapper();
     private static GitDetails g;
 
@@ -24,7 +24,7 @@ public class GitTest {
         String token = m.getT();
         String project = m.getP();
         AzDDefaultParameters defaultParameters = new AzDDefaultParameters(organization, project, token);
-        g = new Git(defaultParameters);
+        g = new GitApi(defaultParameters);
     }
 
     @Test(expected = AzDException.class)

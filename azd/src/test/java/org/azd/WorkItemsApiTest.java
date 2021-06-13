@@ -1,6 +1,6 @@
 package org.azd;
 
-import org.azd.WorkitemTracking.WorkItems.WorkItems;
+import org.azd.WorkitemTracking.WorkItems.WorkItemsApi;
 import org.azd.enums.WorkItemExpand;
 import org.azd.enums.WorkItemOperation;
 import org.azd.exceptions.AzDException;
@@ -14,9 +14,9 @@ import java.io.File;
 
 import static org.junit.Assert.assertEquals;
 
-public class WorkItemsTest {
+public class WorkItemsApiTest {
     private static final JsonMapper MAPPER = new JsonMapper();
-    private static WorkItems w;
+    private static WorkItemsApi w;
 
     @Before
     public void init() throws AzDException {
@@ -27,20 +27,20 @@ public class WorkItemsTest {
         String token = m.getT();
         String project = m.getP();
         AzDDefaultParameters defaultParameters = new AzDDefaultParameters(organization, project, token);
-        w = new WorkItems(defaultParameters);
+        w = new WorkItemsApi(defaultParameters);
     }
 
     @Test
     public void shouldGetWorkItem() throws DefaultParametersException, AzDException {
-        var expectedValue = '"' + "azure-devops-java-sdk" + '"';
-        var result = w.getWorkItem(2).getFields().get("System.TeamProject").toString();
+        var expectedValue = "azure-devops-java-sdk";
+        var result = w.getWorkItem(2).getFields().getSystemTeamProject();
         assertEquals(expectedValue, result);
     }
 
     @Test
     public void shouldGetWorkItemWithOptionalParameters() throws DefaultParametersException, AzDException {
-        var expectedValue = '"' + "azure-devops-java-sdk" + '"';
-        var result = w.getWorkItem(2, WorkItemExpand.ALL).getFields().get("System.TeamProject").toString();
+        var expectedValue = "azure-devops-java-sdk";
+        var result = w.getWorkItem(2, WorkItemExpand.ALL).getFields().getSystemTeamProject();
         assertEquals(expectedValue, result);
     }
 
@@ -64,12 +64,17 @@ public class WorkItemsTest {
     public void shouldGetWorkItemRevisions() throws DefaultParametersException, AzDException {
         var r = w.getWorkItemRevisions(3, WorkItemExpand.ALL)
                 .getWorkItems().stream().findFirst().get()
-                .getFields().get("System.AreaId");
-        assertEquals(12, r.asInt());
+                .getFields().getSystemAreaId();
+        assertEquals(12, r);
     }
 
     @Test
     public void shouldGetWorkItemRevision() throws DefaultParametersException, AzDException {
         w.getWorkItemRevision(3, 1);
+    }
+
+    @Test
+    public void shouldTest() throws DefaultParametersException, AzDException {
+        w.getWorkItem(2, WorkItemExpand.ALL).getFields();
     }
 }

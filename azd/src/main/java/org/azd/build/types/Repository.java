@@ -1,23 +1,22 @@
-package org.azd.artifacts.feedmanagement.types;
+package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.definitions.ReferenceLinks;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class FeedView {
+public class Repository {
     @JsonProperty("id")
     private String id;
+    @JsonProperty("type")
+    private String type;
     @JsonProperty("name")
     private String name;
     @JsonProperty("url")
     private String url;
-    @JsonProperty("type")
-    private String type;
-    @JsonProperty("_links")
-    private ReferenceLinks _links;
-    @JsonProperty("visibility")
-    private String visibility;
+    @JsonProperty("clean")
+    private String clean;
+    @JsonProperty("checkoutSubmodules")
+    private boolean checkoutSubmodules;
 
     public String getId() {
         return id;
@@ -25,14 +24,6 @@ public class FeedView {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getType() {
@@ -43,6 +34,14 @@ public class FeedView {
         this.type = type;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getUrl() {
         return url;
     }
@@ -51,30 +50,31 @@ public class FeedView {
         this.url = url;
     }
 
-    public ReferenceLinks get_links() {
-        return _links;
+    public String getClean() {
+        return clean;
     }
 
-    public void set_links(ReferenceLinks _links) {
-        this._links = _links;
+    public void setClean(String clean) {
+        this.clean = clean;
     }
 
-    public String getVisibility() {
-        return visibility;
+    public boolean isCheckoutSubmodules() {
+        return checkoutSubmodules;
     }
 
-    public void setVisibility(String visibility) {
-        this.visibility = visibility;
+    public void setCheckoutSubmodules(boolean checkoutSubmodules) {
+        this.checkoutSubmodules = checkoutSubmodules;
     }
 
     @Override
     public String toString() {
-        return "FeedView{" +
+        return "Repository{" +
                 "id='" + id + '\'' +
-                ", name='" + name + '\'' +
                 ", type='" + type + '\'' +
+                ", name='" + name + '\'' +
                 ", url='" + url + '\'' +
-                ", visibility='" + visibility + '\'' +
+                ", clean='" + clean + '\'' +
+                ", checkoutSubmodules=" + checkoutSubmodules +
                 '}';
     }
 }

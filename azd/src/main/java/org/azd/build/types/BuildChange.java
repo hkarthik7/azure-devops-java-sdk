@@ -2,6 +2,7 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.definitions.Author;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BuildChange {
@@ -87,50 +88,5 @@ public class BuildChange {
 
     public void setPusher(String pusher) {
         this.pusher = pusher;
-    }
-
-
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    private static class Author {
-        @JsonProperty("displayName")
-        private String displayName;
-        @JsonProperty("id")
-        private String id;
-        @JsonProperty("uniqueName")
-        private String uniqueName;
-
-        @Override
-        public String toString() {
-            return "Author{" +
-                    "displayName='" + displayName + '\'' +
-                    ", id='" + id + '\'' +
-                    ", uniqueName='" + uniqueName + '\'' +
-                    '}';
-        }
-
-        public String getDisplayName() {
-            return displayName;
-        }
-
-        public void setDisplayName(String displayName) {
-            this.displayName = displayName;
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getUniqueName() {
-            return uniqueName;
-        }
-
-        public void setUniqueName(String uniqueName) {
-            this.uniqueName = uniqueName;
-        }
     }
 }

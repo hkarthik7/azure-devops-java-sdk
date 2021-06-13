@@ -8,20 +8,20 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FeedPermissions {
     @JsonProperty("value")
-    private List<FeedPermission> value;
+    private List<FeedPermission> feedPermissions;
 
     public List<FeedPermission> getFeedPermission() {
-        return value;
+        return feedPermissions;
     }
 
-    public void setFeedPermission(List<FeedPermission> feedPermission) {
-        value = feedPermission;
+    public void setFeedPermission(List<FeedPermission> feedPermissions) {
+        feedPermissions = feedPermissions;
     }
 
     @Override
     public String toString() {
         return "FeedPermissions{" +
-                "FeedPermission=" + value +
+                "FeedPermission=" + feedPermissions +
                 '}';
     }
 }

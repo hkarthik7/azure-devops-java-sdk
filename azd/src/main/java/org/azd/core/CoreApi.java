@@ -18,7 +18,7 @@ import java.util.Map;
  * Core class to manage core API
  * @author Harish karthic
  */
-public class Core implements CoreDetails {
+public class CoreApi implements CoreDetails {
     /***
      * Instance of AzDDefaultParameters
      */
@@ -29,7 +29,7 @@ public class Core implements CoreDetails {
      * Instantiate the class with instance of AzDDefaultParameters
      * @param defaultParameters instance of AzDDefaultParameters
      */
-    public Core(AzDDefaultParameters defaultParameters) { this.DEFAULT_PARAMETERS = defaultParameters; }
+    public CoreApi(AzDDefaultParameters defaultParameters) { this.DEFAULT_PARAMETERS = defaultParameters; }
 
     /***
      * Get a list of processes.

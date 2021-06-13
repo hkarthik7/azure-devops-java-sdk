@@ -18,7 +18,7 @@ import java.util.Map;
 
 import static org.azd.helpers.URLHelper.encodeSpace;
 
-public class Work implements WorkDetails {
+public class WorkApi implements WorkDetails {
     /***
      * Instance of AzDDefaultParameters
      */
@@ -31,7 +31,7 @@ public class Work implements WorkDetails {
      * Instantiate the class with instance of AzDDefaultParameters
      * @param defaultParameters instance of AzDDefaultParameters
      */
-    public Work(AzDDefaultParameters defaultParameters) { this.DEFAULT_PARAMETERS = defaultParameters; }
+    public WorkApi(AzDDefaultParameters defaultParameters) { this.DEFAULT_PARAMETERS = defaultParameters; }
 
     /***
      * Get a team's iterations

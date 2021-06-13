@@ -1,6 +1,6 @@
 package org.azd;
 
-import org.azd.core.Core;
+import org.azd.core.CoreApi;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
 import org.azd.helpers.JsonMapper;
@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import java.io.File;
 
-public class CoreTest {
+public class CoreApiTest {
     private static final JsonMapper MAPPER = new JsonMapper();
     private static CoreDetails c;
 
@@ -25,7 +25,7 @@ public class CoreTest {
         String token = m.getT();
         String project = m.getP();
         AzDDefaultParameters defaultParameters = new AzDDefaultParameters(organization, project, token);
-        c = new Core(defaultParameters);
+        c = new CoreApi(defaultParameters);
     }
 
     @Test

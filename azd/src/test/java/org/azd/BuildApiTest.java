@@ -1,6 +1,6 @@
 package org.azd;
 
-import org.azd.build.builds.Build;
+import org.azd.build.builds.BuildApi;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
 import org.azd.helpers.JsonMapper;
@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import java.io.File;
 
-public class BuildTest {
+public class BuildApiTest {
     private static final JsonMapper MAPPER = new JsonMapper();
     private static BuildDetails b;
 
@@ -24,7 +24,7 @@ public class BuildTest {
         String token = m.getT();
         String project = m.getP();
         AzDDefaultParameters defaultParameters = new AzDDefaultParameters(organization, project, token);
-        b = new Build(defaultParameters);
+        b = new BuildApi(defaultParameters);
     }
 
     @Test

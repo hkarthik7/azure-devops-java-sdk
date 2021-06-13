@@ -22,7 +22,7 @@ public class Project {
     @JsonProperty("visibility")
     private String visibility;
     @JsonProperty("defaultTeam")
-    private DefaultTeam defaultTeam;
+    private Team defaultTeam;
     @JsonProperty("lastUpdateTime")
     private String lastUpdateTime;
 
@@ -90,11 +90,11 @@ public class Project {
         this.visibility = visibility;
     }
 
-    public DefaultTeam getDefaultTeam() {
+    public Team getDefaultTeam() {
         return defaultTeam;
     }
 
-    public void setDefaultTeam(DefaultTeam defaultTeam) {
+    public void setDefaultTeam(Team defaultTeam) {
         this.defaultTeam = defaultTeam;
     }
 
@@ -120,155 +120,5 @@ public class Project {
                 ", defaultTeam=" + defaultTeam +
                 ", lastUpdateTime='" + lastUpdateTime + '\'' +
                 '}';
-    }
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    private static class Capabilities {
-        @JsonProperty("processTemplate")
-        private ProcessTemplate processTemplate;
-        @JsonProperty("versioncontrol")
-        private VersionControl versioncontrol;
-
-        public ProcessTemplate getProcessTemplate() {
-            return processTemplate;
-        }
-
-        public void setProcessTemplate(ProcessTemplate processTemplate) {
-            this.processTemplate = processTemplate;
-        }
-
-        public VersionControl getVersionControl() {
-            return versioncontrol;
-        }
-
-        public void setVersionControl(VersionControl versioncontrol) {
-            this.versioncontrol = versioncontrol;
-        }
-
-        @Override
-        public String toString() {
-            return "Capabilities{" +
-                    "processTemplate=" + processTemplate +
-                    ", versioncontrol=" + versioncontrol +
-                    '}';
-        }
-
-        @JsonIgnoreProperties(ignoreUnknown = true)
-        private static class VersionControl {
-            @JsonProperty("sourceControlType")
-            private String sourceControlType;
-            @JsonProperty("gitEnabled")
-            private boolean gitEnabled;
-            @JsonProperty("tfvcEnabled")
-            private boolean tfvcEnabled;
-
-            public String getSourceControlType() {
-                return sourceControlType;
-            }
-
-            public void setSourceControlType(String sourceControlType) {
-                this.sourceControlType = sourceControlType;
-            }
-
-            public boolean isGitEnabled() {
-                return gitEnabled;
-            }
-
-            public void setGitEnabled(boolean gitEnabled) {
-                this.gitEnabled = gitEnabled;
-            }
-
-            public boolean isTfvcEnabled() {
-                return tfvcEnabled;
-            }
-
-            public void setTfvcEnabled(boolean tfvcEnabled) {
-                this.tfvcEnabled = tfvcEnabled;
-            }
-
-            @Override
-            public String toString() {
-                return "VersionControl{" +
-                        "sourceControlType='" + sourceControlType + '\'' +
-                        ", gitEnabled=" + gitEnabled +
-                        ", tfvcEnabled=" + tfvcEnabled +
-                        '}';
-            }
-        }
-
-        @JsonIgnoreProperties(ignoreUnknown = true)
-        private static class ProcessTemplate {
-            @JsonProperty("templateName")
-            private String templateName;
-            @JsonProperty("templateTypeId")
-            private String templateTypeId;
-
-            public String getTemplateName() {
-                return templateName;
-            }
-
-            public void setTemplateName(String templateName) {
-                this.templateName = templateName;
-            }
-
-            public String getTemplateTypeId() {
-                return templateTypeId;
-            }
-
-            public void setTemplateTypeId(String templateTypeId) {
-                this.templateTypeId = templateTypeId;
-            }
-
-            @Override
-            public String toString() {
-                return "ProcessTemplate{" +
-                        "templateName='" + templateName + '\'' +
-                        ", templateTypeId='" + templateTypeId + '\'' +
-                        '}';
-            }
-        }
-    }
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    private static class DefaultTeam {
-        @JsonProperty("id")
-        private String id;
-        @JsonProperty("name")
-        private String name;
-        @JsonProperty("url")
-        private String url;
-
-        @Override
-        public String toString() {
-            return "DefaultTeam{" +
-                    "id='" + id + '\'' +
-                    ", name='" + name + '\'' +
-                    ", url='" + url + '\'' +
-                    '}';
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getUrl() {
-            return url;
-        }
-
-        public void setUrl(String url) {
-            this.url = url;
-        }
     }
 }

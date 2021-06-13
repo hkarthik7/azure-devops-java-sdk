@@ -19,7 +19,7 @@ import java.util.*;
  * GIT class to manage git API
  * @author Harish karthic
  */
-public class Git implements GitDetails {
+public class GitApi implements GitDetails {
 
     /***
      * Instance of AzDDefaultParameters
@@ -32,7 +32,7 @@ public class Git implements GitDetails {
      * Instantiate the class with instance of AzDDefaultParameters
      * @param defaultParameters instance of AzDDefaultParameters
      */
-    public Git(AzDDefaultParameters defaultParameters) { this.DEFAULT_PARAMETERS = defaultParameters; }
+    public GitApi(AzDDefaultParameters defaultParameters) { this.DEFAULT_PARAMETERS = defaultParameters; }
 
     /***
      * Create a git repository in a team project.

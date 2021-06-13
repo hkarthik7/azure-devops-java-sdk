@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * Build class to manage build API
  * @author Harish karthic
  */
-public class Build implements BuildDetails {
+public class BuildApi implements BuildDetails {
     /***
      * Instance of AzDDefaultParameters
      */
@@ -32,7 +32,7 @@ public class Build implements BuildDetails {
      * Instantiate the class with instance of AzDDefaultParameters
      * @param defaultParameters instance of AzDDefaultParameters
      */
-    public Build(AzDDefaultParameters defaultParameters) { this.DEFAULT_PARAMETERS = defaultParameters; }
+    public BuildApi(AzDDefaultParameters defaultParameters) { this.DEFAULT_PARAMETERS = defaultParameters; }
 
     /***
      * Deletes a build.
