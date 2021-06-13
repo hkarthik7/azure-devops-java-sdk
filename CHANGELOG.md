@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.1
+
+- Changes to name of the main Apis.
+- Added types & definitions.
+
 ## 1.2.1
 
 - Major changes 
