@@ -60,10 +60,10 @@ public interface BuildDetails {
 
     BuildDefinition getBuildDefinition(int definitionId) throws DefaultParametersException, AzDException;
 
-    Map getBuildDefinition(
+    BuildDefinition getBuildDefinition(
             int definitionId, boolean includeLatestBuilds, String minMetricsTime, int revision) throws DefaultParametersException, AzDException;
 
-    BuildDefinitionRevisions getBuildDefinitionRevision(int definitionId) throws DefaultParametersException, AzDException;
+    BuildDefinitionRevisions getBuildDefinitionRevisions(int definitionId) throws DefaultParametersException, AzDException;
 
     BuildDefinitions getBuildDefinitions() throws DefaultParametersException, AzDException;
 

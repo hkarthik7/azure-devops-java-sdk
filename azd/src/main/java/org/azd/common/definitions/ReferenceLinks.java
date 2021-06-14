@@ -41,6 +41,8 @@ public class ReferenceLinks {
     private Reference badge;
     @JsonProperty("web")
     private Reference web;
+    @JsonProperty("editor")
+    private Reference editor;
 
     @Override
     public String toString() {
@@ -63,6 +65,7 @@ public class ReferenceLinks {
                 ", timeline=" + timeline +
                 ", badge=" + badge +
                 ", web=" + web +
+                ", editor=" + editor +
                 '}';
     }
 
@@ -208,6 +211,14 @@ public class ReferenceLinks {
 
     public void setFields(Reference fields) {
         this.fields = fields;
+    }
+
+    public Reference getEditor() {
+        return editor;
+    }
+
+    public void setEditor(Reference fields) {
+        this.editor = editor;
     }
 
 }

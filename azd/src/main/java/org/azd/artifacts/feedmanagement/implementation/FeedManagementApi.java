@@ -1,6 +1,8 @@
 package org.azd.artifacts.feedmanagement.implementation;
 
 import org.azd.artifacts.feedmanagement.types.*;
+import org.azd.enums.FeedViewType;
+import org.azd.enums.FeedVisibility;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
 import org.azd.helpers.JsonMapper;
@@ -12,6 +14,7 @@ import org.azd.utils.ResourceId;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /***
  * Feed Management class to manage Artifacts API
@@ -80,12 +83,13 @@ public class FeedManagementApi implements FeedManagementDetails {
      * @return Feed view object {@link FeedView}
      */
     @Override
-    public FeedView createFeedView(String feedName, String name, String feedViewType, String visibility) throws DefaultParametersException, AzDException {
+    public FeedView createFeedView(String feedName, String name,
+                                   FeedViewType feedViewType, FeedVisibility visibility) throws DefaultParametersException, AzDException {
 
         HashMap<String, Object> requestBody = new HashMap<>() {{
             put("name", name);
-            put("type", feedViewType);
-            put("visibility", visibility);
+            put("type", feedViewType.toString().toLowerCase());
+            put("visibility", visibility.toString().toLowerCase());
         }};
 
         String r = Request.request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
@@ -107,9 +111,14 @@ public class FeedManagementApi implements FeedManagementDetails {
      */
     @Override
     public void deleteFeed(String feedId) throws DefaultParametersException, AzDException {
-        Request.request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
-                DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
-                AREA + "/feeds", feedId, null, FeedVersion.VERSION, null, null);
+        try {
+            String r = Request.request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
+                    DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
+                    AREA + "/feeds", feedId, null, FeedVersion.VERSION, null, null);
+            if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
+        } catch (DefaultParametersException | AzDException e) {
+            throw e;
+        }
     }
 
     /***
@@ -124,9 +133,14 @@ public class FeedManagementApi implements FeedManagementDetails {
      */
     @Override
     public void deleteFeedView(String feedId, String feedViewId) throws DefaultParametersException, AzDException {
-        Request.request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
-                DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
-                AREA + "/feeds", feedId, "views/" + feedViewId, FeedVersion.VERSION, null, null);
+        try {
+            String r = Request.request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
+                        DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
+                        AREA + "/feeds", feedId, "views/" + feedViewId, FeedVersion.VERSION, null, null);
+            if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
+        } catch (DefaultParametersException | AzDException e) {
+            throw e;
+        }
     }
 
     /***

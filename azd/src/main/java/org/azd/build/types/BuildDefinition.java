@@ -2,7 +2,12 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
+import org.azd.common.definitions.Author;
+import org.azd.common.definitions.ReferenceLinks;
+import org.azd.core.types.Project;
 
+import java.util.Arrays;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -11,6 +16,12 @@ public class BuildDefinition {
     private List<Options> options;
     @JsonProperty("triggers")
     private List<Triggers> triggers;
+    @JsonProperty("properties")
+    private JsonNode properties;
+    @JsonProperty("tags")
+    private String[] tags;
+    @JsonProperty("_links")
+    private ReferenceLinks _links;
     @JsonProperty("jobAuthorizationScope")
     private String jobAuthorizationScope;
     @JsonProperty("jobTimeoutInMinutes")
@@ -21,6 +32,16 @@ public class BuildDefinition {
     private boolean badgeEnabled;
     @JsonProperty("process")
     private Process process;
+    @JsonProperty("repository")
+    private BuildRepository repository;
+    @JsonProperty("quality")
+    private String quality;
+    @JsonProperty("authoredBy")
+    private Author authoredBy;
+    @JsonProperty("drafts")
+    private String[] drafts;
+    @JsonProperty("queue")
+    private Queue queue;
     @JsonProperty("id")
     private int id;
     @JsonProperty("name")
@@ -39,6 +60,80 @@ public class BuildDefinition {
     private int revision;
     @JsonProperty("createdDate")
     private String createdDate;
+    @JsonProperty("project")
+    private Project project;
+
+    public JsonNode getProperties() {
+        return properties;
+    }
+
+    public void setProperties(JsonNode properties) {
+        this.properties = properties;
+    }
+
+    public String[] getTags() {
+        return tags;
+    }
+
+    public void setTags(String[] tags) {
+        this.tags = tags;
+    }
+
+    public ReferenceLinks get_links() {
+        return _links;
+    }
+
+    public void set_links(ReferenceLinks _links) {
+        this._links = _links;
+    }
+
+    public BuildRepository getRepository() {
+        return repository;
+    }
+
+    public void setRepository(BuildRepository repository) {
+        this.repository = repository;
+    }
+
+    public String getQuality() {
+        return quality;
+    }
+
+    public void setQuality(String quality) {
+        this.quality = quality;
+    }
+
+    public Author getAuthoredBy() {
+        return authoredBy;
+    }
+
+    public void setAuthoredBy(Author authoredBy) {
+        this.authoredBy = authoredBy;
+    }
+
+    public String[] getDrafts() {
+        return drafts;
+    }
+
+    public void setDrafts(String[] drafts) {
+        this.drafts = drafts;
+    }
+
+    public Queue getQueue() {
+        return queue;
+    }
+
+    public void setQueue(Queue queue) {
+        this.queue = queue;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
 
     public List<Options> getOptions() {
         return options;
@@ -173,12 +268,20 @@ public class BuildDefinition {
         return "BuildDefinition{" +
                 "options=" + options +
                 ", triggers=" + triggers +
+                ", properties=" + properties +
+                ", tags=" + Arrays.toString(tags) +
+                ", _links=" + _links +
                 ", jobAuthorizationScope='" + jobAuthorizationScope + '\'' +
                 ", jobTimeoutInMinutes=" + jobTimeoutInMinutes +
                 ", jobCancelTimeoutInMinutes=" + jobCancelTimeoutInMinutes +
                 ", badgeEnabled=" + badgeEnabled +
                 ", process=" + process +
-                ", id='" + id + '\'' +
+                ", repository=" + repository +
+                ", quality='" + quality + '\'' +
+                ", authoredBy=" + authoredBy +
+                ", drafts=" + Arrays.toString(drafts) +
+                ", queue=" + queue +
+                ", id=" + id +
                 ", name='" + name + '\'' +
                 ", url='" + url + '\'' +
                 ", uri='" + uri + '\'' +
@@ -187,6 +290,7 @@ public class BuildDefinition {
                 ", queueStatus='" + queueStatus + '\'' +
                 ", revision=" + revision +
                 ", createdDate='" + createdDate + '\'' +
+                ", project=" + project +
                 '}';
     }
 }

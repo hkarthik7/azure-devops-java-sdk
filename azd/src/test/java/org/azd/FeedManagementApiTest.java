@@ -1,6 +1,8 @@
 package org.azd;
 
 import org.azd.artifacts.feedmanagement.implementation.FeedManagementApi;
+import org.azd.enums.FeedViewType;
+import org.azd.enums.FeedVisibility;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
 import org.azd.helpers.JsonMapper;
@@ -35,7 +37,7 @@ public class FeedManagementApiTest {
 
     @Test(expected = AzDException.class)
     public void shouldCreateAFeedView() throws DefaultParametersException, AzDException {
-        f.createFeedView("myFeed", "TestFeedView", "release" , "organization");
+        f.createFeedView("myFeed", "TestFeedView", FeedViewType.RELEASE, FeedVisibility.ORGANIZATION);
     }
 
     @Test

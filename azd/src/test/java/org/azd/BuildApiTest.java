@@ -128,12 +128,12 @@ public class BuildApiTest {
 
     @Test
     public void shouldReturnBuildDefinitionWithOptionalParameters() throws DefaultParametersException, AzDException {
-        b.getBuildDefinition(9, true, null, 2).get("name");
+        b.getBuildDefinition(9, true, null, 2);
     }
 
     @Test
-    public void shouldReturnBuildDefinitionRevision() throws DefaultParametersException, AzDException {
-        b.getBuildDefinitionRevision(9);
+    public void shouldReturnBuildDefinitionRevisions() throws DefaultParametersException, AzDException {
+        b.getBuildDefinitionRevisions(9);
     }
 
     @Test
@@ -158,7 +158,6 @@ public class BuildApiTest {
 
     @Test(expected = AzDException.class)
     public void shouldRestoreBuildDefinition() throws DefaultParametersException, AzDException {
-        //
         b.restoreBuildDefinition(126, false);
 
     }

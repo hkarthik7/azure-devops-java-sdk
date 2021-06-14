@@ -42,7 +42,6 @@ public class BuildApi implements BuildDetails {
      */
     @Override
     public void deleteBuild(int buildId) throws DefaultParametersException, AzDException {
-
         try {
             String r = Request.request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                     AREA + "/builds", Integer.toString(buildId), null, BuildVersion.VERSION, null, null);
@@ -77,7 +76,6 @@ public class BuildApi implements BuildDetails {
      */
     @Override
     public BuildChanges getBuildChanges(int buildId) throws DefaultParametersException, AzDException {
-
         String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                 AREA + "/builds", Integer.toString(buildId), "changes", BuildVersion.BUILD_CHANGES,null, null);
 
@@ -119,7 +117,6 @@ public class BuildApi implements BuildDetails {
      */
     @Override
     public String getBuildLog(int buildId, int logId) throws DefaultParametersException, AzDException {
-
         return Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                 AREA + "/builds", Integer.toString(buildId), "logs/" + logId, BuildVersion.BUILD_LOGS, null, null, "text");
     }
@@ -519,7 +516,7 @@ public class BuildApi implements BuildDetails {
      * @return Build definition object
      */
     @Override
-    public Map getBuildDefinition(
+    public BuildDefinition getBuildDefinition(
             int definitionId, boolean includeLatestBuilds, String minMetricsTime, int revision) throws DefaultParametersException, AzDException {
 
         HashMap<String, Object> q = new HashMap<>(){{
@@ -531,7 +528,7 @@ public class BuildApi implements BuildDetails {
         String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                         AREA + "/definitions", Integer.toString(definitionId),null, BuildVersion.BUILD_DEFINITIONS, q,null);
 
-        return MAPPER.mapJsonResponse(r, Map.class);
+        return MAPPER.mapJsonResponse(r, BuildDefinition.class);
     }
 
     /***
@@ -542,7 +539,7 @@ public class BuildApi implements BuildDetails {
      * @return array of build definition revisions {@link BuildDefinitionRevision}
      */
     @Override
-    public BuildDefinitionRevisions getBuildDefinitionRevision(int definitionId) throws DefaultParametersException, AzDException {
+    public BuildDefinitionRevisions getBuildDefinitionRevisions(int definitionId) throws DefaultParametersException, AzDException {
 
         String r = Request.request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.BUILD, DEFAULT_PARAMETERS.getProject(),
                 AREA + "/definitions", Integer.toString(definitionId),"revisions", BuildVersion.BUILD_DEFINITION_REVISIONS,null,null);
