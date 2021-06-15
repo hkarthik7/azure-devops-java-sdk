@@ -40,12 +40,12 @@ public class FeedManagementApiTest {
         f.createFeedView("myFeed", "TestFeedView", FeedViewType.RELEASE, FeedVisibility.ORGANIZATION);
     }
 
-    @Test
+    @Test(expected = AzDException.class)
     public void shouldDeleteAFeedView() throws DefaultParametersException, AzDException {
         f.deleteFeedView("myFeed", "TestFeedView");
     }
 
-    @Test
+    @Test(expected = AzDException.class)
     public void shouldDeleteAFeed() throws DefaultParametersException, AzDException {
         f.deleteFeed("myFeed");
     }
