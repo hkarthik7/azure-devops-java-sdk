@@ -2,27 +2,80 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.core.types.Project;
+
+import java.util.Arrays;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Repository {
-    @JsonProperty("id")
-    private String id;
-    @JsonProperty("name")
-    private String name;
-    @JsonProperty("url")
-    private String url;
-    @JsonProperty("project")
-    private Project project;
+    @JsonProperty("_links")
+    private RepositoryReferenceLinks _links;
     @JsonProperty("defaultBranch")
     private String defaultBranch;
-    @JsonProperty("size")
-    private int size;
+    @JsonProperty("id")
+    private String id;
+    @JsonProperty("isDisabled")
+    private boolean isDisabled;
+    @JsonProperty("isFork")
+    private boolean isFork;
+    @JsonProperty("name")
+    private String name;
+    @JsonProperty("parentRepository")
+    private GitRepositoryRef parentRepository;
+    @JsonProperty("project")
+    private Project project;
     @JsonProperty("remoteUrl")
     private String remoteUrl;
+    @JsonProperty("size")
+    private int size;
     @JsonProperty("sshUrl")
     private String sshUrl;
+    @JsonProperty("url")
+    private String url;
+    @JsonProperty("validRemoteUrls")
+    private String[] validRemoteUrls;
     @JsonProperty("webUrl")
     private String webUrl;
+
+    public RepositoryReferenceLinks get_links() {
+        return _links;
+    }
+
+    public void set_links(RepositoryReferenceLinks _links) {
+        this._links = _links;
+    }
+
+    public boolean isDisabled() {
+        return isDisabled;
+    }
+
+    public void setDisabled(boolean disabled) {
+        isDisabled = disabled;
+    }
+
+    public boolean isFork() {
+        return isFork;
+    }
+
+    public void setFork(boolean fork) {
+        isFork = fork;
+    }
+
+    public GitRepositoryRef getParentRepository() {
+        return parentRepository;
+    }
+
+    public void setParentRepository(GitRepositoryRef parentRepository) {
+        this.parentRepository = parentRepository;
+    }
+
+    public String[] getValidRemoteUrls() {
+        return validRemoteUrls;
+    }
+
+    public void setValidRemoteUrls(String[] validRemoteUrls) {
+        this.validRemoteUrls = validRemoteUrls;
+    }
 
     public String getId() {
         return id;
@@ -99,113 +152,20 @@ public class Repository {
     @Override
     public String toString() {
         return "Repository{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", url='" + url + '\'' +
-                ", project=" + project +
+                "_links=" + _links +
                 ", defaultBranch='" + defaultBranch + '\'' +
-                ", size=" + size +
+                ", id='" + id + '\'' +
+                ", isDisabled=" + isDisabled +
+                ", isFork=" + isFork +
+                ", name='" + name + '\'' +
+                ", parentRepository=" + parentRepository +
+                ", project=" + project +
                 ", remoteUrl='" + remoteUrl + '\'' +
+                ", size=" + size +
                 ", sshUrl='" + sshUrl + '\'' +
+                ", url='" + url + '\'' +
+                ", validRemoteUrls=" + Arrays.toString(validRemoteUrls) +
                 ", webUrl='" + webUrl + '\'' +
                 '}';
-    }
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    private static class Project {
-        @JsonProperty("id")
-        private String id;
-        @JsonProperty("name")
-        private String name;
-        @JsonProperty("description")
-        private String description;
-        @JsonProperty("url")
-        private String url;
-        @JsonProperty("state")
-        private String state;
-        @JsonProperty("revision")
-        private int revision;
-        @JsonProperty("visibility")
-        private String visibility;
-        @JsonProperty("lastUpdateTime")
-        private String lastUpdateTime;
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-
-        public void setDescription(String description) {
-            this.description = description;
-        }
-
-        public String getUrl() {
-            return url;
-        }
-
-        public void setUrl(String url) {
-            this.url = url;
-        }
-
-        public String getState() {
-            return state;
-        }
-
-        public void setState(String state) {
-            this.state = state;
-        }
-
-        public int getRevision() {
-            return revision;
-        }
-
-        public void setRevision(int revision) {
-            this.revision = revision;
-        }
-
-        public String getVisibility() {
-            return visibility;
-        }
-
-        public void setVisibility(String visibility) {
-            this.visibility = visibility;
-        }
-
-        public String getLastUpdateTime() {
-            return lastUpdateTime;
-        }
-
-        public void setLastUpdateTime(String lastUpdateTime) {
-            this.lastUpdateTime = lastUpdateTime;
-        }
-
-        @Override
-        public String toString() {
-            return "Project{" +
-                    "id='" + id + '\'' +
-                    ", name='" + name + '\'' +
-                    ", description='" + description + '\'' +
-                    ", url='" + url + '\'' +
-                    ", state='" + state + '\'' +
-                    ", revision=" + revision +
-                    ", visibility='" + visibility + '\'' +
-                    ", lastUpdateTime=" + lastUpdateTime +
-                    '}';
-        }
     }
 }

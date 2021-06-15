@@ -1,15 +1,17 @@
 package org.azd.interfaces;
 
-import org.azd.artifacts.feedmanagement.types.*;
+import org.azd.enums.FeedViewType;
+import org.azd.enums.FeedVisibility;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
+import org.azd.feedmanagement.types.*;
 
 public interface FeedManagementDetails {
     Feed createFeed(
             String name, String description, boolean badgesEnabled,
             boolean hideDeletedPackageVersions) throws DefaultParametersException, AzDException;
 
-    FeedView createFeedView(String feedName, String name, String feedViewType, String visibility) throws DefaultParametersException, AzDException;
+    FeedView createFeedView(String feedName, String name, FeedViewType feedViewType, FeedVisibility visibility) throws DefaultParametersException, AzDException;
 
     void deleteFeed(String feedId) throws DefaultParametersException, AzDException;
 

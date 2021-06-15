@@ -8,20 +8,20 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Builds {
     @JsonProperty("value")
-    private List<BuildT> buildTS;
+    private List<Build> builds;
 
-    public List<BuildT> getBuildResults() {
-        return buildTS;
+    public List<Build> getBuildResults() {
+        return builds;
     }
 
-    public void setBuildResults(List<BuildT> value) {
-        this.buildTS = value;
+    public void setBuildResults(List<Build> value) {
+        this.builds = value;
     }
 
     @Override
     public String toString() {
         return "Builds{" +
-                "value=" + buildTS +
+                "value=" + builds +
                 '}';
     }
 }

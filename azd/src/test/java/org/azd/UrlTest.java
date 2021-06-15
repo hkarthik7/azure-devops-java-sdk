@@ -23,7 +23,8 @@ public class UrlTest {
 
         // When
         AzDDefaultParameters defaultParameters = new AzDDefaultParameters(organization, token);
-        String projectUrl = new Url(defaultParameters).buildRequestUrl(
+        String projectUrl = Url.buildRequestUrl(
+                organization,
                 ResourceId.CORE,
                 null,
                 "projects",
@@ -53,7 +54,8 @@ public class UrlTest {
             put("stateFilter", stateFilter);
         }};
 
-        String projectUrl = new Url(defaultParameters).buildRequestUrl(
+        String projectUrl = Url.buildRequestUrl(
+                organization,
                 ResourceId.CORE,
                 null,
                 "projects",
