@@ -2,18 +2,28 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.definitions.Author;
+import org.azd.common.Author;
 
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PullRequest {
+    @JsonProperty("_links")
+    private PullRequestReferenceLinks _links;
+    @JsonProperty("artifactId")
+    private String artifactId;
+    @JsonProperty("autoCompleteSetBy")
+    private Author autoCompleteSetBy;
+    @JsonProperty("closedBy")
+    private Author closedBy;
+    @JsonProperty("closedDate")
+    private String closedDate;
+    @JsonProperty("codeReviewId")
+    private int codeReviewId;
     @JsonProperty("repository")
     private Repository repository;
     @JsonProperty("pullRequestId")
     private int pullRequestId;
-    @JsonProperty("codeReviewId")
-    private int codeReviewId;
     @JsonProperty("status")
     private String status;
     @JsonProperty("createdBy")
@@ -46,33 +56,37 @@ public class PullRequest {
     private String url;
     @JsonProperty("supportsIterations")
     private boolean supportsIterations;
-    @JsonProperty("artifactId")
-    private String artifactId;
 
-    @Override
-    public String toString() {
-        return "PullRequest{" +
-                "repository=" + repository +
-                ", pullRequestId=" + pullRequestId +
-                ", codeReviewId=" + codeReviewId +
-                ", status='" + status + '\'' +
-                ", createdBy=" + createdBy +
-                ", creationDate='" + creationDate + '\'' +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", sourceRefName='" + sourceRefName + '\'' +
-                ", targetRefName='" + targetRefName + '\'' +
-                ", mergeStatus='" + mergeStatus + '\'' +
-                ", isDraft=" + isDraft +
-                ", mergeId='" + mergeId + '\'' +
-                ", lastMergeSourceCommit=" + lastMergeSourceCommit +
-                ", lastMergeTargetCommit=" + lastMergeTargetCommit +
-                ", lastMergeCommit=" + lastMergeCommit +
-                ", reviewers=" + reviewers +
-                ", url='" + url + '\'' +
-                ", supportsIterations=" + supportsIterations +
-                ", artifactId='" + artifactId + '\'' +
-                '}';
+    public PullRequestReferenceLinks get_links() {
+        return _links;
+    }
+
+    public void set_links(PullRequestReferenceLinks _links) {
+        this._links = _links;
+    }
+
+    public Author getAutoCompleteSetBy() {
+        return autoCompleteSetBy;
+    }
+
+    public void setAutoCompleteSetBy(Author autoCompleteSetBy) {
+        this.autoCompleteSetBy = autoCompleteSetBy;
+    }
+
+    public Author getClosedBy() {
+        return closedBy;
+    }
+
+    public void setClosedBy(Author closedBy) {
+        this.closedBy = closedBy;
+    }
+
+    public String getClosedDate() {
+        return closedDate;
+    }
+
+    public void setClosedDate(String closedDate) {
+        this.closedDate = closedDate;
     }
 
     public Repository getRepository() {
@@ -233,5 +247,35 @@ public class PullRequest {
 
     public void setArtifactId(String artifactId) {
         this.artifactId = artifactId;
+    }
+
+    @Override
+    public String toString() {
+        return "PullRequest{" +
+                "_links=" + _links +
+                ", artifactId='" + artifactId + '\'' +
+                ", autoCompleteSetBy=" + autoCompleteSetBy +
+                ", closedBy=" + closedBy +
+                ", closedDate='" + closedDate + '\'' +
+                ", codeReviewId=" + codeReviewId +
+                ", repository=" + repository +
+                ", pullRequestId=" + pullRequestId +
+                ", status='" + status + '\'' +
+                ", createdBy=" + createdBy +
+                ", creationDate='" + creationDate + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", sourceRefName='" + sourceRefName + '\'' +
+                ", targetRefName='" + targetRefName + '\'' +
+                ", mergeStatus='" + mergeStatus + '\'' +
+                ", isDraft=" + isDraft +
+                ", mergeId='" + mergeId + '\'' +
+                ", lastMergeSourceCommit=" + lastMergeSourceCommit +
+                ", lastMergeTargetCommit=" + lastMergeTargetCommit +
+                ", lastMergeCommit=" + lastMergeCommit +
+                ", reviewers=" + reviewers +
+                ", url='" + url + '\'' +
+                ", supportsIterations=" + supportsIterations +
+                '}';
     }
 }

@@ -1,6 +1,6 @@
 package org.azd;
 
-import org.azd.Work.Iterations.WorkApi;
+import org.azd.Work.WorkApi;
 import org.azd.enums.IterationsTimeFrame;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;

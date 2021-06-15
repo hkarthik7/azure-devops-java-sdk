@@ -1,10 +1,10 @@
 package org.azd.interfaces;
 
-import org.azd.artifacts.feedmanagement.types.*;
 import org.azd.enums.FeedViewType;
 import org.azd.enums.FeedVisibility;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
+import org.azd.feedmanagement.types.*;
 
 public interface FeedManagementDetails {
     Feed createFeed(

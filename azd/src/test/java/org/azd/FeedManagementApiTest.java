@@ -1,6 +1,6 @@
 package org.azd;
 
-import org.azd.artifacts.feedmanagement.implementation.FeedManagementApi;
+import org.azd.feedmanagement.FeedManagementApi;
 import org.azd.enums.FeedViewType;
 import org.azd.enums.FeedVisibility;
 import org.azd.exceptions.AzDException;
@@ -50,9 +50,9 @@ public class FeedManagementApiTest {
         f.deleteFeed("myFeed");
     }
 
-    @Test(expected = AzDException.class)
+    @Test
     public void shouldGetAFeed() throws DefaultParametersException, AzDException {
-        f.getFeed("myFeed");
+        f.getFeed("newTestFeed");
     }
 
     @Test(expected = AzDException.class)

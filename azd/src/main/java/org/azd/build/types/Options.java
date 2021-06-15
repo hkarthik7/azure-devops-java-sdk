@@ -8,7 +8,7 @@ public class Options {
     @JsonProperty("enabled")
     private boolean enabled;
     @JsonProperty("definition")
-    private Definition definition;
+    private DefinitionReference definition;
     @JsonProperty("inputs")
     private Inputs inputs;
 
@@ -20,11 +20,11 @@ public class Options {
         this.enabled = enabled;
     }
 
-    public Definition getDefinition() {
+    public DefinitionReference getDefinition() {
         return definition;
     }
 
-    public void setDefinition(Definition definition) {
+    public void setDefinition(DefinitionReference definition) {
         this.definition = definition;
     }
 

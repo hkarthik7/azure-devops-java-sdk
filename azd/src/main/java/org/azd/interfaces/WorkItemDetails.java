@@ -1,8 +1,8 @@
 package org.azd.interfaces;
 
-import org.azd.WorkitemTracking.types.WorkItem;
-import org.azd.WorkitemTracking.types.WorkItemDelete;
-import org.azd.WorkitemTracking.types.WorkItemList;
+import org.azd.WorkItemTracking.types.WorkItem;
+import org.azd.WorkItemTracking.types.WorkItemDelete;
+import org.azd.WorkItemTracking.types.WorkItemList;
 import org.azd.enums.WorkItemErrorPolicy;
 import org.azd.enums.WorkItemExpand;
 import org.azd.enums.WorkItemOperation;

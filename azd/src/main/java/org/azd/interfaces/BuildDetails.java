@@ -10,7 +10,7 @@ import java.util.Map;
 public interface BuildDetails {
     void deleteBuild(int buildId) throws DefaultParametersException, AzDException;
 
-    BuildT getBuild(int buildId) throws DefaultParametersException, AzDException;
+    Build getBuild(int buildId) throws DefaultParametersException, AzDException;
 
     BuildChanges getBuildChanges(int buildId) throws DefaultParametersException, AzDException;
 
@@ -44,9 +44,9 @@ public interface BuildDetails {
             String repositoryId, String repositoryType, String requestedFor, String resultFilter,
             String statusFilter, String tagFilters) throws DefaultParametersException, AzDException;
 
-    BuildT queueBuild(int definitionId) throws DefaultParametersException, AzDException;
+    Build queueBuild(int definitionId) throws DefaultParametersException, AzDException;
 
-    BuildT queueBuild(HashMap<String, Object> buildParameters) throws DefaultParametersException, AzDException;
+    Build queueBuild(HashMap<String, Object> buildParameters) throws DefaultParametersException, AzDException;
 
     BuildControllers getBuildControllers() throws DefaultParametersException, AzDException;
 

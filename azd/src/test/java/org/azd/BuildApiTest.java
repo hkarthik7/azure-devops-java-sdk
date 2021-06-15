@@ -1,6 +1,7 @@
 package org.azd;
 
-import org.azd.build.builds.BuildApi;
+import org.azd.build.BuildApi;
+import org.azd.build.types.BuildDefinition;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
 import org.azd.helpers.JsonMapper;
@@ -123,7 +124,7 @@ public class BuildApiTest {
 
     @Test
     public void shouldReturnBuildDefinition() throws DefaultParametersException, AzDException {
-        b.getBuildDefinition(12);
+        b.getBuildDefinition(9);
     }
 
     @Test

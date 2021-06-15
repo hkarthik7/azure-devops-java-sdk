@@ -1,5 +1,6 @@
 package org.azd.utils;
 
+import org.azd.common.LocationUrl;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
 import org.azd.helpers.JsonMapper;
@@ -18,22 +19,8 @@ import static org.azd.validators.AzDDefaultParametersValidator.validateDefaultPa
  *  </p>
  *  @author Harish Karthic
  */
-public class Url {
-
-    private final String INSTANCE = "https://dev.azure.com/";
-    private final AzDDefaultParameters DEFAULT_PARAMETERS;
-    private final JsonMapper MAPPER = new JsonMapper();
-    private final String LOCATION_URL_VERSION = "5.0-preview.1";
-
-
-    /***
-     * This class expects the instance of AzDDefaultParameters to create the request url
-     * @param defaultParameters instance of AzDDefaultParameters
-     */
-    public Url(AzDDefaultParameters defaultParameters) {
-        this.DEFAULT_PARAMETERS = defaultParameters;
-    }
-
+public abstract class Url {
+    private static final JsonMapper MAPPER = new JsonMapper();
 
     /**
      *  Gets the resource area url based on resource id passed for the organization
@@ -42,12 +29,15 @@ public class Url {
      * @throws AzDException If invalid json primitive is encountered.
      * @return resource area url
      */
-    private String getLocationUrl(String resourceID) throws DefaultParametersException, AzDException {
+    private static String getLocationUrl(String resourceID, String organizationName) throws DefaultParametersException, AzDException {
 
-        if (DEFAULT_PARAMETERS.getOrganization() == null) { validateDefaultParameters(); }
+        if (organizationName == null) { validateDefaultParameters(); }
+
+        String INSTANCE = "https://dev.azure.com/";
+        String LOCATION_URL_VERSION = "5.0-preview.1";
 
         String url = new StringBuilder().append(INSTANCE)
-                .append(DEFAULT_PARAMETERS.getOrganization())
+                .append(organizationName)
                 .append("/_apis/resourceAreas/")
                 .append(resourceID)
                 .append("?api-preview=")
@@ -55,15 +45,16 @@ public class Url {
                 .toString();
 
         try {
-            String r = MAPPER.mapJsonResponse(RequestAPI.get(url), LocationUrl.class).getLocationUrl();
+            String r = MAPPER.mapJsonResponse(BaseClient.get(url), LocationUrl.class).getLocationUrl();
             return r.replaceAll("/$","");
         } catch (Exception e) {
-            throw new AzDException("Couldn't find the organisation name: " + DEFAULT_PARAMETERS.getOrganization());
+            throw new AzDException("Couldn't find the organisation name: " + organizationName);
         }
     }
 
     /**
      *  Builds the request url dynamically for the passed service, resource and area
+     * @param organizationName pass the Azure DevOps organization name
      * @param resourceId pass the resource id
      * @param project pass the project name
      * @param area area of the REST API e.g., Release
@@ -75,7 +66,8 @@ public class Url {
      * @throws AzDException Exception handler
      * @return resource area url
      */
-    public String buildRequestUrl(
+    public static String buildRequestUrl(
+            String organizationName,
             String resourceId,
             String project,
             String area,
@@ -86,7 +78,7 @@ public class Url {
         // build the request url to dynamically serve the API requests
 
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append((getLocationUrl(resourceId)));
+        stringBuilder.append((getLocationUrl(resourceId, organizationName)));
 
         if (project != null) {
             stringBuilder.append("/").append(project);
@@ -119,7 +111,7 @@ public class Url {
      * @param value pass the value of the HasMap
      * @return query string
      */
-    private String getQueryString(String key, Object value) {
+    private static String getQueryString(String key, Object value) {
         return "&" + key + "=" + value;
     }
 }

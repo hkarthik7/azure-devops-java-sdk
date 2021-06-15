@@ -6,7 +6,7 @@
 <title>FeedManagement</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="dc.created" content="2020-12-04">
-<meta name="description" content="declaration: package: org.azd.artifacts.feedmanagement.implementation, class: FeedManagement">
+<meta name="description" content="declaration: package: org.azd.feedmanagement.feedmanagement.implementation, class: FeedManagement">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../../../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../../../script-dir/jquery-ui.min.css" title="Style">
@@ -73,11 +73,11 @@ loadScripts(document, 'script');</script>
 <main role="main">
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">org.azd.artifacts.feedmanagement.implementation</a></div>
+<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">org.azd.feedmanagement.feedmanagement.implementation</a></div>
 <h1 title="Class FeedManagement" class="title">Class FeedManagement</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree">java.lang.Object
-<div class="inheritance">org.azd.artifacts.feedmanagement.implementation.FeedManagementApi</div>
+<div class="inheritance">org.azd.feedmanagement.FeedManagementApi</div>
 </div>
 <section class="description">
 <hr>
@@ -129,7 +129,7 @@ extends java.lang.Object</pre>
 </thead>
 <tbody>
 <tr class="alt-color" id="i0">
-<td class="col-first"><code><a href="../types/Feed.html" title="class in org.azd.artifacts.feedmanagement.types">Feed</a></code></td>
+<td class="col-first"><code><a href="../types/Feed.html" title="class in org.azd.feedmanagement.feedmanagement.types">Feed</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#createFeed(java.lang.String,java.lang.String,boolean,boolean)">createFeed</a></span>&#8203;(java.lang.String&nbsp;name,
 java.lang.String&nbsp;description,
 boolean&nbsp;badgesEnabled,
@@ -139,7 +139,7 @@ boolean&nbsp;hideDeletedPackageVersions)</code></th>
 </td>
 </tr>
 <tr class="row-color" id="i1">
-<td class="col-first"><code><a href="../types/FeedView.html" title="class in org.azd.artifacts.feedmanagement.types">FeedView</a></code></td>
+<td class="col-first"><code><a href="../types/FeedView.html" title="class in org.azd.feedmanagement.feedmanagement.types">FeedView</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#createFeedView(java.lang.String,java.lang.String,java.lang.String,java.lang.String)">createFeedView</a></span>&#8203;(java.lang.String&nbsp;feedName,
 java.lang.String&nbsp;name,
 java.lang.String&nbsp;feedViewType,
@@ -164,14 +164,14 @@ java.lang.String&nbsp;feedViewId)</code></th>
 </td>
 </tr>
 <tr class="alt-color" id="i4">
-<td class="col-first"><code><a href="../types/Feed.html" title="class in org.azd.artifacts.feedmanagement.types">Feed</a></code></td>
+<td class="col-first"><code><a href="../types/Feed.html" title="class in org.azd.feedmanagement.feedmanagement.types">Feed</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getFeed(java.lang.String)">getFeed</a></span>&#8203;(java.lang.String&nbsp;feedName)</code></th>
 <td class="col-last">
 <div class="block">Get the settings for a specific feed.</div>
 </td>
 </tr>
 <tr class="row-color" id="i5">
-<td class="col-first"><code><a href="../types/Feed.html" title="class in org.azd.artifacts.feedmanagement.types">Feed</a></code></td>
+<td class="col-first"><code><a href="../types/Feed.html" title="class in org.azd.feedmanagement.feedmanagement.types">Feed</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getFeed(java.lang.String,boolean)">getFeed</a></span>&#8203;(java.lang.String&nbsp;feedName,
 boolean&nbsp;includeDeletedUpstreams)</code></th>
 <td class="col-last">
@@ -179,14 +179,14 @@ boolean&nbsp;includeDeletedUpstreams)</code></th>
 </td>
 </tr>
 <tr class="alt-color" id="i6">
-<td class="col-first"><code><a href="../types/FeedPermissions.html" title="class in org.azd.artifacts.feedmanagement.types">FeedPermissions</a></code></td>
+<td class="col-first"><code><a href="../types/FeedPermissions.html" title="class in org.azd.feedmanagement.feedmanagement.types">FeedPermissions</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getFeedPermissions(java.lang.String)">getFeedPermissions</a></span>&#8203;(java.lang.String&nbsp;feedName)</code></th>
 <td class="col-last">
 <div class="block">Get the permissions for a feed.</div>
 </td>
 </tr>
 <tr class="row-color" id="i7">
-<td class="col-first"><code><a href="../types/FeedPermissions.html" title="class in org.azd.artifacts.feedmanagement.types">FeedPermissions</a></code></td>
+<td class="col-first"><code><a href="../types/FeedPermissions.html" title="class in org.azd.feedmanagement.feedmanagement.types">FeedPermissions</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getFeedPermissions(java.lang.String,boolean,java.lang.String,boolean,boolean)">getFeedPermissions</a></span>&#8203;(java.lang.String&nbsp;feedName,
 boolean&nbsp;excludeInheritedPermissions,
 java.lang.String&nbsp;identityDescriptor,
@@ -197,14 +197,14 @@ boolean&nbsp;includeIds)</code></th>
 </td>
 </tr>
 <tr class="alt-color" id="i8">
-<td class="col-first"><code><a href="../types/Feeds.html" title="class in org.azd.artifacts.feedmanagement.types">Feeds</a></code></td>
+<td class="col-first"><code><a href="../types/Feeds.html" title="class in org.azd.feedmanagement.feedmanagement.types">Feeds</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getFeeds()">getFeeds</a></span>()</code></th>
 <td class="col-last">
 <div class="block">Get all feeds in an account where you have the provided role access.</div>
 </td>
 </tr>
 <tr class="row-color" id="i9">
-<td class="col-first"><code><a href="../types/Feeds.html" title="class in org.azd.artifacts.feedmanagement.types">Feeds</a></code></td>
+<td class="col-first"><code><a href="../types/Feeds.html" title="class in org.azd.feedmanagement.feedmanagement.types">Feeds</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getFeeds(java.lang.String,boolean,boolean)">getFeeds</a></span>&#8203;(java.lang.String&nbsp;feedRole,
 boolean&nbsp;includeDeletedUpstreams,
 boolean&nbsp;includeUrls)</code></th>
@@ -213,7 +213,7 @@ boolean&nbsp;includeUrls)</code></th>
 </td>
 </tr>
 <tr class="alt-color" id="i10">
-<td class="col-first"><code><a href="../types/FeedView.html" title="class in org.azd.artifacts.feedmanagement.types">FeedView</a></code></td>
+<td class="col-first"><code><a href="../types/FeedView.html" title="class in org.azd.feedmanagement.feedmanagement.types">FeedView</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getFeedView(java.lang.String,java.lang.String)">getFeedView</a></span>&#8203;(java.lang.String&nbsp;feedName,
 java.lang.String&nbsp;feedViewId)</code></th>
 <td class="col-last">
@@ -221,14 +221,14 @@ java.lang.String&nbsp;feedViewId)</code></th>
 </td>
 </tr>
 <tr class="row-color" id="i11">
-<td class="col-first"><code><a href="../types/FeedViews.html" title="class in org.azd.artifacts.feedmanagement.types">FeedViews</a></code></td>
+<td class="col-first"><code><a href="../types/FeedViews.html" title="class in org.azd.feedmanagement.feedmanagement.types">FeedViews</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getFeedViews(java.lang.String)">getFeedViews</a></span>&#8203;(java.lang.String&nbsp;feedName)</code></th>
 <td class="col-last">
 <div class="block">Get all views for a feed.</div>
 </td>
 </tr>
 <tr class="alt-color" id="i12">
-<td class="col-first"><code><a href="../types/FeedPermissions.html" title="class in org.azd.artifacts.feedmanagement.types">FeedPermissions</a></code></td>
+<td class="col-first"><code><a href="../types/FeedPermissions.html" title="class in org.azd.feedmanagement.feedmanagement.types">FeedPermissions</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#setFeedPermissions(java.lang.String,java.lang.String,java.lang.String,boolean,java.lang.String)">setFeedPermissions</a></span>&#8203;(java.lang.String&nbsp;feedName,
 java.lang.String&nbsp;displayName,
 java.lang.String&nbsp;identityDescriptor,
@@ -239,7 +239,7 @@ java.lang.String&nbsp;role)</code></th>
 </td>
 </tr>
 <tr class="row-color" id="i13">
-<td class="col-first"><code><a href="../types/Feed.html" title="class in org.azd.artifacts.feedmanagement.types">Feed</a></code></td>
+<td class="col-first"><code><a href="../types/Feed.html" title="class in org.azd.feedmanagement.feedmanagement.types">Feed</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#updateFeed(java.lang.String,boolean,java.lang.String,boolean,boolean)">updateFeed</a></span>&#8203;(java.lang.String&nbsp;feedName,
 boolean&nbsp;badgesEnabled,
 java.lang.String&nbsp;description,
@@ -250,7 +250,7 @@ boolean&nbsp;upstreamEnabled)</code></th>
 </td>
 </tr>
 <tr class="alt-color" id="i14">
-<td class="col-first"><code><a href="../types/FeedView.html" title="class in org.azd.artifacts.feedmanagement.types">FeedView</a></code></td>
+<td class="col-first"><code><a href="../types/FeedView.html" title="class in org.azd.feedmanagement.feedmanagement.types">FeedView</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#updateFeedView(java.lang.String,java.lang.String,java.lang.String,java.lang.String)">updateFeedView</a></span>&#8203;(java.lang.String&nbsp;feedName,
 java.lang.String&nbsp;feedViewName,
 java.lang.String&nbsp;feedViewType,
@@ -299,7 +299,7 @@ java.lang.String&nbsp;visibility)</code></th>
 <li>
 <section class="detail" id="createFeed(java.lang.String,java.lang.String,boolean,boolean)">
 <h3>createFeed</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../types/Feed.html" title="class in org.azd.artifacts.feedmanagement.types">Feed</a></span>&nbsp;<span class="member-name">createFeed</span>&#8203;(<span class="parameters">java.lang.String&nbsp;name,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../types/Feed.html" title="class in org.azd.feedmanagement.feedmanagement.types">Feed</a></span>&nbsp;<span class="member-name">createFeed</span>&#8203;(<span class="parameters">java.lang.String&nbsp;name,
 java.lang.String&nbsp;description,
 boolean&nbsp;badgesEnabled,
 boolean&nbsp;hideDeletedPackageVersions)</span>
@@ -319,7 +319,7 @@ java.io.IOException</span></div>
 <dd><code>badgesEnabled</code> - Enable or disable the badge in the feed. Default to false.</dd>
 <dd><code>hideDeletedPackageVersions</code> - Hides the deleted package version. Default to true.</dd>
 <dt>Returns:</dt>
-<dd>For successful operation -> <a href="../types/Feed.html" title="class in org.azd.artifacts.feedmanagement.types"><code>Feed</code></a></dd>
+<dd>For successful operation -> <a href="../types/Feed.html" title="class in org.azd.feedmanagement.feedmanagement.types"><code>Feed</code></a></dd>
 <dt>Throws:</dt>
 <dd><code><a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions">DefaultParametersException</a></code> - throws default parameter exception <a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions"><code>DefaultParametersException</code></a></dd>
 <dd><code>java.io.IOException</code> - throws IO Exception exception <code>IOException</code></dd>
@@ -329,7 +329,7 @@ java.io.IOException</span></div>
 <li>
 <section class="detail" id="createFeedView(java.lang.String,java.lang.String,java.lang.String,java.lang.String)">
 <h3>createFeedView</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../types/FeedView.html" title="class in org.azd.artifacts.feedmanagement.types">FeedView</a></span>&nbsp;<span class="member-name">createFeedView</span>&#8203;(<span class="parameters">java.lang.String&nbsp;feedName,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../types/FeedView.html" title="class in org.azd.feedmanagement.feedmanagement.types">FeedView</a></span>&nbsp;<span class="member-name">createFeedView</span>&#8203;(<span class="parameters">java.lang.String&nbsp;feedName,
 java.lang.String&nbsp;name,
 java.lang.String&nbsp;feedViewType,
 java.lang.String&nbsp;visibility)</span>
@@ -346,7 +346,7 @@ java.lang.String&nbsp;visibility)</span>
 <dd><code>feedViewType</code> - type of the feed view. Allowed values are [implicit and release]</dd>
 <dd><code>visibility</code> - visibility of the view. Allowed values are [aadTenant, collection, organization, private]</dd>
 <dt>Returns:</dt>
-<dd>Feed view object <a href="../types/FeedView.html" title="class in org.azd.artifacts.feedmanagement.types"><code>FeedView</code></a></dd>
+<dd>Feed view object <a href="../types/FeedView.html" title="class in org.azd.feedmanagement.feedmanagement.types"><code>FeedView</code></a></dd>
 <dt>Throws:</dt>
 <dd><code><a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions">DefaultParametersException</a></code> - throws default parameter exception <a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions"><code>DefaultParametersException</code></a></dd>
 <dd><code>java.io.IOException</code> - throws IO Exception exception <code>IOException</code></dd>
@@ -397,7 +397,7 @@ java.io.IOException</span></div>
 <li>
 <section class="detail" id="getFeed(java.lang.String)">
 <h3>getFeed</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../types/Feed.html" title="class in org.azd.artifacts.feedmanagement.types">Feed</a></span>&nbsp;<span class="member-name">getFeed</span>&#8203;(<span class="parameters">java.lang.String&nbsp;feedName)</span>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../types/Feed.html" title="class in org.azd.feedmanagement.feedmanagement.types">Feed</a></span>&nbsp;<span class="member-name">getFeed</span>&#8203;(<span class="parameters">java.lang.String&nbsp;feedName)</span>
              throws <span class="exceptions"><a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions">DefaultParametersException</a>,
 java.io.IOException</span></div>
 <div class="block">Get the settings for a specific feed.
@@ -409,7 +409,7 @@ java.io.IOException</span></div>
 <dt>Parameters:</dt>
 <dd><code>feedName</code> - Name of id of the feed</dd>
 <dt>Returns:</dt>
-<dd>Feed <a href="../types/Feed.html" title="class in org.azd.artifacts.feedmanagement.types"><code>Feed</code></a></dd>
+<dd>Feed <a href="../types/Feed.html" title="class in org.azd.feedmanagement.feedmanagement.types"><code>Feed</code></a></dd>
 <dt>Throws:</dt>
 <dd><code><a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions">DefaultParametersException</a></code> - throws default parameter exception <a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions"><code>DefaultParametersException</code></a></dd>
 <dd><code>java.io.IOException</code> - throws IO Exception exception <code>IOException</code></dd>
@@ -419,7 +419,7 @@ java.io.IOException</span></div>
 <li>
 <section class="detail" id="getFeed(java.lang.String,boolean)">
 <h3>getFeed</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../types/Feed.html" title="class in org.azd.artifacts.feedmanagement.types">Feed</a></span>&nbsp;<span class="member-name">getFeed</span>&#8203;(<span class="parameters">java.lang.String&nbsp;feedName,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../types/Feed.html" title="class in org.azd.feedmanagement.feedmanagement.types">Feed</a></span>&nbsp;<span class="member-name">getFeed</span>&#8203;(<span class="parameters">java.lang.String&nbsp;feedName,
 boolean&nbsp;includeDeletedUpstreams)</span>
              throws <span class="exceptions"><a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions">DefaultParametersException</a>,
 java.io.IOException</span></div>
@@ -433,7 +433,7 @@ java.io.IOException</span></div>
 <dd><code>feedName</code> - Name of id of the feed</dd>
 <dd><code>includeDeletedUpstreams</code> - Include upstreams that have been deleted in the response.</dd>
 <dt>Returns:</dt>
-<dd>Feed <a href="../types/Feed.html" title="class in org.azd.artifacts.feedmanagement.types"><code>Feed</code></a></dd>
+<dd>Feed <a href="../types/Feed.html" title="class in org.azd.feedmanagement.feedmanagement.types"><code>Feed</code></a></dd>
 <dt>Throws:</dt>
 <dd><code><a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions">DefaultParametersException</a></code> - throws default parameter exception <a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions"><code>DefaultParametersException</code></a></dd>
 <dd><code>java.io.IOException</code> - throws IO Exception exception <code>IOException</code></dd>
@@ -443,7 +443,7 @@ java.io.IOException</span></div>
 <li>
 <section class="detail" id="getFeedPermissions(java.lang.String)">
 <h3>getFeedPermissions</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../types/FeedPermissions.html" title="class in org.azd.artifacts.feedmanagement.types">FeedPermissions</a></span>&nbsp;<span class="member-name">getFeedPermissions</span>&#8203;(<span class="parameters">java.lang.String&nbsp;feedName)</span>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../types/FeedPermissions.html" title="class in org.azd.feedmanagement.feedmanagement.types">FeedPermissions</a></span>&nbsp;<span class="member-name">getFeedPermissions</span>&#8203;(<span class="parameters">java.lang.String&nbsp;feedName)</span>
                                    throws <span class="exceptions"><a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions">DefaultParametersException</a>,
 java.io.IOException</span></div>
 <div class="block">Get the permissions for a feed.
@@ -455,7 +455,7 @@ java.io.IOException</span></div>
 <dt>Parameters:</dt>
 <dd><code>feedName</code> - Name or Id of the feed.</dd>
 <dt>Returns:</dt>
-<dd>Feed Permissions <a href="../types/FeedPermissions.html" title="class in org.azd.artifacts.feedmanagement.types"><code>FeedPermissions</code></a></dd>
+<dd>Feed Permissions <a href="../types/FeedPermissions.html" title="class in org.azd.feedmanagement.feedmanagement.types"><code>FeedPermissions</code></a></dd>
 <dt>Throws:</dt>
 <dd><code><a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions">DefaultParametersException</a></code> - throws default parameter exception <a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions"><code>DefaultParametersException</code></a></dd>
 <dd><code>java.io.IOException</code> - throws IO Exception exception <code>IOException</code></dd>
@@ -465,7 +465,7 @@ java.io.IOException</span></div>
 <li>
 <section class="detail" id="getFeedPermissions(java.lang.String,boolean,java.lang.String,boolean,boolean)">
 <h3>getFeedPermissions</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../types/FeedPermissions.html" title="class in org.azd.artifacts.feedmanagement.types">FeedPermissions</a></span>&nbsp;<span class="member-name">getFeedPermissions</span>&#8203;(<span class="parameters">java.lang.String&nbsp;feedName,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../types/FeedPermissions.html" title="class in org.azd.feedmanagement.feedmanagement.types">FeedPermissions</a></span>&nbsp;<span class="member-name">getFeedPermissions</span>&#8203;(<span class="parameters">java.lang.String&nbsp;feedName,
 boolean&nbsp;excludeInheritedPermissions,
 java.lang.String&nbsp;identityDescriptor,
 boolean&nbsp;includeDeletedFeeds,
@@ -485,7 +485,7 @@ java.io.IOException</span></div>
 <dd><code>includeDeletedFeeds</code> - If includeDeletedFeeds is true, then feedId must be specified by name and not by Guid.</dd>
 <dd><code>includeIds</code> - True to include user Ids in the response. Default is false.</dd>
 <dt>Returns:</dt>
-<dd>Feed Permissions <a href="../types/FeedPermissions.html" title="class in org.azd.artifacts.feedmanagement.types"><code>FeedPermissions</code></a></dd>
+<dd>Feed Permissions <a href="../types/FeedPermissions.html" title="class in org.azd.feedmanagement.feedmanagement.types"><code>FeedPermissions</code></a></dd>
 <dt>Throws:</dt>
 <dd><code><a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions">DefaultParametersException</a></code> - throws default parameter exception <a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions"><code>DefaultParametersException</code></a></dd>
 <dd><code>java.io.IOException</code> - throws IO Exception exception <code>IOException</code></dd>
@@ -495,7 +495,7 @@ java.io.IOException</span></div>
 <li>
 <section class="detail" id="getFeedView(java.lang.String,java.lang.String)">
 <h3>getFeedView</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../types/FeedView.html" title="class in org.azd.artifacts.feedmanagement.types">FeedView</a></span>&nbsp;<span class="member-name">getFeedView</span>&#8203;(<span class="parameters">java.lang.String&nbsp;feedName,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../types/FeedView.html" title="class in org.azd.feedmanagement.feedmanagement.types">FeedView</a></span>&nbsp;<span class="member-name">getFeedView</span>&#8203;(<span class="parameters">java.lang.String&nbsp;feedName,
 java.lang.String&nbsp;feedViewId)</span>
                      throws <span class="exceptions"><a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions">DefaultParametersException</a>,
 java.io.IOException</span></div>
@@ -508,7 +508,7 @@ java.io.IOException</span></div>
 <dd><code>feedName</code> - Name or Id of the feed.</dd>
 <dd><code>feedViewId</code> - Name or Id of the view.</dd>
 <dt>Returns:</dt>
-<dd>feed view <a href="../types/FeedView.html" title="class in org.azd.artifacts.feedmanagement.types"><code>FeedView</code></a></dd>
+<dd>feed view <a href="../types/FeedView.html" title="class in org.azd.feedmanagement.feedmanagement.types"><code>FeedView</code></a></dd>
 <dt>Throws:</dt>
 <dd><code><a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions">DefaultParametersException</a></code> - throws default parameter exception <a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions"><code>DefaultParametersException</code></a></dd>
 <dd><code>java.io.IOException</code> - throws IO Exception exception <code>IOException</code></dd>
@@ -518,7 +518,7 @@ java.io.IOException</span></div>
 <li>
 <section class="detail" id="getFeedViews(java.lang.String)">
 <h3>getFeedViews</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../types/FeedViews.html" title="class in org.azd.artifacts.feedmanagement.types">FeedViews</a></span>&nbsp;<span class="member-name">getFeedViews</span>&#8203;(<span class="parameters">java.lang.String&nbsp;feedName)</span>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../types/FeedViews.html" title="class in org.azd.feedmanagement.feedmanagement.types">FeedViews</a></span>&nbsp;<span class="member-name">getFeedViews</span>&#8203;(<span class="parameters">java.lang.String&nbsp;feedName)</span>
                        throws <span class="exceptions"><a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions">DefaultParametersException</a>,
 java.io.IOException</span></div>
 <div class="block">Get all views for a feed.
@@ -529,7 +529,7 @@ java.io.IOException</span></div>
 <dt>Parameters:</dt>
 <dd><code>feedName</code> - Name or Id of the feed.</dd>
 <dt>Returns:</dt>
-<dd>array feed views <a href="../types/FeedView.html" title="class in org.azd.artifacts.feedmanagement.types"><code>FeedView</code></a></dd>
+<dd>array feed views <a href="../types/FeedView.html" title="class in org.azd.feedmanagement.feedmanagement.types"><code>FeedView</code></a></dd>
 <dt>Throws:</dt>
 <dd><code><a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions">DefaultParametersException</a></code> - throws default parameter exception <a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions"><code>DefaultParametersException</code></a></dd>
 <dd><code>java.io.IOException</code> - throws IO Exception exception <code>IOException</code></dd>
@@ -539,7 +539,7 @@ java.io.IOException</span></div>
 <li>
 <section class="detail" id="getFeeds()">
 <h3>getFeeds</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../types/Feeds.html" title="class in org.azd.artifacts.feedmanagement.types">Feeds</a></span>&nbsp;<span class="member-name">getFeeds</span>()
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../types/Feeds.html" title="class in org.azd.feedmanagement.feedmanagement.types">Feeds</a></span>&nbsp;<span class="member-name">getFeeds</span>()
                throws <span class="exceptions"><a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions">DefaultParametersException</a>,
 java.io.IOException</span></div>
 <div class="block">Get all feeds in an account where you have the provided role access.
@@ -549,7 +549,7 @@ java.io.IOException</span></div>
  </p></div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>array of feeds <a href="../types/Feeds.html" title="class in org.azd.artifacts.feedmanagement.types"><code>Feeds</code></a></dd>
+<dd>array of feeds <a href="../types/Feeds.html" title="class in org.azd.feedmanagement.feedmanagement.types"><code>Feeds</code></a></dd>
 <dt>Throws:</dt>
 <dd><code><a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions">DefaultParametersException</a></code> - throws default parameter exception <a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions"><code>DefaultParametersException</code></a></dd>
 <dd><code>java.io.IOException</code> - throws IO Exception exception <code>IOException</code></dd>
@@ -559,7 +559,7 @@ java.io.IOException</span></div>
 <li>
 <section class="detail" id="getFeeds(java.lang.String,boolean,boolean)">
 <h3>getFeeds</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../types/Feeds.html" title="class in org.azd.artifacts.feedmanagement.types">Feeds</a></span>&nbsp;<span class="member-name">getFeeds</span>&#8203;(<span class="parameters">java.lang.String&nbsp;feedRole,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../types/Feeds.html" title="class in org.azd.feedmanagement.feedmanagement.types">Feeds</a></span>&nbsp;<span class="member-name">getFeeds</span>&#8203;(<span class="parameters">java.lang.String&nbsp;feedRole,
 boolean&nbsp;includeDeletedUpstreams,
 boolean&nbsp;includeUrls)</span>
                throws <span class="exceptions"><a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions">DefaultParametersException</a>,
@@ -575,7 +575,7 @@ java.io.IOException</span></div>
 <dd><code>includeDeletedUpstreams</code> - Include upstreams that have been deleted in the response.</dd>
 <dd><code>includeUrls</code> - Resolve names if true</dd>
 <dt>Returns:</dt>
-<dd>array of feeds <a href="../types/Feeds.html" title="class in org.azd.artifacts.feedmanagement.types"><code>Feeds</code></a></dd>
+<dd>array of feeds <a href="../types/Feeds.html" title="class in org.azd.feedmanagement.feedmanagement.types"><code>Feeds</code></a></dd>
 <dt>Throws:</dt>
 <dd><code><a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions">DefaultParametersException</a></code> - throws default parameter exception <a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions"><code>DefaultParametersException</code></a></dd>
 <dd><code>java.io.IOException</code> - throws IO Exception exception <code>IOException</code></dd>
@@ -585,7 +585,7 @@ java.io.IOException</span></div>
 <li>
 <section class="detail" id="setFeedPermissions(java.lang.String,java.lang.String,java.lang.String,boolean,java.lang.String)">
 <h3>setFeedPermissions</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../types/FeedPermissions.html" title="class in org.azd.artifacts.feedmanagement.types">FeedPermissions</a></span>&nbsp;<span class="member-name">setFeedPermissions</span>&#8203;(<span class="parameters">java.lang.String&nbsp;feedName,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../types/FeedPermissions.html" title="class in org.azd.feedmanagement.feedmanagement.types">FeedPermissions</a></span>&nbsp;<span class="member-name">setFeedPermissions</span>&#8203;(<span class="parameters">java.lang.String&nbsp;feedName,
 java.lang.String&nbsp;displayName,
 java.lang.String&nbsp;identityDescriptor,
 boolean&nbsp;isInheritedRole,
@@ -605,7 +605,7 @@ java.io.IOException</span></div>
 <dd><code>isInheritedRole</code> - Boolean indicating whether the role is inherited or set directly.</dd>
 <dd><code>role</code> - The role for this identity on a feed.</dd>
 <dt>Returns:</dt>
-<dd>array of feed permissions <a href="../types/FeedPermissions.html" title="class in org.azd.artifacts.feedmanagement.types"><code>FeedPermissions</code></a></dd>
+<dd>array of feed permissions <a href="../types/FeedPermissions.html" title="class in org.azd.feedmanagement.feedmanagement.types"><code>FeedPermissions</code></a></dd>
 <dt>Throws:</dt>
 <dd><code><a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions">DefaultParametersException</a></code> - throws default parameter exception <a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions"><code>DefaultParametersException</code></a></dd>
 <dd><code>com.fasterxml.jackson.core.JsonProcessingException</code> - --> <code>JsonProcessingException</code></dd>
@@ -616,7 +616,7 @@ java.io.IOException</span></div>
 <li>
 <section class="detail" id="updateFeed(java.lang.String,boolean,java.lang.String,boolean,boolean)">
 <h3>updateFeed</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../types/Feed.html" title="class in org.azd.artifacts.feedmanagement.types">Feed</a></span>&nbsp;<span class="member-name">updateFeed</span>&#8203;(<span class="parameters">java.lang.String&nbsp;feedName,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../types/Feed.html" title="class in org.azd.feedmanagement.feedmanagement.types">Feed</a></span>&nbsp;<span class="member-name">updateFeed</span>&#8203;(<span class="parameters">java.lang.String&nbsp;feedName,
 boolean&nbsp;badgesEnabled,
 java.lang.String&nbsp;description,
 boolean&nbsp;hideDeletedPackageVersions,
@@ -636,7 +636,7 @@ java.io.IOException</span></div>
 <dd><code>hideDeletedPackageVersions</code> - If set, feed will hide all deleted/unpublished versions</dd>
 <dd><code>upstreamEnabled</code> - If set, the feed can proxy packages from an upstream feed</dd>
 <dt>Returns:</dt>
-<dd>feed <a href="../types/Feed.html" title="class in org.azd.artifacts.feedmanagement.types"><code>Feed</code></a></dd>
+<dd>feed <a href="../types/Feed.html" title="class in org.azd.feedmanagement.feedmanagement.types"><code>Feed</code></a></dd>
 <dt>Throws:</dt>
 <dd><code><a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions">DefaultParametersException</a></code> - throws default parameter exception <a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions"><code>DefaultParametersException</code></a></dd>
 <dd><code>com.fasterxml.jackson.core.JsonProcessingException</code> - --> <code>JsonProcessingException</code></dd>
@@ -647,7 +647,7 @@ java.io.IOException</span></div>
 <li>
 <section class="detail" id="updateFeedView(java.lang.String,java.lang.String,java.lang.String,java.lang.String)">
 <h3>updateFeedView</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../types/FeedView.html" title="class in org.azd.artifacts.feedmanagement.types">FeedView</a></span>&nbsp;<span class="member-name">updateFeedView</span>&#8203;(<span class="parameters">java.lang.String&nbsp;feedName,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../types/FeedView.html" title="class in org.azd.feedmanagement.feedmanagement.types">FeedView</a></span>&nbsp;<span class="member-name">updateFeedView</span>&#8203;(<span class="parameters">java.lang.String&nbsp;feedName,
 java.lang.String&nbsp;feedViewName,
 java.lang.String&nbsp;feedViewType,
 java.lang.String&nbsp;visibility)</span>
@@ -664,7 +664,7 @@ java.io.IOException</span></div>
 <dd><code>feedViewType</code> - type of the feed view. Allowed are [implicit and release]</dd>
 <dd><code>visibility</code> - visibility of the feed</dd>
 <dt>Returns:</dt>
-<dd>the updated feed view <a href="../types/FeedView.html" title="class in org.azd.artifacts.feedmanagement.types"><code>FeedView</code></a></dd>
+<dd>the updated feed view <a href="../types/FeedView.html" title="class in org.azd.feedmanagement.feedmanagement.types"><code>FeedView</code></a></dd>
 <dt>Throws:</dt>
 <dd><code><a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions">DefaultParametersException</a></code> - throws default parameter exception <a href="../../../exceptions/DefaultParametersException.html" title="class in org.azd.exceptions"><code>DefaultParametersException</code></a></dd>
 <dd><code>com.fasterxml.jackson.core.JsonProcessingException</code> - --> <code>JsonProcessingException</code></dd>

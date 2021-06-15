@@ -1,8 +1,8 @@
 package org.azd.interfaces;
 
-import org.azd.Work.Iterations.types.IterationWorkItems;
-import org.azd.Work.Iterations.types.TeamSettingsIteration;
-import org.azd.Work.Iterations.types.TeamSettingsIterations;
+import org.azd.Work.types.IterationWorkItems;
+import org.azd.Work.types.TeamSettingsIteration;
+import org.azd.Work.types.TeamSettingsIterations;
 import org.azd.enums.IterationsTimeFrame;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
