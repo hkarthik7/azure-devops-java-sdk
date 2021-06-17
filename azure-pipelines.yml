@@ -82,10 +82,10 @@ stages:
           publishJUnitResults: true
           testResultsFiles: '**/surefire-reports/TEST-*.xml'
   
-- stage: Production
+- stage: Publish Artifact
 
   jobs:
-  - job: Deploy
+  - job: Publish Artifact
 
     pool:
         vmImage: vs2017-win2016
@@ -129,15 +129,3 @@ stages:
 
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifact'
-    
-    - task: GitHubRelease@1
-      inputs:
-        gitHubConnection: 'GitHub connection 1'
-        repositoryName: 'hkarthik7/azure-devops-java-sdk'
-        action: 'create'
-        target: '$(Build.SourceVersion)'
-        tagSource: 'userSpecifiedTag'
-        tag: 'v$(PACKAGEVERSION)'
-        assets: '$(Build.ArtifactStagingDirectory)/azd/target/azd-*.jar'
-        changeLogCompareToRelease: 'lastFullRelease'
-        changeLogType: 'commitBased'
