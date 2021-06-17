@@ -5,7 +5,7 @@ import org.azd.exceptions.DefaultParametersException;
 import org.azd.servicehooks.types.ServiceHooksSubscription;
 import org.azd.servicehooks.types.ServiceHooksSubscriptions;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public interface ServiceHooks {
     ServiceHooksSubscription getSubscription(String subscriptionId) throws DefaultParametersException, AzDException;
@@ -15,6 +15,6 @@ public interface ServiceHooks {
     void deleteSubscription(String subscriptionId) throws DefaultParametersException, AzDException;
     ServiceHooksSubscription createSubscription(String publisherId, String eventType,
                                                 String resourceVersion, String consumerId, String consumerActionId,
-                                                HashMap<String, Object> publisherInputs, HashMap<String, Object> consumerInputs)
+                                                LinkedHashMap<String, Object> publisherInputs, LinkedHashMap<String, Object> consumerInputs)
             throws DefaultParametersException, AzDException;
 }

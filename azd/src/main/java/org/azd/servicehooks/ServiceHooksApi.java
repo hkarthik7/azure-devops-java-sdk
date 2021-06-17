@@ -11,6 +11,7 @@ import org.azd.utils.AzDDefaultParameters;
 import org.azd.utils.ResourceId;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static org.azd.utils.Client.request;
@@ -118,11 +119,11 @@ public class ServiceHooksApi implements ServiceHooks {
     @Override
     public ServiceHooksSubscription createSubscription(String publisherId, String eventType,
                                                        String resourceVersion, String consumerId,
-                                                       String consumerActionId, HashMap<String, Object> publisherInputs,
-                                                       HashMap<String, Object> consumerInputs)
+                                                       String consumerActionId, LinkedHashMap<String, Object> publisherInputs,
+                                                       LinkedHashMap<String, Object> consumerInputs)
             throws DefaultParametersException, AzDException {
 
-        var requestBody = new HashMap<String, Object>(){{
+        var requestBody = new LinkedHashMap<String, Object>(){{
             put("publisherId", publisherId);
             put("eventType", eventType);
             put("resourceVersion", resourceVersion);
