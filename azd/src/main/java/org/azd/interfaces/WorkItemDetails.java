@@ -1,8 +1,9 @@
 package org.azd.interfaces;
 
-import org.azd.WorkItemTracking.types.WorkItem;
-import org.azd.WorkItemTracking.types.WorkItemDelete;
-import org.azd.WorkItemTracking.types.WorkItemList;
+import org.azd.workitemtracking.types.WorkItem;
+import org.azd.workitemtracking.types.WorkItemDelete;
+import org.azd.workitemtracking.types.WorkItemList;
+import org.azd.workitemtracking.types.WorkItemQueryResult;
 import org.azd.enums.WorkItemErrorPolicy;
 import org.azd.enums.WorkItemExpand;
 import org.azd.enums.WorkItemOperation;
@@ -32,4 +33,6 @@ public interface WorkItemDetails {
     WorkItemList getWorkItemRevisions(int workItemId, WorkItemExpand expand, int top, int skip) throws DefaultParametersException, AzDException;
     WorkItem getWorkItemRevision(int workItemId, int revisionNumber) throws DefaultParametersException, AzDException;
     WorkItem getWorkItemRevision(int workItemId, int revisionNumber, WorkItemExpand expand) throws DefaultParametersException, AzDException;
+    WorkItemQueryResult queryByWiql(String team, String query) throws DefaultParametersException, AzDException;
+    WorkItemQueryResult queryByWiql(String team, String query, int top, boolean timePrecision) throws DefaultParametersException, AzDException;
 }

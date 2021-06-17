@@ -1,15 +1,14 @@
-package org.azd.Work;
+package org.azd.work;
 
-import org.azd.Work.types.IterationWorkItems;
-import org.azd.Work.types.TeamSettingsIteration;
-import org.azd.Work.types.TeamSettingsIterations;
+import org.azd.work.types.IterationWorkItems;
+import org.azd.work.types.TeamSettingsIteration;
+import org.azd.work.types.TeamSettingsIterations;
 import org.azd.enums.IterationsTimeFrame;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.WorkDetails;
 import org.azd.utils.AzDDefaultParameters;
-import org.azd.utils.Client;
 import org.azd.enums.RequestMethod;
 import org.azd.utils.ResourceId;
 

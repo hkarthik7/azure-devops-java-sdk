@@ -1,8 +1,9 @@
-package org.azd.WorkItemTracking;
+package org.azd.workitemtracking;
 
-import org.azd.WorkItemTracking.types.WorkItem;
-import org.azd.WorkItemTracking.types.WorkItemDelete;
-import org.azd.WorkItemTracking.types.WorkItemList;
+import org.azd.workitemtracking.types.WorkItem;
+import org.azd.workitemtracking.types.WorkItemDelete;
+import org.azd.workitemtracking.types.WorkItemList;
+import org.azd.workitemtracking.types.WorkItemQueryResult;
 import org.azd.enums.WorkItemErrorPolicy;
 import org.azd.enums.WorkItemExpand;
 import org.azd.enums.WorkItemOperation;
@@ -11,7 +12,6 @@ import org.azd.exceptions.DefaultParametersException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.WorkItemDetails;
 import org.azd.utils.AzDDefaultParameters;
-import org.azd.utils.Client;
 import org.azd.enums.RequestMethod;
 import org.azd.utils.ResourceId;
 
@@ -468,6 +468,50 @@ public class WorkItemTrackingApi implements WorkItemDetails {
                 WorkItemVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, WorkItem.class);
+    }
+
+    /***
+     * Gets the results of the query given its WIQL.
+     * @param team Team ID or team name
+     * @param query Specify the query to list the work items. E.g., "Select * From WorkItems Where [System.WorkItemType] = 'User Story'"
+     * @return WorkItemQueryResult {@link WorkItemQueryResult}
+     * @throws DefaultParametersException
+     * @throws AzDException
+     */
+    @Override
+    public WorkItemQueryResult queryByWiql(String team, String query) throws DefaultParametersException, AzDException {
+        var body = new HashMap<String, Object>(){{put("query", query);}};
+        var newArea = AREA.replace("workitems", "wiql");
+
+        String r = request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.WIT, DEFAULT_PARAMETERS.getProject() + "/" + encodeSpace(team),
+                newArea, null, null, WorkItemVersion.WIQL_VERSION, null, body);
+
+        return MAPPER.mapJsonResponse(r, WorkItemQueryResult.class);
+    }
+
+    /***
+     * Gets the results of the query given its WIQL.
+     * @param team Team ID or team name
+     * @param query Specify the query to list the work items. E.g., "Select * From WorkItems Where [System.WorkItemType] = 'User Story'"
+     * @param top The max number of results to return.
+     * @param timePrecision The max number of results to return.
+     * @return WorkItemQueryResult {@link WorkItemQueryResult}
+     * @throws DefaultParametersException
+     * @throws AzDException
+     */
+    @Override
+    public WorkItemQueryResult queryByWiql(String team, String query, int top, boolean timePrecision) throws DefaultParametersException, AzDException {
+        var body = new HashMap<String, Object>(){{put("query", query);}};
+        var q = new HashMap<String, Object>(){{
+            put("$top", top);
+            put("timePrecision", timePrecision);
+        }};
+        var newArea = AREA.replace("workitems", "wiql");
+
+        String r = request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.WIT, DEFAULT_PARAMETERS.getProject() + "/" + encodeSpace(team),
+                newArea, null, null, WorkItemVersion.WIQL_VERSION, q, body);
+
+        return MAPPER.mapJsonResponse(r, WorkItemQueryResult.class);
     }
 
     /***

@@ -1,4 +1,4 @@
-package org.azd.Work.types;
+package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -6,15 +6,23 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WorkItemReference {
     @JsonProperty("id")
-    private String id;
+    private int id;
     @JsonProperty("url")
     private String url;
 
-    public String getId() {
+    @Override
+    public String toString() {
+        return "WorkItemReference{" +
+                "id=" + id +
+                ", url='" + url + '\'' +
+                '}';
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -24,13 +32,5 @@ public class WorkItemReference {
 
     public void setUrl(String url) {
         this.url = url;
-    }
-
-    @Override
-    public String toString() {
-        return "WorkItemReference{" +
-                "id='" + id + '\'' +
-                ", url='" + url + '\'' +
-                '}';
     }
 }

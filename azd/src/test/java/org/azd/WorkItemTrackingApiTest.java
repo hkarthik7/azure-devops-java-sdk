@@ -1,6 +1,6 @@
 package org.azd;
 
-import org.azd.WorkItemTracking.WorkItemTrackingApi;
+import org.azd.workitemtracking.WorkItemTrackingApi;
 import org.azd.enums.WorkItemExpand;
 import org.azd.enums.WorkItemOperation;
 import org.azd.exceptions.AzDException;
@@ -74,7 +74,17 @@ public class WorkItemTrackingApiTest {
     }
 
     @Test
-    public void shouldTest() throws DefaultParametersException, AzDException {
-        w.getWorkItem(2, WorkItemExpand.ALL).getFields();
+    public void shouldQueryWorkItems() throws DefaultParametersException, AzDException {
+        var query = "Select * From WorkItems Where [System.WorkItemType] = 'User Story'";
+        var team = "azure-devops-java-sdk Team";
+        w.queryByWiql(team, query, 10, true).getWorkItems();
+    }
+
+    @Test
+    public void shouldQueryWorkItemsAndGetExactlyOneResult() throws DefaultParametersException, AzDException {
+        var query = "Select * From WorkItems Where [System.WorkItemType] = 'User Story'";
+        var team = "azure-devops-java-sdk Team";
+        var res = (long) w.queryByWiql(team, query, 1, true).getWorkItems().size();
+        assertEquals(1, res);
     }
 }

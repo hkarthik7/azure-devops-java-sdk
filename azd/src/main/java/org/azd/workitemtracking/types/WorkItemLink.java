@@ -1,4 +1,4 @@
-package org.azd.Work.types;
+package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,15 +11,6 @@ public class WorkItemLink {
     private WorkItemReference source;
     @JsonProperty("target")
     private WorkItemReference target;
-
-    @Override
-    public String toString() {
-        return "WorkItemLink{" +
-                "rel='" + rel + '\'' +
-                ", source=" + source +
-                ", target=" + target +
-                '}';
-    }
 
     public String getRel() {
         return rel;
@@ -43,5 +34,14 @@ public class WorkItemLink {
 
     public void setTarget(WorkItemReference target) {
         this.target = target;
-        }
+    }
+
+    @Override
+    public String toString() {
+        return "WorkItemLink{" +
+                "rel='" + rel + '\'' +
+                ", source=" + source +
+                ", target=" + target +
+                '}';
+    }
 }
