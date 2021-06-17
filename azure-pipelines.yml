@@ -82,10 +82,10 @@ stages:
           publishJUnitResults: true
           testResultsFiles: '**/surefire-reports/TEST-*.xml'
   
-- stage: Publish Artifact
+- stage: Publish_Artifact
 
   jobs:
-  - job: Publish Artifact
+  - job: Publish_Artifact
 
     pool:
         vmImage: vs2017-win2016
