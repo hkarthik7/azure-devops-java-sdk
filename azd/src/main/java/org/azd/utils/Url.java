@@ -34,6 +34,9 @@ public abstract class Url {
         if (organizationName == null) { validateDefaultParameters(); }
 
         String INSTANCE = "https://dev.azure.com/";
+
+        if (resourceID == null) return (INSTANCE + organizationName);
+
         String LOCATION_URL_VERSION = "5.0-preview.1";
 
         String url = new StringBuilder().append(INSTANCE)
