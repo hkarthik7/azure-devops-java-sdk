@@ -9,7 +9,7 @@ import java.util.List;
 public class ReleaseDefinitionGatesStep {
     @JsonProperty("gates")
     private List<ReleaseDefinitionGate> gates;
-    @JsonProperty("gates")
+    @JsonProperty("gatesOptions")
     private ReleaseDefinitionGatesOptions gatesOptions;
     @JsonProperty("id")
     private int id;

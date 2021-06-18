@@ -3,12 +3,14 @@ package org.azd.release.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReleaseDefinitionApprovals {
     @JsonProperty("approvalOptions")
     private ApprovalOptions approvalOptions;
     @JsonProperty("approvals")
-    private ReleaseDefinitionApprovalStep approvals;
+    private List<ReleaseDefinitionApprovalStep> approvals;
 
     public ApprovalOptions getApprovalOptions() {
         return approvalOptions;
@@ -18,11 +20,11 @@ public class ReleaseDefinitionApprovals {
         this.approvalOptions = approvalOptions;
     }
 
-    public ReleaseDefinitionApprovalStep getApprovals() {
+    public List<ReleaseDefinitionApprovalStep> getApprovals() {
         return approvals;
     }
 
-    public void setApprovals(ReleaseDefinitionApprovalStep approvals) {
+    public void setApprovals(List<ReleaseDefinitionApprovalStep> approvals) {
         this.approvals = approvals;
     }
 
