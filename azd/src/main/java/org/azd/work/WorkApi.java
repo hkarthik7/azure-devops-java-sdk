@@ -18,6 +18,10 @@ import java.util.Map;
 import static org.azd.helpers.URLHelper.encodeSpace;
 import static org.azd.utils.Client.request;
 
+/***
+ * WORK class to manage work API
+ * @author Harish karthic
+ */
 public class WorkApi implements WorkDetails {
     /***
      * Instance of AzDDefaultParameters

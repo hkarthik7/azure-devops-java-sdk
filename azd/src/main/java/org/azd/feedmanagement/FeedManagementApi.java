@@ -47,8 +47,9 @@ public class FeedManagementApi implements FeedManagementDetails {
      * @param description Provide the description for the feed
      * @param badgesEnabled Enable or disable the badge in the feed. Default to false.
      * @param hideDeletedPackageVersions Hides the deleted package version. Default to true.
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return Feed object {@link Feed}
      */
     @Override
@@ -79,8 +80,9 @@ public class FeedManagementApi implements FeedManagementDetails {
      * @param name name of the feed view
      * @param feedViewType type of the feed view. Allowed values are [implicit and release]
      * @param visibility visibility of the view. Allowed values are [aadTenant, collection, organization, private]
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return Feed view object {@link FeedView}
      */
     @Override
@@ -107,8 +109,9 @@ public class FeedManagementApi implements FeedManagementDetails {
      *     If the feed is not associated with any project, omit the project parameter from the request.
      * </p>
      * @param feedId Name or Id of the feed.
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      */
     @Override
     public void deleteFeed(String feedId) throws DefaultParametersException, AzDException {
@@ -129,8 +132,9 @@ public class FeedManagementApi implements FeedManagementDetails {
      * </p>
      * @param feedId Name or Id of the feed
      * @param feedViewId Id of the feed view
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      */
     @Override
     public void deleteFeedView(String feedId, String feedViewId) throws DefaultParametersException, AzDException {
@@ -151,8 +155,9 @@ public class FeedManagementApi implements FeedManagementDetails {
      *     If the feed is not associated with any project, omit the project parameter from the request.
      * </p>
      * @param feedName Name of id of the feed
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return Feed {@link Feed}
      */
     @Override
@@ -173,8 +178,9 @@ public class FeedManagementApi implements FeedManagementDetails {
      * </p>
      * @param feedName Name of id of the feed
      * @param includeDeletedUpstreams Include upstreams that have been deleted in the response.
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return Feed {@link Feed}
      */
     @Override
@@ -198,8 +204,9 @@ public class FeedManagementApi implements FeedManagementDetails {
      *     If the feed is not associated with any project, omit the project parameter from the request.
      * </p>
      * @param feedName Name or Id of the feed.
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return Feed Permissions {@link FeedPermissions}
      */
     @Override
@@ -223,8 +230,9 @@ public class FeedManagementApi implements FeedManagementDetails {
      * @param identityDescriptor Filter permissions to the provided identity.
      * @param includeDeletedFeeds If includeDeletedFeeds is true, then feedId must be specified by name and not by Guid.
      * @param includeIds True to include user Ids in the response. Default is false.
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return Feed Permissions {@link FeedPermissions}
      */
     @Override
@@ -253,8 +261,9 @@ public class FeedManagementApi implements FeedManagementDetails {
      * </p>
      * @param feedName Name or Id of the feed.
      * @param feedViewId Name or Id of the view.
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return feed view {@link FeedView}
      */
     @Override
@@ -273,8 +282,9 @@ public class FeedManagementApi implements FeedManagementDetails {
      *     The project parameter must be supplied if the feed was created in a project.
      * </p>
      * @param feedName Name or Id of the feed.
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return array feed views {@link FeedView}
      */
     @Override
@@ -293,8 +303,9 @@ public class FeedManagementApi implements FeedManagementDetails {
      *     If the project parameter is present, gets all feeds in the given project.
      *     If omitted, gets all feeds in the organization.
      * </p>
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return array of feeds {@link Feeds}
      */
     @Override
@@ -316,8 +327,9 @@ public class FeedManagementApi implements FeedManagementDetails {
      * @param feedRole Filter by this role, either Administrator(4), Contributor(3), or Reader(2) level permissions.
      * @param includeDeletedUpstreams Include upstreams that have been deleted in the response.
      * @param includeUrls Resolve names if true
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return array of feeds {@link Feeds}
      */
     @Override
@@ -349,8 +361,9 @@ public class FeedManagementApi implements FeedManagementDetails {
      * @param identityDescriptor Identity associated with this role. You can run getFeedPermissions to get the Identity descriptor
      * @param isInheritedRole Boolean indicating whether the role is inherited or set directly.
      * @param role The role for this identity on a feed.
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return array of feed permissions {@link FeedPermissions}
      */
     @Override
@@ -385,8 +398,9 @@ public class FeedManagementApi implements FeedManagementDetails {
      * @param description A description for the feed.
      * @param hideDeletedPackageVersions If set, feed will hide all deleted/unpublished versions
      * @param upstreamEnabled If set, the feed can proxy packages from an upstream feed
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return feed {@link Feed}
      */
     @Override
@@ -420,8 +434,9 @@ public class FeedManagementApi implements FeedManagementDetails {
      * @param feedViewName Name or Id of the view.
      * @param feedViewType type of the feed view. Allowed are [implicit and release]
      * @param visibility visibility of the feed
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return the updated feed view {@link FeedView}
      */
     @Override

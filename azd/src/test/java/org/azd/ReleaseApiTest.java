@@ -36,7 +36,7 @@ public class ReleaseApiTest {
     public void shouldCreateReleasePipeline() throws DefaultParametersException, AzDException {
         var build = b.getBuild(176);
         r.createRelease(2, "Sample Release", "_Demo-CI", build.getBuildNumber(),
-                "Demo-CI", false, "none");
+                "Demo-CI", false);
     }
 
     @Test

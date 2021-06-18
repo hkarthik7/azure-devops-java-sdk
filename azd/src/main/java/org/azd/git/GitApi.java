@@ -40,8 +40,9 @@ public class GitApi implements GitDetails {
      * Create a git repository in a team project.
      * @param repositoryName Name of the repository
      * @param projectId id of the project
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return git repository object
      */
     @Override
@@ -61,8 +62,9 @@ public class GitApi implements GitDetails {
     /***
      * Delete a git repository
      * @param repositoryId pass the repository id
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      */
     @Override
     public void deleteRepository(String repositoryId) throws DefaultParametersException, AzDException {
@@ -78,8 +80,9 @@ public class GitApi implements GitDetails {
     /***
      * Destroy (hard delete) a soft-deleted Git repository.
      * @param repositoryId pass the repository id
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      */
     @Override
     public void deleteRepositoryFromRecycleBin(String repositoryId) throws DefaultParametersException, AzDException {
@@ -94,8 +97,9 @@ public class GitApi implements GitDetails {
 
     /***
      * Retrieve deleted git repositories.
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return Git deleted repository object
      */
     @Override
@@ -109,8 +113,9 @@ public class GitApi implements GitDetails {
 
     /***
      * Retrieve soft-deleted git repositories from the recycle bin.
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return array of git deleted recycle bin repositories
      */
     @Override
@@ -125,8 +130,9 @@ public class GitApi implements GitDetails {
     /***
      * Retrieve a git repository.
      * @param repositoryName pass the repository name
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return git repository object
      */
     @Override
@@ -140,8 +146,9 @@ public class GitApi implements GitDetails {
 
     /***
      * Retrieve git repositories.
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return array of git repositories
      */
     @Override
@@ -158,8 +165,9 @@ public class GitApi implements GitDetails {
      * Recently deleted repositories go into a soft-delete state for a period of time before they are hard deleted and become unrecoverable.
      * @param repositoryId pass the repository id
      * @param deleted Setting to false will undo earlier deletion and restore the repository.
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return object of git repository
      */
     @Override
@@ -180,8 +188,9 @@ public class GitApi implements GitDetails {
      * @param repositoryId provide the repository id
      * @param repositoryName pass the repository name to rename
      * @param defaultBranchName pass the default branch name to set
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return repository object
      */
     @Override
@@ -206,8 +215,9 @@ public class GitApi implements GitDetails {
      * @param title The title of the pull request.
      * @param description The description of the pull request.
      * @param reviewers A list of reviewers on the pull request along with the state of their votes.
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return an object of git pull request
      */
     @Override
@@ -240,8 +250,9 @@ public class GitApi implements GitDetails {
      * Retrieve a pull request.
      * @param repositoryName The repository name of the pull request's target branch.
      * @param pullRequestId The ID of the pull request to retrieve.
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return {@link PullRequest} object
      */
     @Override
@@ -256,8 +267,9 @@ public class GitApi implements GitDetails {
     /***
      * Retrieve a pull request.
      * @param pullRequestId The ID of the pull request to retrieve.
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return {@link PullRequest} object
      */
     @Override
@@ -272,8 +284,9 @@ public class GitApi implements GitDetails {
     /***
      * Retrieve all pull requests from a repository
      * @param repositoryName specify the repository name
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return {@link PullRequest} object
      */
     @Override
@@ -288,8 +301,9 @@ public class GitApi implements GitDetails {
     /***
      * Gets all pull requests from a project. To get the pull requests from non-default project you have to call setProject
      * method from {@link AzDDefaultParameters}.
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return {@link PullRequest} object
      */
     @Override

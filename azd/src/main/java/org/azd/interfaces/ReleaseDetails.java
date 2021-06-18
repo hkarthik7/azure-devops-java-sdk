@@ -10,7 +10,7 @@ import org.azd.release.types.Releases;
 public interface ReleaseDetails {
     Release createRelease(int releaseDefinitionId, String description, String artifactAlias,
                           String artifactId, String artifactName,
-                          boolean isDraft, String reason) throws DefaultParametersException, AzDException;
+                          boolean isDraft) throws DefaultParametersException, AzDException;
     Release getRelease(int releaseId) throws DefaultParametersException, AzDException;
     Release getRelease(int releaseId, SingleReleaseExpands expand) throws DefaultParametersException, AzDException;
     Release getRelease(int releaseId, SingleReleaseExpands expand,

@@ -8,7 +8,6 @@ import org.azd.interfaces.ServiceHooks;
 import org.azd.servicehooks.types.ServiceHooksSubscription;
 import org.azd.servicehooks.types.ServiceHooksSubscriptions;
 import org.azd.utils.AzDDefaultParameters;
-import org.azd.utils.ResourceId;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -16,6 +15,10 @@ import java.util.Map;
 
 import static org.azd.utils.Client.request;
 
+/***
+ * SERVICEHOOKS class to manage service hooks API
+ * @author Harish karthic
+ */
 public class ServiceHooksApi implements ServiceHooks {
     /***
      * Instance of AzDDefaultParameters
@@ -35,8 +38,9 @@ public class ServiceHooksApi implements ServiceHooks {
      * Get a specific service hooks subscription.
      * @param subscriptionId ID for a subscription.
      * @return ServiceHooksSubscription {@link ServiceHooksSubscription}
-     * @throws DefaultParametersException
-     * @throws AzDException
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      */
     @Override
     public ServiceHooksSubscription getSubscription(String subscriptionId) throws DefaultParametersException, AzDException {
@@ -49,8 +53,9 @@ public class ServiceHooksApi implements ServiceHooks {
     /***
      * Get a list of subscriptions.
      * @return ServiceHooksSubscriptions {@link ServiceHooksSubscriptions}
-     * @throws DefaultParametersException
-     * @throws AzDException
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      */
     @Override
     public ServiceHooksSubscriptions getSubscriptions() throws DefaultParametersException, AzDException {
@@ -67,8 +72,9 @@ public class ServiceHooksApi implements ServiceHooks {
      * @param eventType The event type to filter on (if any).
      * @param publisherId ID for a subscription.
      * @return ServiceHooksSubscriptions {@link ServiceHooksSubscriptions}
-     * @throws DefaultParametersException
-     * @throws AzDException
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      */
     @Override
     public ServiceHooksSubscriptions getSubscriptions(String consumerActionId, String consumerId, String eventType, String publisherId)
@@ -89,8 +95,9 @@ public class ServiceHooksApi implements ServiceHooks {
     /***
      * Delete a specific service hooks subscription.
      * @param subscriptionId ID for a subscription.
-     * @throws DefaultParametersException
-     * @throws AzDException
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      */
     @Override
     public void deleteSubscription(String subscriptionId) throws DefaultParametersException, AzDException {
@@ -113,8 +120,9 @@ public class ServiceHooksApi implements ServiceHooks {
      * @param publisherInputs Represents the parameter for request body. Specify the publisher inputs.
      * @param consumerInputs Represents the parameter for request body. Specify the consumer inputs.
      * @return ServiceHooksSubscription {@link ServiceHooksSubscription}
-     * @throws DefaultParametersException
-     * @throws AzDException
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      */
     @Override
     public ServiceHooksSubscription createSubscription(String publisherId, String eventType,

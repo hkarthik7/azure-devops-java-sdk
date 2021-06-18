@@ -23,6 +23,10 @@ import java.util.List;
 import static org.azd.helpers.URLHelper.encodeSpace;
 import static org.azd.utils.Client.request;
 
+/***
+ * WORKITEMTRACKING class to manage work items API
+ * @author Harish karthic
+ */
 public class WorkItemTrackingApi implements WorkItemDetails {
     /***
      * Instance of AzDDefaultParameters
@@ -475,8 +479,9 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      * @param team Team ID or team name
      * @param query Specify the query to list the work items. E.g., "Select * From WorkItems Where [System.WorkItemType] = 'User Story'"
      * @return WorkItemQueryResult {@link WorkItemQueryResult}
-     * @throws DefaultParametersException
-     * @throws AzDException
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      */
     @Override
     public WorkItemQueryResult queryByWiql(String team, String query) throws DefaultParametersException, AzDException {
@@ -496,8 +501,9 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      * @param top The max number of results to return.
      * @param timePrecision The max number of results to return.
      * @return WorkItemQueryResult {@link WorkItemQueryResult}
-     * @throws DefaultParametersException
-     * @throws AzDException
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      */
     @Override
     public WorkItemQueryResult queryByWiql(String team, String query, int top, boolean timePrecision) throws DefaultParametersException, AzDException {

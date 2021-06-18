@@ -38,8 +38,9 @@ public class BuildApi implements BuildDetails {
     /***
      * Deletes a build.
      * @param buildId pass the build id to delete
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      */
     @Override
     public void deleteBuild(int buildId) throws DefaultParametersException, AzDException {
@@ -55,8 +56,9 @@ public class BuildApi implements BuildDetails {
     /***
      * Gets a build
      * @param buildId pass the build id
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return a build object {@link Build}
      */
     @Override
@@ -71,8 +73,9 @@ public class BuildApi implements BuildDetails {
     /***
      * Gets the changes associated with a build
      * @param buildId pass the build id
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return the object of build changes
      */
     @Override
@@ -89,8 +92,9 @@ public class BuildApi implements BuildDetails {
      * @param top The maximum number of changes to return
      * @param continuationToken pass the continuation token
      * @param includeSourceChange if set to true gets the source changes
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return the object of build changes
      */
     @Override
@@ -112,8 +116,9 @@ public class BuildApi implements BuildDetails {
      * Gets an individual log file for a build.
      * @param buildId pass the build id
      * @param logId pass the log id
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return logs associated with the build for given id
      */
     @Override
@@ -128,8 +133,9 @@ public class BuildApi implements BuildDetails {
      * @param logId pass the log id
      * @param startLine pass the line number from log which you need to fetch
      * @param endLine pass till which line number you need to fetch from the log
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return logs associated with the build for given id
      */
     @Override
@@ -147,8 +153,9 @@ public class BuildApi implements BuildDetails {
     /***
      * Gets the logs for a build.
      * @param buildId pass the build id
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return the object of build logs with id. This can be used to fetch the particular log with id
      */
     @Override
@@ -163,8 +170,9 @@ public class BuildApi implements BuildDetails {
     /***
      * Gets the work items associated with a build.
      * @param buildId The ID of the build.
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return an array of work items associated with the build
      */
     @Override
@@ -180,8 +188,9 @@ public class BuildApi implements BuildDetails {
      * Gets the work items associated with a build.
      * @param buildId id of the build
      * @param top specify how many top work items to return
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return an array of work items associated with the build
      */
     @Override
@@ -202,8 +211,9 @@ public class BuildApi implements BuildDetails {
      * @param fromBuildId The ID of the first build.
      * @param toBuildId The ID of the last build.
      * @param top The maximum number of changes to return.
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return an array of changes between the builds
      */
     @Override
@@ -226,8 +236,9 @@ public class BuildApi implements BuildDetails {
      * @param fromBuildId The ID of the first build.
      * @param toBuildId The ID of the last build.
      * @param top The maximum number of changes to return.
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return an array of workitems between the builds
      */
     @Override
@@ -247,8 +258,9 @@ public class BuildApi implements BuildDetails {
 
     /***
      * Gets a list of builds.
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return a build array {@link Builds}
      */
     @Override
@@ -263,8 +275,9 @@ public class BuildApi implements BuildDetails {
     /***
      * Gets a list of builds.
      * @param buildIds array of build ids
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return an array of build
      */
     @Override
@@ -285,8 +298,9 @@ public class BuildApi implements BuildDetails {
     /***
      * Gets a list of builds.
      * @param top specify how many builds to retrieve
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return an array of build
      */
     @Override
@@ -323,8 +337,9 @@ public class BuildApi implements BuildDetails {
      * @param resultFilter If specified, filters to builds that match this result.
      * @param statusFilter If specified, filters to builds that match this status.
      * @param tagFilters A comma-delimited list of tags. If specified, filters to builds that have the specified tags.
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return an array of build
      */
     @Override
@@ -369,8 +384,9 @@ public class BuildApi implements BuildDetails {
     /***
      * Queues a build
      * @param definitionId pass the pipeline id to queue the build
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return a build object {@link Build}
      */
     @Override
@@ -389,8 +405,9 @@ public class BuildApi implements BuildDetails {
     /***
      * Queues a build
      * @param buildParameters dictionary of parameters to queue the build.
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return a build object {@link Build}
      */
     @Override
@@ -404,8 +421,9 @@ public class BuildApi implements BuildDetails {
 
     /***
      * Gets controllers
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return array of build controller {@link BuildControllers}
      */
     @Override
@@ -420,8 +438,9 @@ public class BuildApi implements BuildDetails {
     /***
      * Gets controller, optionally filtered by name
      * @param name pass the controller name
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return array of build controller {@link BuildControllers}
      */
     @Override
@@ -440,8 +459,9 @@ public class BuildApi implements BuildDetails {
     /***
      * Gets a controller
      * @param controllerId pass the controller id
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return build controller {@link BuildController}
      */
     @Override
@@ -456,8 +476,9 @@ public class BuildApi implements BuildDetails {
     /***
      * Creates a new definition.
      * @param buildDefinitionParameters json string of the build pipeline. Export the build definition from existing pipeline and edit it.
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return build definition {@link BuildDefinition}
      */
     @Override
@@ -476,8 +497,9 @@ public class BuildApi implements BuildDetails {
     /***
      * Deletes a definition and all associated builds.
      * @param definitionId pass the definition id
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      */
     @Override
     public void deleteBuildDefinition(int definitionId) throws DefaultParametersException, AzDException {
@@ -493,8 +515,9 @@ public class BuildApi implements BuildDetails {
     /***
      * Gets a definition
      * @param definitionId pass the definition id
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return build definition {@link BuildDefinition}
      */
     @Override
@@ -512,8 +535,9 @@ public class BuildApi implements BuildDetails {
      * @param includeLatestBuilds if specified gets the details of latest build
      * @param minMetricsTime If specified, indicates the date from which metrics should be included.
      * @param revision The revision number to retrieve. If this is not specified, the latest version will be returned.
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return Build definition object
      */
     @Override
@@ -535,8 +559,9 @@ public class BuildApi implements BuildDetails {
     /***
      * Gets all revisions of a definition.
      * @param definitionId The ID of the definition.
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return array of build definition revisions {@link BuildDefinitionRevision}
      */
     @Override
@@ -550,8 +575,9 @@ public class BuildApi implements BuildDetails {
 
     /***
      * Gets a list of definitions.
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return build definitions {@link BuildDefinitions}
      */
     @Override
@@ -566,8 +592,9 @@ public class BuildApi implements BuildDetails {
     /***
      * Gets a list of definitions.
      * @param definitionIds array of definition ids
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return build definitions {@link BuildDefinitions}
      */
     @Override
@@ -588,8 +615,9 @@ public class BuildApi implements BuildDetails {
     /***
      * Gets a list of definitions.
      * @param top definitions to retrieve
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return build definitions {@link BuildDefinitions}
      */
     @Override
@@ -608,8 +636,9 @@ public class BuildApi implements BuildDetails {
     /***
      * Gets a list of definitions.
      * @param name Name of the build definition
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return build definitions {@link BuildDefinitions}
      */
     @Override
@@ -640,8 +669,9 @@ public class BuildApi implements BuildDetails {
      * @param repositoryType If specified, filters to definitions that have a repository of this type.
      * @param taskIdFilter If specified, filters to definitions that use the specified task.
      * @param yamlFilename If specified, filters to YAML definitions that match the given filename.
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return build definitions {@link BuildDefinitions}
      */
     @Override
@@ -677,8 +707,9 @@ public class BuildApi implements BuildDetails {
      * Restores a deleted definition
      * @param definitionId pass the build definition id
      * @param deleted When false, restores a deleted definition.
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return a {@link BuildDefinition} object
      */
     @Override

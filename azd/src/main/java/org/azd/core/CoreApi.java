@@ -35,8 +35,9 @@ public class CoreApi implements CoreDetails {
 
     /***
      * Get a list of processes.
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return a list of processes {@link Processes}
      */
     @Override
@@ -52,8 +53,9 @@ public class CoreApi implements CoreDetails {
      * Creates a default scrum project
      * @param projectName pass the project name
      * @param description pass the description for the project
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return object with link to the project
      */
     @Override
@@ -84,8 +86,9 @@ public class CoreApi implements CoreDetails {
      * @param description project description
      * @param sourceControlType type of version control
      * @param templateTypeId pass the process id. Run getProcesses to get the list of process id
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return object with link to the project
      */
     @Override
@@ -119,8 +122,9 @@ public class CoreApi implements CoreDetails {
      *     and get the Id.
      * </p>
      * @param projectId pass the project id
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return object of deleted project with url
      */
     @Override
@@ -135,8 +139,9 @@ public class CoreApi implements CoreDetails {
     /***
      * Get project with the specified id or name
      * @param projectName pass the project name or id
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return project object {@link Project}
      */
     @Override
@@ -153,8 +158,9 @@ public class CoreApi implements CoreDetails {
      * @param projectName pass the project name or id
      * @param includeCapabilities Include capabilities (such as source control) in the team project result (default: false).
      * @param includeHistory Search within renamed projects (that had such name in the past).
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return project object {@link Project}
      */
     @Override
@@ -174,8 +180,9 @@ public class CoreApi implements CoreDetails {
     /***
      * Get a collection of team project properties.
      * @param projectId provide the project guid not the project name
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return ProjectProperties {@link ProjectProperties}
      */
     @Override
@@ -189,8 +196,9 @@ public class CoreApi implements CoreDetails {
 
     /***
      * Get all projects in the organization that the authenticated user has access to.
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return array of projects {@link Projects}
      */
     @Override
@@ -209,8 +217,9 @@ public class CoreApi implements CoreDetails {
      * @param continuationToken specify the next value to retrieve
      * @param getDefaultTeamImageUrl if true gets the default team image url
      * @param stateFilter allowed values are [all, createPending, deleted, deleting, new, unchanged, wellFormed]
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return array of projects {@link Projects}
      */
     @Override
@@ -236,8 +245,9 @@ public class CoreApi implements CoreDetails {
      * @param projectId pass the project id
      * @param projectParameters HashMap of project parameters to be updated.
      * <p> Refer "https://docs.microsoft.com/en-us/rest/api/azure/devops/core/projects/update?view=azure-devops-rest-6.1" </p>
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return an object or team project with url
      */
     @Override
@@ -253,8 +263,9 @@ public class CoreApi implements CoreDetails {
      * Create a team in a team project.
      * @param projectName project name or GUID
      * @param teamName pass the team name
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return returns web api object
      */
     @Override
@@ -274,8 +285,9 @@ public class CoreApi implements CoreDetails {
      * Delete a team.
      * @param projectName pass the project name or id
      * @param teamName pass the team name
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      */
     @Override
     public void deleteTeam(String projectName, String teamName) throws DefaultParametersException, AzDException {
@@ -292,8 +304,9 @@ public class CoreApi implements CoreDetails {
      * Get a specific team.
      * @param projectName pass the project name or id
      * @param teamName pass the team name
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return team object
      */
     @Override
@@ -310,8 +323,9 @@ public class CoreApi implements CoreDetails {
      * @param projectName pass the project name or id
      * @param teamName pass the team name
      * @param expandIdentity if true gets the identity object
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return team object
      */
     @Override
@@ -329,8 +343,9 @@ public class CoreApi implements CoreDetails {
 
     /***
      * Get a list of all teams.
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return array of team
      */
     @Override
@@ -347,8 +362,9 @@ public class CoreApi implements CoreDetails {
      * @param mine if true gets the team to which user has access to
      * @param skip pass to skip number of teams
      * @param top pass to retrieve number of teams
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return array of team
      */
     @Override
@@ -372,8 +388,9 @@ public class CoreApi implements CoreDetails {
      * @param projectName The name or ID (GUID) of the team project containing the team to update.
      * @param teamName The name or ID of the team to update.
      * @param description provide the description for your team to update
-     * @throws DefaultParametersException {@link DefaultParametersException}
-     * @throws AzDException {@link AzDException}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      * @return team object {@link Team}
      */
     @Override
