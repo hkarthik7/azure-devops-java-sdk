@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4.2
+
+- Added support for Service hooks and Release Api.
+- Merged PR: **read non-system workitem fields as "other fields" in a map (#4)**
+- Removed stale properties from WorkitemFields
+
 ## 1.3.1
 
 - Changes to name of the main Apis.
