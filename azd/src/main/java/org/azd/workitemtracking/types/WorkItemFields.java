@@ -77,12 +77,6 @@ public class WorkItemFields {
     private int priority;
     @JsonProperty("Microsoft.VSTS.Common.Risk")
     private String risk;
-    @JsonProperty("WEF_98038F99D72A41E6AC7951F5027AA23A_System.ExtensionMarker")
-    private boolean systemExtensionMarker;
-    @JsonProperty("WEF_98038F99D72A41E6AC7951F5027AA23A_Kanban.Column")
-    private String kanbanColumn;
-    @JsonProperty("WEF_98038F99D72A41E6AC7951F5027AA23A_Kanban.Column.Done")
-    private boolean kanbanColumnDone;
     @JsonProperty("System.Description")
     private String systemDescription;
     @JsonProperty("Microsoft.VSTS.Common.AcceptanceCriteria")
@@ -365,30 +359,6 @@ public class WorkItemFields {
         this.risk = risk;
     }
 
-    public boolean isSystemExtensionMarker() {
-        return systemExtensionMarker;
-    }
-
-    public void setSystemExtensionMarker(boolean systemExtensionMarker) {
-        this.systemExtensionMarker = systemExtensionMarker;
-    }
-
-    public String getKanbanColumn() {
-        return kanbanColumn;
-    }
-
-    public void setKanbanColumn(String kanbanColumn) {
-        this.kanbanColumn = kanbanColumn;
-    }
-
-    public boolean isKanbanColumnDone() {
-        return kanbanColumnDone;
-    }
-
-    public void setKanbanColumnDone(boolean kanbanColumnDone) {
-        this.kanbanColumnDone = kanbanColumnDone;
-    }
-
     public String getSystemDescription() {
         return systemDescription;
     }
@@ -449,9 +419,6 @@ public class WorkItemFields {
                 ", activatedBy=" + activatedBy +
                 ", priority=" + priority +
                 ", risk='" + risk + '\'' +
-                ", systemExtensionMarker=" + systemExtensionMarker +
-                ", kanbanColumn='" + kanbanColumn + '\'' +
-                ", kanbanColumnDone=" + kanbanColumnDone +
                 ", systemDescription='" + systemDescription + '\'' +
                 ", acceptanceCriteria='" + acceptanceCriteria + '\'' +
                 ", systemTags='" + systemTags + '\'' +
