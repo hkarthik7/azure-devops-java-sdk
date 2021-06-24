@@ -1,8 +1,13 @@
 package org.azd.workitemtracking.types;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.Author;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WorkItemFields {
@@ -84,6 +89,25 @@ public class WorkItemFields {
     private String acceptanceCriteria;
     @JsonProperty("System.Tags")
     private String systemTags;
+
+    // for non-system (custom) fields
+    Map<String, Object> otherFields = new HashMap<>();
+
+    // Capture all other fields that Jackson do not match other members
+    @JsonAnyGetter
+    public Map<String, Object> getOtherFields() {
+        return otherFields;
+    }
+
+    public void setOtherFields(Map<String, Object> otherFieldsParam) {
+        otherFields = otherFieldsParam;
+    }
+
+    @JsonAnySetter
+    public void setOtherField(String name, Object value) {
+        // TODO the value could be mappable to a reference, like a user/author
+        otherFields.put(name, value);
+    }
 
     public int getSystemAreaId() {
         return systemAreaId;
