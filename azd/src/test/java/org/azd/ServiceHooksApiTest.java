@@ -1,9 +1,11 @@
 package org.azd;
 
+import org.azd.core.CoreApi;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
 import org.azd.feedmanagement.FeedManagementApi;
 import org.azd.helpers.JsonMapper;
+import org.azd.interfaces.CoreDetails;
 import org.azd.interfaces.ServiceHooks;
 import org.azd.servicehooks.ServiceHooksApi;
 import org.azd.utils.AzDDefaultParameters;
@@ -11,10 +13,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.util.LinkedHashMap;
 
 public class ServiceHooksApiTest {
     private static final JsonMapper MAPPER = new JsonMapper();
     private static ServiceHooks s;
+    private static CoreDetails c;
 
     @Before
     public void init() throws AzDException {
@@ -25,12 +29,34 @@ public class ServiceHooksApiTest {
         String token = m.getT();
         String project = m.getP();
         AzDDefaultParameters defaultParameters = new AzDDefaultParameters(organization, project, token);
+        c = new CoreApi(defaultParameters);
         s = new ServiceHooksApi(defaultParameters);
     }
 
-    @Test(expected = AzDException.class)
+    @Test
+    public void shouldCreateASubscription() throws DefaultParametersException, AzDException {
+        var projectId = c.getProject("azure-devops-java-sdk");
+
+        var pI = new LinkedHashMap<String, Object>(){{
+            put("buildStatus", "Failed");
+            put("definitionName", "Demo-CI");
+            put("projectId", projectId.getId());
+        }};
+
+        var cI = new LinkedHashMap<String, Object>(){{
+            put("url", "https://mywebsite/api/webhook");
+        }};
+
+        var res = s.createSubscription("tfs", "build.complete", "1.0-preview.1", "webHooks",
+                "httpRequest", pI, cI);
+
+        res.getId();
+    }
+
+    @Test
     public void shouldGetASubscription() throws DefaultParametersException, AzDException {
-        s.getSubscription("0000-00000-00000-00000");
+        var subscriptions = s.getSubscriptions();
+        s.getSubscription(subscriptions.getSubscriptions().stream().findFirst().get().getId());
     }
 
     @Test
@@ -38,8 +64,9 @@ public class ServiceHooksApiTest {
         s.getSubscriptions();
     }
 
-    @Test(expected = AzDException.class)
+    @Test
     public void shouldDeleteASubscription() throws DefaultParametersException, AzDException {
-        s.deleteSubscription("0000-00000-00000-00000");
+        var subscriptions = s.getSubscriptions();
+        s.deleteSubscription(subscriptions.getSubscriptions().stream().findFirst().get().getId());
     }
 }
