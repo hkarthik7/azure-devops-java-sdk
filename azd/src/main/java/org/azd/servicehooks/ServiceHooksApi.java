@@ -112,13 +112,24 @@ public class ServiceHooksApi implements ServiceHooks {
 
     /***
      * Create a subscription.
-     * @param publisherId Represents the parameter for request body. Specify the publisher Id.
-     * @param eventType Represents the parameter for request body. Specify the event type.
-     * @param resourceVersion Represents the parameter for request body. Specify the resource version.
-     * @param consumerId Represents the parameter for request body. Specify the consumer id.
-     * @param consumerActionId Represents the parameter for request body. Specify the consumer action id.
+     * @param publisherId Represents the parameter for request body. Specify the publisher Id. E.g., tfs;
+     * @param eventType Represents the parameter for request body. Specify the event type. E.g., workitem.created;
+     * @param resourceVersion Represents the parameter for request body. Specify the resource version. E.g., 1.0;
+     * @param consumerId Represents the parameter for request body. Specify the consumer id. E.g., webHooks;
+     * @param consumerActionId Represents the parameter for request body. Specify the consumer action id. E.g., httpRequest;
      * @param publisherInputs Represents the parameter for request body. Specify the publisher inputs.
+     *  E.g., var c = new CoreApi(defaultParameters);
+     *  E.g., var projectId = c.getProject("myProject");
+     *  E.g., var pI = new LinkedHashMap<String, Object>(){{
+     *                 put("areaPath", "");
+     *                 put("workItemType", "");
+     *                 put("projectId", projectId.getId());
+     *             }};
      * @param consumerInputs Represents the parameter for request body. Specify the consumer inputs.
+     *  E.g., var cI = new LinkedHashMap<String, Object>(){{
+     *                 put("url", "https://mywebsite/api/webhook");
+     *             }};
+     *  Reference: https://docs.microsoft.com/en-us/azure/devops/service-hooks/events?view=azure-devops#workitem.created
      * @return ServiceHooksSubscription {@link ServiceHooksSubscription}
      * @throws DefaultParametersException set the default parameters organization name, project name and
      * personal access token to work with any API in this library.
@@ -141,7 +152,7 @@ public class ServiceHooksApi implements ServiceHooks {
             put("consumerInputs", consumerInputs);
         }};
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, null, null,
+        String r = request(RequestMethod.POST, DEFAULT_PARAMETERS, null, null,
                 AREA + "/subscriptions",  null, null, ServiceHooksVersion.VERSION, null,requestBody);
 
         return MAPPER.mapJsonResponse(r, ServiceHooksSubscription.class);
