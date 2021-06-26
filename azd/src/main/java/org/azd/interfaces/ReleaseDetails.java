@@ -3,9 +3,7 @@ package org.azd.interfaces;
 import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
-import org.azd.release.types.Release;
-import org.azd.release.types.ReleaseEnvironment;
-import org.azd.release.types.Releases;
+import org.azd.release.types.*;
 
 public interface ReleaseDetails {
     Release createRelease(int releaseDefinitionId, String description, String artifactAlias,
@@ -31,5 +29,11 @@ public interface ReleaseDetails {
                          String path, String[] propertyFilters, ReleaseQueryOrder queryOrder,
                          String[] releaseIdFilter, String searchText, String sourceBranchFilter,
                          String sourceId, ReleaseStatus statusFilter, String[] tagFilter) throws DefaultParametersException, AzDException;
+    ReleaseDefinition createReleaseDefinition(String releaseDefinitionParameters) throws DefaultParametersException, AzDException;
+    void deleteReleaseDefinition(int definitionId) throws DefaultParametersException, AzDException;
+    void deleteReleaseDefinition(int definitionId, String comment, boolean forceDelete) throws DefaultParametersException, AzDException;
+    ReleaseDefinition getReleaseDefinition(int definitionId) throws DefaultParametersException, AzDException;
+    ReleaseDefinitionRevisions getReleaseDefinitionHistory(int definitionId) throws DefaultParametersException, AzDException;
+    ReleaseDefinitions getReleaseDefinitions() throws DefaultParametersException, AzDException;
 
 }

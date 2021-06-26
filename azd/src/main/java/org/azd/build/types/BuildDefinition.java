@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.azd.common.Author;
-import org.azd.common.ReferenceLinks;
 import org.azd.core.types.Project;
 
 import java.util.Arrays;

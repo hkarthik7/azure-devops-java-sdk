@@ -5,15 +5,14 @@ import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.ReleaseDetails;
-import org.azd.release.types.Release;
-import org.azd.release.types.ReleaseEnvironment;
-import org.azd.release.types.Releases;
+import org.azd.release.types.*;
 import org.azd.utils.AzDDefaultParameters;
 import org.azd.utils.ResourceId;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.azd.utils.Client.request;
 
@@ -351,5 +350,120 @@ public class ReleaseApi implements ReleaseDetails {
                 AREA, null, null, ReleaseVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, Releases.class);
+    }
+
+    /***
+     * Create a release definition
+     * @param releaseDefinitionParameters Pass the release definition parameter as string. It is easy to export
+     * json result from an existing pipeline and edit it.
+     * @return ReleaseDefinition {@link ReleaseDefinition}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
+     */
+    @Override
+    public ReleaseDefinition createReleaseDefinition(String releaseDefinitionParameters) throws DefaultParametersException, AzDException {
+
+        var body = MAPPER.mapJsonResponse(releaseDefinitionParameters, HashMap.class);
+
+        String r = request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.RELEASE, DEFAULT_PARAMETERS.getProject(),
+                AREA.replace("releases", "definitions"), null, null, ReleaseVersion.RELEASE_DEFINITION, null, body);
+
+        return MAPPER.mapJsonResponse(r, ReleaseDefinition.class);
+    }
+
+    /***
+     * Delete a release definition.
+     * @param definitionId Id of the release definition/pipeline.
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
+     */
+    @Override
+    public void deleteReleaseDefinition(int definitionId) throws DefaultParametersException, AzDException {
+        try {
+            String r = request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.RELEASE, DEFAULT_PARAMETERS.getProject(),
+                    AREA.replace("releases", "definitions"), Integer.toString(definitionId),
+                    null, ReleaseVersion.RELEASE_DEFINITION, null, null);
+            if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
+        } catch (DefaultParametersException | AzDException e) {
+            throw e;
+        }
+    }
+
+    /***
+     * Delete a release definition.
+     * @param definitionId Id of the release definition/pipeline.
+     * @param comment Comment for deleting a release definition.
+     * @param forceDelete 'true' to automatically cancel any in-progress release deployments
+     * and proceed with release definition deletion . Default is 'false'.
+     * @throws DefaultParametersException
+     * @throws AzDException
+     */
+    @Override
+    public void deleteReleaseDefinition(int definitionId, String comment, boolean forceDelete) throws DefaultParametersException, AzDException {
+        try {
+            var q = new HashMap<String, Object>(){{
+                put("comment", comment);
+                put("forceDelete", forceDelete);
+            }};
+
+            String r = request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.RELEASE, DEFAULT_PARAMETERS.getProject(),
+                    AREA.replace("releases", "definitions"), Integer.toString(definitionId),
+                    null, ReleaseVersion.RELEASE_DEFINITION, q, null);
+            if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
+        } catch (DefaultParametersException | AzDException e) {
+            throw e;
+        }
+    }
+
+    /***
+     * Get a release definition.
+     * @param definitionId Id of the release definition/pipeline.
+     * @return ReleaseDefinition {@link ReleaseDefinition}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
+     */
+    @Override
+    public ReleaseDefinition getReleaseDefinition(int definitionId) throws DefaultParametersException, AzDException {
+        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.RELEASE, DEFAULT_PARAMETERS.getProject(),
+                AREA.replace("releases", "definitions"), Integer.toString(definitionId),
+                null, ReleaseVersion.RELEASE_DEFINITION, null, null);
+
+        return MAPPER.mapJsonResponse(r, ReleaseDefinition.class);
+    }
+
+    /***
+     * Get revision history for a release definition
+     * @param definitionId Id of the release definition/pipeline.
+     * @return ReleaseDefinitionRevisions {@link ReleaseDefinitionRevisions}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
+     */
+    @Override
+    public ReleaseDefinitionRevisions getReleaseDefinitionHistory(int definitionId) throws DefaultParametersException, AzDException {
+        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.RELEASE, DEFAULT_PARAMETERS.getProject(),
+                AREA.replace("releases", "definitions"), Integer.toString(definitionId),
+                "revisions", ReleaseVersion.RELEASE_DEFINITION_HISTORY, null, null);
+
+        return MAPPER.mapJsonResponse(r, ReleaseDefinitionRevisions.class);
+    }
+
+    /***
+     * Get a list of release definitions.
+     * @return ReleaseDefinitions {@link ReleaseDefinitions}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
+     */
+    @Override
+    public ReleaseDefinitions getReleaseDefinitions() throws DefaultParametersException, AzDException {
+        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.RELEASE, DEFAULT_PARAMETERS.getProject(),
+                AREA.replace("releases", "definitions"), null,
+                null, ReleaseVersion.RELEASE_DEFINITION, null, null);
+
+        return MAPPER.mapJsonResponse(r, ReleaseDefinitions.class);
     }
 }

@@ -1,5 +1,6 @@
 package org.azd.git;
 
+import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
 import org.azd.git.types.PullRequest;
@@ -9,8 +10,6 @@ import org.azd.git.types.Repository;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.GitDetails;
 import org.azd.utils.AzDDefaultParameters;
-import org.azd.utils.Client;
-import org.azd.enums.RequestMethod;
 import org.azd.utils.ResourceId;
 
 import java.util.*;

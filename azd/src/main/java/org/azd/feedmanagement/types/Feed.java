@@ -2,9 +2,7 @@ package org.azd.feedmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.ReferenceLinks;
 import org.azd.core.types.Project;
-import java.lang.String;
 
 import java.util.List;
 

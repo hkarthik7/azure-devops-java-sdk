@@ -5,8 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.Reference;
 import org.azd.common.ReferenceLink;
 
-import java.util.List;
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BuildDefinitionReferenceLinks extends ReferenceLink {
     @JsonProperty("web")

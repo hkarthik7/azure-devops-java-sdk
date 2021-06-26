@@ -1,9 +1,6 @@
 package org.azd.workitemtracking;
 
-import org.azd.workitemtracking.types.WorkItem;
-import org.azd.workitemtracking.types.WorkItemDelete;
-import org.azd.workitemtracking.types.WorkItemList;
-import org.azd.workitemtracking.types.WorkItemQueryResult;
+import org.azd.enums.RequestMethod;
 import org.azd.enums.WorkItemErrorPolicy;
 import org.azd.enums.WorkItemExpand;
 import org.azd.enums.WorkItemOperation;
@@ -12,8 +9,11 @@ import org.azd.exceptions.DefaultParametersException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.WorkItemDetails;
 import org.azd.utils.AzDDefaultParameters;
-import org.azd.enums.RequestMethod;
 import org.azd.utils.ResourceId;
+import org.azd.workitemtracking.types.WorkItem;
+import org.azd.workitemtracking.types.WorkItemDelete;
+import org.azd.workitemtracking.types.WorkItemList;
+import org.azd.workitemtracking.types.WorkItemQueryResult;
 
 import java.util.ArrayList;
 import java.util.Arrays;

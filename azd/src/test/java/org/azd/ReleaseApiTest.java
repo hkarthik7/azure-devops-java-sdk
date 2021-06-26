@@ -33,7 +33,7 @@ public class ReleaseApiTest {
     }
 
     @Test
-    public void shouldCreateReleasePipeline() throws DefaultParametersException, AzDException {
+    public void shouldCreateARelease() throws DefaultParametersException, AzDException {
         var build = b.getBuild(176);
         r.createRelease(2, "Sample Release", "_Demo-CI", build.getBuildNumber(),
                 "Demo-CI", false);
@@ -53,5 +53,20 @@ public class ReleaseApiTest {
     public void shouldGetReleaseEnvironmentDetails() throws DefaultParametersException, AzDException {
         var res = r.getRelease(4, SingleReleaseExpands.TASKS);
         r.getReleaseEnvironment(res.getId(), res.getEnvironments().stream().findFirst().get().getId());
+    }
+
+    @Test
+    public void shouldGetAllReleaseDefinitions() throws DefaultParametersException, AzDException {
+        r.getReleaseDefinitions();
+    }
+
+    @Test
+    public void shouldGetAReleaseDefinition() throws DefaultParametersException, AzDException {
+        r.getReleaseDefinition(2);
+    }
+
+    @Test
+    public void shouldGetReleaseDefinitionHistory() throws DefaultParametersException, AzDException {
+        r.getReleaseDefinitionHistory(2);
     }
 }

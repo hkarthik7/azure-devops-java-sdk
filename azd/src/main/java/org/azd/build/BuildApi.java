@@ -1,12 +1,12 @@
 package org.azd.build;
 
 import org.azd.build.types.*;
+import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.BuildDetails;
 import org.azd.utils.AzDDefaultParameters;
-import org.azd.enums.RequestMethod;
 import org.azd.utils.ResourceId;
 
 import java.util.Arrays;

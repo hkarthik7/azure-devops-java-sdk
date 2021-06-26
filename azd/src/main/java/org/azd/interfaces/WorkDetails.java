@@ -1,11 +1,11 @@
 package org.azd.interfaces;
 
-import org.azd.work.types.IterationWorkItems;
-import org.azd.work.types.TeamSettingsIteration;
-import org.azd.work.types.TeamSettingsIterations;
 import org.azd.enums.IterationsTimeFrame;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
+import org.azd.work.types.IterationWorkItems;
+import org.azd.work.types.TeamSettingsIteration;
+import org.azd.work.types.TeamSettingsIterations;
 
 
 public interface WorkDetails {

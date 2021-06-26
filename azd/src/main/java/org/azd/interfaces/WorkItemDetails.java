@@ -1,14 +1,14 @@
 package org.azd.interfaces;
 
-import org.azd.workitemtracking.types.WorkItem;
-import org.azd.workitemtracking.types.WorkItemDelete;
-import org.azd.workitemtracking.types.WorkItemList;
-import org.azd.workitemtracking.types.WorkItemQueryResult;
 import org.azd.enums.WorkItemErrorPolicy;
 import org.azd.enums.WorkItemExpand;
 import org.azd.enums.WorkItemOperation;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
+import org.azd.workitemtracking.types.WorkItem;
+import org.azd.workitemtracking.types.WorkItemDelete;
+import org.azd.workitemtracking.types.WorkItemList;
+import org.azd.workitemtracking.types.WorkItemQueryResult;
 
 public interface WorkItemDetails {
     WorkItem createWorkItem(String workItemType, WorkItemOperation operation, String title) throws DefaultParametersException, AzDException;

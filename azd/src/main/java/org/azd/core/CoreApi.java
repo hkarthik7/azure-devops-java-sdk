@@ -1,13 +1,12 @@
 package org.azd.core;
 
 import org.azd.core.types.*;
+import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.CoreDetails;
 import org.azd.utils.AzDDefaultParameters;
-import org.azd.utils.Client;
-import org.azd.enums.RequestMethod;
 import org.azd.utils.ResourceId;
 
 import java.util.HashMap;

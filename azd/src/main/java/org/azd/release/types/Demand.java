@@ -4,23 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReleaseCondition {
-    @JsonProperty("conditionType")
-    private String conditionType;
+public class Demand {
     @JsonProperty("name")
     private String name;
-    @JsonProperty("result")
-    private String result;
     @JsonProperty("value")
     private String value;
-
-    public String getConditionType() {
-        return conditionType;
-    }
-
-    public void setConditionType(String conditionType) {
-        this.conditionType = conditionType;
-    }
 
     public String getName() {
         return name;
@@ -28,14 +16,6 @@ public class ReleaseCondition {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getResult() {
-        return result;
-    }
-
-    public void setResult(String result) {
-        this.result = result;
     }
 
     public String getValue() {
@@ -48,10 +28,8 @@ public class ReleaseCondition {
 
     @Override
     public String toString() {
-        return "ReleaseCondition{" +
-                "conditionType='" + conditionType + '\'' +
-                ", name='" + name + '\'' +
-                ", result='" + result + '\'' +
+        return "Demand{" +
+                "name='" + name + '\'' +
                 ", value='" + value + '\'' +
                 '}';
     }
