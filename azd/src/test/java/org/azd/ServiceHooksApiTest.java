@@ -3,7 +3,6 @@ package org.azd;
 import org.azd.core.CoreApi;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
-import org.azd.feedmanagement.FeedManagementApi;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.CoreDetails;
 import org.azd.interfaces.ServiceHooks;

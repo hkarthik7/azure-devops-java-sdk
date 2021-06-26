@@ -1,7 +1,6 @@
 package org.azd;
 
 import org.azd.build.BuildApi;
-import org.azd.build.types.BuildDefinition;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
 import org.azd.helpers.JsonMapper;

@@ -1,11 +1,11 @@
 package org.azd;
 
-import org.azd.work.WorkApi;
 import org.azd.enums.IterationsTimeFrame;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
 import org.azd.helpers.JsonMapper;
 import org.azd.utils.AzDDefaultParameters;
+import org.azd.work.WorkApi;
 import org.junit.Before;
 import org.junit.Test;
 
