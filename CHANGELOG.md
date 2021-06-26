@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4.3
+
+- Bug fix for ServiceHooksApi
+- Added Release definition Api services
+- Workitem request body type for easily creating workitems.
+
 ## 1.4.2
 
 - Added support for Service hooks and Release Api.
