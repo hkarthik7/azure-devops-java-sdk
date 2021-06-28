@@ -397,8 +397,9 @@ public class ReleaseApi implements ReleaseDetails {
      * @param comment Comment for deleting a release definition.
      * @param forceDelete 'true' to automatically cancel any in-progress release deployments
      * and proceed with release definition deletion . Default is 'false'.
-     * @throws DefaultParametersException
-     * @throws AzDException
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      */
     @Override
     public void deleteReleaseDefinition(int definitionId, String comment, boolean forceDelete) throws DefaultParametersException, AzDException {
