@@ -118,21 +118,7 @@ public class ServiceHooksApi implements ServiceHooks {
      * @param consumerId Represents the parameter for request body. Specify the consumer id. E.g., webHooks;
      * @param consumerActionId Represents the parameter for request body. Specify the consumer action id. E.g., httpRequest;
      * @param publisherInputs Represents the parameter for request body. Specify the publisher inputs.
-     * <code>
-     *  var c = new CoreApi(defaultParameters);
-     *  var projectId = c.getProject("myProject");
-     *  var pI = new LinkedHashMap<String, Object>(){{
-     *                 put("areaPath", "");
-     *                 put("workItemType", "");
-     *                 put("projectId", projectId.getId());
-     *             }};
-     * </code>
      * @param consumerInputs Represents the parameter for request body. Specify the consumer inputs.
-     * <code>
-     *  var cI = new LinkedHashMap<String, Object>(){{
-     *                 put("url", "https://mywebsite/api/webhook");
-     *             }};
-     * </code>
      *  Reference: https://docs.microsoft.com/en-us/azure/devops/service-hooks/events?view=azure-devops#workitem.created
      * @return ServiceHooksSubscription {@link ServiceHooksSubscription}
      * @throws DefaultParametersException set the default parameters organization name, project name and
