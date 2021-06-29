@@ -2,7 +2,7 @@
 
 [![Build Status](https://dev.azure.com/harishkarthic/azure-devops-java-sdk/_apis/build/status/hkarthik7.azure-devops-java-sdk?branchName=main)](https://dev.azure.com/harishkarthic/azure-devops-java-sdk/_build/latest?definitionId=8&branchName=main)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/hkarthik7/azure-devops-java-sdk/blob/main/LICENSE)
-[![Download: azd](https://img.shields.io/github/downloads/hkarthik7/azure-devops-java-sdk/total.svg)](https://github.com/hkarthik7/azure-devops-java-sdk/releases/download/v1.4.2/azd-1.4.2.jar)
+[![Download: azd](https://img.shields.io/github/downloads/hkarthik7/azure-devops-java-sdk/total.svg)](https://github.com/hkarthik7/azure-devops-java-sdk/releases/download/v1.4.3/azd-1.4.3.jar)
 
 **azd** library helps to manage **Azure DevOps** REST API on ease. This provides functionality to the significant services 
 in **Azure DevOps** and manage in granular level.
@@ -22,7 +22,7 @@ To download the library and use it in your project, just add below in your pom.x
 <dependency>
   <groupId>io.github.hkarthik7</groupId>
   <artifactId>azd</artifactId>
-  <version>1.3.1</version>
+  <version>${latest Version}</version>
 </dependency>
 ```
 **Java docs**
@@ -30,7 +30,7 @@ To download the library and use it in your project, just add below in your pom.x
 <dependency>
     <groupId>io.github.hkarthik7</groupId>
     <artifactId>azd</artifactId>
-    <version>1.3.1</version>
+    <version>${latest Version}</version>
     <classifier>javadoc</classifier>
 </dependency>
 ```
@@ -40,7 +40,7 @@ To download the library and use it in your project, just add below in your pom.x
 <dependency>
     <groupId>io.github.hkarthik7</groupId>
     <artifactId>azd</artifactId>
-    <version>1.3.1</version>
+    <version>${latest Version}</version>
     <classifier>sources</classifier>
 </dependency>
 ```
@@ -71,7 +71,7 @@ public class Main {
         
             // list all the teams
             core.getTeams();
-        } catch (IOException | DefaultParametersException e1) {
+        } catch (AzDException | DefaultParametersException e1) {
             e1.printStackTrace();
         }
     }
