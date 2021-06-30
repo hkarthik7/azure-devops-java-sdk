@@ -87,4 +87,29 @@ public class WorkItemTrackingApiTest {
         var res = (long) w.queryByWiql(team, query, 1, true).getWorkItems().size();
         assertEquals(1, res);
     }
+
+    @Test(expected = AzDException.class)
+    public void shouldRemoveWorkItemFromRecycleBin() throws DefaultParametersException, AzDException {
+        w.removeWorkItemFromRecycleBin(93);
+    }
+
+    @Test
+    public void shouldGetWorkItemFromRecycleBin() throws DefaultParametersException, AzDException {
+        w.getWorkItemFromRecycleBin(74);
+    }
+
+    @Test
+    public void shouldGetDeletedWorkItemFromRecycleBin() throws DefaultParametersException, AzDException {
+        w.getDeletedWorkItemsFromRecycleBin();
+    }
+
+    @Test(expected = AzDException.class)
+    public void shouldGetDeletedWorkItemsFromRecycleBin() throws DefaultParametersException, AzDException {
+        w.getDeletedWorkItemsFromRecycleBin(new int[]{71,72,73,74});
+    }
+
+    @Test(expected = AzDException.class)
+    public void shouldRestoreWorkItemFromRecycleBin() throws DefaultParametersException, AzDException {
+        w.restoreWorkItemFromRecycleBin(70);
+    }
 }

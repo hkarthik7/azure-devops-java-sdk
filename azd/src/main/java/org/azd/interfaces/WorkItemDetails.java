@@ -5,10 +5,7 @@ import org.azd.enums.WorkItemExpand;
 import org.azd.enums.WorkItemOperation;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
-import org.azd.workitemtracking.types.WorkItem;
-import org.azd.workitemtracking.types.WorkItemDelete;
-import org.azd.workitemtracking.types.WorkItemList;
-import org.azd.workitemtracking.types.WorkItemQueryResult;
+import org.azd.workitemtracking.types.*;
 
 public interface WorkItemDetails {
     WorkItem createWorkItem(String workItemType, WorkItemOperation operation, String title) throws DefaultParametersException, AzDException;
@@ -35,4 +32,9 @@ public interface WorkItemDetails {
     WorkItem getWorkItemRevision(int workItemId, int revisionNumber, WorkItemExpand expand) throws DefaultParametersException, AzDException;
     WorkItemQueryResult queryByWiql(String team, String query) throws DefaultParametersException, AzDException;
     WorkItemQueryResult queryByWiql(String team, String query, int top, boolean timePrecision) throws DefaultParametersException, AzDException;
+    void removeWorkItemFromRecycleBin(int id) throws DefaultParametersException, AzDException;
+    WorkItemDeleteReference getWorkItemFromRecycleBin(int id) throws DefaultParametersException, AzDException;
+    WorkItemDeleteShallowReferences getDeletedWorkItemsFromRecycleBin() throws DefaultParametersException, AzDException;
+    WorkItemDeleteReferences getDeletedWorkItemsFromRecycleBin(int[] ids) throws DefaultParametersException, AzDException;
+    WorkItemDeleteReference restoreWorkItemFromRecycleBin(int id) throws DefaultParametersException, AzDException;
 }
