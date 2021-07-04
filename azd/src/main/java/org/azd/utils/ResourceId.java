@@ -19,7 +19,7 @@ public abstract class ResourceId {
     public static final String EXTENSIONMANAGEMENT = "6c2b0933-3600-42ae-bf8b-93d4f7e83594";
     public static final String FAVORITE = "67349c8b-6425-42f2-97b6-0843cb037473";
     public static final String GIT = "4e080c62-fa21-4fbc-8fef-2a10a2b38049";
-    public static final String GRAPH = "4e40f190-2e3f-4d9f-8331-c7788e833080";
+    public static final String GRAPH = "bb1e7ec9-e901-4b68-999a-de7012b920f8";
     public static final String MEMBERENTITLEMENTMANAGEMENT = "68ddce18-2501-45f1-a17b-7931a9922690";
     public static final String NUGET = "b3be7473-68ea-4a81-bfc7-9530baaa19ad";
     public static final String NPM = "4c83cfc1-f33a-477e-a789-29d38ffca52e";

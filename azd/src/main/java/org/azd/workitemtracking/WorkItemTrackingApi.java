@@ -1,6 +1,5 @@
 package org.azd.workitemtracking;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.azd.enums.RequestMethod;
 import org.azd.enums.WorkItemErrorPolicy;
 import org.azd.enums.WorkItemExpand;
@@ -516,6 +515,13 @@ public class WorkItemTrackingApi implements WorkItemDetails {
         return MAPPER.mapJsonResponse(r, WorkItemQueryResult.class);
     }
 
+    /***
+     * Destroys the specified work item permanently from the Recycle Bin. This action can not be undone.
+     * @param id ID of the work item to be destroyed permanently
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
+     */
     @Override
     public void removeWorkItemFromRecycleBin(int id) throws DefaultParametersException, AzDException {
         try {
@@ -527,6 +533,14 @@ public class WorkItemTrackingApi implements WorkItemDetails {
         }
     }
 
+    /***
+     * Gets a deleted work item from Recycle Bin.
+     * @param id ID of the work item to be returned
+     * @return WorkItemDeleteReference {@link WorkItemDeleteReference}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
+     */
     @Override
     public WorkItemDeleteReference getWorkItemFromRecycleBin(int id) throws DefaultParametersException, AzDException {
         String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.WIT, DEFAULT_PARAMETERS.getProject(),
@@ -535,6 +549,13 @@ public class WorkItemTrackingApi implements WorkItemDetails {
         return MAPPER.mapJsonResponse(r, WorkItemDeleteReference.class);
     }
 
+    /***
+     * Gets a list of the IDs and the URLs of the deleted the work items in the Recycle Bin.
+     * @return WorkItemDeleteShallowReferences {@link WorkItemDeleteShallowReferences}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
+     */
     @Override
     public WorkItemDeleteShallowReferences getDeletedWorkItemsFromRecycleBin() throws DefaultParametersException, AzDException {
         String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.WIT, DEFAULT_PARAMETERS.getProject(),
@@ -543,6 +564,14 @@ public class WorkItemTrackingApi implements WorkItemDetails {
         return MAPPER.mapJsonResponse(r, WorkItemDeleteShallowReferences.class);
     }
 
+    /***
+     * Gets the work items from the recycle bin, whose IDs have been specified in the parameters
+     * @param ids array of workitem ids
+     * @return WorkItemDeleteReferences {@link WorkItemDeleteReferences}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
+     */
     @Override
     public WorkItemDeleteReferences getDeletedWorkItemsFromRecycleBin(int[] ids) throws DefaultParametersException, AzDException {
         var q = new HashMap<String, Object>(){{
@@ -555,6 +584,14 @@ public class WorkItemTrackingApi implements WorkItemDetails {
         return MAPPER.mapJsonResponse(r, WorkItemDeleteReferences.class);
     }
 
+    /***
+     * Restores the deleted work item from Recycle Bin.
+     * @param id ID of the work item to be restored
+     * @return WorkItemDeleteReference {@link WorkItemDeleteReference}
+     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
+     */
     @Override
     public WorkItemDeleteReference restoreWorkItemFromRecycleBin(int id) throws DefaultParametersException, AzDException {
         var b = new HashMap<String, Object>(){{
