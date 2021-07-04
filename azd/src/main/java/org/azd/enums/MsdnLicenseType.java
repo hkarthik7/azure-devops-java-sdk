@@ -1,0 +1,5 @@
+package org.azd.enums;
+
+public enum MsdnLicenseType {
+    ELIGIBLE, ENTERPRISE, PLATFORMS, PREMIUM, PROFESSIONAL, TESTPROFESSIONAL, ULTIMATE
+}
