@@ -165,10 +165,14 @@ public abstract class Client extends BaseClient {
         }
 
         if (requestMethod.toString().equals("PATCH") & (requestBody == null)) {
+            if (contentType != null)
+                return patch(requestUrl, defaultParameters.getPersonalAccessToken(), body, contentType);
             return patch(requestUrl, defaultParameters.getPersonalAccessToken(), body);
         }
 
         if (requestMethod.toString().equals("PATCH") & (requestBody != null)) {
+            if (contentType != null)
+                return patch(requestUrl, defaultParameters.getPersonalAccessToken(), requestBody, contentType);
             return patch(requestUrl, defaultParameters.getPersonalAccessToken(), requestBody);
         }
 
