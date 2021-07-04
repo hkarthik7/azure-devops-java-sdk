@@ -8,5 +8,4 @@ public abstract class BuildVersion {
     protected static final String BUILD_CONTROLLERS = "6.1-preview.2";
     protected static final String BUILD_DEFINITIONS = "6.1-preview.7";
     protected static final String BUILD_DEFINITION_REVISIONS = "6.1-preview.3";
-
 }

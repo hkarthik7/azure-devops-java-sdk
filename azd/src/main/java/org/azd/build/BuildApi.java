@@ -28,7 +28,6 @@ public class BuildApi implements BuildDetails {
     private final JsonMapper MAPPER = new JsonMapper();
     private final String AREA = "build";
 
-
     /***
      * Instantiate the class with instance of AzDDefaultParameters
      * @param defaultParameters instance of AzDDefaultParameters
