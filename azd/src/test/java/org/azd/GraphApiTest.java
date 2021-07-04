@@ -31,10 +31,7 @@ public class GraphApiTest {
 
     @Test
     public void shouldGetGraphUsers() throws DefaultParametersException, AzDException {
-        var users = g.getUsers().getUsers();
-        for (var user: users) {
-            System.out.println(user.getDisplayName());
-        }
+        g.getUsers().getUsers();
     }
 
     @Test
