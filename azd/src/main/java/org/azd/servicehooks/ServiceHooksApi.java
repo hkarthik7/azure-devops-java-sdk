@@ -18,7 +18,7 @@ import static org.azd.utils.Client.request;
 /***
  * Service Hooks Api to manage service hooks service
  */
-public class ServiceHooksDetailsApi implements ServiceHooksDetails {
+public class ServiceHooksApi implements ServiceHooksDetails {
     /***
      * Connection object
      */
@@ -31,7 +31,7 @@ public class ServiceHooksDetailsApi implements ServiceHooksDetails {
      * Instantiate the class with instance of AzDDefaultParameters
      * @param connection Connection object
      */
-    public ServiceHooksDetailsApi(Connection connection) { this.CONNECTION = connection; }
+    public ServiceHooksApi(Connection connection) { this.CONNECTION = connection; }
 
     /***
      * Get a specific service hooks subscription.
