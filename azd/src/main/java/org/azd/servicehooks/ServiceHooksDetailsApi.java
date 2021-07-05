@@ -4,10 +4,10 @@ import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
 import org.azd.helpers.JsonMapper;
-import org.azd.interfaces.ServiceHooks;
+import org.azd.interfaces.ServiceHooksDetails;
 import org.azd.servicehooks.types.ServiceHooksSubscription;
 import org.azd.servicehooks.types.ServiceHooksSubscriptions;
-import org.azd.utils.AzDDefaultParameters;
+import org.azd.connection.Connection;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -16,23 +16,22 @@ import java.util.Map;
 import static org.azd.utils.Client.request;
 
 /***
- * SERVICEHOOKS class to manage service hooks API
- * @author Harish karthic
+ * Service Hooks Api to manage service hooks service
  */
-public class ServiceHooksApi implements ServiceHooks {
+public class ServiceHooksDetailsApi implements ServiceHooksDetails {
     /***
-     * Instance of AzDDefaultParameters
+     * Connection object
      */
-    private final AzDDefaultParameters DEFAULT_PARAMETERS;
+    private final Connection CONNECTION;
     private final JsonMapper MAPPER = new JsonMapper();
     private final String AREA = "hooks";
 
 
     /***
      * Instantiate the class with instance of AzDDefaultParameters
-     * @param defaultParameters instance of AzDDefaultParameters
+     * @param connection Connection object
      */
-    public ServiceHooksApi(AzDDefaultParameters defaultParameters) { this.DEFAULT_PARAMETERS = defaultParameters; }
+    public ServiceHooksDetailsApi(Connection connection) { this.CONNECTION = connection; }
 
     /***
      * Get a specific service hooks subscription.
@@ -44,7 +43,7 @@ public class ServiceHooksApi implements ServiceHooks {
      */
     @Override
     public ServiceHooksSubscription getSubscription(String subscriptionId) throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, null, null,
+        String r = request(RequestMethod.GET, CONNECTION, null, null,
                 AREA + "/subscriptions",  subscriptionId, null, ServiceHooksVersion.VERSION, null,null);
 
         return MAPPER.mapJsonResponse(r, ServiceHooksSubscription.class);
@@ -59,7 +58,7 @@ public class ServiceHooksApi implements ServiceHooks {
      */
     @Override
     public ServiceHooksSubscriptions getSubscriptions() throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, null, null,
+        String r = request(RequestMethod.GET, CONNECTION, null, null,
                 AREA + "/subscriptions",  null, null, ServiceHooksVersion.VERSION, null,null);
 
         return MAPPER.mapJsonResponse(r, ServiceHooksSubscriptions.class);
@@ -86,7 +85,7 @@ public class ServiceHooksApi implements ServiceHooks {
             put("consumerActionId", consumerActionId);
         }};
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, null, null,
+        String r = request(RequestMethod.GET, CONNECTION, null, null,
                 AREA + "/subscriptions",  null, null, ServiceHooksVersion.VERSION, q,null);
 
         return MAPPER.mapJsonResponse(r, ServiceHooksSubscriptions.class);
@@ -102,7 +101,7 @@ public class ServiceHooksApi implements ServiceHooks {
     @Override
     public void deleteSubscription(String subscriptionId) throws DefaultParametersException, AzDException {
         try {
-            String r = request(RequestMethod.DELETE, DEFAULT_PARAMETERS, null, null,
+            String r = request(RequestMethod.DELETE, CONNECTION, null, null,
                     AREA + "/subscriptions",  subscriptionId, null, ServiceHooksVersion.VERSION, null,null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (DefaultParametersException | AzDException e) {
@@ -142,7 +141,7 @@ public class ServiceHooksApi implements ServiceHooks {
             put("consumerInputs", consumerInputs);
         }};
 
-        String r = request(RequestMethod.POST, DEFAULT_PARAMETERS, null, null,
+        String r = request(RequestMethod.POST, CONNECTION, null, null,
                 AREA + "/subscriptions",  null, null, ServiceHooksVersion.VERSION, null,requestBody);
 
         return MAPPER.mapJsonResponse(r, ServiceHooksSubscription.class);

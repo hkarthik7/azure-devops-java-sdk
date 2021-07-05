@@ -7,7 +7,7 @@ import org.azd.servicehooks.types.ServiceHooksSubscriptions;
 
 import java.util.LinkedHashMap;
 
-public interface ServiceHooks {
+public interface ServiceHooksDetails {
     ServiceHooksSubscription getSubscription(String subscriptionId) throws DefaultParametersException, AzDException;
     ServiceHooksSubscriptions getSubscriptions() throws DefaultParametersException, AzDException;
     ServiceHooksSubscriptions getSubscriptions(String consumerActionId, String consumerId,

@@ -5,18 +5,18 @@ import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.CoreDetails;
-import org.azd.interfaces.ServiceHooks;
-import org.azd.servicehooks.ServiceHooksApi;
-import org.azd.utils.AzDDefaultParameters;
+import org.azd.interfaces.ServiceHooksDetails;
+import org.azd.servicehooks.ServiceHooksDetailsApi;
+import org.azd.connection.Connection;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
 import java.util.LinkedHashMap;
 
-public class ServiceHooksApiTest {
+public class ServiceHooksDetailsApiTest {
     private static final JsonMapper MAPPER = new JsonMapper();
-    private static ServiceHooks s;
+    private static ServiceHooksDetails s;
     private static CoreDetails c;
 
     @Before
@@ -27,9 +27,9 @@ public class ServiceHooksApiTest {
         String organization = m.getO();
         String token = m.getT();
         String project = m.getP();
-        AzDDefaultParameters defaultParameters = new AzDDefaultParameters(organization, project, token);
+        Connection defaultParameters = new Connection(organization, project, token);
         c = new CoreApi(defaultParameters);
-        s = new ServiceHooksApi(defaultParameters);
+        s = new ServiceHooksDetailsApi(defaultParameters);
     }
 
     @Test
