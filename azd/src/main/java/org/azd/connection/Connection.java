@@ -1,14 +1,13 @@
-package org.azd.utils;
+package org.azd.connection;
 
 /**
- * This sets the default parameters to use this library
+ * The factory class which sets the default parameters to use this library.
  * <p>
  *     To call the Azure DevOps services REST API organization name and personal access token are
  *     mandatory. Setting these parameters as default helps to work with this library on ease.
  * </p>
- * @author Harish Karthic
  */
-public class AzDDefaultParameters {
+public class Connection {
     private String organization;
     private String project;
     private String personalAccessToken;
@@ -16,7 +15,7 @@ public class AzDDefaultParameters {
     /***
      * default with no parameters
      */
-    public AzDDefaultParameters() {
+    public Connection() {
     }
 
     /**
@@ -24,7 +23,7 @@ public class AzDDefaultParameters {
      * @param organization pass the organization name
      * @param personalAccessToken pass the personal access token
      */
-    public AzDDefaultParameters(String organization, String personalAccessToken) {
+    public Connection(String organization, String personalAccessToken) {
         this.organization = organization;
         this.personalAccessToken = personalAccessToken;
         setDefaultParameters(organization, null, personalAccessToken);
@@ -36,7 +35,7 @@ public class AzDDefaultParameters {
      * @param project provide the project name
      * @param personalAccessToken pass the personal access token
      */
-    public AzDDefaultParameters(String organization, String project, String personalAccessToken) {
+    public Connection(String organization, String project, String personalAccessToken) {
         this.organization = organization;
         this.project = project;
         this.personalAccessToken = personalAccessToken;
