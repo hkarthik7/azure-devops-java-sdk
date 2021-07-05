@@ -1,4 +1,4 @@
-package org.azd.common;
+package org.azd.common.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

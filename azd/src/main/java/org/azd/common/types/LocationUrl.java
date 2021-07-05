@@ -1,4 +1,4 @@
-package org.azd.common;
+package org.azd.common.types;
 
 /**
  * Response class for getting the resource area url.
