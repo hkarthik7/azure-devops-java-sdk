@@ -2,8 +2,8 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.Reference;
-import org.azd.common.ReferenceLink;
+import org.azd.common.types.Reference;
+import org.azd.common.types.ReferenceLink;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PullRequestReferenceLinks extends ReferenceLink {

@@ -17,11 +17,11 @@ public class Main {
         String project = "myProject";
         String personalAccessToken = "accessToken";
         
-        // instantiate AzDDefaultParameters with organisation name, project and personal access token.
-        AzDDefaultParameters defaultParameters = new AzDDefaultParameters(organisation, project, personalAccessToken);
+        // Create a connection object with organisation name, project and personal access token.
+        var connection = new Connection(organisation, project, personalAccessToken);
     
-        // call API with the default parameters;
-        BuildApi build = new BuildApi(defaultParameters);
+        // call API with default connection object;
+        BuildApi build = new BuildApi(connection);
         try {
         
             // delete a build by id

@@ -2,7 +2,7 @@ package org.azd.graph.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.Reference;
+import org.azd.common.types.Reference;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GroupReferenceLinks {

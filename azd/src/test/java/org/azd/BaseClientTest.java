@@ -2,7 +2,7 @@ package org.azd;
 
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
-import org.azd.utils.AzDDefaultParameters;
+import org.azd.connection.Connection;
 import org.azd.utils.BaseClient;
 import org.azd.utils.ResourceId;
 import org.azd.utils.Url;
@@ -20,7 +20,7 @@ public class BaseClientTest {
         String token = "myPersonalAccessToken";
 
         // When
-        AzDDefaultParameters defaultParameters = new AzDDefaultParameters(organization, token);
+        Connection defaultParameters = new Connection(organization, token);
         String projectUrl = Url.buildRequestUrl(
                 organization,
                 ResourceId.CORE,
@@ -42,7 +42,7 @@ public class BaseClientTest {
         String token = "myPersonalAccessToken";
 
         // When
-        AzDDefaultParameters defaultParameters = new AzDDefaultParameters(organization, token);
+        Connection defaultParameters = new Connection(organization, token);
 
         String feedUrl = Url.buildRequestUrl(
                 organization,
@@ -72,7 +72,7 @@ public class BaseClientTest {
         String token = "myPersonalAccessToken";
 
         // When
-        AzDDefaultParameters defaultParameters = new AzDDefaultParameters(organization, token);
+        Connection defaultParameters = new Connection(organization, token);
 
         // Set the permission of a feed
         var permissionSettings = new HashMap<String, Object>() {{
@@ -105,7 +105,7 @@ public class BaseClientTest {
         String token = "myPersonalAccessToken";
 
         // When
-        AzDDefaultParameters defaultParameters = new AzDDefaultParameters(organization, token);
+        Connection defaultParameters = new Connection(organization, token);
 
         String feedUrl = Url.buildRequestUrl(
                 organization,

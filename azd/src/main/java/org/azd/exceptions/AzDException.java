@@ -2,7 +2,6 @@ package org.azd.exceptions;
 
 /***
  * Throws the exception from REST API
- * @author Harish Karthic
  */
 @SuppressWarnings("serial")
 public class AzDException extends Exception {

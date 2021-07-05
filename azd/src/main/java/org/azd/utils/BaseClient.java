@@ -15,7 +15,6 @@ import java.util.List;
 /**
  *  Implements HttpRequest request methods to send GET, POST, PATCH and DELETE request
  *  to Azure DevOps REST API.
- *  @author Harish Karthic
  */
 public abstract class BaseClient {
 

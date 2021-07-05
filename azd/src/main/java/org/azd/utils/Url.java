@@ -1,6 +1,6 @@
 package org.azd.utils;
 
-import org.azd.common.LocationUrl;
+import org.azd.common.types.LocationUrl;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
 import org.azd.helpers.JsonMapper;
@@ -17,7 +17,6 @@ import static org.azd.validators.AzDDefaultParametersValidator.validateDefaultPa
  *      This implementation helps to call the Azure DevOps REST API with url formed dynamically
  *      by passing the correct service, resource and area for respective API
  *  </p>
- *  @author Harish Karthic
  */
 public abstract class Url {
     private static final JsonMapper MAPPER = new JsonMapper();

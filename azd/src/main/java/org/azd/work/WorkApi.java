@@ -6,7 +6,7 @@ import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.WorkDetails;
-import org.azd.utils.AzDDefaultParameters;
+import org.azd.connection.Connection;
 import org.azd.utils.ResourceId;
 import org.azd.work.types.IterationWorkItems;
 import org.azd.work.types.TeamSettingsIteration;
@@ -20,22 +20,21 @@ import static org.azd.utils.Client.request;
 
 /***
  * WORK class to manage work API
- * @author Harish karthic
  */
 public class WorkApi implements WorkDetails {
     /***
-     * Instance of AzDDefaultParameters
+     * Connection object
      */
-    private final AzDDefaultParameters DEFAULT_PARAMETERS;
+    private final Connection CONNECTION;
     private final JsonMapper MAPPER = new JsonMapper();
     private final String AREA = "work";
 
 
     /***
      * Instantiate the class with instance of AzDDefaultParameters
-     * @param defaultParameters instance of AzDDefaultParameters
+     * @param connection Connection object
      */
-    public WorkApi(AzDDefaultParameters defaultParameters) { this.DEFAULT_PARAMETERS = defaultParameters; }
+    public WorkApi(Connection connection) { this.CONNECTION = connection; }
 
     /***
      * Get a team's iterations
@@ -46,8 +45,8 @@ public class WorkApi implements WorkDetails {
      */
     @Override
     public TeamSettingsIterations getTeamSettingsIterations(String teamName) throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.WORK,
-                (DEFAULT_PARAMETERS.getProject() + "/" + encodeSpace(teamName)),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.WORK,
+                (CONNECTION.getProject() + "/" + encodeSpace(teamName)),
                 AREA,null , "teamsettings/iterations", WorkVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, TeamSettingsIterations.class);
@@ -69,8 +68,8 @@ public class WorkApi implements WorkDetails {
             put("$timeframe", timeFrame.toString().toLowerCase());
         }};
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.WORK,
-                (DEFAULT_PARAMETERS.getProject() + "/" + encodeSpace(teamName)),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.WORK,
+                (CONNECTION.getProject() + "/" + encodeSpace(teamName)),
                 AREA,null , "teamsettings/iterations", WorkVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, TeamSettingsIterations.class);
@@ -86,8 +85,8 @@ public class WorkApi implements WorkDetails {
      */
     @Override
     public IterationWorkItems getTeamIterationWorkItems(String teamName, String iterationId) throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.WORK,
-                (DEFAULT_PARAMETERS.getProject() + "/" + encodeSpace(teamName)),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.WORK,
+                (CONNECTION.getProject() + "/" + encodeSpace(teamName)),
                 AREA + "/teamsettings/iterations",iterationId , "workitems", WorkVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, IterationWorkItems.class);
@@ -103,8 +102,8 @@ public class WorkApi implements WorkDetails {
      */
     @Override
     public TeamSettingsIteration getTeamSettingsIteration(String teamName, String iterationId) throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.WORK,
-                (DEFAULT_PARAMETERS.getProject() + "/" + encodeSpace(teamName)),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.WORK,
+                (CONNECTION.getProject() + "/" + encodeSpace(teamName)),
                 AREA + "/teamsettings/iterations",iterationId , null, WorkVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, TeamSettingsIteration.class);
@@ -120,8 +119,8 @@ public class WorkApi implements WorkDetails {
     @Override
     public void deleteTeamSettingsIteration(String teamName, String iterationId) throws DefaultParametersException, AzDException {
         try {
-            String r = request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.WORK,
-                        (DEFAULT_PARAMETERS.getProject() + "/" + encodeSpace(teamName)),
+            String r = request(RequestMethod.DELETE, CONNECTION, ResourceId.WORK,
+                        (CONNECTION.getProject() + "/" + encodeSpace(teamName)),
                         AREA + "/teamsettings/iterations", iterationId, null, WorkVersion.VERSION, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (DefaultParametersException | AzDException e) {

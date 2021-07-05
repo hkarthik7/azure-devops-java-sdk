@@ -9,7 +9,7 @@ import org.azd.graph.types.GraphUser;
 import org.azd.graph.types.GraphUsers;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.GraphDetails;
-import org.azd.utils.AzDDefaultParameters;
+import org.azd.connection.Connection;
 import org.azd.utils.ResourceId;
 
 import java.util.HashMap;
@@ -19,21 +19,20 @@ import static org.azd.utils.Client.request;
 
 /***
  * GraphApi class to manage graph users and groups
- * @author Harish karthic
  */
 public class GraphApi implements GraphDetails {
     /***
-     * Instance of AzDDefaultParameters
+     * Connection object
      */
-    private final AzDDefaultParameters DEFAULT_PARAMETERS;
+    private final Connection CONNECTION;
     private final JsonMapper MAPPER = new JsonMapper();
     private final String AREA = "graph";
 
     /***
      * Instantiate the class with instance of AzDDefaultParameters
-     * @param defaultParameters instance of AzDDefaultParameters
+     * @param connection Connection object
      */
-    public GraphApi(AzDDefaultParameters defaultParameters) { this.DEFAULT_PARAMETERS = defaultParameters; }
+    public GraphApi(Connection connection) { this.CONNECTION = connection; }
 
     /***
      * Materialize an existing AAD or MSA user into the VSTS account.
@@ -55,7 +54,7 @@ public class GraphApi implements GraphDetails {
             put("principalName", emailId);
         }};
 
-        String r = request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.GRAPH, null,
+        String r = request(RequestMethod.POST, CONNECTION, ResourceId.GRAPH, null,
                 AREA, null, "users/" + userDescriptor, GraphVersion.VERSION, null, b);
 
         return MAPPER.mapJsonResponse(r, GraphUser.class);
@@ -81,7 +80,7 @@ public class GraphApi implements GraphDetails {
             put("groupDescriptors", groupDescriptor);
         }};
 
-        String r = request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.GRAPH, null,
+        String r = request(RequestMethod.POST, CONNECTION, ResourceId.GRAPH, null,
                 AREA, null, "users", GraphVersion.VERSION, q, b);
 
         return MAPPER.mapJsonResponse(r, GraphUser.class);
@@ -97,7 +96,7 @@ public class GraphApi implements GraphDetails {
     @Override
     public void deleteUser(String userDescriptor) throws DefaultParametersException, AzDException {
         try {
-            String r = request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.GRAPH, null,
+            String r = request(RequestMethod.DELETE, CONNECTION, ResourceId.GRAPH, null,
                     AREA, null, "users/" + userDescriptor, GraphVersion.VERSION, null, null);
 
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
@@ -116,7 +115,7 @@ public class GraphApi implements GraphDetails {
      */
     @Override
     public GraphUser getUser(String userDescriptor) throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GRAPH, null,
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.GRAPH, null,
                 AREA, null, "users/" + userDescriptor, GraphVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, GraphUser.class);
@@ -131,7 +130,7 @@ public class GraphApi implements GraphDetails {
      */
     @Override
     public GraphUsers getUsers() throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GRAPH, null,
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.GRAPH, null,
                 AREA, null, "users", GraphVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, GraphUsers.class);
@@ -161,7 +160,7 @@ public class GraphApi implements GraphDetails {
             put("scopeDescriptor", scopeDescriptor);
         }};
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GRAPH, null,
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.GRAPH, null,
                 AREA, null, "users", GraphVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, GraphUsers.class);
@@ -177,7 +176,7 @@ public class GraphApi implements GraphDetails {
      */
     @Override
     public GraphGroup getGroup(String groupDescriptor) throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GRAPH, null,
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.GRAPH, null,
                 AREA, null, "groups/" + groupDescriptor, GraphVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, GraphGroup.class);
@@ -192,7 +191,7 @@ public class GraphApi implements GraphDetails {
      */
     @Override
     public GraphGroups getGroups() throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GRAPH, null,
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.GRAPH, null,
                 AREA, null, "groups", GraphVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, GraphGroups.class);

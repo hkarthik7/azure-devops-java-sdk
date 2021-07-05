@@ -1,5 +1,5 @@
 ﻿{
-  "o": "{{ organization name }}",
-  "t": "{{ personal access token }}",
-  "p": "{{ project name }}"
+  "o": "harishkarthic",
+  "t": "wpai3xcxoj2jueel2uw6kx2ownpomak7pt77lqzeytblodiiqrbq",
+  "p": "azure-devops-java-sdk"
 }

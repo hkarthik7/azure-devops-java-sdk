@@ -1,6 +1,5 @@
 package org.azd.memberentitlementmanagement;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.azd.enums.AccountLicenseType;
 import org.azd.enums.GroupType;
 import org.azd.enums.LicensingSource;
@@ -10,7 +9,7 @@ import org.azd.exceptions.DefaultParametersException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.MemberEntitlementManagementDetails;
 import org.azd.memberentitlementmanagement.types.*;
-import org.azd.utils.AzDDefaultParameters;
+import org.azd.connection.Connection;
 import org.azd.utils.ResourceId;
 
 import java.util.HashMap;
@@ -22,22 +21,21 @@ import static org.azd.utils.Client.request;
 
 /***
  * MemberEntitlementManagementApi class to manage groups and user entitlements API
- * @author Harish karthic
  */
 public class MemberEntitlementManagementApi implements MemberEntitlementManagementDetails {
     /***
-     * Instance of AzDDefaultParameters
+     * Connection object
      */
-    private final AzDDefaultParameters DEFAULT_PARAMETERS;
+    private final Connection CONNECTION;
     private final JsonMapper MAPPER = new JsonMapper();
-    private final String GROUPAREA = "groupentitlements";
-    private final String USERAREA = "userentitlements";
+    private final String GROUP_AREA = "groupentitlements";
+    private final String USER_AREA = "userentitlements";
 
     /***
      * Instantiate the class with instance of AzDDefaultParameters
-     * @param defaultParameters instance of AzDDefaultParameters
+     * @param connection Connection object
      */
-    public MemberEntitlementManagementApi(AzDDefaultParameters defaultParameters) { this.DEFAULT_PARAMETERS = defaultParameters; }
+    public MemberEntitlementManagementApi(Connection connection) { this.CONNECTION = connection; }
 
     /***
      * Get the group entitlements for an account.
@@ -48,8 +46,8 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
      */
     @Override
     public GroupEntitlements getGroupEntitlements() throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
-                GROUPAREA, null, null, MemberEntitlementManagementVersion.VERSION, null, null);
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
+                GROUP_AREA, null, null, MemberEntitlementManagementVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, GroupEntitlements.class);
     }
@@ -64,8 +62,8 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
      */
     @Override
     public GroupEntitlement getGroupEntitlement(String groupId) throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
-                GROUPAREA, groupId, null, MemberEntitlementManagementVersion.VERSION, null, null);
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
+                GROUP_AREA, groupId, null, MemberEntitlementManagementVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, GroupEntitlement.class);
     }
@@ -79,7 +77,7 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
      */
     @Override
     public UsersSummary getUserEntitlementSummary() throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
                 "userentitlementsummary", null, null, MemberEntitlementManagementVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, UsersSummary.class);
@@ -95,8 +93,8 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
      */
     @Override
     public PagedGraphMemberList getMembers(String groupId) throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
-                GROUPAREA, groupId, "members", MemberEntitlementManagementVersion.VERSION, null, null);
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
+                GROUP_AREA, groupId, "members", MemberEntitlementManagementVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, PagedGraphMemberList.class);
     }
@@ -119,8 +117,8 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
             put("pagingToken", pagingToken);
         }};
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
-                GROUPAREA, groupId, "members", MemberEntitlementManagementVersion.VERSION, q, null);
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
+                GROUP_AREA, groupId, "members", MemberEntitlementManagementVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, PagedGraphMemberList.class);
     }
@@ -136,8 +134,8 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
     @Override
     public void removeMemberFromGroup(String groupId, String memberId) throws DefaultParametersException, AzDException {
         try {
-            String r = request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
-                    GROUPAREA, groupId, "members/" + memberId,
+            String r = request(RequestMethod.DELETE, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
+                    GROUP_AREA, groupId, "members/" + memberId,
                     MemberEntitlementManagementVersion.VERSION, null, null);
 
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
@@ -182,8 +180,8 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
             put("projectEntitlements", List.of(projectEntitlement));
         }};
 
-        String r = request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
-                USERAREA, null, null, MemberEntitlementManagementVersion.USER_ENTITLEMENTS, null, body);
+        String r = request(RequestMethod.POST, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
+                USER_AREA, null, null, MemberEntitlementManagementVersion.USER_ENTITLEMENTS, null, body);
 
         return MAPPER.mapJsonResponse(r, UserEntitlementsResponse.class);
     }
@@ -200,8 +198,8 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
     @Override
     public void deleteUserEntitlement(String userId) throws DefaultParametersException, AzDException {
         try {
-            String r = request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
-                    USERAREA, userId, null,
+            String r = request(RequestMethod.DELETE, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
+                    USER_AREA, userId, null,
                     MemberEntitlementManagementVersion.USER_ENTITLEMENTS, null, null);
 
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
@@ -221,8 +219,8 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
      */
     @Override
     public UserEntitlement getUserEntitlement(String userId) throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
-                USERAREA, userId, null, MemberEntitlementManagementVersion.USER_ENTITLEMENTS, null, null);
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
+                USER_AREA, userId, null, MemberEntitlementManagementVersion.USER_ENTITLEMENTS, null, null);
 
         return MAPPER.mapJsonResponse(r, UserEntitlement.class);
     }
@@ -236,8 +234,8 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
      */
     @Override
     public PagedGraphMemberList getUserEntitlements() throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
-                USERAREA, null, null, MemberEntitlementManagementVersion.USER_ENTITLEMENTS, null, null);
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
+                USER_AREA, null, null, MemberEntitlementManagementVersion.USER_ENTITLEMENTS, null, null);
 
         return MAPPER.mapJsonResponse(r, PagedGraphMemberList.class);
     }
@@ -252,8 +250,8 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
      */
     @Override
     public UserEntitlementsResponse updateUserEntitlement(String userId, List<Object> requestBody) throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.PATCH, DEFAULT_PARAMETERS, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
-                USERAREA, userId, null, MemberEntitlementManagementVersion.USER_ENTITLEMENTS, null,
+        String r = request(RequestMethod.PATCH, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
+                USER_AREA, userId, null, MemberEntitlementManagementVersion.USER_ENTITLEMENTS, null,
                 null, requestBody, "application/json-patch+json");
 
         return MAPPER.mapJsonResponse(r, UserEntitlementsResponse.class);
@@ -282,8 +280,8 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
             }});
         }};
 
-        String r = request(RequestMethod.PATCH, DEFAULT_PARAMETERS, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
-                USERAREA, userId, null, MemberEntitlementManagementVersion.USER_ENTITLEMENTS, null,
+        String r = request(RequestMethod.PATCH, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
+                USER_AREA, userId, null, MemberEntitlementManagementVersion.USER_ENTITLEMENTS, null,
                 null, List.of(pos), "application/json-patch+json");
 
         return MAPPER.mapJsonResponse(r, UserEntitlementsResponse.class);

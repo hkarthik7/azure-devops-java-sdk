@@ -8,7 +8,7 @@ import org.azd.exceptions.DefaultParametersException;
 import org.azd.feedmanagement.types.*;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.FeedManagementDetails;
-import org.azd.utils.AzDDefaultParameters;
+import org.azd.connection.Connection;
 import org.azd.utils.ResourceId;
 
 import java.util.HashMap;
@@ -19,21 +19,20 @@ import static org.azd.utils.Client.request;
 
 /***
  * Feed Management class to manage Artifacts API
- * @author Harish karthic
  */
 public class FeedManagementApi implements FeedManagementDetails {
     /***
-     * Instance of AzDDefaultParameters
+     * Connection object
      */
-    private final AzDDefaultParameters DEFAULT_PARAMETERS;
+    private final Connection CONNECTION;
     private final JsonMapper MAPPER = new JsonMapper();
     private final String AREA = "packaging";
 
     /***
      * Instantiate the class with instance of AzDDefaultParameters
-     * @param defaultParameters instance of AzDDefaultParameters
+     * @param connection Connection object
      */
-    public FeedManagementApi(AzDDefaultParameters defaultParameters) { this.DEFAULT_PARAMETERS = defaultParameters; }
+    public FeedManagementApi(Connection connection) { this.CONNECTION = connection; }
 
     /***
      * Create a feed, a container for various package types.
@@ -64,8 +63,8 @@ public class FeedManagementApi implements FeedManagementDetails {
             put("hideDeletedPackageVersions", hideDeletedPackageVersions);
         }};
 
-        String r = request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
-                        DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
+        String r = request(RequestMethod.POST, CONNECTION, ResourceId.PACKAGING,
+                        CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
                         AREA, null, "feeds", FeedVersion.VERSION, null, requestBody);
 
         return MAPPER.mapJsonResponse(r, Feed.class);
@@ -95,8 +94,8 @@ public class FeedManagementApi implements FeedManagementDetails {
             put("visibility", visibility.toString().toLowerCase());
         }};
 
-        String r = request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
-                        DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
+        String r = request(RequestMethod.POST, CONNECTION, ResourceId.PACKAGING,
+                        CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
                         AREA + "/feeds", feedName, "views", FeedVersion.VERSION, null, requestBody);
 
         return MAPPER.mapJsonResponse(r, FeedView.class);
@@ -116,8 +115,8 @@ public class FeedManagementApi implements FeedManagementDetails {
     @Override
     public void deleteFeed(String feedId) throws DefaultParametersException, AzDException {
         try {
-            String r = request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
-                    DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
+            String r = request(RequestMethod.DELETE, CONNECTION, ResourceId.PACKAGING,
+                    CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
                     AREA + "/feeds", feedId, null, FeedVersion.VERSION, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (DefaultParametersException | AzDException e) {
@@ -139,8 +138,8 @@ public class FeedManagementApi implements FeedManagementDetails {
     @Override
     public void deleteFeedView(String feedId, String feedViewId) throws DefaultParametersException, AzDException {
         try {
-            String r = request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
-                        DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
+            String r = request(RequestMethod.DELETE, CONNECTION, ResourceId.PACKAGING,
+                        CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
                         AREA + "/feeds", feedId, "views/" + feedViewId, FeedVersion.VERSION, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (DefaultParametersException | AzDException e) {
@@ -163,8 +162,8 @@ public class FeedManagementApi implements FeedManagementDetails {
     @Override
     public Feed getFeed(String feedName) throws DefaultParametersException, AzDException {
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
-                    DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.PACKAGING,
+                    CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
                     AREA + "/Feeds", feedName, null, FeedVersion.VERSION,null, null);
 
         return MAPPER.mapJsonResponse(r, Feed.class);
@@ -190,8 +189,8 @@ public class FeedManagementApi implements FeedManagementDetails {
             put("includeDeletedUpstreams", includeDeletedUpstreams);
         }};
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
-                DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.PACKAGING,
+                CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
                 AREA + "/Feeds", feedName, null, FeedVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, Feed.class);
@@ -212,8 +211,8 @@ public class FeedManagementApi implements FeedManagementDetails {
     @Override
     public FeedPermissions getFeedPermissions(String feedName) throws DefaultParametersException, AzDException {
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
-                        DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.PACKAGING,
+                        CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
                         AREA + "/Feeds", feedName, "permissions", FeedVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, FeedPermissions.class);
@@ -247,8 +246,8 @@ public class FeedManagementApi implements FeedManagementDetails {
             put("includeIds", includeIds);
         }};
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
-                DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.PACKAGING,
+                CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
                 AREA + "/Feeds", feedName, "permissions", FeedVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, FeedPermissions.class);
@@ -269,8 +268,8 @@ public class FeedManagementApi implements FeedManagementDetails {
     @Override
     public FeedView getFeedView(String feedName, String feedViewId) throws DefaultParametersException, AzDException {
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
-                DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.PACKAGING,
+                CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
                 AREA + "/Feeds", feedName, "views/" + feedViewId, FeedVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, FeedView.class);
@@ -290,8 +289,8 @@ public class FeedManagementApi implements FeedManagementDetails {
     @Override
     public FeedViews getFeedViews(String feedName) throws DefaultParametersException, AzDException {
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
-                DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.PACKAGING,
+                CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
                 AREA + "/Feeds", feedName, "views", FeedVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, FeedViews.class);
@@ -311,8 +310,8 @@ public class FeedManagementApi implements FeedManagementDetails {
     @Override
     public Feeds getFeeds() throws DefaultParametersException, AzDException {
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
-                DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.PACKAGING,
+                CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
                 AREA, null, "Feeds", FeedVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, Feeds.class);
@@ -343,8 +342,8 @@ public class FeedManagementApi implements FeedManagementDetails {
             put("includeUrls", includeUrls);
         }};
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
-                DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.PACKAGING,
+                CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
                 AREA, null, "Feeds", FeedVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, Feeds.class);
@@ -380,8 +379,8 @@ public class FeedManagementApi implements FeedManagementDetails {
 
         List<Object> o = List.of(h);
 
-        String r = request(RequestMethod.PATCH, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
-                        DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
+        String r = request(RequestMethod.PATCH, CONNECTION, ResourceId.PACKAGING,
+                        CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
                         AREA + "/Feeds", feedName, "permissions", FeedVersion.VERSION, null, null, o, null);
 
         return MAPPER.mapJsonResponse(r, FeedPermissions.class);
@@ -418,8 +417,8 @@ public class FeedManagementApi implements FeedManagementDetails {
 
         List<Object> o = List.of(h);
 
-        String r = request(RequestMethod.PATCH, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
-                        DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
+        String r = request(RequestMethod.PATCH, CONNECTION, ResourceId.PACKAGING,
+                        CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
                         AREA + "/Feeds", feedName, null, FeedVersion.VERSION, null, null, o, null);
 
         return MAPPER.mapJsonResponse(r, Feed.class);
@@ -448,8 +447,8 @@ public class FeedManagementApi implements FeedManagementDetails {
             put("visibility", visibility);
         }};
 
-        String r = request(RequestMethod.PATCH, DEFAULT_PARAMETERS, ResourceId.PACKAGING,
-                DEFAULT_PARAMETERS.getProject() != null ? DEFAULT_PARAMETERS.getProject() : null,
+        String r = request(RequestMethod.PATCH, CONNECTION, ResourceId.PACKAGING,
+                CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
                 AREA + "/Feeds", feedName, "views/" + feedViewName, FeedVersion.VERSION, null, h);
 
         return MAPPER.mapJsonResponse(r, FeedView.class);

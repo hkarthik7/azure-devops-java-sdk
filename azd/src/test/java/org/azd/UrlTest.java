@@ -2,7 +2,7 @@ package org.azd;
 
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
-import org.azd.utils.AzDDefaultParameters;
+import org.azd.connection.Connection;
 import org.azd.utils.ResourceId;
 import org.azd.utils.Url;
 import org.junit.Test;
@@ -22,7 +22,7 @@ public class UrlTest {
         String expectedUrl = "https://test.visualstudio.com/_apis/projects?api-version=6.1-preview.4";
 
         // When
-        AzDDefaultParameters defaultParameters = new AzDDefaultParameters(organization, token);
+        Connection defaultParameters = new Connection(organization, token);
         String projectUrl = Url.buildRequestUrl(
                 organization,
                 ResourceId.CORE,
@@ -47,7 +47,7 @@ public class UrlTest {
         String expectedUrl = "https://test.visualstudio.com/_apis/projects?api-version=6.1-preview.4&$top=5&stateFilter=all";
 
         // When
-        AzDDefaultParameters defaultParameters = new AzDDefaultParameters(organization, token);
+        Connection defaultParameters = new Connection(organization, token);
 
         HashMap<String, Object> m = new HashMap<>() {{
             put("$top", top);

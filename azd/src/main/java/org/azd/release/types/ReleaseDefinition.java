@@ -3,7 +3,7 @@ package org.azd.release.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
-import org.azd.common.Author;
+import org.azd.common.types.Author;
 
 import java.util.Arrays;
 import java.util.List;

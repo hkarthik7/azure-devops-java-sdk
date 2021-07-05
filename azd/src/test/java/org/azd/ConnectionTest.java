@@ -1,13 +1,13 @@
 package org.azd;
 
-import org.azd.utils.AzDDefaultParameters;
+import org.azd.connection.Connection;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
 
-public class AzDDefaultParametersTest {
+public class ConnectionTest {
 
     @Test
     public void shouldReturnOrganisation() {
@@ -16,7 +16,7 @@ public class AzDDefaultParametersTest {
         String token = "myPersonalAccessToken";
 
         // When
-        AzDDefaultParameters defaultParameters = new AzDDefaultParameters(organization, token);
+        Connection defaultParameters = new Connection(organization, token);
 
         // Then(assert and act)
         assertSame(defaultParameters.getOrganization(), organization);
@@ -29,7 +29,7 @@ public class AzDDefaultParametersTest {
         String token = "myPersonalAccessToken";
 
         // When
-        AzDDefaultParameters defaultParameters = new AzDDefaultParameters(organization, token);
+        Connection defaultParameters = new Connection(organization, token);
         defaultParameters.setOrganization("Check");
 
         // Then(assert and act)
@@ -39,7 +39,7 @@ public class AzDDefaultParametersTest {
     @Test
     public void shouldReturnNull() {
         // When
-        AzDDefaultParameters defaultParameters = new AzDDefaultParameters();
+        Connection defaultParameters = new Connection();
 
         // Then(assert and act)
         assertNull(defaultParameters.getOrganization());

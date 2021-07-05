@@ -2,7 +2,7 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.Author;
+import org.azd.common.types.Author;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BuildDefinitionRevision {

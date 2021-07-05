@@ -9,7 +9,7 @@ import org.azd.git.types.Repositories;
 import org.azd.git.types.Repository;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.GitDetails;
-import org.azd.utils.AzDDefaultParameters;
+import org.azd.connection.Connection;
 import org.azd.utils.ResourceId;
 
 import java.util.*;
@@ -18,22 +18,21 @@ import static org.azd.utils.Client.request;
 
 /***
  * GIT class to manage git API
- * @author Harish karthic
  */
 public class GitApi implements GitDetails {
 
     /***
-     * Instance of AzDDefaultParameters
+     * Connection object
      */
-    private final AzDDefaultParameters DEFAULT_PARAMETERS;
+    private final Connection CONNECTION;
     private final JsonMapper MAPPER = new JsonMapper();
     private final String AREA = "git";
 
     /***
      * Instantiate the class with instance of AzDDefaultParameters
-     * @param defaultParameters instance of AzDDefaultParameters
+     * @param connection Connection object
      */
-    public GitApi(AzDDefaultParameters defaultParameters) { this.DEFAULT_PARAMETERS = defaultParameters; }
+    public GitApi(Connection connection) { this.CONNECTION = connection; }
 
     /***
      * Create a git repository in a team project.
@@ -53,7 +52,7 @@ public class GitApi implements GitDetails {
                 put("id", projectId);
             }});
         }};
-        String r = request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.GIT, projectId,
+        String r = request(RequestMethod.POST, CONNECTION, ResourceId.GIT, projectId,
                         AREA, null, "repositories", GitVersion.VERSION, null, h);
         return MAPPER.mapJsonResponse(r, Repository.class);
     }
@@ -68,7 +67,7 @@ public class GitApi implements GitDetails {
     @Override
     public void deleteRepository(String repositoryId) throws DefaultParametersException, AzDException {
         try {
-            String r = request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+            String r = request(RequestMethod.DELETE, CONNECTION, ResourceId.GIT, CONNECTION.getProject(),
                     AREA + "/repositories", repositoryId, null, GitVersion.VERSION, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (DefaultParametersException | AzDException e) {
@@ -86,7 +85,7 @@ public class GitApi implements GitDetails {
     @Override
     public void deleteRepositoryFromRecycleBin(String repositoryId) throws DefaultParametersException, AzDException {
         try {
-            String r = request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+            String r = request(RequestMethod.DELETE, CONNECTION, ResourceId.GIT, CONNECTION.getProject(),
                     AREA + "/recycleBin/repositories", repositoryId, null, GitVersion.VERSION, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (DefaultParametersException | AzDException e) {
@@ -104,7 +103,7 @@ public class GitApi implements GitDetails {
     @Override
     public Map getDeletedRepositories() throws DefaultParametersException, AzDException {
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.GIT, CONNECTION.getProject(),
                         AREA, null, "deletedrepositories", GitVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, Map.class);
@@ -120,7 +119,7 @@ public class GitApi implements GitDetails {
     @Override
     public Map getRecycleBinRepositories() throws DefaultParametersException, AzDException {
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.GIT, CONNECTION.getProject(),
                         AREA, null, "recycleBin/repositories", GitVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, Map.class);
@@ -137,7 +136,7 @@ public class GitApi implements GitDetails {
     @Override
     public Repository getRepository(String repositoryName) throws DefaultParametersException, AzDException {
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.GIT, CONNECTION.getProject(),
                         AREA + "/repositories", repositoryName, null, GitVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, Repository.class);
@@ -153,7 +152,7 @@ public class GitApi implements GitDetails {
     @Override
     public Repositories getRepositories() throws DefaultParametersException, AzDException {
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.GIT, CONNECTION.getProject(),
                         AREA, null, "repositories", GitVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, Repositories.class);
@@ -176,7 +175,7 @@ public class GitApi implements GitDetails {
             put("deleted", deleted);
         }};
 
-        String r = request(RequestMethod.PATCH, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.PATCH, CONNECTION, ResourceId.GIT, CONNECTION.getProject(),
                         AREA + "/recycleBin/repositories", repositoryId, null, GitVersion.VERSION, null, h);
 
         return MAPPER.mapJsonResponse(r, Repository.class);
@@ -200,7 +199,7 @@ public class GitApi implements GitDetails {
             put("defaultBranch", "refs/heads/" + defaultBranchName);
         }};
 
-        String r = request(RequestMethod.PATCH, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.PATCH, CONNECTION, ResourceId.GIT, CONNECTION.getProject(),
                         AREA + "/repositories", repositoryId, null, GitVersion.VERSION, null, h);
 
         return MAPPER.mapJsonResponse(r, Repository.class);
@@ -239,7 +238,7 @@ public class GitApi implements GitDetails {
             put("reviewers", o);
         }};
 
-        String r = request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.POST, CONNECTION, ResourceId.GIT, CONNECTION.getProject(),
                 AREA + "/repositories", repositoryId, "pullrequests", GitVersion.VERSION, null, h);
 
         return MAPPER.mapJsonResponse(r, PullRequest.class);
@@ -257,7 +256,7 @@ public class GitApi implements GitDetails {
     @Override
     public PullRequest getPullRequest(String repositoryName, int pullRequestId) throws DefaultParametersException, AzDException {
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.GIT, CONNECTION.getProject(),
                 AREA + "/repositories", repositoryName, "pullrequests/" + pullRequestId, GitVersion.VERSION, null,null);
 
         return MAPPER.mapJsonResponse(r, PullRequest.class);
@@ -273,7 +272,7 @@ public class GitApi implements GitDetails {
      */
     @Override
     public PullRequest getPullRequestById(int pullRequestId) throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.GIT, CONNECTION.getProject(),
                 AREA + "/pullrequests", Integer.toString(pullRequestId), null, GitVersion.VERSION, null,null);
 
 
@@ -291,7 +290,7 @@ public class GitApi implements GitDetails {
     @Override
     public PullRequests getPullRequests(String repositoryName) throws DefaultParametersException, AzDException {
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.GIT, CONNECTION.getProject(),
                 AREA + "/repositories", repositoryName, "pullrequests", GitVersion.VERSION, null,null);
 
         return MAPPER.mapJsonResponse(r, PullRequests.class);
@@ -299,7 +298,7 @@ public class GitApi implements GitDetails {
 
     /***
      * Gets all pull requests from a project. To get the pull requests from non-default project you have to call setProject
-     * method from {@link AzDDefaultParameters}.
+     * method from {@link Connection}.
      * @throws DefaultParametersException set the default parameters organization name, project name and
      * personal access token to work with any API in this library.
      * @throws AzDException Handles errors from REST API and validates passed arguments
@@ -308,7 +307,7 @@ public class GitApi implements GitDetails {
     @Override
     public PullRequests getPullRequestsByProject() throws DefaultParametersException, AzDException {
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.GIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.GIT, CONNECTION.getProject(),
                 AREA, null, "pullrequests", GitVersion.VERSION, null,null);
 
         return MAPPER.mapJsonResponse(r, PullRequests.class);

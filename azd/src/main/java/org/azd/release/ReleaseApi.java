@@ -6,7 +6,7 @@ import org.azd.exceptions.DefaultParametersException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.ReleaseDetails;
 import org.azd.release.types.*;
-import org.azd.utils.AzDDefaultParameters;
+import org.azd.connection.Connection;
 import org.azd.utils.ResourceId;
 
 import java.util.HashMap;
@@ -16,19 +16,22 @@ import java.util.Map;
 
 import static org.azd.utils.Client.request;
 
+/***
+ * Release Api to manage releases service
+ */
 public class ReleaseApi implements ReleaseDetails {
     /***
-     * Instance of AzDDefaultParameters
+     * Connection object
      */
-    private final AzDDefaultParameters DEFAULT_PARAMETERS;
+    private final Connection CONNECTION;
     private final JsonMapper MAPPER = new JsonMapper();
     private final String AREA = "release/releases";
 
     /***
      * Instantiate the class with instance of AzDDefaultParameters
-     * @param defaultParameters instance of AzDDefaultParameters
+     * @param connection Connection object
      */
-    public ReleaseApi(AzDDefaultParameters defaultParameters) { this.DEFAULT_PARAMETERS = defaultParameters; }
+    public ReleaseApi(Connection connection) { this.CONNECTION = connection; }
 
     /***
      * Create a release.
@@ -65,7 +68,7 @@ public class ReleaseApi implements ReleaseDetails {
             put("manualEnvironments", null);
 
         }};
-        String r = request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.RELEASE, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.POST, CONNECTION, ResourceId.RELEASE, CONNECTION.getProject(),
                 AREA, null, null, ReleaseVersion.VERSION, null, h);
 
         return MAPPER.mapJsonResponse(r, Release.class);
@@ -81,7 +84,7 @@ public class ReleaseApi implements ReleaseDetails {
      */
     @Override
     public Release getRelease(int releaseId) throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.RELEASE, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.RELEASE, CONNECTION.getProject(),
                 AREA, Integer.toString(releaseId), null, ReleaseVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, Release.class);
@@ -102,7 +105,7 @@ public class ReleaseApi implements ReleaseDetails {
             put("$expand", expand.toString().toLowerCase());
         }};
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.RELEASE, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.RELEASE, CONNECTION.getProject(),
                 AREA, Integer.toString(releaseId), null, ReleaseVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, Release.class);
@@ -134,7 +137,7 @@ public class ReleaseApi implements ReleaseDetails {
             put("$topGateRecords", topGateRecords);
         }};
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.RELEASE, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.RELEASE, CONNECTION.getProject(),
                 AREA, Integer.toString(releaseId), null, ReleaseVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, Release.class);
@@ -151,7 +154,7 @@ public class ReleaseApi implements ReleaseDetails {
      */
     @Override
     public ReleaseEnvironment getReleaseEnvironment(int releaseId, int environmentId) throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.RELEASE, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.RELEASE, CONNECTION.getProject(),
                 AREA, Integer.toString(releaseId), "environments/" + environmentId,
                 ReleaseVersion.RELEASE_ENVIRONMENT, null, null);
 
@@ -175,7 +178,7 @@ public class ReleaseApi implements ReleaseDetails {
             put("$expand", expand.toString().toLowerCase());
         }};
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.RELEASE, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.RELEASE, CONNECTION.getProject(),
                 AREA, Integer.toString(releaseId), "environments/" + environmentId,
                 ReleaseVersion.RELEASE_ENVIRONMENT, q, null);
 
@@ -191,7 +194,7 @@ public class ReleaseApi implements ReleaseDetails {
      */
     @Override
     public Releases getReleases() throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.RELEASE, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.RELEASE, CONNECTION.getProject(),
                 AREA, null, null, ReleaseVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, Releases.class);
@@ -211,7 +214,7 @@ public class ReleaseApi implements ReleaseDetails {
             put("$expand", expand.toString().toLowerCase());
         }};
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.RELEASE, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.RELEASE, CONNECTION.getProject(),
                 AREA, null, null, ReleaseVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, Releases.class);
@@ -231,7 +234,7 @@ public class ReleaseApi implements ReleaseDetails {
             put("definitionId", definitionId);
         }};
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.RELEASE, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.RELEASE, CONNECTION.getProject(),
                 AREA, null, null, ReleaseVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, Releases.class);
@@ -253,7 +256,7 @@ public class ReleaseApi implements ReleaseDetails {
             put("$top", top);
         }};
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.RELEASE, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.RELEASE, CONNECTION.getProject(),
                 AREA, null, null, ReleaseVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, Releases.class);
@@ -273,7 +276,7 @@ public class ReleaseApi implements ReleaseDetails {
             put("releaseIdFilter", String.join(",", releaseIdFilter));
         }};
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.RELEASE, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.RELEASE, CONNECTION.getProject(),
                 AREA, null, null, ReleaseVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, Releases.class);
@@ -346,7 +349,7 @@ public class ReleaseApi implements ReleaseDetails {
             put("releaseIdFilter", String.join(",", releaseIdFilter));
         }};
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.RELEASE, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.RELEASE, CONNECTION.getProject(),
                 AREA, null, null, ReleaseVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, Releases.class);
@@ -366,7 +369,7 @@ public class ReleaseApi implements ReleaseDetails {
 
         var body = MAPPER.mapJsonResponse(releaseDefinitionParameters, HashMap.class);
 
-        String r = request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.RELEASE, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.POST, CONNECTION, ResourceId.RELEASE, CONNECTION.getProject(),
                 AREA.replace("releases", "definitions"), null, null, ReleaseVersion.RELEASE_DEFINITION, null, body);
 
         return MAPPER.mapJsonResponse(r, ReleaseDefinition.class);
@@ -382,7 +385,7 @@ public class ReleaseApi implements ReleaseDetails {
     @Override
     public void deleteReleaseDefinition(int definitionId) throws DefaultParametersException, AzDException {
         try {
-            String r = request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.RELEASE, DEFAULT_PARAMETERS.getProject(),
+            String r = request(RequestMethod.DELETE, CONNECTION, ResourceId.RELEASE, CONNECTION.getProject(),
                     AREA.replace("releases", "definitions"), Integer.toString(definitionId),
                     null, ReleaseVersion.RELEASE_DEFINITION, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
@@ -409,7 +412,7 @@ public class ReleaseApi implements ReleaseDetails {
                 put("forceDelete", forceDelete);
             }};
 
-            String r = request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.RELEASE, DEFAULT_PARAMETERS.getProject(),
+            String r = request(RequestMethod.DELETE, CONNECTION, ResourceId.RELEASE, CONNECTION.getProject(),
                     AREA.replace("releases", "definitions"), Integer.toString(definitionId),
                     null, ReleaseVersion.RELEASE_DEFINITION, q, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
@@ -428,7 +431,7 @@ public class ReleaseApi implements ReleaseDetails {
      */
     @Override
     public ReleaseDefinition getReleaseDefinition(int definitionId) throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.RELEASE, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.RELEASE, CONNECTION.getProject(),
                 AREA.replace("releases", "definitions"), Integer.toString(definitionId),
                 null, ReleaseVersion.RELEASE_DEFINITION, null, null);
 
@@ -445,7 +448,7 @@ public class ReleaseApi implements ReleaseDetails {
      */
     @Override
     public ReleaseDefinitionRevisions getReleaseDefinitionHistory(int definitionId) throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.RELEASE, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.RELEASE, CONNECTION.getProject(),
                 AREA.replace("releases", "definitions"), Integer.toString(definitionId),
                 "revisions", ReleaseVersion.RELEASE_DEFINITION_HISTORY, null, null);
 
@@ -461,7 +464,7 @@ public class ReleaseApi implements ReleaseDetails {
      */
     @Override
     public ReleaseDefinitions getReleaseDefinitions() throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.RELEASE, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.RELEASE, CONNECTION.getProject(),
                 AREA.replace("releases", "definitions"), null,
                 null, ReleaseVersion.RELEASE_DEFINITION, null, null);
 

@@ -10,7 +10,7 @@ import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.CoreDetails;
 import org.azd.interfaces.MemberEntitlementManagementDetails;
 import org.azd.memberentitlementmanagement.MemberEntitlementManagementApi;
-import org.azd.utils.AzDDefaultParameters;
+import org.azd.connection.Connection;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,7 +29,7 @@ public class MemberEntitlementManagementApiTest {
         String organization = m.getO();
         String token = m.getT();
         String project = m.getP();
-        AzDDefaultParameters defaultParameters = new AzDDefaultParameters(organization, project, token);
+        Connection defaultParameters = new Connection(organization, project, token);
         mem = new MemberEntitlementManagementApi(defaultParameters);
         c = new CoreApi(defaultParameters);
     }

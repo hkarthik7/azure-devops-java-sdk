@@ -8,7 +8,7 @@ import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.BuildDetails;
 import org.azd.interfaces.ReleaseDetails;
 import org.azd.release.ReleaseApi;
-import org.azd.utils.AzDDefaultParameters;
+import org.azd.connection.Connection;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,7 +27,7 @@ public class ReleaseApiTest {
         String organization = m.getO();
         String token = m.getT();
         String project = m.getP();
-        AzDDefaultParameters defaultParameters = new AzDDefaultParameters(organization, project, token);
+        Connection defaultParameters = new Connection(organization, project, token);
         r = new ReleaseApi(defaultParameters);
         b = new BuildApi(defaultParameters);
     }

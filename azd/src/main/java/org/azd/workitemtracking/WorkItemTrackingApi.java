@@ -8,7 +8,7 @@ import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.WorkItemDetails;
-import org.azd.utils.AzDDefaultParameters;
+import org.azd.connection.Connection;
 import org.azd.utils.ResourceId;
 import org.azd.workitemtracking.types.*;
 
@@ -19,22 +19,21 @@ import static org.azd.utils.Client.request;
 
 /***
  * WORKITEMTRACKING class to manage work items API
- * @author Harish karthic
  */
 public class WorkItemTrackingApi implements WorkItemDetails {
     /***
-     * Instance of AzDDefaultParameters
+     * Connection object
      */
-    private final AzDDefaultParameters DEFAULT_PARAMETERS;
+    private final Connection CONNECTION;
     private final JsonMapper MAPPER = new JsonMapper();
     private final String AREA = "wit";
 
 
     /***
      * Instantiate the class with instance of AzDDefaultParameters
-     * @param defaultParameters instance of AzDDefaultParameters
+     * @param connection Connection object
      */
-    public WorkItemTrackingApi(AzDDefaultParameters defaultParameters) { this.DEFAULT_PARAMETERS = defaultParameters; }
+    public WorkItemTrackingApi(Connection connection) { this.CONNECTION = connection; }
 
     /***
      * Creates a single work item.
@@ -56,7 +55,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
             put("value", title);
         }};
 
-        String r = request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.WIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.POST, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
                 AREA + "/workitems",  null, "$"+ encodeSpace(workItemType), WorkItemVersion.VERSION,
                 null, null, List.of(req), null);
 
@@ -104,7 +103,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
         req.add(d);
         req.add(tt);
 
-        String r = request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.WIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.POST, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
                 AREA + "/workitems",  null, "$"+ encodeSpace(workItemType), WorkItemVersion.VERSION,
                 null, null, req, null);
 
@@ -120,7 +119,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      */
     @Override
     public WorkItemDelete deleteWorkItem(int id) throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.WIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.DELETE, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
                 AREA + "/workitems",  String.valueOf(id),null , WorkItemVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemDelete.class);
@@ -143,7 +142,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
 
         var q = new HashMap<String, Object>(){{put("destroy", destroy);}};
 
-        String r = request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.WIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.DELETE, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
                 AREA + "/workitems",  String.valueOf(id),null , WorkItemVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemDelete.class);
@@ -158,7 +157,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      */
     @Override
     public WorkItem getWorkItem(int id) throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.WIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
                 AREA + "/workitems", Integer.toString(id), null, WorkItemVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, WorkItem.class);
@@ -179,7 +178,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
            put("$expand", expand.toString().toLowerCase());
         }};
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.WIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
                 AREA + "/workitems", Integer.toString(id), null, WorkItemVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, WorkItem.class);
@@ -202,7 +201,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
             put("$expand", expand.toString().toLowerCase());
         }};
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.WIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
                 AREA + "/workitems", Integer.toString(id), null, WorkItemVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, WorkItem.class);
@@ -225,7 +224,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
             put("$expand", expand.toString().toLowerCase());
         }};
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.WIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
                 AREA + "/workitems", Integer.toString(id), null, WorkItemVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, WorkItem.class);
@@ -250,7 +249,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
             put("$expand", expand.toString().toLowerCase());
         }};
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.WIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
                 AREA + "/workitems", Integer.toString(id), null, WorkItemVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, WorkItem.class);
@@ -267,7 +266,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
     public WorkItemList getWorkItems(int[] ids) throws DefaultParametersException, AzDException {
         var q = new HashMap<String, Object>(){{put("ids", intArrayToString(ids));}};
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.WIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
                 AREA + "/workitems", null, null, WorkItemVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemList.class);
@@ -289,7 +288,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
             put("$expand", expand.toString().toLowerCase());
         }};
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.WIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
                 AREA + "/workitems", null, null, WorkItemVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemList.class);
@@ -313,7 +312,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
             put("fields", asOf);
         }};
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.WIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
                 AREA + "/workitems", null, null, WorkItemVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemList.class);
@@ -337,7 +336,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
             put("fields", String.join(",", fields));
         }};
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.WIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
                 AREA + "/workitems", null, null, WorkItemVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemList.class);
@@ -366,7 +365,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
             put("errorPolicy", errorPolicy.toString().toLowerCase());
         }};
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.WIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
                 AREA + "/workitems", null, null, WorkItemVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemList.class);
@@ -381,7 +380,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      */
     @Override
     public WorkItemList getWorkItemRevisions(int workItemId) throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.WIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
                 AREA + "/workitems", Integer.toString(workItemId), "revisions", WorkItemVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemList.class);
@@ -400,7 +399,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
     public WorkItemList getWorkItemRevisions(int workItemId, WorkItemExpand expand) throws DefaultParametersException, AzDException {
         var q = new HashMap<String, Object>(){{put("$expand", expand.toString().toLowerCase());}};
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.WIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
                 AREA + "/workitems", Integer.toString(workItemId), "revisions", WorkItemVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemList.class);
@@ -426,7 +425,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
             put("$skip", skip);
         }};
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.WIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
                 AREA + "/workitems", Integer.toString(workItemId), "revisions", WorkItemVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemList.class);
@@ -442,7 +441,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      */
     @Override
     public WorkItem getWorkItemRevision(int workItemId, int revisionNumber) throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.WIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
                 AREA + "/workitems", Integer.toString(workItemId), "revisions/" + revisionNumber,
                 WorkItemVersion.VERSION, null, null);
 
@@ -463,7 +462,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
     public WorkItem getWorkItemRevision(int workItemId, int revisionNumber, WorkItemExpand expand) throws DefaultParametersException, AzDException {
         var q = new HashMap<String, Object>(){{put("$expand", expand.toString().toLowerCase());}};
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.WIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
                 AREA + "/workitems", Integer.toString(workItemId), "revisions/" + revisionNumber,
                 WorkItemVersion.VERSION, q, null);
 
@@ -483,7 +482,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
     public WorkItemQueryResult queryByWiql(String team, String query) throws DefaultParametersException, AzDException {
         var body = new HashMap<String, Object>(){{put("query", query);}};
 
-        String r = request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.WIT, DEFAULT_PARAMETERS.getProject() + "/" + encodeSpace(team),
+        String r = request(RequestMethod.POST, CONNECTION, ResourceId.WIT, CONNECTION.getProject() + "/" + encodeSpace(team),
                 AREA, null, "wiql", WorkItemVersion.WIQL_VERSION, null, body);
 
         return MAPPER.mapJsonResponse(r, WorkItemQueryResult.class);
@@ -509,7 +508,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
             put("timePrecision", timePrecision);
         }};
 
-        String r = request(RequestMethod.POST, DEFAULT_PARAMETERS, ResourceId.WIT, DEFAULT_PARAMETERS.getProject() + "/" + encodeSpace(team),
+        String r = request(RequestMethod.POST, CONNECTION, ResourceId.WIT, CONNECTION.getProject() + "/" + encodeSpace(team),
                 AREA, null, "wiql", WorkItemVersion.WIQL_VERSION, q, body);
 
         return MAPPER.mapJsonResponse(r, WorkItemQueryResult.class);
@@ -525,7 +524,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
     @Override
     public void removeWorkItemFromRecycleBin(int id) throws DefaultParametersException, AzDException {
         try {
-            String r = request(RequestMethod.DELETE, DEFAULT_PARAMETERS, ResourceId.WIT, DEFAULT_PARAMETERS.getProject(),
+            String r = request(RequestMethod.DELETE, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
                     AREA + "/recyclebin", Integer.toString(id), null, WorkItemVersion.RECYCLE_BIN_VERSION, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (DefaultParametersException | AzDException e) {
@@ -543,7 +542,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      */
     @Override
     public WorkItemDeleteReference getWorkItemFromRecycleBin(int id) throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.WIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
                 AREA + "/recyclebin", Integer.toString(id), null, WorkItemVersion.RECYCLE_BIN_VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemDeleteReference.class);
@@ -558,7 +557,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      */
     @Override
     public WorkItemDeleteShallowReferences getDeletedWorkItemsFromRecycleBin() throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.WIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
                 AREA + "/recyclebin", null, null, WorkItemVersion.RECYCLE_BIN_VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemDeleteShallowReferences.class);
@@ -578,7 +577,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
            put("ids", intArrayToString(ids));
         }};
 
-        String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.WIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
                 AREA + "/recyclebin", null, null, WorkItemVersion.RECYCLE_BIN_VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemDeleteReferences.class);
@@ -598,7 +597,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
             put("isDeleted", false);
         }};
 
-        String r = request(RequestMethod.PATCH, DEFAULT_PARAMETERS, ResourceId.WIT, DEFAULT_PARAMETERS.getProject(),
+        String r = request(RequestMethod.PATCH, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
                 AREA + "/recyclebin", Integer.toString(id), null, WorkItemVersion.RECYCLE_BIN_VERSION, null, b);
 
         return MAPPER.mapJsonResponse(r, WorkItemDeleteReference.class);

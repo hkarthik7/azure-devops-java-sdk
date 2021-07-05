@@ -5,7 +5,7 @@ import org.azd.exceptions.DefaultParametersException;
 import org.azd.graph.GraphApi;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.GraphDetails;
-import org.azd.utils.AzDDefaultParameters;
+import org.azd.connection.Connection;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,7 +25,7 @@ public class GraphApiTest {
         String organization = m.getO();
         String token = m.getT();
         String project = m.getP();
-        AzDDefaultParameters defaultParameters = new AzDDefaultParameters(organization, project, token);
+        Connection defaultParameters = new Connection(organization, project, token);
         g = new GraphApi(defaultParameters);
     }
 
