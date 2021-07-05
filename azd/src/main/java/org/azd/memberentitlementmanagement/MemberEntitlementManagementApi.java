@@ -1,5 +1,6 @@
 package org.azd.memberentitlementmanagement;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.azd.enums.AccountLicenseType;
 import org.azd.enums.GroupType;
 import org.azd.enums.LicensingSource;
@@ -23,7 +24,7 @@ import static org.azd.utils.Client.request;
  * MemberEntitlementManagementApi class to manage groups and user entitlements API
  * @author Harish karthic
  */
-public class MemberEntitlementManagementDetailsApi implements MemberEntitlementManagementDetails {
+public class MemberEntitlementManagementApi implements MemberEntitlementManagementDetails {
     /***
      * Instance of AzDDefaultParameters
      */
@@ -36,7 +37,7 @@ public class MemberEntitlementManagementDetailsApi implements MemberEntitlementM
      * Instantiate the class with instance of AzDDefaultParameters
      * @param defaultParameters instance of AzDDefaultParameters
      */
-    public MemberEntitlementManagementDetailsApi(AzDDefaultParameters defaultParameters) { this.DEFAULT_PARAMETERS = defaultParameters; }
+    public MemberEntitlementManagementApi(AzDDefaultParameters defaultParameters) { this.DEFAULT_PARAMETERS = defaultParameters; }
 
     /***
      * Get the group entitlements for an account.
@@ -85,28 +86,6 @@ public class MemberEntitlementManagementDetailsApi implements MemberEntitlementM
     }
 
     /***
-     * Add a member to a Group.
-     * @param groupId Id of the Group.
-     * @param memberId Id of the Group.
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
-     */
-    @Override
-    public void addMember(String groupId, String memberId) throws DefaultParametersException, AzDException {
-        try {
-            String r = request(RequestMethod.PUT, DEFAULT_PARAMETERS, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
-                    GROUPAREA, groupId, "members/" + memberId,
-                    MemberEntitlementManagementVersion.VERSION, null, null);
-
-            if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
-
-        } catch (DefaultParametersException | AzDException e) {
-            throw e;
-        }
-    }
-
-    /***
      * Get direct members of a Group.
      * @param groupId Id of the Group.
      * @return PagedGraphMemberList {@link PagedGraphMemberList}
@@ -115,7 +94,7 @@ public class MemberEntitlementManagementDetailsApi implements MemberEntitlementM
      * @throws AzDException Handles errors from REST API and validates passed arguments
      */
     @Override
-    public PagedGraphMemberList getMember(String groupId) throws DefaultParametersException, AzDException {
+    public PagedGraphMemberList getMembers(String groupId) throws DefaultParametersException, AzDException {
         String r = request(RequestMethod.GET, DEFAULT_PARAMETERS, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
                 GROUPAREA, groupId, "members", MemberEntitlementManagementVersion.VERSION, null, null);
 
@@ -134,7 +113,7 @@ public class MemberEntitlementManagementDetailsApi implements MemberEntitlementM
      * @throws AzDException Handles errors from REST API and validates passed arguments
      */
     @Override
-    public PagedGraphMemberList getMember(String groupId, int maxResults, String pagingToken) throws DefaultParametersException, AzDException {
+    public PagedGraphMemberList getMembers(String groupId, int maxResults, String pagingToken) throws DefaultParametersException, AzDException {
         var q = new HashMap<String, Object>(){{
            put("maxResults", maxResults);
             put("pagingToken", pagingToken);
@@ -213,7 +192,7 @@ public class MemberEntitlementManagementDetailsApi implements MemberEntitlementM
      * Delete a user from the account.
      * The delete operation includes unassigning Extensions and Licenses and removing the user from all project memberships.
      * The user would continue to have access to the account if she is member of an AAD group, that is added directly to the account.
-     * @param userId userId userId ID of the user. Run getUserEntitlements() to get a list of users and get the user id.
+     * @param userId userId ID of the user. Run getUserEntitlements() to get a list of users and get the user id.
      * @throws DefaultParametersException set the default parameters organization name, project name and
      * personal access token to work with any API in this library.
      * @throws AzDException Handles errors from REST API and validates passed arguments

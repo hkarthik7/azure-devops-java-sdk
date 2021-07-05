@@ -9,14 +9,14 @@ import org.azd.exceptions.DefaultParametersException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.CoreDetails;
 import org.azd.interfaces.MemberEntitlementManagementDetails;
-import org.azd.memberentitlementmanagement.MemberEntitlementManagementDetailsApi;
+import org.azd.memberentitlementmanagement.MemberEntitlementManagementApi;
 import org.azd.utils.AzDDefaultParameters;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
 
-public class MemberEntitlementManagementDetailsApiTest {
+public class MemberEntitlementManagementApiTest {
     private static final JsonMapper MAPPER = new JsonMapper();
     private static MemberEntitlementManagementDetails mem;
     private static CoreDetails c;
@@ -30,7 +30,7 @@ public class MemberEntitlementManagementDetailsApiTest {
         String token = m.getT();
         String project = m.getP();
         AzDDefaultParameters defaultParameters = new AzDDefaultParameters(organization, project, token);
-        mem = new MemberEntitlementManagementDetailsApi(defaultParameters);
+        mem = new MemberEntitlementManagementApi(defaultParameters);
         c = new CoreApi(defaultParameters);
     }
 
