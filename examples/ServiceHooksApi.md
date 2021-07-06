@@ -49,7 +49,7 @@ public class Main {
             // get a subscription by id
             hooks.getSubscription("subscription id");
             
-        } catch (AzDException | DefaultParametersException e) {
+        } catch (AzDException | ConnectionException e) {
             e.printStackTrace();
         }
     }

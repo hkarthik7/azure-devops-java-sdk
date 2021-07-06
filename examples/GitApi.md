@@ -43,7 +43,7 @@ public class Main {
 
             // update a repository; rename a repository by branch. Just pass the branch name as main/develop;
             git.updateRepository("repositoryId", "repositoryName", "defaultBranchName");
-        } catch (AzDException | DefaultParametersException e) {
+        } catch (AzDException | ConnectionException e) {
             e.printStackTrace();
         }
     }

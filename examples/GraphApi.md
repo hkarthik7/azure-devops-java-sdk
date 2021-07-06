@@ -53,7 +53,7 @@ public class Main {
 
             // delete a user by user descriptor
             graph.deleteUser(userDescriptor);
-        } catch (AzDException | DefaultParametersException e) {
+        } catch (AzDException | ConnectionException e) {
             e.printStackTrace();
         }
     }

@@ -43,7 +43,7 @@ public class Main {
 
             // get a revision of workitem with revision number;
             wit.getWorkItemRevision(21, 1);
-        } catch (AzDException | DefaultParametersException e) {
+        } catch (AzDException | ConnectionException e) {
             e.printStackTrace();
         }
     }

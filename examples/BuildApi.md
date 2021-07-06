@@ -51,7 +51,7 @@ public class Main {
             // queue a build with its' definition Id
             build.queueBuild(12);
 
-        } catch (DefaultParametersException | AzDException e) {
+        } catch (ConnectionException | AzDException e) {
             e.printStackTrace();
         }
     }

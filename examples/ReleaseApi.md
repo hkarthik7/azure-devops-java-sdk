@@ -55,7 +55,7 @@ public class Main {
             // get release definition history
             release.getReleaseDefinitionHistory(2);
             
-        } catch (AzDException | DefaultParametersException e) {
+        } catch (AzDException | ConnectionException e) {
             e.printStackTrace();
         }
     }
