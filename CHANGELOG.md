@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.4.3
+
+**Breaking changes**
+- Changed the name of AzDDefaultParameters class to Connection.
+- Renamed DefaultParametersException to ConnectionException.
+- Moved resource area identifiers to its respective classes.
+- Added support for Wiki, Graph and Member Entitlement Management Apis.
+- Removed Url class and added buildUrl function within Client class.
+
 ## 1.4.3
 
 - Bug fix for ServiceHooksApi
@@ -9,7 +18,7 @@
 ## 1.4.2
 
 - Added support for Service hooks and Release Api.
-- Merged PR: **read non-system workitem fields as "other fields" in a map (#4)**
+- Merged PR: [read non-system workitem fields as "other fields" in a map (#4)](https://github.com/hkarthik7/azure-devops-java-sdk/pull/4)
 - Removed stale properties from WorkitemFields
 
 ## 1.3.1
