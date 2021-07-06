@@ -1,5 +1,6 @@
 package org.azd.workitemtracking;
 
+import org.azd.connection.Connection;
 import org.azd.enums.RequestMethod;
 import org.azd.enums.WorkItemErrorPolicy;
 import org.azd.enums.WorkItemExpand;
@@ -8,8 +9,6 @@ import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.WorkItemDetails;
-import org.azd.connection.Connection;
-import org.azd.utils.ResourceId;
 import org.azd.workitemtracking.types.*;
 
 import java.util.*;
@@ -27,7 +26,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
     private final Connection CONNECTION;
     private final JsonMapper MAPPER = new JsonMapper();
     private final String AREA = "wit";
-
+    private final String WIT = "5264459e-e5e0-4bd8-b118-0985e68a4ec5";
 
     /***
      * Pass the connection object to work with WorkItem Tracking Api
@@ -56,7 +55,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
             put("value", title);
         }};
 
-        String r = send(RequestMethod.POST, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.POST, CONNECTION, WIT, CONNECTION.getProject(),
                 AREA + "/workitems",  null, "$"+ encodeSpace(workItemType), WorkItemVersion.VERSION,
                 null, null, List.of(req), null);
 
@@ -105,7 +104,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
         req.add(d);
         req.add(tt);
 
-        String r = send(RequestMethod.POST, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.POST, CONNECTION, WIT, CONNECTION.getProject(),
                 AREA + "/workitems",  null, "$"+ encodeSpace(workItemType), WorkItemVersion.VERSION,
                 null, null, req, null);
 
@@ -122,7 +121,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      */
     @Override
     public WorkItemDelete deleteWorkItem(int id) throws ConnectionException, AzDException {
-        String r = send(RequestMethod.DELETE, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.DELETE, CONNECTION, WIT, CONNECTION.getProject(),
                 AREA + "/workitems",  String.valueOf(id),null , WorkItemVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemDelete.class);
@@ -146,7 +145,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
 
         var q = new HashMap<String, Object>(){{put("destroy", destroy);}};
 
-        String r = send(RequestMethod.DELETE, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.DELETE, CONNECTION, WIT, CONNECTION.getProject(),
                 AREA + "/workitems",  String.valueOf(id),null , WorkItemVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemDelete.class);
@@ -162,7 +161,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      */
     @Override
     public WorkItem getWorkItem(int id) throws ConnectionException, AzDException {
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
                 AREA + "/workitems", Integer.toString(id), null, WorkItemVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, WorkItem.class);
@@ -184,7 +183,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
            put("$expand", expand.toString().toLowerCase());
         }};
 
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
                 AREA + "/workitems", Integer.toString(id), null, WorkItemVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, WorkItem.class);
@@ -208,7 +207,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
             put("$expand", expand.toString().toLowerCase());
         }};
 
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
                 AREA + "/workitems", Integer.toString(id), null, WorkItemVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, WorkItem.class);
@@ -232,7 +231,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
             put("$expand", expand.toString().toLowerCase());
         }};
 
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
                 AREA + "/workitems", Integer.toString(id), null, WorkItemVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, WorkItem.class);
@@ -258,7 +257,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
             put("$expand", expand.toString().toLowerCase());
         }};
 
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
                 AREA + "/workitems", Integer.toString(id), null, WorkItemVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, WorkItem.class);
@@ -276,7 +275,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
     public WorkItemList getWorkItems(int[] ids) throws ConnectionException, AzDException {
         var q = new HashMap<String, Object>(){{put("ids", intArrayToString(ids));}};
 
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
                 AREA + "/workitems", null, null, WorkItemVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemList.class);
@@ -299,7 +298,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
             put("$expand", expand.toString().toLowerCase());
         }};
 
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
                 AREA + "/workitems", null, null, WorkItemVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemList.class);
@@ -324,7 +323,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
             put("fields", asOf);
         }};
 
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
                 AREA + "/workitems", null, null, WorkItemVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemList.class);
@@ -349,7 +348,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
             put("fields", String.join(",", fields));
         }};
 
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
                 AREA + "/workitems", null, null, WorkItemVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemList.class);
@@ -379,7 +378,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
             put("errorPolicy", errorPolicy.toString().toLowerCase());
         }};
 
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
                 AREA + "/workitems", null, null, WorkItemVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemList.class);
@@ -395,7 +394,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      */
     @Override
     public WorkItemList getWorkItemRevisions(int workItemId) throws ConnectionException, AzDException {
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
                 AREA + "/workitems", Integer.toString(workItemId), "revisions", WorkItemVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemList.class);
@@ -415,7 +414,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
     public WorkItemList getWorkItemRevisions(int workItemId, WorkItemExpand expand) throws ConnectionException, AzDException {
         var q = new HashMap<String, Object>(){{put("$expand", expand.toString().toLowerCase());}};
 
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
                 AREA + "/workitems", Integer.toString(workItemId), "revisions", WorkItemVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemList.class);
@@ -442,7 +441,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
             put("$skip", skip);
         }};
 
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
                 AREA + "/workitems", Integer.toString(workItemId), "revisions", WorkItemVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemList.class);
@@ -459,7 +458,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      */
     @Override
     public WorkItem getWorkItemRevision(int workItemId, int revisionNumber) throws ConnectionException, AzDException {
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
                 AREA + "/workitems", Integer.toString(workItemId), "revisions/" + revisionNumber,
                 WorkItemVersion.VERSION, null, null);
 
@@ -481,7 +480,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
     public WorkItem getWorkItemRevision(int workItemId, int revisionNumber, WorkItemExpand expand) throws ConnectionException, AzDException {
         var q = new HashMap<String, Object>(){{put("$expand", expand.toString().toLowerCase());}};
 
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
                 AREA + "/workitems", Integer.toString(workItemId), "revisions/" + revisionNumber,
                 WorkItemVersion.VERSION, q, null);
 
@@ -501,7 +500,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
     public WorkItemQueryResult queryByWiql(String team, String query) throws ConnectionException, AzDException {
         var body = new HashMap<String, Object>(){{put("query", query);}};
 
-        String r = send(RequestMethod.POST, CONNECTION, ResourceId.WIT, CONNECTION.getProject() + "/" + encodeSpace(team),
+        String r = send(RequestMethod.POST, CONNECTION, WIT, CONNECTION.getProject() + "/" + encodeSpace(team),
                 AREA, null, "wiql", WorkItemVersion.WIQL_VERSION, null, body);
 
         return MAPPER.mapJsonResponse(r, WorkItemQueryResult.class);
@@ -527,7 +526,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
             put("timePrecision", timePrecision);
         }};
 
-        String r = send(RequestMethod.POST, CONNECTION, ResourceId.WIT, CONNECTION.getProject() + "/" + encodeSpace(team),
+        String r = send(RequestMethod.POST, CONNECTION, WIT, CONNECTION.getProject() + "/" + encodeSpace(team),
                 AREA, null, "wiql", WorkItemVersion.WIQL_VERSION, q, body);
 
         return MAPPER.mapJsonResponse(r, WorkItemQueryResult.class);
@@ -543,7 +542,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
     @Override
     public void removeWorkItemFromRecycleBin(int id) throws ConnectionException, AzDException {
         try {
-            String r = send(RequestMethod.DELETE, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
+            String r = send(RequestMethod.DELETE, CONNECTION, WIT, CONNECTION.getProject(),
                     AREA + "/recyclebin", Integer.toString(id), null, WorkItemVersion.RECYCLE_BIN_VERSION, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (ConnectionException | AzDException e) {
@@ -561,7 +560,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      */
     @Override
     public WorkItemDeleteReference getWorkItemFromRecycleBin(int id) throws ConnectionException, AzDException {
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
                 AREA + "/recyclebin", Integer.toString(id), null, WorkItemVersion.RECYCLE_BIN_VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemDeleteReference.class);
@@ -576,7 +575,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      */
     @Override
     public WorkItemDeleteShallowReferences getDeletedWorkItemsFromRecycleBin() throws ConnectionException, AzDException {
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
                 AREA + "/recyclebin", null, null, WorkItemVersion.RECYCLE_BIN_VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemDeleteShallowReferences.class);
@@ -596,7 +595,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
            put("ids", intArrayToString(ids));
         }};
 
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
                 AREA + "/recyclebin", null, null, WorkItemVersion.RECYCLE_BIN_VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemDeleteReferences.class);
@@ -616,7 +615,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
             put("isDeleted", false);
         }};
 
-        String r = send(RequestMethod.PATCH, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.PATCH, CONNECTION, WIT, CONNECTION.getProject(),
                 AREA + "/recyclebin", Integer.toString(id), null, WorkItemVersion.RECYCLE_BIN_VERSION, null, b);
 
         return MAPPER.mapJsonResponse(r, WorkItemDeleteReference.class);

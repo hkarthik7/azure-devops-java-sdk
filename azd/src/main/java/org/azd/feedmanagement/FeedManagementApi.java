@@ -1,5 +1,6 @@
 package org.azd.feedmanagement;
 
+import org.azd.connection.Connection;
 import org.azd.enums.FeedViewType;
 import org.azd.enums.FeedVisibility;
 import org.azd.enums.RequestMethod;
@@ -8,8 +9,6 @@ import org.azd.exceptions.ConnectionException;
 import org.azd.feedmanagement.types.*;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.FeedManagementDetails;
-import org.azd.connection.Connection;
-import org.azd.utils.ResourceId;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +26,7 @@ public class FeedManagementApi implements FeedManagementDetails {
     private final Connection CONNECTION;
     private final JsonMapper MAPPER = new JsonMapper();
     private final String AREA = "packaging";
+    private final String PACKAGING = "7ab4e64e-c4d8-4f50-ae73-5ef2e21642a5";
 
     /***
      * Pass the connection object to work with Feed Management Api
@@ -63,7 +63,7 @@ public class FeedManagementApi implements FeedManagementDetails {
             put("hideDeletedPackageVersions", hideDeletedPackageVersions);
         }};
 
-        String r = send(RequestMethod.POST, CONNECTION, ResourceId.PACKAGING,
+        String r = send(RequestMethod.POST, CONNECTION, PACKAGING,
                         CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
                         AREA, null, "feeds", FeedVersion.VERSION, null, requestBody);
 
@@ -94,7 +94,7 @@ public class FeedManagementApi implements FeedManagementDetails {
             put("visibility", visibility.toString().toLowerCase());
         }};
 
-        String r = send(RequestMethod.POST, CONNECTION, ResourceId.PACKAGING,
+        String r = send(RequestMethod.POST, CONNECTION, PACKAGING,
                         CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
                         AREA + "/feeds", feedName, "views", FeedVersion.VERSION, null, requestBody);
 
@@ -115,7 +115,7 @@ public class FeedManagementApi implements FeedManagementDetails {
     @Override
     public void deleteFeed(String feedId) throws ConnectionException, AzDException {
         try {
-            String r = send(RequestMethod.DELETE, CONNECTION, ResourceId.PACKAGING,
+            String r = send(RequestMethod.DELETE, CONNECTION, PACKAGING,
                     CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
                     AREA + "/feeds", feedId, null, FeedVersion.VERSION, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
@@ -138,7 +138,7 @@ public class FeedManagementApi implements FeedManagementDetails {
     @Override
     public void deleteFeedView(String feedId, String feedViewId) throws ConnectionException, AzDException {
         try {
-            String r = send(RequestMethod.DELETE, CONNECTION, ResourceId.PACKAGING,
+            String r = send(RequestMethod.DELETE, CONNECTION, PACKAGING,
                         CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
                         AREA + "/feeds", feedId, "views/" + feedViewId, FeedVersion.VERSION, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
@@ -162,7 +162,7 @@ public class FeedManagementApi implements FeedManagementDetails {
     @Override
     public Feed getFeed(String feedName) throws ConnectionException, AzDException {
 
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.PACKAGING,
+        String r = send(RequestMethod.GET, CONNECTION, PACKAGING,
                     CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
                     AREA + "/Feeds", feedName, null, FeedVersion.VERSION,null, null);
 
@@ -189,7 +189,7 @@ public class FeedManagementApi implements FeedManagementDetails {
             put("includeDeletedUpstreams", includeDeletedUpstreams);
         }};
 
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.PACKAGING,
+        String r = send(RequestMethod.GET, CONNECTION, PACKAGING,
                 CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
                 AREA + "/Feeds", feedName, null, FeedVersion.VERSION, q, null);
 
@@ -211,7 +211,7 @@ public class FeedManagementApi implements FeedManagementDetails {
     @Override
     public FeedPermissions getFeedPermissions(String feedName) throws ConnectionException, AzDException {
 
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.PACKAGING,
+        String r = send(RequestMethod.GET, CONNECTION, PACKAGING,
                         CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
                         AREA + "/Feeds", feedName, "permissions", FeedVersion.VERSION, null, null);
 
@@ -246,7 +246,7 @@ public class FeedManagementApi implements FeedManagementDetails {
             put("includeIds", includeIds);
         }};
 
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.PACKAGING,
+        String r = send(RequestMethod.GET, CONNECTION, PACKAGING,
                 CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
                 AREA + "/Feeds", feedName, "permissions", FeedVersion.VERSION, q, null);
 
@@ -268,7 +268,7 @@ public class FeedManagementApi implements FeedManagementDetails {
     @Override
     public FeedView getFeedView(String feedName, String feedViewId) throws ConnectionException, AzDException {
 
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.PACKAGING,
+        String r = send(RequestMethod.GET, CONNECTION, PACKAGING,
                 CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
                 AREA + "/Feeds", feedName, "views/" + feedViewId, FeedVersion.VERSION, null, null);
 
@@ -289,7 +289,7 @@ public class FeedManagementApi implements FeedManagementDetails {
     @Override
     public FeedViews getFeedViews(String feedName) throws ConnectionException, AzDException {
 
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.PACKAGING,
+        String r = send(RequestMethod.GET, CONNECTION, PACKAGING,
                 CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
                 AREA + "/Feeds", feedName, "views", FeedVersion.VERSION, null, null);
 
@@ -310,7 +310,7 @@ public class FeedManagementApi implements FeedManagementDetails {
     @Override
     public Feeds getFeeds() throws ConnectionException, AzDException {
 
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.PACKAGING,
+        String r = send(RequestMethod.GET, CONNECTION, PACKAGING,
                 CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
                 AREA, null, "Feeds", FeedVersion.VERSION, null, null);
 
@@ -342,7 +342,7 @@ public class FeedManagementApi implements FeedManagementDetails {
             put("includeUrls", includeUrls);
         }};
 
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.PACKAGING,
+        String r = send(RequestMethod.GET, CONNECTION, PACKAGING,
                 CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
                 AREA, null, "Feeds", FeedVersion.VERSION, q, null);
 
@@ -379,7 +379,7 @@ public class FeedManagementApi implements FeedManagementDetails {
 
         List<Object> o = List.of(h);
 
-        String r = send(RequestMethod.PATCH, CONNECTION, ResourceId.PACKAGING,
+        String r = send(RequestMethod.PATCH, CONNECTION, PACKAGING,
                         CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
                         AREA + "/Feeds", feedName, "permissions", FeedVersion.VERSION, null, null, o, null);
 
@@ -417,7 +417,7 @@ public class FeedManagementApi implements FeedManagementDetails {
 
         List<Object> o = List.of(h);
 
-        String r = send(RequestMethod.PATCH, CONNECTION, ResourceId.PACKAGING,
+        String r = send(RequestMethod.PATCH, CONNECTION, PACKAGING,
                         CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
                         AREA + "/Feeds", feedName, null, FeedVersion.VERSION, null, null, o, null);
 
@@ -447,7 +447,7 @@ public class FeedManagementApi implements FeedManagementDetails {
             put("visibility", visibility);
         }};
 
-        String r = send(RequestMethod.PATCH, CONNECTION, ResourceId.PACKAGING,
+        String r = send(RequestMethod.PATCH, CONNECTION, PACKAGING,
                 CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
                 AREA + "/Feeds", feedName, "views/" + feedViewName, FeedVersion.VERSION, null, h);
 

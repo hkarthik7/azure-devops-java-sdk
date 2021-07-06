@@ -1,11 +1,11 @@
 package org.azd;
 
+import org.azd.connection.Connection;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
 import org.azd.graph.GraphApi;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.GraphDetails;
-import org.azd.connection.Connection;
 import org.junit.Before;
 import org.junit.Test;
 

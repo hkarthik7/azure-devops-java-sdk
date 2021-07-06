@@ -1,5 +1,6 @@
 package org.azd;
 
+import org.azd.connection.Connection;
 import org.azd.core.CoreApi;
 import org.azd.enums.AccountLicenseType;
 import org.azd.enums.GroupType;
@@ -10,7 +11,6 @@ import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.CoreDetails;
 import org.azd.interfaces.MemberEntitlementManagementDetails;
 import org.azd.memberentitlementmanagement.MemberEntitlementManagementApi;
-import org.azd.connection.Connection;
 import org.junit.Before;
 import org.junit.Test;
 

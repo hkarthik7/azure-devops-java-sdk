@@ -10,7 +10,6 @@ import org.azd.graph.types.GraphUser;
 import org.azd.graph.types.GraphUsers;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.GraphDetails;
-import org.azd.utils.ResourceId;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +26,7 @@ public class GraphApi implements GraphDetails {
     private final Connection CONNECTION;
     private final JsonMapper MAPPER = new JsonMapper();
     private final String AREA = "graph";
+    private final String GRAPH = "bb1e7ec9-e901-4b68-999a-de7012b920f8";
 
     /***
      * Pass the connection object to work with Graph Api
@@ -54,7 +54,7 @@ public class GraphApi implements GraphDetails {
             put("principalName", emailId);
         }};
 
-        String r = send(RequestMethod.POST, CONNECTION, ResourceId.GRAPH, null,
+        String r = send(RequestMethod.POST, CONNECTION, GRAPH, null,
                 AREA, null, "users/" + userDescriptor, GraphVersion.VERSION, null, b);
 
         return MAPPER.mapJsonResponse(r, GraphUser.class);
@@ -80,7 +80,7 @@ public class GraphApi implements GraphDetails {
             put("groupDescriptors", groupDescriptor);
         }};
 
-        String r = send(RequestMethod.POST, CONNECTION, ResourceId.GRAPH, null,
+        String r = send(RequestMethod.POST, CONNECTION, GRAPH, null,
                 AREA, null, "users", GraphVersion.VERSION, q, b);
 
         return MAPPER.mapJsonResponse(r, GraphUser.class);
@@ -96,7 +96,7 @@ public class GraphApi implements GraphDetails {
     @Override
     public void deleteUser(String userDescriptor) throws ConnectionException, AzDException {
         try {
-            String r = send(RequestMethod.DELETE, CONNECTION, ResourceId.GRAPH, null,
+            String r = send(RequestMethod.DELETE, CONNECTION, GRAPH, null,
                     AREA, null, "users/" + userDescriptor, GraphVersion.VERSION, null, null);
 
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
@@ -115,7 +115,7 @@ public class GraphApi implements GraphDetails {
      */
     @Override
     public GraphUser getUser(String userDescriptor) throws ConnectionException, AzDException {
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.GRAPH, null,
+        String r = send(RequestMethod.GET, CONNECTION, GRAPH, null,
                 AREA, null, "users/" + userDescriptor, GraphVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, GraphUser.class);
@@ -130,7 +130,7 @@ public class GraphApi implements GraphDetails {
      */
     @Override
     public GraphUsers getUsers() throws ConnectionException, AzDException {
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.GRAPH, null,
+        String r = send(RequestMethod.GET, CONNECTION, GRAPH, null,
                 AREA, null, "users", GraphVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, GraphUsers.class);
@@ -160,7 +160,7 @@ public class GraphApi implements GraphDetails {
             put("scopeDescriptor", scopeDescriptor);
         }};
 
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.GRAPH, null,
+        String r = send(RequestMethod.GET, CONNECTION, GRAPH, null,
                 AREA, null, "users", GraphVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, GraphUsers.class);
@@ -176,7 +176,7 @@ public class GraphApi implements GraphDetails {
      */
     @Override
     public GraphGroup getGroup(String groupDescriptor) throws ConnectionException, AzDException {
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.GRAPH, null,
+        String r = send(RequestMethod.GET, CONNECTION, GRAPH, null,
                 AREA, null, "groups/" + groupDescriptor, GraphVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, GraphGroup.class);
@@ -191,7 +191,7 @@ public class GraphApi implements GraphDetails {
      */
     @Override
     public GraphGroups getGroups() throws ConnectionException, AzDException {
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.GRAPH, null,
+        String r = send(RequestMethod.GET, CONNECTION, GRAPH, null,
                 AREA, null, "groups", GraphVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, GraphGroups.class);

@@ -1,24 +1,28 @@
 package org.azd.utils;
 
+import org.azd.common.types.LocationUrl;
 import org.azd.connection.Connection;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
+import org.azd.helpers.JsonMapper;
 
 import java.util.HashMap;
 import java.util.List;
 
-import static org.azd.utils.Url.buildRequestUrl;
+import static org.azd.validators.AzDDefaultParametersValidator.validateDefaultParameters;
 
 /***
  * Wrapper class to build request url and to call Azure DevOps REST API
  */
 public abstract class Client extends BaseClient {
+    private static final JsonMapper MAPPER = new JsonMapper();
+
     /***
      * Request the Azure DevOps REST API and builds the request url dynamically based on resource id and endpoints passed
      * @param requestMethod type of request GET, POST, PATCH, DELETE {@link RequestMethod}
      * @param connection connection object
-     * @param resourceId pass the resource id. Refer {@link ResourceId} class
+     * @param resourceId pass the resource id.
      * @param project name of the project
      * @param area resource area
      * @param id resource id
@@ -66,7 +70,7 @@ public abstract class Client extends BaseClient {
      * Request the Azure DevOps REST API and builds the request url dynamically based on resource id and endpoints passed
      * @param requestMethod type of request GET, POST, PATCH, DELETE {@link RequestMethod}
      * @param connection connection object
-     * @param resourceId pass the resource id. Refer {@link ResourceId} class
+     * @param resourceId pass the resource id.
      * @param project name of the project
      * @param area resource area
      * @param id resource id
@@ -120,7 +124,7 @@ public abstract class Client extends BaseClient {
      * Request the Azure DevOps REST API and builds the request url dynamically based on resource id and endpoints passed
      * @param requestMethod type of request GET, POST, PATCH, DELETE {@link RequestMethod}
      * @param connection connection object
-     * @param resourceId pass the resource id. Refer {@link ResourceId} class
+     * @param resourceId pass the resource id.
      * @param project name of the project
      * @param area resource area
      * @param id resource id
@@ -182,5 +186,101 @@ public abstract class Client extends BaseClient {
         }
 
         return null;
+    }
+
+    /**
+     *  Gets the resource area url based on resource id passed for the organization
+     * @param resourceID pass the resource id
+     * @throws ConnectionException user must instantiate AzDDefaultParameters before calling this method
+     * @throws AzDException If invalid json primitive is encountered.
+     * @return resource area url
+     */
+    private static String getLocationUrl(String resourceID, String organizationName) throws ConnectionException, AzDException {
+
+        if (organizationName == null) { validateDefaultParameters(); }
+
+        String INSTANCE = "https://dev.azure.com/";
+
+        if (resourceID == null) return (INSTANCE + organizationName);
+
+        String LOCATION_URL_VERSION = "5.0-preview.1";
+
+        String url = new StringBuilder().append(INSTANCE)
+                .append(organizationName)
+                .append("/_apis/resourceAreas/")
+                .append(resourceID)
+                .append("?api-preview=")
+                .append(LOCATION_URL_VERSION)
+                .toString();
+
+        try {
+            String r = MAPPER.mapJsonResponse(BaseClient.get(url), LocationUrl.class).getLocationUrl();
+            return r.replaceAll("/$","");
+        } catch (Exception e) {
+            throw new AzDException("Couldn't find the organisation name: " + organizationName);
+        }
+    }
+
+    /**
+     *  Builds the request url dynamically for the passed service, resource and area
+     * @param organizationName pass the Azure DevOps organization name
+     * @param resourceId pass the resource id
+     * @param project pass the project name
+     * @param area area of the REST API e.g., Release
+     * @param id id of any entity to pass in
+     * @param resource pass the resource entity e.g., Releases
+     * @param apiVersion pass the API version
+     * @param queryString pass the query string to form the url
+     * @throws ConnectionException user must instantiate AzDDefaultParameters before calling this method
+     * @throws AzDException Exception handler
+     * @return resource area url
+     */
+    private static String buildRequestUrl(
+            String organizationName,
+            String resourceId,
+            String project,
+            String area,
+            String id,
+            String resource,
+            String apiVersion,
+            HashMap<String, Object> queryString) throws ConnectionException, AzDException {
+        // build the request url to dynamically serve the API requests
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append((getLocationUrl(resourceId, organizationName)));
+
+        if (project != null) {
+            stringBuilder.append("/").append(project);
+        }
+
+        stringBuilder.append("/_apis");
+
+        if (area != null) {
+            stringBuilder.append("/").append(area);
+        }
+        if (id != null) {
+            stringBuilder.append("/").append(id);
+        }
+        if (resource != null) {
+            stringBuilder.append("/").append(resource);
+        }
+        stringBuilder.append("?api-version=").append(apiVersion);
+        if (queryString != null) {
+            for (var key : queryString.keySet()) {
+                stringBuilder.append(getQueryString(key, queryString.get(key)));
+            }
+        }
+
+        return stringBuilder.toString();
+    }
+
+    /**
+     * Helps to create a query string from given key and value
+     * @param key pass the key of the HashMap
+     * @param value pass the value of the HasMap
+     * @return query string
+     */
+    private static String getQueryString(String key, Object value) {
+        return "&" + key + "=" + value;
     }
 }

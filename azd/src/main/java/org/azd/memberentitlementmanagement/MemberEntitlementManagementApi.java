@@ -10,7 +10,6 @@ import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.MemberEntitlementManagementDetails;
 import org.azd.memberentitlementmanagement.types.*;
-import org.azd.utils.ResourceId;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -30,6 +29,7 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
     private final JsonMapper MAPPER = new JsonMapper();
     private final String GROUP_AREA = "groupentitlements";
     private final String USER_AREA = "userentitlements";
+    private final String MEMBERENTITLEMENTMANAGEMENT = "68ddce18-2501-45f1-a17b-7931a9922690";
 
     /***
      * Pass the connection object to work with Member Entitlement Management Api
@@ -46,7 +46,7 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
      */
     @Override
     public GroupEntitlements getGroupEntitlements() throws ConnectionException, AzDException {
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
+        String r = send(RequestMethod.GET, CONNECTION, MEMBERENTITLEMENTMANAGEMENT, null,
                 GROUP_AREA, null, null, MemberEntitlementManagementVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, GroupEntitlements.class);
@@ -62,7 +62,7 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
      */
     @Override
     public GroupEntitlement getGroupEntitlement(String groupId) throws ConnectionException, AzDException {
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
+        String r = send(RequestMethod.GET, CONNECTION, MEMBERENTITLEMENTMANAGEMENT, null,
                 GROUP_AREA, groupId, null, MemberEntitlementManagementVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, GroupEntitlement.class);
@@ -77,7 +77,7 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
      */
     @Override
     public UsersSummary getUserEntitlementSummary() throws ConnectionException, AzDException {
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
+        String r = send(RequestMethod.GET, CONNECTION, MEMBERENTITLEMENTMANAGEMENT, null,
                 "userentitlementsummary", null, null, MemberEntitlementManagementVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, UsersSummary.class);
@@ -93,7 +93,7 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
      */
     @Override
     public PagedGraphMemberList getMembers(String groupId) throws ConnectionException, AzDException {
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
+        String r = send(RequestMethod.GET, CONNECTION, MEMBERENTITLEMENTMANAGEMENT, null,
                 GROUP_AREA, groupId, "members", MemberEntitlementManagementVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, PagedGraphMemberList.class);
@@ -117,7 +117,7 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
             put("pagingToken", pagingToken);
         }};
 
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
+        String r = send(RequestMethod.GET, CONNECTION, MEMBERENTITLEMENTMANAGEMENT, null,
                 GROUP_AREA, groupId, "members", MemberEntitlementManagementVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, PagedGraphMemberList.class);
@@ -134,7 +134,7 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
     @Override
     public void removeMemberFromGroup(String groupId, String memberId) throws ConnectionException, AzDException {
         try {
-            String r = send(RequestMethod.DELETE, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
+            String r = send(RequestMethod.DELETE, CONNECTION, MEMBERENTITLEMENTMANAGEMENT, null,
                     GROUP_AREA, groupId, "members/" + memberId,
                     MemberEntitlementManagementVersion.VERSION, null, null);
 
@@ -180,7 +180,7 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
             put("projectEntitlements", List.of(projectEntitlement));
         }};
 
-        String r = send(RequestMethod.POST, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
+        String r = send(RequestMethod.POST, CONNECTION, MEMBERENTITLEMENTMANAGEMENT, null,
                 USER_AREA, null, null, MemberEntitlementManagementVersion.USER_ENTITLEMENTS, null, body);
 
         return MAPPER.mapJsonResponse(r, UserEntitlementsResponse.class);
@@ -198,7 +198,7 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
     @Override
     public void deleteUserEntitlement(String userId) throws ConnectionException, AzDException {
         try {
-            String r = send(RequestMethod.DELETE, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
+            String r = send(RequestMethod.DELETE, CONNECTION, MEMBERENTITLEMENTMANAGEMENT, null,
                     USER_AREA, userId, null,
                     MemberEntitlementManagementVersion.USER_ENTITLEMENTS, null, null);
 
@@ -219,7 +219,7 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
      */
     @Override
     public UserEntitlement getUserEntitlement(String userId) throws ConnectionException, AzDException {
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
+        String r = send(RequestMethod.GET, CONNECTION, MEMBERENTITLEMENTMANAGEMENT, null,
                 USER_AREA, userId, null, MemberEntitlementManagementVersion.USER_ENTITLEMENTS, null, null);
 
         return MAPPER.mapJsonResponse(r, UserEntitlement.class);
@@ -234,7 +234,7 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
      */
     @Override
     public PagedGraphMemberList getUserEntitlements() throws ConnectionException, AzDException {
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
+        String r = send(RequestMethod.GET, CONNECTION, MEMBERENTITLEMENTMANAGEMENT, null,
                 USER_AREA, null, null, MemberEntitlementManagementVersion.USER_ENTITLEMENTS, null, null);
 
         return MAPPER.mapJsonResponse(r, PagedGraphMemberList.class);
@@ -250,7 +250,7 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
      */
     @Override
     public UserEntitlementsResponse updateUserEntitlement(String userId, List<Object> requestBody) throws ConnectionException, AzDException {
-        String r = send(RequestMethod.PATCH, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
+        String r = send(RequestMethod.PATCH, CONNECTION, MEMBERENTITLEMENTMANAGEMENT, null,
                 USER_AREA, userId, null, MemberEntitlementManagementVersion.USER_ENTITLEMENTS, null,
                 null, requestBody, "application/json-patch+json");
 
@@ -280,7 +280,7 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
             }});
         }};
 
-        String r = send(RequestMethod.PATCH, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
+        String r = send(RequestMethod.PATCH, CONNECTION, MEMBERENTITLEMENTMANAGEMENT, null,
                 USER_AREA, userId, null, MemberEntitlementManagementVersion.USER_ENTITLEMENTS, null,
                 null, List.of(pos), "application/json-patch+json");
 

@@ -10,7 +10,6 @@ import org.azd.git.types.Repositories;
 import org.azd.git.types.Repository;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.GitDetails;
-import org.azd.utils.ResourceId;
 
 import java.util.*;
 
@@ -27,6 +26,7 @@ public class GitApi implements GitDetails {
     private final Connection CONNECTION;
     private final JsonMapper MAPPER = new JsonMapper();
     private final String AREA = "git";
+    private final String GIT = "4e080c62-fa21-4fbc-8fef-2a10a2b38049";
 
     /***
      * Pass the connection object to work with Git Api
@@ -52,7 +52,7 @@ public class GitApi implements GitDetails {
                 put("id", projectId);
             }});
         }};
-        String r = send(RequestMethod.POST, CONNECTION, ResourceId.GIT, projectId,
+        String r = send(RequestMethod.POST, CONNECTION, GIT, projectId,
                         AREA, null, "repositories", GitVersion.VERSION, null, h);
         return MAPPER.mapJsonResponse(r, Repository.class);
     }
@@ -67,7 +67,7 @@ public class GitApi implements GitDetails {
     @Override
     public void deleteRepository(String repositoryId) throws ConnectionException, AzDException {
         try {
-            String r = send(RequestMethod.DELETE, CONNECTION, ResourceId.GIT, CONNECTION.getProject(),
+            String r = send(RequestMethod.DELETE, CONNECTION, GIT, CONNECTION.getProject(),
                     AREA + "/repositories", repositoryId, null, GitVersion.VERSION, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (ConnectionException | AzDException e) {
@@ -85,7 +85,7 @@ public class GitApi implements GitDetails {
     @Override
     public void deleteRepositoryFromRecycleBin(String repositoryId) throws ConnectionException, AzDException {
         try {
-            String r = send(RequestMethod.DELETE, CONNECTION, ResourceId.GIT, CONNECTION.getProject(),
+            String r = send(RequestMethod.DELETE, CONNECTION, GIT, CONNECTION.getProject(),
                     AREA + "/recycleBin/repositories", repositoryId, null, GitVersion.VERSION, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (ConnectionException | AzDException e) {
@@ -103,7 +103,7 @@ public class GitApi implements GitDetails {
     @Override
     public Map getDeletedRepositories() throws ConnectionException, AzDException {
 
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.GIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
                         AREA, null, "deletedrepositories", GitVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, Map.class);
@@ -119,7 +119,7 @@ public class GitApi implements GitDetails {
     @Override
     public Map getRecycleBinRepositories() throws ConnectionException, AzDException {
 
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.GIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
                         AREA, null, "recycleBin/repositories", GitVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, Map.class);
@@ -136,7 +136,7 @@ public class GitApi implements GitDetails {
     @Override
     public Repository getRepository(String repositoryName) throws ConnectionException, AzDException {
 
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.GIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
                         AREA + "/repositories", repositoryName, null, GitVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, Repository.class);
@@ -152,7 +152,7 @@ public class GitApi implements GitDetails {
     @Override
     public Repositories getRepositories() throws ConnectionException, AzDException {
 
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.GIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
                         AREA, null, "repositories", GitVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, Repositories.class);
@@ -175,7 +175,7 @@ public class GitApi implements GitDetails {
             put("deleted", deleted);
         }};
 
-        String r = send(RequestMethod.PATCH, CONNECTION, ResourceId.GIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.PATCH, CONNECTION, GIT, CONNECTION.getProject(),
                         AREA + "/recycleBin/repositories", repositoryId, null, GitVersion.VERSION, null, h);
 
         return MAPPER.mapJsonResponse(r, Repository.class);
@@ -199,7 +199,7 @@ public class GitApi implements GitDetails {
             put("defaultBranch", "refs/heads/" + defaultBranchName);
         }};
 
-        String r = send(RequestMethod.PATCH, CONNECTION, ResourceId.GIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.PATCH, CONNECTION, GIT, CONNECTION.getProject(),
                         AREA + "/repositories", repositoryId, null, GitVersion.VERSION, null, h);
 
         return MAPPER.mapJsonResponse(r, Repository.class);
@@ -238,7 +238,7 @@ public class GitApi implements GitDetails {
             put("reviewers", o);
         }};
 
-        String r = send(RequestMethod.POST, CONNECTION, ResourceId.GIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.POST, CONNECTION, GIT, CONNECTION.getProject(),
                 AREA + "/repositories", repositoryId, "pullrequests", GitVersion.VERSION, null, h);
 
         return MAPPER.mapJsonResponse(r, PullRequest.class);
@@ -256,7 +256,7 @@ public class GitApi implements GitDetails {
     @Override
     public PullRequest getPullRequest(String repositoryName, int pullRequestId) throws ConnectionException, AzDException {
 
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.GIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
                 AREA + "/repositories", repositoryName, "pullrequests/" + pullRequestId, GitVersion.VERSION, null,null);
 
         return MAPPER.mapJsonResponse(r, PullRequest.class);
@@ -272,7 +272,7 @@ public class GitApi implements GitDetails {
      */
     @Override
     public PullRequest getPullRequestById(int pullRequestId) throws ConnectionException, AzDException {
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.GIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
                 AREA + "/pullrequests", Integer.toString(pullRequestId), null, GitVersion.VERSION, null,null);
 
 
@@ -290,7 +290,7 @@ public class GitApi implements GitDetails {
     @Override
     public PullRequests getPullRequests(String repositoryName) throws ConnectionException, AzDException {
 
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.GIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
                 AREA + "/repositories", repositoryName, "pullrequests", GitVersion.VERSION, null,null);
 
         return MAPPER.mapJsonResponse(r, PullRequests.class);
@@ -307,7 +307,7 @@ public class GitApi implements GitDetails {
     @Override
     public PullRequests getPullRequestsByProject() throws ConnectionException, AzDException {
 
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.GIT, CONNECTION.getProject(),
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
                 AREA, null, "pullrequests", GitVersion.VERSION, null,null);
 
         return MAPPER.mapJsonResponse(r, PullRequests.class);

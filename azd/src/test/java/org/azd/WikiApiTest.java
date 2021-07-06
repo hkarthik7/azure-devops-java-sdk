@@ -42,11 +42,12 @@ public class WikiApiTest {
         var repoId = g.getRepository("testRepository").getId();
 
         w.createWiki("develop", WikiType.CODEWIKI, "MyProjectWiki", projectId, repoId, "/");
+        w.createWiki("develop", WikiType.CODEWIKI, "NewWiki", projectId, repoId, "/docs");
     }
 
     @Test
     public void shouldGetAWikiPage() throws ConnectionException, AzDException {
-        w.getWiki("MyProjectWiki");
+        w.getWiki("NewWiki");
     }
 
     @Test
@@ -56,6 +57,6 @@ public class WikiApiTest {
 
     @Test
     public void shouldDeleteAWikiPage() throws ConnectionException, AzDException {
-        System.out.println(w.deleteWiki("MyProjectWiki"));
+        w.deleteWiki("MyProjectWiki");
     }
 }

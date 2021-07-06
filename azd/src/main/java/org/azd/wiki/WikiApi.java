@@ -7,7 +7,6 @@ import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.WikiDetails;
-import org.azd.utils.ResourceId;
 import org.azd.wiki.types.WikiV2;
 import org.azd.wiki.types.WikiV2Pages;
 
@@ -25,6 +24,7 @@ public class WikiApi implements WikiDetails {
     private final Connection CONNECTION;
     private final JsonMapper MAPPER = new JsonMapper();
     private final String AREA = "wiki/wikis";
+    private final String WIKI = "bf7d82a0-8aa5-4613-94ef-6172a5ea01f3";
 
     /***
      * Pass the connection object to work with Work Api
@@ -57,7 +57,7 @@ public class WikiApi implements WikiDetails {
            put("mappedPath", mappedPath);
         }};
 
-        String r = send(RequestMethod.POST, CONNECTION, ResourceId.WIKI, CONNECTION.getProject(),
+        String r = send(RequestMethod.POST, CONNECTION, WIKI, CONNECTION.getProject(),
                 AREA,null , null, WikiVersion.VERSION, null, b);
 
         return MAPPER.mapJsonResponse(r, WikiV2.class);
@@ -73,7 +73,7 @@ public class WikiApi implements WikiDetails {
      */
     @Override
     public WikiV2 deleteWiki(String wikiIdentifier) throws ConnectionException, AzDException {
-        String r = send(RequestMethod.DELETE, CONNECTION, ResourceId.WIKI, CONNECTION.getProject(),
+        String r = send(RequestMethod.DELETE, CONNECTION, WIKI, CONNECTION.getProject(),
                 AREA, wikiIdentifier , null, WikiVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, WikiV2.class);
@@ -89,7 +89,7 @@ public class WikiApi implements WikiDetails {
      */
     @Override
     public WikiV2 getWiki(String wikiIdentifier) throws ConnectionException, AzDException {
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.WIKI, CONNECTION.getProject(),
+        String r = send(RequestMethod.GET, CONNECTION, WIKI, CONNECTION.getProject(),
                 AREA, wikiIdentifier , null, WikiVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, WikiV2.class);
@@ -104,7 +104,7 @@ public class WikiApi implements WikiDetails {
      */
     @Override
     public WikiV2Pages getWikis() throws ConnectionException, AzDException {
-        String r = send(RequestMethod.GET, CONNECTION, ResourceId.WIKI, CONNECTION.getProject(),
+        String r = send(RequestMethod.GET, CONNECTION, WIKI, CONNECTION.getProject(),
                 AREA, null , null, WikiVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, WikiV2Pages.class);

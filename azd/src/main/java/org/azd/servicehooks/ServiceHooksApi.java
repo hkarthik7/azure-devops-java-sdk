@@ -1,5 +1,6 @@
 package org.azd.servicehooks;
 
+import org.azd.connection.Connection;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
@@ -7,7 +8,6 @@ import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.ServiceHooksDetails;
 import org.azd.servicehooks.types.ServiceHooksSubscription;
 import org.azd.servicehooks.types.ServiceHooksSubscriptions;
-import org.azd.connection.Connection;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
