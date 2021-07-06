@@ -8,12 +8,13 @@ import org.azd.interfaces.ServiceHooksDetails;
 import org.azd.servicehooks.types.ServiceHooksSubscription;
 import org.azd.servicehooks.types.ServiceHooksSubscriptions;
 import org.azd.connection.Connection;
+import org.azd.utils.Client;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static org.azd.utils.Client.request;
+import static org.azd.utils.Client.send;
 
 /***
  * Service Hooks Api to manage service hooks service
@@ -43,7 +44,7 @@ public class ServiceHooksApi implements ServiceHooksDetails {
      */
     @Override
     public ServiceHooksSubscription getSubscription(String subscriptionId) throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, CONNECTION, null, null,
+        String r = send(RequestMethod.GET, CONNECTION, null, null,
                 AREA + "/subscriptions",  subscriptionId, null, ServiceHooksVersion.VERSION, null,null);
 
         return MAPPER.mapJsonResponse(r, ServiceHooksSubscription.class);
@@ -58,7 +59,7 @@ public class ServiceHooksApi implements ServiceHooksDetails {
      */
     @Override
     public ServiceHooksSubscriptions getSubscriptions() throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, CONNECTION, null, null,
+        String r = send(RequestMethod.GET, CONNECTION, null, null,
                 AREA + "/subscriptions",  null, null, ServiceHooksVersion.VERSION, null,null);
 
         return MAPPER.mapJsonResponse(r, ServiceHooksSubscriptions.class);
@@ -85,7 +86,7 @@ public class ServiceHooksApi implements ServiceHooksDetails {
             put("consumerActionId", consumerActionId);
         }};
 
-        String r = request(RequestMethod.GET, CONNECTION, null, null,
+        String r = send(RequestMethod.GET, CONNECTION, null, null,
                 AREA + "/subscriptions",  null, null, ServiceHooksVersion.VERSION, q,null);
 
         return MAPPER.mapJsonResponse(r, ServiceHooksSubscriptions.class);
@@ -101,7 +102,7 @@ public class ServiceHooksApi implements ServiceHooksDetails {
     @Override
     public void deleteSubscription(String subscriptionId) throws DefaultParametersException, AzDException {
         try {
-            String r = request(RequestMethod.DELETE, CONNECTION, null, null,
+            String r = send(RequestMethod.DELETE, CONNECTION, null, null,
                     AREA + "/subscriptions",  subscriptionId, null, ServiceHooksVersion.VERSION, null,null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (DefaultParametersException | AzDException e) {
@@ -141,7 +142,7 @@ public class ServiceHooksApi implements ServiceHooksDetails {
             put("consumerInputs", consumerInputs);
         }};
 
-        String r = request(RequestMethod.POST, CONNECTION, null, null,
+        String r = send(RequestMethod.POST, CONNECTION, null, null,
                 AREA + "/subscriptions",  null, null, ServiceHooksVersion.VERSION, null,requestBody);
 
         return MAPPER.mapJsonResponse(r, ServiceHooksSubscription.class);

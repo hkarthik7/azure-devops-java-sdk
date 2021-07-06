@@ -1,5 +1,6 @@
 package org.azd.graph;
 
+import org.azd.connection.Connection;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.DefaultParametersException;
@@ -9,13 +10,12 @@ import org.azd.graph.types.GraphUser;
 import org.azd.graph.types.GraphUsers;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.GraphDetails;
-import org.azd.connection.Connection;
 import org.azd.utils.ResourceId;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.azd.utils.Client.request;
+import static org.azd.utils.Client.send;
 
 /***
  * GraphApi class to manage graph users and groups
@@ -54,7 +54,7 @@ public class GraphApi implements GraphDetails {
             put("principalName", emailId);
         }};
 
-        String r = request(RequestMethod.POST, CONNECTION, ResourceId.GRAPH, null,
+        String r = send(RequestMethod.POST, CONNECTION, ResourceId.GRAPH, null,
                 AREA, null, "users/" + userDescriptor, GraphVersion.VERSION, null, b);
 
         return MAPPER.mapJsonResponse(r, GraphUser.class);
@@ -80,7 +80,7 @@ public class GraphApi implements GraphDetails {
             put("groupDescriptors", groupDescriptor);
         }};
 
-        String r = request(RequestMethod.POST, CONNECTION, ResourceId.GRAPH, null,
+        String r = send(RequestMethod.POST, CONNECTION, ResourceId.GRAPH, null,
                 AREA, null, "users", GraphVersion.VERSION, q, b);
 
         return MAPPER.mapJsonResponse(r, GraphUser.class);
@@ -96,7 +96,7 @@ public class GraphApi implements GraphDetails {
     @Override
     public void deleteUser(String userDescriptor) throws DefaultParametersException, AzDException {
         try {
-            String r = request(RequestMethod.DELETE, CONNECTION, ResourceId.GRAPH, null,
+            String r = send(RequestMethod.DELETE, CONNECTION, ResourceId.GRAPH, null,
                     AREA, null, "users/" + userDescriptor, GraphVersion.VERSION, null, null);
 
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
@@ -115,7 +115,7 @@ public class GraphApi implements GraphDetails {
      */
     @Override
     public GraphUser getUser(String userDescriptor) throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, CONNECTION, ResourceId.GRAPH, null,
+        String r = send(RequestMethod.GET, CONNECTION, ResourceId.GRAPH, null,
                 AREA, null, "users/" + userDescriptor, GraphVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, GraphUser.class);
@@ -130,7 +130,7 @@ public class GraphApi implements GraphDetails {
      */
     @Override
     public GraphUsers getUsers() throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, CONNECTION, ResourceId.GRAPH, null,
+        String r = send(RequestMethod.GET, CONNECTION, ResourceId.GRAPH, null,
                 AREA, null, "users", GraphVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, GraphUsers.class);
@@ -160,7 +160,7 @@ public class GraphApi implements GraphDetails {
             put("scopeDescriptor", scopeDescriptor);
         }};
 
-        String r = request(RequestMethod.GET, CONNECTION, ResourceId.GRAPH, null,
+        String r = send(RequestMethod.GET, CONNECTION, ResourceId.GRAPH, null,
                 AREA, null, "users", GraphVersion.VERSION, q, null);
 
         return MAPPER.mapJsonResponse(r, GraphUsers.class);
@@ -176,7 +176,7 @@ public class GraphApi implements GraphDetails {
      */
     @Override
     public GraphGroup getGroup(String groupDescriptor) throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, CONNECTION, ResourceId.GRAPH, null,
+        String r = send(RequestMethod.GET, CONNECTION, ResourceId.GRAPH, null,
                 AREA, null, "groups/" + groupDescriptor, GraphVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, GraphGroup.class);
@@ -191,7 +191,7 @@ public class GraphApi implements GraphDetails {
      */
     @Override
     public GraphGroups getGroups() throws DefaultParametersException, AzDException {
-        String r = request(RequestMethod.GET, CONNECTION, ResourceId.GRAPH, null,
+        String r = send(RequestMethod.GET, CONNECTION, ResourceId.GRAPH, null,
                 AREA, null, "groups", GraphVersion.VERSION, null, null);
 
         return MAPPER.mapJsonResponse(r, GraphGroups.class);

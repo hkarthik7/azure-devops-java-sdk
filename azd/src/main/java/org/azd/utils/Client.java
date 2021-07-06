@@ -30,7 +30,7 @@ public abstract class Client extends BaseClient {
      * @throws DefaultParametersException {@link DefaultParametersException}
      * @throws AzDException {@link AzDException}
      */
-    public static String request(
+    public static String send(
             RequestMethod requestMethod,
             Connection connection,
             String resourceId,
@@ -79,7 +79,7 @@ public abstract class Client extends BaseClient {
      * @throws DefaultParametersException {@link DefaultParametersException}
      * @throws AzDException {@link AzDException}
      */
-    public static String request(
+    public static String send(
             RequestMethod requestMethod,
             Connection connection,
             String resourceId,
@@ -134,7 +134,7 @@ public abstract class Client extends BaseClient {
      * @throws DefaultParametersException {@link DefaultParametersException}
      * @throws AzDException {@link AzDException}
      */
-    public static String request(
+    public static String send(
             RequestMethod requestMethod,
             Connection connection,
             String resourceId,
