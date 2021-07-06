@@ -87,7 +87,7 @@ public class GraphApi implements GraphDetails {
     }
 
     /***
-     * Disables a user. The user will still be visible, but membership checks for the user will return false.”
+     * Disables a user. The user will still be visible, but membership checks for the user will return false.
      * @param userDescriptor The descriptor of the user to delete.
      * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
      * and project. This validates the connection object and throws exception if it is not provided.
