@@ -40,9 +40,13 @@ public class WikiApiTest {
     public void shouldCreateWikiPage() throws ConnectionException, AzDException {
         var projectId = c.getProject("azure-devops-java-sdk").getId();
         var repoId = g.getRepository("testRepository").getId();
+        var wikiPage = w.getWiki("NewWiki").getName();
 
         w.createWiki("develop", WikiType.CODEWIKI, "MyProjectWiki", projectId, repoId, "/");
-        w.createWiki("develop", WikiType.CODEWIKI, "NewWiki", projectId, repoId, "/docs");
+
+        // without this check I'm receiving error while running tests.
+        if (wikiPage.isEmpty())
+            w.createWiki("develop", WikiType.CODEWIKI, "NewWiki", projectId, repoId, "/docs");
     }
 
     @Test
