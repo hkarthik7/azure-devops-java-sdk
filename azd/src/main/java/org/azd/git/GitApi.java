@@ -29,7 +29,7 @@ public class GitApi implements GitDetails {
     private final String AREA = "git";
 
     /***
-     * Instantiate the class with instance of AzDDefaultParameters
+     * Pass the connection object to work with Git Api
      * @param connection Connection object
      */
     public GitApi(Connection connection) { this.CONNECTION = connection; }

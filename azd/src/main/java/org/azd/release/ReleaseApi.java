@@ -28,7 +28,7 @@ public class ReleaseApi implements ReleaseDetails {
     private final String AREA = "release/releases";
 
     /***
-     * Instantiate the class with instance of AzDDefaultParameters
+     * Pass the connection object to work with Release Api
      * @param connection Connection object
      */
     public ReleaseApi(Connection connection) { this.CONNECTION = connection; }

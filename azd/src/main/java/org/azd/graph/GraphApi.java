@@ -29,7 +29,7 @@ public class GraphApi implements GraphDetails {
     private final String AREA = "graph";
 
     /***
-     * Instantiate the class with instance of AzDDefaultParameters
+     * Pass the connection object to work with Graph Api
      * @param connection Connection object
      */
     public GraphApi(Connection connection) { this.CONNECTION = connection; }

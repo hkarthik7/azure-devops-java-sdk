@@ -34,6 +34,7 @@ public abstract class ResourceId {
     public static final String TEST = "3b95fb80-fdda-4218-b60e-1052d070ae6b";
     public static final String TESTRESULTS = "c83eaf52-edf3-4034-ae11-17d38f25404c";
     public static final String TFVC = "8aa40520-446d-40e6-89f6-9c9f9ce44c48";
+    public static final String TOKEN = "af68438b-ed04-4407-9eb6-f1dbae3f922e";
     public static final String USER = "970aa69f-e316-4d78-b7b0-b7137e47a22c";
     public static final String WIT = "5264459e-e5e0-4bd8-b118-0985e68a4ec5";
     public static final String WORK = "1d4f49f9-02b9-4e26-b826-2cdb6195f2a9";

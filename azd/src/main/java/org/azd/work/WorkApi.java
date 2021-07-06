@@ -31,7 +31,7 @@ public class WorkApi implements WorkDetails {
 
 
     /***
-     * Instantiate the class with instance of AzDDefaultParameters
+     * Pass the connection object to work with Work Api
      * @param connection Connection object
      */
     public WorkApi(Connection connection) { this.CONNECTION = connection; }

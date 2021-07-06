@@ -32,7 +32,7 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
     private final String USER_AREA = "userentitlements";
 
     /***
-     * Instantiate the class with instance of AzDDefaultParameters
+     * Pass the connection object to work with Member Entitlement Management Api
      * @param connection Connection object
      */
     public MemberEntitlementManagementApi(Connection connection) { this.CONNECTION = connection; }

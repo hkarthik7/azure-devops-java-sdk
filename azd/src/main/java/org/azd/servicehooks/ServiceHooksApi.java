@@ -28,7 +28,7 @@ public class ServiceHooksApi implements ServiceHooksDetails {
 
 
     /***
-     * Instantiate the class with instance of AzDDefaultParameters
+     * Pass the connection object to work with Service hooks Api
      * @param connection Connection object
      */
     public ServiceHooksApi(Connection connection) { this.CONNECTION = connection; }

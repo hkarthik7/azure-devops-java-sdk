@@ -28,7 +28,7 @@ public class BuildApi implements BuildDetails {
     private final String AREA = "build";
 
     /***
-     * Instantiate the class with instance of AzDDefaultParameters
+     * Pass the connection object to work with Build Api
      * @param connection Connection object
      */
     public BuildApi(Connection connection) { this.CONNECTION = connection; }

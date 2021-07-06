@@ -26,7 +26,7 @@ public class CoreApi implements CoreDetails {
     private final JsonMapper MAPPER = new JsonMapper();
 
     /***
-     * Instantiate the class with instance of AzDDefaultParameters
+     * Pass the connection object to work with Core Api
      * @param connection Connection object
      */
     public CoreApi(Connection connection) { this.CONNECTION = connection; }

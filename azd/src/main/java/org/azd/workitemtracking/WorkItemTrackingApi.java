@@ -30,7 +30,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
 
 
     /***
-     * Instantiate the class with instance of AzDDefaultParameters
+     * Pass the connection object to work with WorkItem Tracking Api
      * @param connection Connection object
      */
     public WorkItemTrackingApi(Connection connection) { this.CONNECTION = connection; }

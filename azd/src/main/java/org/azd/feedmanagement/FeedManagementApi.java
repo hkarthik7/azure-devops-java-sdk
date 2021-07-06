@@ -29,7 +29,7 @@ public class FeedManagementApi implements FeedManagementDetails {
     private final String AREA = "packaging";
 
     /***
-     * Instantiate the class with instance of AzDDefaultParameters
+     * Pass the connection object to work with Feed Management Api
      * @param connection Connection object
      */
     public FeedManagementApi(Connection connection) { this.CONNECTION = connection; }
