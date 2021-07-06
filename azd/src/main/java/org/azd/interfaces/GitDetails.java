@@ -1,7 +1,7 @@
 package org.azd.interfaces;
 
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.DefaultParametersException;
+import org.azd.exceptions.ConnectionException;
 import org.azd.git.types.PullRequest;
 import org.azd.git.types.PullRequests;
 import org.azd.git.types.Repositories;
@@ -10,33 +10,33 @@ import org.azd.git.types.Repository;
 import java.util.Map;
 
 public interface GitDetails {
-    Repository createRepository(String repositoryName, String projectId) throws DefaultParametersException, AzDException;
+    Repository createRepository(String repositoryName, String projectId) throws ConnectionException, AzDException;
 
-    void deleteRepository(String repositoryId) throws DefaultParametersException, AzDException;
+    void deleteRepository(String repositoryId) throws ConnectionException, AzDException;
 
-    void deleteRepositoryFromRecycleBin(String repositoryId) throws DefaultParametersException, AzDException;
+    void deleteRepositoryFromRecycleBin(String repositoryId) throws ConnectionException, AzDException;
 
-    Map getDeletedRepositories() throws DefaultParametersException, AzDException;
+    Map getDeletedRepositories() throws ConnectionException, AzDException;
 
-    Map getRecycleBinRepositories() throws DefaultParametersException, AzDException;
+    Map getRecycleBinRepositories() throws ConnectionException, AzDException;
 
-    Repository getRepository(String repositoryName) throws DefaultParametersException, AzDException;
+    Repository getRepository(String repositoryName) throws ConnectionException, AzDException;
 
-    Repositories getRepositories() throws DefaultParametersException, AzDException;
+    Repositories getRepositories() throws ConnectionException, AzDException;
 
-    Repository restoreRepositoryFromRecycleBin(String repositoryId, boolean deleted) throws DefaultParametersException, AzDException;
+    Repository restoreRepositoryFromRecycleBin(String repositoryId, boolean deleted) throws ConnectionException, AzDException;
 
-    Repository updateRepository(String repositoryId, String repositoryName, String defaultBranchName) throws DefaultParametersException, AzDException;
+    Repository updateRepository(String repositoryId, String repositoryName, String defaultBranchName) throws ConnectionException, AzDException;
 
     PullRequest createPullRequest(
             String repositoryId, String sourceRefName, String targetRefName,
-            String title, String description, String[] reviewers) throws DefaultParametersException, AzDException;
+            String title, String description, String[] reviewers) throws ConnectionException, AzDException;
 
-    PullRequest getPullRequest(String repositoryName, int pullRequestId) throws DefaultParametersException, AzDException;
+    PullRequest getPullRequest(String repositoryName, int pullRequestId) throws ConnectionException, AzDException;
 
-    PullRequest getPullRequestById(int pullRequestId) throws DefaultParametersException, AzDException;
+    PullRequest getPullRequestById(int pullRequestId) throws ConnectionException, AzDException;
 
-    PullRequests getPullRequests(String repositoryName) throws DefaultParametersException, AzDException;
+    PullRequests getPullRequests(String repositoryName) throws ConnectionException, AzDException;
 
-    PullRequests getPullRequestsByProject() throws DefaultParametersException, AzDException;
+    PullRequests getPullRequestsByProject() throws ConnectionException, AzDException;
 }

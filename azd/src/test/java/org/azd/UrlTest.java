@@ -1,7 +1,7 @@
 package org.azd;
 
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.DefaultParametersException;
+import org.azd.exceptions.ConnectionException;
 import org.azd.connection.Connection;
 import org.azd.utils.ResourceId;
 import org.azd.utils.Url;
@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 public class UrlTest {
 
     @Test
-    public void shouldCreateUrlClassAndReturnProjectUrl() throws DefaultParametersException, AzDException {
+    public void shouldCreateUrlClassAndReturnProjectUrl() throws ConnectionException, AzDException {
         // Given
         String organization = "Test";
         String token = "myPersonalAccessToken";
@@ -38,7 +38,7 @@ public class UrlTest {
     }
 
     @Test
-    public void shouldCreateUrlClassAndReturnProjectUrlWithQueryParameters() throws DefaultParametersException, AzDException {
+    public void shouldCreateUrlClassAndReturnProjectUrlWithQueryParameters() throws ConnectionException, AzDException {
         // Given
         String organization = "Test";
         String token = "myPersonalAccessToken";

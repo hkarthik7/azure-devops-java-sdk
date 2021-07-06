@@ -2,12 +2,11 @@ package org.azd.release;
 
 import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.DefaultParametersException;
+import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.ReleaseDetails;
 import org.azd.release.types.*;
 import org.azd.connection.Connection;
-import org.azd.utils.Client;
 import org.azd.utils.ResourceId;
 
 import java.util.HashMap;
@@ -43,14 +42,14 @@ public class ReleaseApi implements ReleaseDetails {
      * @param artifactName pass the build pipeline name
      * @param isDraft creates the release as draft if set to false
      * @return Release {@link Release}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public Release createRelease(int releaseDefinitionId, String description, String artifactAlias,
                                  String artifactId, String artifactName,
-                                 boolean isDraft) throws DefaultParametersException, AzDException {
+                                 boolean isDraft) throws ConnectionException, AzDException {
 
         var artifacts = new LinkedHashMap<String, Object>(){{
             put("alias", artifactAlias);
@@ -79,12 +78,12 @@ public class ReleaseApi implements ReleaseDetails {
      * Get a Release
      * @param releaseId pass the release id
      * @return Release {@link Release}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public Release getRelease(int releaseId) throws DefaultParametersException, AzDException {
+    public Release getRelease(int releaseId) throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.RELEASE, CONNECTION.getProject(),
                 AREA, Integer.toString(releaseId), null, ReleaseVersion.VERSION, null, null);
 
@@ -96,12 +95,12 @@ public class ReleaseApi implements ReleaseDetails {
      * @param releaseId pass the release id
      * @param expand field to expand in the result. {@link SingleReleaseExpands}
      * @return Release {@link Release}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public Release getRelease(int releaseId, SingleReleaseExpands expand) throws DefaultParametersException, AzDException {
+    public Release getRelease(int releaseId, SingleReleaseExpands expand) throws ConnectionException, AzDException {
         var q = new HashMap<String, Object>(){{
             put("$expand", expand.toString().toLowerCase());
         }};
@@ -123,14 +122,14 @@ public class ReleaseApi implements ReleaseDetails {
      * If not set, properties will not be included.
      * @param topGateRecords Number of release gate records to get. Default is 5.
      * @return Release {@link Release}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public Release getRelease(int releaseId, SingleReleaseExpands expand,
                               ReleaseApprovalFilters approvalFilters, String[] propertyFilters,
-                              int topGateRecords) throws DefaultParametersException, AzDException {
+                              int topGateRecords) throws ConnectionException, AzDException {
         var q = new HashMap<String, Object>(){{
             put("approvalFilters", approvalFilters);
             put("propertyFilters", String.join(",", propertyFilters));
@@ -149,12 +148,12 @@ public class ReleaseApi implements ReleaseDetails {
      * @param releaseId pass the release id
      * @param environmentId Id of the release environment.
      * @return Release Environment {@link ReleaseEnvironment}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public ReleaseEnvironment getReleaseEnvironment(int releaseId, int environmentId) throws DefaultParametersException, AzDException {
+    public ReleaseEnvironment getReleaseEnvironment(int releaseId, int environmentId) throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.RELEASE, CONNECTION.getProject(),
                 AREA, Integer.toString(releaseId), "environments/" + environmentId,
                 ReleaseVersion.RELEASE_ENVIRONMENT, null, null);
@@ -168,13 +167,13 @@ public class ReleaseApi implements ReleaseDetails {
      * @param environmentId Id of the release environment.
      * @param expand Release expands {@link SingleReleaseExpands}
      * @return Release Environment {@link ReleaseEnvironment}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public ReleaseEnvironment getReleaseEnvironment(int releaseId, int environmentId,
-                                                    SingleReleaseExpands expand) throws DefaultParametersException, AzDException {
+                                                    SingleReleaseExpands expand) throws ConnectionException, AzDException {
         var q = new HashMap<String, Object>(){{
             put("$expand", expand.toString().toLowerCase());
         }};
@@ -189,12 +188,12 @@ public class ReleaseApi implements ReleaseDetails {
     /***
      * Get a list of releases
      * @return Releases {@link Releases}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public Releases getReleases() throws DefaultParametersException, AzDException {
+    public Releases getReleases() throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.RELEASE, CONNECTION.getProject(),
                 AREA, null, null, ReleaseVersion.VERSION, null, null);
 
@@ -205,12 +204,12 @@ public class ReleaseApi implements ReleaseDetails {
      * Get a list of releases
      * @param expand The property that should be expanded in the list of releases. {@link ReleaseExpands}
      * @return Releases {@link Releases}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public Releases getReleases(ReleaseExpands expand) throws DefaultParametersException, AzDException {
+    public Releases getReleases(ReleaseExpands expand) throws ConnectionException, AzDException {
         var q = new HashMap<String, Object>(){{
             put("$expand", expand.toString().toLowerCase());
         }};
@@ -225,12 +224,12 @@ public class ReleaseApi implements ReleaseDetails {
      * Get a list of releases
      * @param definitionId pass the release definition id
      * @return Releases {@link Releases}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public Releases getReleases(int definitionId) throws DefaultParametersException, AzDException {
+    public Releases getReleases(int definitionId) throws ConnectionException, AzDException {
         var q = new HashMap<String, Object>(){{
             put("definitionId", definitionId);
         }};
@@ -246,12 +245,12 @@ public class ReleaseApi implements ReleaseDetails {
      * @param expand The property that should be expanded in the list of releases. {@link ReleaseExpands}
      * @param top Number of releases to get. Default is 50.
      * @return Releases {@link Releases}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public Releases getReleases(ReleaseExpands expand, int top) throws DefaultParametersException, AzDException {
+    public Releases getReleases(ReleaseExpands expand, int top) throws ConnectionException, AzDException {
         var q = new HashMap<String, Object>(){{
             put("$expand", expand.toString().toLowerCase());
             put("$top", top);
@@ -267,12 +266,12 @@ public class ReleaseApi implements ReleaseDetails {
      * Get a list of releases
      * @param releaseIdFilter A comma-delimited list of releases Ids. Only releases with these Ids will be returned.
      * @return Releases {@link Releases}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public Releases getReleases(String[] releaseIdFilter) throws DefaultParametersException, AzDException {
+    public Releases getReleases(String[] releaseIdFilter) throws ConnectionException, AzDException {
         var q = new HashMap<String, Object>(){{
             put("releaseIdFilter", String.join(",", releaseIdFilter));
         }};
@@ -315,9 +314,9 @@ public class ReleaseApi implements ReleaseDetails {
      * @param statusFilter Releases that have the status from {@link ReleaseStatus}.
      * @param tagFilter A comma-delimited list of tags. Only releases with these tags will be returned.
      * @return Releases {@link Releases}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public Releases getReleases(ReleaseExpands expand, int top, String artifactTypeId, String artifactVersionId,
@@ -325,7 +324,7 @@ public class ReleaseApi implements ReleaseDetails {
                                 int environmentStatusFilter, boolean isDeleted, String maxCreatedTime, String minCreatedTime,
                                 String path, String[] propertyFilters, ReleaseQueryOrder queryOrder, String[] releaseIdFilter,
                                 String searchText, String sourceBranchFilter, String sourceId, ReleaseStatus statusFilter,
-                                String[] tagFilter) throws DefaultParametersException, AzDException {
+                                String[] tagFilter) throws ConnectionException, AzDException {
         var q = new HashMap<String, Object>(){{
             put("definitionId", definitionId);
             put("definitionEnvironmentId", definitionEnvironmentId);
@@ -361,12 +360,12 @@ public class ReleaseApi implements ReleaseDetails {
      * @param releaseDefinitionParameters Pass the release definition parameter as string. It is easy to export
      * json result from an existing pipeline and edit it.
      * @return ReleaseDefinition {@link ReleaseDefinition}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public ReleaseDefinition createReleaseDefinition(String releaseDefinitionParameters) throws DefaultParametersException, AzDException {
+    public ReleaseDefinition createReleaseDefinition(String releaseDefinitionParameters) throws ConnectionException, AzDException {
 
         var body = MAPPER.mapJsonResponse(releaseDefinitionParameters, HashMap.class);
 
@@ -379,18 +378,18 @@ public class ReleaseApi implements ReleaseDetails {
     /***
      * Delete a release definition.
      * @param definitionId Id of the release definition/pipeline.
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteReleaseDefinition(int definitionId) throws DefaultParametersException, AzDException {
+    public void deleteReleaseDefinition(int definitionId) throws ConnectionException, AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, ResourceId.RELEASE, CONNECTION.getProject(),
                     AREA.replace("releases", "definitions"), Integer.toString(definitionId),
                     null, ReleaseVersion.RELEASE_DEFINITION, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
-        } catch (DefaultParametersException | AzDException e) {
+        } catch (ConnectionException | AzDException e) {
             throw e;
         }
     }
@@ -401,12 +400,12 @@ public class ReleaseApi implements ReleaseDetails {
      * @param comment Comment for deleting a release definition.
      * @param forceDelete 'true' to automatically cancel any in-progress release deployments
      * and proceed with release definition deletion . Default is 'false'.
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteReleaseDefinition(int definitionId, String comment, boolean forceDelete) throws DefaultParametersException, AzDException {
+    public void deleteReleaseDefinition(int definitionId, String comment, boolean forceDelete) throws ConnectionException, AzDException {
         try {
             var q = new HashMap<String, Object>(){{
                 put("comment", comment);
@@ -417,7 +416,7 @@ public class ReleaseApi implements ReleaseDetails {
                     AREA.replace("releases", "definitions"), Integer.toString(definitionId),
                     null, ReleaseVersion.RELEASE_DEFINITION, q, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
-        } catch (DefaultParametersException | AzDException e) {
+        } catch (ConnectionException | AzDException e) {
             throw e;
         }
     }
@@ -426,12 +425,12 @@ public class ReleaseApi implements ReleaseDetails {
      * Get a release definition.
      * @param definitionId Id of the release definition/pipeline.
      * @return ReleaseDefinition {@link ReleaseDefinition}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public ReleaseDefinition getReleaseDefinition(int definitionId) throws DefaultParametersException, AzDException {
+    public ReleaseDefinition getReleaseDefinition(int definitionId) throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.RELEASE, CONNECTION.getProject(),
                 AREA.replace("releases", "definitions"), Integer.toString(definitionId),
                 null, ReleaseVersion.RELEASE_DEFINITION, null, null);
@@ -443,12 +442,12 @@ public class ReleaseApi implements ReleaseDetails {
      * Get revision history for a release definition
      * @param definitionId Id of the release definition/pipeline.
      * @return ReleaseDefinitionRevisions {@link ReleaseDefinitionRevisions}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public ReleaseDefinitionRevisions getReleaseDefinitionHistory(int definitionId) throws DefaultParametersException, AzDException {
+    public ReleaseDefinitionRevisions getReleaseDefinitionHistory(int definitionId) throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.RELEASE, CONNECTION.getProject(),
                 AREA.replace("releases", "definitions"), Integer.toString(definitionId),
                 "revisions", ReleaseVersion.RELEASE_DEFINITION_HISTORY, null, null);
@@ -459,12 +458,12 @@ public class ReleaseApi implements ReleaseDetails {
     /***
      * Get a list of release definitions.
      * @return ReleaseDefinitions {@link ReleaseDefinitions}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public ReleaseDefinitions getReleaseDefinitions() throws DefaultParametersException, AzDException {
+    public ReleaseDefinitions getReleaseDefinitions() throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.RELEASE, CONNECTION.getProject(),
                 AREA.replace("releases", "definitions"), null,
                 null, ReleaseVersion.RELEASE_DEFINITION, null, null);

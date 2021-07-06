@@ -5,13 +5,13 @@ package org.azd.exceptions;
  * Apis in this library.
  * */
 @SuppressWarnings("serial")
-public class DefaultParametersException extends Exception {
-    public DefaultParametersException() {
+public class ConnectionException extends Exception {
+    public ConnectionException() {
         super("Please create a connection object using 'Connection' class with mandatory parameters 'organization', " +
                 "'project' and 'personal access token' before using any Apis in this library.");
     }
 
-    public DefaultParametersException(String message) {
+    public ConnectionException(String message) {
         super(message);
     }
 }

@@ -37,6 +37,7 @@ public abstract class ResourceId {
     public static final String TOKEN = "af68438b-ed04-4407-9eb6-f1dbae3f922e";
     public static final String USER = "970aa69f-e316-4d78-b7b0-b7137e47a22c";
     public static final String WIT = "5264459e-e5e0-4bd8-b118-0985e68a4ec5";
+    public static final String WIKI = "bf7d82a0-8aa5-4613-94ef-6172a5ea01f3";
     public static final String WORK = "1d4f49f9-02b9-4e26-b826-2cdb6195f2a9";
     public static final String WORKTRACKING = "85f8c7b6-92fe-4ba6-8b6d-fbb67c809341";
 }

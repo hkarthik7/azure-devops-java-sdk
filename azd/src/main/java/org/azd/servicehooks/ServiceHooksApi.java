@@ -2,13 +2,12 @@ package org.azd.servicehooks;
 
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.DefaultParametersException;
+import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.ServiceHooksDetails;
 import org.azd.servicehooks.types.ServiceHooksSubscription;
 import org.azd.servicehooks.types.ServiceHooksSubscriptions;
 import org.azd.connection.Connection;
-import org.azd.utils.Client;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -38,12 +37,12 @@ public class ServiceHooksApi implements ServiceHooksDetails {
      * Get a specific service hooks subscription.
      * @param subscriptionId ID for a subscription.
      * @return ServiceHooksSubscription {@link ServiceHooksSubscription}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public ServiceHooksSubscription getSubscription(String subscriptionId) throws DefaultParametersException, AzDException {
+    public ServiceHooksSubscription getSubscription(String subscriptionId) throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, null, null,
                 AREA + "/subscriptions",  subscriptionId, null, ServiceHooksVersion.VERSION, null,null);
 
@@ -53,12 +52,12 @@ public class ServiceHooksApi implements ServiceHooksDetails {
     /***
      * Get a list of subscriptions.
      * @return ServiceHooksSubscriptions {@link ServiceHooksSubscriptions}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public ServiceHooksSubscriptions getSubscriptions() throws DefaultParametersException, AzDException {
+    public ServiceHooksSubscriptions getSubscriptions() throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, null, null,
                 AREA + "/subscriptions",  null, null, ServiceHooksVersion.VERSION, null,null);
 
@@ -72,13 +71,13 @@ public class ServiceHooksApi implements ServiceHooksDetails {
      * @param eventType The event type to filter on (if any).
      * @param publisherId ID for a subscription.
      * @return ServiceHooksSubscriptions {@link ServiceHooksSubscriptions}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public ServiceHooksSubscriptions getSubscriptions(String consumerActionId, String consumerId, String eventType, String publisherId)
-            throws DefaultParametersException, AzDException {
+            throws ConnectionException, AzDException {
         var q = new HashMap<String, Object>(){{
             put("publisherId", publisherId);
             put("eventType", eventType);
@@ -95,17 +94,17 @@ public class ServiceHooksApi implements ServiceHooksDetails {
     /***
      * Delete a specific service hooks subscription.
      * @param subscriptionId ID for a subscription.
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteSubscription(String subscriptionId) throws DefaultParametersException, AzDException {
+    public void deleteSubscription(String subscriptionId) throws ConnectionException, AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, null, null,
                     AREA + "/subscriptions",  subscriptionId, null, ServiceHooksVersion.VERSION, null,null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
-        } catch (DefaultParametersException | AzDException e) {
+        } catch (ConnectionException | AzDException e) {
             throw e;
         }
     }
@@ -121,16 +120,16 @@ public class ServiceHooksApi implements ServiceHooksDetails {
      * @param consumerInputs Represents the parameter for request body. Specify the consumer inputs.
      *  Reference: https://docs.microsoft.com/en-us/azure/devops/service-hooks/events?view=azure-devops#workitem.created
      * @return ServiceHooksSubscription {@link ServiceHooksSubscription}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public ServiceHooksSubscription createSubscription(String publisherId, String eventType,
                                                        String resourceVersion, String consumerId,
                                                        String consumerActionId, LinkedHashMap<String, Object> publisherInputs,
                                                        LinkedHashMap<String, Object> consumerInputs)
-            throws DefaultParametersException, AzDException {
+            throws ConnectionException, AzDException {
 
         var requestBody = new LinkedHashMap<String, Object>(){{
             put("publisherId", publisherId);

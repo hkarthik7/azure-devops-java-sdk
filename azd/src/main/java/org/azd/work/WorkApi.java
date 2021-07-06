@@ -3,11 +3,10 @@ package org.azd.work;
 import org.azd.enums.IterationsTimeFrame;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.DefaultParametersException;
+import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.WorkDetails;
 import org.azd.connection.Connection;
-import org.azd.utils.Client;
 import org.azd.utils.ResourceId;
 import org.azd.work.types.IterationWorkItems;
 import org.azd.work.types.TeamSettingsIteration;
@@ -41,11 +40,12 @@ public class WorkApi implements WorkDetails {
      * Get a team's iterations
      * @param teamName Team ID or team name
      * @return {@link TeamSettingsIterations}
-     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
-     * @throws AzDException Exception handler
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public TeamSettingsIterations getTeamSettingsIterations(String teamName) throws DefaultParametersException, AzDException {
+    public TeamSettingsIterations getTeamSettingsIterations(String teamName) throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.WORK,
                 (CONNECTION.getProject() + "/" + encodeSpace(teamName)),
                 AREA,null , "teamsettings/iterations", WorkVersion.VERSION, null, null);
@@ -59,11 +59,12 @@ public class WorkApi implements WorkDetails {
      * @param timeFrame A filter for which iterations are returned based on relative time.
      * Only 'Current' is supported currently. {@link IterationsTimeFrame}
      * @return {@link TeamSettingsIterations}
-     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
-     * @throws AzDException Exception handler
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public TeamSettingsIterations getTeamSettingsIterations(String teamName, IterationsTimeFrame timeFrame) throws DefaultParametersException, AzDException {
+    public TeamSettingsIterations getTeamSettingsIterations(String teamName, IterationsTimeFrame timeFrame) throws ConnectionException, AzDException {
 
         var q = new HashMap<String, Object>(){{
             put("$timeframe", timeFrame.toString().toLowerCase());
@@ -81,11 +82,12 @@ public class WorkApi implements WorkDetails {
      * @param teamName Team ID or team name
      * @param iterationId ID of the iteration
      * @return {@link TeamSettingsIterations}
-     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
-     * @throws AzDException Exception handler
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public IterationWorkItems getTeamIterationWorkItems(String teamName, String iterationId) throws DefaultParametersException, AzDException {
+    public IterationWorkItems getTeamIterationWorkItems(String teamName, String iterationId) throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.WORK,
                 (CONNECTION.getProject() + "/" + encodeSpace(teamName)),
                 AREA + "/teamsettings/iterations",iterationId , "workitems", WorkVersion.VERSION, null, null);
@@ -98,11 +100,12 @@ public class WorkApi implements WorkDetails {
      * @param teamName ID of the iteration
      * @param iterationId Team ID or team name
      * @return {@link TeamSettingsIterations}
-     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
-     * @throws AzDException Exception handler
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public TeamSettingsIteration getTeamSettingsIteration(String teamName, String iterationId) throws DefaultParametersException, AzDException {
+    public TeamSettingsIteration getTeamSettingsIteration(String teamName, String iterationId) throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.WORK,
                 (CONNECTION.getProject() + "/" + encodeSpace(teamName)),
                 AREA + "/teamsettings/iterations",iterationId , null, WorkVersion.VERSION, null, null);
@@ -114,17 +117,18 @@ public class WorkApi implements WorkDetails {
      * Delete a team's iteration by iterationId
      * @param teamName Team ID or team name
      * @param iterationId ID of the iteration
-     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
-     * @throws AzDException Exception handler
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteTeamSettingsIteration(String teamName, String iterationId) throws DefaultParametersException, AzDException {
+    public void deleteTeamSettingsIteration(String teamName, String iterationId) throws ConnectionException, AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, ResourceId.WORK,
                         (CONNECTION.getProject() + "/" + encodeSpace(teamName)),
                         AREA + "/teamsettings/iterations", iterationId, null, WorkVersion.VERSION, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
-        } catch (DefaultParametersException | AzDException e) {
+        } catch (ConnectionException | AzDException e) {
             throw e;
         }
     }

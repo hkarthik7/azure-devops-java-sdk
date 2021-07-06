@@ -2,45 +2,45 @@ package org.azd.interfaces;
 
 import org.azd.core.types.*;
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.DefaultParametersException;
+import org.azd.exceptions.ConnectionException;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public interface CoreDetails {
-    Processes getProcesses() throws DefaultParametersException, AzDException;
+    Processes getProcesses() throws ConnectionException, AzDException;
 
-    Map createProject(String projectName, String description) throws DefaultParametersException, AzDException;
+    Map createProject(String projectName, String description) throws ConnectionException, AzDException;
 
     Map createProject(String projectName, String description, String sourceControlType,
-                      String templateTypeId) throws DefaultParametersException, AzDException;
+                      String templateTypeId) throws ConnectionException, AzDException;
 
-    Map deleteProject(String projectId) throws DefaultParametersException, AzDException;
+    Map deleteProject(String projectId) throws ConnectionException, AzDException;
 
-    Project getProject(String projectName) throws DefaultParametersException, AzDException;
+    Project getProject(String projectName) throws ConnectionException, AzDException;
 
-    Project getProject(String projectName, boolean includeCapabilities, boolean includeHistory) throws DefaultParametersException, AzDException;
+    Project getProject(String projectName, boolean includeCapabilities, boolean includeHistory) throws ConnectionException, AzDException;
 
-    ProjectProperties getProjectProperties(String projectId) throws DefaultParametersException, AzDException;
+    ProjectProperties getProjectProperties(String projectId) throws ConnectionException, AzDException;
 
-    Projects getProjects() throws DefaultParametersException, AzDException;
+    Projects getProjects() throws ConnectionException, AzDException;
 
     Projects getProjects(int skip, int top, String continuationToken,
-                         boolean getDefaultTeamImageUrl, String stateFilter) throws DefaultParametersException, AzDException;
+                         boolean getDefaultTeamImageUrl, String stateFilter) throws ConnectionException, AzDException;
 
-    Map updateProject(String projectId, HashMap<String, Object> projectParameters) throws DefaultParametersException, AzDException;
+    Map updateProject(String projectId, HashMap<String, Object> projectParameters) throws ConnectionException, AzDException;
 
-    Map createTeam(String projectName, String teamName) throws DefaultParametersException, AzDException;
+    Map createTeam(String projectName, String teamName) throws ConnectionException, AzDException;
 
-    void deleteTeam(String projectName, String teamName) throws DefaultParametersException, AzDException;
+    void deleteTeam(String projectName, String teamName) throws ConnectionException, AzDException;
 
-    Team getTeam(String projectName, String teamName) throws DefaultParametersException, AzDException;
+    Team getTeam(String projectName, String teamName) throws ConnectionException, AzDException;
 
-    Team getTeam(String projectName, String teamName, boolean expandIdentity) throws DefaultParametersException, AzDException;
+    Team getTeam(String projectName, String teamName, boolean expandIdentity) throws ConnectionException, AzDException;
 
-    Teams getTeams() throws DefaultParametersException, AzDException;
+    Teams getTeams() throws ConnectionException, AzDException;
 
-    Teams getTeams(boolean expandIdentity, String mine, int skip, int top) throws DefaultParametersException, AzDException;
+    Teams getTeams(boolean expandIdentity, String mine, int skip, int top) throws ConnectionException, AzDException;
 
-    Team updateTeams(String projectName, String teamName, String description) throws DefaultParametersException, AzDException;
+    Team updateTeams(String projectName, String teamName, String description) throws ConnectionException, AzDException;
 }

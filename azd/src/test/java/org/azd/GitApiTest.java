@@ -1,7 +1,7 @@
 package org.azd;
 
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.DefaultParametersException;
+import org.azd.exceptions.ConnectionException;
 import org.azd.git.GitApi;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.GitDetails;
@@ -28,74 +28,74 @@ public class GitApiTest {
     }
 
     @Test(expected = AzDException.class)
-    public void shouldCreateANewRepository() throws DefaultParametersException, AzDException {
+    public void shouldCreateANewRepository() throws ConnectionException, AzDException {
         g.createRepository("testRepository", "00000000-0000-0000-0000-000000000000");
     }
 
     @Test(expected = AzDException.class)
-    public void shouldDeleteRepository() throws DefaultParametersException, AzDException {
+    public void shouldDeleteRepository() throws ConnectionException, AzDException {
         g.deleteRepository("00000000-0000-0000-0000-000000000000");
     }
 
     @Test(expected = AzDException.class)
-    public void shouldDeleteRepositoryFromRecycleBin() throws DefaultParametersException, AzDException {
+    public void shouldDeleteRepositoryFromRecycleBin() throws ConnectionException, AzDException {
         g.deleteRepositoryFromRecycleBin("00000000-0000-0000-0000-000000000000");
     }
 
     @Test
-    public void shouldGetDeletedGitRepositories() throws DefaultParametersException, AzDException {
+    public void shouldGetDeletedGitRepositories() throws ConnectionException, AzDException {
         g.getDeletedRepositories();
     }
 
     @Test
-    public void shouldGetRecycleBinRepositories() throws DefaultParametersException, AzDException {
+    public void shouldGetRecycleBinRepositories() throws ConnectionException, AzDException {
         g.getRecycleBinRepositories();
     }
 
     @Test
-    public void shouldGetRepository() throws DefaultParametersException, AzDException {
+    public void shouldGetRepository() throws ConnectionException, AzDException {
         g.getRepository("testRepository");
     }
 
     @Test
-    public void shouldGetRepositories() throws DefaultParametersException, AzDException {
+    public void shouldGetRepositories() throws ConnectionException, AzDException {
         g.getRepositories();
     }
 
     @Test(expected = AzDException.class)
-    public void shouldRestoreRepositoryFromRecycleBin() throws DefaultParametersException, AzDException {
+    public void shouldRestoreRepositoryFromRecycleBin() throws ConnectionException, AzDException {
         g.restoreRepositoryFromRecycleBin("00000000-0000-0000-0000-000000000000", false);
     }
 
     @Test(expected = AzDException.class)
-    public void shouldUpdateRepository() throws DefaultParametersException, AzDException {
+    public void shouldUpdateRepository() throws ConnectionException, AzDException {
         g.updateRepository(g.getRepository("newName").getId(), "newRepo", "main");
     }
 
     @Test(expected = AzDException.class)
-    public void shouldCreateANewPullRequest() throws DefaultParametersException, AzDException {
+    public void shouldCreateANewPullRequest() throws ConnectionException, AzDException {
         g.createPullRequest(g.getRepositories().getRepositories().stream().findFirst().get().getId(),
                 "refs/heads/develop", "refs/heads/master", "New feature", "Adding new feature",
                 new String[]{ "d6245f20-2af8-44f4-9451-8107cb2767db" });
     }
 
     @Test
-    public void shouldRetrieveAPullRequest() throws DefaultParametersException, AzDException {
+    public void shouldRetrieveAPullRequest() throws ConnectionException, AzDException {
         g.getPullRequest(g.getRepository("testRepository").getName(), 3);
     }
 
     @Test
-    public void shouldRetrieveAPullRequestById() throws DefaultParametersException, AzDException {
+    public void shouldRetrieveAPullRequestById() throws ConnectionException, AzDException {
         g.getPullRequestById(2);
     }
 
     @Test
-    public void shouldRetrieveAllPullRequestsFromARepository() throws DefaultParametersException, AzDException {
+    public void shouldRetrieveAllPullRequestsFromARepository() throws ConnectionException, AzDException {
         g.getPullRequests(g.getRepositories().getRepositories().stream().findFirst().get().getName());
     }
 
     @Test
-    public void shouldGetPullRequestsByProject() throws DefaultParametersException, AzDException {
+    public void shouldGetPullRequestsByProject() throws ConnectionException, AzDException {
         g.getPullRequestsByProject().getPullRequests();
     }
 }

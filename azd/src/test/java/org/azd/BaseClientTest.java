@@ -1,7 +1,7 @@
 package org.azd;
 
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.DefaultParametersException;
+import org.azd.exceptions.ConnectionException;
 import org.azd.connection.Connection;
 import org.azd.utils.BaseClient;
 import org.azd.utils.ResourceId;
@@ -14,7 +14,7 @@ import java.util.List;
 public class BaseClientTest {
 
     @Test
-    public void shouldMockGetRequestToAPI() throws DefaultParametersException, AzDException {
+    public void shouldMockGetRequestToAPI() throws ConnectionException, AzDException {
         // Given
         String organization = "Test";
         String token = "myPersonalAccessToken";
@@ -35,7 +35,7 @@ public class BaseClientTest {
     }
 
     @Test
-    public void shouldMockPostRequestToAPI() throws DefaultParametersException, AzDException {
+    public void shouldMockPostRequestToAPI() throws ConnectionException, AzDException {
         // Given
         String organization = "Test";
         String project = "AzD";
@@ -65,7 +65,7 @@ public class BaseClientTest {
     }
 
     @Test
-    public void shouldMockPatchRequestToAPI() throws DefaultParametersException, AzDException {
+    public void shouldMockPatchRequestToAPI() throws ConnectionException, AzDException {
         // Given
         String organization = "Test";
         String project = "AzD";
@@ -98,7 +98,7 @@ public class BaseClientTest {
     }
 
     @Test
-    public void shouldMockDeleteRequestToAPI() throws DefaultParametersException, AzDException {
+    public void shouldMockDeleteRequestToAPI() throws ConnectionException, AzDException {
         // Given
         String organization = "Test";
         String project = "AzD";

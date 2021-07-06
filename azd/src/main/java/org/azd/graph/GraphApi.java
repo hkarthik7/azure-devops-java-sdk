@@ -3,7 +3,7 @@ package org.azd.graph;
 import org.azd.connection.Connection;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.DefaultParametersException;
+import org.azd.exceptions.ConnectionException;
 import org.azd.graph.types.GraphGroup;
 import org.azd.graph.types.GraphGroups;
 import org.azd.graph.types.GraphUser;
@@ -44,12 +44,12 @@ public class GraphApi implements GraphDetails {
      * @param emailId provide the user principal name (email address) of the user to be added.
      * @param userDescriptor provide the user descriptor for reference
      * @return GraphUser {@link GraphUser}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public GraphUser createUser(String emailId, String userDescriptor) throws DefaultParametersException, AzDException {
+    public GraphUser createUser(String emailId, String userDescriptor) throws ConnectionException, AzDException {
         var b = new HashMap<String, Object>(){{
             put("principalName", emailId);
         }};
@@ -66,12 +66,12 @@ public class GraphApi implements GraphDetails {
      * @param emailId provide the user principal name (email address) of the user to be added.
      * @param groupDescriptor provide the group descriptor.
      * @return GraphUser {@link GraphUser}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public GraphUser addUserToGroup(String emailId, String groupDescriptor) throws DefaultParametersException, AzDException {
+    public GraphUser addUserToGroup(String emailId, String groupDescriptor) throws ConnectionException, AzDException {
         var b = new HashMap<String, Object>(){{
             put("principalName", emailId);
         }};
@@ -89,18 +89,18 @@ public class GraphApi implements GraphDetails {
     /***
      * Disables a user. The user will still be visible, but membership checks for the user will return false.”
      * @param userDescriptor The descriptor of the user to delete.
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteUser(String userDescriptor) throws DefaultParametersException, AzDException {
+    public void deleteUser(String userDescriptor) throws ConnectionException, AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, ResourceId.GRAPH, null,
                     AREA, null, "users/" + userDescriptor, GraphVersion.VERSION, null, null);
 
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
-        } catch (DefaultParametersException | AzDException e) {
+        } catch (ConnectionException | AzDException e) {
             throw e;
         }
     }
@@ -109,12 +109,12 @@ public class GraphApi implements GraphDetails {
      * Get a user by its descriptor.
      * @param userDescriptor The descriptor of the desired user.
      * @return GraphUser {@link GraphUser}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public GraphUser getUser(String userDescriptor) throws DefaultParametersException, AzDException {
+    public GraphUser getUser(String userDescriptor) throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.GRAPH, null,
                 AREA, null, "users/" + userDescriptor, GraphVersion.VERSION, null, null);
 
@@ -124,12 +124,12 @@ public class GraphApi implements GraphDetails {
     /***
      * Get a list of all users in a given scope.
      * @return GraphUsers {@link GraphUsers}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public GraphUsers getUsers() throws DefaultParametersException, AzDException {
+    public GraphUsers getUsers() throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.GRAPH, null,
                 AREA, null, "users", GraphVersion.VERSION, null, null);
 
@@ -148,12 +148,12 @@ public class GraphApi implements GraphDetails {
      * @param subjectTypes String array of user subject subtypes to reduce the retrieved
      * results, e.g. msa’, ‘aad’, ‘svc’ (service identity), ‘imp’ (imported identity), etc.
      * @return GraphUsers {@link GraphUsers}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public GraphUsers getUsers(String continuationToken, String scopeDescriptor, String subjectTypes) throws DefaultParametersException, AzDException {
+    public GraphUsers getUsers(String continuationToken, String scopeDescriptor, String subjectTypes) throws ConnectionException, AzDException {
         var q = new HashMap<String, Object>(){{
             put("subjectTypes", String.join(",", subjectTypes));
             put("continuationToken", continuationToken);
@@ -170,12 +170,12 @@ public class GraphApi implements GraphDetails {
      * Get a group by its descriptor. The group will be returned even if it has been deleted from the account or has had all its memberships deleted.
      * @param groupDescriptor The descriptor of the desired graph group.
      * @return GraphGroup {@link GraphGroup}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public GraphGroup getGroup(String groupDescriptor) throws DefaultParametersException, AzDException {
+    public GraphGroup getGroup(String groupDescriptor) throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.GRAPH, null,
                 AREA, null, "groups/" + groupDescriptor, GraphVersion.VERSION, null, null);
 
@@ -185,12 +185,12 @@ public class GraphApi implements GraphDetails {
     /***
      * Gets a list of all groups in the current scope (usually organization or account).
      * @return GraphGroups {@link GraphGroups}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public GraphGroups getGroups() throws DefaultParametersException, AzDException {
+    public GraphGroups getGroups() throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.GRAPH, null,
                 AREA, null, "groups", GraphVersion.VERSION, null, null);
 

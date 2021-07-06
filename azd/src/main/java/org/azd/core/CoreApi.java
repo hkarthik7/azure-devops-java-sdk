@@ -4,7 +4,7 @@ import org.azd.connection.Connection;
 import org.azd.core.types.*;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.DefaultParametersException;
+import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.CoreDetails;
 import org.azd.utils.ResourceId;
@@ -33,13 +33,13 @@ public class CoreApi implements CoreDetails {
 
     /***
      * Get a list of processes.
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      * @return a list of processes {@link Processes}
      */
     @Override
-    public Processes getProcesses() throws DefaultParametersException, AzDException {
+    public Processes getProcesses() throws ConnectionException, AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.CORE,null,
                         "process/processes",null,null, CoreVersion.VERSION,null,null);
@@ -51,13 +51,13 @@ public class CoreApi implements CoreDetails {
      * Creates a default scrum project
      * @param projectName pass the project name
      * @param description pass the description for the project
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      * @return object with link to the project
      */
     @Override
-    public Map createProject(String projectName, String description) throws DefaultParametersException, AzDException {
+    public Map createProject(String projectName, String description) throws ConnectionException, AzDException {
 
         LinkedHashMap<String, Object> h = new LinkedHashMap<>() {{
             put("name", projectName);
@@ -84,14 +84,14 @@ public class CoreApi implements CoreDetails {
      * @param description project description
      * @param sourceControlType type of version control
      * @param templateTypeId pass the process id. Run getProcesses to get the list of process id
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      * @return object with link to the project
      */
     @Override
     public Map createProject(String projectName, String description, String sourceControlType,
-                             String templateTypeId) throws DefaultParametersException, AzDException {
+                             String templateTypeId) throws ConnectionException, AzDException {
 
         LinkedHashMap<String, Object> h = new LinkedHashMap<>() {{
             put("name", projectName);
@@ -120,13 +120,13 @@ public class CoreApi implements CoreDetails {
      *     and get the Id.
      * </p>
      * @param projectId pass the project id
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      * @return object of deleted project with url
      */
     @Override
-    public Map deleteProject(String projectId) throws DefaultParametersException, AzDException {
+    public Map deleteProject(String projectId) throws ConnectionException, AzDException {
 
         String r = send(RequestMethod.DELETE, CONNECTION, ResourceId.CORE, null,
                         "projects", projectId,null, CoreVersion.PROJECT,null,null);
@@ -137,13 +137,13 @@ public class CoreApi implements CoreDetails {
     /***
      * Get project with the specified id or name
      * @param projectName pass the project name or id
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      * @return project object {@link Project}
      */
     @Override
-    public Project getProject(String projectName) throws DefaultParametersException, AzDException {
+    public Project getProject(String projectName) throws ConnectionException, AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.CORE,null,
                         "projects", projectName,null, CoreVersion.PROJECT,null,null);
@@ -156,13 +156,13 @@ public class CoreApi implements CoreDetails {
      * @param projectName pass the project name or id
      * @param includeCapabilities Include capabilities (such as source control) in the team project result (default: false).
      * @param includeHistory Search within renamed projects (that had such name in the past).
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      * @return project object {@link Project}
      */
     @Override
-    public Project getProject(String projectName, boolean includeCapabilities, boolean includeHistory) throws DefaultParametersException, AzDException {
+    public Project getProject(String projectName, boolean includeCapabilities, boolean includeHistory) throws ConnectionException, AzDException {
 
         HashMap<String, Object> q = new HashMap<>() {{
             put("includeCapabilities", includeCapabilities);
@@ -178,13 +178,13 @@ public class CoreApi implements CoreDetails {
     /***
      * Get a collection of team project properties.
      * @param projectId provide the project guid not the project name
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      * @return ProjectProperties {@link ProjectProperties}
      */
     @Override
-    public ProjectProperties getProjectProperties(String projectId) throws DefaultParametersException, AzDException {
+    public ProjectProperties getProjectProperties(String projectId) throws ConnectionException, AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.CORE, null,
                 "projects", projectId, "properties", CoreVersion.PROJECT_PROPERTIES, null, null);
@@ -194,13 +194,13 @@ public class CoreApi implements CoreDetails {
 
     /***
      * Get all projects in the organization that the authenticated user has access to.
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      * @return array of projects {@link Projects}
      */
     @Override
-    public Projects getProjects() throws DefaultParametersException, AzDException {
+    public Projects getProjects() throws ConnectionException, AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.CORE, null,
                         "projects", null, null, CoreVersion.PROJECT, null, null);
@@ -215,14 +215,14 @@ public class CoreApi implements CoreDetails {
      * @param continuationToken specify the next value to retrieve
      * @param getDefaultTeamImageUrl if true gets the default team image url
      * @param stateFilter allowed values are [all, createPending, deleted, deleting, new, unchanged, wellFormed]
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      * @return array of projects {@link Projects}
      */
     @Override
     public Projects getProjects(int skip, int top, String continuationToken,
-                                boolean getDefaultTeamImageUrl, String stateFilter) throws DefaultParametersException, AzDException {
+                                boolean getDefaultTeamImageUrl, String stateFilter) throws ConnectionException, AzDException {
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("$skip", skip);
@@ -243,13 +243,13 @@ public class CoreApi implements CoreDetails {
      * @param projectId pass the project id
      * @param projectParameters HashMap of project parameters to be updated.
      * <p> Refer "https://docs.microsoft.com/en-us/rest/api/azure/devops/core/projects/update?view=azure-devops-rest-6.1" </p>
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      * @return an object or team project with url
      */
     @Override
-    public Map updateProject(String projectId, HashMap<String, Object> projectParameters) throws DefaultParametersException, AzDException {
+    public Map updateProject(String projectId, HashMap<String, Object> projectParameters) throws ConnectionException, AzDException {
 
         String r = send(RequestMethod.PATCH, CONNECTION, ResourceId.CORE, null,
                         "projects", projectId, null, CoreVersion.PROJECT, null, projectParameters);
@@ -261,13 +261,13 @@ public class CoreApi implements CoreDetails {
      * Create a team in a team project.
      * @param projectName project name or GUID
      * @param teamName pass the team name
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      * @return returns web api object
      */
     @Override
-    public Map createTeam(String projectName, String teamName) throws DefaultParametersException, AzDException {
+    public Map createTeam(String projectName, String teamName) throws ConnectionException, AzDException {
 
         HashMap<String, Object> h = new HashMap<>(){{
             put("name", teamName);
@@ -283,17 +283,17 @@ public class CoreApi implements CoreDetails {
      * Delete a team.
      * @param projectName pass the project name or id
      * @param teamName pass the team name
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteTeam(String projectName, String teamName) throws DefaultParametersException, AzDException {
+    public void deleteTeam(String projectName, String teamName) throws ConnectionException, AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, ResourceId.CORE, null,
                     "projects", projectName, "teams/" + teamName, CoreVersion.PROJECT_TEAMS, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
-        } catch (DefaultParametersException | AzDException e) {
+        } catch (ConnectionException | AzDException e) {
             throw e;
         }
     }
@@ -302,13 +302,13 @@ public class CoreApi implements CoreDetails {
      * Get a specific team.
      * @param projectName pass the project name or id
      * @param teamName pass the team name
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      * @return team object
      */
     @Override
-    public Team getTeam(String projectName, String teamName) throws DefaultParametersException, AzDException {
+    public Team getTeam(String projectName, String teamName) throws ConnectionException, AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.CORE, null,
                         "projects", projectName, "teams/" + teamName, CoreVersion.PROJECT_TEAMS, null, null);
@@ -321,13 +321,13 @@ public class CoreApi implements CoreDetails {
      * @param projectName pass the project name or id
      * @param teamName pass the team name
      * @param expandIdentity if true gets the identity object
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      * @return team object
      */
     @Override
-    public Team getTeam(String projectName, String teamName, boolean expandIdentity) throws DefaultParametersException, AzDException {
+    public Team getTeam(String projectName, String teamName, boolean expandIdentity) throws ConnectionException, AzDException {
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("$expandIdentity", expandIdentity);
@@ -341,13 +341,13 @@ public class CoreApi implements CoreDetails {
 
     /***
      * Get a list of all teams.
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      * @return array of team
      */
     @Override
-    public Teams getTeams() throws DefaultParametersException, AzDException {
+    public Teams getTeams() throws ConnectionException, AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.CORE, null,
                         "teams", null, null, CoreVersion.PROJECT_TEAMS, null, null);
@@ -360,13 +360,13 @@ public class CoreApi implements CoreDetails {
      * @param mine if true gets the team to which user has access to
      * @param skip pass to skip number of teams
      * @param top pass to retrieve number of teams
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      * @return array of team
      */
     @Override
-    public Teams getTeams(boolean expandIdentity, String mine, int skip, int top) throws DefaultParametersException, AzDException {
+    public Teams getTeams(boolean expandIdentity, String mine, int skip, int top) throws ConnectionException, AzDException {
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("$expandIdentity", expandIdentity);
@@ -386,13 +386,13 @@ public class CoreApi implements CoreDetails {
      * @param projectName The name or ID (GUID) of the team project containing the team to update.
      * @param teamName The name or ID of the team to update.
      * @param description provide the description for your team to update
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      * @return team object {@link Team}
      */
     @Override
-    public Team updateTeams(String projectName, String teamName, String description) throws DefaultParametersException, AzDException {
+    public Team updateTeams(String projectName, String teamName, String description) throws ConnectionException, AzDException {
 
         HashMap<String, Object> h = new HashMap<>(){{
             put("name", teamName);

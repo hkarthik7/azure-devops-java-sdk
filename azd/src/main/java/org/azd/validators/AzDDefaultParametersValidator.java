@@ -1,6 +1,6 @@
 package org.azd.validators;
 
-import org.azd.exceptions.DefaultParametersException;
+import org.azd.exceptions.ConnectionException;
 
 /**
  * Validates if the default parameters are passed or not
@@ -10,11 +10,11 @@ public class AzDDefaultParametersValidator {
 
     /**
      * Validates if the default parameters are passed or not
-     * @throws DefaultParametersException user should declare the default parameters
+     * @throws ConnectionException user should declare the default parameters
      */
-    public static void validateDefaultParameters() throws DefaultParametersException {
+    public static void validateDefaultParameters() throws ConnectionException {
         if(System.getProperty("AZD_ORG") == null || System.getProperty("AZD_TOKEN") == null) {
-            throw new DefaultParametersException();
+            throw new ConnectionException();
         }
     }
 }

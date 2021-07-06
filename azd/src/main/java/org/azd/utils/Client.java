@@ -3,7 +3,7 @@ package org.azd.utils;
 import org.azd.connection.Connection;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.DefaultParametersException;
+import org.azd.exceptions.ConnectionException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +27,7 @@ public abstract class Client extends BaseClient {
      * @param queryString query string to append the url
      * @param body body of the request to post and patch
      * @return String response from API
-     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws ConnectionException {@link ConnectionException}
      * @throws AzDException {@link AzDException}
      */
     public static String send(
@@ -40,7 +40,7 @@ public abstract class Client extends BaseClient {
             String resource,
             String apiVersion,
             HashMap<String, Object> queryString,
-            HashMap<String, Object> body) throws DefaultParametersException, AzDException {
+            HashMap<String, Object> body) throws ConnectionException, AzDException {
         String requestUrl = buildRequestUrl(connection.getOrganization(), resourceId, project, area, id, resource, apiVersion, queryString);
 
         if (requestMethod.toString().equals("GET")) {
@@ -76,7 +76,7 @@ public abstract class Client extends BaseClient {
      * @param body body of the request to post and patch
      * @param contentType content type to pass in the request header
      * @return String response from API
-     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws ConnectionException {@link ConnectionException}
      * @throws AzDException {@link AzDException}
      */
     public static String send(
@@ -90,7 +90,7 @@ public abstract class Client extends BaseClient {
             String apiVersion,
             HashMap<String, Object> queryString,
             HashMap<String, Object> body,
-            String contentType) throws DefaultParametersException, AzDException {
+            String contentType) throws ConnectionException, AzDException {
         String requestUrl = buildRequestUrl(connection.getOrganization(), resourceId, project, area, id, resource, apiVersion, queryString);
 
         if (requestMethod.toString().equals("GET") & (contentType != null)) {
@@ -131,7 +131,7 @@ public abstract class Client extends BaseClient {
      * @param requestBody body of the request to post and patch. This should be a list of HashMap
      * @param contentType content type to pass in the request header
      * @return String response from API
-     * @throws DefaultParametersException {@link DefaultParametersException}
+     * @throws ConnectionException {@link ConnectionException}
      * @throws AzDException {@link AzDException}
      */
     public static String send(
@@ -146,7 +146,7 @@ public abstract class Client extends BaseClient {
             HashMap<String, Object> queryString,
             HashMap<String, Object> body,
             List<Object> requestBody,
-            String contentType) throws DefaultParametersException, AzDException {
+            String contentType) throws ConnectionException, AzDException {
         String requestUrl = buildRequestUrl(connection.getOrganization(), resourceId, project, area, id, resource, apiVersion, queryString);
 
         if (requestMethod.toString().equals("GET") & (contentType != null)) {

@@ -5,11 +5,10 @@ import org.azd.enums.WorkItemErrorPolicy;
 import org.azd.enums.WorkItemExpand;
 import org.azd.enums.WorkItemOperation;
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.DefaultParametersException;
+import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.WorkItemDetails;
 import org.azd.connection.Connection;
-import org.azd.utils.Client;
 import org.azd.utils.ResourceId;
 import org.azd.workitemtracking.types.*;
 
@@ -42,13 +41,14 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      * @param operation The patch operation {@link WorkItemOperation}
      * @param title The title for the work item
      * @return {@link WorkItem}
-     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
-     * @throws AzDException Exception handler
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public WorkItem createWorkItem(String workItemType,
                                    WorkItemOperation operation,
-                                   String title) throws DefaultParametersException, AzDException {
+                                   String title) throws ConnectionException, AzDException {
         var req = new HashMap<String, Object>(){{
             put("op", operation.toString().toLowerCase());
             put("path", "/fields/System.Title");
@@ -71,13 +71,14 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      * @param description Description for the work item
      * @param tags Tags for the work item
      * @return {@link WorkItem}
-     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
-     * @throws AzDException Exception handler
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public WorkItem createWorkItem(String workItemType,
                                    WorkItemOperation operation, String title,
-                                   String description, String[] tags) throws DefaultParametersException, AzDException {
+                                   String description, String[] tags) throws ConnectionException, AzDException {
         var t = new HashMap<String, Object>(){{
             put("op", operation.toString().toLowerCase());
             put("path", "/fields/System.Title");
@@ -115,11 +116,12 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      * Deletes the specified work item and sends it to the Recycle Bin, so that it can be restored back, if required.
       * @param id ID of the work item to be deleted
      * @return {@link WorkItemDelete}
-     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
-     * @throws AzDException Exception handler
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public WorkItemDelete deleteWorkItem(int id) throws DefaultParametersException, AzDException {
+    public WorkItemDelete deleteWorkItem(int id) throws ConnectionException, AzDException {
         String r = send(RequestMethod.DELETE, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
                 AREA + "/workitems",  String.valueOf(id),null , WorkItemVersion.VERSION, null, null);
 
@@ -135,11 +137,12 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      * @param destroy Optional parameter, if set to true, the work item is deleted permanently.
      *                Please note: the destroy action is PERMANENT and cannot be undone.
      * @return {@link WorkItemDelete}
-     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
-     * @throws AzDException Exception handler
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public WorkItemDelete deleteWorkItem(int id, boolean destroy) throws DefaultParametersException, AzDException {
+    public WorkItemDelete deleteWorkItem(int id, boolean destroy) throws ConnectionException, AzDException {
 
         var q = new HashMap<String, Object>(){{put("destroy", destroy);}};
 
@@ -153,11 +156,12 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      * Returns a single work item.
      * @param id The work item id
      * @return WorkItem {@link WorkItem}
-     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
-     * @throws AzDException Exception handler
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public WorkItem getWorkItem(int id) throws DefaultParametersException, AzDException {
+    public WorkItem getWorkItem(int id) throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
                 AREA + "/workitems", Integer.toString(id), null, WorkItemVersion.VERSION, null, null);
 
@@ -170,11 +174,12 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      * @param expand The expand parameters for work item attributes.
      * Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
      * @return WorkItem {@link WorkItem}
-     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
-     * @throws AzDException Exception handler
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public WorkItem getWorkItem(int id, WorkItemExpand expand) throws DefaultParametersException, AzDException {
+    public WorkItem getWorkItem(int id, WorkItemExpand expand) throws ConnectionException, AzDException {
         var q = new HashMap<String, Object>(){{
            put("$expand", expand.toString().toLowerCase());
         }};
@@ -192,11 +197,12 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      * Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
      * @param asOf AsOf UTC date time string
      * @return WorkItem {@link WorkItem}
-     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
-     * @throws AzDException Exception handler
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public WorkItem getWorkItem(int id, WorkItemExpand expand, String asOf) throws DefaultParametersException, AzDException {
+    public WorkItem getWorkItem(int id, WorkItemExpand expand, String asOf) throws ConnectionException, AzDException {
         var q = new HashMap<String, Object>(){{
             put("asOf", asOf);
             put("$expand", expand.toString().toLowerCase());
@@ -215,11 +221,12 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      * Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
      * @param fields Comma-separated list of requested fields
      * @return WorkItem {@link WorkItem}
-     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
-     * @throws AzDException Exception handler
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public WorkItem getWorkItem(int id, WorkItemExpand expand, String[] fields) throws DefaultParametersException, AzDException {
+    public WorkItem getWorkItem(int id, WorkItemExpand expand, String[] fields) throws ConnectionException, AzDException {
         var q = new HashMap<String, Object>(){{
             put("fields", String.join(",", fields));
             put("$expand", expand.toString().toLowerCase());
@@ -239,11 +246,12 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      * @param fields Comma-separated list of requested fields
      * @param asOf AsOf UTC date time string
      * @return WorkItem {@link WorkItem}
-     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
-     * @throws AzDException Exception handler
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public WorkItem getWorkItem(int id, WorkItemExpand expand, String[] fields, String asOf) throws DefaultParametersException, AzDException {
+    public WorkItem getWorkItem(int id, WorkItemExpand expand, String[] fields, String asOf) throws ConnectionException, AzDException {
         var q = new HashMap<String, Object>(){{
             put("fields", String.join(",", fields));
             put("asOf", asOf);
@@ -260,11 +268,12 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      * Returns a list of work items (Maximum 200)
      * @param ids Integer array of requested work item ids. (Maximum 200 ids allowed).
      * @return {@link WorkItemList}
-     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
-     * @throws AzDException Exception handler
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public WorkItemList getWorkItems(int[] ids) throws DefaultParametersException, AzDException {
+    public WorkItemList getWorkItems(int[] ids) throws ConnectionException, AzDException {
         var q = new HashMap<String, Object>(){{put("ids", intArrayToString(ids));}};
 
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
@@ -279,11 +288,12 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      * @param expand The expand parameters for work item attributes.
      * Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
      * @return {@link WorkItemList}
-     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
-     * @throws AzDException Exception handler
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public WorkItemList getWorkItems(int[] ids, WorkItemExpand expand) throws DefaultParametersException, AzDException {
+    public WorkItemList getWorkItems(int[] ids, WorkItemExpand expand) throws ConnectionException, AzDException {
         var q = new HashMap<String, Object>(){{
             put("ids", intArrayToString(ids));
             put("$expand", expand.toString().toLowerCase());
@@ -302,11 +312,12 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      * Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
      * @param asOf AsOf UTC date time string
      * @return {@link WorkItemList}
-     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
-     * @throws AzDException Exception handler
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public WorkItemList getWorkItems(int[] ids, WorkItemExpand expand, String asOf) throws DefaultParametersException, AzDException {
+    public WorkItemList getWorkItems(int[] ids, WorkItemExpand expand, String asOf) throws ConnectionException, AzDException {
         var q = new HashMap<String, Object>(){{
             put("ids", intArrayToString(ids));
             put("$expand", expand.toString().toLowerCase());
@@ -326,11 +337,12 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      * Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
      * @param fields Comma-separated list of requested fields
      * @return {@link WorkItemList}
-     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
-     * @throws AzDException Exception handler
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public WorkItemList getWorkItems(int[] ids, WorkItemExpand expand, String[] fields) throws DefaultParametersException, AzDException {
+    public WorkItemList getWorkItems(int[] ids, WorkItemExpand expand, String[] fields) throws ConnectionException, AzDException {
         var q = new HashMap<String, Object>(){{
             put("ids", intArrayToString(ids));
             put("$expand", expand.toString().toLowerCase());
@@ -353,11 +365,12 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      * @param errorPolicy The flag to control error policy in a bulk get work items request.
      * Possible options are {Fail, Omit}. {@link WorkItemErrorPolicy}
      * @return {@link WorkItemList}
-     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
-     * @throws AzDException Exception handler
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public WorkItemList getWorkItems(int[] ids, WorkItemExpand expand, String[] fields, String asOf, WorkItemErrorPolicy errorPolicy) throws DefaultParametersException, AzDException {
+    public WorkItemList getWorkItems(int[] ids, WorkItemExpand expand, String[] fields, String asOf, WorkItemErrorPolicy errorPolicy) throws ConnectionException, AzDException {
         var q = new HashMap<String, Object>(){{
             put("ids", intArrayToString(ids));
             put("$expand", expand.toString().toLowerCase());
@@ -376,11 +389,12 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      * Returns the list of fully hydrated work item revisions.
      * @param workItemId The id of the work item
      * @return {@link WorkItemList}
-     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
-     * @throws AzDException Exception handler
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public WorkItemList getWorkItemRevisions(int workItemId) throws DefaultParametersException, AzDException {
+    public WorkItemList getWorkItemRevisions(int workItemId) throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
                 AREA + "/workitems", Integer.toString(workItemId), "revisions", WorkItemVersion.VERSION, null, null);
 
@@ -393,11 +407,12 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      * @param expand The expand parameters for work item attributes.
      * Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
      * @return {@link WorkItemList}
-     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
-     * @throws AzDException Exception handler
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public WorkItemList getWorkItemRevisions(int workItemId, WorkItemExpand expand) throws DefaultParametersException, AzDException {
+    public WorkItemList getWorkItemRevisions(int workItemId, WorkItemExpand expand) throws ConnectionException, AzDException {
         var q = new HashMap<String, Object>(){{put("$expand", expand.toString().toLowerCase());}};
 
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
@@ -415,11 +430,12 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      * @param top Specify top pages to list
      * @param skip Specify to skip pages
      * @return {@link WorkItemList}
-     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
-     * @throws AzDException Exception handler
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public WorkItemList getWorkItemRevisions(int workItemId, WorkItemExpand expand, int top, int skip) throws DefaultParametersException, AzDException {
+    public WorkItemList getWorkItemRevisions(int workItemId, WorkItemExpand expand, int top, int skip) throws ConnectionException, AzDException {
         var q = new HashMap<String, Object>(){{
             put("$expand", expand.toString().toLowerCase());
             put("$top", top);
@@ -437,11 +453,12 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      * @param workItemId The id of the work item
      * @param revisionNumber The work item revision number
      * @return {@link WorkItem}
-     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
-     * @throws AzDException Exception handler
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public WorkItem getWorkItemRevision(int workItemId, int revisionNumber) throws DefaultParametersException, AzDException {
+    public WorkItem getWorkItemRevision(int workItemId, int revisionNumber) throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
                 AREA + "/workitems", Integer.toString(workItemId), "revisions/" + revisionNumber,
                 WorkItemVersion.VERSION, null, null);
@@ -456,11 +473,12 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      * @param expand The expand parameters for work item attributes.
      * Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
      * @return {@link WorkItem}
-     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
-     * @throws AzDException Exception handler
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public WorkItem getWorkItemRevision(int workItemId, int revisionNumber, WorkItemExpand expand) throws DefaultParametersException, AzDException {
+    public WorkItem getWorkItemRevision(int workItemId, int revisionNumber, WorkItemExpand expand) throws ConnectionException, AzDException {
         var q = new HashMap<String, Object>(){{put("$expand", expand.toString().toLowerCase());}};
 
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
@@ -475,12 +493,12 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      * @param team Team ID or team name
      * @param query Specify the query to list the work items. E.g., "Select * From WorkItems Where [System.WorkItemType] = 'User Story'"
      * @return WorkItemQueryResult {@link WorkItemQueryResult}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * @throws ConnectionException set the default parameters organization name, project name and
      * personal access token to work with any API in this library.
      * @throws AzDException Handles errors from REST API and validates passed arguments
      */
     @Override
-    public WorkItemQueryResult queryByWiql(String team, String query) throws DefaultParametersException, AzDException {
+    public WorkItemQueryResult queryByWiql(String team, String query) throws ConnectionException, AzDException {
         var body = new HashMap<String, Object>(){{put("query", query);}};
 
         String r = send(RequestMethod.POST, CONNECTION, ResourceId.WIT, CONNECTION.getProject() + "/" + encodeSpace(team),
@@ -496,12 +514,12 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      * @param top The max number of results to return.
      * @param timePrecision The max number of results to return.
      * @return WorkItemQueryResult {@link WorkItemQueryResult}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * @throws ConnectionException set the default parameters organization name, project name and
      * personal access token to work with any API in this library.
      * @throws AzDException Handles errors from REST API and validates passed arguments
      */
     @Override
-    public WorkItemQueryResult queryByWiql(String team, String query, int top, boolean timePrecision) throws DefaultParametersException, AzDException {
+    public WorkItemQueryResult queryByWiql(String team, String query, int top, boolean timePrecision) throws ConnectionException, AzDException {
         var body = new HashMap<String, Object>(){{put("query", query);}};
 
         var q = new HashMap<String, Object>(){{
@@ -518,17 +536,17 @@ public class WorkItemTrackingApi implements WorkItemDetails {
     /***
      * Destroys the specified work item permanently from the Recycle Bin. This action can not be undone.
      * @param id ID of the work item to be destroyed permanently
-     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * @throws ConnectionException set the default parameters organization name, project name and
      * personal access token to work with any API in this library.
      * @throws AzDException Handles errors from REST API and validates passed arguments
      */
     @Override
-    public void removeWorkItemFromRecycleBin(int id) throws DefaultParametersException, AzDException {
+    public void removeWorkItemFromRecycleBin(int id) throws ConnectionException, AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
                     AREA + "/recyclebin", Integer.toString(id), null, WorkItemVersion.RECYCLE_BIN_VERSION, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
-        } catch (DefaultParametersException | AzDException e) {
+        } catch (ConnectionException | AzDException e) {
             throw e;
         }
     }
@@ -537,12 +555,12 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      * Gets a deleted work item from Recycle Bin.
      * @param id ID of the work item to be returned
      * @return WorkItemDeleteReference {@link WorkItemDeleteReference}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * @throws ConnectionException set the default parameters organization name, project name and
      * personal access token to work with any API in this library.
      * @throws AzDException Handles errors from REST API and validates passed arguments
      */
     @Override
-    public WorkItemDeleteReference getWorkItemFromRecycleBin(int id) throws DefaultParametersException, AzDException {
+    public WorkItemDeleteReference getWorkItemFromRecycleBin(int id) throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
                 AREA + "/recyclebin", Integer.toString(id), null, WorkItemVersion.RECYCLE_BIN_VERSION, null, null);
 
@@ -552,12 +570,12 @@ public class WorkItemTrackingApi implements WorkItemDetails {
     /***
      * Gets a list of the IDs and the URLs of the deleted the work items in the Recycle Bin.
      * @return WorkItemDeleteShallowReferences {@link WorkItemDeleteShallowReferences}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * @throws ConnectionException set the default parameters organization name, project name and
      * personal access token to work with any API in this library.
      * @throws AzDException Handles errors from REST API and validates passed arguments
      */
     @Override
-    public WorkItemDeleteShallowReferences getDeletedWorkItemsFromRecycleBin() throws DefaultParametersException, AzDException {
+    public WorkItemDeleteShallowReferences getDeletedWorkItemsFromRecycleBin() throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.WIT, CONNECTION.getProject(),
                 AREA + "/recyclebin", null, null, WorkItemVersion.RECYCLE_BIN_VERSION, null, null);
 
@@ -568,12 +586,12 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      * Gets the work items from the recycle bin, whose IDs have been specified in the parameters
      * @param ids array of workitem ids
      * @return WorkItemDeleteReferences {@link WorkItemDeleteReferences}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * @throws ConnectionException set the default parameters organization name, project name and
      * personal access token to work with any API in this library.
      * @throws AzDException Handles errors from REST API and validates passed arguments
      */
     @Override
-    public WorkItemDeleteReferences getDeletedWorkItemsFromRecycleBin(int[] ids) throws DefaultParametersException, AzDException {
+    public WorkItemDeleteReferences getDeletedWorkItemsFromRecycleBin(int[] ids) throws ConnectionException, AzDException {
         var q = new HashMap<String, Object>(){{
            put("ids", intArrayToString(ids));
         }};
@@ -588,12 +606,12 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      * Restores the deleted work item from Recycle Bin.
      * @param id ID of the work item to be restored
      * @return WorkItemDeleteReference {@link WorkItemDeleteReference}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
+     * @throws ConnectionException set the default parameters organization name, project name and
      * personal access token to work with any API in this library.
      * @throws AzDException Handles errors from REST API and validates passed arguments
      */
     @Override
-    public WorkItemDeleteReference restoreWorkItemFromRecycleBin(int id) throws DefaultParametersException, AzDException {
+    public WorkItemDeleteReference restoreWorkItemFromRecycleBin(int id) throws ConnectionException, AzDException {
         var b = new HashMap<String, Object>(){{
             put("isDeleted", false);
         }};

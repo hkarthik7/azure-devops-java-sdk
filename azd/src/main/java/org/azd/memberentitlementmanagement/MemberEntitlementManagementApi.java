@@ -6,7 +6,7 @@ import org.azd.enums.GroupType;
 import org.azd.enums.LicensingSource;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.DefaultParametersException;
+import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.MemberEntitlementManagementDetails;
 import org.azd.memberentitlementmanagement.types.*;
@@ -40,12 +40,12 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
     /***
      * Get the group entitlements for an account.
      * @return GroupEntitlements {@link GroupEntitlements}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public GroupEntitlements getGroupEntitlements() throws DefaultParametersException, AzDException {
+    public GroupEntitlements getGroupEntitlements() throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
                 GROUP_AREA, null, null, MemberEntitlementManagementVersion.VERSION, null, null);
 
@@ -56,12 +56,12 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
      * Get a group entitlement. If the group entitlement does not exist, returns null.
      * @param groupId ID of the group.
      * @return GroupEntitlement {@link GroupEntitlement}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public GroupEntitlement getGroupEntitlement(String groupId) throws DefaultParametersException, AzDException {
+    public GroupEntitlement getGroupEntitlement(String groupId) throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
                 GROUP_AREA, groupId, null, MemberEntitlementManagementVersion.VERSION, null, null);
 
@@ -71,12 +71,12 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
     /***
      * Get summary of Licenses, Extension, Projects, Groups and their assignments in the collection.
      * @return UsersSummary {@link UsersSummary}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public UsersSummary getUserEntitlementSummary() throws DefaultParametersException, AzDException {
+    public UsersSummary getUserEntitlementSummary() throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
                 "userentitlementsummary", null, null, MemberEntitlementManagementVersion.VERSION, null, null);
 
@@ -87,12 +87,12 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
      * Get direct members of a Group.
      * @param groupId Id of the Group.
      * @return PagedGraphMemberList {@link PagedGraphMemberList}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public PagedGraphMemberList getMembers(String groupId) throws DefaultParametersException, AzDException {
+    public PagedGraphMemberList getMembers(String groupId) throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
                 GROUP_AREA, groupId, "members", MemberEntitlementManagementVersion.VERSION, null, null);
 
@@ -106,12 +106,12 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
      * @param pagingToken Paging Token from the previous page fetched.
      * If the 'pagingToken' is null, the results would be fetched from the beginning of the Members List.
      * @return PagedGraphMemberList {@link PagedGraphMemberList}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public PagedGraphMemberList getMembers(String groupId, int maxResults, String pagingToken) throws DefaultParametersException, AzDException {
+    public PagedGraphMemberList getMembers(String groupId, int maxResults, String pagingToken) throws ConnectionException, AzDException {
         var q = new HashMap<String, Object>(){{
            put("maxResults", maxResults);
             put("pagingToken", pagingToken);
@@ -127,12 +127,12 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
      * Remove a member from a Group.
      * @param groupId Id of the group.
      * @param memberId Id of the group.
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void removeMemberFromGroup(String groupId, String memberId) throws DefaultParametersException, AzDException {
+    public void removeMemberFromGroup(String groupId, String memberId) throws ConnectionException, AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
                     GROUP_AREA, groupId, "members/" + memberId,
@@ -140,7 +140,7 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
 
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
 
-        } catch (DefaultParametersException | AzDException e) {
+        } catch (ConnectionException | AzDException e) {
             throw e;
         }
     }
@@ -152,13 +152,13 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
      * @param groupType Type of the group. (e.g. Project Administrator, Project Contributor, etc.) {@link GroupType}
      * @param projectId Id of the project. Get the project id by running getProjects() or getProject("projectName") from CoreApi.
      * @return UserEntitlementsResponse {@link UserEntitlementsResponse}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public UserEntitlementsResponse addUserEntitlement(AccountLicenseType accountLicenseType, String emailId, GroupType groupType, String projectId)
-            throws DefaultParametersException, AzDException {
+            throws ConnectionException, AzDException {
 
         var projectEntitlement = new LinkedHashMap<String, Object>(){{
             put("group", new LinkedHashMap<String, Object>(){{
@@ -191,12 +191,12 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
      * The delete operation includes unassigning Extensions and Licenses and removing the user from all project memberships.
      * The user would continue to have access to the account if she is member of an AAD group, that is added directly to the account.
      * @param userId userId ID of the user. Run getUserEntitlements() to get a list of users and get the user id.
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteUserEntitlement(String userId) throws DefaultParametersException, AzDException {
+    public void deleteUserEntitlement(String userId) throws ConnectionException, AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
                     USER_AREA, userId, null,
@@ -204,7 +204,7 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
 
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
 
-        } catch (DefaultParametersException | AzDException e) {
+        } catch (ConnectionException | AzDException e) {
             throw e;
         }
     }
@@ -213,12 +213,12 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
      * Get User Entitlement for a user.
      * @param userId userId ID of the user. Run getUserEntitlements() to get a list of users and get the user id.
      * @return UserEntitlement {@link UserEntitlement}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public UserEntitlement getUserEntitlement(String userId) throws DefaultParametersException, AzDException {
+    public UserEntitlement getUserEntitlement(String userId) throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
                 USER_AREA, userId, null, MemberEntitlementManagementVersion.USER_ENTITLEMENTS, null, null);
 
@@ -228,12 +228,12 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
     /***
      * Get a list of users/members entitlements.
      * @return PagedGraphMemberList {@link PagedGraphMemberList}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public PagedGraphMemberList getUserEntitlements() throws DefaultParametersException, AzDException {
+    public PagedGraphMemberList getUserEntitlements() throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
                 USER_AREA, null, null, MemberEntitlementManagementVersion.USER_ENTITLEMENTS, null, null);
 
@@ -244,12 +244,12 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
      * Edit the entitlements (License, Extensions, Projects, Teams etc) for a user. Pass a list of items that you want to edit for a user.
      * @param userId ID of the user. Run getUserEntitlements() to get a list of users and get the user id.
      * @return UserEntitlementsResponse {@link UserEntitlementsResponse}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public UserEntitlementsResponse updateUserEntitlement(String userId, List<Object> requestBody) throws DefaultParametersException, AzDException {
+    public UserEntitlementsResponse updateUserEntitlement(String userId, List<Object> requestBody) throws ConnectionException, AzDException {
         String r = send(RequestMethod.PATCH, CONNECTION, ResourceId.MEMBERENTITLEMENTMANAGEMENT, null,
                 USER_AREA, userId, null, MemberEntitlementManagementVersion.USER_ENTITLEMENTS, null,
                 null, requestBody, "application/json-patch+json");
@@ -263,13 +263,13 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
      * @param accountLicenseType Type of Account License (e.g. Express, Stakeholder etc.) {@link AccountLicenseType}
      * @param licensingSource Licensing Source (e.g. Account. MSDN etc.) {@link LicensingSource}
      * @return UserEntitlementsResponse {@link UserEntitlementsResponse}
-     * @throws DefaultParametersException set the default parameters organization name, project name and
-     * personal access token to work with any API in this library.
-     * @throws AzDException Handles errors from REST API and validates passed arguments
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public UserEntitlementsResponse updateUserEntitlement(String userId, AccountLicenseType accountLicenseType, LicensingSource licensingSource)
-            throws DefaultParametersException, AzDException {
+            throws ConnectionException, AzDException {
         var pos = new LinkedHashMap<String, Object>(){{
             put("from", "");
             put("op", "replace");

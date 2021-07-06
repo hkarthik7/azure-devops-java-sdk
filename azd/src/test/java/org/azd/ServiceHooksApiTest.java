@@ -2,7 +2,7 @@ package org.azd;
 
 import org.azd.core.CoreApi;
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.DefaultParametersException;
+import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.CoreDetails;
 import org.azd.interfaces.ServiceHooksDetails;
@@ -33,7 +33,7 @@ public class ServiceHooksApiTest {
     }
 
     @Test
-    public void shouldCreateASubscription() throws DefaultParametersException, AzDException {
+    public void shouldCreateASubscription() throws ConnectionException, AzDException {
         var projectId = c.getProject("azure-devops-java-sdk");
 
         var pI = new LinkedHashMap<String, Object>(){{
@@ -53,18 +53,18 @@ public class ServiceHooksApiTest {
     }
 
     @Test
-    public void shouldGetASubscription() throws DefaultParametersException, AzDException {
+    public void shouldGetASubscription() throws ConnectionException, AzDException {
         var subscriptions = s.getSubscriptions();
         s.getSubscription(subscriptions.getSubscriptions().stream().findFirst().get().getId());
     }
 
     @Test
-    public void shouldGetSubscriptions() throws DefaultParametersException, AzDException {
+    public void shouldGetSubscriptions() throws ConnectionException, AzDException {
         s.getSubscriptions();
     }
 
     @Test
-    public void shouldDeleteASubscription() throws DefaultParametersException, AzDException {
+    public void shouldDeleteASubscription() throws ConnectionException, AzDException {
         var subscriptions = s.getSubscriptions();
         s.deleteSubscription(subscriptions.getSubscriptions().stream().findFirst().get().getId());
     }

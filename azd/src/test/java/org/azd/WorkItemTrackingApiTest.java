@@ -3,7 +3,7 @@ package org.azd;
 import org.azd.enums.WorkItemExpand;
 import org.azd.enums.WorkItemOperation;
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.DefaultParametersException;
+import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.connection.Connection;
 import org.azd.workitemtracking.WorkItemTrackingApi;
@@ -31,37 +31,37 @@ public class WorkItemTrackingApiTest {
     }
 
     @Test
-    public void shouldGetWorkItem() throws DefaultParametersException, AzDException {
+    public void shouldGetWorkItem() throws ConnectionException, AzDException {
         var expectedValue = "azure-devops-java-sdk";
         var result = w.getWorkItem(2).getFields().getSystemTeamProject();
         assertEquals(expectedValue, result);
     }
 
     @Test
-    public void shouldGetWorkItemWithOptionalParameters() throws DefaultParametersException, AzDException {
+    public void shouldGetWorkItemWithOptionalParameters() throws ConnectionException, AzDException {
         var expectedValue = "azure-devops-java-sdk";
         var result = w.getWorkItem(2, WorkItemExpand.ALL).getFields().getSystemTeamProject();
         assertEquals(expectedValue, result);
     }
 
     @Test
-    public void shouldCreateAWorkItem() throws DefaultParametersException, AzDException {
+    public void shouldCreateAWorkItem() throws ConnectionException, AzDException {
         w.createWorkItem("user story", WorkItemOperation.ADD, "Sample User story",
                 "Description for the user story", new String[]{"DevOps", "Java", "SDK"});
     }
 
     @Test(expected = AzDException.class)
-    public void shouldDeleteAWorkItem() throws DefaultParametersException, AzDException {
+    public void shouldDeleteAWorkItem() throws ConnectionException, AzDException {
         w.deleteWorkItem(6);
     }
 
     @Test
-    public void shouldGetWorkItems() throws DefaultParametersException, AzDException {
+    public void shouldGetWorkItems() throws ConnectionException, AzDException {
         w.getWorkItems(new int[]{1,2,3});
     }
 
     @Test
-    public void shouldGetWorkItemRevisions() throws DefaultParametersException, AzDException {
+    public void shouldGetWorkItemRevisions() throws ConnectionException, AzDException {
         var r = w.getWorkItemRevisions(3, WorkItemExpand.ALL)
                 .getWorkItems().stream().findFirst().get()
                 .getFields().getSystemAreaId();
@@ -69,19 +69,19 @@ public class WorkItemTrackingApiTest {
     }
 
     @Test
-    public void shouldGetWorkItemRevision() throws DefaultParametersException, AzDException {
+    public void shouldGetWorkItemRevision() throws ConnectionException, AzDException {
         w.getWorkItemRevision(3, 1);
     }
 
     @Test
-    public void shouldQueryWorkItems() throws DefaultParametersException, AzDException {
+    public void shouldQueryWorkItems() throws ConnectionException, AzDException {
         var query = "Select * From WorkItems Where [System.WorkItemType] = 'User Story'";
         var team = "azure-devops-java-sdk Team";
         w.queryByWiql(team, query, 10, true).getWorkItems();
     }
 
     @Test
-    public void shouldQueryWorkItemsAndGetExactlyOneResult() throws DefaultParametersException, AzDException {
+    public void shouldQueryWorkItemsAndGetExactlyOneResult() throws ConnectionException, AzDException {
         var query = "Select * From WorkItems Where [System.WorkItemType] = 'User Story'";
         var team = "azure-devops-java-sdk Team";
         var res = (long) w.queryByWiql(team, query, 1, true).getWorkItems().size();
@@ -89,27 +89,27 @@ public class WorkItemTrackingApiTest {
     }
 
     @Test(expected = AzDException.class)
-    public void shouldRemoveWorkItemFromRecycleBin() throws DefaultParametersException, AzDException {
+    public void shouldRemoveWorkItemFromRecycleBin() throws ConnectionException, AzDException {
         w.removeWorkItemFromRecycleBin(93);
     }
 
     @Test
-    public void shouldGetWorkItemFromRecycleBin() throws DefaultParametersException, AzDException {
+    public void shouldGetWorkItemFromRecycleBin() throws ConnectionException, AzDException {
         w.getWorkItemFromRecycleBin(74);
     }
 
     @Test
-    public void shouldGetDeletedWorkItemFromRecycleBin() throws DefaultParametersException, AzDException {
+    public void shouldGetDeletedWorkItemFromRecycleBin() throws ConnectionException, AzDException {
         w.getDeletedWorkItemsFromRecycleBin();
     }
 
     @Test(expected = AzDException.class)
-    public void shouldGetDeletedWorkItemsFromRecycleBin() throws DefaultParametersException, AzDException {
+    public void shouldGetDeletedWorkItemsFromRecycleBin() throws ConnectionException, AzDException {
         w.getDeletedWorkItemsFromRecycleBin(new int[]{71,72,73,74});
     }
 
     @Test(expected = AzDException.class)
-    public void shouldRestoreWorkItemFromRecycleBin() throws DefaultParametersException, AzDException {
+    public void shouldRestoreWorkItemFromRecycleBin() throws ConnectionException, AzDException {
         w.restoreWorkItemFromRecycleBin(70);
     }
 }

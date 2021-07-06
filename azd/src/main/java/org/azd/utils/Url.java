@@ -2,7 +2,7 @@ package org.azd.utils;
 
 import org.azd.common.types.LocationUrl;
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.DefaultParametersException;
+import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 
 import java.util.HashMap;
@@ -24,11 +24,11 @@ public abstract class Url {
     /**
      *  Gets the resource area url based on resource id passed for the organization
      * @param resourceID pass the resource id
-     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
+     * @throws ConnectionException user must instantiate AzDDefaultParameters before calling this method
      * @throws AzDException If invalid json primitive is encountered.
      * @return resource area url
      */
-    private static String getLocationUrl(String resourceID, String organizationName) throws DefaultParametersException, AzDException {
+    private static String getLocationUrl(String resourceID, String organizationName) throws ConnectionException, AzDException {
 
         if (organizationName == null) { validateDefaultParameters(); }
 
@@ -64,7 +64,7 @@ public abstract class Url {
      * @param resource pass the resource entity e.g., Releases
      * @param apiVersion pass the API version
      * @param queryString pass the query string to form the url
-     * @throws DefaultParametersException user must instantiate AzDDefaultParameters before calling this method
+     * @throws ConnectionException user must instantiate AzDDefaultParameters before calling this method
      * @throws AzDException Exception handler
      * @return resource area url
      */
@@ -76,7 +76,7 @@ public abstract class Url {
             String id,
             String resource,
             String apiVersion,
-            HashMap<String, Object> queryString) throws DefaultParametersException, AzDException {
+            HashMap<String, Object> queryString) throws ConnectionException, AzDException {
         // build the request url to dynamically serve the API requests
 
         StringBuilder stringBuilder = new StringBuilder();
