@@ -10,11 +10,11 @@ public class WikiV2Pages {
     @JsonProperty("value")
     private List<WikiV2> wikiPages;
 
-    public List<WikiV2> getValue() {
+    public List<WikiV2> getWikiPages() {
         return wikiPages;
     }
 
-    public void setValue(List<WikiV2> wikiPages) {
+    public void setWikiPages(List<WikiV2> wikiPages) {
         this.wikiPages = wikiPages;
     }
 
