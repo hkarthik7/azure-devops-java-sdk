@@ -10,12 +10,12 @@ import java.util.Map;
 public interface CoreDetails {
     Processes getProcesses() throws ConnectionException, AzDException;
 
-    Map createProject(String projectName, String description) throws ConnectionException, AzDException;
+    OperationReference createProject(String projectName, String description) throws ConnectionException, AzDException;
 
-    Map createProject(String projectName, String description, String sourceControlType,
+    OperationReference createProject(String projectName, String description, String sourceControlType,
                       String templateTypeId) throws ConnectionException, AzDException;
 
-    Map deleteProject(String projectId) throws ConnectionException, AzDException;
+    OperationReference deleteProject(String projectId) throws ConnectionException, AzDException;
 
     Project getProject(String projectName) throws ConnectionException, AzDException;
 
@@ -28,9 +28,9 @@ public interface CoreDetails {
     Projects getProjects(int skip, int top, String continuationToken,
                          boolean getDefaultTeamImageUrl, String stateFilter) throws ConnectionException, AzDException;
 
-    Map updateProject(String projectId, HashMap<String, Object> projectParameters) throws ConnectionException, AzDException;
+    OperationReference updateProject(String projectId, HashMap<String, Object> projectParameters) throws ConnectionException, AzDException;
 
-    Map createTeam(String projectName, String teamName) throws ConnectionException, AzDException;
+    WebApiTeam createTeam(String projectName, String teamName) throws ConnectionException, AzDException;
 
     void deleteTeam(String projectName, String teamName) throws ConnectionException, AzDException;
 

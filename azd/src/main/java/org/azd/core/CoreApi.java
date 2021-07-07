@@ -57,7 +57,7 @@ public class CoreApi implements CoreDetails {
      * @return object with link to the project
      */
     @Override
-    public Map createProject(String projectName, String description) throws ConnectionException, AzDException {
+    public OperationReference createProject(String projectName, String description) throws ConnectionException, AzDException {
 
         LinkedHashMap<String, Object> h = new LinkedHashMap<>() {{
             put("name", projectName);
@@ -75,7 +75,7 @@ public class CoreApi implements CoreDetails {
         String r = send(RequestMethod.POST, CONNECTION, CORE,null,
                         "projects",null, null, CoreVersion.PROJECT,null, h);
 
-        return MAPPER.mapJsonResponse(r, Map.class);
+        return MAPPER.mapJsonResponse(r, OperationReference.class);
     }
 
     /***
@@ -90,7 +90,7 @@ public class CoreApi implements CoreDetails {
      * @return object with link to the project
      */
     @Override
-    public Map createProject(String projectName, String description, String sourceControlType,
+    public OperationReference createProject(String projectName, String description, String sourceControlType,
                              String templateTypeId) throws ConnectionException, AzDException {
 
         LinkedHashMap<String, Object> h = new LinkedHashMap<>() {{
@@ -109,7 +109,7 @@ public class CoreApi implements CoreDetails {
         String r = send(RequestMethod.POST, CONNECTION, CORE,null,
                         "projects",null,null, CoreVersion.PROJECT, null, h);
 
-        return MAPPER.mapJsonResponse(r, Map.class);
+        return MAPPER.mapJsonResponse(r, OperationReference.class);
     }
 
     /***
@@ -126,12 +126,12 @@ public class CoreApi implements CoreDetails {
      * @return object of deleted project with url
      */
     @Override
-    public Map deleteProject(String projectId) throws ConnectionException, AzDException {
+    public OperationReference deleteProject(String projectId) throws ConnectionException, AzDException {
 
         String r = send(RequestMethod.DELETE, CONNECTION, CORE, null,
                         "projects", projectId,null, CoreVersion.PROJECT,null,null);
 
-        return MAPPER.mapJsonResponse(r, Map.class);
+        return MAPPER.mapJsonResponse(r, OperationReference.class);
     }
 
     /***
@@ -249,12 +249,12 @@ public class CoreApi implements CoreDetails {
      * @return an object or team project with url
      */
     @Override
-    public Map updateProject(String projectId, HashMap<String, Object> projectParameters) throws ConnectionException, AzDException {
+    public OperationReference updateProject(String projectId, HashMap<String, Object> projectParameters) throws ConnectionException, AzDException {
 
         String r = send(RequestMethod.PATCH, CONNECTION, CORE, null,
                         "projects", projectId, null, CoreVersion.PROJECT, null, projectParameters);
 
-        return MAPPER.mapJsonResponse(r, Map.class);
+        return MAPPER.mapJsonResponse(r, OperationReference.class);
     }
 
     /***
@@ -267,7 +267,7 @@ public class CoreApi implements CoreDetails {
      * @return returns web api object
      */
     @Override
-    public Map createTeam(String projectName, String teamName) throws ConnectionException, AzDException {
+    public WebApiTeam createTeam(String projectName, String teamName) throws ConnectionException, AzDException {
 
         HashMap<String, Object> h = new HashMap<>(){{
             put("name", teamName);
@@ -276,7 +276,7 @@ public class CoreApi implements CoreDetails {
         String r = send(RequestMethod.POST, CONNECTION, CORE, null,
                         "projects", projectName, "teams", CoreVersion.PROJECT_TEAMS, null, h);
 
-        return MAPPER.mapJsonResponse(r, Map.class);
+        return MAPPER.mapJsonResponse(r, WebApiTeam.class);
     }
 
     /***
