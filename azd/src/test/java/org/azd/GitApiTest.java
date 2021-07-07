@@ -1,6 +1,7 @@
 package org.azd;
 
 import org.azd.connection.Connection;
+import org.azd.enums.PullRequestStatus;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
 import org.azd.git.GitApi;
@@ -97,5 +98,31 @@ public class GitApiTest {
     @Test
     public void shouldGetPullRequestsByProject() throws ConnectionException, AzDException {
         g.getPullRequestsByProject().getPullRequests();
+    }
+
+    @Test
+    public void shouldGetTopTenPullRequestsByProject() throws ConnectionException, AzDException {
+        g.getPullRequestsByProject(10);
+    }
+
+    @Test
+    public void shouldGetPullRequestsByProjectWithCompletedStatus() throws ConnectionException, AzDException {
+        g.getPullRequestsByProject(PullRequestStatus.COMPLETED).getPullRequests();
+    }
+
+    @Test
+    public void shouldLockABranch() throws ConnectionException, AzDException {
+        g.updateBranchLock("testRepository", "develop", true);
+    }
+
+    @Test
+    public void shouldUnLockABranch() throws ConnectionException, AzDException {
+        g.updateBranchLock("testRepository", "develop", false);
+    }
+
+    @Test
+    public void shouldGetPullRequestWorkItems() throws ConnectionException, AzDException {
+        var pr = g.getPullRequestById(4);
+        g.getPullRequestWorkItems(pr.getPullRequestId(), pr.getRepository().getName());
     }
 }
