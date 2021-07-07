@@ -43,6 +43,12 @@ public class Main {
 
             // update a repository; rename a repository by branch. Just pass the branch name as main/develop;
             git.updateRepository("repositoryId", "repositoryName", "defaultBranchName");
+            
+            // lock a branch
+            g.updateBranchLock("my-repo", "master", true);
+            
+            // unlock a branch
+            g.updateBranchLock("my-repo", "master", false);
         } catch (AzDException | ConnectionException e) {
             e.printStackTrace();
         }
