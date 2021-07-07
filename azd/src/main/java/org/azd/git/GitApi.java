@@ -1,13 +1,11 @@
 package org.azd.git;
 
 import org.azd.connection.Connection;
+import org.azd.enums.PullRequestStatus;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
-import org.azd.git.types.PullRequest;
-import org.azd.git.types.PullRequests;
-import org.azd.git.types.Repositories;
-import org.azd.git.types.Repository;
+import org.azd.git.types.*;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.GitDetails;
 
@@ -101,12 +99,12 @@ public class GitApi implements GitDetails {
      * @return Git deleted repository object
      */
     @Override
-    public Map getDeletedRepositories() throws ConnectionException, AzDException {
+    public GitDeletedRepositories getDeletedRepositories() throws ConnectionException, AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
                         AREA, null, "deletedrepositories", GitVersion.VERSION, null, null);
 
-        return MAPPER.mapJsonResponse(r, Map.class);
+        return MAPPER.mapJsonResponse(r, GitDeletedRepositories.class);
     }
 
     /***
@@ -117,12 +115,12 @@ public class GitApi implements GitDetails {
      * @return array of git deleted recycle bin repositories
      */
     @Override
-    public Map getRecycleBinRepositories() throws ConnectionException, AzDException {
+    public GitDeletedRepositories getRecycleBinRepositories() throws ConnectionException, AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
                         AREA, null, "recycleBin/repositories", GitVersion.VERSION, null, null);
 
-        return MAPPER.mapJsonResponse(r, Map.class);
+        return MAPPER.mapJsonResponse(r, GitDeletedRepositories.class);
     }
 
     /***
@@ -313,4 +311,130 @@ public class GitApi implements GitDetails {
         return MAPPER.mapJsonResponse(r, PullRequests.class);
     }
 
+    /***
+     * Gets all pull requests from a project. To get the pull requests from non-default project you have to call setProject
+     * method from {@link Connection}.
+     * @param top The number of pull requests to retrieve.
+     * @return {@link PullRequest} PullRequest
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public PullRequests getPullRequestsByProject(int top) throws ConnectionException, AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("$top", top);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
+                AREA, null, "pullrequests", GitVersion.VERSION, q,null);
+
+        return MAPPER.mapJsonResponse(r, PullRequests.class);
+    }
+
+    /***
+     * Gets all pull requests from a project. To get the pull requests from non-default project you have to call setProject
+     * method from {@link Connection}.
+     * @param status If set, search for pull requests that are in this state. Defaults to Active if unset.
+     * @return {@link PullRequest} PullRequest
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public PullRequests getPullRequestsByProject(PullRequestStatus status) throws ConnectionException, AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("searchCriteria.status", status.toString().toLowerCase());
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
+                AREA, null, "pullrequests", GitVersion.VERSION, q,null);
+
+        return MAPPER.mapJsonResponse(r, PullRequests.class);
+    }
+
+    /***
+     * Gets all pull requests from a project. To get the pull requests from non-default project you have to call setProject
+     * method from {@link Connection}.
+     * @param skip The number of pull requests to ignore. For example, to retrieve results 101-150, set top to 50 and skip to 100.
+     * @param top The number of pull requests to retrieve.
+     * @param creatorId If set, search for pull requests that were created by this identity.
+     * @param includeLinks Whether to include the _links field on the shallow references
+     * @param repositoryId If set, search for pull requests whose target branch is in this repository.
+     * @param reviewerId If set, search for pull requests that have this identity as a reviewer.
+     * @param sourceRefName If set, search for pull requests from this branch.
+     * @param sourceRepositoryId If set, search for pull requests whose source branch is in this repository.
+     * @param status If set, search for pull requests that are in this state. Defaults to Active if unset.
+     * @param targetRefName If set, search for pull requests into this branch.
+     * @return {@link PullRequest} PullRequest
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public PullRequests getPullRequestsByProject(int skip, int top, String creatorId,
+                                                 boolean includeLinks, String repositoryId, String reviewerId,
+                                                 String sourceRefName, String sourceRepositoryId, PullRequestStatus status,
+                                                 String targetRefName) throws ConnectionException, AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("$skip", skip);
+            put("$top", top);
+            put("searchCriteria.creatorId", creatorId);
+            put("searchCriteria.includeLinks", includeLinks);
+            put("searchCriteria.repositoryId", repositoryId);
+            put("searchCriteria.reviewerId", reviewerId);
+            put("searchCriteria.sourceRefName", sourceRefName);
+            put("searchCriteria.sourceRepositoryId", sourceRepositoryId);
+            put("searchCriteria.status", status.toString().toLowerCase());
+            put("searchCriteria.targetRefName", targetRefName);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
+                AREA, null, "pullrequests", GitVersion.VERSION, q,null);
+
+        return MAPPER.mapJsonResponse(r, PullRequests.class);
+    }
+
+    /***
+     * Lock or Unlock a branch with repository name and branch name.
+     * @param repositoryName The name or ID of the repository.
+     * @param branchName The name of the branch to lock/unlock
+     * @param isLocked true to lock the branch and false to unlock.
+     * @return GitRef {@link GitRef}
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public GitRef updateBranchLock(String repositoryName, String branchName, boolean isLocked) throws ConnectionException, AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("filter", "heads/" + branchName);
+        }};
+
+        var b = new HashMap<String, Object>(){{
+            put("isLocked", isLocked);
+        }};
+
+        String r = send(RequestMethod.PATCH, CONNECTION, GIT, CONNECTION.getProject(),
+                AREA + "/repositories", repositoryName, "refs", GitVersion.VERSION, q,b);
+
+        return MAPPER.mapJsonResponse(r, GitRef.class);
+    }
+
+    /***
+     * Retrieve a list of work items associated with a pull request.
+     * @param pullRequestId ID of the pull request.
+     * @param repositoryName ID or name of the repository.
+     * @return ResourceRefs {@link ResourceRefs}
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public ResourceRefs getPullRequestWorkItems(int pullRequestId, String repositoryName) throws ConnectionException, AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
+                AREA + "/repositories", repositoryName, "pullRequests/" + pullRequestId + "/workitems", GitVersion.VERSION, null, null);
+
+        return MAPPER.mapJsonResponse(r, ResourceRefs.class);
+    }
 }
