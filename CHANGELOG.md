@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.4.4
+**Minor incremental release**
+- Added Pull requests services to GitApi. Retrieve workitems associated to a Pull request.
+- Added types for Team and Project services under Core Api.
+
 ## 2.4.3
 
 **Breaking changes**
