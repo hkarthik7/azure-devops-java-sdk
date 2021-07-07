@@ -11,7 +11,7 @@ You can grab one by following the [documentation](https://docs.microsoft.com/en-
 You can omit the project name for calling Feed Management API as it is not a mandatory parameter.
 If you do omit the project name you will end up working with feeds across your organisation.
 Provide the project name if you want to work with feeds scoped to a project. You can always set the
-project name parameter pointing to different project by calling AzDDefaultParameters class.
+project name parameter pointing to different project by creating a 'Connection' object.
 
 ```java
 public class Main {
@@ -24,7 +24,7 @@ public class Main {
         var connection = new Connection(organisation, project, personalAccessToken);
 
         // call API with default connection object;
-        FeedManagementApi feedManagement = new FeedManagementApi(defaultParameters);
+        FeedManagementApi feedManagement = new FeedManagementApi(connection);
         try {
             // create new feed
             feedManagement.createFeed("myFeed", "To store maven packages", true, true);

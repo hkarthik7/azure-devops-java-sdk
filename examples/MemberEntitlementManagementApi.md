@@ -8,7 +8,7 @@
 Before getting started you require personal access token to authenticate with **Azure DevOps** services REST API.
 You can grab one by following the [documentation](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?WT.mc_id=docs-github-dbrown&view=azure-devops&tabs=preview-page).
 
-You are required to set the default parameters before calling Core class in the library.
+You are required to create a connection object before calling Member Entitlement Management Api.
 
 ```java
 public class Main {
@@ -22,8 +22,8 @@ public class Main {
 
         // call API with default connection object;
         var mem = new MemberEntitlementManagementApi(defaultParameters);
-        var graph = new GraphApi(defaultParams);
-        var core = new CoreApi(defaultParams);
+        var graph = new GraphApi(connection);
+        var core = new CoreApi(connection);
         
         try {
             // Add a new user and assign license

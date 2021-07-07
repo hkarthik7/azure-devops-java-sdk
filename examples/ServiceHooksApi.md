@@ -8,7 +8,7 @@
 Before getting started you require personal access token to authenticate with **Azure DevOps** services REST API.
 You can grab one by following the [documentation](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?WT.mc_id=docs-github-dbrown&view=azure-devops&tabs=preview-page).
 
-You are required to set the default parameters before calling Core class in the library.
+You are required to create a connection object before calling Service hooks Api.
 
 ```java
 public class Main {
@@ -21,11 +21,11 @@ public class Main {
         var connection = new Connection(organisation, project, personalAccessToken);
 
         // call API with default connection object;
-        var core = new CoreApi(defaultParameters);
-        var hooks = new ServiceHooksApi(defaultParameters);
+        var core = new CoreApi(connection);
+        var hooks = new ServiceHooksApi(connection);
         try {
             // create a new subscription
-            var projectId = c.getProject(defaultParameters.getProject());
+            var projectId = c.getProject(connection.getProject());
 
             var publisherInputs = new LinkedHashMap<String, Object>(){{
                 put("buildStatus", "Failed");
