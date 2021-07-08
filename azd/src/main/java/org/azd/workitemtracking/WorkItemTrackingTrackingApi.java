@@ -8,7 +8,7 @@ import org.azd.enums.WorkItemOperation;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
-import org.azd.interfaces.WorkItemDetails;
+import org.azd.interfaces.WorkItemTrackingDetails;
 import org.azd.workitemtracking.types.*;
 
 import java.util.*;
@@ -19,7 +19,7 @@ import static org.azd.utils.Client.send;
 /***
  * WorkItem Tracking class to manage work items API
  */
-public class WorkItemTrackingApi implements WorkItemDetails {
+public class WorkItemTrackingTrackingApi implements WorkItemTrackingDetails {
     /***
      * Connection object
      */
@@ -32,7 +32,7 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      * Pass the connection object to work with WorkItem Tracking Api
      * @param connection Connection object
      */
-    public WorkItemTrackingApi(Connection connection) { this.CONNECTION = connection; }
+    public WorkItemTrackingTrackingApi(Connection connection) { this.CONNECTION = connection; }
 
     /***
      * Creates a single work item.
@@ -141,14 +141,17 @@ public class WorkItemTrackingApi implements WorkItemDetails {
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public WorkItemDelete deleteWorkItem(int id, boolean destroy) throws ConnectionException, AzDException {
+    public void deleteWorkItem(int id, boolean destroy) throws ConnectionException, AzDException {
+        try {
+            var q = new HashMap<String, Object>(){{put("destroy", destroy);}};
 
-        var q = new HashMap<String, Object>(){{put("destroy", destroy);}};
+            String r = send(RequestMethod.DELETE, CONNECTION, WIT, CONNECTION.getProject(),
+                    AREA + "/workitems",  String.valueOf(id),null , WorkItemVersion.VERSION, q, null);
 
-        String r = send(RequestMethod.DELETE, CONNECTION, WIT, CONNECTION.getProject(),
-                AREA + "/workitems",  String.valueOf(id),null , WorkItemVersion.VERSION, q, null);
-
-        return MAPPER.mapJsonResponse(r, WorkItemDelete.class);
+            if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
+        } catch (ConnectionException | AzDException e) {
+            throw e;
+        }
     }
 
     /***

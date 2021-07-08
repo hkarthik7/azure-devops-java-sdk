@@ -7,13 +7,13 @@ import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
 import org.azd.workitemtracking.types.*;
 
-public interface WorkItemDetails {
+public interface WorkItemTrackingDetails {
     WorkItem createWorkItem(String workItemType, WorkItemOperation operation, String title) throws ConnectionException, AzDException;
     WorkItem createWorkItem(String workItemType,
                             WorkItemOperation operation, String title, String description,
                             String[] tags) throws ConnectionException, AzDException;
     WorkItemDelete deleteWorkItem(int id) throws ConnectionException, AzDException;
-    WorkItemDelete deleteWorkItem(int id, boolean destroy) throws ConnectionException, AzDException;
+    void deleteWorkItem(int id, boolean destroy) throws ConnectionException, AzDException;
     WorkItem getWorkItem(int id) throws ConnectionException, AzDException;
     WorkItem getWorkItem(int id, WorkItemExpand expand) throws ConnectionException, AzDException;
     WorkItem getWorkItem(int id, WorkItemExpand expand, String asOf) throws ConnectionException, AzDException;
