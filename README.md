@@ -54,11 +54,11 @@ public class Main {
         String organisation = "myOrganisationName";
         String personalAccessToken = "accessToken";
         
-        // instantiate AzDDefaultParameters with organisation name, project and personal access token.
-        AzDDefaultParameters defaultParameters = new AzDDefaultParameters(organisation, personalAccessToken);
+        // Create a connection object with organisation name, project and personal access token.
+        var connection = new Connection(organisation, personalAccessToken);
     
         // call API with the default parameters;
-        CoreApi core = new CoreApi(defaultParameters);
+        var core = new CoreApi(connection);
         try {
             // get the list of projects
             core.getProjects();
@@ -71,7 +71,7 @@ public class Main {
         
             // list all the teams
             core.getTeams();
-        } catch (AzDException | DefaultParametersException e1) {
+        } catch (AzDException | ConnectionException e1) {
             e1.printStackTrace();
         }
     }
