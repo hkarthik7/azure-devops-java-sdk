@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
 
@@ -48,6 +49,16 @@ public class WorkItemTrackingApiTest {
     public void shouldCreateAWorkItem() throws ConnectionException, AzDException {
         w.createWorkItem("user story", WorkItemOperation.ADD, "Sample User story",
                 "Description for the user story", new String[]{"DevOps", "Java", "SDK"});
+    }
+
+    @Test
+    public void shouldCreateAWorkItemWithAdditionalFields() throws ConnectionException, AzDException {
+        var additionalFields = new HashMap<String, Object>(){{
+            put("System.Tags", String.join(",", "DevOps", "Java", "SDK"));
+        }};
+
+        w.createWorkItem("user story", "Sample User story",
+                "Description for the user story", additionalFields);
     }
 
     @Test(expected = AzDException.class)
@@ -111,5 +122,14 @@ public class WorkItemTrackingApiTest {
     @Test(expected = AzDException.class)
     public void shouldRestoreWorkItemFromRecycleBin() throws ConnectionException, AzDException {
         w.restoreWorkItemFromRecycleBin(70);
+    }
+
+    @Test
+    public void shouldUpdateAWorkItem() throws ConnectionException, AzDException {
+        var fieldsToUpdate = new HashMap<String, Object>(){{
+            put("System.AssignedTo", "test@xmail.com");
+        }};
+
+        w.updateWorkItem(161, fieldsToUpdate);
     }
 }

@@ -99,10 +99,62 @@ public class WorkItemTrackingApi implements WorkItemTrackingDetails {
             put("value", String.join(",", tags));
         }};
 
-        var req = new ArrayList();
+        var req = new ArrayList<>();
         req.add(t);
         req.add(d);
         req.add(tt);
+
+        String r = send(RequestMethod.POST, CONNECTION, WIT, CONNECTION.getProject(),
+                AREA + "/workitems",  null, "$"+ encodeSpace(workItemType), WorkItemVersion.VERSION,
+                null, null, req, null);
+
+        return MAPPER.mapJsonResponse(r, WorkItem.class);
+    }
+
+    /***
+     * Creates a single work item optionally with additional fields.
+     * @param workItemType The work item type of the work item to create. e.g., "user story", "bug", "task"
+     * @param title The title for the work item
+     * @param description Description for the work item
+     * @param additionalFields Provide the additional fields as a HashMap to create the work item.
+     * This requires the internal fields to be specified. E.g., System.Tags, System.AreaPath, System.State, System.Reason etc.,
+     * @return {@link WorkItem}
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public WorkItem createWorkItem(String workItemType, String title, String description, HashMap<String, Object> additionalFields)
+            throws ConnectionException, AzDException {
+        var req = new ArrayList<>();
+
+        var t = new HashMap<String, Object>(){{
+            put("op", "add");
+            put("path", "/fields/System.Title");
+            put("from", null);
+            put("value", title);
+        }};
+
+        var d = new HashMap<String, Object>(){{
+            put("op", "add");
+            put("path", "/fields/System.Description");
+            put("from", null);
+            put("value", description);
+        }};
+
+        req.add(t);
+        req.add(d);
+
+        for (var key : additionalFields.keySet()) {
+            var i = new HashMap<String, Object>(){{
+                put("op", "add");
+                put("path", "/fields/" + key);
+                put("from", null);
+                put("value", additionalFields.get(key));
+            }};
+
+            req.add(i);
+        }
 
         String r = send(RequestMethod.POST, CONNECTION, WIT, CONNECTION.getProject(),
                 AREA + "/workitems",  null, "$"+ encodeSpace(workItemType), WorkItemVersion.VERSION,
@@ -621,6 +673,80 @@ public class WorkItemTrackingApi implements WorkItemTrackingDetails {
                 AREA + "/recyclebin", Integer.toString(id), null, WorkItemVersion.RECYCLE_BIN_VERSION, null, b);
 
         return MAPPER.mapJsonResponse(r, WorkItemDeleteReference.class);
+    }
+
+    /***
+     * Update a single work item with the internal field names.
+     * @param workItemId The id of the work item to update
+     * @param fieldsToUpdate HashMap of internal field names to update. E.g., System.Title, System.Description etc and it's associated values.
+     * @return WorkItemDeleteReference {@link WorkItemDeleteReference}
+     * @throws ConnectionException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
+     */
+    @Override
+    public WorkItem updateWorkItem(int workItemId, HashMap<String, Object> fieldsToUpdate) throws ConnectionException, AzDException {
+        var req = new ArrayList<>();
+
+        for (var key : fieldsToUpdate.keySet()) {
+            var i = new HashMap<String, Object>(){{
+                put("op", "add");
+                put("path", "/fields/" + key);
+                put("from", null);
+                put("value", fieldsToUpdate.get(key));
+            }};
+
+            req.add(i);
+        }
+
+        String r = send(RequestMethod.PATCH, CONNECTION, WIT, CONNECTION.getProject(),
+                AREA + "/workitems",  Integer.toString(workItemId), null, WorkItemVersion.VERSION,
+                null, null, req, "application/json-patch+json; charset=utf-8");
+
+        return MAPPER.mapJsonResponse(r, WorkItem.class);
+    }
+
+    /***
+     * Update a single work item with the internal field names.
+     * @param workItemId The id of the work item to update
+     * @param expand The expand parameters for work item attributes. Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
+     * @param bypassRules Do not enforce the work item type rules on this update
+     * @param suppressNotifications Do not fire any notifications for this change
+     * @param validateOnly Indicate if you only want to validate the changes without saving the work item
+     * @param fieldsToUpdate HashMap of internal field names to update. E.g., System.Title, System.Description etc and it's associated values.
+     * @return WorkItemDeleteReference {@link WorkItemDeleteReference}
+     * @throws ConnectionException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
+     */
+    @Override
+    public WorkItem updateWorkItem(int workItemId, WorkItemExpand expand, boolean bypassRules, boolean suppressNotifications,
+                                   boolean validateOnly, HashMap<String, Object> fieldsToUpdate) throws ConnectionException, AzDException {
+        var req = new ArrayList<>();
+
+        for (var key : fieldsToUpdate.keySet()) {
+            var i = new HashMap<String, Object>(){{
+                put("op", "add");
+                put("path", "/fields/" + key);
+                put("from", null);
+                put("value", fieldsToUpdate.get(key));
+            }};
+
+            req.add(i);
+        }
+
+        var q = new HashMap<String, Object>(){{
+            put("validateOnly", validateOnly);
+            put("bypassRules", bypassRules);
+            put("suppressNotifications", suppressNotifications);
+            put("$expand", expand.toString().toLowerCase());
+        }};
+
+        String r = send(RequestMethod.PATCH, CONNECTION, WIT, CONNECTION.getProject(),
+                AREA + "/workitems",  Integer.toString(workItemId), null, WorkItemVersion.VERSION,
+                q, null, req, "application/json-patch+json; charset=utf-8");
+
+        return MAPPER.mapJsonResponse(r, WorkItem.class);
     }
 
     /***

@@ -7,11 +7,15 @@ import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
 import org.azd.workitemtracking.types.*;
 
+import java.util.HashMap;
+
 public interface WorkItemTrackingDetails {
     WorkItem createWorkItem(String workItemType, WorkItemOperation operation, String title) throws ConnectionException, AzDException;
     WorkItem createWorkItem(String workItemType,
                             WorkItemOperation operation, String title, String description,
                             String[] tags) throws ConnectionException, AzDException;
+    WorkItem createWorkItem(String workItemType, String title, String description, HashMap<String, Object> additionalFields)
+            throws ConnectionException, AzDException;
     WorkItemDelete deleteWorkItem(int id) throws ConnectionException, AzDException;
     void deleteWorkItem(int id, boolean destroy) throws ConnectionException, AzDException;
     WorkItem getWorkItem(int id) throws ConnectionException, AzDException;
@@ -37,4 +41,7 @@ public interface WorkItemTrackingDetails {
     WorkItemDeleteShallowReferences getDeletedWorkItemsFromRecycleBin() throws ConnectionException, AzDException;
     WorkItemDeleteReferences getDeletedWorkItemsFromRecycleBin(int[] ids) throws ConnectionException, AzDException;
     WorkItemDeleteReference restoreWorkItemFromRecycleBin(int id) throws ConnectionException, AzDException;
+    WorkItem updateWorkItem(int workItemId, HashMap<String, Object> fieldsToUpdate) throws ConnectionException, AzDException;
+    WorkItem updateWorkItem(int workItemId, WorkItemExpand expand, boolean bypassRules, boolean suppressNotifications,
+                            boolean validateOnly, HashMap<String, Object> fieldsToUpdate) throws ConnectionException, AzDException;
 }
