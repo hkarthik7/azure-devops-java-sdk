@@ -221,7 +221,7 @@ public class GitApi implements GitDetails {
             String repositoryId, String sourceRefName, String targetRefName,
             String title, String description, String[] reviewers) throws ConnectionException, AzDException {
 
-            List<Object> o = new ArrayList<>();
+        List<Object> o = new ArrayList<>();
 
         for (String reviewer : reviewers) {
             HashMap<String, String> id = new HashMap<>(){{ put("id", reviewer); }};
