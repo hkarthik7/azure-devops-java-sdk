@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.4.5
+- Bug fix for Workitems delete Api.
+- Added support to retrieve releases from artifact version id (aka build id).
+- Add createPullRequest method in GitApi to optionally create the pull request in draft mode.
+- Added support to create and update workitems with additional fields.
+
 ## 2.4.4
 **Minor incremental release**
 - Added Pull requests services to GitApi. Retrieve workitems associated to a Pull request.
