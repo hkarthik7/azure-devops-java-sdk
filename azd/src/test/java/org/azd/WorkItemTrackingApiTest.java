@@ -130,6 +130,6 @@ public class WorkItemTrackingApiTest {
             put("System.AssignedTo", "test@xmail.com");
         }};
 
-        w.updateWorkItem(161, fieldsToUpdate);
+        w.updateWorkItem(176, fieldsToUpdate);
     }
 }
