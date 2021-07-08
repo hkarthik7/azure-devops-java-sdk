@@ -21,8 +21,6 @@ public class WorkItemDelete {
     private int code;
     @JsonProperty("url")
     private String url;
-    @JsonProperty("resource")
-    private WorkItem resource;
 
     public int getId() {
         return id;
@@ -88,14 +86,6 @@ public class WorkItemDelete {
         this.url = url;
     }
 
-    public WorkItem getResource() {
-        return resource;
-    }
-
-    public void setResource(WorkItem resource) {
-        this.resource = resource;
-    }
-
     @Override
     public String toString() {
         return "WorkItemDelete{" +
@@ -107,7 +97,6 @@ public class WorkItemDelete {
                 ", deletedBy='" + deletedBy + '\'' +
                 ", code=" + code +
                 ", url='" + url + '\'' +
-                ", resource=" + resource +
                 '}';
     }
 }
