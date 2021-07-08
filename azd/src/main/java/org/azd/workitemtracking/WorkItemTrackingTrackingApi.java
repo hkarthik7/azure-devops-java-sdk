@@ -134,8 +134,7 @@ public class WorkItemTrackingTrackingApi implements WorkItemTrackingDetails {
      * It is recommended NOT to use this parameter. If you do, please use this parameter with extreme caution.
      * @param id ID of the work item to be deleted
      * @param destroy Optional parameter, if set to true, the work item is deleted permanently.
-     *                Please note: the destroy action is PERMANENT and cannot be undone.
-     * @return {@link WorkItemDelete}
+     * Please note: the destroy action is PERMANENT and cannot be undone.
      * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
      * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
