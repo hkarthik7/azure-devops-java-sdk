@@ -19,7 +19,7 @@ import static org.azd.utils.Client.send;
 /***
  * WorkItem Tracking class to manage work items API
  */
-public class WorkItemTrackingTrackingApi implements WorkItemTrackingDetails {
+public class WorkItemTrackingApi implements WorkItemTrackingDetails {
     /***
      * Connection object
      */
@@ -32,7 +32,7 @@ public class WorkItemTrackingTrackingApi implements WorkItemTrackingDetails {
      * Pass the connection object to work with WorkItem Tracking Api
      * @param connection Connection object
      */
-    public WorkItemTrackingTrackingApi(Connection connection) { this.CONNECTION = connection; }
+    public WorkItemTrackingApi(Connection connection) { this.CONNECTION = connection; }
 
     /***
      * Creates a single work item.
