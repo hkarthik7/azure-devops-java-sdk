@@ -1,4 +1,4 @@
-# Workitems
+# WorkitemTracking
 
 - [REST API](https://docs.microsoft.com/en-us/rest/api/azure/devops/wit/work%20items/create?view=azure-devops-rest-6.1)
 - API Version: 6.1-preview.3
@@ -21,10 +21,19 @@ public class Main {
         var connection = new Connection(organisation, project, personalAccessToken);
 
         // call API with default connection object;
-        WorkitemsApi wit = new WorkitemsApi(connection);
+        var wit = new WorkitemsApi(connection);
         try {
             // create a new workitem
             wit.createWorkItem("user story", WorkItemOperation.ADD, "Sample user story");
+            
+            // create a new workitem with additional fields
+            var additionalFields = new HashMap<String, Object>(){{
+                put("System.Tags", String.join(",", "DevOps", "Java", "SDK"));
+                put("System.AssignedTo", "your-email-id");
+            }};
+
+            w.createWorkItem("user story", "Sample User story",
+                    "Description for the user story", additionalFields);
 
             // delete a workitem
             wit.deleteWorkItem(21);
@@ -43,6 +52,15 @@ public class Main {
 
             // get a revision of workitem with revision number;
             wit.getWorkItemRevision(21, 1);
+            
+            // update an existing workitem by specifying the fields to update.
+            // Note that you have to specify internal field names to update it successfully.
+            var fieldsToUpdate = new HashMap<String, Object>(){{
+                put("System.AssignedTo", "test@xmail.com");
+                put("System.AreaPath", "you-team-area-path");
+            }};
+
+            w.updateWorkItem(277, fieldsToUpdate);
         } catch (AzDException | ConnectionException e) {
             e.printStackTrace();
         }
