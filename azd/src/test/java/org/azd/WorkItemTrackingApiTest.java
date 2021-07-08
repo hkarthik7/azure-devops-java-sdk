@@ -26,8 +26,8 @@ public class WorkItemTrackingApiTest {
         String organization = m.getO();
         String token = m.getT();
         String project = m.getP();
-        Connection defaultParameters = new Connection(organization, project, token);
-        w = new WorkItemTrackingApi(defaultParameters);
+        var connection = new Connection(organization, project, token);
+        w = new WorkItemTrackingApi(connection);
     }
 
     @Test
