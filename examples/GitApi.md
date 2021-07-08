@@ -49,6 +49,12 @@ public class Main {
             
             // unlock a branch
             g.updateBranchLock("my-repo", "master", false);
+            
+            // create a pull request and optionally make it as draft.
+            var repoId = g.getRepository("my-repository").getId();
+            // pass the repository id, source reference branch, target reference branch, title, description and set the isDraft to true to create
+            // the pull request in draft state. If it is set to false the pull request will be published.
+            g.createPullRequest(repoId,"develop", "master", "New feature", "Adding new feature", true);
         } catch (AzDException | ConnectionException e) {
             e.printStackTrace();
         }

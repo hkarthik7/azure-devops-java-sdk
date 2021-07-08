@@ -214,7 +214,7 @@ public class GitApi implements GitDetails {
      * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
      * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
-     * @return an object of git pull request
+     * @return an object of git pull request {@link PullRequest}
      */
     @Override
     public PullRequest createPullRequest(
@@ -238,6 +238,41 @@ public class GitApi implements GitDetails {
 
         String r = send(RequestMethod.POST, CONNECTION, GIT, CONNECTION.getProject(),
                 AREA + "/repositories", repositoryId, "pullrequests", GitVersion.VERSION, null, h);
+
+        return MAPPER.mapJsonResponse(r, PullRequest.class);
+    }
+
+    /***
+     * Create a pull request and optionally make it a draft. You can specify only the source branch name such as develop and target branch name such as master.
+     * @param repositoryId The repository ID of the pull request's target branch.
+     * @param sourceRefName The name of the source branch of the pull request.
+     * @param targetRefName The name of the target branch of the pull request.
+     * @param title The title of the pull request.
+     * @param description The description of the pull request.
+     * @param isDraft if set to true the pull request will be in draft mode.
+     * @return an object of git pull request {@link PullRequest}
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public PullRequest createPullRequest(String repositoryId, String sourceRefName, String targetRefName, String title,
+                                         String description, boolean isDraft) throws ConnectionException, AzDException {
+
+        String referenceHead = "refs/heads/";
+        var sourceBranch = sourceRefName.contains(referenceHead) ? sourceRefName : referenceHead + sourceRefName;
+        var targetBranch = targetRefName.contains(referenceHead) ? targetRefName : referenceHead + targetRefName;
+
+        var b = new HashMap<String, Object>(){{
+            put("sourceRefName", sourceBranch);
+            put("targetRefName", targetBranch);
+            put("title", title);
+            put("description", description);
+            put("isDraft", isDraft);
+        }};
+
+        String r = send(RequestMethod.POST, CONNECTION, GIT, CONNECTION.getProject(),
+                AREA + "/repositories", repositoryId, "pullrequests", GitVersion.VERSION, null, b);
 
         return MAPPER.mapJsonResponse(r, PullRequest.class);
     }

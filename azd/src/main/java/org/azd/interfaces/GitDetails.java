@@ -30,6 +30,10 @@ public interface GitDetails {
             String repositoryId, String sourceRefName, String targetRefName,
             String title, String description, String[] reviewers) throws ConnectionException, AzDException;
 
+    PullRequest createPullRequest(
+            String repositoryId, String sourceRefName, String targetRefName,
+            String title, String description, boolean isDraft) throws ConnectionException, AzDException;
+
     PullRequest getPullRequest(String repositoryName, int pullRequestId) throws ConnectionException, AzDException;
 
     PullRequest getPullRequestById(int pullRequestId) throws ConnectionException, AzDException;

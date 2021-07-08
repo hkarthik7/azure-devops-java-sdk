@@ -80,6 +80,14 @@ public class GitApiTest {
                 new String[]{ "d6245f20-2af8-44f4-9451-8107cb2767db" });
     }
 
+    // failing the test intentionally. If not this will create many pull requests on each run.
+    // To pass the test remove (expected = AzDException.class) and replace targetRefName: master with main.
+    @Test(expected = AzDException.class)
+    public void shouldCreateANewPullRequestAsDraft() throws ConnectionException, AzDException {
+        var repoId = g.getRepository("testRepository").getId();
+        g.createPullRequest(repoId,"develop", "master", "New feature", "Adding new feature", true);
+    }
+
     @Test
     public void shouldRetrieveAPullRequest() throws ConnectionException, AzDException {
         g.getPullRequest(g.getRepository("testRepository").getName(), 3);
