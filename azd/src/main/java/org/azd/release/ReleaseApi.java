@@ -285,6 +285,28 @@ public class ReleaseApi implements ReleaseDetails {
     /***
      * Get a list of releases
      * @param expand The property that should be expanded in the list of releases. {@link ReleaseExpands}
+     * @param artifactVersionId Releases with given artifactVersionId will be returned. E.g. in case of Build artifactType, it is buildId.
+     * @return Releases {@link Releases}
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public Releases getReleases(ReleaseExpands expand, String artifactVersionId) throws ConnectionException, AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("$expand", expand.toString().toLowerCase());
+            put("artifactVersionId", artifactVersionId);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
+                AREA, null, null, ReleaseVersion.VERSION, q, null);
+
+        return MAPPER.mapJsonResponse(r, Releases.class);
+    }
+
+    /***
+     * Get a list of releases
+     * @param expand The property that should be expanded in the list of releases. {@link ReleaseExpands}
      * @param top Number of releases to get. Default is 50.
      * @param artifactTypeId Releases with given artifactTypeId will be returned.
      * Values can be Build, Jenkins, GitHub, Nuget, Team Build (external), ExternalTFSBuild, Git, TFVC, ExternalTfsXamlBuild.

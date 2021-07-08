@@ -22,6 +22,7 @@ public interface ReleaseDetails {
     Releases getReleases(int definitionId) throws ConnectionException, AzDException;
     Releases getReleases(ReleaseExpands expand, int top) throws ConnectionException, AzDException;
     Releases getReleases(String[] releaseIdFilter) throws ConnectionException, AzDException;
+    Releases getReleases(ReleaseExpands expand, String artifactVersionId) throws ConnectionException, AzDException;
     Releases getReleases(ReleaseExpands expand, int top, String artifactTypeId,
                          String artifactVersionId, int continuationToken, String createdBy,
                          int definitionEnvironmentId, int definitionId, int environmentStatusFilter,
