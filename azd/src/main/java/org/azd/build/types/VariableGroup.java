@@ -4,18 +4,39 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 
+/***
+ * Represents a variable group.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class VariableGroup {
+    /***
+     * The Name of the variable group.
+     */
     @JsonProperty("alias")
     private String alias;
+    /***
+     * The description.
+     */
     @JsonProperty("description")
     private String description;
+    /***
+     * The ID of the variable group.
+     */
     @JsonProperty("id")
     private int id;
+    /***
+     * The Name of the variable group.
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * The type of the variable group.
+     */
     @JsonProperty("type")
     private String type;
+    /***
+     * Build variables
+     */
     @JsonProperty("variables")
     private JsonNode variables;
 

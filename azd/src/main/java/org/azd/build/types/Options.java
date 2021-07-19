@@ -3,12 +3,24 @@ package org.azd.build.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Represents the application of an optional behavior to a build definition.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Options {
+    /***
+     * Indicates whether the behavior is enabled.
+     */
     @JsonProperty("enabled")
     private boolean enabled;
+    /***
+     * Represents a reference to a build option definition.
+     */
     @JsonProperty("definition")
     private DefinitionReference definition;
+    /***
+     * Build definition option inputs
+     */
     @JsonProperty("inputs")
     private Inputs inputs;
 

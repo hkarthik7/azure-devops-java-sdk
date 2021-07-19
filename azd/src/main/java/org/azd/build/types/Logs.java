@@ -3,12 +3,24 @@ package org.azd.build.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Represents a build log.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Logs {
+    /***
+     * The ID of the log.
+     */
     @JsonProperty("id")
     private String id;
+    /***
+     * The type of the log location.
+     */
     @JsonProperty("type")
     private String type;
+    /***
+     * A full link to the log resource.
+     */
     @JsonProperty("url")
     private String url;
 

@@ -5,8 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * Represents a List of build results
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Builds {
+    /***
+     * Represents a List of build results
+     */
     @JsonProperty("value")
     private List<Build> builds;
 

@@ -5,8 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * An array of Build changes
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BuildChanges {
+    /***
+     * Represents an array of build changes
+     */
     @JsonProperty("value")
     private List<BuildChange> value;
 

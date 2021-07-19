@@ -21,7 +21,7 @@ public class Main {
         var connection = new Connection(organisation, project, personalAccessToken);
 
         // call API with default connection object;
-        var mem = new MemberEntitlementManagementApi(defaultParameters);
+        var mem = new MemberEntitlementManagementApi(connection);
         var graph = new GraphApi(connection);
         var core = new CoreApi(connection);
         

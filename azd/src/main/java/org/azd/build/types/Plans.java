@@ -3,8 +3,14 @@ package org.azd.build.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Represents a plan
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Plans {
+    /***
+     * Plan id
+     */
     @JsonProperty("planId")
     private String planId;
 

@@ -5,8 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * Represents a build process.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Process {
+    /***
+     * List of build phase
+     */
     @JsonProperty("phases")
     private List<Phases> phases;
 

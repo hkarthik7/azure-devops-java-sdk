@@ -11,78 +11,189 @@ import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BuildDefinition {
+    /***
+     * The class to represent a collection of REST reference links.
+     */
     @JsonProperty("_links")
     private BuildDefinitionReferenceLinks _links;
+    /***
+     * The author of the definition.
+     */
     @JsonProperty("authoredBy")
     private Author authoredBy;
+    /***
+     * Indicates whether badges are enabled for this definition.
+     */
     @JsonProperty("badgeEnabled")
     private boolean badgeEnabled;
+    /***
+     * The build number format.
+     */
     @JsonProperty("buildNumberFormat")
     private String buildNumberFormat;
+    /***
+     * A save-time comment for the definition.
+     */
     @JsonProperty("comment")
     private String comment;
+    /***
+     * The date this version of the definition was created.
+     */
     @JsonProperty("createdDate")
     private String createdDate;
+    /***
+     * Represents a demand used by a definition or build.
+     */
     @JsonProperty("demands")
     private List<Demand> demands;
+    /***
+     * The description.
+     */
     @JsonProperty("description")
     private String description;
+    /***
+     * A reference to the definition that this definition is a draft of, if this is a draft definition.
+     */
     @JsonProperty("draftOf")
     private DefinitionReference draftOf;
+    /***
+     * The list of drafts associated with this definition, if this is not a draft definition.
+     */
     @JsonProperty("drafts")
     private List<DefinitionReference> drafts;
+    /***
+     * The drop location for the definition.
+     */
     @JsonProperty("dropLocation")
     private String dropLocation;
+    /***
+     * The ID of the referenced definition.
+     */
     @JsonProperty("id")
     private int id;
+    /***
+     * The job authorization scope for builds queued against this definition.
+     */
     @JsonProperty("jobAuthorizationScope")
     private String jobAuthorizationScope;
+    /***
+     * The job cancel timeout (in minutes) for builds cancelled by user for this definition.
+     */
     @JsonProperty("jobCancelTimeoutInMinutes")
     private int jobCancelTimeoutInMinutes;
+    /***
+     * The job execution timeout (in minutes) for builds queued against this definition.
+     */
     @JsonProperty("jobTimeoutInMinutes")
     private int jobTimeoutInMinutes;
+    /***
+     * Data representation of a build.
+     */
     @JsonProperty("latestBuild")
     private Build latestBuild;
+    /***
+     * Data representation of a build.
+     */
     @JsonProperty("latestCompletedBuild")
     private Build latestCompletedBuild;
+    /***
+     * Represents metadata about builds in the system.
+     */
     @JsonProperty("metrics")
     private List<BuildMetric> metrics;
+    /***
+     * The name of the referenced definition.
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * Represents the application of an optional behavior to a build definition.
+     */
     @JsonProperty("options")
     private List<Options> options;
+    /***
+     * The folder path of the definition.
+     */
     @JsonProperty("path")
     private String path;
+    /***
+     * The build process.
+     */
     @JsonProperty("process")
     private Process process;
+    /***
+     * A reference to the project.
+     */
     @JsonProperty("project")
     private Project project;
+    /***
+     * The class represents a property bag as a collection of key-value pairs.
+     */
     @JsonProperty("properties")
     private JsonNode properties;
+    /***
+     * The quality of the definition document (draft, etc.)
+     */
     @JsonProperty("quality")
     private String quality;
+    /***
+     * The default queue for builds run against this definition.
+     */
     @JsonProperty("queue")
     private Queue queue;
+    /***
+     * A value that indicates whether builds can be queued against this definition.
+     */
     @JsonProperty("queueStatus")
     private String queueStatus;
+    /***
+     * The repository.
+     */
     @JsonProperty("repository")
     private BuildRepository repository;
+    /***
+     * Represents a retention policy for a build definition.
+     */
     @JsonProperty("retentionRules")
     private List<RetentionPolicy> retentionRules;
+    /***
+     * The definition revision number.
+     */
     @JsonProperty("revision")
     private int revision;
+    /***
+     * Build definition tags
+     */
     @JsonProperty("tags")
     private String[] tags;
+    /***
+     * Represents a trigger for a build definition.
+     */
     @JsonProperty("triggers")
     private List<Triggers> triggers;
+    /***
+     * The type of the definition.
+     */
     @JsonProperty("type")
     private String type;
+    /***
+     * The REST URL of the definition.
+     */
     @JsonProperty("url")
     private String url;
+    /***
+     * The definition's URI.
+     */
     @JsonProperty("uri")
     private String uri;
+    /***
+     * Represents a variable group.
+     */
     @JsonProperty("variableGroups")
     private List<VariableGroup> variableGroups;
+    /***
+     * Build variables
+     */
     @JsonProperty("variables")
     private JsonNode variables;
 

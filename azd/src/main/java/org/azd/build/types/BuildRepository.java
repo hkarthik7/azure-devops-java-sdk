@@ -3,22 +3,49 @@ package org.azd.build.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Represents a repository used by a build definition.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BuildRepository {
+    /***
+     * Properties
+     */
     @JsonProperty("properties")
     private Properties properties;
+    /***
+     * The ID of the repository.
+     */
     @JsonProperty("id")
     private String id;
+    /***
+     * The type of the repository.
+     */
     @JsonProperty("type")
     private String type;
+    /***
+     * The friendly name of the repository.
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * The URL of the repository.
+     */
     @JsonProperty("url")
     private String url;
+    /***
+     * The name of the default branch.
+     */
     @JsonProperty("defaultBranch")
     private String defaultBranch;
+    /***
+     * Indicates whether to clean the target folder when getting code from the repository.
+     */
     @JsonProperty("clean")
     private String clean;
+    /***
+     * Indicates whether to checkout submodules.
+     */
     @JsonProperty("checkoutSubmodules")
     private boolean checkoutSubmodules;
 

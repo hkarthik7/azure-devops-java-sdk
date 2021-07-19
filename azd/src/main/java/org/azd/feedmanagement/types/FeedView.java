@@ -3,18 +3,39 @@ package org.azd.feedmanagement.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * A view on top of a feed.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FeedView {
+    /***
+     * Id of the view.
+     */
     @JsonProperty("id")
     private String id;
+    /***
+     * Name of the view.
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * Url of the view.
+     */
     @JsonProperty("url")
     private String url;
+    /***
+     * Type of view.
+     */
     @JsonProperty("type")
     private String type;
+    /***
+     * Related REST links.
+     */
     @JsonProperty("_links")
     private FeedReferenceLinks _links;
+    /***
+     * Visibility status of the view.
+     */
     @JsonProperty("visibility")
     private String visibility;
 

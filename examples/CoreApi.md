@@ -21,7 +21,7 @@ public class Main {
         var connection = new Connection(organisation, project, personalAccessToken);
 
         // call API with default connection object;
-        CoreApi core = new CoreApi(defaultParameters);
+        CoreApi core = new CoreApi(connection);
         try {        
             // create a new project
             // This creates a default project with scrum process

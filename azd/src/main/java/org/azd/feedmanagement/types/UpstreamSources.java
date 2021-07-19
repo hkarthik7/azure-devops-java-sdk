@@ -5,36 +5,84 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * Upstream source definition, including its Identity, package type, and other associated information.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UpstreamSources {
+    /***
+     * UTC date that this upstream was deleted.
+     */
     @JsonProperty("deletedDate")
     private String deletedDate;
+    /***
+     * Locator for connecting to the upstream source in a user friendly format, that may potentially change over time
+     */
     @JsonProperty("displayLocation")
     private String displayLocation;
+    /***
+     * Identity of the upstream source.
+     */
     @JsonProperty("id")
     private String id;
+    /***
+     * For an internal upstream type, track the Azure DevOps organization that contains it.
+     */
     @JsonProperty("internalUpstreamCollectionId")
     private String internalUpstreamCollectionId;
+    /***
+     * For an internal upstream type, track the feed id being referenced.
+     */
     @JsonProperty("internalUpstreamFeedId")
     private String internalUpstreamFeedId;
+    /***
+     * For an internal upstream type, track the project of the feed being referenced.
+     */
     @JsonProperty("internalUpstreamProjectId")
     private String internalUpstreamProjectId;
+    /***
+     * For an internal upstream type, track the view of the feed being referenced.
+     */
     @JsonProperty("internalUpstreamViewId")
     private String internalUpstreamViewId;
+    /***
+     * Consistent locator for connecting to the upstream source.
+     */
     @JsonProperty("location")
     private String location;
+    /***
+     * Display name.
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * Package type associated with the upstream source.
+     */
     @JsonProperty("protocol")
     private String protocol;
+    /***
+     * The identity of the service endpoint that holds credentials to use when accessing the upstream.
+     */
     @JsonProperty("serviceEndpointId")
     private String serviceEndpointId;
+    /***
+     * Specifies the projectId of the Service Endpoint.
+     */
     @JsonProperty("serviceEndpointProjectId")
     private String serviceEndpointProjectId;
+    /***
+     * Specifies the status of the upstream.
+     */
     @JsonProperty("status")
     private String status;
+    /***
+     * Provides a human-readable reason for the status of the upstream.
+     */
     @JsonProperty("statusDetails")
     private List<UpstreamStatusDetail> statusDetails;
+    /***
+     * Source type, such as Public or Internal.
+     */
     @JsonProperty("upstreamSourceType")
     private String upstreamSourceType;
 

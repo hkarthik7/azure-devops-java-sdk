@@ -5,8 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * Permissions for a feed.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FeedPermissions {
+    /***
+     * Array of feed permissions.
+     */
     @JsonProperty("value")
     private List<FeedPermission> feedPermissions;
 

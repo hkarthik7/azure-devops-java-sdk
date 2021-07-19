@@ -5,8 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * Array of feed views
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FeedViews {
+    /***
+     * Array of feed views
+     */
     @JsonProperty("value")
     private List<FeedView> value;
 

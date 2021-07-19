@@ -5,12 +5,24 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Reference;
 import org.azd.common.types.ReferenceLink;
 
+/***
+ * The class to represent a collection of REST reference links.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FeedReferenceLinks extends ReferenceLink {
+    /***
+     * REST link to feed packages
+     */
     @JsonProperty("packages")
     private Reference packages;
+    /***
+     * REST link to package permissions
+     */
     @JsonProperty("permissions")
     private Reference permissions;
+    /***
+     * REST link of feed
+     */
     @JsonProperty("feed")
     private Reference feed;
 

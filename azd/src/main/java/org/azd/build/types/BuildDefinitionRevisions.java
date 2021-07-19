@@ -5,8 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * List of build definition revisions
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BuildDefinitionRevisions {
+    /***
+     * List of build revisions
+     */
     @JsonProperty("value")
     private List<BuildDefinitionRevision> buildDefinitionRevisions;
 

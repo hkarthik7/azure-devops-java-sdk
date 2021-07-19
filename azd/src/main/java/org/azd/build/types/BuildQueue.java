@@ -3,12 +3,24 @@ package org.azd.build.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-    @JsonIgnoreProperties(ignoreUnknown = true)
+/***
+ * Represents a queue for running builds.
+ */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class BuildQueue {
+    /***
+     * The ID of the queue.
+     */
     @JsonProperty("id")
     private String id;
+    /***
+     * The name of the queue.
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * The pool used by this queue.
+     */
     @JsonProperty("pool")
     private BuildPool pool;
 

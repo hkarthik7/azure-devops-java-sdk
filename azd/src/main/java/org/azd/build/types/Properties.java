@@ -3,18 +3,39 @@ package org.azd.build.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Build repository properties
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Properties {
+    /***
+     * Repository clone url
+     */
     @JsonProperty("cloneUrl")
     private String cloneUrl;
+    /***
+     * Repository full name
+     */
     @JsonProperty("fullName")
     private String fullName;
+    /***
+     * Default branch in the repository
+     */
     @JsonProperty("defaultBranch")
     private String defaultBranch;
+    /***
+     * If the repository is a fork or not
+     */
     @JsonProperty("isFork")
     private boolean isFork;
+    /***
+     * Safe repository
+     */
     @JsonProperty("safeRepository")
     private String safeRepository;
+    /***
+     * Build status report
+     */
     @JsonProperty("reportBuildStatus")
     private boolean reportBuildStatus;
 

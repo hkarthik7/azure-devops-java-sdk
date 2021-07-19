@@ -3,20 +3,46 @@ package org.azd.common.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Represents the identity of an user object.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Author {
+    /***
+     * This is the non-unique display name of the graph subject. To change this field, you must alter its value in the source provider.
+     */
     @JsonProperty("displayName")
     private String displayName;
+    /***
+     * This url is the full route to the source resource of this graph subject.
+     */
     @JsonProperty("url")
     private String url;
+    /***
+     * This field contains zero or more interesting links about the graph subject.
+     * These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
+     */
     @JsonProperty("_links")
     private ReferenceLinks _links;
+    /***
+     * Unique Id
+     */
     @JsonProperty("id")
     private String id;
+    /***
+     * Unique name
+     */
     @JsonProperty("uniqueName")
     private String uniqueName;
+    /***
+     * Link to image
+     */
     @JsonProperty("imageUrl")
     private String imageUrl;
+    /***
+     * The descriptor is the primary way to reference the graph subject while the system is running.
+     * This field will uniquely identify the same graph subject across both Accounts and Organizations.
+     */
     @JsonProperty("descriptor")
     private String descriptor;
 

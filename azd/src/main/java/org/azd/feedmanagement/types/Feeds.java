@@ -5,8 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * Array of feed containers
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Feeds {
+    /***
+     * Array of feed
+     */
     @JsonProperty("value")
     private List<Feed> feeds;
 

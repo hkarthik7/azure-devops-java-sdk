@@ -3,10 +3,19 @@ package org.azd.build.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Represents any workitems associated with a build
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BuildWorkItem {
+    /***
+     * Workitem Id
+     */
     @JsonProperty("id")
     private String id;
+    /***
+     * Workitem url
+     */
     @JsonProperty("url")
     private String url;
 

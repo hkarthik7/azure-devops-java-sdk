@@ -3,26 +3,59 @@ package org.azd.build.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Represents a definition steps
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Steps {
+    /***
+     * If enabled or not
+     */
     @JsonProperty("enabled")
     private boolean enabled;
+    /***
+     * Continue on error or not
+     */
     @JsonProperty("continueOnError")
     private boolean continueOnError;
+    /***
+     * Always run
+     */
     @JsonProperty("alwaysRun")
     private boolean alwaysRun;
+    /***
+     * Step display name
+     */
     @JsonProperty("displayName")
     private String displayName;
+    /***
+     * Timeout in minutes
+     */
     @JsonProperty("timeoutInMinutes")
     private int timeoutInMinutes;
+    /***
+     * Steps condition
+     */
     @JsonProperty("condition")
     private String condition;
+    /***
+     * task in a step
+     */
     @JsonProperty("task")
     private Task task;
+    /***
+     * Name of the task
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * Task reference name
+     */
     @JsonProperty("refName")
     private String refName;
+    /***
+     * Job authorization scope
+     */
     @JsonProperty("jobAuthorizationScope")
     private String jobAuthorizationScope;
 

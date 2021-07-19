@@ -1,9 +1,15 @@
 package org.azd.enums;
 
 /***
- * implicit	- Internal view type that is automatically created and managed by the system.
- * * release - View used as a promotion destination to classify released artifacts.
+ * Type of view.
  */
 public enum FeedViewType {
-    IMPLICIT, RELEASE
+    /***
+     * Internal view type that is automatically created and managed by the system.
+     */
+    IMPLICIT,
+    /***
+     * View used as a promotion destination to classify released artifacts.
+     */
+    RELEASE
 }

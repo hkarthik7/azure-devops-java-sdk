@@ -5,16 +5,34 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * Represents a trigger for a build definition.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Triggers {
+    /***
+     * Branch filters
+     */
     @JsonProperty("branchFilters")
     private List<String> branchFilters;
+    /***
+     * Batch changes
+     */
     @JsonProperty("batchChanges")
     private boolean batchChanges;
+    /***
+     * Maximum concurrent builds per branch
+     */
     @JsonProperty("maxConcurrentBuildsPerBranch")
     private int maxConcurrentBuildsPerBranch;
+    /***
+     * Polling interval
+     */
     @JsonProperty("pollingInterval")
     private int pollingInterval;
+    /***
+     * The type of the trigger.
+     */
     @JsonProperty("triggerType")
     private String triggerType;
 

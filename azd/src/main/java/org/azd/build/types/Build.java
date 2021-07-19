@@ -8,92 +8,224 @@ import org.azd.core.types.Project;
 import java.util.Arrays;
 import java.util.List;
 
+/***
+ * Data representation of a build.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Build {
+    /***
+     * The class to represent a collection of REST reference links.
+     */
     @JsonProperty("_links")
     private BuildReferenceLinks _links;
+    /***
+     * The agent specification for the build.
+     */
     @JsonProperty("agentSpecification")
     private AgentSpecification agentSpecification;
+    /***
+     * The build number/name of the build.
+     */
     @JsonProperty("buildNumber")
     private String buildNumber;
+    /***
+     * The build number revision.
+     */
     @JsonProperty("buildNumberRevision")
     private int buildNumberRevision;
+    /***
+     * The build controller. This is only set if the definition type is Xaml.
+     */
     @JsonProperty("controller")
     private BuildController controller;
+    /***
+     * The definition associated with the build.
+     */
     @JsonProperty("definition")
     private DefinitionReference definition;
+    /***
+     * Indicates whether the build has been deleted.
+     */
     @JsonProperty("deleted")
     private boolean deleted;
+    /***
+     * The identity of the process or person that deleted the build.
+     */
     @JsonProperty("deletedBy")
     private Author deletedBy;
+    /***
+     * The date the build was deleted.
+     */
     @JsonProperty("deletedDate")
     private String deletedDate;
+    /***
+     * The description of how the build was deleted.
+     */
     @JsonProperty("deletedReason")
     private String deletedReason;
+    /***
+     * A list of demands that represents the agent capabilities required by this build.
+     */
     @JsonProperty("demands")
     private List<Demand> demands;
+    /***
+     * The time that the build was completed.
+     */
     @JsonProperty("finishTime")
     private String finishTime;
+    /***
+     * The ID of the build.
+     */
     @JsonProperty("id")
     private int id;
+    /***
+     * Indicates whether the build should be skipped by retention policies.
+     */
     @JsonProperty("keepForever")
     private boolean keepForever;
+    /***
+     * The identity representing the process or person that last changed the build.
+     */
     @JsonProperty("lastChangedBy")
     private Author lastChangedBy;
+    /***
+     * The date the build was last changed.
+     */
     @JsonProperty("lastChangedDate")
     private String lastChangedDate;
+    /***
+     * Information about the build logs.
+     */
     @JsonProperty("logs")
     private Logs logs;
+    /***
+     * The orchestration plan for the build.
+     */
     @JsonProperty("orchestrationPlan")
     private OrchestrationPlan orchestrationPlan;
+    /***
+     * The parameters for the build.
+     */
     @JsonProperty("parameters")
     private String parameters;
+    /***
+     * Orchestration plans associated with the build (build, cleanup)
+     */
     @JsonProperty("plans")
     private List<OrchestrationPlan> plans;
+    /***
+     * The build's priority.
+     */
     @JsonProperty("priority")
     private String priority;
+    /***
+     * The team project.
+     */
     @JsonProperty("project")
     private Project project;
+    /***
+     * The quality of the xaml build (good, bad, etc.)
+     */
     @JsonProperty("quality")
     private String quality;
+    /***
+     * The queue. This is only set if the definition type is Build. WARNING: this field is deprecated and does not corresponds to the jobs queues.
+     */
     @JsonProperty("queue")
     private BuildQueue queue;
+    /***
+     * Additional options for queueing the build.
+     */
     @JsonProperty("queueOptions")
     private String queueOptions;
+    /***
+     * The current position of the build in the queue.
+     */
     @JsonProperty("queuePosition")
     private int queuePosition;
+    /***
+     * The time that the build was queued.
+     */
     @JsonProperty("queueTime")
     private String queueTime;
+    /***
+     * The reason that the build was created.
+     */
     @JsonProperty("reason")
     private String reason;
+    /***
+     * The repository.
+     */
     @JsonProperty("repository")
     private Repository repository;
+    /***
+     * The identity that queued the build.
+     */
     @JsonProperty("requestedBy")
     private Author requestedBy;
+    /***
+     * The identity on whose behalf the build was queued.
+     */
     @JsonProperty("requestedFor")
     private RequestedFor requestedFor;
+    /***
+     * The build result.
+     */
     @JsonProperty("result")
     private String result;
+    /***
+     * Indicates whether the build is retained by a release.
+     */
     @JsonProperty("retainedByRelease")
     private boolean retainedByRelease;
+    /***
+     * The source branch.
+     */
     @JsonProperty("sourceBranch")
     private String sourceBranch;
+    /***
+     * The source version.
+     */
     @JsonProperty("sourceVersion")
     private String sourceVersion;
+    /***
+     * The time that the build was started.
+     */
     @JsonProperty("startTime")
     private String startTime;
+    /***
+     * The status of the build.
+     */
     @JsonProperty("status")
     private String status;
+    /***
+     * Tags
+     */
     @JsonProperty("tags")
     private String[] tags;
+    /***
+     * Sourceprovider-specific information about what triggered the build
+     */
     @JsonProperty("triggerInfo")
     private TriggerInfo triggerInfo;
+    /***
+     * The build that triggered this build via a Build completion trigger.
+     */
     @JsonProperty("triggeredByBuild")
     private Build triggeredByBuild;
+    /***
+     * The URI of the build.
+     */
     @JsonProperty("url")
     private String url;
+    /***
+     * The REST URL of the build.
+     */
     @JsonProperty("uri")
     private String uri;
+    /***
+     * Represents the result of validating a build request.
+     */
     @JsonProperty("validationResults")
     private List<BuildRequestValidationResult> validationResults;
 

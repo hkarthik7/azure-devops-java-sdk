@@ -3,8 +3,14 @@ package org.azd.build.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * The agent specification for the build.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AgentSpecification {
+    /***
+     * Agent specification unique identifier.
+     */
     @JsonProperty("identifier")
     private String identifier;
 

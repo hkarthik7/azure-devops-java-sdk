@@ -3,14 +3,29 @@ package org.azd.build.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Represents metadata about builds in the system.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BuildMetric {
+    /***
+     * The date for the scope.
+     */
     @JsonProperty("date")
     private String date;
+    /***
+     * The value.
+     */
     @JsonProperty("intValue")
     private int intValue;
+    /***
+     * The name of the metric.
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * The scope.
+     */
     @JsonProperty("scope")
     private String scope;
 

@@ -5,8 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * Array of build controller
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BuildControllers {
+    /***
+     * Array of build controller
+     */
     @JsonProperty("value")
     private List<BuildController> value;
 

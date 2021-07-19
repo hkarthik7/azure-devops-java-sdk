@@ -5,14 +5,29 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Reference;
 import org.azd.common.types.ReferenceLink;
 
+/***
+ * The class to represent a collection of REST reference links.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BuildReferenceLinks extends ReferenceLink {
+    /***
+     * REST url of web service
+     */
     @JsonProperty("web")
     private Reference web;
+    /***
+     * REST url pf source version
+     */
     @JsonProperty("sourceVersionDisplayUri")
     private Reference sourceVersionDisplayUri;
+    /***
+     * REST url of build timeline
+     */
     @JsonProperty("timeline")
     private Reference timeline;
+    /***
+     * REST url of build badge
+     */
     @JsonProperty("badge")
     private Reference badge;
 
