@@ -1,5 +1,27 @@
 package org.azd.enums;
 
+/***
+ * Licensing Source
+ */
 public enum LicensingSource {
-    ACCOUNT, AUTO, MSDN, PROFILE, TRIAL
+    /***
+     * Account
+     */
+    ACCOUNT,
+    /***
+     * Auto
+     */
+    AUTO,
+    /***
+     * MSDN
+     */
+    MSDN,
+    /***
+     * Profile
+     */
+    PROFILE,
+    /***
+     * Trial
+     */
+    TRIAL
 }

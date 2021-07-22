@@ -3,12 +3,24 @@ package org.azd.memberentitlementmanagement.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Represents the response after adding a user
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserEntitlementsResponse {
+    /***
+     * True if all operations were successful.
+     */
     @JsonProperty("isSuccess")
     private boolean isSuccess;
+    /***
+     * Operation result.
+     */
     @JsonProperty("operationResult")
     private UserEntitlementOperationResult operationResult;
+    /***
+     * Result of the user entitlement after the operations have been applied.
+     */
     @JsonProperty("userEntitlement")
     private UserEntitlement userEntitlement;
 

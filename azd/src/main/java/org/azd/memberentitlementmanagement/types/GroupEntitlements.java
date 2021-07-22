@@ -5,8 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * List of group entitlement
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GroupEntitlements {
+    /***
+     * List of group entitlement
+     */
     @JsonProperty("value")
     private List<GroupEntitlement> GroupEntitlements;
 

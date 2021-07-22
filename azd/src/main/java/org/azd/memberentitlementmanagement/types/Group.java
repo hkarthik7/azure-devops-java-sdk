@@ -3,10 +3,19 @@ package org.azd.memberentitlementmanagement.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Project Group (e.g. Contributor, Reader etc.)
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Group {
+    /***
+     * Display Name of the Group
+     */
     @JsonProperty("displayName")
     private String displayName;
+    /***
+     * Group Type
+     */
     @JsonProperty("groupType")
     private String groupType;
 

@@ -3,10 +3,19 @@ package org.azd.memberentitlementmanagement.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Group option to add a user to
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GroupOptions {
+    /***
+     * Access Level
+     */
     @JsonProperty("accessLevel")
     private AccessLevel accessLevel;
+    /***
+     * Group
+     */
     @JsonProperty("group")
     private Group group;
 

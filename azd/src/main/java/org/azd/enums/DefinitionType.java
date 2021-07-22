@@ -1,5 +1,15 @@
 package org.azd.enums;
 
+/***
+ * The type of the definition.
+ */
 public enum DefinitionType {
-    BUILD, XAML
+    /***
+     * Build
+     */
+    BUILD,
+    /***
+     * XAML
+     */
+    XAML
 }

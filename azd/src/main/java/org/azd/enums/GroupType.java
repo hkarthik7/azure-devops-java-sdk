@@ -1,5 +1,27 @@
 package org.azd.enums;
 
+/***
+ * Group Type
+ */
 public enum GroupType {
-    CUSTOM, PROJECTADMINISTRATOR, PROJECTCONTRIBUTOR, PROJECTREADER, PROJECTSTAKEHOLDER
+    /***
+     * Custom
+     */
+    CUSTOM,
+    /**
+     * Project administrator
+     */
+    PROJECTADMINISTRATOR,
+    /***
+     * Project contributor
+     */
+    PROJECTCONTRIBUTOR,
+    /***
+     * Project reader
+     */
+    PROJECTREADER,
+    /***
+     * Project stake holder
+     */
+    PROJECTSTAKEHOLDER
 }

@@ -6,20 +6,44 @@ import org.azd.graph.types.GraphUser;
 
 import java.util.List;
 
+/***
+ * A user entity with additional properties including their license, extensions, and project membership
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserEntitlement {
+    /***
+     * User's access level denoted by a license.
+     */
     @JsonProperty("accessLevel")
     private AccessLevel accessLevel;
+    /***
+     * Date the user was added to the collection.
+     */
     @JsonProperty("dateCreated")
     private String dateCreated;
+    /***
+     * GroupEntitlements that this user belongs to.
+     */
     @JsonProperty("groupAssignments")
     private List<GroupEntitlement> groupAssignments;
+    /***
+     * The unique identifier which matches the Id of the Identity associated with the GraphMember.
+     */
     @JsonProperty("id")
     private String id;
+    /***
+     * Date the user last accessed the collection.
+     */
     @JsonProperty("lastAccessedDate")
     private String lastAccessedDate;
+    /***
+     * Relation between a project and the user's effective permissions in that project.
+     */
     @JsonProperty("projectEntitlements")
     private List<ProjectEntitlement> projectEntitlements;
+    /***
+     * User reference.
+     */
     @JsonProperty("user")
     private GraphUser user;
 

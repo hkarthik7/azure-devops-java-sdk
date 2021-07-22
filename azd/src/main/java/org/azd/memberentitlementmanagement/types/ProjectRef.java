@@ -3,10 +3,19 @@ package org.azd.memberentitlementmanagement.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * A reference to a project
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ProjectRef {
+    /***
+     * Project ID.
+     */
     @JsonProperty("id")
     private String id;
+    /***
+     * Project Name.
+     */
     @JsonProperty("name")
     private String name;
 
