@@ -3,12 +3,24 @@ package org.azd.core.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Reference for an async operation.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OperationReference {
+    /***
+     * Unique identifier for the operation.
+     */
     @JsonProperty("id")
     private String id;
+    /***
+     * The current status of the operation.
+     */
     @JsonProperty("status")
     private String status;
+    /***
+     * URL to get the full operation object.
+     */
     @JsonProperty("url")
     private String url;
 

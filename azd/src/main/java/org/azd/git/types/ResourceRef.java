@@ -3,10 +3,19 @@ package org.azd.git.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Represents the workitem associated with the pull request
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ResourceRef {
+    /***
+     * Id of the workitem
+     */
     @JsonProperty("id")
     private String id;
+    /***
+     * Url of the workitem
+     */
     @JsonProperty("url")
     private String url;
 

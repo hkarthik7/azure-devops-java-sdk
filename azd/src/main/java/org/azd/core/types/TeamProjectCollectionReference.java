@@ -3,12 +3,24 @@ package org.azd.core.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Reference object for a TeamProjectCollection.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TeamProjectCollectionReference {
+    /***
+     * Collection Id.
+     */
     @JsonProperty("id")
     private String id;
+    /***
+     * Collection Name.
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * Collection REST Url.
+     */
     @JsonProperty("url")
     private String url;
 

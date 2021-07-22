@@ -5,8 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * Represents a list of graph user
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GraphUsers {
+    /***
+     * Represents a list of graph user
+     */
     @JsonProperty("value")
     private List<GraphUser> users;
 

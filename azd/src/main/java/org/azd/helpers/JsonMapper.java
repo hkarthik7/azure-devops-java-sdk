@@ -6,8 +6,17 @@ import org.azd.exceptions.AzDException;
 
 import java.io.File;
 
+/***
+ * Helper class to transform json string to POJO and vice versa
+ */
 public class JsonMapper extends ObjectMapper {
 
+    /***
+     * Converts the object to string
+     * @param value any non null json object
+     * @return a String
+     * @throws AzDException Api exception handler
+     */
     public String convertToString(Object value) throws AzDException {
         try {
             return this.writeValueAsString(value);
@@ -16,6 +25,14 @@ public class JsonMapper extends ObjectMapper {
         }
     }
 
+    /***
+     * Handles the deserialization of json string to object of given type.
+     * @param content json response from API
+     * @param valueType class name to convert to POJO
+     * @param <T> Type name
+     * @return the given type
+     * @throws AzDException Api exception handler
+     */
     public <T> T mapJsonResponse(String content, Class<T> valueType) throws AzDException {
         try {
             if (content.contains("innerException"))
@@ -28,6 +45,14 @@ public class JsonMapper extends ObjectMapper {
         }
     }
 
+    /***
+     * Handles the deserialization of json string to given object from a file.
+     * @param src file name
+     * @param valueType class name to convert to POJO
+     * @param <T> Type name
+     * @return the given type
+     * @throws AzDException Api exception handler
+     */
     public <T> T mapJsonFromFile(File src, Class<T> valueType) throws AzDException {
         try {
             return this.readValue(src, valueType);

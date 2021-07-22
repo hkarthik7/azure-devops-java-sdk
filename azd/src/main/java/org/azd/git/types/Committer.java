@@ -3,12 +3,24 @@ package org.azd.git.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Represents the committer to the repository
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Committer {
+    /***
+     * Name of the committer
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * Email
+     */
     @JsonProperty("email")
     private String email;
+    /***
+     * Date when committed
+     */
     @JsonProperty("date")
     private String date;
 

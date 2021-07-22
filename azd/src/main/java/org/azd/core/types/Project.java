@@ -3,26 +3,60 @@ package org.azd.core.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Represents a Team Project object.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Project {
+    /***
+     * Project identifier.
+     */
     @JsonProperty("id")
     private String id;
+    /***
+     * Project name.
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * The project's description (if any).
+     */
     @JsonProperty("description")
     private String description;
+    /***
+     * Url to the full version of the object.
+     */
     @JsonProperty("url")
     private String url;
+    /***
+     * Project state.
+     */
     @JsonProperty("state")
     private String state;
+    /***
+     * Set of capabilities this project has (such as process template & version control).
+     */
     @JsonProperty("capabilities")
     private Capabilities capabilities;
+    /***
+     * Project revision.
+     */
     @JsonProperty("revision")
     private int revision;
+    /***
+     * Project visibility.
+     */
     @JsonProperty("visibility")
     private String visibility;
+    /***
+     * The ref to the default team.
+     */
     @JsonProperty("defaultTeam")
     private Team defaultTeam;
+    /***
+     *
+     * Project last update time.
+     */
     @JsonProperty("lastUpdateTime")
     private String lastUpdateTime;
 

@@ -5,22 +5,49 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Reference;
 import org.azd.common.types.ReferenceLink;
 
+/***
+ * Links to other related objects.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PullRequestReferenceLinks extends ReferenceLink {
+    /***
+     * Link to the repository
+     */
     @JsonProperty("repository")
     private Reference repository;
+    /***
+     * Link to workitem associated with the pull request
+     */
     @JsonProperty("workItems")
     private Reference workItems;
+    /***
+     * Link to source branch
+     */
     @JsonProperty("sourceBranch")
     private Reference sourceBranch;
+    /***
+     * Link to target branch
+     */
     @JsonProperty("targetBranch")
     private Reference targetBranch;
+    /***
+     * Link to source commit
+     */
     @JsonProperty("sourceCommit")
     private Reference sourceCommit;
+    /***
+     * Link to target commit
+     */
     @JsonProperty("targetCommit")
     private Reference targetCommit;
+    /***
+     * Create by
+     */
     @JsonProperty("createdBy")
     private Reference createdBy;
+    /***
+     * Iterations if any
+     */
     @JsonProperty("iterations")
     private Reference iterations;
 

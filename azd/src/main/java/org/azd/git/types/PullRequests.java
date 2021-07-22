@@ -5,8 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * Represents a list of pull request
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PullRequests {
+    /***
+     * Represents a list of pull request
+     */
     @JsonProperty("value")
     private List<PullRequest> value;
 

@@ -4,14 +4,31 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Reference;
 
+/***
+ * This field contains zero or more interesting links about the graph subject.
+ * These links may be invoked to obtain additional relationships or more detailed
+ * information about this graph subject.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GraphReferenceLinks {
+    /***
+     * self reference url
+     */
     @JsonProperty("self")
     private Reference self;
+    /***
+     * Represents the ulr of membership API
+     */
     @JsonProperty("memberships")
     private Reference memberships;
+    /***
+     * Membership state url
+     */
     @JsonProperty("membershipState")
     private Reference membershipState;
+    /***
+     * Storage key url
+     */
     @JsonProperty("storageKey")
     private Reference storageKey;
 

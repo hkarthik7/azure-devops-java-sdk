@@ -5,8 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * List of repositories
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Repositories {
+    /***
+     * List of repositories
+     */
     @JsonProperty("value")
     private List<Repository> value;
 

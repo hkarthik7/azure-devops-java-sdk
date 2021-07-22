@@ -3,16 +3,34 @@ package org.azd.git.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Provides properties that describe a Git commit and associated metadata.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LastMergeCommit {
+    /***
+     * ID (SHA-1) of the commit.
+     */
     @JsonProperty("commitId")
     private String commitId;
+    /***
+     * Author of the commit.
+     */
     @JsonProperty("author")
     private Committer author;
+    /***
+     * Committer of the commit.
+     */
     @JsonProperty("committer")
     private Committer committer;
+    /***
+     * Comment or message of the commit.
+     */
     @JsonProperty("comment")
     private String comment;
+    /***
+     * REST URL for this resource.
+     */
     @JsonProperty("url")
     private String url;
 

@@ -5,8 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * List of the resource references
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ResourceRefs {
+    /***
+     * List of the resource references
+     */
     @JsonProperty("value")
     private List<ResourceRef> resourceRefs;
 

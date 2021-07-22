@@ -5,18 +5,39 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
 import org.azd.core.types.TeamProjectReference;
 
+/***
+ * Represents deleted repository
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GitDeletedRepository {
+    /***
+     * Repo creation date
+     */
     @JsonProperty("createdDate")
     private String createdDate;
+    /***
+     * Repo delete by (user reference)
+     */
     @JsonProperty("deletedBy")
     private Author deletedBy;
+    /***
+     * Repo deleted date
+     */
     @JsonProperty("deletedDate")
     private String deletedDate;
+    /***
+     * Repo id
+     */
     @JsonProperty("id")
     private String id;
+    /***
+     * Repo name
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * Represents a shallow reference to a TeamProject.
+     */
     @JsonProperty("project")
     private TeamProjectReference project;
 

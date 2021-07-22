@@ -5,22 +5,49 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Reference;
 import org.azd.common.types.ReferenceLink;
 
+/***
+ * The class to represent a collection of REST reference links.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RepositoryReferenceLinks extends ReferenceLink {
+    /***
+     * Project reference url
+     */
     @JsonProperty("project")
     private Reference project;
+    /***
+     * Repository url
+     */
     @JsonProperty("web")
     private Reference web;
+    /***
+     * Repository SSH url
+     */
     @JsonProperty("ssh")
     private Reference ssh;
+    /***
+     * REST url for commits
+     */
     @JsonProperty("commits")
     private Reference commits;
+    /***
+     * REST url or branches
+     */
     @JsonProperty("refs")
     private Reference refs;
+    /***
+     * REST url of pull requests
+     */
     @JsonProperty("pullRequests")
     private Reference pullRequests;
+    /***
+     * Url of items
+     */
     @JsonProperty("items")
     private Reference items;
+    /***
+     * REST url of pushes
+     */
     @JsonProperty("pushes")
     private Reference pushes;
 

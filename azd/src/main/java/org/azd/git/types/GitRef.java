@@ -4,18 +4,39 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
 
+/***
+ * Represents a git branch reference
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GitRef {
+    /***
+     * Creator of the branch
+     */
     @JsonProperty("creator")
     private Author creator;
+    /***
+     * If the branch is locked or not
+     */
     @JsonProperty("isLocked")
     private boolean isLocked;
+    /***
+     * Branch is locked by (user reference)
+     */
     @JsonProperty("isLockedBy")
     private Author isLockedBy;
+    /***
+     * Name of the branch
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * Object id
+     */
     @JsonProperty("objectId")
     private String objectId;
+    /***
+     * Branch url
+     */
     @JsonProperty("url")
     private String url;
 

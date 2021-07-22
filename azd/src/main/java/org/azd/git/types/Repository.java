@@ -6,34 +6,79 @@ import org.azd.core.types.Project;
 
 import java.util.Arrays;
 
+/***
+ * Represents a Git repository
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Repository {
+    /***
+     * The class to represent a collection of REST reference links.
+     */
     @JsonProperty("_links")
     private RepositoryReferenceLinks _links;
+    /***
+     * Reference of a default branch
+     */
     @JsonProperty("defaultBranch")
     private String defaultBranch;
+    /***
+     * Repository unique id
+     */
     @JsonProperty("id")
     private String id;
+    /***
+     * True if the repository is disabled. False otherwise.
+     */
     @JsonProperty("isDisabled")
     private boolean isDisabled;
+    /***
+     * True if the repository was created as a fork.
+     */
     @JsonProperty("isFork")
     private boolean isFork;
+    /***
+     * Name of the repository
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * Name of the parent repository
+     */
     @JsonProperty("parentRepository")
     private GitRepositoryRef parentRepository;
+    /***
+     * Represents a reference to a TeamProject.
+     */
     @JsonProperty("project")
     private Project project;
+    /***
+     * Repo remote url
+     */
     @JsonProperty("remoteUrl")
     private String remoteUrl;
+    /***
+     * Compressed size (bytes) of the repository.
+     */
     @JsonProperty("size")
     private int size;
+    /***
+     * SSH url
+     */
     @JsonProperty("sshUrl")
     private String sshUrl;
+    /***
+     * Repo url
+     */
     @JsonProperty("url")
     private String url;
+    /***
+     * Valid remote urls
+     */
     @JsonProperty("validRemoteUrls")
     private String[] validRemoteUrls;
+    /***
+     * Repo web url
+     */
     @JsonProperty("webUrl")
     private String webUrl;
 

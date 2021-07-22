@@ -3,20 +3,44 @@ package org.azd.helpers;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Represents API inner exception
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ApiException {
+    /***
+     * Id of the exception
+     */
     @JsonProperty("$id")
     private int id;
+    /***
+     * Inner exception if any exists
+     */
     @JsonProperty("innerException")
     private String innerException;
+    /***
+     * Exception message
+     */
     @JsonProperty("message")
     private String message;
+    /***
+     * Exception type
+     */
     @JsonProperty("typeName")
     private String typeName;
+    /***
+     * Exception type key
+     */
     @JsonProperty("typeKey")
     private String typeKey;
+    /***
+     * Error code
+     */
     @JsonProperty("errorCode")
     private int errorCode;
+    /***
+     * Event id
+     */
     @JsonProperty("eventId")
     private int eventId;
 

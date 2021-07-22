@@ -5,8 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * List of deleted repositories
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GitDeletedRepositories {
+    /***
+     * List of deleted repositories
+     */
     @JsonProperty("value")
     private List<GitDeletedRepository> gitDeletedRepositories;
 

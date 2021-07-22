@@ -3,30 +3,77 @@ package org.azd.graph.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Graph group entity
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GraphGroup {
+    /***
+     * This field contains zero or more interesting links about the graph subject.
+     * These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
+     */
     @JsonProperty("_links")
     private GroupReferenceLinks _links;
+    /***A short phrase to help human readers disambiguate groups with similar names
+     *
+     */
     @JsonProperty("description")
     private String description;
+    /***
+     * The descriptor is the primary way to reference the graph subject while the system is running.
+     * This field will uniquely identify the same graph subject across both Accounts and Organizations.
+     */
     @JsonProperty("descriptor")
     private String descriptor;
+    /***
+     * This is the non-unique display name of the graph subject.
+     * To change this field, you must alter its value in the source provider.
+     */
     @JsonProperty("displayName")
     private String displayName;
+    /***
+     * This represents the name of the container of origin for a graph member.
+     */
     @JsonProperty("domain")
     private String domain;
+    /***
+     * The legacy descriptor is here in case you need to access old version IMS using identity descriptor.
+     */
     @JsonProperty("legacyDescriptor")
     private String legacyDescriptor;
+    /***
+     * The email address of record for a given graph member. This may be different than the principal name.
+     */
     @JsonProperty("mailAddress")
     private String mailAddress;
+    /***
+     * The type of source provider for the origin identifier (ex:AD, AAD, MSA)
+     */
     @JsonProperty("origin")
     private String origin;
+    /***
+     * The unique identifier from the system of origin.
+     * Typically a sid, object id or Guid. Linking and unlinking operations can cause this value
+     * to change for a user because the user is not backed by a different provider and has a
+     * different unique id in the new provider.
+     */
     @JsonProperty("originId")
     private String originId;
+    /***
+     * This is the PrincipalName of this graph member from the source provider.
+     * The source provider may change this field over time and it is not
+     * guaranteed to be immutable for the life of the graph member by VSTS.
+     */
     @JsonProperty("principalName")
     private String principalName;
+    /***
+     * This field identifies the type of the graph subject (ex: Group, Scope, User).
+     */
     @JsonProperty("subjectKind")
     private String subjectKind;
+    /***
+     * This url is the full route to the source resource of this graph subject.
+     */
     @JsonProperty("url")
     private String url;
 

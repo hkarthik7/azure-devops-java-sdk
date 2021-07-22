@@ -3,22 +3,51 @@ package org.azd.git.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Identity information including a vote on a pull request.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Reviewers {
+    /***
+     * URL to retrieve information about this identity
+     */
     @JsonProperty("reviewerUrl")
     private String reviewerUrl;
+    /***
+     * Vote on a pull request:
+     * 10 - approved 5 - approved with suggestions 0 - no vote -5 - waiting for author -10 - rejected
+     */
     @JsonProperty("vote")
     private int vote;
+    /***
+     * Indicates if this reviewer has declined to review this pull request.
+     */
     @JsonProperty("hasDeclined")
     private boolean hasDeclined;
+    /***
+     * Indicates if this reviewer is flagged for attention on this pull request.
+     */
     @JsonProperty("isFlagged")
     private boolean isFlagged;
+    /***
+     * This is the non-unique display name of the graph subject.
+     * To change this field, you must alter its value in the source provider.
+     */
     @JsonProperty("displayName")
     private String displayName;
+    /***
+     * This url is the full route to the source resource of this graph subject.
+     */
     @JsonProperty("url")
     private String url;
+    /***
+     * Id of the reviewer
+     */
     @JsonProperty("id")
     private String id;
+    /***
+     * Unique name of the reviewer
+     */
     @JsonProperty("uniqueName")
     private String uniqueName;
 

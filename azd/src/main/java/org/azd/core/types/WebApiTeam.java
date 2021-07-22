@@ -3,16 +3,34 @@ package org.azd.core.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Represents a team
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WebApiTeam {
+    /***
+     * Team description
+     */
     @JsonProperty("description")
     private String description;
+    /***
+     * Team (Identity) Guid. A Team Foundation ID.
+     */
     @JsonProperty("id")
     private String id;
+    /***
+     * Team name
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * Identity REST API Url to this team
+     */
     @JsonProperty("identityUrl")
     private String identityUrl;
+    /***
+     * Team REST API Url
+     */
     @JsonProperty("url")
     private String url;
 
