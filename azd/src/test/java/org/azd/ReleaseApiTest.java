@@ -46,12 +46,14 @@ public class ReleaseApiTest {
 
     @Test
     public void shouldGetARelease() throws ConnectionException, AzDException {
-        r.getRelease(4);
+        var rId = r.getReleases().getReleases().stream().findFirst().get().getId();
+        r.getRelease(rId);
     }
 
     @Test
     public void shouldGetReleaseEnvironmentDetails() throws ConnectionException, AzDException {
-        var res = r.getRelease(4, SingleReleaseExpands.TASKS);
+        var rId = r.getReleases().getReleases().stream().findFirst().get().getId();
+        var res = r.getRelease(rId, SingleReleaseExpands.TASKS);
         r.getReleaseEnvironment(res.getId(), res.getEnvironments().stream().findFirst().get().getId());
     }
 

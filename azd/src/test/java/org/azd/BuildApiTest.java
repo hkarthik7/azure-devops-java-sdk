@@ -14,9 +14,10 @@ import java.io.File;
 public class BuildApiTest {
     private static final JsonMapper MAPPER = new JsonMapper();
     private static BuildDetails b;
+    private static int buildId;
 
     @Before
-    public void init() throws AzDException {
+    public void init() throws AzDException, ConnectionException {
         String dir = System.getProperty("user.dir");
         File file = new File(dir + "/src/test/java/org/azd/_unitTest.json");
         MockParameters m = MAPPER.mapJsonFromFile(file, MockParameters.class);
@@ -25,26 +26,27 @@ public class BuildApiTest {
         String project = m.getP();
         Connection defaultParameters = new Connection(organization, project, token);
         b = new BuildApi(defaultParameters);
+        buildId = b.getBuilds(1).getBuildResults().stream().findFirst().get().getId();
     }
 
-    @Test
+    @Test(expected = AzDException.class)
     public void shouldDeleteABuild() throws ConnectionException, AzDException {
         b.deleteBuild(122);
     }
 
     @Test
     public void shouldGetABuild() throws ConnectionException, AzDException {
-        b.getBuild(127).get_links();
+        b.getBuild(buildId).get_links();
     }
 
     @Test
     public void shouldReturnABuildChanges() throws ConnectionException, AzDException {
-        b.getBuildChanges(127);
+        b.getBuildChanges(buildId);
     }
 
     @Test
     public void shouldReturnABuildChangesWithOptionalParameters() throws ConnectionException, AzDException {
-        b.getBuildChanges(127, 10, "1", true);
+        b.getBuildChanges(buildId, 10, "1", true);
     }
 
     @Test
@@ -59,27 +61,27 @@ public class BuildApiTest {
 
     @Test
     public void shouldReturnBuildLogs() throws ConnectionException, AzDException {
-        b.getBuildLogs(127);
+        b.getBuildLogs(buildId);
     }
 
     @Test
     public void shouldReturnBuildWorkItems() throws ConnectionException, AzDException {
-        b.getBuildWorkItems(127);
+        b.getBuildWorkItems(buildId);
     }
 
     @Test
     public void shouldReturnBuildWorkItemsWithOptionalParameters() throws ConnectionException, AzDException {
-        b.getBuildWorkItems(127, 10);
+        b.getBuildWorkItems(buildId, 10);
     }
 
     @Test
     public void shouldReturnChangesBetweenBuilds() throws ConnectionException, AzDException {
-        b.getChangesBetweenBuilds(127, 127, 10);
+        b.getChangesBetweenBuilds(buildId, buildId, 10);
     }
 
     @Test
     public void shouldReturnWorkItemsBetweenBuilds() throws ConnectionException, AzDException {
-        b.getWorkItemsBetweenBuilds(127, 127, 10);
+        b.getWorkItemsBetweenBuilds(buildId, buildId, 10);
     }
 
     @Test
