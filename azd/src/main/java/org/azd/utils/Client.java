@@ -203,6 +203,9 @@ public abstract class Client extends BaseClient {
 
         if (resourceID == null) return (INSTANCE + organizationName);
 
+        // Manage Accounts Api when the resource id is accounts. Accounts Api resource id doesn't return the desired location url.
+        if (resourceID.equals("accounts")) return "https://app.vssps.visualstudio.com";
+
         String LOCATION_URL_VERSION = "5.0-preview.1";
 
         String url = new StringBuilder().append(INSTANCE)
