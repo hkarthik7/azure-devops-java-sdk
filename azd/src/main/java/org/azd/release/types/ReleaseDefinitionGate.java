@@ -5,8 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * Gets or sets the gates.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReleaseDefinitionGate {
+    /***
+     * Gets or sets the gates workflow.
+     */
     @JsonProperty("tasks")
     private List<WorkflowTask> tasks;
 

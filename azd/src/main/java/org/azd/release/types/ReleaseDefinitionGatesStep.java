@@ -5,12 +5,24 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * Post deployment gates snapshot data.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReleaseDefinitionGatesStep {
+    /***
+     * Gets or sets the gates.
+     */
     @JsonProperty("gates")
     private List<ReleaseDefinitionGate> gates;
+    /***
+     * Gets or sets the gate options.
+     */
     @JsonProperty("gatesOptions")
     private ReleaseDefinitionGatesOptions gatesOptions;
+    /***
+     * ID of the ReleaseDefinitionGateStep.
+     */
     @JsonProperty("id")
     private int id;
 

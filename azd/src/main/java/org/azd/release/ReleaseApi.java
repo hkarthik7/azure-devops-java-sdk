@@ -66,8 +66,8 @@ public class ReleaseApi implements ReleaseDetails {
             put("isDraft", isDraft);
             put("reason", "none");
             put("manualEnvironments", null);
-
         }};
+
         String r = send(RequestMethod.POST, CONNECTION, RELEASE, CONNECTION.getProject(),
                 AREA, null, null, ReleaseVersion.VERSION, null, h);
 

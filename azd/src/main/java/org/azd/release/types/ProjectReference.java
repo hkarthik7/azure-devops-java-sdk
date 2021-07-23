@@ -3,10 +3,19 @@ package org.azd.release.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Project reference
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ProjectReference {
+    /***
+     * Project's unique identifier
+     */
     @JsonProperty("id")
     private String id;
+    /***
+     * Project name
+     */
     @JsonProperty("name")
     private String name;
 

@@ -5,16 +5,34 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * Gets definition environment id
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DeployPhase {
+    /***
+     * Gets and sets the name of deploy phase.
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * Indicates the deploy phase type.
+     */
     @JsonProperty("phaseType")
     private String phaseType;
+    /***
+     * Gets and sets the rank of deploy phase.
+     */
     @JsonProperty("rank")
     private int rank;
+    /***
+     * Gets and sets the reference name of deploy phase.
+     */
     @JsonProperty("refName")
     private String refName;
+    /***
+     * Gets and sets the workflow tasks for the deploy phase.
+     */
     @JsonProperty("workflowTasks")
     private List<WorkflowTask> workflowTasks;
 

@@ -4,18 +4,39 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
 
+/***
+ * Gets history which specifies all approvals associated with this approval.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReleaseApprovalHistory {
+    /***
+     * Identity of the approver.
+     */
     @JsonProperty("approver")
     private Author approver;
+    /***
+     * Identity of the object who changed approval.
+     */
     @JsonProperty("changedBy")
     private Author changedBy;
+    /***
+     * Approval history comments.
+     */
     @JsonProperty("comments")
     private String comments;
+    /***
+     * Time when this approval created.
+     */
     @JsonProperty("createdOn")
     private String createdOn;
+    /***
+     * Time when this approval modified.
+     */
     @JsonProperty("modifiedOn")
     private String modifiedOn;
+    /***
+     * Approval history revision.
+     */
     @JsonProperty("revision")
     private int revision;
 

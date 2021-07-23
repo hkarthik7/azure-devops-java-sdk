@@ -5,34 +5,79 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * Parent task of all executed tasks.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReleaseTask {
+    /***
+     * Agent name on which task executed.
+     */
     @JsonProperty("agentName")
     private String agentName;
+    /***
+     * Finish time of the release task.
+     */
     @JsonProperty("finishTime")
     private String finishTime;
+    /***
+     * ID of the release task.
+     */
     @JsonProperty("id")
     private int id;
+    /***
+     * List of issues occurred while execution of task.
+     */
     @JsonProperty("issues")
     private List<Issues> issues;
+    /***
+     * Number of lines log release task has.
+     */
     @JsonProperty("lineCount")
     private int lineCount;
+    /***
+     * Log URL of the task.
+     */
     @JsonProperty("logUrl")
     private String logUrl;
+    /***
+     * Name of the task.
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * Task execution complete percent.
+     */
     @JsonProperty("percentComplete")
     private String percentComplete;
+    /***
+     * Rank of the release task.
+     */
     @JsonProperty("rank")
     private String rank;
+    /***
+     * Result code of the task.
+     */
     @JsonProperty("resultCode")
     private String resultCode;
+    /***
+     * ID of the release task.
+     */
     @JsonProperty("startTime")
     private String startTime;
+    /***
+     * Status of release task.
+     */
     @JsonProperty("status")
     private String status;
+    /***
+     * Workflow task reference.
+     */
     @JsonProperty("task")
     private WorkflowTaskReference task;
+    /***
+     * Timeline record ID of the release task.
+     */
     @JsonProperty("timelineRecordId")
     private String timelineRecordId;
 

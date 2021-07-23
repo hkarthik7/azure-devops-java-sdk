@@ -7,64 +7,154 @@ import org.azd.common.types.Author;
 
 import java.util.List;
 
+/***
+ * Gets list of environments.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReleaseEnvironment {
+    /***
+     * Gets list of conditions.
+     */
     @JsonProperty("conditions")
     private List<ReleaseCondition> conditions;
+    /***
+     * Gets date on which it got created.
+     */
     @JsonProperty("createdOn")
     private String createdOn;
+    /***
+     * Gets definition environment id.
+     */
     @JsonProperty("definitionEnvironmentId")
     private int definitionEnvironmentId;
+    /***
+     * Gets list of deploy phases snapshot.
+     */
     @JsonProperty("deployPhasesSnapshot")
     private List<DeployPhase> deployPhasesSnapshot;
+    /***
+     * Gets environment options.
+     */
     @JsonProperty("environmentOptions")
     private EnvironmentOptions environmentOptions;
+    /***
+     * Gets the unique identifier of this field.
+     */
     @JsonProperty("id")
     private int id;
+    /***
+     * Gets date on which it got modified.
+     */
     @JsonProperty("modifiedOn")
     private String modifiedOn;
+    /***
+     * Gets name.
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * Gets next scheduled UTC time.
+     */
     @JsonProperty("nextScheduledUtcTime")
     private String nextScheduledUtcTime;
+    /***
+     * Gets the identity who is owner for release environment.
+     */
     @JsonProperty("owner")
     private Author owner;
+    /***
+     * Gets list of post deploy approvals snapshot.
+     */
     @JsonProperty("postApprovalsSnapshot")
     private ReleaseDefinitionApprovals postApprovalsSnapshot;
+    /***
+     * Gets list of post deploy approvals.
+     */
     @JsonProperty("postDeployApprovals")
     private List<ReleaseApproval> postDeployApprovals;
+    /***
+     * Post deployment gates snapshot data.
+     */
     @JsonProperty("postDeploymentGatesSnapshot")
     private ReleaseDefinitionGatesStep postDeploymentGatesSnapshot;
+    /***
+     * Gets list of pre deploy approvals snapshot.
+     */
     @JsonProperty("preApprovalsSnapshot")
     private ReleaseDefinitionApprovals preApprovalsSnapshot;
+    /***
+     * Gets list of pre deploy approvals.
+     */
     @JsonProperty("preDeployApprovals")
     private List<ReleaseApproval> preDeployApprovals;
+    /***
+     * Pre deployment gates snapshot data.
+     */
     @JsonProperty("preDeploymentGatesSnapshot")
     private ReleaseDefinitionGatesStep preDeploymentGatesSnapshot;
+    /***
+     * Gets process parameters.
+     */
     @JsonProperty("processParameters")
     private JsonNode processParameters;
+    /***
+     * Gets rank.
+     */
     @JsonProperty("rank")
     private int rank;
+    /***
+     * Gets release reference which specifies the reference of the release to which this release environment is associated.
+     */
     @JsonProperty("release")
     private ReleaseShallowReference release;
+    /***
+     * Gets the identity who created release.
+     */
     @JsonProperty("releaseCreatedBy")
     private Author releaseCreatedBy;
+    /***
+     * Gets releaseDefinitionReference which specifies the reference of the release definition to which this release environment is associated.
+     */
     @JsonProperty("releaseDefinition")
     private ReleaseShallowReference releaseDefinition;
+    /***
+     * Gets release id.
+     */
     @JsonProperty("releaseId")
     private int releaseId;
+    /***
+     * Gets schedule deployment time of release environment.
+     */
     @JsonProperty("scheduledDeploymentTime")
     private String scheduledDeploymentTime;
+    /***
+     * Gets list of schedules.
+     */
     @JsonProperty("schedules")
     private List<ReleaseSchedule> schedules;
+    /***
+     * Gets environment status.
+     */
     @JsonProperty("status")
     private String status;
+    /***
+     * Gets time to deploy.
+     */
     @JsonProperty("timeToDeploy")
     private int timeToDeploy;
+    /***
+     * Gets trigger reason.
+     */
     @JsonProperty("triggerReason")
     private String triggerReason;
+    /***
+     * Gets the list of variable groups.
+     */
     @JsonProperty("variableGroups")
     private JsonNode variableGroups;
+    /***
+     * Gets the dictionary of variables.
+     */
     @JsonProperty("variables")
     private JsonNode variables;
 

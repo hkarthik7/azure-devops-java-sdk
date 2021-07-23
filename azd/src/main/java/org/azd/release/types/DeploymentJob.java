@@ -5,10 +5,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * Contains the gates job details of each evaluation.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DeploymentJob {
+    /***
+     * Parent task of all executed tasks.
+     */
     @JsonProperty("job")
     private ReleaseTask job;
+    /***
+     * List of executed tasks with in job.
+     */
     @JsonProperty("tasks")
     private List<ReleaseTask> tasks;
 

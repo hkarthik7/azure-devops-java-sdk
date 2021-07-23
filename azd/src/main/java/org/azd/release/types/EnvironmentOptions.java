@@ -3,14 +3,29 @@ package org.azd.release.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Gets environment options.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EnvironmentOptions {
+    /***
+     * Gets and sets as the auto link workitems or not.
+     */
     @JsonProperty("autoLinkWorkItems")
     private boolean autoLinkWorkItems;
+    /***
+     * Gets and sets as the badge enabled or not.
+     */
     @JsonProperty("badgeEnabled")
     private boolean badgeEnabled;
+    /***
+     * Gets and sets as the publish deployment status or not.
+     */
     @JsonProperty("publishDeploymentStatus")
     private boolean publishDeploymentStatus;
+    /***
+     * Gets and sets as the.pull request deployment enabled or not.
+     */
     @JsonProperty("pullRequestDeploymentEnabled")
     private boolean pullRequestDeploymentEnabled;
 

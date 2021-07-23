@@ -3,14 +3,29 @@ package org.azd.release.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Gets list of conditions.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReleaseCondition {
+    /***
+     * Gets or sets the condition type.
+     */
     @JsonProperty("conditionType")
     private String conditionType;
+    /***
+     * Gets or sets the name of the condition. e.g. 'ReleaseStarted'.
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * The release condition result.
+     */
     @JsonProperty("result")
     private String result;
+    /***
+     * Gets or set value of the condition.
+     */
     @JsonProperty("value")
     private String value;
 

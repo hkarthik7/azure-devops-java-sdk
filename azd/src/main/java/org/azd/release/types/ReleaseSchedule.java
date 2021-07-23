@@ -3,18 +3,39 @@ package org.azd.release.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Gets list of schedules.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReleaseSchedule {
+    /***
+     * Days of the week to release.
+     */
     @JsonProperty("daysToRelease")
     private String daysToRelease;
+    /***
+     * Team Foundation Job Definition Job Id.
+     */
     @JsonProperty("jobId")
     private String jobId;
+    /***
+     * Flag to determine if this schedule should only release if the associated artifact has been changed or release definition changed.
+     */
     @JsonProperty("scheduleOnlyWithChanges")
     private boolean scheduleOnlyWithChanges;
+    /***
+     * Local time zone hour to start.
+     */
     @JsonProperty("startHours")
     private int startHours;
+    /***
+     * Local time zone minute to start.
+     */
     @JsonProperty("startMinutes")
     private int startMinutes;
+    /***
+     * Time zone Id of release schedule, such as 'UTC'.
+     */
     @JsonProperty("timeZoneId")
     private String timeZoneId;
 

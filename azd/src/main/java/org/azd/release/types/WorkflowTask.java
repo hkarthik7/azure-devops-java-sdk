@@ -3,32 +3,74 @@ package org.azd.release.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Gets and sets the workflow tasks for the deploy phase.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WorkflowTask {
+    /***
+     * Gets or sets as the task always run or not.
+     */
     @JsonProperty("alwaysRun")
     private boolean alwaysRun;
+    /***
+     * Gets or sets the task condition.
+     */
     @JsonProperty("condition")
     private String condition;
+    /***
+     * Gets or sets as the task continue run on error or not.
+     */
     @JsonProperty("continueOnError")
     private boolean continueOnError;
+    /***
+     * Gets or sets the task definition type. Example:- 'Agent', DeploymentGroup', 'Server' or 'ServerGate'.
+     */
     @JsonProperty("definitionType")
     private String definitionType;
+    /***
+     * Gets or sets as the task enabled or not.
+     */
     @JsonProperty("enabled")
     private boolean enabled;
+    /***
+     * Gets or sets the task environment variables.
+     */
     @JsonProperty("environment")
     private Object environment;
+    /***
+     * Gets or sets the task inputs.
+     */
     @JsonProperty("inputs")
     private Object inputs;
+    /***
+     * Gets or sets the name of the task.
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * Gets or sets the task override inputs.
+     */
     @JsonProperty("overrideInputs")
     private Object overrideInputs;
+    /***
+     * Gets or sets the reference name of the task.
+     */
     @JsonProperty("refName")
     private String refName;
+    /***
+     * Gets or sets the ID of the task.
+     */
     @JsonProperty("taskId")
     private String taskId;
+    /***
+     * Gets or sets the task timeout.
+     */
     @JsonProperty("timeoutInMinutes")
     private int timeoutInMinutes;
+    /***
+     * Gets or sets the version of the task.
+     */
     @JsonProperty("version")
     private String version;
 

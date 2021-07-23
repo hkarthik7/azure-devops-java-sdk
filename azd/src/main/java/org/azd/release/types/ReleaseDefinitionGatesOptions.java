@@ -3,16 +3,34 @@ package org.azd.release.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Gets or sets the gate options.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReleaseDefinitionGatesOptions {
+    /***
+     * Gets or sets as the gates enabled or not.
+     */
     @JsonProperty("isEnabled")
     private boolean isEnabled;
+    /***
+     * Gets or sets the minimum duration for steady results after a successful gates evaluation.
+     */
     @JsonProperty("minimumSuccessDuration")
     private int minimumSuccessDuration;
+    /***
+     * Gets or sets the time between re-evaluation of gates.
+     */
     @JsonProperty("samplingInterval")
     private int samplingInterval;
+    /***
+     * Gets or sets the delay before evaluation.
+     */
     @JsonProperty("stabilizationTime")
     private int stabilizationTime;
+    /***
+     * Gets or sets the timeout after which gates fail.
+     */
     @JsonProperty("timeout")
     private int timeout;
 

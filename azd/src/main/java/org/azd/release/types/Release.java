@@ -8,58 +8,139 @@ import org.azd.common.types.Author;
 import java.util.Arrays;
 import java.util.List;
 
+/***
+ * Represents a Release
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Release {
+    /***
+     * Gets links to access the release.
+     */
     @JsonProperty("_links")
     private ReleaseReferenceLinks _links;
+    /***
+     * Gets or sets the list of artifacts.
+     */
     @JsonProperty("artifacts")
     private List<ReleaseArtifacts> artifacts;
+    /***
+     * Gets or sets comment.
+     */
     @JsonProperty("comment")
     private String comment;
+    /***
+     * Gets or sets the identity who created.
+     */
     @JsonProperty("createdBy")
     private Author createdBy;
+    /***
+     * Gets or sets the identity for whom release was created.
+     */
     @JsonProperty("createdFor")
     private Author createdFor;
+    /***
+     * Gets date on which it got created.
+     */
     @JsonProperty("createdOn")
     private String createdOn;
+    /***
+     * Gets revision number of definition snapshot.
+     */
     @JsonProperty("definitionSnapshotRevision")
     private int definitionSnapshotRevision;
+    /***
+     * Gets or sets description of release.
+     */
     @JsonProperty("description")
     private String description;
+    /***
+     * Gets list of environments.
+     */
     @JsonProperty("environments")
     private List<ReleaseEnvironment> environments;
+    /***
+     * Gets the unique identifier of this field.
+     */
     @JsonProperty("id")
     private int id;
+    /***
+     * Whether to exclude the release from retention policies.
+     */
     @JsonProperty("keepForever")
     private boolean keepForever;
+    /***
+     * Gets logs container url.
+     */
     @JsonProperty("logsContainerUrl")
     private String logsContainerUrl;
+    /***
+     * Gets or sets the identity who modified.
+     */
     @JsonProperty("modifiedBy")
     private Author modifiedBy;
+    /***
+     * Gets date on which it got modified.
+     */
     @JsonProperty("modifiedOn")
     private String modifiedOn;
+    /***
+     * Gets name.
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * Gets pool name.
+     */
     @JsonProperty("poolName")
     private String poolName;
+    /***
+     * Gets or sets project reference.
+     */
     @JsonProperty("projectReference")
     private ProjectReference projectReference;
+    /***
+     * Gets reason of release.
+     */
     @JsonProperty("reason")
     private String reason;
+    /***
+     * Gets releaseDefinitionReference which specifies the reference of the release definition to which this release is associated.
+     */
     @JsonProperty("releaseDefinition")
     private ReleaseShallowReference releaseDefinition;
+    /***
+     * Gets or sets the release definition revision.
+     */
     @JsonProperty("releaseDefinitionRevision")
     private int releaseDefinitionRevision;
+    /***
+     * Gets release name format.
+     */
     @JsonProperty("releaseNameFormat")
     private String releaseNameFormat;
+    /***
+     * Gets status.
+     */
     @JsonProperty("status")
     private String status;
+    /***
+     * Gets or sets list of tags.
+     */
     @JsonProperty("tags")
     private String[] tags;
+    /***
+     * Triggering artifact alias
+     */
     @JsonProperty("triggeringArtifactAlias")
     private String triggeringArtifactAlias;
+    /***
+     * Gets the list of variable groups.
+     */
     @JsonProperty("variableGroups")
     private JsonNode variableGroups;
+    /***
+     * Gets or sets the dictionary of variables.
+     */
     @JsonProperty("variables")
     private JsonNode variables;
 

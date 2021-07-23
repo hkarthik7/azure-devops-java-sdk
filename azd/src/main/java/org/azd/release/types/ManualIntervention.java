@@ -4,32 +4,74 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
 
+/***
+ * Represents Manual intervention
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ManualIntervention {
+    /***
+     * Gets or sets the identity who should approve.
+     */
     @JsonProperty("approver")
     private Author approver;
+    /***
+     * Gets or sets comments for approval.
+     */
     @JsonProperty("comments")
     private String comments;
+    /***
+     * Gets date on which it got created.
+     */
     @JsonProperty("createdOn")
     private String createdOn;
+    /***
+     * Gets the unique identifier for manual intervention.
+     */
     @JsonProperty("id")
     private int id;
+    /***
+     * Gets or sets instructions for approval.
+     */
     @JsonProperty("instructions")
     private String instructions;
+    /***
+     * Gets date on which it got modified.
+     */
     @JsonProperty("modifiedOn")
     private String modifiedOn;
+    /***
+     * Gets or sets the name.
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * Gets releaseReference for manual intervention.
+     */
     @JsonProperty("release")
     private ReleaseShallowReference release;
+    /***
+     * Gets releaseDefinitionReference for manual intervention.
+     */
     @JsonProperty("releaseDefinition")
     private ReleaseShallowReference releaseDefinition;
+    /***
+     * Gets releaseEnvironmentReference for manual intervention.
+     */
     @JsonProperty("releaseEnvironment")
     private ReleaseShallowReference releaseEnvironment;
+    /***
+     * Gets or sets the status of the manual intervention.
+     */
     @JsonProperty("status")
     private String status;
+    /***
+     * Get task instance identifier.
+     */
     @JsonProperty("taskInstanceId")
     private String taskInstanceId;
+    /***
+     * Gets url to access the manual intervention.
+     */
     @JsonProperty("url")
     private String url;
 

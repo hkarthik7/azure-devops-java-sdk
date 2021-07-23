@@ -4,16 +4,35 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 
+/***
+ * Gets or sets the list of artifacts.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReleaseArtifacts {
+    /***
+     * Gets or sets alias.
+     */
     @JsonProperty("alias")
     private String alias;
+    /***
+     * Definition reference.
+     */
     @JsonProperty("definitionReference")
     private JsonNode definitionReference;
+    /***
+     * Indicates whether artifact is primary or not.
+     */
     @JsonProperty("isPrimary")
     private boolean isPrimary;
+    /***
+     * Indicates whether artifact is retained by release or not.
+     */
     @JsonProperty("isRetained")
     private String isRetained;
+    /***
+     * Gets or sets type. It can have value as 'Build', 'Jenkins', 'GitHub', 'Nuget',
+     * 'Team Build (external)', 'ExternalTFSBuild', 'Git', 'TFVC', 'ExternalTfsXamlBuild'.
+     */
     @JsonProperty("type")
     private String type;
 

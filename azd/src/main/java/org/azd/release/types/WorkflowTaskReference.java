@@ -3,12 +3,24 @@ package org.azd.release.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Workflow task reference.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WorkflowTaskReference {
+    /***
+     * Task identifier.
+     */
     @JsonProperty("id")
     private String id;
+    /***
+     * Name of the task.
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * Version of the task.
+     */
     @JsonProperty("version")
     private String version;
 

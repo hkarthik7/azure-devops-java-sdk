@@ -5,24 +5,54 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * Represents release Gates
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReleaseGates {
+    /***
+     * Contains the gates job details of each evaluation.
+     */
     @JsonProperty("deploymentJobs")
     private List<DeploymentJob> deploymentJobs;
+    /***
+     * ID of release gates.
+     */
     @JsonProperty("id")
     private int id;
+    /***
+     * List of ignored gates.
+     */
     @JsonProperty("ignoredGates")
     private List<IgnoredGates> ignoredGates;
+    /***
+     * Gates last modified time.
+     */
     @JsonProperty("lastModifiedOn")
     private String lastModifiedOn;
+    /***
+     * Run plan ID of the gates.
+     */
     @JsonProperty("runPlanId")
     private String runPlanId;
+    /***
+     * Gates stabilization completed date and time.
+     */
     @JsonProperty("stabilizationCompletedOn")
     private String stabilizationCompletedOn;
+    /***
+     * Gates evaluation started time.
+     */
     @JsonProperty("startedOn")
     private String startedOn;
+    /***
+     * Status of release gates.
+     */
     @JsonProperty("status")
     private String status;
+    /***
+     * Date and time at which all gates executed successfully.
+     */
     @JsonProperty("succeedingSince")
     private String succeedingSince;
 

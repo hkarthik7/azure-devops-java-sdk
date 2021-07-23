@@ -6,40 +6,94 @@ import org.azd.common.types.Author;
 
 import java.util.List;
 
+/***
+ * Gets list of post deploy approvals.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReleaseApproval {
+    /***
+     * Gets or sets the type of approval.
+     */
     @JsonProperty("approvalType")
     private String approvalType;
+    /***
+     * Gets the identity who approved.
+     */
     @JsonProperty("approvedBy")
     private Author approvedBy;
+    /***
+     * Gets or sets the identity who should approve.
+     */
     @JsonProperty("approver")
     private Author approver;
+    /***
+     * Gets or sets attempt which specifies as which deployment attempt it belongs.
+     */
     @JsonProperty("attempt")
     private int attempt;
+    /***
+     * Gets or sets comments for approval.
+     */
     @JsonProperty("comments")
     private String comments;
+    /***
+     * Gets date on which it got created.
+     */
     @JsonProperty("createdOn")
     private String createdOn;
+    /***
+     * Gets history which specifies all approvals associated with this approval.
+     */
     @JsonProperty("history")
     private List<ReleaseApprovalHistory> history;
+    /***
+     * Gets the unique identifier of this field.
+     */
     @JsonProperty("id")
     private int id;
+    /***
+     * Gets or sets as approval is automated or not.
+     */
     @JsonProperty("isAutomated")
     private boolean isAutomated;
+    /***
+     * Gets date on which it got modified.
+     */
     @JsonProperty("modifiedOn")
     private String modifiedOn;
+    /***
+     * Gets or sets rank which specifies the order of the approval. e.g. Same rank denotes parallel approval.
+     */
     @JsonProperty("rank")
     private int rank;
+    /***
+     * Gets releaseReference which specifies the reference of the release to which this approval is associated.
+     */
     @JsonProperty("release")
     private ReleaseShallowReference release;
+    /***
+     * Gets releaseDefinitionReference which specifies the reference of the release definition to which this approval is associated.
+     */
     @JsonProperty("releaseDefinition")
     private ReleaseShallowReference releaseDefinition;
+    /***
+     * Gets releaseEnvironmentReference which specifies the reference of the release environment to which this approval is associated.
+     */
     @JsonProperty("releaseEnvironment")
     private ReleaseShallowReference releaseEnvironment;
+    /***
+     * Gets the revision number.
+     */
     @JsonProperty("revision")
     private int revision;
+    /***
+     * Gets or sets the status of the approval.
+     */
     @JsonProperty("status")
     private String status;
+    /***
+     * Gets url to access the approval.
+     */
     @JsonProperty("url")
     private String url;
 

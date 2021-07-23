@@ -4,16 +4,34 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
 
+/***
+ * Gets or sets the approvals.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReleaseDefinitionApprovalStep {
+    /***
+     * Gets and sets the approver.
+     */
     @JsonProperty("approver")
     private Author approver;
+    /***
+     * ID of the approval or deploy step.
+     */
     @JsonProperty("id")
     private int id;
+    /***
+     * Indicates whether the approval automated.
+     */
     @JsonProperty("isAutomated")
     private boolean isAutomated;
+    /***
+     * Indicates whether the approval notification set.
+     */
     @JsonProperty("isNotificationOn")
     private boolean isNotificationOn;
+    /***
+     * Gets or sets the rank of approval step.
+     */
     @JsonProperty("rank")
     private boolean rank;
 

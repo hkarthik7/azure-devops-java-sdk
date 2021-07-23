@@ -5,10 +5,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * Gets list of post deploy approvals snapshot.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReleaseDefinitionApprovals {
+    /***
+     * Gets or sets the approval options.
+     */
     @JsonProperty("approvalOptions")
     private ApprovalOptions approvalOptions;
+    /***
+     * Gets or sets the approvals.
+     */
     @JsonProperty("approvals")
     private List<ReleaseDefinitionApprovalStep> approvals;
 
