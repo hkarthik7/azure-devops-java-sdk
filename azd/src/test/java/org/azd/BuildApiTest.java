@@ -24,8 +24,8 @@ public class BuildApiTest {
         String organization = m.getO();
         String token = m.getT();
         String project = m.getP();
-        Connection defaultParameters = new Connection(organization, project, token);
-        b = new BuildApi(defaultParameters);
+        Connection connection = new Connection(organization, project, token);
+        b = new BuildApi(connection);
         buildId = b.getBuilds(1).getBuildResults().stream().findFirst().get().getId();
     }
 
@@ -36,7 +36,7 @@ public class BuildApiTest {
 
     @Test
     public void shouldGetABuild() throws ConnectionException, AzDException {
-        b.getBuild(buildId).get_links();
+        b.getBuild(buildId);
     }
 
     @Test
@@ -163,5 +163,4 @@ public class BuildApiTest {
         b.restoreBuildDefinition(126, false);
 
     }
-
 }
