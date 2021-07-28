@@ -17,6 +17,7 @@ public abstract class ApiVersion {
     public static final String GIT = "6.1-preview.1";
     public static final String GRAPH = "6.1-preview.1";
     public static final String MEMBERSHIP_ENTITLEMENT_MANAGEMENT = "6.1-preview.1";
+    public static final String PROFILE = "6.0";
     public static final String USER_ENTITLEMENTS = "6.1-preview.3";
     public static final String RELEASE = "6.1-preview.8";
     public static final String RELEASE_ENVIRONMENT = "6.1-preview.7";

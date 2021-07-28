@@ -48,4 +48,14 @@ public class AccountsApiTest {
     public void shouldGetAllAccessibleOrganizations() throws ConnectionException, AzDException {
         a.getOrganizations();
     }
+
+    @Test
+    public void shouldGetAUserProfile() throws ConnectionException, AzDException {
+        a.getProfile();
+    }
+
+    @Test
+    public void shouldGetAUserProfileWithId() throws ConnectionException, AzDException {
+        a.getProfile(a.getProfile().getId());
+    }
 }

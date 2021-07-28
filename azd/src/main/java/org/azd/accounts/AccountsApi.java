@@ -3,6 +3,7 @@ package org.azd.accounts;
 import org.azd.accounts.types.Accounts;
 import org.azd.accounts.types.Organization;
 import org.azd.accounts.types.Organizations;
+import org.azd.accounts.types.Profile;
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
 import org.azd.enums.RequestMethod;
@@ -78,5 +79,34 @@ public class AccountsApi implements AccountsDetails {
         var res = MAPPER.mapJsonResponse(r, Organizations.class);
 
         return res.getDataProviders().getOrganizationsProvider().getOrganizations();
+    }
+
+    /***
+     * Gets the logged in user profile.
+     * @return a profile object. {@link Profile}
+     * @throws ConnectionException
+     * @throws AzDException
+     */
+    @Override
+    public Profile getProfile() throws ConnectionException, AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, AREA, null,
+                "/profile/profiles", "me", null, ApiVersion.PROFILE, null, null);
+
+        return MAPPER.mapJsonResponse(r, Profile.class);
+    }
+
+    /***
+     * Gets a user profile.
+     * @param id pass the user id
+     * @return a profile object. {@link Profile}
+     * @throws ConnectionException
+     * @throws AzDException
+     */
+    @Override
+    public Profile getProfile(String id) throws ConnectionException, AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, AREA, null,
+                "/profile/profiles", id, null, ApiVersion.PROFILE, null, null);
+
+        return MAPPER.mapJsonResponse(r, Profile.class);
     }
 }
