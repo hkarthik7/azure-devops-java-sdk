@@ -40,6 +40,12 @@ public class Main {
             // this functionality is not the part of Accounts api, it can be considered as a helper method to list the organizations
             // when we don't have access to Graph Api.
             accounts.getOrganizations();
+            
+            // get a user profile
+            accounts.getProfile();
+            
+            // get a user profile with id
+            accounts.getProfile("user-id");
 
         } catch (ConnectionException | AzDException e) {
             e.printStackTrace();
