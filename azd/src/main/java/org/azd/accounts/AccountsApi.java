@@ -3,6 +3,7 @@ package org.azd.accounts;
 import org.azd.accounts.types.Accounts;
 import org.azd.accounts.types.Organization;
 import org.azd.accounts.types.Organizations;
+import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
@@ -26,7 +27,6 @@ public class AccountsApi implements AccountsDetails {
     private final Connection CONNECTION;
     private final JsonMapper MAPPER = new JsonMapper();
     private final String AREA = "accounts";
-    private final String ACCOUNTS = "0d55247a-1c47-4462-9b1f-5e2125590ee6";
 
     /***
      * Pass the connection object to work with Build Api
@@ -49,7 +49,7 @@ public class AccountsApi implements AccountsDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, AREA, null,
-                AREA, null, null, AccountsVersion.VERSION, q, null);
+                AREA, null, null, ApiVersion.ACCOUNTS, q, null);
 
         return MAPPER.mapJsonResponse(r, Accounts.class);
     }
@@ -73,7 +73,7 @@ public class AccountsApi implements AccountsDetails {
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, null, null,
-                "Contribution", null, "HierarchyQuery", AccountsVersion.VERSION, null, b);
+                "Contribution", null, "HierarchyQuery", ApiVersion.ACCOUNTS, null, b);
 
         var res = MAPPER.mapJsonResponse(r, Organizations.class);
 
