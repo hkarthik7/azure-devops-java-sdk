@@ -39,6 +39,8 @@ public class JsonMapper extends ObjectMapper {
                 throw new AzDException(this.readValue(content, ApiException.class).getTypeKey(), this.readValue(content, ApiException.class).getMessage());
             if (content.contains("The request is invalid."))
                 throw new AzDException();
+            if (content.contains("Object moved"))
+                throw new AzDException("InvalidPersonalAccessTokenException", "Personal access token passed is invalid; Pass the valid token and try again.");
             return this.readValue(content, valueType);
         } catch (JsonProcessingException e) {
             throw new AzDException("Couldn't parse the response content, validate the arguments passed. \n" + content);
