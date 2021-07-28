@@ -36,7 +36,7 @@ public class CoreApiTest {
     @Test(expected = AzDException.class)
     public void shouldCreateDefaultProject() throws ConnectionException, AzDException {
         // project already exists error
-        System.out.println(c.createProject("my-awesome-project", "This is my new awesome project"));
+        c.createProject("my-awesome-project", "This is my new awesome project");
     }
 
     @Test
