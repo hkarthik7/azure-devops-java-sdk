@@ -1,5 +1,6 @@
 package org.azd.wiki;
 
+import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
 import org.azd.enums.RequestMethod;
 import org.azd.enums.WikiType;
@@ -58,7 +59,7 @@ public class WikiApi implements WikiDetails {
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, WIKI, CONNECTION.getProject(),
-                AREA,null , null, WikiVersion.VERSION, null, b);
+                AREA,null , null, ApiVersion.WIKI, null, b);
 
         return MAPPER.mapJsonResponse(r, WikiV2.class);
     }
@@ -74,7 +75,7 @@ public class WikiApi implements WikiDetails {
     @Override
     public WikiV2 deleteWiki(String wikiIdentifier) throws ConnectionException, AzDException {
         String r = send(RequestMethod.DELETE, CONNECTION, WIKI, CONNECTION.getProject(),
-                AREA, wikiIdentifier , null, WikiVersion.VERSION, null, null);
+                AREA, wikiIdentifier , null, ApiVersion.WIKI, null, null);
 
         return MAPPER.mapJsonResponse(r, WikiV2.class);
     }
@@ -90,7 +91,7 @@ public class WikiApi implements WikiDetails {
     @Override
     public WikiV2 getWiki(String wikiIdentifier) throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, WIKI, CONNECTION.getProject(),
-                AREA, wikiIdentifier , null, WikiVersion.VERSION, null, null);
+                AREA, wikiIdentifier , null, ApiVersion.WIKI, null, null);
 
         return MAPPER.mapJsonResponse(r, WikiV2.class);
     }
@@ -105,7 +106,7 @@ public class WikiApi implements WikiDetails {
     @Override
     public WikiV2Pages getWikis() throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, WIKI, CONNECTION.getProject(),
-                AREA, null , null, WikiVersion.VERSION, null, null);
+                AREA, null , null, ApiVersion.WIKI, null, null);
 
         return MAPPER.mapJsonResponse(r, WikiV2Pages.class);
     }

@@ -1,5 +1,6 @@
 package org.azd.release;
 
+import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
 import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
@@ -69,7 +70,7 @@ public class ReleaseApi implements ReleaseDetails {
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA, null, null, ReleaseVersion.VERSION, null, h);
+                AREA, null, null, ApiVersion.RELEASE, null, h);
 
         return MAPPER.mapJsonResponse(r, Release.class);
     }
@@ -85,7 +86,7 @@ public class ReleaseApi implements ReleaseDetails {
     @Override
     public Release getRelease(int releaseId) throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA, Integer.toString(releaseId), null, ReleaseVersion.VERSION, null, null);
+                AREA, Integer.toString(releaseId), null, ApiVersion.RELEASE, null, null);
 
         return MAPPER.mapJsonResponse(r, Release.class);
     }
@@ -106,7 +107,7 @@ public class ReleaseApi implements ReleaseDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA, Integer.toString(releaseId), null, ReleaseVersion.VERSION, q, null);
+                AREA, Integer.toString(releaseId), null, ApiVersion.RELEASE, q, null);
 
         return MAPPER.mapJsonResponse(r, Release.class);
     }
@@ -138,7 +139,7 @@ public class ReleaseApi implements ReleaseDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA, Integer.toString(releaseId), null, ReleaseVersion.VERSION, q, null);
+                AREA, Integer.toString(releaseId), null, ApiVersion.RELEASE, q, null);
 
         return MAPPER.mapJsonResponse(r, Release.class);
     }
@@ -156,7 +157,7 @@ public class ReleaseApi implements ReleaseDetails {
     public ReleaseEnvironment getReleaseEnvironment(int releaseId, int environmentId) throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
                 AREA, Integer.toString(releaseId), "environments/" + environmentId,
-                ReleaseVersion.RELEASE_ENVIRONMENT, null, null);
+                ApiVersion.RELEASE_ENVIRONMENT, null, null);
 
         return MAPPER.mapJsonResponse(r, ReleaseEnvironment.class);
     }
@@ -180,7 +181,7 @@ public class ReleaseApi implements ReleaseDetails {
 
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
                 AREA, Integer.toString(releaseId), "environments/" + environmentId,
-                ReleaseVersion.RELEASE_ENVIRONMENT, q, null);
+                ApiVersion.RELEASE_ENVIRONMENT, q, null);
 
         return MAPPER.mapJsonResponse(r, ReleaseEnvironment.class);
     }
@@ -195,7 +196,7 @@ public class ReleaseApi implements ReleaseDetails {
     @Override
     public Releases getReleases() throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA, null, null, ReleaseVersion.VERSION, null, null);
+                AREA, null, null, ApiVersion.RELEASE, null, null);
 
         return MAPPER.mapJsonResponse(r, Releases.class);
     }
@@ -215,7 +216,7 @@ public class ReleaseApi implements ReleaseDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA, null, null, ReleaseVersion.VERSION, q, null);
+                AREA, null, null, ApiVersion.RELEASE, q, null);
 
         return MAPPER.mapJsonResponse(r, Releases.class);
     }
@@ -235,7 +236,7 @@ public class ReleaseApi implements ReleaseDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA, null, null, ReleaseVersion.VERSION, q, null);
+                AREA, null, null, ApiVersion.RELEASE, q, null);
 
         return MAPPER.mapJsonResponse(r, Releases.class);
     }
@@ -257,7 +258,7 @@ public class ReleaseApi implements ReleaseDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA, null, null, ReleaseVersion.VERSION, q, null);
+                AREA, null, null, ApiVersion.RELEASE, q, null);
 
         return MAPPER.mapJsonResponse(r, Releases.class);
     }
@@ -277,7 +278,7 @@ public class ReleaseApi implements ReleaseDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA, null, null, ReleaseVersion.VERSION, q, null);
+                AREA, null, null, ApiVersion.RELEASE, q, null);
 
         return MAPPER.mapJsonResponse(r, Releases.class);
     }
@@ -299,7 +300,7 @@ public class ReleaseApi implements ReleaseDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA, null, null, ReleaseVersion.VERSION, q, null);
+                AREA, null, null, ApiVersion.RELEASE, q, null);
 
         return MAPPER.mapJsonResponse(r, Releases.class);
     }
@@ -372,7 +373,7 @@ public class ReleaseApi implements ReleaseDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA, null, null, ReleaseVersion.VERSION, q, null);
+                AREA, null, null, ApiVersion.RELEASE, q, null);
 
         return MAPPER.mapJsonResponse(r, Releases.class);
     }
@@ -392,7 +393,7 @@ public class ReleaseApi implements ReleaseDetails {
         var body = MAPPER.mapJsonResponse(releaseDefinitionParameters, HashMap.class);
 
         String r = send(RequestMethod.POST, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA.replace("releases", "definitions"), null, null, ReleaseVersion.RELEASE_DEFINITION, null, body);
+                AREA.replace("releases", "definitions"), null, null, ApiVersion.RELEASE_DEFINITION, null, body);
 
         return MAPPER.mapJsonResponse(r, ReleaseDefinition.class);
     }
@@ -409,7 +410,7 @@ public class ReleaseApi implements ReleaseDetails {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, RELEASE, CONNECTION.getProject(),
                     AREA.replace("releases", "definitions"), Integer.toString(definitionId),
-                    null, ReleaseVersion.RELEASE_DEFINITION, null, null);
+                    null, ApiVersion.RELEASE_DEFINITION, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (ConnectionException | AzDException e) {
             throw e;
@@ -436,7 +437,7 @@ public class ReleaseApi implements ReleaseDetails {
 
             String r = send(RequestMethod.DELETE, CONNECTION, RELEASE, CONNECTION.getProject(),
                     AREA.replace("releases", "definitions"), Integer.toString(definitionId),
-                    null, ReleaseVersion.RELEASE_DEFINITION, q, null);
+                    null, ApiVersion.RELEASE_DEFINITION, q, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (ConnectionException | AzDException e) {
             throw e;
@@ -455,7 +456,7 @@ public class ReleaseApi implements ReleaseDetails {
     public ReleaseDefinition getReleaseDefinition(int definitionId) throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
                 AREA.replace("releases", "definitions"), Integer.toString(definitionId),
-                null, ReleaseVersion.RELEASE_DEFINITION, null, null);
+                null, ApiVersion.RELEASE_DEFINITION, null, null);
 
         return MAPPER.mapJsonResponse(r, ReleaseDefinition.class);
     }
@@ -472,7 +473,7 @@ public class ReleaseApi implements ReleaseDetails {
     public ReleaseDefinitionRevisions getReleaseDefinitionHistory(int definitionId) throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
                 AREA.replace("releases", "definitions"), Integer.toString(definitionId),
-                "revisions", ReleaseVersion.RELEASE_DEFINITION_HISTORY, null, null);
+                "revisions", ApiVersion.RELEASE_DEFINITION_HISTORY, null, null);
 
         return MAPPER.mapJsonResponse(r, ReleaseDefinitionRevisions.class);
     }
@@ -488,7 +489,7 @@ public class ReleaseApi implements ReleaseDetails {
     public ReleaseDefinitions getReleaseDefinitions() throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
                 AREA.replace("releases", "definitions"), null,
-                null, ReleaseVersion.RELEASE_DEFINITION, null, null);
+                null, ApiVersion.RELEASE_DEFINITION, null, null);
 
         return MAPPER.mapJsonResponse(r, ReleaseDefinitions.class);
     }

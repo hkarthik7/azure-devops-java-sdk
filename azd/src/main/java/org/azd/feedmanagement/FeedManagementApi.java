@@ -1,5 +1,6 @@
 package org.azd.feedmanagement;
 
+import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
 import org.azd.enums.FeedViewType;
 import org.azd.enums.FeedVisibility;
@@ -65,7 +66,7 @@ public class FeedManagementApi implements FeedManagementDetails {
 
         String r = send(RequestMethod.POST, CONNECTION, PACKAGING,
                         CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
-                        AREA, null, "feeds", FeedVersion.VERSION, null, requestBody);
+                        AREA, null, "feeds", ApiVersion.FEEDS, null, requestBody);
 
         return MAPPER.mapJsonResponse(r, Feed.class);
     }
@@ -96,7 +97,7 @@ public class FeedManagementApi implements FeedManagementDetails {
 
         String r = send(RequestMethod.POST, CONNECTION, PACKAGING,
                         CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
-                        AREA + "/feeds", feedName, "views", FeedVersion.VERSION, null, requestBody);
+                        AREA + "/feeds", feedName, "views", ApiVersion.FEEDS, null, requestBody);
 
         return MAPPER.mapJsonResponse(r, FeedView.class);
     }
@@ -117,7 +118,7 @@ public class FeedManagementApi implements FeedManagementDetails {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, PACKAGING,
                     CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
-                    AREA + "/feeds", feedId, null, FeedVersion.VERSION, null, null);
+                    AREA + "/feeds", feedId, null, ApiVersion.FEEDS, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (ConnectionException | AzDException e) {
             throw e;
@@ -140,7 +141,7 @@ public class FeedManagementApi implements FeedManagementDetails {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, PACKAGING,
                         CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
-                        AREA + "/feeds", feedId, "views/" + feedViewId, FeedVersion.VERSION, null, null);
+                        AREA + "/feeds", feedId, "views/" + feedViewId, ApiVersion.FEEDS, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (ConnectionException | AzDException e) {
             throw e;
@@ -164,7 +165,7 @@ public class FeedManagementApi implements FeedManagementDetails {
 
         String r = send(RequestMethod.GET, CONNECTION, PACKAGING,
                     CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
-                    AREA + "/Feeds", feedName, null, FeedVersion.VERSION,null, null);
+                    AREA + "/Feeds", feedName, null, ApiVersion.FEEDS,null, null);
 
         return MAPPER.mapJsonResponse(r, Feed.class);
     }
@@ -191,7 +192,7 @@ public class FeedManagementApi implements FeedManagementDetails {
 
         String r = send(RequestMethod.GET, CONNECTION, PACKAGING,
                 CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
-                AREA + "/Feeds", feedName, null, FeedVersion.VERSION, q, null);
+                AREA + "/Feeds", feedName, null, ApiVersion.FEEDS, q, null);
 
         return MAPPER.mapJsonResponse(r, Feed.class);
     }
@@ -213,7 +214,7 @@ public class FeedManagementApi implements FeedManagementDetails {
 
         String r = send(RequestMethod.GET, CONNECTION, PACKAGING,
                         CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
-                        AREA + "/Feeds", feedName, "permissions", FeedVersion.VERSION, null, null);
+                        AREA + "/Feeds", feedName, "permissions", ApiVersion.FEEDS, null, null);
 
         return MAPPER.mapJsonResponse(r, FeedPermissions.class);
     }
@@ -248,7 +249,7 @@ public class FeedManagementApi implements FeedManagementDetails {
 
         String r = send(RequestMethod.GET, CONNECTION, PACKAGING,
                 CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
-                AREA + "/Feeds", feedName, "permissions", FeedVersion.VERSION, q, null);
+                AREA + "/Feeds", feedName, "permissions", ApiVersion.FEEDS, q, null);
 
         return MAPPER.mapJsonResponse(r, FeedPermissions.class);
     }
@@ -270,7 +271,7 @@ public class FeedManagementApi implements FeedManagementDetails {
 
         String r = send(RequestMethod.GET, CONNECTION, PACKAGING,
                 CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
-                AREA + "/Feeds", feedName, "views/" + feedViewId, FeedVersion.VERSION, null, null);
+                AREA + "/Feeds", feedName, "views/" + feedViewId, ApiVersion.FEEDS, null, null);
 
         return MAPPER.mapJsonResponse(r, FeedView.class);
     }
@@ -291,7 +292,7 @@ public class FeedManagementApi implements FeedManagementDetails {
 
         String r = send(RequestMethod.GET, CONNECTION, PACKAGING,
                 CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
-                AREA + "/Feeds", feedName, "views", FeedVersion.VERSION, null, null);
+                AREA + "/Feeds", feedName, "views", ApiVersion.FEEDS, null, null);
 
         return MAPPER.mapJsonResponse(r, FeedViews.class);
     }
@@ -312,7 +313,7 @@ public class FeedManagementApi implements FeedManagementDetails {
 
         String r = send(RequestMethod.GET, CONNECTION, PACKAGING,
                 CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
-                AREA, null, "Feeds", FeedVersion.VERSION, null, null);
+                AREA, null, "Feeds", ApiVersion.FEEDS, null, null);
 
         return MAPPER.mapJsonResponse(r, Feeds.class);
     }
@@ -344,7 +345,7 @@ public class FeedManagementApi implements FeedManagementDetails {
 
         String r = send(RequestMethod.GET, CONNECTION, PACKAGING,
                 CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
-                AREA, null, "Feeds", FeedVersion.VERSION, q, null);
+                AREA, null, "Feeds", ApiVersion.FEEDS, q, null);
 
         return MAPPER.mapJsonResponse(r, Feeds.class);
     }
@@ -381,7 +382,7 @@ public class FeedManagementApi implements FeedManagementDetails {
 
         String r = send(RequestMethod.PATCH, CONNECTION, PACKAGING,
                         CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
-                        AREA + "/Feeds", feedName, "permissions", FeedVersion.VERSION, null, null, o, null);
+                        AREA + "/Feeds", feedName, "permissions", ApiVersion.FEEDS, null, null, o, null);
 
         return MAPPER.mapJsonResponse(r, FeedPermissions.class);
     }
@@ -419,7 +420,7 @@ public class FeedManagementApi implements FeedManagementDetails {
 
         String r = send(RequestMethod.PATCH, CONNECTION, PACKAGING,
                         CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
-                        AREA + "/Feeds", feedName, null, FeedVersion.VERSION, null, null, o, null);
+                        AREA + "/Feeds", feedName, null, ApiVersion.FEEDS, null, null, o, null);
 
         return MAPPER.mapJsonResponse(r, Feed.class);
     }
@@ -449,7 +450,7 @@ public class FeedManagementApi implements FeedManagementDetails {
 
         String r = send(RequestMethod.PATCH, CONNECTION, PACKAGING,
                 CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
-                AREA + "/Feeds", feedName, "views/" + feedViewName, FeedVersion.VERSION, null, h);
+                AREA + "/Feeds", feedName, "views/" + feedViewName, ApiVersion.FEEDS, null, h);
 
         return MAPPER.mapJsonResponse(r, FeedView.class);
     }

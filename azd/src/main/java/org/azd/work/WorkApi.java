@@ -1,5 +1,6 @@
 package org.azd.work;
 
+import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
 import org.azd.enums.IterationsTimeFrame;
 import org.azd.enums.RequestMethod;
@@ -47,7 +48,7 @@ public class WorkApi implements WorkDetails {
     public TeamSettingsIterations getTeamSettingsIterations(String teamName) throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, WORK,
                 (CONNECTION.getProject() + "/" + encodeSpace(teamName)),
-                AREA,null , "teamsettings/iterations", WorkVersion.VERSION, null, null);
+                AREA,null , "teamsettings/iterations", ApiVersion.WORK, null, null);
 
         return MAPPER.mapJsonResponse(r, TeamSettingsIterations.class);
     }
@@ -71,7 +72,7 @@ public class WorkApi implements WorkDetails {
 
         String r = send(RequestMethod.GET, CONNECTION, WORK,
                 (CONNECTION.getProject() + "/" + encodeSpace(teamName)),
-                AREA,null , "teamsettings/iterations", WorkVersion.VERSION, q, null);
+                AREA,null , "teamsettings/iterations", ApiVersion.WORK, q, null);
 
         return MAPPER.mapJsonResponse(r, TeamSettingsIterations.class);
     }
@@ -89,7 +90,7 @@ public class WorkApi implements WorkDetails {
     public IterationWorkItems getTeamIterationWorkItems(String teamName, String iterationId) throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, WORK,
                 (CONNECTION.getProject() + "/" + encodeSpace(teamName)),
-                AREA + "/teamsettings/iterations",iterationId , "workitems", WorkVersion.VERSION, null, null);
+                AREA + "/teamsettings/iterations",iterationId , "workitems", ApiVersion.WORK, null, null);
 
         return MAPPER.mapJsonResponse(r, IterationWorkItems.class);
     }
@@ -107,7 +108,7 @@ public class WorkApi implements WorkDetails {
     public TeamSettingsIteration getTeamSettingsIteration(String teamName, String iterationId) throws ConnectionException, AzDException {
         String r = send(RequestMethod.GET, CONNECTION, WORK,
                 (CONNECTION.getProject() + "/" + encodeSpace(teamName)),
-                AREA + "/teamsettings/iterations",iterationId , null, WorkVersion.VERSION, null, null);
+                AREA + "/teamsettings/iterations",iterationId , null, ApiVersion.WORK, null, null);
 
         return MAPPER.mapJsonResponse(r, TeamSettingsIteration.class);
     }
@@ -125,7 +126,7 @@ public class WorkApi implements WorkDetails {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, WORK,
                         (CONNECTION.getProject() + "/" + encodeSpace(teamName)),
-                        AREA + "/teamsettings/iterations", iterationId, null, WorkVersion.VERSION, null, null);
+                        AREA + "/teamsettings/iterations", iterationId, null, ApiVersion.WORK, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (ConnectionException | AzDException e) {
             throw e;
