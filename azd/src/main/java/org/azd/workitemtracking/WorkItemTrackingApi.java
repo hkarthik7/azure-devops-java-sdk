@@ -751,6 +751,37 @@ public class WorkItemTrackingApi implements WorkItemTrackingDetails {
     }
 
     /***
+     * Returns the list of work item types
+     * @return list of Work Item type {@link WorkItemTypes}
+     * @throws ConnectionException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
+     */
+    @Override
+    public WorkItemTypes getWorkItemTypes() throws ConnectionException, AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
+                AREA,  null, "workitemtypes", ApiVersion.WORK_ITEM_TYPES, null, null);
+
+        return MAPPER.mapJsonResponse(r, WorkItemTypes.class);
+    }
+
+    /***
+     * Returns a work item type definition.
+     * @param workItemTypeName provide the work item type name. e.g., Bug or user story etc.
+     * @return work item type {@link WorkItemType}
+     * @throws ConnectionException set the default parameters organization name, project name and
+     * personal access token to work with any API in this library.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
+     */
+    @Override
+    public WorkItemType getWorkItemType(String workItemTypeName) throws ConnectionException, AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
+                AREA,  null, "workitemtypes/" + workItemTypeName, ApiVersion.WORK_ITEM_TYPES, null, null);
+
+        return MAPPER.mapJsonResponse(r, WorkItemType.class);
+    }
+
+    /***
      * Helper method to convert integer array to string.
      * @param i integer array
      * @return {@link String}

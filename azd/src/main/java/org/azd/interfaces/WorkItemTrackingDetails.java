@@ -44,4 +44,6 @@ public interface WorkItemTrackingDetails {
     WorkItem updateWorkItem(int workItemId, HashMap<String, Object> fieldsToUpdate) throws ConnectionException, AzDException;
     WorkItem updateWorkItem(int workItemId, WorkItemExpand expand, boolean bypassRules, boolean suppressNotifications,
                             boolean validateOnly, HashMap<String, Object> fieldsToUpdate) throws ConnectionException, AzDException;
+    WorkItemTypes getWorkItemTypes() throws ConnectionException, AzDException;
+    WorkItemType getWorkItemType(String workItemTypeName) throws ConnectionException, AzDException;
 }

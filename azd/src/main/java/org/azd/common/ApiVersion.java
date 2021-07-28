@@ -28,4 +28,5 @@ public abstract class ApiVersion {
     public static final String WORK_ITEM_TRACKING = "6.1-preview.3";
     public static final String WIT_WIQL = "6.1-preview.2";
     public static final String WIT_RECYCLE_BIN = "6.1-preview.2";
+    public static final String WORK_ITEM_TYPES = "6.0";
 }

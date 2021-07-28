@@ -132,4 +132,14 @@ public class WorkItemTrackingApiTest {
 
         w.updateWorkItem(176, fieldsToUpdate);
     }
+
+    @Test
+    public void shouldGetWorkItemTypes() throws ConnectionException, AzDException {
+        w.getWorkItemTypes();
+    }
+
+    @Test
+    public void shouldGetAWorkItemType() throws ConnectionException, AzDException {
+        w.getWorkItemType("Bug");
+    }
 }
