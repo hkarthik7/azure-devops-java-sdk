@@ -8,54 +8,129 @@ import org.azd.common.types.Author;
 import java.util.Arrays;
 import java.util.List;
 
+/***
+ * Represents release definition
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReleaseDefinition {
+    /***
+     * Gets the links to related resources, APIs, and views for the release definition.
+     */
     @JsonProperty("_links")
     private ReleaseReferenceLinks _links;
+    /***
+     * Gets or sets the list of artifacts.
+     */
     @JsonProperty("artifacts")
     private List<ReleaseArtifacts> artifacts;
+    /***
+     * Gets or sets comment.
+     */
     @JsonProperty("comment")
     private String comment;
+    /***
+     * Gets or sets the identity who created.
+     */
     @JsonProperty("createdBy")
     private Author createdBy;
+    /***
+     * Gets date on which it got created.
+     */
     @JsonProperty("createdOn")
     private String createdOn;
+    /***
+     * Gets or sets the description.
+     */
     @JsonProperty("description")
     private String description;
+    /***
+     * Gets or sets the list of environments.
+     */
     @JsonProperty("environments")
     private List<ReleaseDefinitionEnvironment> environments;
+    /***
+     * Gets the unique identifier of release definition.
+     */
     @JsonProperty("id")
     private int id;
+    /***
+     * Whether release definition is deleted.
+     */
     @JsonProperty("isDeleted")
     private boolean isDeleted;
+    /***
+     * Gets the reference of last release.
+     */
     @JsonProperty("lastRelease")
     private Release lastRelease;
+    /***
+     * Gets or sets the identity who modified.
+     */
     @JsonProperty("modifiedBy")
     private Author modifiedBy;
+    /***
+     * Gets date on which it got modified.
+     */
     @JsonProperty("modifiedOn")
     private String modifiedOn;
+    /***
+     * Gets or sets the name of the release definition.
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * Gets or sets the path of the release definition.
+     */
     @JsonProperty("path")
     private String path;
+    /***
+     * Gets or sets project reference.
+     */
     @JsonProperty("projectReference")
     private ProjectReference projectReference;
+    /***
+     * Gets or sets properties.
+     */
     @JsonProperty("properties")
     private JsonNode properties;
+    /***
+     * Gets or sets the release name format.
+     */
     @JsonProperty("releaseNameFormat")
     private String releaseNameFormat;
+    /***
+     * Gets the revision number.
+     */
     @JsonProperty("revision")
     private int revision;
+    /***
+     * Gets or sets source of release definition.
+     */
     @JsonProperty("source")
     private String source;
+    /***
+     * Gets or sets list of tags.
+     */
     @JsonProperty("tags")
     private String[] tags;
+    /***
+     * Gets or sets the list of triggers.
+     */
     @JsonProperty("triggers")
     private List<ReleaseTriggerBase> triggers;
+    /***
+     * Gets the REST API url to access the release definition.
+     */
     @JsonProperty("url")
     private String url;
+    /***
+     * Gets or sets the list of variable groups.
+     */
     @JsonProperty("variableGroups")
     private int[] variableGroups;
+    /***
+     * Gets or sets the dictionary of variables.
+     */
     @JsonProperty("variables")
     private JsonNode variables;
 

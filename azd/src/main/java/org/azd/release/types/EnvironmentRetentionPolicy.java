@@ -3,12 +3,24 @@ package org.azd.release.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Retention policy of the environment
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EnvironmentRetentionPolicy {
+    /***
+     * Gets and sets the number of days to keep environment.
+     */
     @JsonProperty("daysToKeep")
     private int daysToKeep;
+    /***
+     * Gets and sets the number of releases to keep.
+     */
     @JsonProperty("releasesToKeep")
     private int releasesToKeep;
+    /***
+     * Gets and sets as the build to be retained or not.
+     */
     @JsonProperty("retainBuild")
     private boolean retainBuild;
 

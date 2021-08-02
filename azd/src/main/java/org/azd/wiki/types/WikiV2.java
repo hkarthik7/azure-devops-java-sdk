@@ -6,26 +6,59 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.List;
 
+/***
+ * Defines a wiki resource.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WikiV2 {
+    /***
+     * ID of the wiki.
+     */
     @JsonProperty("id")
     private String id;
+    /***
+     * Folder path inside repository which is shown as Wiki. Not required for ProjectWiki type.
+     */
     @JsonProperty("mappedPath")
     private String mappedPath;
+    /***
+     * Wiki name.
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * ID of the project in which the wiki is to be created.
+     */
     @JsonProperty("projectId")
     private String projectId;
+    /***
+     * Properties of the wiki.
+     */
     @JsonProperty("properties")
     private JsonNode properties;
+    /***
+     * Remote web url to the wiki.
+     */
     @JsonProperty("remoteUrl")
     private String remoteUrl;
+    /***
+     * ID of the git repository that backs up the wiki. Not required for ProjectWiki type.
+     */
     @JsonProperty("repositoryId")
     private String repositoryId;
+    /***
+     * Type of the wiki.
+     */
     @JsonProperty("type")
     private String type;
+    /***
+     * REST url for this wiki.
+     */
     @JsonProperty("url")
     private String url;
+    /***
+     * Versions of the wiki.
+     */
     @JsonProperty("versions")
     private List<GitVersionDescriptor> versions;
 

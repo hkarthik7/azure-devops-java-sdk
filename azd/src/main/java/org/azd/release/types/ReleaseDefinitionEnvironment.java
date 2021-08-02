@@ -8,54 +8,129 @@ import org.azd.common.types.Author;
 import java.util.Arrays;
 import java.util.List;
 
+/***
+ * Release definition environment
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReleaseDefinitionEnvironment {
+    /***
+     * Gets or sets the BadgeUrl. BadgeUrl will be used when Badge will be enabled in Release Definition Environment.
+     */
     @JsonProperty("badgeUrl")
     private String badgeUrl;
+    /***
+     * Gets or sets the environment conditions.
+     */
     @JsonProperty("conditions")
     private List<ReleaseCondition> conditions;
+    /***
+     * Gets or sets the current release reference.
+     */
     @JsonProperty("currentRelease")
     private ReleaseShallowReference currentRelease;
+    /***
+     * Gets or sets the demands.
+     */
     @JsonProperty("demands")
     private List<Demand> demands;
+    /***
+     * Gets or sets the deploy phases of environment.
+     */
     @JsonProperty("deployPhases")
     private List<DeployPhase> deployPhases;
+    /***
+     * Gets or sets the deploy step.
+     */
     @JsonProperty("deployStep")
     private ReleaseDefinitionDeployStep deployStep;
+    /***
+     * Gets or sets the environment options.
+     */
     @JsonProperty("environmentOptions")
     private EnvironmentOptions environmentOptions;
+    /***
+     * Gets or sets the triggers on environment.
+     */
     @JsonProperty("environmentTriggers")
     private List<EnvironmentTrigger> environmentTriggers;
+    /***
+     * Gets or sets the environment execution policy.
+     */
     @JsonProperty("executionPolicy")
     private EnvironmentExecutionPolicy executionPolicy;
+    /***
+     * Gets and sets the ID of the ReleaseDefinitionEnvironment.
+     */
     @JsonProperty("id")
     private int id;
+    /***
+     * Gets and sets the name of the ReleaseDefinitionEnvironment.
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * Gets and sets the Owner of the ReleaseDefinitionEnvironment.
+     */
     @JsonProperty("owner")
     private Author owner;
+    /***
+     * Gets or sets the post deployment approvals.
+     */
     @JsonProperty("postDeployApprovals")
     private ReleaseDefinitionApprovals postDeployApprovals;
+    /***
+     * Gets or sets the post deployment gates.
+     */
     @JsonProperty("postDeploymentGates")
     private ReleaseDefinitionGatesStep postDeploymentGates;
+    /***
+     * Gets or sets the pre deployment approvals.
+     */
     @JsonProperty("preDeployApprovals")
     private ReleaseDefinitionApprovals preDeployApprovals;
+    /***
+     * Gets or sets the pre deployment gates.
+     */
     @JsonProperty("preDeploymentGates")
     private ReleaseDefinitionGatesStep preDeploymentGates;
+    /***
+     * Gets or sets the environment process parameters.
+     */
     @JsonProperty("processParameters")
     private JsonNode processParameters;
+    /***
+     * Gets or sets the properties on environment.
+     */
     @JsonProperty("properties")
     private JsonNode properties;
+    /***
+     * Gets or sets the queue ID.
+     */
     @JsonProperty("queueId")
     private int queueId;
+    /***
+     * Gets and sets the rank of the ReleaseDefinitionEnvironment.
+     */
     @JsonProperty("rank")
     private int rank;
+    /***
+     * Gets or sets the environment retention policy.
+     */
     @JsonProperty("retentionPolicy")
     private EnvironmentRetentionPolicy retentionPolicy;
+    /***
+     * Gets or sets the schedules
+     */
     @JsonProperty("schedules")
     private List<ReleaseSchedule> schedules;
+    /***
+     * Gets or sets the variable groups.
+     */
     @JsonProperty("variableGroups")
     private int[] variableGroups;
+    /***
+     * Gets and sets the variables.
+     */
     @JsonProperty("variables")
     private JsonNode variables;
 

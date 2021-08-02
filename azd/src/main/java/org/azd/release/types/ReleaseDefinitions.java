@@ -5,8 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * List of release definition
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReleaseDefinitions {
+    /***
+     * List of release definition
+     */
     @JsonProperty("value")
     private List<ReleaseDefinition> ReleaseDefinitions;
 

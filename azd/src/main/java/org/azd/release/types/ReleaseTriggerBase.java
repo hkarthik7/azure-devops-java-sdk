@@ -3,8 +3,14 @@ package org.azd.release.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Release trigger base
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReleaseTriggerBase {
+    /***
+     * Trigger type
+     */
     @JsonProperty("triggerType")
     private String triggerType;
 

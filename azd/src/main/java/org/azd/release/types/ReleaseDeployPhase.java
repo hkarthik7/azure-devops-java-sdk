@@ -5,26 +5,59 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * Release deploy phase
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReleaseDeployPhase {
+    /***
+     * Deployment jobs of the phase.
+     */
     @JsonProperty("deploymentJobs")
     private List<DeploymentJob> deploymentJobs;
+    /***
+     * Phase execution error logs.
+     */
     @JsonProperty("errorLog")
     private String errorLog;
+    /***
+     * List of manual intervention tasks execution information in phase.
+     */
     @JsonProperty("manualInterventions")
     private List<ManualIntervention> manualInterventions;
+    /***
+     * Name of the phase.
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * ID of the phase.
+     */
     @JsonProperty("phaseId")
     private String phaseId;
+    /***
+     * Type of the phase.
+     */
     @JsonProperty("phaseType")
     private String phaseType;
+    /***
+     * Rank of the phase.
+     */
     @JsonProperty("rank")
     private int rank;
+    /***
+     * Run Plan ID of the phase.
+     */
     @JsonProperty("runPlanId")
     private String runPlanId;
+    /***
+     * Phase start time.
+     */
     @JsonProperty("startedOn")
     private String startedOn;
+    /***
+     * Status of the phase.
+     */
     @JsonProperty("status")
     private String status;
 

@@ -5,10 +5,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * Release definition deploy step
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReleaseDefinitionDeployStep {
+    /***
+     * ID of the approval or deploy step.
+     */
     @JsonProperty("id")
     private int id;
+    /***
+     * The list of steps for this definition.
+     */
     @JsonProperty("task")
     private List<WorkflowTask> task;
 

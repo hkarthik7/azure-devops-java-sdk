@@ -3,14 +3,29 @@ package org.azd.release.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Environment trigger
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EnvironmentTrigger {
+    /***
+     * Definition environment ID on which this trigger applicable.
+     */
     @JsonProperty("definitionEnvironmentId")
     private int definitionEnvironmentId;
+    /***
+     * ReleaseDefinition ID on which this trigger applicable.
+     */
     @JsonProperty("releaseDefinitionId")
     private int releaseDefinitionId;
+    /***
+     * Gets or sets the trigger content.
+     */
     @JsonProperty("triggerContent")
     private String triggerContent;
+    /***
+     * Gets or sets the trigger type.
+     */
     @JsonProperty("triggerType")
     private String triggerType;
 

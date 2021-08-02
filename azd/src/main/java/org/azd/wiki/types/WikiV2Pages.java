@@ -5,8 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * List of wiki pages
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WikiV2Pages {
+    /***
+     * List of wiki pages
+     */
     @JsonProperty("value")
     private List<WikiV2> wikiPages;
 

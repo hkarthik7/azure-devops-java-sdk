@@ -5,8 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * List of service hook subscription
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ServiceHooksSubscriptions {
+    /***
+     * List of service hook subscription
+     */
     @JsonProperty("value")
     private List<ServiceHooksSubscription> subscriptions;
 
