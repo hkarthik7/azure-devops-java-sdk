@@ -1,11 +1,11 @@
 package org.azd;
 
-import org.azd.build.BuildApi;
-import org.azd.connection.Connection;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
+import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.BuildDetails;
+import org.azd.utils.AzDClientApi;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,6 +14,7 @@ import java.io.File;
 public class BuildApiTest {
     private static final JsonMapper MAPPER = new JsonMapper();
     private static BuildDetails b;
+    private static AzDClient webApi;
     private static int buildId;
 
     @Before
@@ -24,8 +25,8 @@ public class BuildApiTest {
         String organization = m.getO();
         String token = m.getT();
         String project = m.getP();
-        Connection connection = new Connection(organization, project, token);
-        b = new BuildApi(connection);
+        webApi = new AzDClientApi(organization, project, token);
+        b = webApi.getBuildApi();
         buildId = b.getBuilds(1).getBuildResults().stream().findFirst().get().getId();
     }
 

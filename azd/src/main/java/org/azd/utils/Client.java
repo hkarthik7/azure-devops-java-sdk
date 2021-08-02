@@ -10,7 +10,7 @@ import org.azd.helpers.JsonMapper;
 import java.util.HashMap;
 import java.util.List;
 
-import static org.azd.validators.AzDDefaultParametersValidator.validateDefaultParameters;
+import static org.azd.validators.AzDConnectionValidator.validateDefaultParameters;
 
 /***
  * Wrapper class to build request url and to call Azure DevOps REST API

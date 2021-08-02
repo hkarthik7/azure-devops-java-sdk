@@ -7,9 +7,11 @@ import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
 import org.azd.git.GitApi;
 import org.azd.helpers.JsonMapper;
+import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.CoreDetails;
 import org.azd.interfaces.GitDetails;
 import org.azd.interfaces.WikiDetails;
+import org.azd.utils.AzDClientApi;
 import org.azd.wiki.WikiApi;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,6 +20,7 @@ import java.io.File;
 
 public class WikiApiTest {
     private static final JsonMapper MAPPER = new JsonMapper();
+    private static AzDClient webApi;
     private static WikiDetails w;
     private static CoreDetails c;
     private static GitDetails g;
@@ -30,10 +33,10 @@ public class WikiApiTest {
         String organization = m.getO();
         String token = m.getT();
         String project = m.getP();
-        Connection connection = new Connection(organization, project, token);
-        c = new CoreApi(connection);
-        w = new WikiApi(connection);
-        g = new GitApi(connection);
+        webApi = new AzDClientApi(organization, project, token);
+        c = webApi.getCoreApi();
+        w = webApi.getWikiApi();
+        g = webApi.getGitApi();
     }
 
     @Test

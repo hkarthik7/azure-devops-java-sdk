@@ -5,6 +5,8 @@ import org.azd.enums.IterationsTimeFrame;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
+import org.azd.interfaces.AzDClient;
+import org.azd.utils.AzDClientApi;
 import org.azd.work.WorkApi;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +17,7 @@ import static org.junit.Assert.assertEquals;
 
 public class WorkApiTest {
     private static final JsonMapper MAPPER = new JsonMapper();
+    private static AzDClient webApi;
     private static WorkApi w;
 
     @Before
@@ -25,8 +28,8 @@ public class WorkApiTest {
         String organization = m.getO();
         String token = m.getT();
         String project = m.getP();
-        Connection defaultParameters = new Connection(organization, project, token);
-        w = new WorkApi(defaultParameters);
+        webApi = new AzDClientApi(organization, project, token);
+        w = webApi.getWorkApi();
     }
 
     @Test

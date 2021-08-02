@@ -30,7 +30,7 @@ public class AccountsApi implements AccountsDetails {
     private final String AREA = "accounts";
 
     /***
-     * Pass the connection object to work with Build Api
+     * Pass the connection object to work with Accounts Api
      * @param connection Connection object
      */
     public AccountsApi(Connection connection) { this.CONNECTION = connection; }
@@ -57,7 +57,7 @@ public class AccountsApi implements AccountsDetails {
 
     /***
      * Get the list of organizations that you have access to. Note that while creating and granting access to the personal
-     * access token select all organizations to apply the access on all organizations.
+     * access token select all organizations to apply the access on all available organizations.
      * @return A list of Organization. {@link Organizations}
      * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
      * and project. This validates the connection object and throws exception if it is not provided.
@@ -84,8 +84,9 @@ public class AccountsApi implements AccountsDetails {
     /***
      * Gets the logged in user profile.
      * @return a profile object. {@link Profile}
-     * @throws ConnectionException
-     * @throws AzDException
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public Profile getProfile() throws ConnectionException, AzDException {
@@ -99,8 +100,9 @@ public class AccountsApi implements AccountsDetails {
      * Gets a user profile.
      * @param id pass the user id
      * @return a profile object. {@link Profile}
-     * @throws ConnectionException
-     * @throws AzDException
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public Profile getProfile(String id) throws ConnectionException, AzDException {

@@ -5,9 +5,11 @@ import org.azd.core.CoreApi;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
+import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.CoreDetails;
 import org.azd.interfaces.ServiceHooksDetails;
 import org.azd.servicehooks.ServiceHooksApi;
+import org.azd.utils.AzDClientApi;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,6 +18,7 @@ import java.util.LinkedHashMap;
 
 public class ServiceHooksApiTest {
     private static final JsonMapper MAPPER = new JsonMapper();
+    private static AzDClient webApi;
     private static ServiceHooksDetails s;
     private static CoreDetails c;
 
@@ -27,9 +30,9 @@ public class ServiceHooksApiTest {
         String organization = m.getO();
         String token = m.getT();
         String project = m.getP();
-        Connection defaultParameters = new Connection(organization, project, token);
-        c = new CoreApi(defaultParameters);
-        s = new ServiceHooksApi(defaultParameters);
+        webApi = new AzDClientApi(organization, project, token);
+        c = webApi.getCoreApi();
+        s = webApi.getServiceHooksApi();
     }
 
     @Test

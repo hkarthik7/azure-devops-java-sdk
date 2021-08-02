@@ -6,9 +6,11 @@ import org.azd.enums.SingleReleaseExpands;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
+import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.BuildDetails;
 import org.azd.interfaces.ReleaseDetails;
 import org.azd.release.ReleaseApi;
+import org.azd.utils.AzDClientApi;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,6 +18,7 @@ import java.io.File;
 
 public class ReleaseApiTest {
     private static final JsonMapper MAPPER = new JsonMapper();
+    private static AzDClient webApi;
     private static ReleaseDetails r;
     private static BuildDetails b;
 
@@ -27,9 +30,9 @@ public class ReleaseApiTest {
         String organization = m.getO();
         String token = m.getT();
         String project = m.getP();
-        Connection defaultParameters = new Connection(organization, project, token);
-        r = new ReleaseApi(defaultParameters);
-        b = new BuildApi(defaultParameters);
+        webApi = new AzDClientApi(organization, project, token);
+        r = webApi.getReleaseApi();
+        b = webApi.getBuildApi();
     }
 
     @Test

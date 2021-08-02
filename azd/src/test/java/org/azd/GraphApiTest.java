@@ -5,7 +5,9 @@ import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
 import org.azd.graph.GraphApi;
 import org.azd.helpers.JsonMapper;
+import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.GraphDetails;
+import org.azd.utils.AzDClientApi;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,6 +17,7 @@ import static org.junit.Assert.assertEquals;
 
 public class GraphApiTest {
     private static final JsonMapper MAPPER = new JsonMapper();
+    private static AzDClient webApi;
     private static GraphDetails g;
 
     @Before
@@ -25,8 +28,8 @@ public class GraphApiTest {
         String organization = m.getO();
         String token = m.getT();
         String project = m.getP();
-        Connection defaultParameters = new Connection(organization, project, token);
-        g = new GraphApi(defaultParameters);
+        webApi = new AzDClientApi(organization, project, token);
+        g = webApi.getGraphApi();
     }
 
     @Test

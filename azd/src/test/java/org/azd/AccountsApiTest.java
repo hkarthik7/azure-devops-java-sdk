@@ -1,12 +1,12 @@
 package org.azd;
 
-import org.azd.accounts.AccountsApi;
-import org.azd.connection.Connection;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
+import org.azd.interfaces.AccountsDetails;
+import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.MemberEntitlementManagementDetails;
-import org.azd.memberentitlementmanagement.MemberEntitlementManagementApi;
+import org.azd.utils.AzDClientApi;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,7 +15,8 @@ import java.io.File;
 public class AccountsApiTest {
     private static final JsonMapper MAPPER = new JsonMapper();
     private static MemberEntitlementManagementDetails mem;
-    private static AccountsApi a;
+    private static AccountsDetails a;
+    private static AzDClient webApi;
 
     @Before
     public void init() throws AzDException {
@@ -25,9 +26,9 @@ public class AccountsApiTest {
         String organization = m.getO();
         String token = m.getT();
         String project = m.getP();
-        Connection connection = new Connection(organization, project, token);
-        mem = new MemberEntitlementManagementApi(connection);
-        a = new AccountsApi(connection);
+        webApi = new AzDClientApi(organization, project, token);
+        mem = webApi.getMemberEntitlementManagementApi();
+        a = webApi.getAccountsApi();
     }
 
     @Test

@@ -6,7 +6,9 @@ import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
 import org.azd.git.GitApi;
 import org.azd.helpers.JsonMapper;
+import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.GitDetails;
+import org.azd.utils.AzDClientApi;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,6 +16,7 @@ import java.io.File;
 
 public class GitApiTest {
     private static final JsonMapper MAPPER = new JsonMapper();
+    private static AzDClient webApi;
     private static GitDetails g;
 
     @Before
@@ -24,8 +27,8 @@ public class GitApiTest {
         String organization = m.getO();
         String token = m.getT();
         String project = m.getP();
-        Connection defaultParameters = new Connection(organization, project, token);
-        g = new GitApi(defaultParameters);
+        webApi = new AzDClientApi(organization, project, token);
+        g = webApi.getGitApi();
     }
 
     @Test(expected = AzDException.class)

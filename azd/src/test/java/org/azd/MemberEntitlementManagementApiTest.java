@@ -8,9 +8,11 @@ import org.azd.enums.LicensingSource;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
+import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.CoreDetails;
 import org.azd.interfaces.MemberEntitlementManagementDetails;
 import org.azd.memberentitlementmanagement.MemberEntitlementManagementApi;
+import org.azd.utils.AzDClientApi;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,6 +20,7 @@ import java.io.File;
 
 public class MemberEntitlementManagementApiTest {
     private static final JsonMapper MAPPER = new JsonMapper();
+    private static AzDClient webApi;
     private static MemberEntitlementManagementDetails mem;
     private static CoreDetails c;
 
@@ -29,9 +32,9 @@ public class MemberEntitlementManagementApiTest {
         String organization = m.getO();
         String token = m.getT();
         String project = m.getP();
-        Connection defaultParameters = new Connection(organization, project, token);
-        mem = new MemberEntitlementManagementApi(defaultParameters);
-        c = new CoreApi(defaultParameters);
+        webApi = new AzDClientApi(organization, project, token);
+        mem = webApi.getMemberEntitlementManagementApi();
+        c = webApi.getCoreApi();
     }
 
     @Test

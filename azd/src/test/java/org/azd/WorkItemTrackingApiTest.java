@@ -6,6 +6,8 @@ import org.azd.enums.WorkItemOperation;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
+import org.azd.interfaces.AzDClient;
+import org.azd.utils.AzDClientApi;
 import org.azd.workitemtracking.WorkItemTrackingApi;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 
 public class WorkItemTrackingApiTest {
     private static final JsonMapper MAPPER = new JsonMapper();
+    private static AzDClient webApi;
     private static WorkItemTrackingApi w;
 
     @Before
@@ -27,8 +30,8 @@ public class WorkItemTrackingApiTest {
         String organization = m.getO();
         String token = m.getT();
         String project = m.getP();
-        var connection = new Connection(organization, project, token);
-        w = new WorkItemTrackingApi(connection);
+        webApi = new AzDClientApi(organization, project, token);
+        w = webApi.getWorkItemTrackingApi();
     }
 
     @Test

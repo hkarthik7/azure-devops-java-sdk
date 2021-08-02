@@ -5,7 +5,9 @@ import org.azd.core.CoreApi;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
+import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.CoreDetails;
+import org.azd.utils.AzDClientApi;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,6 +15,7 @@ import java.io.File;
 
 public class CoreApiTest {
     private static final JsonMapper MAPPER = new JsonMapper();
+    private static AzDClient webApi;
     private static CoreDetails c;
 
 
@@ -24,8 +27,8 @@ public class CoreApiTest {
         String organization = m.getO();
         String token = m.getT();
         String project = m.getP();
-        Connection defaultParameters = new Connection(organization, project, token);
-        c = new CoreApi(defaultParameters);
+        webApi = new AzDClientApi(organization, project, token);
+        c = webApi.getCoreApi();
     }
 
     @Test

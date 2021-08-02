@@ -7,7 +7,9 @@ import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
 import org.azd.feedmanagement.FeedManagementApi;
 import org.azd.helpers.JsonMapper;
+import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.FeedManagementDetails;
+import org.azd.utils.AzDClientApi;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,6 +18,7 @@ import java.io.File;
 public class FeedManagementApiTest {
 
     private static final JsonMapper MAPPER = new JsonMapper();
+    private static AzDClient webApi;
     private static FeedManagementDetails f;
 
     @Before
@@ -26,8 +29,8 @@ public class FeedManagementApiTest {
         String organization = m.getO();
         String token = m.getT();
         String project = m.getP();
-        Connection defaultParameters = new Connection(organization, project, token);
-        f = new FeedManagementApi(defaultParameters);
+        webApi = new AzDClientApi(organization, project, token);
+        f = webApi.getFeedManagementApi();
     }
 
     @Test(expected = AzDException.class)
