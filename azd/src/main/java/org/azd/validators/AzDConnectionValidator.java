@@ -4,9 +4,8 @@ import org.azd.exceptions.ConnectionException;
 
 /**
  * Validates if the default parameters are passed or not
- * @author Harish Karthic
  */
-public class AzDDefaultParametersValidator {
+public class AzDConnectionValidator {
 
     /**
      * Validates if the default parameters are passed or not
