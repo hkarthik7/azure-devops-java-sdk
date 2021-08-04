@@ -6,14 +6,29 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.Arrays;
 
+/***
+ * The class represents a property bag as a collection of key-value pairs. Values of all primitive types
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PropertiesCollection {
+    /***
+     * The count of properties in the collection.
+     */
     @JsonProperty("count")
     private int count;
+    /***
+     * item
+     */
     @JsonProperty("item")
     private JsonNode item;
+    /***
+     * The set of keys in the collection.
+     */
     @JsonProperty("keys")
     private String[] keys;
+    /***
+     * The set of values in the collection.
+     */
     @JsonProperty("values")
     private String[] values;
 

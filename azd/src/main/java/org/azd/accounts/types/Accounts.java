@@ -5,8 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * List of account
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Accounts {
+    /***
+     * List of account
+     */
     @JsonProperty("value")
     private List<Account> accounts;
 

@@ -3,8 +3,14 @@ package org.azd.accounts.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Data provider
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DataProvider {
+    /***
+     * Organization provider
+     */
     @JsonProperty("ms.vss-features.my-organizations-data-provider")
     private OrganizationsProvider organizationsProvider;
 

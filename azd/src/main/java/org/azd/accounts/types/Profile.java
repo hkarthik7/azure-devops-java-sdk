@@ -3,20 +3,44 @@ package org.azd.accounts.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * A user profile.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Profile {
+    /***
+     * User display name
+     */
     @JsonProperty("displayName")
     private String displayName;
+    /***
+     * GUID of the alias name
+     */
     @JsonProperty("publicAlias")
     private String publicAlias;
+    /***
+     * user email address
+     */
     @JsonProperty("emailAddress")
     private String emailAddress;
+    /**
+     * revision number
+     */
     @JsonProperty("coreRevision")
     private int coreRevision;
+    /***
+     * time stamp
+     */
     @JsonProperty("timeStamp")
     private String timeStamp;
+    /***
+     * GUID of a user
+     */
     @JsonProperty("id")
     private String id;
+    /***
+     * revision number
+     */
     @JsonProperty("revision")
     private int revision;
 

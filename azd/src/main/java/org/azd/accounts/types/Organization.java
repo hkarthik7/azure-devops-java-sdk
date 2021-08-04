@@ -3,12 +3,24 @@ package org.azd.accounts.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Represents an organization
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Organization {
+    /***
+     * Id of the organization
+     */
     @JsonProperty("id")
     private String id;
+    /***
+     * Name of the organization
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * url of the organization
+     */
     @JsonProperty("url")
     private String url;
 
