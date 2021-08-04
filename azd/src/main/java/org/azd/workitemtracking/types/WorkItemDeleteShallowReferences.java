@@ -5,8 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * Work item shallow references
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WorkItemDeleteShallowReferences {
+    /***
+     * Work item shallow references
+     */
     @JsonProperty("value")
     private List<WorkItemDeleteShallowReference> workItemDeleteShallowReferences;
 

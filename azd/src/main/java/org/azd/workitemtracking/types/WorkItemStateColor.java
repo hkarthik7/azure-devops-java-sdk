@@ -3,12 +3,24 @@ package org.azd.workitemtracking.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Work item type state name, color and state category
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WorkItemStateColor {
+    /***
+     * Category of state
+     */
     @JsonProperty("category")
     private String category;
+    /***
+     * Color value
+     */
     @JsonProperty("color")
     private String color;
+    /***
+     * Work item type state name
+     */
     @JsonProperty("name")
     private String name;
 

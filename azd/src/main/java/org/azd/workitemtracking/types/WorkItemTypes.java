@@ -5,8 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * List of work item types
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WorkItemTypes {
+    /***
+     * List of work item types
+     */
     @JsonProperty("value")
     private List<WorkItemType> workItemTypes;
 

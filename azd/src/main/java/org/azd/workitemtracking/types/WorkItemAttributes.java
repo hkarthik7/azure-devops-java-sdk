@@ -3,20 +3,44 @@ package org.azd.workitemtracking.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Collection of link attributes.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WorkItemAttributes {
+    /***
+     * Is locked
+     */
     @JsonProperty("isLocked")
     private boolean isLocked;
+    /***
+     * Comment
+     */
     @JsonProperty("comment")
     private String comment;
+    /***
+     * Name
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * Authorized date
+     */
     @JsonProperty("authorizedDate")
     private String authorizedDate;
+    /***
+     * Id
+     */
     @JsonProperty("id")
     private int id;
+    /***
+     * Creation date of the resource
+     */
     @JsonProperty("resourceCreatedDate")
     private String resourceCreatedDate;
+    /***
+     * Revised date
+     */
     @JsonProperty("revisedDate")
     private String revisedDate;
 

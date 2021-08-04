@@ -3,10 +3,19 @@ package org.azd.work.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Contains reference to a work item.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WorkItemReference {
+    /***
+     * Work item ID.
+     */
     @JsonProperty("id")
     private String id;
+    /***
+     * REST API URL of the resource
+     */
     @JsonProperty("url")
     private String url;
 

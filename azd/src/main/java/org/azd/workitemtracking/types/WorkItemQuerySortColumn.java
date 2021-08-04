@@ -3,10 +3,19 @@ package org.azd.workitemtracking.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * The sort columns of the query.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WorkItemQuerySortColumn {
+    /***
+     * The direction to sort by.
+     */
     @JsonProperty("descending")
     private boolean descending;
+    /***
+     * A work item field.
+     */
     @JsonProperty("field")
     private WorkItemFieldReference field;
 

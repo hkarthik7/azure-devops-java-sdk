@@ -3,12 +3,24 @@ package org.azd.work.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * A link between two work items.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WorkItemLink {
+    /***
+     * The type of link.
+     */
     @JsonProperty("rel")
     private String rel;
+    /***
+     * The source work item.
+     */
     @JsonProperty("source")
     private WorkItemReference source;
+    /***
+     * The target work item.
+     */
     @JsonProperty("target")
     private WorkItemReference target;
 

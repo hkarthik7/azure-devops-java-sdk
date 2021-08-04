@@ -3,18 +3,39 @@ package org.azd.workitemtracking.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Represents the reference to a specific version of a comment on a Work Item.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WorkItemCommentVersionRef {
+    /***
+     * The id assigned to the comment.
+     */
     @JsonProperty("commentId")
     private int commentId;
+    /***
+     * The work item revision where this comment was originally added.
+     */
     @JsonProperty("createdInRevision")
     private int createdInRevision;
+    /***
+     * Specifies whether comment was deleted.
+     */
     @JsonProperty("isDeleted")
     private boolean isDeleted;
+    /***
+     * The text of the comment.
+     */
     @JsonProperty("text")
     private String text;
+    /***
+     * Url
+     */
     @JsonProperty("url")
     private String url;
+    /***
+     * The version number.
+     */
     @JsonProperty("version")
     private int version;
 

@@ -5,8 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * List of team settings iterations
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TeamSettingsIterations {
+    /***
+     * List of team settings iterations
+     */
     @JsonProperty("value")
     private List<TeamSettingsIteration> iterations;
 

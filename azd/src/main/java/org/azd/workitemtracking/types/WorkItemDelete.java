@@ -3,22 +3,49 @@ package org.azd.workitemtracking.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Full deleted work item object
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WorkItemDelete {
+    /***
+     * Work item ID.
+     */
     @JsonProperty("id")
     private int id;
+    /***
+     * Type of work item.
+     */
     @JsonProperty("type")
     private String type;
+    /***
+     * Name or title of the work item.
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * Parent project of the deleted work item.
+     */
     @JsonProperty("project")
     private String project;
+    /***
+     * The work item deletion date.
+     */
     @JsonProperty("deletedDate")
     private String deletedDate;
+    /***
+     * The user who deleted the work item type.
+     */
     @JsonProperty("deletedBy")
     private String deletedBy;
+    /***
+     * The HTTP status code for work item operation in a batch request.
+     */
     @JsonProperty("code")
     private int code;
+    /***
+     * REST API URL of the resource
+     */
     @JsonProperty("url")
     private String url;
 

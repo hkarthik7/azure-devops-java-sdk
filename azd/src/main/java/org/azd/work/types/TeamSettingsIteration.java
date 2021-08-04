@@ -3,16 +3,34 @@ package org.azd.work.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Represents a shallow ref for a single iteration.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TeamSettingsIteration {
+    /***
+     * Id of the iteration.
+     */
     @JsonProperty("id")
     private String id;
+    /***
+     * Name of the iteration.
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * Relative path of the iteration.
+     */
     @JsonProperty("path")
     private String path;
+    /***
+     * Attributes of the iteration such as start and end date.
+     */
     @JsonProperty("attributes")
     private TeamIterationAttributes attributes;
+    /***
+     * Full http link to the resource
+     */
     @JsonProperty("url")
     private String url;
 

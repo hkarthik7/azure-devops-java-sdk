@@ -3,12 +3,24 @@ package org.azd.workitemtracking.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Relations of the work item.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public final class WorkItemRelations {
+    /***
+     * Relation type.
+     */
     @JsonProperty("rel")
     private String rel;
+    /***
+     * Link url.
+     */
     @JsonProperty("url")
     private String url;
+    /***
+     * Collection of link attributes.
+     */
     @JsonProperty("attributes")
     private WorkItemAttributes attributes;
 

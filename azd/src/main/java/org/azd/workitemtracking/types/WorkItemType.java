@@ -6,30 +6,69 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.List;
 
+/***
+ * Describes a work item type.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WorkItemType {
+    /***
+     * The color.
+     */
     @JsonProperty("color")
     private String color;
+    /***
+     * The description of the work item type.
+     */
     @JsonProperty("description")
     private String description;
+    /***
+     * The fields that exist on the work item type.
+     */
     @JsonProperty("fieldInstances")
     private List<WorkItemTypeFieldInstance> fieldInstances;
+    /***
+     * The fields that exist on the work item type.
+     */
     @JsonProperty("fields")
     private List<WorkItemTypeFieldInstance> fields;
+    /***
+     * The icon of the work item type.
+     */
     @JsonProperty("icon")
     private WorkItemIcon icon;
+    /***
+     * True if work item type is disabled
+     */
     @JsonProperty("isDisabled")
     private boolean isDisabled;
+    /***
+     * Gets the name of the work item type.
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * The reference name of the work item type.
+     */
     @JsonProperty("referenceName")
     private String referenceName;
+    /***
+     * Gets state information for the work item type.
+     */
     @JsonProperty("states")
     private List<WorkItemStateColor> states;
+    /***
+     * Gets the various state transition mappings in the work item type.
+     */
     @JsonProperty("transitions")
     private JsonNode transitions;
+    /***
+     * url
+     */
     @JsonProperty("url")
     private String url;
+    /***
+     * The XML form.
+     */
     @JsonProperty("xmlForm")
     private String xmlForm;
 
