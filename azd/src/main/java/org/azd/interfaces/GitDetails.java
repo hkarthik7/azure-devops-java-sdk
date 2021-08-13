@@ -5,8 +5,6 @@ import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
 import org.azd.git.types.*;
 
-import java.util.Map;
-
 public interface GitDetails {
     Repository createRepository(String repositoryName, String projectId) throws ConnectionException, AzDException;
 

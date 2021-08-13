@@ -5,7 +5,6 @@ import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public interface CoreDetails {
     Processes getProcesses() throws ConnectionException, AzDException;

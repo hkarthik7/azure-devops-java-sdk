@@ -1,10 +1,8 @@
 package org.azd;
 
-import org.azd.connection.Connection;
 import org.azd.enums.PullRequestStatus;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
-import org.azd.git.GitApi;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.GitDetails;

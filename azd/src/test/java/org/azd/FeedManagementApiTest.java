@@ -1,11 +1,9 @@
 package org.azd;
 
-import org.azd.connection.Connection;
 import org.azd.enums.FeedViewType;
 import org.azd.enums.FeedVisibility;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
-import org.azd.feedmanagement.FeedManagementApi;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.FeedManagementDetails;

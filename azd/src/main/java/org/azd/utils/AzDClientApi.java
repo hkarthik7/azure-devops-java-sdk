@@ -9,6 +9,7 @@ import org.azd.git.GitApi;
 import org.azd.graph.GraphApi;
 import org.azd.interfaces.AzDClient;
 import org.azd.memberentitlementmanagement.MemberEntitlementManagementApi;
+import org.azd.oauth.OAuth;
 import org.azd.release.ReleaseApi;
 import org.azd.servicehooks.ServiceHooksApi;
 import org.azd.wiki.WikiApi;
@@ -31,8 +32,7 @@ public class AzDClientApi implements AzDClient {
      * @param personalAccessToken Personal access token
      */
     public AzDClientApi(String organizationName, String personalAccessToken) {
-        var connection = new Connection(organizationName, personalAccessToken);
-        this.CONNECTION = connection;
+        this.CONNECTION = new Connection(organizationName, personalAccessToken);
     }
 
     /***
@@ -42,8 +42,7 @@ public class AzDClientApi implements AzDClient {
      * @param personalAccessToken Personal access token
      */
     public AzDClientApi(String organizationName, String projectName, String personalAccessToken) {
-        var connection = new Connection(organizationName, projectName, personalAccessToken);
-        this.CONNECTION = connection;
+        this.CONNECTION = new Connection(organizationName, projectName, personalAccessToken);
     }
 
     /***
@@ -135,4 +134,11 @@ public class AzDClientApi implements AzDClient {
      */
     @Override
     public WorkItemTrackingApi getWorkItemTrackingApi() { return new WorkItemTrackingApi(CONNECTION); }
+
+    /***
+     * Returns an instance of OAuth Api
+     * @return instance of OAuth Api {@link OAuth}
+     */
+    @Override
+    public OAuth getOAuth() { return new OAuth(CONNECTION); }
 }

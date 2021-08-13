@@ -1,14 +1,11 @@
 package org.azd;
 
-import org.azd.connection.Connection;
-import org.azd.core.CoreApi;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.CoreDetails;
 import org.azd.interfaces.ServiceHooksDetails;
-import org.azd.servicehooks.ServiceHooksApi;
 import org.azd.utils.AzDClientApi;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,6 +1,5 @@
 package org.azd;
 
-import org.azd.connection.Connection;
 import org.azd.enums.WorkItemExpand;
 import org.azd.enums.WorkItemOperation;
 import org.azd.exceptions.AzDException;
