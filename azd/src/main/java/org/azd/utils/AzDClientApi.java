@@ -9,7 +9,7 @@ import org.azd.git.GitApi;
 import org.azd.graph.GraphApi;
 import org.azd.interfaces.AzDClient;
 import org.azd.memberentitlementmanagement.MemberEntitlementManagementApi;
-import org.azd.oauth.OAuth;
+import org.azd.oauth.OAuthApi;
 import org.azd.release.ReleaseApi;
 import org.azd.servicehooks.ServiceHooksApi;
 import org.azd.wiki.WikiApi;
@@ -137,8 +137,8 @@ public class AzDClientApi implements AzDClient {
 
     /***
      * Returns an instance of OAuth Api
-     * @return instance of OAuth Api {@link OAuth}
+     * @return instance of OAuth Api {@link OAuthApi}
      */
     @Override
-    public OAuth getOAuth() { return new OAuth(CONNECTION); }
+    public OAuthApi getOAuth() { return new OAuthApi(CONNECTION); }
 }

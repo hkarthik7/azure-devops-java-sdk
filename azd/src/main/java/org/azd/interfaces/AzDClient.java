@@ -7,7 +7,7 @@ import org.azd.feedmanagement.FeedManagementApi;
 import org.azd.git.GitApi;
 import org.azd.graph.GraphApi;
 import org.azd.memberentitlementmanagement.MemberEntitlementManagementApi;
-import org.azd.oauth.OAuth;
+import org.azd.oauth.OAuthApi;
 import org.azd.release.ReleaseApi;
 import org.azd.servicehooks.ServiceHooksApi;
 import org.azd.wiki.WikiApi;
@@ -27,5 +27,5 @@ public interface AzDClient {
     WikiApi getWikiApi();
     WorkApi getWorkApi();
     WorkItemTrackingApi getWorkItemTrackingApi();
-    OAuth getOAuth();
+    OAuthApi getOAuth();
 }
