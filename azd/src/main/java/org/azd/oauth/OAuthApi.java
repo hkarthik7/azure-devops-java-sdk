@@ -6,20 +6,22 @@ import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.helpers.URLHelper;
+import org.azd.interfaces.OAuth;
 import org.azd.oauth.types.AuthorizedToken;
 
 import java.util.LinkedHashMap;
 
 import static org.azd.utils.Client.send;
 
-public class OAuth {
+public class OAuthApi implements OAuth {
 
     private final Connection CONNECTION;
     private final JsonMapper MAPPER = new JsonMapper();
     private final String AREA = "accounts";
 
-    public OAuth(Connection connection) { this.CONNECTION = connection; }
+    public OAuthApi(Connection connection) { this.CONNECTION = connection; }
 
+    @Override
     public String getAuthorizationEndpoint(String clientId, String state, String scope, String redirectUrl) throws AzDException, ConnectionException {
 
         var q = new LinkedHashMap<String, Object>(){{
@@ -34,6 +36,7 @@ public class OAuth {
                 "authorize", null, q, true, null, null);
     }
 
+    @Override
     public AuthorizedToken getAccessToken(String appSecret, String authCode, String callbackUrl) throws AzDException, ConnectionException {
         var body = new StringBuilder()
                 .append("client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer&client_assertion=")
@@ -41,7 +44,7 @@ public class OAuth {
                 .append("&grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion=")
                 .append(URLHelper.encodeSpecialChars(authCode))
                 .append("&redirect_uri=")
-                .append(URLHelper.encodeSpecialChars(callbackUrl))
+                .append(callbackUrl)
                 .toString();
 
         String r = send(RequestMethod.POST, CONNECTION, AREA, null, "oauth2", null,
@@ -54,6 +57,7 @@ public class OAuth {
         return res;
     }
 
+    @Override
     public AuthorizedToken getRefreshToken(String appSecret, String authCode, String callbackUrl) throws AzDException, ConnectionException {
         var body = new StringBuilder()
                 .append("client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer&client_assertion=")
@@ -61,7 +65,7 @@ public class OAuth {
                 .append("&grant_type=refresh_token&assertion=")
                 .append(URLHelper.encodeSpecialChars(authCode))
                 .append("&redirect_uri=")
-                .append(URLHelper.encodeSpecialChars(callbackUrl))
+                .append(callbackUrl)
                 .toString();
 
         String r = send(RequestMethod.POST, CONNECTION, AREA, null, "oauth2", null,
@@ -70,6 +74,7 @@ public class OAuth {
         return MAPPER.mapJsonResponse(r, AuthorizedToken.class);
     }
 
+    @Override
     public boolean hasTokenExpired(AuthorizedToken authorizedToken) {
         return (authorizedToken.getReceivedTimestamp() + authorizedToken.getExpiresIn())*1000 > System.currentTimeMillis();
     }
