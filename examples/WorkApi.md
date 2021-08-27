@@ -21,7 +21,7 @@ public class Main {
         var webApi = new AzDClientApi(organisation, project, personalAccessToken);
 
         // call the respective API with created webApi client connection object;
-        var work = webApi.workApi(connection);
+        var work = webApi.getWorkApi(connection);
         try {
             // Get iterations settings for a team
             work.getTeamSettingsIterations("my-team");

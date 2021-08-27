@@ -21,7 +21,7 @@ public class Main {
         var webApi = new AzDClientApi(organisation, project, personalAccessToken);
 
         // call the respective API with created webApi client connection object;
-        var wit = webApi.workitemsApi(connection);
+        var wit = webApi.getWorkitemsApi(connection);
         try {
             // create a new workitem
             wit.createWorkItem("user story", WorkItemOperation.ADD, "Sample user story");

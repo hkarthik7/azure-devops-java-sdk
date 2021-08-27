@@ -21,8 +21,8 @@ public class Main {
         var webApi = new AzDClientApi(organisation, project, personalAccessToken);
 
         // call the respective API with created webApi client connection object;
-        var core = webApi.coreApi(connection);
-        var hooks = webApi.serviceHooksApi(connection);
+        var core = webApi.getCoreApi(connection);
+        var hooks = webApi.getServiceHooksApi(connection);
         try {
             // create a new subscription
             var projectId = c.getProject(connection.getProject());

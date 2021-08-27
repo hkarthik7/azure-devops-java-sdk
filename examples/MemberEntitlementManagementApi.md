@@ -21,9 +21,9 @@ public class Main {
         var webApi = new AzDClientApi(organisation, project, personalAccessToken);
 
         // call the respective API with created webApi client connection object;
-        var mem = webApi.memberEntitlementManagementApi();
-        var graph = webApi.graphApi();
-        var core = webApi.coreApi();
+        var mem = webApi.getMemberEntitlementManagementApi();
+        var graph = webApi.getGraphApi();
+        var core = webApi.getCoreApi();
         
         try {
             // Add a new user and assign license

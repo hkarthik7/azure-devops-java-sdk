@@ -21,7 +21,7 @@ public class Main {
         var webApi = new AzDClientApi(organisation, project, personalAccessToken);
 
         // call the respective API with created webApi client connection object;
-        var git = webApi.gitApi();
+        var git = webApi.getGitApi();
         try {
             // create a new repository
             git.createRepository("repositoryName", "projectId");

@@ -21,7 +21,7 @@ public class Main {
         var webApi = new AzDClientApi(organisation, project, personalAccessToken);
 
         // call the respective API with created webApi client connection object;
-        var graph = webApi.graphApi();
+        var graph = webApi.getGraphApi();
         try {
             // create a new user with the reference of another existing user
             var users = graph.getUsers().getUsers();

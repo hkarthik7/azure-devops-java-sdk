@@ -21,7 +21,7 @@ public class Main {
     
         // call the respective API with created webApi client connection object;
         var accounts = webApi.getAccountsApi();
-        var mem = webApi.memberEntitlementManagementApi();
+        var mem = webApi.getMemberEntitlementManagementApi();
 
         try {
             // get the list of accounts that the user has access to.

@@ -24,7 +24,7 @@ public class Main {
         var webApi = new AzDClientApi(organisation, project, personalAccessToken);
 
         // call the respective API with created webApi client connection object;
-        var feedManagement = webApi.feedManagementApi();
+        var feedManagement = webApi.getFeedManagementApi();
         try {
             // create new feed
             feedManagement.createFeed("myFeed", "To store maven packages", true, true);

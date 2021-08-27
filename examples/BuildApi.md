@@ -21,7 +21,7 @@ public class Main {
         var webApi = new AzDClientApi(organisation, project, personalAccessToken);
 
         // call the respective API with created webApi client connection object;
-        var build = webApi.buildApi();
+        var build = webApi.getBuildApi();
         try {
         
             // delete a build by id
