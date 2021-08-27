@@ -16,12 +16,12 @@ public class Main {
         String organisation = "myOrganisationName";
         String personalAccessToken = "accessToken";
         
-        // Create a connection object with organisation name and personal access token.
-        var connection = new Connection(organisation, personalAccessToken);
+        // Connect Azure DevOps API with organisation name and personal access token.
+        var webApi = new AzDClientApi(organisation, personalAccessToken);
     
-        // call API with default connection object;
-        var accounts = new AccountsApi(connection);
-        var mem = new MemberEntitlementManagementApi(connection);
+        // call the respective API with created webApi client connection object;
+        var accounts = webApi.getAccountsApi();
+        var mem = webApi.memberEntitlementManagementApi();
 
         try {
             // get the list of accounts that the user has access to.
@@ -41,7 +41,7 @@ public class Main {
             // when we don't have access to Graph Api.
             accounts.getOrganizations();
             
-            // get a user profile
+            // get the user profile that has logged in
             accounts.getProfile();
             
             // get a user profile with id

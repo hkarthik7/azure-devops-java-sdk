@@ -16,12 +16,12 @@ public class Main {
         String organisation = "myOrganisationName";
         String project = "myProject";
         String personalAccessToken = "accessToken";
-        
-        // Create a connection object with organisation name, project and personal access token.
-        var connection = new Connection(organisation, project, personalAccessToken);
-    
-        // call API with default connection object;
-        BuildApi build = new BuildApi(connection);
+
+        // Connect Azure DevOps API with organisation name and personal access token.
+        var webApi = new AzDClientApi(organisation, project, personalAccessToken);
+
+        // call the respective API with created webApi client connection object;
+        var build = webApi.buildApi();
         try {
         
             // delete a build by id

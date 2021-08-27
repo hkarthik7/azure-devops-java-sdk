@@ -17,13 +17,13 @@ public class Main {
         String project = "myProject";
         String personalAccessToken = "accessToken";
 
-        // Create a connection object with organisation name, project and personal access token.
-        var connection = new Connection(organisation, project, personalAccessToken);
+        // Connect Azure DevOps API with organisation name and personal access token.
+        var webApi = new AzDClientApi(organisation, project, personalAccessToken);
 
-        // call API with default connection object;
-        var mem = new MemberEntitlementManagementApi(connection);
-        var graph = new GraphApi(connection);
-        var core = new CoreApi(connection);
+        // call the respective API with created webApi client connection object;
+        var mem = webApi.memberEntitlementManagementApi();
+        var graph = webApi.graphApi();
+        var core = webApi.coreApi();
         
         try {
             // Add a new user and assign license

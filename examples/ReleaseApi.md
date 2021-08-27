@@ -17,13 +17,13 @@ public class Main {
         String project = "myProject";
         String personalAccessToken = "accessToken";
 
-        // Create a connection object with organisation name, project and personal access token.
-        var connection = new Connection(organisation, project, personalAccessToken);
+        // Connect Azure DevOps API with organisation name and personal access token.
+        var webApi = new AzDClientApi(organisation, project, personalAccessToken);
 
-        // call API with default connection object;
-        var build = new BuildApi(connection);
+        // call the respective API with created webApi client connection object;
+        var build = webApi.buildApi(connection);
         var buildNumber = build.getBuild(176).getBuildNumber();
-        var release = new ReleaseApi(connection);
+        var release = webApi.releaseApi(connection);
         
         try {
             // create a release with the following parameters

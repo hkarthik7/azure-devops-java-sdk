@@ -17,11 +17,11 @@ public class Main {
         String project = "myProject";
         String personalAccessToken = "accessToken";
 
-        // Create a connection object with organisation name, project and personal access token.
-        var connection = new Connection(organisation, project, personalAccessToken);
+        // Connect Azure DevOps API with organisation name and personal access token.
+        var webApi = new AzDClientApi(organisation, project, personalAccessToken);
 
-        // call API with default connection object;
-        CoreApi core = new CoreApi(connection);
+        // call the respective API with created webApi client connection object;
+        var core = webApi.coreApi();
         try {        
             // create a new project
             // This creates a default project with scrum process
