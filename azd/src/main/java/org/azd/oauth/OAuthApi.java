@@ -6,38 +6,63 @@ import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.helpers.URLHelper;
-import org.azd.interfaces.OAuth;
 import org.azd.oauth.types.AuthorizedToken;
+import org.azd.utils.BaseClient;
+import org.azd.utils.Client;
 
 import java.util.LinkedHashMap;
 
 import static org.azd.utils.Client.send;
 
-public class OAuthApi implements OAuth {
+public class OAuthApi {
 
-    private final Connection CONNECTION;
-    private final JsonMapper MAPPER = new JsonMapper();
-    private final String AREA = "accounts";
+    private static final JsonMapper MAPPER = new JsonMapper();
+    private static final String AREA = "accounts";
 
-    public OAuthApi(Connection connection) { this.CONNECTION = connection; }
+    private static String VSTS_BASE_URL;
 
-    @Override
-    public String getAuthorizationEndpoint(String clientId, String state, String scope, String redirectUrl) throws AzDException, ConnectionException {
+    static {
+        try {
+            VSTS_BASE_URL = Client.getLocationUrl(AREA,null);
+        } catch (ConnectionException |AzDException e) {
 
-        var q = new LinkedHashMap<String, Object>(){{
-            put("client_id", clientId);
+        }
+    }
+
+    public OAuthApi() {}
+
+    public static String getAuthorizationEndpoint(String clientId, String state, String scope, String redirectUrl) {
+
+        var queryString = new LinkedHashMap<String, Object>(){{
+
             put("response_type", "Assertion");
             put("state", state);
             put("scope", URLHelper.encodeSpace(scope));
             put("redirect_uri", URLHelper.encodeSpecialChars(redirectUrl));
         }};
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(VSTS_BASE_URL);
+        stringBuilder.append("/oauth2/authorize?");
+        stringBuilder.append("client_id=");
+        stringBuilder.append(clientId);
 
-        return send(RequestMethod.POST, CONNECTION, AREA, null, "oauth2", null,
-                "authorize", null, q, true, null, null);
+        for (var key : queryString.keySet()) {
+            stringBuilder.append(getQueryString(key, queryString.get(key)));
+        }
+        return stringBuilder.toString();
     }
 
-    @Override
-    public AuthorizedToken getAccessToken(String appSecret, String authCode, String callbackUrl) throws AzDException, ConnectionException {
+    private static String getQueryString(String key, Object value) {
+        return "&" + key + "=" + value;
+    }
+
+
+    public static AuthorizedToken getAccessToken(String appSecret, String authCode, String callbackUrl) throws AzDException {
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(VSTS_BASE_URL);
+        stringBuilder.append("/oauth2/token");
+
         var body = new StringBuilder()
                 .append("client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer&client_assertion=")
                 .append(URLHelper.encodeSpecialChars(appSecret))
@@ -47,8 +72,7 @@ public class OAuthApi implements OAuth {
                 .append(callbackUrl)
                 .toString();
 
-        String r = send(RequestMethod.POST, CONNECTION, AREA, null, "oauth2", null,
-                "token", null, null, false, body, Integer.toString(body.length()));
+        String r = BaseClient.post(stringBuilder.toString(), body);
 
         // add current system time to refresh the token automatically.
         var res = MAPPER.mapJsonResponse(r, AuthorizedToken.class);
@@ -57,8 +81,12 @@ public class OAuthApi implements OAuth {
         return res;
     }
 
-    @Override
-    public AuthorizedToken getRefreshToken(String appSecret, String authCode, String callbackUrl) throws AzDException, ConnectionException {
+    public static AuthorizedToken getRefreshToken(String appSecret, String authCode, String callbackUrl) throws AzDException, ConnectionException {
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(VSTS_BASE_URL);
+        stringBuilder.append("/oauth2/token");
+
         var body = new StringBuilder()
                 .append("client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer&client_assertion=")
                 .append(URLHelper.encodeSpecialChars(appSecret))
@@ -68,14 +96,14 @@ public class OAuthApi implements OAuth {
                 .append(callbackUrl)
                 .toString();
 
-        String r = send(RequestMethod.POST, CONNECTION, AREA, null, "oauth2", null,
-                "token", null, null, false, body, Integer.toString(body.length()));
+        String r = BaseClient.post(stringBuilder.toString(), body);
+        var res = MAPPER.mapJsonResponse(r, AuthorizedToken.class);
+        res.setReceivedTimestamp(System.currentTimeMillis());
 
-        return MAPPER.mapJsonResponse(r, AuthorizedToken.class);
+        return res;
     }
 
-    @Override
-    public boolean hasTokenExpired(AuthorizedToken authorizedToken) {
-        return (authorizedToken.getReceivedTimestamp() + authorizedToken.getExpiresIn())*1000 > System.currentTimeMillis();
+    public static boolean hasTokenExpired(AuthorizedToken authorizedToken) {
+        return authorizedToken.getReceivedTimestamp() < 1629897097271L || (authorizedToken.getReceivedTimestamp() + authorizedToken.getExpiresIn()*1000) < System.currentTimeMillis();
     }
 }

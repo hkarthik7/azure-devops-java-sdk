@@ -117,16 +117,14 @@ public abstract class BaseClient {
      *  Sends a POST request to REST API with oauth authentication, content length of the request and request body
      * @param requestUrl pass the request url
      * @param body pass the request body to post the request
-     * @param contentLength pass the content length
-     * @throws AzDException throws IO exception
      * @return response string from the API if any
      */
-    public static String post(String requestUrl, String body, String contentLength) throws AzDException {
+    public static String post(String requestUrl, String body) {
         return response(
                 request(requestUrl)
                         .POST(HttpRequest.BodyPublishers.ofString(body))
                         .header("Content-Type", "application/x-www-form-urlencoded")
-                        .header("Content-Length", contentLength)
+                        //.header("Content-Length", contentLength)
                         .build());
     }
 

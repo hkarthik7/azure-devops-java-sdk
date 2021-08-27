@@ -10,8 +10,6 @@ import org.azd.helpers.JsonMapper;
 import java.util.HashMap;
 import java.util.List;
 
-import static org.azd.validators.AzDConnectionValidator.validateDefaultParameters;
-
 /***
  * Wrapper class to build request url and to call Azure DevOps REST API
  */
@@ -60,7 +58,7 @@ public abstract class Client extends BaseClient {
             }
 
             if (requestMethod.toString().equals("POST")) {
-                return post(requestUrl, body, contentLength);
+                return post(requestUrl, body);
             }
 
             if (requestMethod.toString().equals("DELETE")) {
@@ -248,9 +246,7 @@ public abstract class Client extends BaseClient {
      * @throws AzDException If invalid json primitive is encountered.
      * @return resource area url
      */
-    private static String getLocationUrl(String resourceID, String organizationName) throws ConnectionException, AzDException {
-
-        if (organizationName == null) { validateDefaultParameters(); }
+    public static String getLocationUrl(String resourceID, String organizationName) throws ConnectionException, AzDException {
 
         String INSTANCE = "https://dev.azure.com/";
 

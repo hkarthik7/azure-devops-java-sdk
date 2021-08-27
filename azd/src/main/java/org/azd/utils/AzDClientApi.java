@@ -10,6 +10,7 @@ import org.azd.graph.GraphApi;
 import org.azd.interfaces.AzDClient;
 import org.azd.memberentitlementmanagement.MemberEntitlementManagementApi;
 import org.azd.oauth.OAuthApi;
+import org.azd.oauth.types.AuthorizedToken;
 import org.azd.release.ReleaseApi;
 import org.azd.servicehooks.ServiceHooksApi;
 import org.azd.wiki.WikiApi;
@@ -28,6 +29,13 @@ public class AzDClientApi implements AzDClient {
 
     /***
      * Pass the VSTS organization name and personal access token to create a connection object
+     */
+    public AzDClientApi(Connection connection) {
+        this.CONNECTION = connection;
+    }
+
+    /***
+     * Pass the VSTS organization name and personal access token to create a connection object
      * @param organizationName VSTS/Azure DevOps services organization name
      * @param personalAccessToken Personal access token
      */
@@ -43,6 +51,31 @@ public class AzDClientApi implements AzDClient {
      */
     public AzDClientApi(String organizationName, String projectName, String personalAccessToken) {
         this.CONNECTION = new Connection(organizationName, projectName, personalAccessToken);
+    }
+
+    public void setProject(String project) {
+        if(this.CONNECTION != null) {
+            this.CONNECTION.setProject(project);
+        }
+    }
+
+    public void setOrganization(String org) {
+        if(this.CONNECTION != null) {
+            this.CONNECTION.setOrganization(org);
+        }
+    }
+
+    public String getOrganization() {
+        if(this.CONNECTION != null) {
+            return this.CONNECTION.getOrganization();
+        }
+        return null;
+    }
+
+    public void setOauthToken(AuthorizedToken token) {
+        if(this.CONNECTION != null) {
+            this.CONNECTION.setOauthToken(token);
+        }
     }
 
     /***
@@ -140,5 +173,5 @@ public class AzDClientApi implements AzDClient {
      * @return instance of OAuth Api {@link OAuthApi}
      */
     @Override
-    public OAuthApi getOAuth() { return new OAuthApi(CONNECTION); }
+    public OAuthApi getOAuth() { return new OAuthApi(); }
 }
