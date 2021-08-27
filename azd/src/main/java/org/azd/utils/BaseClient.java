@@ -23,7 +23,7 @@ public abstract class BaseClient {
     private static final HttpClient CLIENT = HttpClient.newHttpClient();
 
     /**
-     *  Encodes the personal access token to base 64
+     * Encodes the personal access token to base 64
      * @param token pass the personal access token
      * @return Encoded string of personal access token for basic authentication
      */
@@ -68,7 +68,7 @@ public abstract class BaseClient {
     }
 
     /**
-     *  Sends a GET request to REST API
+     * Sends a GET request to REST API
      * @param requestUrl pass the request url
      * @return response string from the API
      */
@@ -77,7 +77,7 @@ public abstract class BaseClient {
     }
 
     /**
-     *  Sends a GET request to REST API with basic authentication
+     * Sends a GET request to REST API with basic authentication
      * @param requestUrl pass the request url
      * @param token pass the personal access token
      * @return response string from the API
@@ -87,7 +87,7 @@ public abstract class BaseClient {
     }
 
     /**
-     *  Sends a GET request to REST API with basic authentication
+     * Sends a GET request to REST API with basic authentication
      * @param requestUrl pass the request url
      * @param token pass the personal access token
      * @param contentType specify the content type
@@ -98,11 +98,11 @@ public abstract class BaseClient {
     }
 
     /**
-     *  Sends a POST request to REST API with basic authentication and request body
+     * Sends a POST request to REST API with basic authentication and request body
      * @param requestUrl pass the request url
      * @param token pass the personal access token
      * @param body pass the request body to post the request
-     * @throws AzDException throws IO exception
+     * @throws AzDException throws user understandable error message with error code from API
      * @return response string from the API if any
      */
     public static String post(String requestUrl, String token, HashMap<String, Object> body) throws AzDException {
@@ -114,7 +114,7 @@ public abstract class BaseClient {
     }
 
     /**
-     *  Sends a POST request to REST API with oauth authentication, content length of the request and request body
+     * Sends a POST request to REST API with oauth authentication, content length of the request and request body
      * @param requestUrl pass the request url
      * @param body pass the request body to post the request
      * @return response string from the API if any
@@ -124,10 +124,17 @@ public abstract class BaseClient {
                 request(requestUrl)
                         .POST(HttpRequest.BodyPublishers.ofString(body))
                         .header("Content-Type", "application/x-www-form-urlencoded")
-                        //.header("Content-Length", contentLength)
                         .build());
     }
 
+    /***
+     * Sends a POST request to REST API with oauth authentication, content length of the request and request body
+     * @param requestUrl pass the request url
+     * @param token pass the personal access token
+     * @param body pass the request body to post the request
+     * @return response string from the API if any
+     * @throws AzDException throws user understandable error message with error code from API
+     */
     public static String post(String requestUrl, String token, List<Object> body) throws AzDException {
         return response(
                 request(requestUrl, token)
@@ -141,7 +148,7 @@ public abstract class BaseClient {
      * @param requestUrl pass the request url
      * @param token pass the personal access token
      * @param body pass the request body to update the request
-     * @throws AzDException throws IO exception
+     * @throws AzDException throws user understandable error message with error code from API
      * @return response string from the API if any
      */
     public static String patch(String requestUrl, String token, HashMap<String, Object> body) throws AzDException {
@@ -158,7 +165,7 @@ public abstract class BaseClient {
      * @param token pass the personal access token
      * @param body pass the request body to update the request
      * @param contentType pass the content type for the request
-     * @throws AzDException throws IO exception
+     * @throws AzDException throws user understandable error message with error code from API
      * @return response string from the API if any
      */
     public static String patch(String requestUrl, String token, HashMap<String, Object> body, String contentType) throws AzDException {
@@ -174,7 +181,7 @@ public abstract class BaseClient {
      * @param requestUrl pass the request url
      * @param token pass the personal access token
      * @param body pass the request body to update the request
-     * @throws AzDException throws IO exception
+     * @throws AzDException throws user understandable error message with error code from API
      * @return response string from the API if any
      */
     public static String patch(String requestUrl, String token, List<Object> body) throws AzDException {
@@ -191,7 +198,7 @@ public abstract class BaseClient {
      * @param token pass the personal access token
      * @param body pass the request body to update the request
      * @param contentType pass the content type for the request
-     * @throws AzDException throws IO exception
+     * @throws AzDException throws user understandable error message with error code from API
      * @return response string from the API if any
      */
     public static String patch(String requestUrl, String token, List<Object> body, String contentType) throws AzDException {

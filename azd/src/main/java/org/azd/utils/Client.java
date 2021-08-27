@@ -19,7 +19,7 @@ public abstract class Client extends BaseClient {
     /***
      * Request the Azure DevOps REST API and builds the request url dynamically based on resource id and endpoints passed
      * @param requestMethod type of request GET, POST, PATCH, DELETE {@link RequestMethod}
-     * @param connection connection object
+     * @param organizationName name of the organization
      * @param resourceId pass the resource id.
      * @param project name of the project
      * @param area resource area
@@ -27,14 +27,15 @@ public abstract class Client extends BaseClient {
      * @param resource resource area endpoint
      * @param apiVersion api version
      * @param queryString query string to append the url
+     * @param authorizationEndpoint true to return the request url
      * @param body body of the request to post and patch
      * @return String response from API
-     * @throws ConnectionException {@link ConnectionException}
-     * @throws AzDException {@link AzDException}
+     * @throws ConnectionException user must create a Connection Object before calling this method
+     * @throws AzDException throws user understandable error message with error code from API
      */
     public static String send(
             RequestMethod requestMethod,
-            Connection connection,
+            String organizationName,
             String resourceId,
             String project,
             String area,
@@ -43,9 +44,8 @@ public abstract class Client extends BaseClient {
             String apiVersion,
             HashMap<String, Object> queryString,
             boolean authorizationEndpoint,
-            String body,
-            String contentLength) throws ConnectionException, AzDException {
-        String requestUrl = buildRequestUrl(connection.getOrganization(), resourceId, project, area, id, resource, apiVersion, queryString);
+            String body) throws ConnectionException, AzDException {
+        String requestUrl = buildRequestUrl(organizationName, resourceId, project, area, id, resource, apiVersion, queryString);
         requestUrl = requestUrl.replace("/_apis", "").replace("?api-version=null&", "?");
 
         if (authorizationEndpoint) {
@@ -53,16 +53,8 @@ public abstract class Client extends BaseClient {
         }
 
         else {
-            if (requestMethod.toString().equals("GET")) {
-                return get(requestUrl, connection.getPersonalAccessToken());
-            }
-
             if (requestMethod.toString().equals("POST")) {
                 return post(requestUrl, body);
-            }
-
-            if (requestMethod.toString().equals("DELETE")) {
-                return delete(requestUrl, connection.getPersonalAccessToken());
             }
 
             return null;
@@ -82,8 +74,8 @@ public abstract class Client extends BaseClient {
      * @param queryString query string to append the url
      * @param body body of the request to post and patch
      * @return String response from API
-     * @throws ConnectionException {@link ConnectionException}
-     * @throws AzDException {@link AzDException}
+     * @throws ConnectionException user must create a Connection Object before calling this method
+     * @throws AzDException throws user understandable error message with error code from API
      */
     public static String send(
             RequestMethod requestMethod,
@@ -131,8 +123,8 @@ public abstract class Client extends BaseClient {
      * @param body body of the request to post and patch
      * @param contentType content type to pass in the request header
      * @return String response from API
-     * @throws ConnectionException {@link ConnectionException}
-     * @throws AzDException {@link AzDException}
+     * @throws ConnectionException user must create a Connection Object before calling this method
+     * @throws AzDException throws user understandable error message with error code from API
      */
     public static String send(
             RequestMethod requestMethod,
@@ -186,8 +178,8 @@ public abstract class Client extends BaseClient {
      * @param requestBody body of the request to post and patch. This should be a list of HashMap
      * @param contentType content type to pass in the request header
      * @return String response from API
-     * @throws ConnectionException {@link ConnectionException}
-     * @throws AzDException {@link AzDException}
+     * @throws ConnectionException user must create a Connection Object before calling this method
+     * @throws AzDException throws user understandable error message with error code from API
      */
     public static String send(
             RequestMethod requestMethod,
@@ -242,8 +234,8 @@ public abstract class Client extends BaseClient {
     /**
      *  Gets the resource area url based on resource id passed for the organization
      * @param resourceID pass the resource id
-     * @throws ConnectionException user must instantiate AzDDefaultParameters before calling this method
-     * @throws AzDException If invalid json primitive is encountered.
+     * @throws ConnectionException user must create a Connection Object before calling this method
+     * @throws AzDException throws user understandable error message with error code from API
      * @return resource area url
      */
     public static String getLocationUrl(String resourceID, String organizationName) throws ConnectionException, AzDException {
@@ -283,8 +275,8 @@ public abstract class Client extends BaseClient {
      * @param resource pass the resource entity e.g., Releases
      * @param apiVersion pass the API version
      * @param queryString pass the query string to form the url
-     * @throws ConnectionException user must instantiate AzDDefaultParameters before calling this method
-     * @throws AzDException Exception handler
+     * @throws ConnectionException user must create a Connection Object before calling this method
+     * @throws AzDException throws user understandable error message with error code from API
      * @return resource area url
      */
     private static String buildRequestUrl(

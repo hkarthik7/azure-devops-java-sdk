@@ -1,7 +1,5 @@
 package org.azd.oauth;
 
-import org.azd.connection.Connection;
-import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
@@ -11,8 +9,6 @@ import org.azd.utils.BaseClient;
 import org.azd.utils.Client;
 
 import java.util.LinkedHashMap;
-
-import static org.azd.utils.Client.send;
 
 public class OAuthApi {
 
@@ -34,12 +30,12 @@ public class OAuthApi {
     public static String getAuthorizationEndpoint(String clientId, String state, String scope, String redirectUrl) {
 
         var queryString = new LinkedHashMap<String, Object>(){{
-
             put("response_type", "Assertion");
             put("state", state);
             put("scope", URLHelper.encodeSpace(scope));
             put("redirect_uri", URLHelper.encodeSpecialChars(redirectUrl));
         }};
+
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(VSTS_BASE_URL);
         stringBuilder.append("/oauth2/authorize?");
