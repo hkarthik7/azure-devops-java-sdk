@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.5.5
+- Introduced **AzDClientApi** to easily create the connection object and call respective API.
+- Added support to **OAuth2**. 
+- Merged PR: [Connection using oauth token #5](https://github.com/hkarthik7/azure-devops-java-sdk/pull/5).
+- Create the authorization endpoint, get the access token and refresh the access token using **OAuthApi**.
+**Connection** class automatically refreshes the token if it's expired.
+- Moved version details to a single class **ApiVersion**.
+- Added support to **Accounts** Api.
+
 ## 2.4.5
 - Bug fix for Workitems delete Api.
 - Added support to retrieve releases from artifact version id (aka build id).
