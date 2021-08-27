@@ -53,12 +53,12 @@ public class Main {
     public static void main(String[] args) {
         String organisation = "myOrganisationName";
         String personalAccessToken = "accessToken";
-        
-        // Create a connection object with organisation name, project and personal access token.
-        var connection = new Connection(organisation, personalAccessToken);
-    
-        // call API with the default parameters;
-        var core = new CoreApi(connection);
+
+        // Connect Azure DevOps API with organisation name and personal access token.
+        var webApi = new AzDClientApi(organisation, project, personalAccessToken);
+
+        // call the respective API with created webApi client connection object;
+        var core = webApi.getCoreApi();
         try {
             // get the list of projects
             core.getProjects();
