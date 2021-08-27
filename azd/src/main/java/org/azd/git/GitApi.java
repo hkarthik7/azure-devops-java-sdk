@@ -40,7 +40,7 @@ public class GitApi implements GitDetails {
      * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
      * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
-     * @return git repository object
+     * @return git repository object {@link Repository}
      */
     @Override
     public Repository createRepository(String repositoryName, String projectId) throws ConnectionException, AzDException {
