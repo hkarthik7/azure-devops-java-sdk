@@ -55,7 +55,7 @@ public class Main {
         String personalAccessToken = "accessToken";
 
         // Connect Azure DevOps API with organisation name and personal access token.
-        var webApi = new AzDClientApi(organisation, project, personalAccessToken);
+        var webApi = new AzDClientApi(organisation, personalAccessToken);
 
         // call the respective API with created webApi client connection object;
         var core = webApi.getCoreApi();
