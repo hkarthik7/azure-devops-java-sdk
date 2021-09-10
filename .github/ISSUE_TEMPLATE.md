@@ -5,7 +5,7 @@ to address the issue/defect/bug.
 
 - You should provide a description for the bug
 - Add exception message and stacktrace if available
-- Please attach screen shoots if available
+- Please attach screen captures if available
 - Additionally, you can specify your OS version, IDE you are using and the SDK version
 
 
