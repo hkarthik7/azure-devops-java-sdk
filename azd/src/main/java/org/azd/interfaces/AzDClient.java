@@ -9,6 +9,7 @@ import org.azd.graph.GraphApi;
 import org.azd.memberentitlementmanagement.MemberEntitlementManagementApi;
 import org.azd.oauth.OAuthApi;
 import org.azd.release.ReleaseApi;
+import org.azd.serviceendpoint.ServiceEndpointApi;
 import org.azd.servicehooks.ServiceHooksApi;
 import org.azd.wiki.WikiApi;
 import org.azd.work.WorkApi;
@@ -28,4 +29,5 @@ public interface AzDClient {
     WorkApi getWorkApi();
     WorkItemTrackingApi getWorkItemTrackingApi();
     OAuthApi getOAuth();
+    ServiceEndpointApi getServiceEndpointApi();
 }
