@@ -9,6 +9,7 @@ import org.azd.helpers.JsonMapper;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /***
  * Wrapper class to build request url and to call Azure DevOps REST API
@@ -86,8 +87,8 @@ public abstract class Client extends BaseClient {
             String id,
             String resource,
             String apiVersion,
-            HashMap<String, Object> queryString,
-            HashMap<String, Object> body) throws ConnectionException, AzDException {
+            Map<String, Object> queryString,
+            Map<String, Object> body) throws ConnectionException, AzDException {
         String requestUrl = buildRequestUrl(connection.getOrganization(), resourceId, project, area, id, resource, apiVersion, queryString);
 
         if (requestMethod.toString().equals("GET")) {
@@ -100,6 +101,10 @@ public abstract class Client extends BaseClient {
 
         if (requestMethod.toString().equals("PATCH")) {
             return patch(requestUrl, connection.getPersonalAccessToken(), body);
+        }
+
+        if (requestMethod.toString().equals("PUT")) {
+            return put(requestUrl, connection.getPersonalAccessToken(), body);
         }
 
         if (requestMethod.toString().equals("DELETE")) {
@@ -135,8 +140,8 @@ public abstract class Client extends BaseClient {
             String id,
             String resource,
             String apiVersion,
-            HashMap<String, Object> queryString,
-            HashMap<String, Object> body,
+            Map<String, Object> queryString,
+            Map<String, Object> body,
             String contentType) throws ConnectionException, AzDException {
         String requestUrl = buildRequestUrl(connection.getOrganization(), resourceId, project, area, id, resource, apiVersion, queryString);
 
@@ -154,6 +159,10 @@ public abstract class Client extends BaseClient {
 
         if (requestMethod.toString().equals("PATCH")) {
             return patch(requestUrl, connection.getPersonalAccessToken(), body);
+        }
+
+        if (requestMethod.toString().equals("PUT")) {
+            return put(requestUrl, connection.getPersonalAccessToken(), body);
         }
 
         if (requestMethod.toString().equals("DELETE")) {
@@ -190,8 +199,8 @@ public abstract class Client extends BaseClient {
             String id,
             String resource,
             String apiVersion,
-            HashMap<String, Object> queryString,
-            HashMap<String, Object> body,
+            Map<String, Object> queryString,
+            Map<String, Object> body,
             List<Object> requestBody,
             String contentType) throws ConnectionException, AzDException {
         String requestUrl = buildRequestUrl(connection.getOrganization(), resourceId, project, area, id, resource, apiVersion, queryString);
@@ -222,6 +231,10 @@ public abstract class Client extends BaseClient {
             if (contentType != null)
                 return patch(requestUrl, connection.getPersonalAccessToken(), requestBody, contentType);
             return patch(requestUrl, connection.getPersonalAccessToken(), requestBody);
+        }
+
+        if (requestMethod.toString().equals("PUT")) {
+            return put(requestUrl, connection.getPersonalAccessToken(), body);
         }
 
         if (requestMethod.toString().equals("DELETE")) {
@@ -287,7 +300,7 @@ public abstract class Client extends BaseClient {
             String id,
             String resource,
             String apiVersion,
-            HashMap<String, Object> queryString) throws ConnectionException, AzDException {
+            Map<String, Object> queryString) throws ConnectionException, AzDException {
         // build the request url to dynamically serve the API requests
 
         StringBuilder stringBuilder = new StringBuilder();

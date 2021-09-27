@@ -11,6 +11,7 @@ import java.net.http.HttpResponse;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *  Implements HttpRequest request methods to send GET, POST, PATCH and DELETE request
@@ -105,7 +106,7 @@ public abstract class BaseClient {
      * @throws AzDException throws user understandable error message with error code from API
      * @return response string from the API if any
      */
-    public static String post(String requestUrl, String token, HashMap<String, Object> body) throws AzDException {
+    public static String post(String requestUrl, String token, Map<String, Object> body) throws AzDException {
         return response(
                 request(requestUrl, token)
                     .POST(HttpRequest.BodyPublishers.ofString(MAPPER.convertToString(body)))
@@ -151,7 +152,7 @@ public abstract class BaseClient {
      * @throws AzDException throws user understandable error message with error code from API
      * @return response string from the API if any
      */
-    public static String patch(String requestUrl, String token, HashMap<String, Object> body) throws AzDException {
+    public static String patch(String requestUrl, String token, Map<String, Object> body) throws AzDException {
         return response(
                 request(requestUrl, token)
                         .method(RequestMethod.PATCH.toString(), HttpRequest.BodyPublishers.ofString(MAPPER.convertToString(body)))
@@ -168,7 +169,7 @@ public abstract class BaseClient {
      * @throws AzDException throws user understandable error message with error code from API
      * @return response string from the API if any
      */
-    public static String patch(String requestUrl, String token, HashMap<String, Object> body, String contentType) throws AzDException {
+    public static String patch(String requestUrl, String token, Map<String, Object> body, String contentType) throws AzDException {
         return response(
                 request(requestUrl, token)
                         .method(RequestMethod.PATCH.toString(), HttpRequest.BodyPublishers.ofString(MAPPER.convertToString(body)))
@@ -207,6 +208,22 @@ public abstract class BaseClient {
                         .method(RequestMethod.PATCH.toString(), HttpRequest.BodyPublishers.ofString(MAPPER.convertToString(body)))
                         .header("Content-Type", contentType)
                         .build());
+    }
+
+    /***
+     * Sends a PUT request to REST API with basic authentication and request body
+     * @param requestUrl pass the request url
+     * @param token pass the personal access token
+     * @param body pass the request body to update the request
+     * @return response string from the API if any
+     * @throws AzDException throws user understandable error message with error code from API
+     */
+    public static String put(String requestUrl, String token, Map body) throws AzDException {
+        return response(
+                request(requestUrl, token)
+                .method(RequestMethod.PUT.toString(), HttpRequest.BodyPublishers.ofString(MAPPER.convertToString(body)))
+                .header("Content-Type", "application/json")
+                .build());
     }
 
     /**
