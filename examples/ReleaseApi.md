@@ -21,9 +21,9 @@ public class Main {
         var webApi = new AzDClientApi(organisation, project, personalAccessToken);
 
         // call the respective API with created webApi client connection object;
-        var build = webApi.geBuildApi(connection);
+        var build = webApi.geBuildApi();
         var buildNumber = build.getBuild(176).getBuildNumber();
-        var release = webApi.getReleaseApi(connection);
+        var release = webApi.getReleaseApi();
         
         try {
             // create a release with the following parameters

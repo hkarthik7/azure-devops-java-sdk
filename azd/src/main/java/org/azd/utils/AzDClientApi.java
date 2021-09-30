@@ -12,6 +12,7 @@ import org.azd.memberentitlementmanagement.MemberEntitlementManagementApi;
 import org.azd.oauth.OAuthApi;
 import org.azd.oauth.types.AuthorizedToken;
 import org.azd.release.ReleaseApi;
+import org.azd.serviceendpoint.ServiceEndpointApi;
 import org.azd.servicehooks.ServiceHooksApi;
 import org.azd.wiki.WikiApi;
 import org.azd.work.WorkApi;
@@ -174,4 +175,9 @@ public class AzDClientApi implements AzDClient {
      */
     @Override
     public OAuthApi getOAuth() { return new OAuthApi(); }
+
+    @Override
+    public ServiceEndpointApi getServiceEndpointApi() {
+        return new ServiceEndpointApi(CONNECTION);
+    }
 }

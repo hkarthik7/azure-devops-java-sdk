@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.5.6
+- Added support to **Service Endpoint Api**
+- Added Wiki example
+
 ## 2.5.5
 - Introduced **AzDClientApi** to easily create the connection object and call respective API.
 - Added support to **OAuth2**. 

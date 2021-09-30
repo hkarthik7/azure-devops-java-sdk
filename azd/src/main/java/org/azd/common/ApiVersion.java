@@ -23,6 +23,7 @@ public abstract class ApiVersion {
     public static final String RELEASE_ENVIRONMENT = "6.1-preview.7";
     public static final String RELEASE_DEFINITION = "6.1-preview.4";
     public static final String RELEASE_DEFINITION_HISTORY = "6.1-preview.1";
+    public static final String SERVICE_ENDPOINTS = "6.1-preview.4";
     public static final String SERVICE_HOOKS = "6.1-preview.1";
     public static final String WIKI = "6.1-preview.2";
     public static final String WORK = "6.1-preview.1";
