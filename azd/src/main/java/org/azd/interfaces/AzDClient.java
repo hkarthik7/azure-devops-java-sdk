@@ -3,6 +3,7 @@ package org.azd.interfaces;
 import org.azd.accounts.AccountsApi;
 import org.azd.build.BuildApi;
 import org.azd.core.CoreApi;
+import org.azd.extensionmanagement.ExtensionManagementApi;
 import org.azd.feedmanagement.FeedManagementApi;
 import org.azd.git.GitApi;
 import org.azd.graph.GraphApi;
@@ -30,4 +31,5 @@ public interface AzDClient {
     WorkItemTrackingApi getWorkItemTrackingApi();
     OAuthApi getOAuth();
     ServiceEndpointApi getServiceEndpointApi();
+    ExtensionManagementApi getExtensionManagementApi();
 }

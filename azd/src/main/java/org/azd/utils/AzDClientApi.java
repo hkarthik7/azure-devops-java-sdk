@@ -4,6 +4,7 @@ import org.azd.accounts.AccountsApi;
 import org.azd.build.BuildApi;
 import org.azd.connection.Connection;
 import org.azd.core.CoreApi;
+import org.azd.extensionmanagement.ExtensionManagementApi;
 import org.azd.feedmanagement.FeedManagementApi;
 import org.azd.git.GitApi;
 import org.azd.graph.GraphApi;
@@ -176,8 +177,21 @@ public class AzDClientApi implements AzDClient {
     @Override
     public OAuthApi getOAuth() { return new OAuthApi(); }
 
+    /***
+     * Returns an instance of Service endpoint Api
+     * @return instance of ServiceEndpointApi {@link ServiceEndpointApi}
+     */
     @Override
     public ServiceEndpointApi getServiceEndpointApi() {
         return new ServiceEndpointApi(CONNECTION);
+    }
+
+    /***
+     * Returns an instance of Extension management Api
+     * @return instance of ExtensionManagementApi {@link ExtensionManagementApi}
+     */
+    @Override
+    public ExtensionManagementApi getExtensionManagementApi() {
+        return new ExtensionManagementApi(CONNECTION);
     }
 }
