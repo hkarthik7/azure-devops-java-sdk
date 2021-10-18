@@ -3,8 +3,12 @@ package org.azd.extensionmanagement.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * This is the set of files available from the extension.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ExtensionFile {
+
     @JsonProperty("assetType")
     private String assetType;
     @JsonProperty("language")

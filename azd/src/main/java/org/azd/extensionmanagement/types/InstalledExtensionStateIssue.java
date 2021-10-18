@@ -3,12 +3,24 @@ package org.azd.extensionmanagement.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Represents an installation issue
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class InstalledExtensionStateIssue {
+    /***
+     * The error message
+     */
     @JsonProperty("message")
     private String message;
+    /***
+     * Source of the installation issue, for example "Demands"
+     */
     @JsonProperty("source")
     private String source;
+    /***
+     * Installation issue type (Warning, Error)
+     */
     @JsonProperty("type")
     private String type;
 
