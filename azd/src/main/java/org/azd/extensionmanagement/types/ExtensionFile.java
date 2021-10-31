@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ExtensionFile {
-
     @JsonProperty("assetType")
     private String assetType;
     @JsonProperty("language")

@@ -5,8 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * Array of installed extensions
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class InstalledExtensions {
+    /***
+     * Array of installed extensions
+     */
     @JsonProperty("value")
     private List<InstalledExtension> installedExtensions;
 
