@@ -1,7 +1,7 @@
 # Changelog
 
 ## 2.5.6
-- Added support to **Service Endpoint Api**
+- Merged PR: [Added support to **Service Endpoint Api** #6](https://github.com/hkarthik7/azure-devops-java-sdk/pull/6)
 - Added Wiki example
 - Added support to **Extension management Api**
 
