@@ -485,7 +485,7 @@ public class BuildApi implements BuildDetails {
 
         if (buildDefinitionParameters.isEmpty()) throw new AzDException();
 
-        var requestBody = MAPPER.mapJsonResponse(buildDefinitionParameters, HashMap.class);
+        var requestBody = MAPPER.mapJsonResponse(buildDefinitionParameters, Map.class);
 
         String r = send(RequestMethod.POST, CONNECTION, BUILD, CONNECTION.getProject(),
                         AREA,null,"definitions", ApiVersion.BUILD_DEFINITIONS,null, requestBody);
