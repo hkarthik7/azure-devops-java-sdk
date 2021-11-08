@@ -56,6 +56,8 @@ public interface BuildDetails {
 
     BuildDefinition createBuildDefinition(String buildDefinitionParameters) throws ConnectionException, AzDException;
 
+    BuildDefinition cloneBuildDefinition(String definitionName, String definitionCloneName) throws ConnectionException, AzDException;
+
     void deleteBuildDefinition(int definitionId) throws ConnectionException, AzDException;
 
     BuildDefinition getBuildDefinition(int definitionId) throws ConnectionException, AzDException;

@@ -12,6 +12,7 @@ import org.azd.interfaces.BuildDetails;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.azd.utils.Client.send;
@@ -491,6 +492,42 @@ public class BuildApi implements BuildDetails {
                         AREA,null,"definitions", ApiVersion.BUILD_DEFINITIONS,null, requestBody);
 
         return MAPPER.mapJsonResponse(r, BuildDefinition.class);
+    }
+
+    /***
+     * Clone an existing definition/pipeline
+     * @param definitionName Name of the build definition/pipeline. E.g., WebApp-Deployment-CI
+     * @param definitionCloneName Name of the pipeline/definition to be created or cloned. E.g., WebApp-Deployment-CI-Copy
+     * @return build definition {@link BuildDefinition}
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public BuildDefinition cloneBuildDefinition(String definitionName, String definitionCloneName) throws ConnectionException, AzDException {
+        // validate if the definition exists
+        int def;
+
+        try {
+            def = getBuildDefinitions()
+                    .getBuildDefinition()
+                    .stream()
+                    .filter(x -> x.getName().equals(definitionName))
+                    .findFirst()
+                    .get()
+                    .getId();
+        } catch (Exception e) {
+            throw new AzDException("Cannot find the definition with name '" + definitionName + "'.");
+        }
+
+        if (!Integer.toString(def).isEmpty()) {
+            var definitionObject = getBuildDefinition(def);
+            definitionObject.setName(definitionCloneName);
+            var res = MAPPER.convertToString(definitionObject);
+            return createBuildDefinition(res);
+        }
+
+        return null;
     }
 
     /***
