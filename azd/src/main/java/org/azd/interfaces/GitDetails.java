@@ -51,4 +51,13 @@ public interface GitDetails {
     GitRef updateBranchLock(String repositoryName, String branchName, boolean isLocked) throws ConnectionException, AzDException;
 
     ResourceRefs getPullRequestWorkItems(int pullRequestId, String repositoryName) throws ConnectionException, AzDException;
+
+    WebApiTagDefinition createPullRequestLabel(String repositoryName, int pullRequestId, String labelName) throws ConnectionException, AzDException;
+
+    void deletePullRequestLabel(String repositoryName, int pullRequestId, String labelName) throws ConnectionException, AzDException;
+
+    WebApiTagDefinition getPullRequestLabel(String repositoryName, int pullRequestId, String labelName) throws ConnectionException, AzDException;
+
+    WebApiTagDefinitions getPullRequestLabels(String repositoryName, int pullRequestId) throws ConnectionException, AzDException;
+
 }

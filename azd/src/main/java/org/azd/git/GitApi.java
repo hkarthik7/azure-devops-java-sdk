@@ -473,4 +473,87 @@ public class GitApi implements GitDetails {
 
         return MAPPER.mapJsonResponse(r, ResourceRefs.class);
     }
+
+    /***
+     * Create a label for a specified pull request. The only required field is the name of the new label.
+     * @param repositoryName The repository name of the pull request’s target branch.
+     * @param pullRequestId ID of the pull request.
+     * @param labelName tag/label name
+     * @return WebApi tag object {@link WebApiTagDefinition}
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public WebApiTagDefinition createPullRequestLabel(String repositoryName, int pullRequestId, String labelName)
+            throws ConnectionException, AzDException {
+
+        var b = new HashMap<String, Object>(){{
+            put("name", labelName);
+        }};
+
+        String r = send(RequestMethod.POST, CONNECTION, GIT, CONNECTION.getProject(),
+                AREA + "/repositories", repositoryName, "pullrequests/" + pullRequestId + "/labels", ApiVersion.GIT, null, b);
+
+        return MAPPER.mapJsonResponse(r, WebApiTagDefinition.class);
+    }
+
+    /***
+     * Removes a label from the set of those assigned to the pull request.
+     * @param repositoryName The repository name of the pull request’s target branch.
+     * @param pullRequestId ID of the pull request.
+     * @param labelName tag/label name
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public void deletePullRequestLabel(String repositoryName, int pullRequestId, String labelName) throws ConnectionException, AzDException {
+        try {
+            String resource = "pullrequests/" + pullRequestId + "/labels/" + labelName;
+            String r = send(RequestMethod.DELETE, CONNECTION, GIT, CONNECTION.getProject(),
+                AREA + "/repositories", repositoryName, resource, ApiVersion.GIT, null, null);
+            if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
+        } catch (ConnectionException | AzDException e) {
+            throw e;
+        }
+    }
+
+    /***
+     * Retrieves a single label that has been assigned to a pull request.
+     * @param repositoryName The repository name of the pull request’s target branch.
+     * @param pullRequestId ID of the pull request.
+     * @param labelName tag/label name
+     * @return WebApi tag object {@link WebApiTagDefinition}
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public WebApiTagDefinition getPullRequestLabel(String repositoryName, int pullRequestId, String labelName)
+            throws ConnectionException, AzDException {
+        String resource = "pullrequests/" + pullRequestId + "/labels/" + labelName;
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
+                AREA + "/repositories", repositoryName, resource, ApiVersion.GIT, null, null);
+
+        return MAPPER.mapJsonResponse(r, WebApiTagDefinition.class);
+    }
+
+    /***
+     * Get all the labels assigned to a pull request.
+     * @param repositoryName The repository name of the pull request’s target branch.
+     * @param pullRequestId ID of the pull request.
+     * @return List of WebApi tag object {@link WebApiTagDefinitions}
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public WebApiTagDefinitions getPullRequestLabels(String repositoryName, int pullRequestId) throws ConnectionException, AzDException {
+        String resource = "pullrequests/" + pullRequestId + "/labels";
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
+                AREA + "/repositories", repositoryName, resource, ApiVersion.GIT, null, null);
+
+        return MAPPER.mapJsonResponse(r, WebApiTagDefinitions.class);
+    }
 }

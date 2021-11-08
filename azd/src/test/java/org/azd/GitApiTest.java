@@ -134,4 +134,28 @@ public class GitApiTest {
         var pr = g.getPullRequestById(4);
         g.getPullRequestWorkItems(pr.getPullRequestId(), pr.getRepository().getName());
     }
+
+    @Test
+    public void shouldCreateAPullRequestLabel() throws ConnectionException, AzDException {
+        g.createPullRequestLabel("testRepository", 7, "DevOps");
+    }
+
+    @Test
+    public void shouldGetAPullRequestLabel() throws ConnectionException, AzDException {
+        g.getPullRequestLabel("testRepository", 7, "DevOps");
+    }
+
+    @Test
+    public void shouldGetPullRequestLabels() throws ConnectionException, AzDException {
+        g.getPullRequestLabels("testRepository", 7);
+    }
+
+    @Test
+    public void shouldDeleteAPullRequestLabels() throws ConnectionException, AzDException {
+        var label = g.getPullRequestLabel("testRepository", 7, "DevOps");
+        if (label.getUrl().isEmpty()) {
+            g.createPullRequestLabel("testRepository", 7, "DevOps");
+        }
+        g.deletePullRequestLabel("testRepository", 7, "DevOps");
+    }
 }
