@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.5.7
+- Created a helper method in **BuildApi** to easily create/clone a pipeline.
+- Support for creating pull request tags/labels
+
 ## 2.5.6
 - Merged PR: [Added support to **Service Endpoint Api** #6](https://github.com/hkarthik7/azure-devops-java-sdk/pull/6)
 - Added Wiki example
