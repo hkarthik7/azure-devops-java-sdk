@@ -3,6 +3,7 @@ package org.azd;
 import org.azd.enums.PullRequestStatus;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
+import org.azd.git.types.WebApiTagDefinition;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.GitDetails;
@@ -142,7 +143,7 @@ public class GitApiTest {
 
     @Test
     public void shouldGetAPullRequestLabel() throws ConnectionException, AzDException {
-        g.getPullRequestLabel("testRepository", 7, "DevOps");
+        g.getPullRequestLabel("testRepository", 7, "azd");
     }
 
     @Test
@@ -152,7 +153,12 @@ public class GitApiTest {
 
     @Test
     public void shouldDeleteAPullRequestLabels() throws ConnectionException, AzDException {
-        var label = g.getPullRequestLabel("testRepository", 7, "DevOps");
+        WebApiTagDefinition label = null;
+
+        try {
+            label = g.getPullRequestLabel("testRepository", 7, "DevOps");
+        } catch (ConnectionException | AzDException ignored) { }
+
         if (label.getUrl().isEmpty()) {
             g.createPullRequestLabel("testRepository", 7, "DevOps");
         }
