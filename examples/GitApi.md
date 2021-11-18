@@ -55,6 +55,23 @@ public class Main {
             // pass the repository id, source reference branch, target reference branch, title, description and set the isDraft to true to create
             // the pull request in draft state. If it is set to false the pull request will be published.
             g.createPullRequest(repoId,"develop", "master", "New feature", "Adding new feature", true);
+            
+            // Add a reviewer to the pull request and optionally make them as required
+            g.createPullRequestReviewer("pull-request-id", "repository-name", "reviewer-id", 0, true);
+            
+            // Update a pull request
+            // The editable fields are isFlagged and hasDeclined. This means you can either flag a pull request or decline it.
+            // Please note that you cannot decline your own pull request.
+            g.updatePullRequestReviewer("pull-request-id", "repository-name", "reviewer-id", true, false);
+            
+            // get a pull request reviewer by id
+            g.getPullRequestReviewer("pull-request-id", "repository-name", "reviewer-id");
+            
+            // get all reviewers in a pull request
+            g.getPullRequestReviewers("pull-request-id", "repository-name");
+            
+            // delete a pull request reviewer
+            g.deletePullRequestReviewer("pull-request-id", "repository-name", "reviewer-id");
         } catch (AzDException | ConnectionException e) {
             e.printStackTrace();
         }
