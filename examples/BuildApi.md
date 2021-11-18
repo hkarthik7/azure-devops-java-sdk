@@ -23,6 +23,9 @@ public class Main {
         // call the respective API with created webApi client connection object;
         var build = webApi.getBuildApi();
         try {
+            
+            // clone a build pipeline/definition
+            build.cloneBuildDefinition("Deploy-WebApp-CI", "Deploy-WebApp-CI-Copy");
         
             // delete a build by id
             build.deleteBuild(25);
