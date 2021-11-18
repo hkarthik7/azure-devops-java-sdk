@@ -79,6 +79,35 @@ public class Main {
 }
 ```
 
+- Easily clone a build pipeline
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        String organisation = "myOrganisationName";
+        String personalAccessToken = "accessToken";
+        String projectName = "myProject";
+
+        // Connect Azure DevOps API with organisation name and personal access token.
+        var webApi = new AzDClientApi(organisation, projectName, personalAccessToken);
+
+        // call the respective API with created webApi client connection object;
+        var build = webApi.getBuildApi();
+        try {
+            // Clone an existing pipeline with the pipeline name
+            String ciName = "DeployTo-WebApp-CI";
+            String ciCloneName = "DeployTo-WebApp-CI-Copy";
+            
+            build.cloneBuildDefinition(ciName, ciCloneName);
+            
+        } catch (AzDException | ConnectionException e1) {
+            e1.printStackTrace();
+        }
+    }
+
+}                                                                                                                                          
+```
+
 ## Release Notes
 
 - [Change Log](CHANGELOG.md)
