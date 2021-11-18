@@ -164,4 +164,30 @@ public class GitApiTest {
         }
         g.deletePullRequestLabel("testRepository", 7, "DevOps");
     }
+
+    @Test
+    public void shouldCreateAPullRequestReviewer() throws ConnectionException, AzDException {
+        g.createPullRequestReviewer(8, "testRepository", "0e5f1643-a006-67e7-bdb9-20f45e698f9f", 0, false);
+    }
+
+    @Test(expected = AzDException.class)
+    public void shouldDeleteAPullRequestReviewer() throws ConnectionException, AzDException {
+        g.deletePullRequestReviewer(8, "testRepository", "id");
+    }
+
+    @Test
+    public void shouldGetAPullRequestReviewer() throws ConnectionException, AzDException {
+        g.getPullRequestReviewer(8, "testRepository", "10bb49f0-c425-6735-b8de-71ecf84728d6");
+    }
+
+    @Test
+    public void shouldGetPullRequestReviewers() throws ConnectionException, AzDException {
+        g.getPullRequestReviewers(8, "testRepository");
+    }
+
+    @Test
+    public void shouldUpdateAPullRequestReviewer() throws ConnectionException, AzDException {
+        g.updatePullRequestReviewer(8, "testRepository",
+                "10bb49f0-c425-6735-b8de-71ecf84728d6", true, false);
+    }
 }

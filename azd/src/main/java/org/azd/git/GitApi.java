@@ -556,4 +556,123 @@ public class GitApi implements GitDetails {
 
         return MAPPER.mapJsonResponse(r, WebApiTagDefinitions.class);
     }
+
+    /***
+     * Add a reviewer to a pull request or cast a vote.
+     * @param pullRequestId ID of the pull request.
+     * @param repositoryName The repository name of the pull request's target branch.
+     * @param reviewerId ID of the reviewer.
+     * @param vote Vote on a pull request: 10 - approved 5 - approved with suggestions 0 - no vote -5 - waiting for author -10 - rejected
+     * @param isRequired Indicates if this is a required reviewer for this pull request.
+     * @return PullRequestReviewer {@link PullRequestReviewer}
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public PullRequestReviewer createPullRequestReviewer(int pullRequestId, String repositoryName,
+                                                         String reviewerId, int vote, boolean isRequired) throws ConnectionException, AzDException {
+        var b = new HashMap<String, Object>(){{
+            put("vote", vote);
+            put("id", reviewerId);
+        }};
+
+        String id = repositoryName + "/pullrequests/" + pullRequestId + "/reviewers/" + reviewerId;
+
+        String r = send(RequestMethod.PUT, CONNECTION, GIT, CONNECTION.getProject(),
+                AREA + "/repositories", id, null, ApiVersion.GIT, null, b);
+
+        return MAPPER.mapJsonResponse(r, PullRequestReviewer.class);
+    }
+
+    /***
+     * Remove a reviewer from a pull request.
+     * @param pullRequestId ID of the pull request.
+     * @param repositoryName The repository name of the pull request's target branch.
+     * @param reviewerId ID of the reviewer.
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public void deletePullRequestReviewer(int pullRequestId, String repositoryName, String reviewerId) throws ConnectionException, AzDException {
+        try {
+            String id = repositoryName + "/pullrequests/" + pullRequestId + "/reviewers/" + reviewerId;
+
+            String r = send(RequestMethod.DELETE, CONNECTION, GIT, CONNECTION.getProject(),
+                    AREA + "/repositories", id, null, ApiVersion.GIT, null, null);
+            if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
+        } catch (ConnectionException | AzDException e) {
+            throw e;
+        }
+    }
+
+    /***
+     * Retrieve information about a particular reviewer on a pull request
+     * @param pullRequestId ID of the pull request.
+     * @param repositoryName The repository name of the pull request's target branch.
+     * @param reviewerId ID of the reviewer.
+     * @return PullRequestReviewer {@link PullRequestReviewer}
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public PullRequestReviewer getPullRequestReviewer(int pullRequestId, String repositoryName, String reviewerId)
+            throws ConnectionException, AzDException {
+        String id = repositoryName + "/pullrequests/" + pullRequestId + "/reviewers/" + reviewerId;
+
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
+                AREA + "/repositories", id, null, ApiVersion.GIT, null, null);
+
+        return MAPPER.mapJsonResponse(r, PullRequestReviewer.class);
+    }
+
+    /***
+     * Retrieve the reviewers for a pull request
+     * @param pullRequestId ID of the pull request.
+     * @param repositoryName The repository name of the pull request's target branch.
+     * @return List of PullRequestReviewer {@link PullRequestReviewers}
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public PullRequestReviewers getPullRequestReviewers(int pullRequestId, String repositoryName) throws ConnectionException, AzDException {
+        String id = repositoryName + "/pullrequests/" + pullRequestId + "/reviewers";
+
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
+                AREA + "/repositories", id, null, ApiVersion.GIT, null, null);
+
+        return MAPPER.mapJsonResponse(r, PullRequestReviewers.class);
+    }
+
+    /***
+     * Edit a reviewer entry. These fields are patchable: isFlagged, hasDeclined
+     * @param pullRequestId ID of the pull request.
+     * @param repositoryName The repository name of the pull request's target branch.
+     * @param reviewerId ID of the reviewer.
+     * @param isFlagged Indicates if this reviewer is flagged for attention on this pull request.
+     * @param hasDeclined Indicates if this reviewer has declined to review this pull request.
+     * @return PullRequestReviewer {@link PullRequestReviewer}
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public PullRequestReviewer updatePullRequestReviewer(int pullRequestId, String repositoryName,
+                                                         String reviewerId, boolean isFlagged, boolean hasDeclined)
+            throws ConnectionException, AzDException {
+        var b = new HashMap<String, Object>(){{
+            put("isFlagged", isFlagged);
+            put("hasDeclined", hasDeclined);
+        }};
+
+        String id = repositoryName + "/pullrequests/" + pullRequestId + "/reviewers/" + reviewerId;
+
+        String r = send(RequestMethod.PATCH, CONNECTION, GIT, CONNECTION.getProject(),
+                AREA + "/repositories", id, null, ApiVersion.GIT, null, b);
+
+        return MAPPER.mapJsonResponse(r, PullRequestReviewer.class);
+    }
 }

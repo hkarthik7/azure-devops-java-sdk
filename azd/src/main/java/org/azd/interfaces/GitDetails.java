@@ -60,4 +60,16 @@ public interface GitDetails {
 
     WebApiTagDefinitions getPullRequestLabels(String repositoryName, int pullRequestId) throws ConnectionException, AzDException;
 
+    PullRequestReviewer createPullRequestReviewer(int pullRequestId, String repositoryId,
+                                                  String reviewerId, int vote, boolean isRequired) throws ConnectionException, AzDException;
+
+    void deletePullRequestReviewer(int pullRequestId, String repositoryId, String reviewerId) throws ConnectionException, AzDException;
+
+    PullRequestReviewer getPullRequestReviewer(int pullRequestId, String repositoryId,
+                                               String reviewerId) throws ConnectionException, AzDException;
+
+    PullRequestReviewers getPullRequestReviewers(int pullRequestId, String repositoryId) throws ConnectionException, AzDException;
+
+    PullRequestReviewer updatePullRequestReviewer(int pullRequestId, String repositoryId, String reviewerId,
+                                                  boolean isFlagged, boolean hasDeclined) throws ConnectionException, AzDException;
 }
