@@ -151,10 +151,13 @@ public class Connection {
      * */
     public void setProject(String project) { this.project = project; }
 
-    /**
+    /***
      * Get the personal access token
      * @return the personal access token
-     * */
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
+     */
     public String getPersonalAccessToken() throws AzDException, ConnectionException {
         if(oauthToken != null) {
             if(OAuthApi.hasTokenExpired(oauthToken)){

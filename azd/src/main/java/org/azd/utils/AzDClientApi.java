@@ -31,6 +31,7 @@ public class AzDClientApi implements AzDClient {
 
     /***
      * Pass the VSTS organization name and personal access token to create a connection object
+     * @param connection Connection object {@link Connection}
      */
     public AzDClientApi(Connection connection) {
         this.CONNECTION = connection;
