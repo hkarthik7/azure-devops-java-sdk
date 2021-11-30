@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.5.8
+- Merged PR: [Added support for **policy Api** #8](https://github.com/hkarthik7/azure-devops-java-sdk/pull/8)
+
 ## 2.5.7
 - Created a helper method in **BuildApi** to easily create/clone a pipeline.
 - Added functionality for managing pull request tags/labels.
