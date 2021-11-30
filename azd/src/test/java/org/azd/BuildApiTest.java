@@ -100,7 +100,7 @@ public class BuildApiTest {
 
     @Test
     public void shouldQueueTheBuild() throws ConnectionException, AzDException {
-        b.queueBuild(12);
+        b.queueBuild(22);
     }
 
     @Test
