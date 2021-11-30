@@ -9,6 +9,7 @@ import org.azd.git.GitApi;
 import org.azd.graph.GraphApi;
 import org.azd.memberentitlementmanagement.MemberEntitlementManagementApi;
 import org.azd.oauth.OAuthApi;
+import org.azd.policy.PolicyApi;
 import org.azd.release.ReleaseApi;
 import org.azd.serviceendpoint.ServiceEndpointApi;
 import org.azd.servicehooks.ServiceHooksApi;
@@ -32,4 +33,5 @@ public interface AzDClient {
     OAuthApi getOAuth();
     ServiceEndpointApi getServiceEndpointApi();
     ExtensionManagementApi getExtensionManagementApi();
+    PolicyApi getPolicyApi();
 }

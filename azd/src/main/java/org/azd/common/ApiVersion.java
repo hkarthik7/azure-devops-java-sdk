@@ -11,6 +11,7 @@ public abstract class ApiVersion {
     public static final String BUILD_DEFINITION_REVISIONS = "6.1-preview.3";
     public static final String CORE = "6.1-preview.1";
     public static final String EXTENSION_MANAGEMENT = "6.1-preview.1";
+    public static final String POLICY = "6.1-preview.1";
     public static final String PROJECT = "6.1-preview.4";
     public static final String PROJECT_PROPERTIES = "6.1-preview.1";
     public static final String PROJECT_TEAMS = "6.1-preview.3";
