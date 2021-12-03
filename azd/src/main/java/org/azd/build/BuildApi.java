@@ -1,5 +1,7 @@
 package org.azd.build;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.azd.build.types.*;
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
@@ -8,11 +10,9 @@ import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.BuildDetails;
+import org.azd.utils.BaseClient;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.azd.utils.Client.send;
@@ -759,5 +759,242 @@ public class BuildApi implements BuildDetails {
                         AREA + "/definitions", Integer.toString(definitionId),null, ApiVersion.BUILD_DEFINITIONS, q,null);
 
         return MAPPER.mapJsonResponse(r, BuildDefinition.class);
+    }
+
+    /***
+     * Adds a tag to a build.
+     * @param buildId The ID of the build.
+     * @param tag The tag to add.
+     * @return Sting array of tags {@link BuildTags}
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public BuildTags addBuildTag(int buildId, String tag) throws ConnectionException, AzDException {
+        String r = send(RequestMethod.PUT, CONNECTION, BUILD, CONNECTION.getProject(),
+                AREA + "/builds", Integer.toString(buildId),"tags/" + tag, ApiVersion.BUILD_TAGS, null,null);
+
+        return MAPPER.mapJsonResponse(r, BuildTags.class);
+    }
+
+    /***
+     * Adds tags to a build.
+     * @param buildId The ID of the build.
+     * @param tags The tags to add.
+     * @return Sting array of tags {@link BuildTags}
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public BuildTags addBuildTags(int buildId, String[] tags) throws ConnectionException, AzDException {
+        String r = send(RequestMethod.POST, CONNECTION, BUILD, CONNECTION.getProject(),
+                AREA + "/builds", Integer.toString(buildId),"tags", ApiVersion.BUILD_TAGS, null, true, MAPPER.convertToString(tags));
+
+        return MAPPER.mapJsonResponse(r, BuildTags.class);
+    }
+
+    /***
+     * Adds a tag to a definition.
+     * @param definitionId Id of build definition.
+     * @param tag The tag to add.
+     * @return Sting array of tags {@link BuildTags}
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public BuildTags addDefinitionTag(int definitionId, String tag) throws ConnectionException, AzDException {
+        String r = send(RequestMethod.PUT, CONNECTION, BUILD, CONNECTION.getProject(),
+                AREA + "/definitions", Integer.toString(definitionId),"tags/" + tag, ApiVersion.BUILD_TAGS, null,null);
+
+        return MAPPER.mapJsonResponse(r, BuildTags.class);
+    }
+
+    /***
+     * Adds multiple tags to a definition.
+     * @param definitionId Id of build definition.
+     * @param tags The tags to add.
+     * @return Sting array of tags {@link BuildTags}
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public BuildTags addDefinitionTags(int definitionId, String[] tags) throws ConnectionException, AzDException {
+        String r = send(RequestMethod.POST, CONNECTION, BUILD, CONNECTION.getProject(),
+                AREA + "/definitions", Integer.toString(definitionId),"tags", ApiVersion.BUILD_TAGS, null, true, MAPPER.convertToString(tags));
+
+        return MAPPER.mapJsonResponse(r, BuildTags.class);
+    }
+
+    /***
+     * Removes a tag from a build.
+     * NOTE: This method will not work for tags with special characters. To remove tags with special characters, use the updateBuildTags method instead.
+     * @param buildId Id of the build.
+     * @param tag The tag to delete.
+     * @return Sting array of tags {@link BuildTags}
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public BuildTags deleteBuildTag(int buildId, String tag) throws ConnectionException, AzDException {
+        String r = send(RequestMethod.DELETE, CONNECTION, BUILD, CONNECTION.getProject(),
+                AREA + "/builds", Integer.toString(buildId),"tags/" + tag, ApiVersion.BUILD_TAGS, null,null);
+
+        return MAPPER.mapJsonResponse(r, BuildTags.class);
+    }
+
+    /***
+     * Removes a tag from a definition.
+     * NOTE: This method will not work for tags with special characters. To remove tags with special characters, use the updateDefinitionTags method instead.
+     * @param definitionId Id of the build definition.
+     * @param tag The tag to delete
+     * @return Sting array of tags {@link BuildTags}
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public BuildTags deleteDefinitionTag(int definitionId, String tag) throws ConnectionException, AzDException {
+        String r = send(RequestMethod.DELETE, CONNECTION, BUILD, CONNECTION.getProject(),
+                AREA + "/definitions", Integer.toString(definitionId),"tags/" + tag, ApiVersion.BUILD_TAGS, null,null);
+
+        return MAPPER.mapJsonResponse(r, BuildTags.class);
+    }
+
+    /***
+     * Removes a tag from builds, definitions, and from the tag store
+     * @param tag The tag to delete.
+     * @return Sting array of tags {@link BuildTags}
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public BuildTags deleteTag(String tag) throws ConnectionException, AzDException {
+        String r = send(RequestMethod.DELETE, CONNECTION, BUILD, CONNECTION.getProject(),
+                AREA, null,"tags/" + tag, ApiVersion.BUILD_TAGS, null,null);
+
+        return MAPPER.mapJsonResponse(r, BuildTags.class);
+    }
+
+    /***
+     * Gets the tags for a build.
+     * @param buildId The ID of the build.
+     * @return Sting array of tags {@link BuildTags}
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public BuildTags getBuildTags(int buildId) throws ConnectionException, AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
+                AREA + "/builds", Integer.toString(buildId),"tags", ApiVersion.BUILD_TAGS, null,null);
+
+        return MAPPER.mapJsonResponse(r, BuildTags.class);
+    }
+
+    /***
+     * Gets the tags for a definition.
+     * @param definitionId Id of build definition.
+     * @return Sting array of tags
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public BuildTags getDefinitionTags(int definitionId) throws ConnectionException, AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
+                AREA + "/definitions", Integer.toString(definitionId),"tags", ApiVersion.BUILD_TAGS, null,null);
+
+        return MAPPER.mapJsonResponse(r, BuildTags.class);
+    }
+
+    /***
+     * Gets the tags for a definition.
+     * @param definitionId Id of build definition.
+     * @param revision The definition revision number. If not specified, uses the latest revision of the definition.
+     * @return Sting array of tags {@link BuildTags}
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public BuildTags getDefinitionTags(int definitionId, int revision) throws ConnectionException, AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("revision", revision);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
+                AREA + "/definitions", Integer.toString(definitionId),"tags", ApiVersion.BUILD_TAGS, q,null);
+
+        return MAPPER.mapJsonResponse(r, BuildTags.class);
+    }
+
+    /***
+     * Gets a list of all build tags in the project.
+     * @return Sting array of tags {@link BuildTags}
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public BuildTags getTags() throws ConnectionException, AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
+                AREA, null,"tags", ApiVersion.BUILD_TAGS, null,null);
+
+        return MAPPER.mapJsonResponse(r, BuildTags.class);
+    }
+
+    /***
+     * Adds/Removes tags from a build.
+     * @param buildId The ID of the build.
+     * @param tags The tags to update.
+     * @param toRemove If true removes the tags. Use this to remove tags that has special characters.
+     * @return Sting array of tags {@link BuildTags}
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public BuildTags updateBuildTags(int buildId, String[] tags, boolean toRemove) throws ConnectionException, AzDException {
+
+        var tagValue = toRemove ? "tagsToRemove" : "tagsToAdd" ;
+
+        var body = new HashMap<String, Object>(){{
+            put(tagValue, tags);
+        }};
+
+        String r = send(RequestMethod.PATCH, CONNECTION, BUILD, CONNECTION.getProject(),
+                AREA + "/builds", Integer.toString(buildId),"tags", ApiVersion.BUILD_TAGS, null, body);
+
+        return MAPPER.mapJsonResponse(r, BuildTags.class);
+    }
+
+    /***
+     * Adds/Removes tags from a build.
+     * @param definitionId The Id of the build definition.
+     * @param tags The tags to update.
+     * @param toRemove If true removes the tags. Use this to remove tags that has special characters.
+     * @return Sting array of tags {@link BuildTags}
+     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
+     * and project. This validates the connection object and throws exception if it is not provided.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public BuildTags updateDefinitionTags(int definitionId, String[] tags, boolean toRemove) throws ConnectionException, AzDException {
+        var tagValue = toRemove ? "tagsToRemove" : "tagsToAdd" ;
+
+        var body = new HashMap<String, Object>(){{
+            put(tagValue, tags);
+        }};
+
+        String r = send(RequestMethod.PATCH, CONNECTION, BUILD, CONNECTION.getProject(),
+                AREA + "/definitions", Integer.toString(definitionId),"tags", ApiVersion.BUILD_TAGS, null, body);
+
+        return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
 }

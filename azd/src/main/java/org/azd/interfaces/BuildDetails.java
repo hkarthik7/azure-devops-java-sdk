@@ -82,4 +82,30 @@ public interface BuildDetails {
             String repositoryType, String taskIdFilter, String yamlFilename) throws ConnectionException, AzDException;
 
     BuildDefinition restoreBuildDefinition(int definitionId, boolean deleted) throws ConnectionException, AzDException;
+
+    BuildTags addBuildTag(int buildId, String tag) throws ConnectionException, AzDException;
+
+    BuildTags addBuildTags(int buildId, String[] tags) throws ConnectionException, AzDException;
+
+    BuildTags addDefinitionTag(int definitionId, String tag) throws ConnectionException, AzDException;
+
+    BuildTags addDefinitionTags(int definitionId, String[] tags) throws ConnectionException, AzDException;
+
+    BuildTags deleteBuildTag(int buildId, String tag) throws ConnectionException, AzDException;
+
+    BuildTags deleteDefinitionTag(int definitionId, String tag) throws ConnectionException, AzDException;
+
+    BuildTags deleteTag(String tag) throws ConnectionException, AzDException;
+
+    BuildTags getBuildTags(int buildId) throws ConnectionException, AzDException;
+
+    BuildTags getDefinitionTags(int definitionId) throws ConnectionException, AzDException;
+
+    BuildTags getDefinitionTags(int definitionId, int revision) throws ConnectionException, AzDException;
+
+    BuildTags getTags() throws ConnectionException, AzDException;
+
+    BuildTags updateBuildTags(int buildId, String[] tags, boolean toRemove) throws ConnectionException, AzDException;
+
+    BuildTags updateDefinitionTags(int definitionId, String[] tags, boolean toRemove) throws ConnectionException, AzDException;
 }

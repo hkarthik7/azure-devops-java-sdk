@@ -9,6 +9,7 @@ public abstract class ApiVersion {
     public static final String BUILD_CONTROLLERS = "6.1-preview.2";
     public static final String BUILD_DEFINITIONS = "6.1-preview.7";
     public static final String BUILD_DEFINITION_REVISIONS = "6.1-preview.3";
+    public static final String BUILD_TAGS = "6.1-preview.3";
     public static final String CORE = "6.1-preview.1";
     public static final String EXTENSION_MANAGEMENT = "6.1-preview.1";
     public static final String POLICY = "6.1-preview.1";
