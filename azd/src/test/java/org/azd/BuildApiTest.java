@@ -164,4 +164,66 @@ public class BuildApiTest {
         b.restoreBuildDefinition(126, false);
 
     }
+
+    @Test
+    public void shouldAddABuildTag() throws ConnectionException, AzDException {
+        b.addBuildTag(503, "Demo");
+
+    }
+
+    @Test
+    public void shouldAddBuildTags() throws ConnectionException, AzDException {
+        b.addBuildTags(503, new String[]{ "Demo", "CI", "Test" });
+
+    }
+
+    @Test
+    public void shouldAddADefinitionTag() throws ConnectionException, AzDException {
+        b.addDefinitionTag(22, "TestDefinition");
+    }
+
+    @Test
+    public void shouldAddDefinitionTags() throws ConnectionException, AzDException {
+        b.addDefinitionTags(22, new String[]{ "TestDefinition", "DemoDefinition"});
+    }
+
+    @Test
+    public void shouldDeleteABuildTag() throws ConnectionException, AzDException {
+        b.deleteBuildTag(503, "Test");
+    }
+
+    @Test
+    public void shouldDeleteADefinitionTag() throws ConnectionException, AzDException {
+        b.deleteDefinitionTag(22, "DemoDefinition");
+    }
+
+    @Test
+    public void shouldDeleteATag() throws ConnectionException, AzDException {
+        b.deleteTag("DemoDefinition");
+    }
+
+    @Test
+    public void shouldGetBuildTags() throws ConnectionException, AzDException {
+        b.getBuildTags(503);
+    }
+
+    @Test
+    public void shouldGetDefinitionTags() throws ConnectionException, AzDException {
+        b.getDefinitionTags(22);
+    }
+
+    @Test
+    public void shouldGetTags() throws ConnectionException, AzDException {
+        b.getTags();
+    }
+
+    @Test
+    public void shouldUpdateBuildTags() throws ConnectionException, AzDException {
+        b.updateBuildTags(503, new String[]{ "Demo", "CI", "Test" }, false);
+    }
+
+    @Test
+    public void shouldUpdateDefinitionTags() throws ConnectionException, AzDException {
+        b.updateDefinitionTags(22, new String[]{ "TestDefinition", "DemoDefinition"}, false);
+    }
 }

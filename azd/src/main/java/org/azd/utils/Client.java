@@ -20,7 +20,7 @@ public abstract class Client extends BaseClient {
     /***
      * Request the Azure DevOps REST API and builds the request url dynamically based on resource id and endpoints passed
      * @param requestMethod type of request GET, POST, PATCH, DELETE {@link RequestMethod}
-     * @param organizationName name of the organization
+     * @param connection name of the organization
      * @param resourceId pass the resource id.
      * @param project name of the project
      * @param area resource area
@@ -28,7 +28,7 @@ public abstract class Client extends BaseClient {
      * @param resource resource area endpoint
      * @param apiVersion api version
      * @param queryString query string to append the url
-     * @param authorizationEndpoint true to return the request url
+     * @param contentType true to return the request url
      * @param body body of the request to post and patch
      * @return String response from API
      * @throws ConnectionException user must create a Connection Object before calling this method
@@ -36,7 +36,7 @@ public abstract class Client extends BaseClient {
      */
     public static String send(
             RequestMethod requestMethod,
-            String organizationName,
+            Connection connection,
             String resourceId,
             String project,
             String area,
@@ -44,22 +44,17 @@ public abstract class Client extends BaseClient {
             String resource,
             String apiVersion,
             HashMap<String, Object> queryString,
-            boolean authorizationEndpoint,
+            boolean contentType,
             String body) throws ConnectionException, AzDException {
-        String requestUrl = buildRequestUrl(organizationName, resourceId, project, area, id, resource, apiVersion, queryString);
-        requestUrl = requestUrl.replace("/_apis", "").replace("?api-version=null&", "?");
+        String requestUrl = buildRequestUrl(connection.getOrganization(), resourceId, project, area, id, resource, apiVersion, queryString);
 
-        if (authorizationEndpoint) {
-            return requestUrl;
+        // I need to maintain consistency across the library. Since this send method is not used in any of the classes to call
+        // the API I've modified it to suit Build Tags API call. Check BuildApi and addBuildTags for implementation.
+        // This method signature shouldn't interfere or replace any implemented methods.
+        if (requestMethod.toString().equals("POST") && contentType) {
+            return post(requestUrl, connection.getPersonalAccessToken(), body, "application/json");
         }
-
-        else {
-            if (requestMethod.toString().equals("POST")) {
-                return post(requestUrl, body);
-            }
-
-            return null;
-        }
+        return null;
     }
 
     /***
