@@ -31,7 +31,7 @@ public class PolicyApi implements PolicyDetails {
     private final String POLICY = "fb13a388-40dd-4a04-b530-013a739c72ef";
 
     /***
-     * Pass the connection object to work with Git Api
+     * Pass the connection object to work with Policy Api
      * @param connection Connection object
      */
     public PolicyApi(Connection connection) { this.CONNECTION = connection; }
