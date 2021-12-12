@@ -6,11 +6,11 @@
 
   <groupId>io.github.hkarthik7</groupId>
   <artifactId>azd</artifactId>
-  <version>2.5.7</version>
+  <version>2.5.8</version>
 <packaging>jar</packaging>
 
   <name>azd</name>
-  <description>azd helps to manage Azure DevOps services API on ease and efficiently.</description>
+  <description>azd helps to manage Azure DevOps services API with ease and efficiently.</description>
   <url>https://github.com/hkarthik7/azure-devops-java-sdk</url>
 
   <developers>
