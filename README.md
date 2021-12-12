@@ -3,6 +3,7 @@
 [![Build Status](https://dev.azure.com/harishkarthic/azure-devops-java-sdk/_apis/build/status/hkarthik7.azure-devops-java-sdk?branchName=main)](https://dev.azure.com/harishkarthic/azure-devops-java-sdk/_build/latest?definitionId=8&branchName=main)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/hkarthik7/azure-devops-java-sdk/blob/main/LICENSE)
 [![Download: azd](https://img.shields.io/github/downloads/hkarthik7/azure-devops-java-sdk/total.svg)](https://github.com/hkarthik7/azure-devops-java-sdk/releases/download/v2.5.7/azd-2.5.7.jar)
+[![Documentation Status](https://readthedocs.org/projects/azure-devops-java-sdk-docs/badge/?version=latest)](https://azure-devops-java-sdk-docs.readthedocs.io/en/latest/?badge=latest)
 
 **azd** library helps to manage **Azure DevOps** REST API on ease. This provides functionality to the significant services 
 in **Azure DevOps** and manage in granular level.
@@ -13,6 +14,7 @@ You can view the [blog post](https://hkarthik7.github.io/azure%20devops/2020/12/
 
 - [Javadocs](https://hkarthik7.github.io/azd-docs/)
 - [Examples](https://github.com/hkarthik7/azure-devops-java-sdk/blob/main/examples)
+- [Read the docs](https://azure-devops-java-sdk-docs.readthedocs.io/en/latest/)
 
 ## Getting Started
 
