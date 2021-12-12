@@ -16,6 +16,7 @@ public abstract class ApiVersion {
     public static final String PROJECT = "6.1-preview.4";
     public static final String PROJECT_PROPERTIES = "6.1-preview.1";
     public static final String PROJECT_TEAMS = "6.1-preview.3";
+    public static final String PIPELINES = "6.1-preview.1";
     public static final String FEEDS = "6.1-preview.1";
     public static final String GIT = "6.1-preview.1";
     public static final String GRAPH = "6.1-preview.1";

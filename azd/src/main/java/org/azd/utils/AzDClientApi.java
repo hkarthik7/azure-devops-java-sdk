@@ -12,6 +12,7 @@ import org.azd.interfaces.AzDClient;
 import org.azd.memberentitlementmanagement.MemberEntitlementManagementApi;
 import org.azd.oauth.OAuthApi;
 import org.azd.oauth.types.AuthorizedToken;
+import org.azd.pipelines.PipelinesApi;
 import org.azd.policy.PolicyApi;
 import org.azd.release.ReleaseApi;
 import org.azd.serviceendpoint.ServiceEndpointApi;
@@ -203,4 +204,11 @@ public class AzDClientApi implements AzDClient {
      */
     @Override
     public PolicyApi getPolicyApi() { return new PolicyApi(CONNECTION); }
+
+    /***
+     * Returns an instance of Pipelines Api
+     * @return instance of PipelinesApi {@link PipelinesApi}
+     */
+    @Override
+    public PipelinesApi getPipelinesApi() { return new PipelinesApi(CONNECTION); }
 }
