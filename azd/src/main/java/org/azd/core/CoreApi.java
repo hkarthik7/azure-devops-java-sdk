@@ -25,6 +25,7 @@ public class CoreApi implements CoreDetails {
     private final Connection CONNECTION;
     private final JsonMapper MAPPER = new JsonMapper();
     private final String CORE = "79134c72-4a58-4b42-976c-04e7115f32bf";
+    private final String AREA = "projects";
 
     /***
      * Pass the connection object to work with Core Api
@@ -74,7 +75,7 @@ public class CoreApi implements CoreDetails {
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, CORE,null,
-                        "projects",null, null, ApiVersion.PROJECT,null, h);
+                        AREA,null, null, ApiVersion.PROJECT,null, h);
 
         return MAPPER.mapJsonResponse(r, OperationReference.class);
     }
@@ -108,7 +109,7 @@ public class CoreApi implements CoreDetails {
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, CORE,null,
-                        "projects",null,null, ApiVersion.PROJECT, null, h);
+                        AREA,null,null, ApiVersion.PROJECT, null, h);
 
         return MAPPER.mapJsonResponse(r, OperationReference.class);
     }
@@ -130,7 +131,7 @@ public class CoreApi implements CoreDetails {
     public OperationReference deleteProject(String projectId) throws ConnectionException, AzDException {
 
         String r = send(RequestMethod.DELETE, CONNECTION, CORE, null,
-                        "projects", projectId,null, ApiVersion.PROJECT,null,null);
+                        AREA, projectId,null, ApiVersion.PROJECT,null,null);
 
         return MAPPER.mapJsonResponse(r, OperationReference.class);
     }
@@ -147,7 +148,7 @@ public class CoreApi implements CoreDetails {
     public Project getProject(String projectName) throws ConnectionException, AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, CORE,null,
-                        "projects", projectName,null, ApiVersion.PROJECT,null,null);
+                        AREA, projectName,null, ApiVersion.PROJECT,null,null);
 
         return MAPPER.mapJsonResponse(r, Project.class);
     }
@@ -171,7 +172,7 @@ public class CoreApi implements CoreDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, CORE,null,
-                        "projects", projectName,null, ApiVersion.PROJECT, q,null);
+                        AREA, projectName,null, ApiVersion.PROJECT, q,null);
 
         return MAPPER.mapJsonResponse(r, Project.class);
     }
@@ -188,7 +189,7 @@ public class CoreApi implements CoreDetails {
     public ProjectProperties getProjectProperties(String projectId) throws ConnectionException, AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, CORE, null,
-                "projects", projectId, "properties", ApiVersion.PROJECT_PROPERTIES, null, null);
+                AREA, projectId, "properties", ApiVersion.PROJECT_PROPERTIES, null, null);
 
         return MAPPER.mapJsonResponse(r, ProjectProperties.class);
     }
@@ -204,7 +205,7 @@ public class CoreApi implements CoreDetails {
     public Projects getProjects() throws ConnectionException, AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, CORE, null,
-                        "projects", null, null, ApiVersion.PROJECT, null, null);
+                        AREA, null, null, ApiVersion.PROJECT, null, null);
 
         return MAPPER.mapJsonResponse(r, Projects.class);
     }
@@ -234,7 +235,7 @@ public class CoreApi implements CoreDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, CORE, null,
-                        "projects", null, null, ApiVersion.PROJECT, q, null);
+                        AREA, null, null, ApiVersion.PROJECT, q, null);
 
         return MAPPER.mapJsonResponse(r, Projects.class);
     }
@@ -253,7 +254,7 @@ public class CoreApi implements CoreDetails {
     public OperationReference updateProject(String projectId, HashMap<String, Object> projectParameters) throws ConnectionException, AzDException {
 
         String r = send(RequestMethod.PATCH, CONNECTION, CORE, null,
-                        "projects", projectId, null, ApiVersion.PROJECT, null, projectParameters);
+                        AREA, projectId, null, ApiVersion.PROJECT, null, projectParameters);
 
         return MAPPER.mapJsonResponse(r, OperationReference.class);
     }
@@ -275,7 +276,7 @@ public class CoreApi implements CoreDetails {
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, CORE, null,
-                        "projects", projectName, "teams", ApiVersion.PROJECT_TEAMS, null, h);
+                        AREA, projectName, "teams", ApiVersion.PROJECT_TEAMS, null, h);
 
         return MAPPER.mapJsonResponse(r, WebApiTeam.class);
     }
@@ -292,7 +293,7 @@ public class CoreApi implements CoreDetails {
     public void deleteTeam(String projectName, String teamName) throws ConnectionException, AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, CORE, null,
-                    "projects", projectName, "teams/" + teamName, ApiVersion.PROJECT_TEAMS, null, null);
+                    AREA, projectName, "teams/" + teamName, ApiVersion.PROJECT_TEAMS, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (ConnectionException | AzDException e) {
             throw e;
@@ -312,7 +313,7 @@ public class CoreApi implements CoreDetails {
     public Team getTeam(String projectName, String teamName) throws ConnectionException, AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, CORE, null,
-                        "projects", projectName, "teams/" + teamName, ApiVersion.PROJECT_TEAMS, null, null);
+                        AREA, projectName, "teams/" + teamName, ApiVersion.PROJECT_TEAMS, null, null);
 
         return MAPPER.mapJsonResponse(r, Team.class);
     }
@@ -335,7 +336,7 @@ public class CoreApi implements CoreDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, CORE, null,
-                "projects", projectName, "teams/" + teamName, ApiVersion.PROJECT_TEAMS, q, null);
+                AREA, projectName, "teams/" + teamName, ApiVersion.PROJECT_TEAMS, q, null);
 
         return MAPPER.mapJsonResponse(r, Team.class);
     }
@@ -401,7 +402,7 @@ public class CoreApi implements CoreDetails {
         }};
 
         String r = send(RequestMethod.PATCH, CONNECTION, CORE, null,
-                        "projects", projectName, "teams/" + teamName, ApiVersion.PROJECT_TEAMS, null, h);
+                        AREA, projectName, "teams/" + teamName, ApiVersion.PROJECT_TEAMS, null, h);
 
         return MAPPER.mapJsonResponse(r, Team.class);
     }
