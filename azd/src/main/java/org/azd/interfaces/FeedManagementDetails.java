@@ -45,5 +45,5 @@ public interface FeedManagementDetails {
             String feedName, boolean badgesEnabled, String description,
             boolean hideDeletedPackageVersions, boolean upstreamEnabled) throws ConnectionException, AzDException;
 
-    FeedView updateFeedView(String feedName, String feedViewName, String feedViewType, String visibility) throws ConnectionException, AzDException;
+    FeedView updateFeedView(String feedName, String feedViewName, FeedViewType feedViewType, FeedVisibility visibility) throws ConnectionException, AzDException;
 }

@@ -103,6 +103,6 @@ public class FeedManagementApiTest {
 
     @Test
     public void shouldUpdateAFeedView() throws ConnectionException, AzDException {
-        f.updateFeedView("TestFeed", "myView", "release", "organization");
+        f.updateFeedView("TestFeed", "myView", FeedViewType.RELEASE, FeedVisibility.ORGANIZATION);
     }
 }

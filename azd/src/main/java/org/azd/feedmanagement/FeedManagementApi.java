@@ -440,12 +440,13 @@ public class FeedManagementApi implements FeedManagementDetails {
      * @return the updated feed view {@link FeedView}
      */
     @Override
-    public FeedView updateFeedView(String feedName, String feedViewName, String feedViewType, String visibility) throws ConnectionException, AzDException {
+    public FeedView updateFeedView(String feedName, String feedViewName, FeedViewType feedViewType, FeedVisibility visibility)
+            throws ConnectionException, AzDException {
 
         HashMap<String, Object> h = new HashMap<>() {{
             put("name", feedViewName);
-            put("type", feedViewType);
-            put("visibility", visibility);
+            put("type", feedViewType.toString().toLowerCase());
+            put("visibility", visibility.toString().toLowerCase());
         }};
 
         String r = send(RequestMethod.PATCH, CONNECTION, PACKAGING,
