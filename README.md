@@ -2,9 +2,9 @@
 
 [![Build Status](https://dev.azure.com/harishkarthic/azure-devops-java-sdk/_apis/build/status/hkarthik7.azure-devops-java-sdk?branchName=main)](https://dev.azure.com/harishkarthic/azure-devops-java-sdk/_build/latest?definitionId=8&branchName=main)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/hkarthik7/azure-devops-java-sdk/blob/main/LICENSE)
-[![Download: azd](https://img.shields.io/github/downloads/hkarthik7/azure-devops-java-sdk/total.svg)](https://github.com/hkarthik7/azure-devops-java-sdk/releases/download/v2.5.7/azd-2.5.7.jar)
+[![Download: azd](https://img.shields.io/github/downloads/hkarthik7/azure-devops-java-sdk/total.svg)](https://github.com/hkarthik7/azure-devops-java-sdk/releases/download/v2.5.8/azd-2.5.8.jar)
 [![Documentation Status](https://readthedocs.org/projects/azure-devops-java-sdk-docs/badge/?version=latest)](https://azure-devops-java-sdk-docs.readthedocs.io/en/latest/?badge=latest)
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.hkarthik7/azd.svg)](https://search.maven.org/artifact/io.github.hkarthik7/azd/2.5.7/jar)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.hkarthik7/azd.svg)](https://search.maven.org/artifact/io.github.hkarthik7/azd/2.5.8/jar)
 
 **azd** library helps to manage **Azure DevOps** REST API with ease. This provides functionality to the significant services 
 in **Azure DevOps** and manage in granular level.
