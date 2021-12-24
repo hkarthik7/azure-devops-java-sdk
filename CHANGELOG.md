@@ -4,6 +4,8 @@
 - Merged PR: [Added support for **policy Api** #8](https://github.com/hkarthik7/azure-devops-java-sdk/pull/8)
 - Merged PR: [Added support for **build tags** API #9](https://github.com/hkarthik7/azure-devops-java-sdk/pull/9)
 - Added support for Pipelines API.
+- Expanded the WorkItemTrackingDetails interface with two updateWorkItem
+methods and added hyperlinks support. [Associated PR](https://github.com/hkarthik7/azure-devops-java-sdk/pull/10)
 
 ## 2.5.7
 - Created a helper method in **BuildApi** to easily create/clone a pipeline.
