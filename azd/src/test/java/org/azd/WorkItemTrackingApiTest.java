@@ -61,12 +61,9 @@ public class WorkItemTrackingApiTest {
 
 	@Test
 	public void shouldCreateAWorkItemWithAdditionalFields() throws ConnectionException, AzDException {
-		var additionalFields = new HashMap<String, Object>() {
-
-			{
-				put("System.Tags", String.join(",", "DevOps", "Java", "SDK"));
-			}
-		};
+		var additionalFields = new HashMap<String, Object>() {{
+			put("System.Tags", String.join(",", "DevOps", "Java", "SDK"));
+		}};
 
 		w.createWorkItem("user story", "Sample User story", "Description for the user story", additionalFields);
 	}
@@ -135,32 +132,22 @@ public class WorkItemTrackingApiTest {
 
 	@Test
 	public void shouldUpdateAWorkItem() throws ConnectionException, AzDException {
-		var fieldsToUpdate = new HashMap<String, Object>() {
-
-			{
-				put("System.AssignedTo", "test@xmail.com");
-			}
-		};
-
+		var fieldsToUpdate = new HashMap<String, Object>() {{ put("System.AssignedTo", "test@xmail.com"); }};
 		w.updateWorkItem(176, fieldsToUpdate);
 	}
 
 	@Test
 	public void shouldAddHyperlink() throws ConnectionException, AzDException {
-
 		Map<String, String> hyperlinksMap = new HashMap<>();
 		hyperlinksMap.put("https://docs.microsoft.com/en-us/rest/api/azure/devops",
 				"This is a hyperlink that points to the Azure DevOps REST documentation.");
-
 		w.addHyperLinks(1, hyperlinksMap);
 	}
 
 	@Test
 	public void shouldRemoveHyperlink() throws ConnectionException, AzDException {
-
 		List<String> hyperlinks = new ArrayList<>();
 		hyperlinks.add("https://docs.microsoft.com/en-us/rest/api/azure/devops");
-
 		try {
 			w.removeHyperLinks(1, hyperlinks);
 		} catch (AzDException e) {
@@ -168,7 +155,6 @@ public class WorkItemTrackingApiTest {
 			if (e.getMessage().toLowerCase().contains("the hyperlink doesn't exist")) {
 				return;
 			}
-
 			throw e;
 		}
 	}
