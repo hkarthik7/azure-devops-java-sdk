@@ -1,7 +1,16 @@
 package org.azd.distributedtask.types;
 
+/***
+ * Sets provider data.
+ */
 public class VariableGroupProviderData {
+    /***
+     * Azure resource manager service endpoint id.
+     */
     private String serviceEndpointId;
+    /***
+     * Azure key vault reference
+     */
     private String vault;
 
     public String getServiceEndpointId() {

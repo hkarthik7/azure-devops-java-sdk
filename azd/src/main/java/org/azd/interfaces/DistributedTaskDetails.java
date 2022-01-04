@@ -4,7 +4,6 @@ import org.azd.distributedtask.types.*;
 import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
 import org.azd.exceptions.ConnectionException;
-import org.azd.release.types.ProjectReference;
 
 import java.util.Map;
 
@@ -51,4 +50,5 @@ public interface DistributedTaskDetails {
     VariableGroups getVariableGroups(int top, VariableGroupActionFilter actionFilter, int continuationToken,
                                      String groupName, VariableGroupQueryOrder queryOrder) throws ConnectionException, AzDException;
     VariableGroup updateVariableGroup(int groupId, String name, String description, Map variables) throws ConnectionException, AzDException;
+    VariableGroup updateVariableGroup(int groupId, VariableGroupDefinition variableGroupDefinition) throws ConnectionException, AzDException;
 }

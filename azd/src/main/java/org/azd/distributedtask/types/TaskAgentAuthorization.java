@@ -3,12 +3,24 @@ package org.azd.distributedtask.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * Provides data necessary for authorizing the agent using OAuth 2.0 authentication flows.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TaskAgentAuthorization {
+    /***
+     * Endpoint used to obtain access tokens from the configured token service.
+     */
     @JsonProperty("authorizationUrl")
     private String authorizationUrl;
+    /***
+     * Client identifier for this agent.
+     */
     @JsonProperty("clientId")
     private String clientId;
+    /***
+     * Public key used to verify the identity of this agent.
+     */
     @JsonProperty("publicKey")
     private TaskAgentPublicKey publicKey;
 

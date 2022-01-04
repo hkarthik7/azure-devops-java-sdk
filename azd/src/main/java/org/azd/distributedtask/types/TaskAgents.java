@@ -5,8 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * List of task agent
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TaskAgents {
+    /***
+     * List of task agent
+     */
     @JsonProperty("value")
     private List<TaskAgent> taskAgents;
 

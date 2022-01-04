@@ -3,22 +3,49 @@ package org.azd.distributedtask.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/***
+ * A reference to an agent.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TaskAgentReference {
+    /***
+     * This agent's access point.
+     */
     @JsonProperty("accessPoint")
     private String accessPoint;
+    /***
+     * Whether or not this agent should run jobs.
+     */
     @JsonProperty("enabled")
     private boolean enabled;
+    /***
+     * Identifier of the agent.
+     */
     @JsonProperty("id")
     private int id;
+    /***
+     * Name of the agent.
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * Agent OS.
+     */
     @JsonProperty("osDescription")
     private String osDescription;
+    /***
+     * Provisioning state of this agent.
+     */
     @JsonProperty("provisioningState")
     private String provisioningState;
+    /***
+     * Whether or not the agent is online.
+     */
     @JsonProperty("status")
     private String status;
+    /***
+     * Agent version.
+     */
     @JsonProperty("version")
     private String version;
 

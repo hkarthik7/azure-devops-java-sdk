@@ -7,64 +7,154 @@ import org.azd.build.types.Demand;
 
 import java.util.List;
 
+/***
+ * A job request for an agent.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TaskAgentJobRequest {
+    /***
+     * Represents a JSON object.
+     */
     @JsonProperty("agentSpecification")
     private JsonNode agentSpecification;
+    /***
+     * The date/time this request was assigned.
+     */
     @JsonProperty("assignTime")
     private String assignTime;
+    /***
+     * Additional data about the request.
+     */
     @JsonProperty("data")
     private JsonNode data;
+    /***
+     * The pipeline definition associated with this request
+     */
     @JsonProperty("definition")
     private TaskOrchestrationOwner definition;
+    /***
+     * A list of demands required to fulfill this request.
+     */
     @JsonProperty("demands")
     private List<Demand> demands;
+    /***
+     * The date/time this request was finished.
+     */
     @JsonProperty("finishTime")
     private String finishTime;
+    /***
+     * The host which triggered this request.
+     */
     @JsonProperty("hostId")
     private String hostId;
+    /***
+     * ID of the job resulting from this request.
+     */
     @JsonProperty("jobId")
     private String jobId;
+    /***
+     * Name of the job resulting from this request.
+     */
     @JsonProperty("jobName")
     private String jobName;
+    /***
+     * The deadline for the agent to renew the lock.
+     */
     @JsonProperty("lockedUntil")
     private String lockedUntil;
+    /***
+     * A reference to an agent.
+     */
     @JsonProperty("matchedAgents")
     private TaskAgentReference matchedAgents;
+    /***
+     * Matches all agents in pool
+     */
     @JsonProperty("matchesAllAgentsInPool")
     private boolean matchesAllAgentsInPool;
+    /***
+     * Orchestration id
+     */
     @JsonProperty("orchestrationId")
     private String orchestrationId;
+    /***
+     * The pipeline associated with this request
+     */
     @JsonProperty("owner")
     private TaskOrchestrationOwner owner;
+    /***
+     * Plan group
+     */
     @JsonProperty("planGroup")
     private String planGroup;
+    /***
+     * Internal ID for the orchestration plan connected with this request.
+     */
     @JsonProperty("planId")
     private String planId;
+    /***
+     * Internal detail representing the type of orchestration plan.
+     */
     @JsonProperty("planType")
     private String planType;
+    /***
+     * The ID of the pool this request targets
+     */
     @JsonProperty("poolId")
     private int poolId;
+    /***
+     * Priority
+     */
     @JsonProperty("priority")
     private int priority;
+    /***
+     * The ID of the queue this request targets
+     */
     @JsonProperty("queueId")
     private int queueId;
+    /***
+     * The date/time this request was queued.
+     */
     @JsonProperty("queueTime")
     private String queueTime;
+    /***
+     * The date/time this request was received by an agent.
+     */
     @JsonProperty("receiveTime")
     private String receiveTime;
+    /***
+     * ID of the request.
+     */
     @JsonProperty("requestId")
     private int requestId;
+    /***
+     * The agent allocated for this request.
+     */
     @JsonProperty("reservedAgent")
     private TaskAgentReference reservedAgent;
+    /***
+     * The result of this request.
+     */
     @JsonProperty("result")
     private String result;
+    /***
+     * Scope of the pipeline; matches the project ID.
+     */
     @JsonProperty("scopeId")
     private String scopeId;
+    /***
+     * The service which owns this request.
+     */
     @JsonProperty("serviceOwner")
     private String serviceOwner;
+    /***
+     * Status message
+     */
     @JsonProperty("statusMessage")
     private String statusMessage;
+    /***
+     * user delayed
+     */
     @JsonProperty("userDelayed")
     private boolean userDelayed;
 

@@ -5,8 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/**
+ * Container of Variable groups
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class VariableGroups {
+    /**
+     * Container of Variable groups
+     */
     @JsonProperty("value")
     private List<VariableGroup> variableGroups;
 

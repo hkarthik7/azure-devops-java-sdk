@@ -5,8 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * List of deployment group
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DeploymentGroups {
+    /***
+     * List of deployment group
+     */
     @JsonProperty("value")
     private List<DeploymentGroup> deploymentGroups;
 

@@ -37,8 +37,68 @@ public class DistributedTaskApiTest {
     }
 
     @Test
+    public void shouldGetAnAgentInAPool() throws ConnectionException, AzDException {
+        d.getAgent(9, 8);
+    }
+
+    @Test
+    public void shouldGetAllAgentsInAPool() throws ConnectionException, AzDException {
+        d.getAgents(9);
+    }
+
+    @Test(expected = AzDException.class)
+    public void shouldAddADeploymentGroup() throws ConnectionException, AzDException {
+        d.addDeploymentGroup("myDeploymentGroup", "Deployments to test VMs");
+    }
+
+    @Test
+    public void shouldGetAllDeploymentGroups() throws ConnectionException, AzDException {
+        d.getDeploymentGroups();
+    }
+
+    @Test
+    public void shouldGetADeploymentGroup() throws ConnectionException, AzDException {
+        d.getDeploymentGroup(2944);
+    }
+
+    @Test
+    public void shouldDeleteADeploymentGroup() throws ConnectionException, AzDException {
+        // create a new deployment group
+        var deploymentGroup = d.addDeploymentGroup("newDeploymentGroup", "New Deployment group");
+        d.deleteDeploymentGroup(deploymentGroup.getId());
+    }
+
+    @Test
+    public void shouldUpdateADeploymentGroup() throws ConnectionException, AzDException {
+        // create a new deployment group, update it and delete it.
+        var deploymentGroup = d.getDeploymentGroup(2947);
+        d.updateDeploymentGroup(deploymentGroup.getId(), deploymentGroup.getName(), "Description for new deployment group");
+    }
+
+    @Test(expected = AzDException.class)
+    public void shouldAddANewEnvironment() throws ConnectionException, AzDException {
+        d.addEnvironment("newEnvironment", "New testing environment");
+    }
+
+    @Test
+    public void shouldGetAnEnvironment() throws ConnectionException, AzDException {
+        d.getEnvironment(1);
+    }
+
+    @Test
     public void shouldReturnListOfEnvironments() throws ConnectionException, AzDException {
         d.getEnvironments();
+    }
+
+    @Test
+    public void shouldDeleteAnEnvironment() throws ConnectionException, AzDException {
+        var env = d.addEnvironment("EnvironmentToDelete", "Environment created for testing deletion functionality");
+        d.deleteEnvironment(env.getId());
+    }
+
+    @Test
+    public void shouldUpdateAnEnvironment() throws ConnectionException, AzDException {
+        d.updateEnvironment(4, "EnvironmentToUpdate", "Environment created for testing update functionality");
     }
 
     @Test
@@ -70,7 +130,7 @@ public class DistributedTaskApiTest {
         variableGroupDefinition.setVariables(variables);
         variableGroupDefinition.setProjectReference(projectReference);
 
-        System.out.println(d.addVariableGroup(variableGroupDefinition));
+        d.addVariableGroup(variableGroupDefinition);
     }
 
     @Test
@@ -88,7 +148,7 @@ public class DistributedTaskApiTest {
             }});
         }};
 
-        System.out.println(d.addVariableGroup("test", "test group", variables));
+        d.addVariableGroup("test", "test group", variables);
     }
 
     @Test
@@ -111,4 +171,25 @@ public class DistributedTaskApiTest {
         d.deleteVariableGroup(group.getId(), new String[]{projectId});
     }
 
+    @Test
+    public void shouldUpdateAVariableGroup() throws ConnectionException, AzDException {
+        var variablesToUpdate = new HashMap<>(){{
+            put("userName", new HashMap<>(){{
+                put("value", "testUser");
+            }});
+
+            put("password", new HashMap<>(){{
+                put("value", "testUser");
+                put("isSecret", true);
+            }});
+        }};
+
+        var group = d.getVariableGroups("newVariableGroupToUpdate")
+                .getVariableGroups()
+                .stream()
+                .findFirst()
+                .get();
+
+        d.updateVariableGroup(group.getId(), group.getName(), group.getDescription(), variablesToUpdate);
+    }
 }

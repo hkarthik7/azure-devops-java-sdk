@@ -7,24 +7,57 @@ import org.azd.release.types.ProjectReference;
 
 import java.util.List;
 
+/***
+ * Represents an environment
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EnvironmentInstance {
+    /***
+     * Identity reference of the user who created the Environment.
+     */
     @JsonProperty("createdBy")
     private Author createdBy;
+    /***
+     *
+     * Creation time of the Environment
+     */
     @JsonProperty("createdOn")
     private String createdOn;
+    /***
+     * Description of the Environment.
+     */
     @JsonProperty("description")
     private String description;
+    /***
+     *
+     * Id of the Environment
+     */
     @JsonProperty("id")
     private int id;
+    /***
+     * Identity reference of the user who last modified the Environment.
+     */
     @JsonProperty("lastModifiedBy")
     private Author lastModifiedBy;
+    /***
+     *
+     * Last modified time of the Environment
+     */
     @JsonProperty("lastModifiedOn")
     private String lastModifiedOn;
+    /***
+     * Name of the Environment.
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * Project information for environment.
+     */
     @JsonProperty("project")
     private ProjectReference project;
+    /***
+     * EnvironmentResourceReference.
+     */
     @JsonProperty("resources")
     private List<EnvironmentResourceReference> resources;
 

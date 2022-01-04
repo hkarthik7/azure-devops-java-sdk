@@ -5,8 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/***
+ * Array of environment instance {@link EnvironmentInstance}
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EnvironmentInstances {
+    /***
+     * Array of environment instance {@link EnvironmentInstance}
+     */
     @JsonProperty("value")
     private List<EnvironmentInstance> environmentInstances;
 

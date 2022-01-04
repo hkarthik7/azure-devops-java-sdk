@@ -4,18 +4,39 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
 
+/***
+ * Details about an agent update.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TaskAgentUpdate {
+    /***
+     * Current state of this agent update.
+     */
     @JsonProperty("currentState")
     private String currentState;
+    /***
+     * Reason for this update.
+     */
     @JsonProperty("reason")
     private TaskAgentUpdateReason reason;
+    /***
+     * Date on which this update was requested.
+     */
     @JsonProperty("requestTime")
     private String requestTime;
+    /***
+     * Identity which requested this update.
+     */
     @JsonProperty("requestedBy")
     private Author requestedBy;
+    /***
+     * Source agent version of the update.
+     */
     @JsonProperty("sourceVersion")
     private int sourceVersion;
+    /***
+     * Target agent version of the update.
+     */
     @JsonProperty("targetVersion")
     private int targetVersion;
 

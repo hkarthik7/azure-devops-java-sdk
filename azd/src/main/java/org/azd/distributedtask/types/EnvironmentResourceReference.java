@@ -5,14 +5,29 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Arrays;
 
+/***
+ * EnvironmentResourceReference.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EnvironmentResourceReference {
+    /***
+     * Id of the resource.
+     */
     @JsonProperty("id")
     private int id;
+    /***
+     * Name of the resource.
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * Tags of the Environment Resource Reference.
+     */
     @JsonProperty("tags")
     private String[] tags;
+    /***
+     * Type of the resource.
+     */
     @JsonProperty("type")
     private String type;
 

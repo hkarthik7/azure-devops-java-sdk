@@ -4,44 +4,106 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 
+/***
+ * A task agent.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TaskAgent {
+    /***
+     * This agent's access point.
+     */
     @JsonProperty("accessPoint")
     private String accessPoint;
+    /***
+     * The agent cloud request that's currently associated with this agent.
+     */
     @JsonProperty("assignedAgentCloudRequest")
     private TaskAgentCloudRequest assignedAgentCloudRequest;
+    /***
+     * The request which is currently assigned to this agent.
+     */
     @JsonProperty("assignedRequest")
     private TaskAgentJobRequest assignedRequest;
+    /***
+     * Authorization information for this agent.
+     */
     @JsonProperty("authorization")
     private TaskAgentAuthorization authorization;
+    /***
+     * Date on which this agent was created.
+     */
     @JsonProperty("createdOn")
     private String createdOn;
+    /***
+     * Whether or not this agent should run jobs.
+     */
     @JsonProperty("enabled")
     private boolean enabled;
+    /***
+     * Identifier of the agent.
+     */
     @JsonProperty("id")
     private int id;
+    /***
+     * The last request which was completed by this agent.
+     */
     @JsonProperty("lastCompletedRequest")
     private TaskAgentJobRequest lastCompletedRequest;
+    /***
+     * Maximum job parallelism allowed for this agent.
+     */
     @JsonProperty("maxParallelism")
     private int maxParallelism;
+    /***
+     * Name of the agent.
+     */
     @JsonProperty("name")
     private String name;
+    /***
+     * Agent OS.
+     */
     @JsonProperty("osDescription")
     private String osDescription;
+    /***
+     * Pending update for this agent.
+     */
     @JsonProperty("pendingUpdate")
     private TaskAgentUpdate pendingUpdate;
+    /***
+     * The class represents a property bag as a collection of key-value pairs.
+     */
     @JsonProperty("properties")
     private JsonNode properties;
+    /***
+     * Provisioning state of this agent.
+     */
     @JsonProperty("provisioningState")
     private String provisioningState;
+    /***
+     * Whether or not the agent is online.
+     */
     @JsonProperty("status")
     private String status;
+    /***
+     * Date on which the last connectivity status change occurred.
+     */
     @JsonProperty("statusChangedOn")
     private String statusChangedOn;
+    /***
+     * System-defined capabilities supported by this agent's host.
+     * Warning: To set capabilities use the PUT method, PUT will completely overwrite existing capabilities.
+     */
     @JsonProperty("systemCapabilities")
     private JsonNode systemCapabilities;
+    /***
+     * User-defined capabilities supported by this agent's host.
+     * Warning: To set capabilities use the PUT method, PUT will completely overwrite existing capabilities.
+     */
     @JsonProperty("userCapabilities")
     private JsonNode userCapabilities;
+    /***
+     * Agent version.
+     */
     @JsonProperty("version")
     private String version;
 

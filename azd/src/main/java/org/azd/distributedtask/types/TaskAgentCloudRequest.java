@@ -4,26 +4,59 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 
+/***
+ * The agent cloud request that's currently associated with this agent.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TaskAgentCloudRequest {
+    /***
+     * A reference to an agent.
+     */
     @JsonProperty("agent")
     private TaskAgentReference agent;
+    /***
+     * Agent cloud id
+     */
     @JsonProperty("agentCloudId")
     private int agentCloudId;
+    /***
+     * Agent connected time
+     */
     @JsonProperty("agentConnectedTime")
     private String agentConnectedTime;
+    /***
+     * Represents a JSON object.
+     */
     @JsonProperty("agentData")
     private JsonNode agentData;
+    /***
+     * Represents a JSON object.
+     */
     @JsonProperty("agentSpecification")
     private JsonNode agentSpecification;
+    /***
+     * Task Pool reference
+     */
     @JsonProperty("pool")
     private TaskAgentPoolReference pool;
+    /***
+     * Provision request time
+     */
     @JsonProperty("provisionRequestTime")
     private String provisionRequestTime;
+    /***
+     * Provisioned time
+     */
     @JsonProperty("provisionedTime")
     private String provisionedTime;
+    /***
+     * Release request time
+     */
     @JsonProperty("releaseRequestTime")
     private String releaseRequestTime;
+    /***
+     * Request id
+     */
     @JsonProperty("requestId")
     private String requestId;
 
