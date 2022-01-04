@@ -3,6 +3,7 @@ package org.azd.interfaces;
 import org.azd.accounts.AccountsApi;
 import org.azd.build.BuildApi;
 import org.azd.core.CoreApi;
+import org.azd.distributedtask.DistributedTaskApi;
 import org.azd.extensionmanagement.ExtensionManagementApi;
 import org.azd.feedmanagement.FeedManagementApi;
 import org.azd.git.GitApi;
@@ -22,6 +23,7 @@ public interface AzDClient {
     AccountsApi getAccountsApi();
     BuildApi getBuildApi();
     CoreApi getCoreApi();
+    DistributedTaskApi getDistributedTaskApi();
     FeedManagementApi getFeedManagementApi();
     GitApi getGitApi();
     GraphApi getGraphApi();

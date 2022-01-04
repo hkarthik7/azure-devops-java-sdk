@@ -167,13 +167,13 @@ public class BuildApiTest {
 
     @Test
     public void shouldAddABuildTag() throws ConnectionException, AzDException {
-        b.addBuildTag(503, "Demo");
+        b.addBuildTag(523, "Demo");
 
     }
 
     @Test
     public void shouldAddBuildTags() throws ConnectionException, AzDException {
-        b.addBuildTags(503, new String[]{ "Demo", "CI", "Test" });
+        b.addBuildTags(523, new String[]{ "Demo", "CI", "Test" });
 
     }
 
@@ -189,7 +189,7 @@ public class BuildApiTest {
 
     @Test
     public void shouldDeleteABuildTag() throws ConnectionException, AzDException {
-        b.deleteBuildTag(503, "Test");
+        b.deleteBuildTag(523, "Test");
     }
 
     @Test
@@ -204,7 +204,7 @@ public class BuildApiTest {
 
     @Test
     public void shouldGetBuildTags() throws ConnectionException, AzDException {
-        b.getBuildTags(503);
+        b.getBuildTags(523);
     }
 
     @Test
@@ -219,7 +219,7 @@ public class BuildApiTest {
 
     @Test
     public void shouldUpdateBuildTags() throws ConnectionException, AzDException {
-        b.updateBuildTags(503, new String[]{ "Demo", "CI", "Test" }, false);
+        b.updateBuildTags(523, new String[]{ "Demo", "CI", "Test" }, false);
     }
 
     @Test
