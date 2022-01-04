@@ -101,7 +101,7 @@ public class DistributedTaskApiTest {
         d.updateEnvironment(4, "EnvironmentToUpdate", "Environment created for testing update functionality");
     }
 
-    @Test
+    @Test(expected = AzDException.class)
     public void shouldAddANewVariableGroup() throws ConnectionException, AzDException {
         var variableGroupDefinition = new VariableGroupDefinition();
         var projectReference = new ProjectReference();
@@ -133,7 +133,7 @@ public class DistributedTaskApiTest {
         d.addVariableGroup(variableGroupDefinition);
     }
 
-    @Test
+    @Test(expected = AzDException.class)
     public void shouldAddANewVariableGroupToDefaultProject() throws ConnectionException, AzDException {
         var variables = new HashMap<String, Object>(){{
             put("userName", new HashMap<String, String>(){{
