@@ -59,6 +59,19 @@ public class Main {
                 put("System.AssignedTo", "test@xmail.com");
                 put("System.AreaPath", "you-team-area-path");
             }};
+            
+            // add hyperlinks to the work item
+            Map<String, String> hyperlinksMap = new HashMap<>();
+            hyperlinksMap.put("https://docs.microsoft.com/en-us/rest/api/azure/devops",
+                    "This is a hyperlink that points to the Azure DevOps REST documentation.");
+            
+            workitemtracking.addHyperLinks(2, hyperlinksMap);
+            
+            // remove hyperlinks from the work item
+            List<String> hyperlinks = new ArrayList<>();
+            hyperlinks.add("https://docs.microsoft.com/en-us/rest/api/azure/devops");
+            
+            workitemtracking.addHyperLinks(2, hyperlinks);
 
             w.updateWorkItem(277, fieldsToUpdate);
         } catch (AzDException | ConnectionException e) {
