@@ -35,15 +35,15 @@ public class PipelinesTest {
 
     @Test
     public void shouldGetArtifacts() throws ConnectionException, AzDException, IOException {
-        p.getArtifacts(8, 523, "drop");
+        p.getArtifacts(8, 531, "drop");
     }
 
     @Test
     public void shouldGetArtifactsWithContentsExpanded() throws ConnectionException, AzDException, IOException {
-//        String url = p.getArtifacts(8, 523, "drop", PipelinesArtifactExpandOptions.SIGNEDCONTENT).getSignedContent().getUrl();
+//        String url = p.getArtifacts(8, 531, "drop", PipelinesArtifactExpandOptions.SIGNEDCONTENT).getSignedContent().getUrl();
 //        new FileOutputStream("drop.zip").getChannel().transferFrom(Channels.newChannel(
 //                new URL(url).openStream()), 0, Long.MAX_VALUE);
-        p.getArtifacts(8, 523, "drop", PipelinesExpandOptions.SIGNEDCONTENT);
+        p.getArtifacts(8, 531, "drop", PipelinesExpandOptions.SIGNEDCONTENT);
     }
 
     @Test
@@ -53,17 +53,17 @@ public class PipelinesTest {
 
     @Test
     public void shouldGetPipelineLog() throws ConnectionException, AzDException, IOException {
-        p.getPipelineLog(8, 523, 1);
+        p.getPipelineLog(8, 531, 1);
     }
 
     @Test
     public void shouldGetPipelineLogWithOptions() throws ConnectionException, AzDException, IOException {
-        p.getPipelineLog(8, 523, 1, PipelinesExpandOptions.SIGNEDCONTENT);
+        p.getPipelineLog(8, 531, 1, PipelinesExpandOptions.SIGNEDCONTENT);
     }
 
     @Test
     public void shouldGetPipelineLogs() throws ConnectionException, AzDException, IOException {
-        p.getPipelineLogs(8, 523);
+        p.getPipelineLogs(8, 531);
     }
 
     // Should throw PipelineExistsException;
