@@ -4,6 +4,7 @@ import org.azd.accounts.AccountsApi;
 import org.azd.build.BuildApi;
 import org.azd.connection.Connection;
 import org.azd.core.CoreApi;
+import org.azd.distributedtask.DistributedTaskApi;
 import org.azd.extensionmanagement.ExtensionManagementApi;
 import org.azd.feedmanagement.FeedManagementApi;
 import org.azd.git.GitApi;
@@ -107,6 +108,14 @@ public class AzDClientApi implements AzDClient {
     public CoreApi getCoreApi() {
         return new CoreApi(CONNECTION);
     }
+
+    /***
+     * Returns an instance of DistributedTask Api
+     * @return instance of DistributedTaskApi {@link DistributedTaskApi}
+     */
+
+    @Override
+    public DistributedTaskApi getDistributedTaskApi() { return new DistributedTaskApi(CONNECTION); }
 
     /***
      * Returns an instance of FeedManagement Api
