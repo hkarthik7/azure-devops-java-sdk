@@ -242,6 +242,7 @@ public abstract class Client extends BaseClient {
     /**
      *  Gets the resource area url based on resource id passed for the organization
      * @param resourceID pass the resource id
+     * @param organizationName pass the organization name
      * @throws ConnectionException user must create a Connection Object before calling this method
      * @throws AzDException throws user understandable error message with error code from API
      * @return resource area url
