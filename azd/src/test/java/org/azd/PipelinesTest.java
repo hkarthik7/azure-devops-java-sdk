@@ -18,7 +18,6 @@ public class PipelinesTest {
     private static AzDClient webApi;
     private static GitDetails g;
     private static PipelinesDetails p;
-    private static int runId;
 
     @Before
     public void init() throws AzDException {
@@ -31,12 +30,11 @@ public class PipelinesTest {
         webApi = new AzDClientApi(organization, project, token);
         p = webApi.getPipelinesApi();
         g = webApi.getGitApi();
-        runId = 676;
     }
 
     @Test
     public void shouldGetArtifacts() throws AzDException {
-        p.getArtifacts(8, runId, "drop");
+        p.getArtifacts(8, 676, "drop");
     }
 
     @Test
@@ -44,7 +42,7 @@ public class PipelinesTest {
 //        String url = p.getArtifacts(8, 531, "drop", PipelinesArtifactExpandOptions.SIGNEDCONTENT).getSignedContent().getUrl();
 //        new FileOutputStream("drop.zip").getChannel().transferFrom(Channels.newChannel(
 //                new URL(url).openStream()), 0, Long.MAX_VALUE);
-        p.getArtifacts(8, runId, "drop", PipelinesExpandOptions.SIGNEDCONTENT);
+        p.getArtifacts(8, 676, "drop", PipelinesExpandOptions.SIGNEDCONTENT);
     }
 
     @Test
@@ -54,17 +52,17 @@ public class PipelinesTest {
 
     @Test
     public void shouldGetPipelineLog() throws AzDException {
-        p.getPipelineLog(8, runId, 1);
+        p.getPipelineLog(8, 676, 1);
     }
 
     @Test
     public void shouldGetPipelineLogWithOptions() throws AzDException {
-        p.getPipelineLog(8, runId, 1, PipelinesExpandOptions.SIGNEDCONTENT);
+        p.getPipelineLog(8, 676, 1, PipelinesExpandOptions.SIGNEDCONTENT);
     }
 
     @Test
     public void shouldGetPipelineLogs() throws AzDException {
-        p.getPipelineLogs(8, runId);
+        p.getPipelineLogs(8, 676);
     }
 
     // Should throw PipelineExistsException;
