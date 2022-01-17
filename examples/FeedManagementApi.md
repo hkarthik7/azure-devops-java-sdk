@@ -60,7 +60,7 @@ public class Main {
             // update the existing feed;
             feedManagement.updateFeed("myFeed", true, "My new feed", true, true);
         } 
-        catch (ConnectionException | AzDException e1) {
+        catch (AzDException e1) {
             e1.printStackTrace();
         }
     }

@@ -1,13 +1,11 @@
 package org.azd.distributedtask;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
 import org.azd.core.CoreApi;
 import org.azd.distributedtask.types.*;
 import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.DistributedTaskDetails;
 import org.azd.release.types.ProjectReference;
@@ -38,18 +36,16 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * Delete an agent.
      * @param poolId The pool ID to remove the agent from
      * @param agentId The agent ID to remove
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteAgent(int poolId, int agentId) throws ConnectionException, AzDException {
+    public void deleteAgent(int poolId, int agentId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, DISTRIBUTEDTASK, null,
                     AREA + "/pools", poolId + "/agents/" + agentId, null, ApiVersion.DISTRIBUTED_TASK, null, null);
 
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
-        } catch (ConnectionException | AzDException e) {
+        } catch (AzDException e) {
             throw e;
         }
     }
@@ -59,12 +55,10 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * @param poolId The agent pool containing the agent
      * @param agentId The agent ID to get information about
      * @return A TaskAgent object {@link TaskAgent}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public TaskAgent getAgent(int poolId, int agentId) throws ConnectionException, AzDException {
+    public TaskAgent getAgent(int poolId, int agentId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, DISTRIBUTEDTASK, null,
                 AREA + "/pools", poolId + "/agents/" + agentId, null, ApiVersion.DISTRIBUTED_TASK, null, null);
 
@@ -80,13 +74,11 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * @param includeLastCompletedRequest Whether to include details about the agents' most recent completed work
      * @param propertyFilters Filter which custom properties will be returned
      * @return A TaskAgent object {@link TaskAgent}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public TaskAgent getAgent(int poolId, int agentId, boolean includeAssignedRequest, boolean includeCapabilities,
-                              boolean includeLastCompletedRequest, String[] propertyFilters) throws ConnectionException, AzDException {
+                              boolean includeLastCompletedRequest, String[] propertyFilters) throws AzDException {
         var q = new HashMap<String, Object>(){{
             put("includeAssignedRequest", includeAssignedRequest);
             put("includeCapabilities", includeCapabilities);
@@ -104,12 +96,10 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * Get a list of agents.
      * @param poolId The agent pool containing the agents
      * @return TaskAgents object {@link TaskAgents}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public TaskAgents getAgents(int poolId) throws ConnectionException, AzDException {
+    public TaskAgents getAgents(int poolId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, DISTRIBUTEDTASK, null,
                 AREA + "/pools", poolId + "/agents", null, ApiVersion.DISTRIBUTED_TASK, null, null);
 
@@ -126,14 +116,12 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * @param includeLastCompletedRequest Whether to include details about the agents' most recent completed work
      * @param propertyFilters Filter which custom properties will be returned
      * @return TaskAgents object {@link TaskAgents}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public TaskAgents getAgents(int poolId, String agentName, String[] demands, boolean includeAssignedRequest,
                                 boolean includeCapabilities, boolean includeLastCompletedRequest, String[] propertyFilters)
-            throws ConnectionException, AzDException {
+            throws AzDException {
         var q = new HashMap<String, Object>(){{
             put("agentName", agentName);
             put("demands", String.join(",", demands));
@@ -158,12 +146,10 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      *  Visit https://docs.microsoft.com/en-us/rest/api/azure/devops/distributedtask/agents/update?view=azure-devops-rest-6.1#request-body for more details.
      * </p>
      * @return A TaskAgent object {@link TaskAgent}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public TaskAgent updateAgent(int poolId, int agentId, Map requestBody) throws ConnectionException, AzDException {
+    public TaskAgent updateAgent(int poolId, int agentId, Map requestBody) throws AzDException {
         String r = send(RequestMethod.PATCH, CONNECTION, DISTRIBUTEDTASK, null,
                 AREA + "/pools", poolId + "/agents/" + agentId, null, ApiVersion.DISTRIBUTED_TASK, null, requestBody);
 
@@ -175,12 +161,10 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * @param name Name of the deployment group.
      * @param description Description of the deployment group.
      * @return Deployment group object {@link DeploymentGroup}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public DeploymentGroup addDeploymentGroup(String name, String description) throws ConnectionException, AzDException {
+    public DeploymentGroup addDeploymentGroup(String name, String description) throws AzDException {
         var requestBody = new HashMap<String, Object>(){{
             put("name", name);
             put("description", description);
@@ -198,12 +182,10 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * @param description Description of the deployment group.
      * @param poolId Identifier of the deployment pool in which deployment agents are registered.
      * @return Deployment group object {@link DeploymentGroup}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public DeploymentGroup addDeploymentGroup(String name, String description, int poolId) throws ConnectionException, AzDException {
+    public DeploymentGroup addDeploymentGroup(String name, String description, int poolId) throws AzDException {
         var requestBody = new HashMap<String, Object>(){{
             put("name", name);
             put("description", description);
@@ -219,18 +201,16 @@ public class DistributedTaskApi implements DistributedTaskDetails {
     /***
      * Delete a deployment group.
      * @param deploymentGroupId ID of the deployment group to be deleted.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteDeploymentGroup(int deploymentGroupId) throws ConnectionException, AzDException {
+    public void deleteDeploymentGroup(int deploymentGroupId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
                     AREA + "/deploymentgroups", Integer.toString(deploymentGroupId), null, ApiVersion.DISTRIBUTED_TASK, null, null);
 
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
-        } catch (ConnectionException | AzDException e) {
+        } catch (AzDException e) {
             throw e;
         }
     }
@@ -239,12 +219,10 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * Get a deployment group by its ID.
      * @param deploymentGroupId ID of the deployment group to be deleted.
      * @return Deployment group object {@link DeploymentGroup}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public DeploymentGroup getDeploymentGroup(int deploymentGroupId) throws ConnectionException, AzDException {
+    public DeploymentGroup getDeploymentGroup(int deploymentGroupId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
                 AREA + "/deploymentgroups", Integer.toString(deploymentGroupId), null, ApiVersion.DISTRIBUTED_TASK, null, null);
 
@@ -257,13 +235,11 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * @param expand Include these additional details in the returned object.
      * @param actionFilter Get the deployment group only if this action can be performed on it.
      * @return Deployment group object {@link DeploymentGroup}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public DeploymentGroup getDeploymentGroup(int deploymentGroupId, DeploymentGroupExpands expand, DeploymentGroupActionFilter actionFilter)
-            throws ConnectionException, AzDException {
+            throws AzDException {
         var q = new HashMap<String, Object>(){{
             put("$expand", expand.toString().toLowerCase());
             put("actionFilter", actionFilter.toString().toLowerCase());
@@ -278,12 +254,10 @@ public class DistributedTaskApi implements DistributedTaskDetails {
     /***
      * Get a list of deployment groups by name or IDs.
      * @return Deployment groups object {@link DeploymentGroups}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public DeploymentGroups getDeploymentGroups() throws ConnectionException, AzDException {
+    public DeploymentGroups getDeploymentGroups() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
                 AREA + "/deploymentgroups", null, null, ApiVersion.DISTRIBUTED_TASK, null, null);
 
@@ -294,12 +268,10 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * Get a list of deployment groups by name or IDs.
      * @param top Maximum number of deployment groups to return. Default is 1000.
      * @return Deployment groups object {@link DeploymentGroups}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public DeploymentGroups getDeploymentGroups(int top) throws ConnectionException, AzDException {
+    public DeploymentGroups getDeploymentGroups(int top) throws AzDException {
         var q = new HashMap<String, Object>(){{
             put("$top", top);
         }};
@@ -314,12 +286,10 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * Get a list of deployment groups by name or IDs.
      * @param ids Array of Id of deployment groups.
      * @return Deployment groups object {@link DeploymentGroups}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public DeploymentGroups getDeploymentGroups(int[] ids) throws ConnectionException, AzDException {
+    public DeploymentGroups getDeploymentGroups(int[] ids) throws AzDException {
         var q = new HashMap<String, Object>(){{
             put("ids", intArrayToString(ids));
         }};
@@ -334,12 +304,10 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * Get a list of deployment groups by name or IDs.
      * @param name Name of the deployment group.
      * @return Deployment groups object {@link DeploymentGroups}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public DeploymentGroups getDeploymentGroups(String name) throws ConnectionException, AzDException {
+    public DeploymentGroups getDeploymentGroups(String name) throws AzDException {
         var q = new HashMap<String, Object>(){{
             put("name", name);
         }};
@@ -354,12 +322,10 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * Get a list of deployment groups by name or IDs.
      * @param expand Include these additional details in the returned objects. {@link DeploymentGroupExpands}
      * @return Deployment groups object {@link DeploymentGroups}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public DeploymentGroups getDeploymentGroups(DeploymentGroupExpands expand) throws ConnectionException, AzDException {
+    public DeploymentGroups getDeploymentGroups(DeploymentGroupExpands expand) throws AzDException {
         var q = new HashMap<String, Object>(){{
             put("$expand", expand.toString().toLowerCase());
         }};
@@ -379,13 +345,11 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * @param ids Comma separated list of IDs of the deployment groups.
      * @param name Name of the deployment group.
      * @return Deployment groups object {@link DeploymentGroups}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public DeploymentGroups getDeploymentGroups(DeploymentGroupExpands expand, int top, DeploymentGroupActionFilter actionFilter,
-                                                String continuationToken, int[] ids, String name) throws ConnectionException, AzDException {
+                                                String continuationToken, int[] ids, String name) throws AzDException {
         var q = new HashMap<String, Object>(){{
             put("$expand", expand.toString().toLowerCase());
             put("$top", top);
@@ -407,12 +371,10 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * @param name Name of the deployment group.
      * @param description Description of the deployment group.
      * @return Deployment group object {@link DeploymentGroup}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public DeploymentGroup updateDeploymentGroup(int deploymentGroupId, String name, String description) throws ConnectionException, AzDException {
+    public DeploymentGroup updateDeploymentGroup(int deploymentGroupId, String name, String description) throws AzDException {
         var requestBody = new HashMap<String, Object>(){{
             put("name", name);
             put("description", description);
@@ -429,12 +391,10 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * @param name Name of the environment.
      * @param description Description of the environment.
      * @return Environment instance {@link EnvironmentInstance}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public EnvironmentInstance addEnvironment(String name, String description) throws ConnectionException, AzDException {
+    public EnvironmentInstance addEnvironment(String name, String description) throws AzDException {
         var requestBody = new HashMap<String, Object>(){{
             put("name", name);
             put("description", description);
@@ -449,18 +409,16 @@ public class DistributedTaskApi implements DistributedTaskDetails {
     /***
      * Delete the specified environment.
      * @param environmentId ID of the environment.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteEnvironment(int environmentId) throws ConnectionException, AzDException {
+    public void deleteEnvironment(int environmentId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
                     AREA + "/environments", Integer.toString(environmentId), null, ApiVersion.DISTRIBUTED_TASK, null, null);
 
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
-        } catch (ConnectionException | AzDException e) {
+        } catch (AzDException e) {
             throw e;
         }
     }
@@ -469,12 +427,10 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * Get an environment by its ID.
      * @param environmentId ID of the environment.
      * @return Environment instance {@link EnvironmentInstance}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public EnvironmentInstance getEnvironment(int environmentId) throws ConnectionException, AzDException {
+    public EnvironmentInstance getEnvironment(int environmentId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
                 AREA + "/environments", Integer.toString(environmentId), null, ApiVersion.DISTRIBUTED_TASK, null, null);
 
@@ -486,12 +442,10 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * @param environmentId ID of the environment.
      * @param expands Include these additional details in the returned objects. {@link EnvironmentExpands}
      * @return Environment instance {@link EnvironmentInstance}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public EnvironmentInstance getEnvironment(int environmentId, EnvironmentExpands expands) throws ConnectionException, AzDException {
+    public EnvironmentInstance getEnvironment(int environmentId, EnvironmentExpands expands) throws AzDException {
         var q = new HashMap<String, Object>(){{
             put("expands", expands.toString().toLowerCase());
         }};
@@ -505,12 +459,10 @@ public class DistributedTaskApi implements DistributedTaskDetails {
     /***
      * Get all environments.
      * @return Environment instances array {@link EnvironmentInstances}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public EnvironmentInstances getEnvironments() throws ConnectionException, AzDException {
+    public EnvironmentInstances getEnvironments() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
                 AREA + "/environments", null, null, ApiVersion.DISTRIBUTED_TASK, null, null);
 
@@ -521,12 +473,10 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * Get all environments.
      * @param top Top environments to list
      * @return Environment instances array {@link EnvironmentInstances}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public EnvironmentInstances getEnvironments(int top) throws ConnectionException, AzDException {
+    public EnvironmentInstances getEnvironments(int top) throws AzDException {
         var q = new HashMap<String, Object>(){{
             put("$top", top);
         }};
@@ -541,12 +491,10 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * Get all environments.
      * @param name Name of the environment.
      * @return Environment instances array {@link EnvironmentInstances}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public EnvironmentInstances getEnvironments(String name) throws ConnectionException, AzDException {
+    public EnvironmentInstances getEnvironments(String name) throws AzDException {
         var q = new HashMap<String, Object>(){{
             put("name", name);
         }};
@@ -563,12 +511,10 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * @param continuationToken Get the list of environments paginated.
      * @param name Name of the environment.
      * @return Environment instances array {@link EnvironmentInstances}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public EnvironmentInstances getEnvironments(int top, String continuationToken, String name) throws ConnectionException, AzDException {
+    public EnvironmentInstances getEnvironments(int top, String continuationToken, String name) throws AzDException {
         var q = new HashMap<String, Object>(){{
             put("$top", top);
             put("continuationToken", continuationToken);
@@ -587,12 +533,10 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * @param name Name of the environment.
      * @param description Description of the environment.
      * @return Environment instance {@link EnvironmentInstance}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public EnvironmentInstance updateEnvironment(int environmentId, String name, String description) throws ConnectionException, AzDException {
+    public EnvironmentInstance updateEnvironment(int environmentId, String name, String description) throws AzDException {
         var requestBody = new HashMap<String, Object>(){{
             put("name", name);
             put("description", description);
@@ -608,13 +552,11 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * Add a variable group.
      * @param variableGroupDefinition Variable group definition {@link VariableGroupDefinition}
      * @return Variable group {@link VariableGroup}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public VariableGroup addVariableGroup(VariableGroupDefinition variableGroupDefinition)
-            throws ConnectionException, AzDException {
+            throws AzDException {
         var ref = new VariableGroupProjectReference();
         ref.setName(variableGroupDefinition.getName());
         ref.setDescription(variableGroupDefinition.getDescription());
@@ -644,12 +586,10 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * @param description Description for the variable group.
      * @param variables Map of variables to add.
      * @return Variable group {@link VariableGroup}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public VariableGroup addVariableGroup(String name, String description, Map variables) throws ConnectionException, AzDException {
+    public VariableGroup addVariableGroup(String name, String description, Map variables) throws AzDException {
         var definition = new VariableGroupDefinition();
         var projectReference = new ProjectReference();
         var core = new CoreApi(CONNECTION);
@@ -671,12 +611,10 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * Delete a variable group
      * @param variableGroupId Id of the variable group.
      * @param projectIds String array of project ids.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteVariableGroup(int variableGroupId, String[] projectIds) throws ConnectionException, AzDException {
+    public void deleteVariableGroup(int variableGroupId, String[] projectIds) throws AzDException {
         try {
             var q = new HashMap<String, Object>(){{
                 put("projectIds", String.join(",", projectIds));
@@ -686,7 +624,7 @@ public class DistributedTaskApi implements DistributedTaskDetails {
                     AREA + "/variablegroups", Integer.toString(variableGroupId), null, ApiVersion.VARIABLE_GROUPS, q, null);
 
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
-        } catch (ConnectionException | AzDException e) {
+        } catch (AzDException e) {
             throw e;
         }
     }
@@ -695,12 +633,10 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * Get a variable group.
      * @param variableGroupId Id of the variable group.
      * @return Variable group {@link VariableGroup}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public VariableGroup getVariableGroup(int variableGroupId) throws ConnectionException, AzDException {
+    public VariableGroup getVariableGroup(int variableGroupId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
                 AREA + "/variablegroups", Integer.toString(variableGroupId), null, ApiVersion.VARIABLE_GROUPS, null, null);
 
@@ -710,12 +646,10 @@ public class DistributedTaskApi implements DistributedTaskDetails {
     /***
      * Get variable groups.
      * @return Variable groups object {@link VariableGroups}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public VariableGroups getVariableGroups() throws ConnectionException, AzDException {
+    public VariableGroups getVariableGroups() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
                 AREA + "/variablegroups", null, null, ApiVersion.VARIABLE_GROUPS, null, null);
 
@@ -726,12 +660,10 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * Get variable groups.
      * @param top Number of variable groups to get.
      * @return Variable groups object {@link VariableGroups}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public VariableGroups getVariableGroups(int top) throws ConnectionException, AzDException {
+    public VariableGroups getVariableGroups(int top) throws AzDException {
         var q = new HashMap<String, Object>(){{
            put("$top", top);
         }};
@@ -746,12 +678,10 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * Get variable groups.
      * @param groupName Name of variable group.
      * @return Variable groups object {@link VariableGroups}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public VariableGroups getVariableGroups(String groupName) throws ConnectionException, AzDException {
+    public VariableGroups getVariableGroups(String groupName) throws AzDException {
         var q = new HashMap<String, Object>(){{
             put("groupName", groupName);
         }};
@@ -770,13 +700,11 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * @param groupName Name of variable group.
      * @param queryOrder Gets the results in the defined order. Default is 'IdDescending'. {@link VariableGroupQueryOrder}
      * @return Variable groups object {@link VariableGroups}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public VariableGroups getVariableGroups(int top, VariableGroupActionFilter actionFilter, int continuationToken, String groupName,
-                                            VariableGroupQueryOrder queryOrder) throws ConnectionException, AzDException {
+                                            VariableGroupQueryOrder queryOrder) throws AzDException {
         var q = new HashMap<String, Object>(){{
             put("$top", top);
             put("actionFilter", actionFilter.toString().toLowerCase());
@@ -798,12 +726,10 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * @param description Sets description of the variable group.
      * @param variables Sets variables contained in the variable group.
      * @return Variable group {@link VariableGroup}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public VariableGroup updateVariableGroup(int groupId, String name, String description, Map variables) throws ConnectionException, AzDException {
+    public VariableGroup updateVariableGroup(int groupId, String name, String description, Map variables) throws AzDException {
         var definition = new VariableGroupDefinition();
         var projectReference = new ProjectReference();
         var core = new CoreApi(CONNECTION);
@@ -826,12 +752,10 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * @param groupId Id of the variable group to update.
      * @param variableGroupDefinition Variable group definition {@link VariableGroupDefinition}
      * @return Variable group {@link VariableGroup}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public VariableGroup updateVariableGroup(int groupId, VariableGroupDefinition variableGroupDefinition) throws ConnectionException, AzDException {
+    public VariableGroup updateVariableGroup(int groupId, VariableGroupDefinition variableGroupDefinition) throws AzDException {
         var ref = new VariableGroupProjectReference();
         ref.setName(variableGroupDefinition.getName());
         ref.setDescription(variableGroupDefinition.getDescription());

@@ -9,7 +9,9 @@ public abstract class ApiVersion {
     public static final String BUILD_CONTROLLERS = "6.1-preview.2";
     public static final String BUILD_DEFINITIONS = "6.1-preview.7";
     public static final String BUILD_DEFINITION_REVISIONS = "6.1-preview.3";
+    public static final String BUILD_STAGE = "6.1-preview.1";
     public static final String BUILD_TAGS = "6.1-preview.3";
+    public static final String BUILD_YAML = "6.1-preview.1";
     public static final String CORE = "6.1-preview.1";
     public static final String DISTRIBUTED_TASK = "6.1-preview.1";
     public static final String EXTENSION_MANAGEMENT = "6.1-preview.1";
@@ -24,10 +26,12 @@ public abstract class ApiVersion {
     public static final String MEMBERSHIP_ENTITLEMENT_MANAGEMENT = "6.1-preview.1";
     public static final String PROFILE = "6.0";
     public static final String USER_ENTITLEMENTS = "6.1-preview.3";
-    public static final String RELEASE = "6.1-preview.8";
+    public static final String RELEASE = "6.1-preview.3";
+    public static final String RELEASES = "6.1-preview.8";
     public static final String RELEASE_ENVIRONMENT = "6.1-preview.7";
     public static final String RELEASE_DEFINITION = "6.1-preview.4";
     public static final String RELEASE_DEFINITION_HISTORY = "6.1-preview.1";
+    public static final String RELEASE_MANUAL_INTERVENTION ="6.1-preview.1";
     public static final String SERVICE_ENDPOINTS = "6.1-preview.4";
     public static final String SERVICE_HOOKS = "6.1-preview.1";
     public static final String VARIABLE_GROUPS = "6.1-preview.2";

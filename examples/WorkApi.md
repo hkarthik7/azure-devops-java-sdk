@@ -38,7 +38,7 @@ public class Main {
             // delete an iteration
             work.deleteTeamSettingsIteration("my-team", iterationId);
             
-        } catch (AzDException | ConnectionException e) {
+        } catch (AzDException e) {
             e.printStackTrace();
         }
     }

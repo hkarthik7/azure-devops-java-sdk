@@ -6,7 +6,6 @@ import org.azd.enums.FeedViewType;
 import org.azd.enums.FeedVisibility;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.ConnectionException;
 import org.azd.feedmanagement.types.*;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.FeedManagementDetails;
@@ -47,15 +46,13 @@ public class FeedManagementApi implements FeedManagementDetails {
      * @param description Provide the description for the feed
      * @param badgesEnabled Enable or disable the badge in the feed. Default to false.
      * @param hideDeletedPackageVersions Hides the deleted package version. Default to true.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return Feed object {@link Feed}
      */
     @Override
     public Feed createFeed(
             String name, String description, boolean badgesEnabled,
-            boolean hideDeletedPackageVersions) throws ConnectionException, AzDException {
+            boolean hideDeletedPackageVersions) throws AzDException {
 
         HashMap<String, Object> requestBody = new HashMap<>() {{
             put("name", name);
@@ -80,14 +77,12 @@ public class FeedManagementApi implements FeedManagementDetails {
      * @param name name of the feed view
      * @param feedViewType type of the feed view. Allowed values are [implicit and release]
      * @param visibility visibility of the view. Allowed values are [aadTenant, collection, organization, private]
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return Feed view object {@link FeedView}
      */
     @Override
     public FeedView createFeedView(String feedName, String name,
-                                   FeedViewType feedViewType, FeedVisibility visibility) throws ConnectionException, AzDException {
+                                   FeedViewType feedViewType, FeedVisibility visibility) throws AzDException {
 
         HashMap<String, Object> requestBody = new HashMap<>() {{
             put("name", name);
@@ -109,18 +104,16 @@ public class FeedManagementApi implements FeedManagementDetails {
      *     If the feed is not associated with any project, omit the project parameter from the request.
      * </p>
      * @param feedId Name or Id of the feed.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteFeed(String feedId) throws ConnectionException, AzDException {
+    public void deleteFeed(String feedId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, PACKAGING,
                     CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
                     AREA + "/feeds", feedId, null, ApiVersion.FEEDS, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
-        } catch (ConnectionException | AzDException e) {
+        } catch (AzDException e) {
             throw e;
         }
     }
@@ -132,18 +125,16 @@ public class FeedManagementApi implements FeedManagementDetails {
      * </p>
      * @param feedId Name or Id of the feed
      * @param feedViewId Id of the feed view
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteFeedView(String feedId, String feedViewId) throws ConnectionException, AzDException {
+    public void deleteFeedView(String feedId, String feedViewId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, PACKAGING,
                         CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
                         AREA + "/feeds", feedId, "views/" + feedViewId, ApiVersion.FEEDS, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
-        } catch (ConnectionException | AzDException e) {
+        } catch (AzDException e) {
             throw e;
         }
     }
@@ -155,13 +146,11 @@ public class FeedManagementApi implements FeedManagementDetails {
      *     If the feed is not associated with any project, omit the project parameter from the request.
      * </p>
      * @param feedName Name of id of the feed
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return Feed {@link Feed}
      */
     @Override
-    public Feed getFeed(String feedName) throws ConnectionException, AzDException {
+    public Feed getFeed(String feedName) throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, PACKAGING,
                     CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
@@ -178,13 +167,11 @@ public class FeedManagementApi implements FeedManagementDetails {
      * </p>
      * @param feedName Name of id of the feed
      * @param includeDeletedUpstreams Include upstreams that have been deleted in the response.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return Feed {@link Feed}
      */
     @Override
-    public Feed getFeed(String feedName, boolean includeDeletedUpstreams) throws ConnectionException, AzDException {
+    public Feed getFeed(String feedName, boolean includeDeletedUpstreams) throws AzDException {
 
         HashMap<String, Object> q = new HashMap<>() {{
             put("includeDeletedUpstreams", includeDeletedUpstreams);
@@ -204,13 +191,11 @@ public class FeedManagementApi implements FeedManagementDetails {
      *     If the feed is not associated with any project, omit the project parameter from the request.
      * </p>
      * @param feedName Name or Id of the feed.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return Feed Permissions {@link FeedPermissions}
      */
     @Override
-    public FeedPermissions getFeedPermissions(String feedName) throws ConnectionException, AzDException {
+    public FeedPermissions getFeedPermissions(String feedName) throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, PACKAGING,
                         CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
@@ -230,15 +215,13 @@ public class FeedManagementApi implements FeedManagementDetails {
      * @param identityDescriptor Filter permissions to the provided identity.
      * @param includeDeletedFeeds If includeDeletedFeeds is true, then feedId must be specified by name and not by Guid.
      * @param includeIds True to include user Ids in the response. Default is false.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return Feed Permissions {@link FeedPermissions}
      */
     @Override
     public FeedPermissions getFeedPermissions(
             String feedName, boolean excludeInheritedPermissions, String identityDescriptor,
-            boolean includeDeletedFeeds, boolean includeIds) throws ConnectionException, AzDException {
+            boolean includeDeletedFeeds, boolean includeIds) throws AzDException {
 
         HashMap<String, Object> q = new HashMap<>() {{
             put("excludeInheritedPermissions", excludeInheritedPermissions);
@@ -261,13 +244,11 @@ public class FeedManagementApi implements FeedManagementDetails {
      * </p>
      * @param feedName Name or Id of the feed.
      * @param feedViewId Name or Id of the view.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return feed view {@link FeedView}
      */
     @Override
-    public FeedView getFeedView(String feedName, String feedViewId) throws ConnectionException, AzDException {
+    public FeedView getFeedView(String feedName, String feedViewId) throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, PACKAGING,
                 CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
@@ -282,13 +263,11 @@ public class FeedManagementApi implements FeedManagementDetails {
      *     The project parameter must be supplied if the feed was created in a project.
      * </p>
      * @param feedName Name or Id of the feed.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return array feed views {@link FeedView}
      */
     @Override
-    public FeedViews getFeedViews(String feedName) throws ConnectionException, AzDException {
+    public FeedViews getFeedViews(String feedName) throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, PACKAGING,
                 CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
@@ -303,13 +282,11 @@ public class FeedManagementApi implements FeedManagementDetails {
      *     If the project parameter is present, gets all feeds in the given project.
      *     If omitted, gets all feeds in the organization.
      * </p>
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return array of feeds {@link Feeds}
      */
     @Override
-    public Feeds getFeeds() throws ConnectionException, AzDException {
+    public Feeds getFeeds() throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, PACKAGING,
                 CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
@@ -327,15 +304,13 @@ public class FeedManagementApi implements FeedManagementDetails {
      * @param feedRole Filter by this role, either Administrator(4), Contributor(3), or Reader(2) level permissions.
      * @param includeDeletedUpstreams Include upstreams that have been deleted in the response.
      * @param includeUrls Resolve names if true
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return array of feeds {@link Feeds}
      */
     @Override
     public Feeds getFeeds(
             String feedRole, boolean includeDeletedUpstreams,
-            boolean includeUrls) throws ConnectionException, AzDException {
+            boolean includeUrls) throws AzDException {
 
         HashMap<String, Object> q = new HashMap<>() {{
             put("feedRole", feedRole);
@@ -361,15 +336,13 @@ public class FeedManagementApi implements FeedManagementDetails {
      * @param identityDescriptor Identity associated with this role. You can run getFeedPermissions to get the Identity descriptor
      * @param isInheritedRole Boolean indicating whether the role is inherited or set directly.
      * @param role The role for this identity on a feed.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return array of feed permissions {@link FeedPermissions}
      */
     @Override
     public FeedPermissions setFeedPermissions(
             String feedName, String displayName,
-            String identityDescriptor, boolean isInheritedRole, String role) throws ConnectionException, AzDException {
+            String identityDescriptor, boolean isInheritedRole, String role) throws AzDException {
 
         HashMap<String, Object> h = new HashMap<>() {{
             put("displayName", displayName);
@@ -398,15 +371,13 @@ public class FeedManagementApi implements FeedManagementDetails {
      * @param description A description for the feed.
      * @param hideDeletedPackageVersions If set, feed will hide all deleted/unpublished versions
      * @param upstreamEnabled If set, the feed can proxy packages from an upstream feed
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return feed {@link Feed}
      */
     @Override
     public Feed updateFeed(
             String feedName, boolean badgesEnabled, String description,
-            boolean hideDeletedPackageVersions, boolean upstreamEnabled) throws ConnectionException, AzDException {
+            boolean hideDeletedPackageVersions, boolean upstreamEnabled) throws AzDException {
 
         HashMap<String, Object> h = new HashMap<>() {{
             put("name", feedName);
@@ -434,14 +405,12 @@ public class FeedManagementApi implements FeedManagementDetails {
      * @param feedViewName Name or Id of the view.
      * @param feedViewType type of the feed view. Allowed are [implicit and release]
      * @param visibility visibility of the feed
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return the updated feed view {@link FeedView}
      */
     @Override
     public FeedView updateFeedView(String feedName, String feedViewName, FeedViewType feedViewType, FeedVisibility visibility)
-            throws ConnectionException, AzDException {
+            throws AzDException {
 
         HashMap<String, Object> h = new HashMap<>() {{
             put("name", feedViewName);

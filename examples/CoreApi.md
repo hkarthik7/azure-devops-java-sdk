@@ -48,7 +48,7 @@ public class Main {
             core.updateProject("projectId", projectParameters);
     
             core.getProcesses().getProcesses().stream().forEach(name -> System.out.println(name.getName()));
-        } catch (AzDException | ConnectionException e) {
+        } catch (AzDException e) {
             e.printStackTrace();
         }
     }

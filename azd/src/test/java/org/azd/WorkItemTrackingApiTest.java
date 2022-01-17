@@ -1,6 +1,14 @@
 package org.azd;
 
-import static org.junit.Assert.assertEquals;
+import org.azd.enums.WorkItemExpand;
+import org.azd.enums.WorkItemOperation;
+import org.azd.exceptions.AzDException;
+import org.azd.helpers.JsonMapper;
+import org.azd.interfaces.AzDClient;
+import org.azd.utils.AzDClientApi;
+import org.azd.workitemtracking.WorkItemTrackingApi;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -8,16 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.azd.enums.WorkItemExpand;
-import org.azd.enums.WorkItemOperation;
-import org.azd.exceptions.AzDException;
-import org.azd.exceptions.ConnectionException;
-import org.azd.helpers.JsonMapper;
-import org.azd.interfaces.AzDClient;
-import org.azd.utils.AzDClientApi;
-import org.azd.workitemtracking.WorkItemTrackingApi;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 public class WorkItemTrackingApiTest {
 
@@ -40,27 +39,27 @@ public class WorkItemTrackingApiTest {
 	}
 
 	@Test
-	public void shouldGetWorkItem() throws ConnectionException, AzDException {
+	public void shouldGetWorkItem() throws AzDException {
 		var expectedValue = "azure-devops-java-sdk";
 		var result = w.getWorkItem(2).getFields().getSystemTeamProject();
 		assertEquals(expectedValue, result);
 	}
 
 	@Test
-	public void shouldGetWorkItemWithOptionalParameters() throws ConnectionException, AzDException {
+	public void shouldGetWorkItemWithOptionalParameters() throws AzDException {
 		var expectedValue = "azure-devops-java-sdk";
 		var result = w.getWorkItem(2, WorkItemExpand.ALL).getFields().getSystemTeamProject();
 		assertEquals(expectedValue, result);
 	}
 
 	@Test
-	public void shouldCreateAWorkItem() throws ConnectionException, AzDException {
+	public void shouldCreateAWorkItem() throws AzDException {
 		w.createWorkItem("user story", WorkItemOperation.ADD, "Sample User story", "Description for the user story",
 				new String[] { "DevOps", "Java", "SDK" });
 	}
 
 	@Test
-	public void shouldCreateAWorkItemWithAdditionalFields() throws ConnectionException, AzDException {
+	public void shouldCreateAWorkItemWithAdditionalFields() throws AzDException {
 		var additionalFields = new HashMap<String, Object>() {{
 			put("System.Tags", String.join(",", "DevOps", "Java", "SDK"));
 		}};
@@ -69,36 +68,36 @@ public class WorkItemTrackingApiTest {
 	}
 
 	@Test(expected = AzDException.class)
-	public void shouldDeleteAWorkItem() throws ConnectionException, AzDException {
+	public void shouldDeleteAWorkItem() throws AzDException {
 		w.deleteWorkItem(6);
 	}
 
 	@Test
-	public void shouldGetWorkItems() throws ConnectionException, AzDException {
+	public void shouldGetWorkItems() throws AzDException {
 		w.getWorkItems(new int[] { 1, 2, 3 });
 	}
 
 	@Test
-	public void shouldGetWorkItemRevisions() throws ConnectionException, AzDException {
+	public void shouldGetWorkItemRevisions() throws AzDException {
 		var r = w.getWorkItemRevisions(3, WorkItemExpand.ALL).getWorkItems().stream().findFirst().get().getFields()
 				.getSystemAreaId();
 		assertEquals(12, r);
 	}
 
 	@Test
-	public void shouldGetWorkItemRevision() throws ConnectionException, AzDException {
+	public void shouldGetWorkItemRevision() throws AzDException {
 		w.getWorkItemRevision(3, 1);
 	}
 
 	@Test
-	public void shouldQueryWorkItems() throws ConnectionException, AzDException {
+	public void shouldQueryWorkItems() throws AzDException {
 		var query = "Select * From WorkItems Where [System.WorkItemType] = 'User Story'";
 		var team = "azure-devops-java-sdk Team";
 		w.queryByWiql(team, query, 10, true).getWorkItems();
 	}
 
 	@Test
-	public void shouldQueryWorkItemsAndGetExactlyOneResult() throws ConnectionException, AzDException {
+	public void shouldQueryWorkItemsAndGetExactlyOneResult() throws AzDException {
 		var query = "Select * From WorkItems Where [System.WorkItemType] = 'User Story'";
 		var team = "azure-devops-java-sdk Team";
 		var res = (long) w.queryByWiql(team, query, 1, true).getWorkItems().size();
@@ -106,38 +105,38 @@ public class WorkItemTrackingApiTest {
 	}
 
 	@Test(expected = AzDException.class)
-	public void shouldRemoveWorkItemFromRecycleBin() throws ConnectionException, AzDException {
+	public void shouldRemoveWorkItemFromRecycleBin() throws AzDException {
 		w.removeWorkItemFromRecycleBin(93);
 	}
 
 	@Test
-	public void shouldGetWorkItemFromRecycleBin() throws ConnectionException, AzDException {
+	public void shouldGetWorkItemFromRecycleBin() throws AzDException {
 		w.getWorkItemFromRecycleBin(74);
 	}
 
 	@Test
-	public void shouldGetDeletedWorkItemFromRecycleBin() throws ConnectionException, AzDException {
+	public void shouldGetDeletedWorkItemFromRecycleBin() throws AzDException {
 		w.getDeletedWorkItemsFromRecycleBin();
 	}
 
 	@Test(expected = AzDException.class)
-	public void shouldGetDeletedWorkItemsFromRecycleBin() throws ConnectionException, AzDException {
+	public void shouldGetDeletedWorkItemsFromRecycleBin() throws AzDException {
 		w.getDeletedWorkItemsFromRecycleBin(new int[] { 71, 72, 73, 74 });
 	}
 
 	@Test(expected = AzDException.class)
-	public void shouldRestoreWorkItemFromRecycleBin() throws ConnectionException, AzDException {
+	public void shouldRestoreWorkItemFromRecycleBin() throws AzDException {
 		w.restoreWorkItemFromRecycleBin(70);
 	}
 
 	@Test
-	public void shouldUpdateAWorkItem() throws ConnectionException, AzDException {
+	public void shouldUpdateAWorkItem() throws AzDException {
 		var fieldsToUpdate = new HashMap<String, Object>() {{ put("System.AssignedTo", "test@xmail.com"); }};
 		w.updateWorkItem(176, fieldsToUpdate);
 	}
 
 	@Test
-	public void shouldAddHyperlink() throws ConnectionException, AzDException {
+	public void shouldAddHyperlink() throws AzDException {
 		Map<String, String> hyperlinksMap = new HashMap<>();
 		hyperlinksMap.put("https://docs.microsoft.com/en-us/rest/api/azure/devops",
 				"This is a hyperlink that points to the Azure DevOps REST documentation.");
@@ -145,7 +144,7 @@ public class WorkItemTrackingApiTest {
 	}
 
 	@Test
-	public void shouldRemoveHyperlink() throws ConnectionException, AzDException {
+	public void shouldRemoveHyperlink() throws AzDException {
 		List<String> hyperlinks = new ArrayList<>();
 		hyperlinks.add("https://docs.microsoft.com/en-us/rest/api/azure/devops");
 		try {
@@ -160,12 +159,12 @@ public class WorkItemTrackingApiTest {
 	}
 
 	@Test
-	public void shouldGetWorkItemTypes() throws ConnectionException, AzDException {
+	public void shouldGetWorkItemTypes() throws AzDException {
 		w.getWorkItemTypes();
 	}
 
 	@Test
-	public void shouldGetAWorkItemType() throws ConnectionException, AzDException {
+	public void shouldGetAWorkItemType() throws AzDException {
 		w.getWorkItemType("Bug");
 	}
 }

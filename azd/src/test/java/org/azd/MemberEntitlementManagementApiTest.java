@@ -4,7 +4,6 @@ import org.azd.enums.AccountLicenseType;
 import org.azd.enums.GroupType;
 import org.azd.enums.LicensingSource;
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.CoreDetails;
@@ -35,34 +34,34 @@ public class MemberEntitlementManagementApiTest {
     }
 
     @Test
-    public void shouldGetGroupEntitlements() throws ConnectionException, AzDException {
+    public void shouldGetGroupEntitlements() throws AzDException {
         mem.getGroupEntitlements();
     }
 
     @Test(expected = AzDException.class)
-    public void shouldGetGroupEntitlement() throws ConnectionException, AzDException {
+    public void shouldGetGroupEntitlement() throws AzDException {
         mem.getGroupEntitlement("0000-000000-0000-0000-0000");
     }
 
     @Test
-    public void shouldGetUsersEntitlementSummary() throws ConnectionException, AzDException {
+    public void shouldGetUsersEntitlementSummary() throws AzDException {
         mem.getUserEntitlementSummary();
     }
 
     @Test
-    public void shouldAddUserEntitlement() throws ConnectionException, AzDException {
+    public void shouldAddUserEntitlement() throws AzDException {
         var p = c.getProject("azure-devops-java-sdk");
         mem.addUserEntitlement(AccountLicenseType.EXPRESS,
                 "test@xmail.com", GroupType.PROJECTCONTRIBUTOR, p.getId());
     }
 
     @Test
-    public void shouldGetUsersEntitlements() throws ConnectionException, AzDException {
+    public void shouldGetUsersEntitlements() throws AzDException {
         mem.getUserEntitlements();
     }
 
     @Test
-    public void shouldUpdateUsersEntitlement() throws ConnectionException, AzDException {
+    public void shouldUpdateUsersEntitlement() throws AzDException {
         var userId = mem.getUserEntitlements().getMembers().stream()
                 .filter(x -> x.getUser().getDisplayName().equals("test@xmail.com"))
                 .findFirst().get().getId();
@@ -71,7 +70,7 @@ public class MemberEntitlementManagementApiTest {
     }
 
     @Test(expected = AzDException.class)
-    public void shouldDeleteUsersEntitlement() throws ConnectionException, AzDException {
+    public void shouldDeleteUsersEntitlement() throws AzDException {
 //        var userId = mem.getUserEntitlements().getMembers().stream()
 //                .filter(x -> x.getUser().getDisplayName().equals("test@xmail.com"))
 //                .findFirst().get().getId();

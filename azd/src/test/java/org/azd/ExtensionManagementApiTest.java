@@ -2,7 +2,6 @@ package org.azd;
 
 import org.azd.enums.ExtensionStateFlags;
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.ExtensionManagementDetails;
@@ -31,22 +30,22 @@ public class ExtensionManagementApiTest {
     }
 
     @Test
-    public void shouldReturnListOfExtensions() throws ConnectionException, AzDException {
+    public void shouldReturnListOfExtensions() throws AzDException {
         e.getExtensions();
     }
 
     @Test(expected = AzDException.class)
-    public void shouldInstallExtension() throws ConnectionException, AzDException {
+    public void shouldInstallExtension() throws AzDException {
         e.installExtension("publisherId", "extensionId", null);
     }
 
     @Test
-    public void shouldUnInstallExtension() throws ConnectionException, AzDException {
+    public void shouldUnInstallExtension() throws AzDException {
         e.uninstallExtension("publisherId", "extensionId");
     }
 
     @Test(expected = AzDException.class)
-    public void shouldUpdateExtension() throws ConnectionException, AzDException {
+    public void shouldUpdateExtension() throws AzDException {
         e.updateExtension("publisherId", "extensionId", ExtensionStateFlags.NONE);
     }
 }

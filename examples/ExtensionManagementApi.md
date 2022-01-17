@@ -49,7 +49,7 @@ public class Main {
             extensions.getExtensions();
 
         } 
-        catch (ConnectionException | AzDException e1) {
+        catch (AzDException e1) {
             e1.printStackTrace();
         }
     }

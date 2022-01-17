@@ -5,7 +5,6 @@ import org.azd.connection.Connection;
 import org.azd.enums.PullRequestStatus;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.ConnectionException;
 import org.azd.git.types.*;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.GitDetails;
@@ -37,13 +36,11 @@ public class GitApi implements GitDetails {
      * Create a git repository in a team project.
      * @param repositoryName Name of the repository
      * @param projectId id of the project
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return git repository object {@link Repository}
      */
     @Override
-    public Repository createRepository(String repositoryName, String projectId) throws ConnectionException, AzDException {
+    public Repository createRepository(String repositoryName, String projectId) throws AzDException {
 
         LinkedHashMap<String, Object> h = new LinkedHashMap<>(){{
             put("name", repositoryName);
@@ -59,17 +56,15 @@ public class GitApi implements GitDetails {
     /***
      * Delete a git repository
      * @param repositoryId pass the repository id
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteRepository(String repositoryId) throws ConnectionException, AzDException {
+    public void deleteRepository(String repositoryId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, GIT, CONNECTION.getProject(),
                     AREA + "/repositories", repositoryId, null, ApiVersion.GIT, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
-        } catch (ConnectionException | AzDException e) {
+        } catch (AzDException e) {
             throw e;
         }
     }
@@ -77,30 +72,26 @@ public class GitApi implements GitDetails {
     /***
      * Destroy (hard delete) a soft-deleted Git repository.
      * @param repositoryId pass the repository id
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteRepositoryFromRecycleBin(String repositoryId) throws ConnectionException, AzDException {
+    public void deleteRepositoryFromRecycleBin(String repositoryId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, GIT, CONNECTION.getProject(),
                     AREA + "/recycleBin/repositories", repositoryId, null, ApiVersion.GIT, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
-        } catch (ConnectionException | AzDException e) {
+        } catch (AzDException e) {
             throw e;
         }
     }
 
     /***
      * Retrieve deleted git repositories.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return Git deleted repository object
      */
     @Override
-    public GitDeletedRepositories getDeletedRepositories() throws ConnectionException, AzDException {
+    public GitDeletedRepositories getDeletedRepositories() throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
                         AREA, null, "deletedrepositories", ApiVersion.GIT, null, null);
@@ -110,13 +101,11 @@ public class GitApi implements GitDetails {
 
     /***
      * Retrieve soft-deleted git repositories from the recycle bin.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return array of git deleted recycle bin repositories
      */
     @Override
-    public GitDeletedRepositories getRecycleBinRepositories() throws ConnectionException, AzDException {
+    public GitDeletedRepositories getRecycleBinRepositories() throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
                         AREA, null, "recycleBin/repositories", ApiVersion.GIT, null, null);
@@ -127,13 +116,11 @@ public class GitApi implements GitDetails {
     /***
      * Retrieve a git repository.
      * @param repositoryName pass the repository name
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return git repository object
      */
     @Override
-    public Repository getRepository(String repositoryName) throws ConnectionException, AzDException {
+    public Repository getRepository(String repositoryName) throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
                         AREA + "/repositories", repositoryName, null, ApiVersion.GIT, null, null);
@@ -143,13 +130,11 @@ public class GitApi implements GitDetails {
 
     /***
      * Retrieve git repositories.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return array of git repositories
      */
     @Override
-    public Repositories getRepositories() throws ConnectionException, AzDException {
+    public Repositories getRepositories() throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
                         AREA, null, "repositories", ApiVersion.GIT, null, null);
@@ -162,13 +147,11 @@ public class GitApi implements GitDetails {
      * Recently deleted repositories go into a soft-delete state for a period of time before they are hard deleted and become unrecoverable.
      * @param repositoryId pass the repository id
      * @param deleted Setting to false will undo earlier deletion and restore the repository.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return object of git repository
      */
     @Override
-    public Repository restoreRepositoryFromRecycleBin(String repositoryId, boolean deleted) throws ConnectionException, AzDException {
+    public Repository restoreRepositoryFromRecycleBin(String repositoryId, boolean deleted) throws AzDException {
 
         HashMap<String, Object> h = new HashMap<>(){{
             put("deleted", deleted);
@@ -185,13 +168,11 @@ public class GitApi implements GitDetails {
      * @param repositoryId provide the repository id
      * @param repositoryName pass the repository name to rename
      * @param defaultBranchName pass the default branch name to set
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return repository object
      */
     @Override
-    public Repository updateRepository(String repositoryId, String repositoryName, String defaultBranchName) throws ConnectionException, AzDException {
+    public Repository updateRepository(String repositoryId, String repositoryName, String defaultBranchName) throws AzDException {
 
         HashMap<String, Object> h = new HashMap<>(){{
             put("name", repositoryName);
@@ -212,15 +193,13 @@ public class GitApi implements GitDetails {
      * @param title The title of the pull request.
      * @param description The description of the pull request.
      * @param reviewers A list of reviewers on the pull request along with the state of their votes.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return an object of git pull request {@link PullRequest}
      */
     @Override
     public PullRequest createPullRequest(
             String repositoryId, String sourceRefName, String targetRefName,
-            String title, String description, String[] reviewers) throws ConnectionException, AzDException {
+            String title, String description, String[] reviewers) throws AzDException {
 
         List<Object> o = new ArrayList<>();
 
@@ -252,13 +231,11 @@ public class GitApi implements GitDetails {
      * @param description The description of the pull request.
      * @param isDraft if set to true the pull request will be in draft mode.
      * @return an object of git pull request {@link PullRequest}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public PullRequest createPullRequest(String repositoryId, String sourceRefName, String targetRefName, String title,
-                                         String description, boolean isDraft) throws ConnectionException, AzDException {
+                                         String description, boolean isDraft) throws AzDException {
 
         String referenceHead = "refs/heads/";
         var sourceBranch = sourceRefName.contains(referenceHead) ? sourceRefName : referenceHead + sourceRefName;
@@ -282,13 +259,11 @@ public class GitApi implements GitDetails {
      * Retrieve a pull request.
      * @param repositoryName The repository name of the pull request's target branch.
      * @param pullRequestId The ID of the pull request to retrieve.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return {@link PullRequest} object
      */
     @Override
-    public PullRequest getPullRequest(String repositoryName, int pullRequestId) throws ConnectionException, AzDException {
+    public PullRequest getPullRequest(String repositoryName, int pullRequestId) throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
                 AREA + "/repositories", repositoryName, "pullrequests/" + pullRequestId, ApiVersion.GIT, null,null);
@@ -299,13 +274,11 @@ public class GitApi implements GitDetails {
     /***
      * Retrieve a pull request.
      * @param pullRequestId The ID of the pull request to retrieve.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return {@link PullRequest} object
      */
     @Override
-    public PullRequest getPullRequestById(int pullRequestId) throws ConnectionException, AzDException {
+    public PullRequest getPullRequestById(int pullRequestId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
                 AREA + "/pullrequests", Integer.toString(pullRequestId), null, ApiVersion.GIT, null,null);
 
@@ -316,13 +289,11 @@ public class GitApi implements GitDetails {
     /***
      * Retrieve all pull requests from a repository
      * @param repositoryName specify the repository name
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return {@link PullRequest} object
      */
     @Override
-    public PullRequests getPullRequests(String repositoryName) throws ConnectionException, AzDException {
+    public PullRequests getPullRequests(String repositoryName) throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
                 AREA + "/repositories", repositoryName, "pullrequests", ApiVersion.GIT, null,null);
@@ -333,13 +304,11 @@ public class GitApi implements GitDetails {
     /***
      * Gets all pull requests from a project. To get the pull requests from non-default project you have to call setProject
      * method from {@link Connection}.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return {@link PullRequest} object
      */
     @Override
-    public PullRequests getPullRequestsByProject() throws ConnectionException, AzDException {
+    public PullRequests getPullRequestsByProject() throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
                 AREA, null, "pullrequests", ApiVersion.GIT, null,null);
@@ -352,12 +321,10 @@ public class GitApi implements GitDetails {
      * method from {@link Connection}.
      * @param top The number of pull requests to retrieve.
      * @return {@link PullRequest} PullRequest
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public PullRequests getPullRequestsByProject(int top) throws ConnectionException, AzDException {
+    public PullRequests getPullRequestsByProject(int top) throws AzDException {
         var q = new HashMap<String, Object>(){{
             put("$top", top);
         }};
@@ -373,12 +340,10 @@ public class GitApi implements GitDetails {
      * method from {@link Connection}.
      * @param status If set, search for pull requests that are in this state. Defaults to Active if unset.
      * @return {@link PullRequest} PullRequest
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public PullRequests getPullRequestsByProject(PullRequestStatus status) throws ConnectionException, AzDException {
+    public PullRequests getPullRequestsByProject(PullRequestStatus status) throws AzDException {
         var q = new HashMap<String, Object>(){{
             put("searchCriteria.status", status.toString().toLowerCase());
         }};
@@ -403,15 +368,13 @@ public class GitApi implements GitDetails {
      * @param status If set, search for pull requests that are in this state. Defaults to Active if unset.
      * @param targetRefName If set, search for pull requests into this branch.
      * @return {@link PullRequest} PullRequest
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public PullRequests getPullRequestsByProject(int skip, int top, String creatorId,
                                                  boolean includeLinks, String repositoryId, String reviewerId,
                                                  String sourceRefName, String sourceRepositoryId, PullRequestStatus status,
-                                                 String targetRefName) throws ConnectionException, AzDException {
+                                                 String targetRefName) throws AzDException {
         var q = new HashMap<String, Object>(){{
             put("$skip", skip);
             put("$top", top);
@@ -437,12 +400,10 @@ public class GitApi implements GitDetails {
      * @param branchName The name of the branch to lock/unlock
      * @param isLocked true to lock the branch and false to unlock.
      * @return GitRef {@link GitRef}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public GitRef updateBranchLock(String repositoryName, String branchName, boolean isLocked) throws ConnectionException, AzDException {
+    public GitRef updateBranchLock(String repositoryName, String branchName, boolean isLocked) throws AzDException {
         var q = new HashMap<String, Object>(){{
             put("filter", "heads/" + branchName);
         }};
@@ -462,12 +423,10 @@ public class GitApi implements GitDetails {
      * @param pullRequestId ID of the pull request.
      * @param repositoryName ID or name of the repository.
      * @return ResourceRefs {@link ResourceRefs}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public ResourceRefs getPullRequestWorkItems(int pullRequestId, String repositoryName) throws ConnectionException, AzDException {
+    public ResourceRefs getPullRequestWorkItems(int pullRequestId, String repositoryName) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
                 AREA + "/repositories", repositoryName, "pullRequests/" + pullRequestId + "/workitems", ApiVersion.GIT, null, null);
 
@@ -480,13 +439,11 @@ public class GitApi implements GitDetails {
      * @param pullRequestId ID of the pull request.
      * @param labelName tag/label name
      * @return WebApi tag object {@link WebApiTagDefinition}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public WebApiTagDefinition createPullRequestLabel(String repositoryName, int pullRequestId, String labelName)
-            throws ConnectionException, AzDException {
+            throws AzDException {
 
         var b = new HashMap<String, Object>(){{
             put("name", labelName);
@@ -503,18 +460,16 @@ public class GitApi implements GitDetails {
      * @param repositoryName The repository name of the pull request’s target branch.
      * @param pullRequestId ID of the pull request.
      * @param labelName tag/label name
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deletePullRequestLabel(String repositoryName, int pullRequestId, String labelName) throws ConnectionException, AzDException {
+    public void deletePullRequestLabel(String repositoryName, int pullRequestId, String labelName) throws AzDException {
         try {
             String resource = "pullrequests/" + pullRequestId + "/labels/" + labelName;
             String r = send(RequestMethod.DELETE, CONNECTION, GIT, CONNECTION.getProject(),
                 AREA + "/repositories", repositoryName, resource, ApiVersion.GIT, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
-        } catch (ConnectionException | AzDException e) {
+        } catch (AzDException e) {
             throw e;
         }
     }
@@ -525,13 +480,11 @@ public class GitApi implements GitDetails {
      * @param pullRequestId ID of the pull request.
      * @param labelName tag/label name
      * @return WebApi tag object {@link WebApiTagDefinition}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public WebApiTagDefinition getPullRequestLabel(String repositoryName, int pullRequestId, String labelName)
-            throws ConnectionException, AzDException {
+            throws AzDException {
         String resource = "pullrequests/" + pullRequestId + "/labels/" + labelName;
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
                 AREA + "/repositories", repositoryName, resource, ApiVersion.GIT, null, null);
@@ -544,12 +497,10 @@ public class GitApi implements GitDetails {
      * @param repositoryName The repository name of the pull request’s target branch.
      * @param pullRequestId ID of the pull request.
      * @return List of WebApi tag object {@link WebApiTagDefinitions}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public WebApiTagDefinitions getPullRequestLabels(String repositoryName, int pullRequestId) throws ConnectionException, AzDException {
+    public WebApiTagDefinitions getPullRequestLabels(String repositoryName, int pullRequestId) throws AzDException {
         String resource = "pullrequests/" + pullRequestId + "/labels";
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
                 AREA + "/repositories", repositoryName, resource, ApiVersion.GIT, null, null);
@@ -565,13 +516,11 @@ public class GitApi implements GitDetails {
      * @param vote Vote on a pull request: 10 - approved 5 - approved with suggestions 0 - no vote -5 - waiting for author -10 - rejected
      * @param isRequired Indicates if this is a required reviewer for this pull request.
      * @return PullRequestReviewer {@link PullRequestReviewer}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public PullRequestReviewer createPullRequestReviewer(int pullRequestId, String repositoryName,
-                                                         String reviewerId, int vote, boolean isRequired) throws ConnectionException, AzDException {
+                                                         String reviewerId, int vote, boolean isRequired) throws AzDException {
         var b = new HashMap<String, Object>(){{
             put("vote", vote);
             put("id", reviewerId);
@@ -590,19 +539,17 @@ public class GitApi implements GitDetails {
      * @param pullRequestId ID of the pull request.
      * @param repositoryName The repository name of the pull request's target branch.
      * @param reviewerId ID of the reviewer.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deletePullRequestReviewer(int pullRequestId, String repositoryName, String reviewerId) throws ConnectionException, AzDException {
+    public void deletePullRequestReviewer(int pullRequestId, String repositoryName, String reviewerId) throws AzDException {
         try {
             String id = repositoryName + "/pullrequests/" + pullRequestId + "/reviewers/" + reviewerId;
 
             String r = send(RequestMethod.DELETE, CONNECTION, GIT, CONNECTION.getProject(),
                     AREA + "/repositories", id, null, ApiVersion.GIT, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
-        } catch (ConnectionException | AzDException e) {
+        } catch (AzDException e) {
             throw e;
         }
     }
@@ -613,13 +560,11 @@ public class GitApi implements GitDetails {
      * @param repositoryName The repository name of the pull request's target branch.
      * @param reviewerId ID of the reviewer.
      * @return PullRequestReviewer {@link PullRequestReviewer}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public PullRequestReviewer getPullRequestReviewer(int pullRequestId, String repositoryName, String reviewerId)
-            throws ConnectionException, AzDException {
+            throws AzDException {
         String id = repositoryName + "/pullrequests/" + pullRequestId + "/reviewers/" + reviewerId;
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
@@ -633,12 +578,10 @@ public class GitApi implements GitDetails {
      * @param pullRequestId ID of the pull request.
      * @param repositoryName The repository name of the pull request's target branch.
      * @return List of PullRequestReviewer {@link PullRequestReviewers}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public PullRequestReviewers getPullRequestReviewers(int pullRequestId, String repositoryName) throws ConnectionException, AzDException {
+    public PullRequestReviewers getPullRequestReviewers(int pullRequestId, String repositoryName) throws AzDException {
         String id = repositoryName + "/pullrequests/" + pullRequestId + "/reviewers";
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
@@ -655,14 +598,12 @@ public class GitApi implements GitDetails {
      * @param isFlagged Indicates if this reviewer is flagged for attention on this pull request.
      * @param hasDeclined Indicates if this reviewer has declined to review this pull request.
      * @return PullRequestReviewer {@link PullRequestReviewer}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public PullRequestReviewer updatePullRequestReviewer(int pullRequestId, String repositoryName,
                                                          String reviewerId, boolean isFlagged, boolean hasDeclined)
-            throws ConnectionException, AzDException {
+            throws AzDException {
         var b = new HashMap<String, Object>(){{
             put("isFlagged", isFlagged);
             put("hasDeclined", hasDeclined);

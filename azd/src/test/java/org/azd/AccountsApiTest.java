@@ -1,7 +1,6 @@
 package org.azd;
 
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AccountsDetails;
 import org.azd.interfaces.AzDClient;
@@ -32,7 +31,7 @@ public class AccountsApiTest {
     }
 
     @Test
-    public void shouldGetAccounts() throws ConnectionException, AzDException {
+    public void shouldGetAccounts() throws AzDException {
         var uId = mem
                 .getUserEntitlements()
                 .getMembers()
@@ -46,17 +45,17 @@ public class AccountsApiTest {
     }
 
     @Test
-    public void shouldGetAllAccessibleOrganizations() throws ConnectionException, AzDException {
+    public void shouldGetAllAccessibleOrganizations() throws AzDException {
         a.getOrganizations();
     }
 
     @Test
-    public void shouldGetAUserProfile() throws ConnectionException, AzDException {
+    public void shouldGetAUserProfile() throws AzDException {
         a.getProfile();
     }
 
     @Test
-    public void shouldGetAUserProfileWithId() throws ConnectionException, AzDException {
+    public void shouldGetAUserProfileWithId() throws AzDException {
         a.getProfile(a.getProfile().getId());
     }
 }

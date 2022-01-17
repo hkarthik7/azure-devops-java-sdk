@@ -4,8 +4,8 @@ import org.azd.build.types.*;
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
 import org.azd.enums.RequestMethod;
+import org.azd.enums.StageUpdateType;
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.BuildDetails;
 
@@ -37,17 +37,15 @@ public class BuildApi implements BuildDetails {
     /***
      * Deletes a build.
      * @param buildId pass the build id to delete
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteBuild(int buildId) throws ConnectionException, AzDException {
+    public void deleteBuild(int buildId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, BUILD, CONNECTION.getProject(),
                     AREA + "/builds", Integer.toString(buildId), null, ApiVersion.BUILD, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
-        } catch (ConnectionException | AzDException e) {
+        } catch (AzDException e) {
             throw e;
         }
     }
@@ -55,13 +53,11 @@ public class BuildApi implements BuildDetails {
     /***
      * Gets a build
      * @param buildId pass the build id
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return a build object {@link Build}
      */
     @Override
-    public Build getBuild(int buildId) throws ConnectionException, AzDException {
+    public Build getBuild(int buildId) throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
                         AREA + "/builds", Integer.toString(buildId), null, ApiVersion.BUILD, null, null);
@@ -72,13 +68,11 @@ public class BuildApi implements BuildDetails {
     /***
      * Gets the changes associated with a build
      * @param buildId pass the build id
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return the object of build changes
      */
     @Override
-    public BuildChanges getBuildChanges(int buildId) throws ConnectionException, AzDException {
+    public BuildChanges getBuildChanges(int buildId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
                 AREA + "/builds", Integer.toString(buildId), "changes", ApiVersion.BUILD_CHANGES,null, null);
 
@@ -91,14 +85,12 @@ public class BuildApi implements BuildDetails {
      * @param top The maximum number of changes to return
      * @param continuationToken pass the continuation token
      * @param includeSourceChange if set to true gets the source changes
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return the object of build changes
      */
     @Override
     public BuildChanges getBuildChanges(
-            int buildId, int top, String continuationToken, boolean includeSourceChange) throws ConnectionException, AzDException {
+            int buildId, int top, String continuationToken, boolean includeSourceChange) throws AzDException {
 
         HashMap<String, Object> q = new HashMap<>() {{
             put("$top", top);
@@ -115,13 +107,11 @@ public class BuildApi implements BuildDetails {
      * Gets an individual log file for a build.
      * @param buildId pass the build id
      * @param logId pass the log id
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return logs associated with the build for given id
      */
     @Override
-    public String getBuildLog(int buildId, int logId) throws ConnectionException, AzDException {
+    public String getBuildLog(int buildId, int logId) throws AzDException {
         return send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
                 AREA + "/builds", Integer.toString(buildId), "logs/" + logId, ApiVersion.BUILD_LOGS, null, null, "text");
     }
@@ -132,13 +122,11 @@ public class BuildApi implements BuildDetails {
      * @param logId pass the log id
      * @param startLine pass the line number from log which you need to fetch
      * @param endLine pass till which line number you need to fetch from the log
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return logs associated with the build for given id
      */
     @Override
-    public String getBuildLog(int buildId, int logId, long startLine, long endLine) throws ConnectionException, AzDException {
+    public String getBuildLog(int buildId, int logId, long startLine, long endLine) throws AzDException {
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("startLine", startLine);
@@ -152,13 +140,11 @@ public class BuildApi implements BuildDetails {
     /***
      * Gets the logs for a build.
      * @param buildId pass the build id
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return the object of build logs with id. This can be used to fetch the particular log with id
      */
     @Override
-    public BuildLogs getBuildLogs(int buildId) throws ConnectionException, AzDException {
+    public BuildLogs getBuildLogs(int buildId) throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
                 AREA + "/builds", Integer.toString(buildId),"logs", ApiVersion.BUILD_LOGS,null,null);
@@ -169,13 +155,11 @@ public class BuildApi implements BuildDetails {
     /***
      * Gets the work items associated with a build.
      * @param buildId The ID of the build.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return an array of work items associated with the build
      */
     @Override
-    public BuildWorkItems getBuildWorkItems(int buildId) throws ConnectionException, AzDException {
+    public BuildWorkItems getBuildWorkItems(int buildId) throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
                         AREA + "/builds", Integer.toString(buildId), "workitems", ApiVersion.BUILD_WORK_ITEMS,null,null);
@@ -187,13 +171,11 @@ public class BuildApi implements BuildDetails {
      * Gets the work items associated with a build.
      * @param buildId id of the build
      * @param top specify how many top work items to return
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return an array of work items associated with the build
      */
     @Override
-    public BuildWorkItems getBuildWorkItems(int buildId, int top) throws ConnectionException, AzDException {
+    public BuildWorkItems getBuildWorkItems(int buildId, int top) throws AzDException {
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("$top", top);
@@ -210,13 +192,11 @@ public class BuildApi implements BuildDetails {
      * @param fromBuildId The ID of the first build.
      * @param toBuildId The ID of the last build.
      * @param top The maximum number of changes to return.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return an array of changes between the builds
      */
     @Override
-    public BuildChanges getChangesBetweenBuilds(int fromBuildId, int toBuildId, int top) throws ConnectionException, AzDException {
+    public BuildChanges getChangesBetweenBuilds(int fromBuildId, int toBuildId, int top) throws AzDException {
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("$top", top);
@@ -235,13 +215,11 @@ public class BuildApi implements BuildDetails {
      * @param fromBuildId The ID of the first build.
      * @param toBuildId The ID of the last build.
      * @param top The maximum number of changes to return.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return an array of workitems between the builds
      */
     @Override
-    public BuildWorkItems getWorkItemsBetweenBuilds(int fromBuildId, int toBuildId, int top) throws ConnectionException, AzDException {
+    public BuildWorkItems getWorkItemsBetweenBuilds(int fromBuildId, int toBuildId, int top) throws AzDException {
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("$top", top);
@@ -257,13 +235,11 @@ public class BuildApi implements BuildDetails {
 
     /***
      * Gets a list of builds.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return a build array {@link Builds}
      */
     @Override
-    public Builds getBuilds() throws ConnectionException, AzDException {
+    public Builds getBuilds() throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
                 AREA + "/builds",null,null, ApiVersion.BUILD,null,null);
@@ -274,13 +250,11 @@ public class BuildApi implements BuildDetails {
     /***
      * Gets a list of builds.
      * @param buildIds array of build ids
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return an array of build
      */
     @Override
-    public Builds getBuilds(int[] buildIds) throws ConnectionException, AzDException {
+    public Builds getBuilds(int[] buildIds) throws AzDException {
 
         String ids = Arrays.stream(buildIds).mapToObj(String::valueOf).collect(Collectors.joining(","));
 
@@ -297,13 +271,11 @@ public class BuildApi implements BuildDetails {
     /***
      * Gets a list of builds.
      * @param top specify how many builds to retrieve
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return an array of build
      */
     @Override
-    public Builds getBuilds(int top) throws ConnectionException, AzDException {
+    public Builds getBuilds(int top) throws AzDException {
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("$top", top);
@@ -336,8 +308,6 @@ public class BuildApi implements BuildDetails {
      * @param resultFilter If specified, filters to builds that match this result.
      * @param statusFilter If specified, filters to builds that match this status.
      * @param tagFilters A comma-delimited list of tags. If specified, filters to builds that have the specified tags.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return an array of build
      */
@@ -347,7 +317,7 @@ public class BuildApi implements BuildDetails {
             String deletedFilter, int maxBuildsPerDefinition, String maxTime, String minTime,
             String[] properties, String queryOrder, int[] queues, String reasonFilter,
             String repositoryId, String repositoryType, String requestedFor, String resultFilter,
-            String statusFilter, String tagFilters) throws ConnectionException, AzDException {
+            String statusFilter, String tagFilters) throws AzDException {
 
             String ids = (definitions != null) ? Arrays.stream(definitions).mapToObj(String::valueOf).collect(Collectors.joining(",")) : null;
             String queueIds = (queues != null) ? Arrays.stream(queues).mapToObj(String::valueOf).collect(Collectors.joining(",")) : null;
@@ -383,13 +353,11 @@ public class BuildApi implements BuildDetails {
     /***
      * Queues a build
      * @param definitionId pass the pipeline id to queue the build
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return a build object {@link Build}
      */
     @Override
-    public Build queueBuild(int definitionId) throws ConnectionException, AzDException {
+    public Build queueBuild(int definitionId) throws AzDException {
 
         HashMap<String, Object> q = new HashMap<>() {{
             put("definitionId", String.valueOf(definitionId));
@@ -404,13 +372,11 @@ public class BuildApi implements BuildDetails {
     /***
      * Queues a build
      * @param buildParameters dictionary of parameters to queue the build.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return a build object {@link Build}
      */
     @Override
-    public Build queueBuild(HashMap<String, Object> buildParameters) throws ConnectionException, AzDException {
+    public Build queueBuild(HashMap<String, Object> buildParameters) throws AzDException {
 
         String r = send(RequestMethod.POST, CONNECTION, BUILD, CONNECTION.getProject(),
                         AREA + "/builds", null,null, ApiVersion.BUILD,null, buildParameters);
@@ -420,13 +386,11 @@ public class BuildApi implements BuildDetails {
 
     /***
      * Gets controllers
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return array of build controller {@link BuildControllers}
      */
     @Override
-    public BuildControllers getBuildControllers() throws ConnectionException, AzDException {
+    public BuildControllers getBuildControllers() throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD,null,
                         AREA,null,"controllers", ApiVersion.BUILD_CONTROLLERS,null,null);
@@ -437,13 +401,11 @@ public class BuildApi implements BuildDetails {
     /***
      * Gets controller, optionally filtered by name
      * @param name pass the controller name
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return array of build controller {@link BuildControllers}
      */
     @Override
-    public BuildControllers getBuildControllers(String name) throws ConnectionException, AzDException {
+    public BuildControllers getBuildControllers(String name) throws AzDException {
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("name", name);
@@ -458,13 +420,11 @@ public class BuildApi implements BuildDetails {
     /***
      * Gets a controller
      * @param controllerId pass the controller id
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return build controller {@link BuildController}
      */
     @Override
-    public BuildController getBuildController(int controllerId) throws ConnectionException, AzDException {
+    public BuildController getBuildController(int controllerId) throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD,null,
                 AREA + "/controllers", Integer.toString(controllerId),null, ApiVersion.BUILD_CONTROLLERS,null,null);
@@ -475,13 +435,11 @@ public class BuildApi implements BuildDetails {
     /***
      * Creates a new definition.
      * @param buildDefinitionParameters json string of the build pipeline. Export the build definition from existing pipeline and edit it.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return build definition {@link BuildDefinition}
      */
     @Override
-    public BuildDefinition createBuildDefinition(String buildDefinitionParameters) throws ConnectionException, AzDException {
+    public BuildDefinition createBuildDefinition(String buildDefinitionParameters) throws AzDException {
 
         if (buildDefinitionParameters.isEmpty()) throw new AzDException();
 
@@ -498,12 +456,10 @@ public class BuildApi implements BuildDetails {
      * @param definitionName Name of the build definition/pipeline. E.g., WebApp-Deployment-CI
      * @param definitionCloneName Name of the pipeline/definition to be created or cloned. E.g., WebApp-Deployment-CI-Copy
      * @return build definition {@link BuildDefinition}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public BuildDefinition cloneBuildDefinition(String definitionName, String definitionCloneName) throws ConnectionException, AzDException {
+    public BuildDefinition cloneBuildDefinition(String definitionName, String definitionCloneName) throws AzDException {
         // validate if the definition exists
         int def;
 
@@ -532,17 +488,15 @@ public class BuildApi implements BuildDetails {
     /***
      * Deletes a definition and all associated builds.
      * @param definitionId pass the definition id
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteBuildDefinition(int definitionId) throws ConnectionException, AzDException {
+    public void deleteBuildDefinition(int definitionId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, BUILD, CONNECTION.getProject(),
                     AREA + "/definitions", Integer.toString(definitionId),null, ApiVersion.BUILD_DEFINITIONS,null,null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
-        } catch (ConnectionException | AzDException e) {
+        } catch (AzDException e) {
             throw e;
         }
     }
@@ -550,13 +504,11 @@ public class BuildApi implements BuildDetails {
     /***
      * Gets a definition
      * @param definitionId pass the definition id
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return build definition {@link BuildDefinition}
      */
     @Override
-    public BuildDefinition getBuildDefinition(int definitionId) throws ConnectionException, AzDException {
+    public BuildDefinition getBuildDefinition(int definitionId) throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
                         AREA + "/definitions", Integer.toString(definitionId),null, ApiVersion.BUILD_DEFINITIONS,null,null);
@@ -570,14 +522,12 @@ public class BuildApi implements BuildDetails {
      * @param includeLatestBuilds if specified gets the details of latest build
      * @param minMetricsTime If specified, indicates the date from which metrics should be included.
      * @param revision The revision number to retrieve. If this is not specified, the latest version will be returned.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return Build definition object
      */
     @Override
     public BuildDefinition getBuildDefinition(
-            int definitionId, boolean includeLatestBuilds, String minMetricsTime, int revision) throws ConnectionException, AzDException {
+            int definitionId, boolean includeLatestBuilds, String minMetricsTime, int revision) throws AzDException {
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("includeLatestBuilds", includeLatestBuilds);
@@ -594,13 +544,11 @@ public class BuildApi implements BuildDetails {
     /***
      * Gets all revisions of a definition.
      * @param definitionId The ID of the definition.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return array of build definition revisions {@link BuildDefinitionRevision}
      */
     @Override
-    public BuildDefinitionRevisions getBuildDefinitionRevisions(int definitionId) throws ConnectionException, AzDException {
+    public BuildDefinitionRevisions getBuildDefinitionRevisions(int definitionId) throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
                 AREA + "/definitions", Integer.toString(definitionId),"revisions", ApiVersion.BUILD_DEFINITION_REVISIONS,null,null);
@@ -610,13 +558,11 @@ public class BuildApi implements BuildDetails {
 
     /***
      * Gets a list of definitions.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return build definitions {@link BuildDefinitions}
      */
     @Override
-    public BuildDefinitions getBuildDefinitions() throws ConnectionException, AzDException {
+    public BuildDefinitions getBuildDefinitions() throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
                 AREA + "/definitions",null,null, ApiVersion.BUILD_DEFINITIONS,null,null);
@@ -627,13 +573,11 @@ public class BuildApi implements BuildDetails {
     /***
      * Gets a list of definitions.
      * @param definitionIds array of definition ids
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return build definitions {@link BuildDefinitions}
      */
     @Override
-    public BuildDefinitions getBuildDefinitions(int[] definitionIds) throws ConnectionException, AzDException {
+    public BuildDefinitions getBuildDefinitions(int[] definitionIds) throws AzDException {
 
         String ids = Arrays.stream(definitionIds).mapToObj(String::valueOf).collect(Collectors.joining(","));
 
@@ -650,13 +594,11 @@ public class BuildApi implements BuildDetails {
     /***
      * Gets a list of definitions.
      * @param top definitions to retrieve
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return build definitions {@link BuildDefinitions}
      */
     @Override
-    public BuildDefinitions getBuildDefinitions(int top) throws ConnectionException, AzDException {
+    public BuildDefinitions getBuildDefinitions(int top) throws AzDException {
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("$top", top);
@@ -671,13 +613,11 @@ public class BuildApi implements BuildDetails {
     /***
      * Gets a list of definitions.
      * @param name Name of the build definition
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return build definitions {@link BuildDefinitions}
      */
     @Override
-    public BuildDefinitions getBuildDefinitions(String name) throws ConnectionException, AzDException {
+    public BuildDefinitions getBuildDefinitions(String name) throws AzDException {
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("name", name);
@@ -704,8 +644,6 @@ public class BuildApi implements BuildDetails {
      * @param repositoryType If specified, filters to definitions that have a repository of this type.
      * @param taskIdFilter If specified, filters to definitions that use the specified task.
      * @param yamlFilename If specified, filters to YAML definitions that match the given filename.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return build definitions {@link BuildDefinitions}
      */
@@ -714,7 +652,7 @@ public class BuildApi implements BuildDetails {
             String builtAfter, String continuationToken, boolean includeAllProperties,
             boolean includeLatestBuilds, String minMetricsTime, String notBuiltAfter,
             String path, int processType, String queryOrder, String repositoryId,
-            String repositoryType, String taskIdFilter, String yamlFilename) throws ConnectionException, AzDException {
+            String repositoryType, String taskIdFilter, String yamlFilename) throws AzDException {
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("builtAfter", builtAfter);
@@ -742,13 +680,11 @@ public class BuildApi implements BuildDetails {
      * Restores a deleted definition
      * @param definitionId pass the build definition id
      * @param deleted When false, restores a deleted definition.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      * @return a {@link BuildDefinition} object
      */
     @Override
-    public BuildDefinition restoreBuildDefinition(int definitionId, boolean deleted) throws ConnectionException, AzDException {
+    public BuildDefinition restoreBuildDefinition(int definitionId, boolean deleted) throws AzDException {
 
         HashMap<String, Object> q = new HashMap<>(){{
             put("deleted", deleted);
@@ -765,12 +701,10 @@ public class BuildApi implements BuildDetails {
      * @param buildId The ID of the build.
      * @param tag The tag to add.
      * @return Sting array of tags {@link BuildTags}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public BuildTags addBuildTag(int buildId, String tag) throws ConnectionException, AzDException {
+    public BuildTags addBuildTag(int buildId, String tag) throws AzDException {
         String r = send(RequestMethod.PUT, CONNECTION, BUILD, CONNECTION.getProject(),
                 AREA + "/builds", Integer.toString(buildId),"tags/" + tag, ApiVersion.BUILD_TAGS, null,null);
 
@@ -782,12 +716,10 @@ public class BuildApi implements BuildDetails {
      * @param buildId The ID of the build.
      * @param tags The tags to add.
      * @return Sting array of tags {@link BuildTags}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public BuildTags addBuildTags(int buildId, String[] tags) throws ConnectionException, AzDException {
+    public BuildTags addBuildTags(int buildId, String[] tags) throws AzDException {
         String r = send(RequestMethod.POST, CONNECTION, BUILD, CONNECTION.getProject(),
                 AREA + "/builds", Integer.toString(buildId),"tags", ApiVersion.BUILD_TAGS, null, true, MAPPER.convertToString(tags));
 
@@ -799,12 +731,10 @@ public class BuildApi implements BuildDetails {
      * @param definitionId Id of build definition.
      * @param tag The tag to add.
      * @return Sting array of tags {@link BuildTags}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public BuildTags addDefinitionTag(int definitionId, String tag) throws ConnectionException, AzDException {
+    public BuildTags addDefinitionTag(int definitionId, String tag) throws AzDException {
         String r = send(RequestMethod.PUT, CONNECTION, BUILD, CONNECTION.getProject(),
                 AREA + "/definitions", Integer.toString(definitionId),"tags/" + tag, ApiVersion.BUILD_TAGS, null,null);
 
@@ -816,12 +746,10 @@ public class BuildApi implements BuildDetails {
      * @param definitionId Id of build definition.
      * @param tags The tags to add.
      * @return Sting array of tags {@link BuildTags}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public BuildTags addDefinitionTags(int definitionId, String[] tags) throws ConnectionException, AzDException {
+    public BuildTags addDefinitionTags(int definitionId, String[] tags) throws AzDException {
         String r = send(RequestMethod.POST, CONNECTION, BUILD, CONNECTION.getProject(),
                 AREA + "/definitions", Integer.toString(definitionId),"tags", ApiVersion.BUILD_TAGS, null, true, MAPPER.convertToString(tags));
 
@@ -834,12 +762,10 @@ public class BuildApi implements BuildDetails {
      * @param buildId Id of the build.
      * @param tag The tag to delete.
      * @return Sting array of tags {@link BuildTags}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public BuildTags deleteBuildTag(int buildId, String tag) throws ConnectionException, AzDException {
+    public BuildTags deleteBuildTag(int buildId, String tag) throws AzDException {
         String r = send(RequestMethod.DELETE, CONNECTION, BUILD, CONNECTION.getProject(),
                 AREA + "/builds", Integer.toString(buildId),"tags/" + tag, ApiVersion.BUILD_TAGS, null,null);
 
@@ -852,12 +778,10 @@ public class BuildApi implements BuildDetails {
      * @param definitionId Id of the build definition.
      * @param tag The tag to delete
      * @return Sting array of tags {@link BuildTags}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public BuildTags deleteDefinitionTag(int definitionId, String tag) throws ConnectionException, AzDException {
+    public BuildTags deleteDefinitionTag(int definitionId, String tag) throws AzDException {
         String r = send(RequestMethod.DELETE, CONNECTION, BUILD, CONNECTION.getProject(),
                 AREA + "/definitions", Integer.toString(definitionId),"tags/" + tag, ApiVersion.BUILD_TAGS, null,null);
 
@@ -868,12 +792,10 @@ public class BuildApi implements BuildDetails {
      * Removes a tag from builds, definitions, and from the tag store
      * @param tag The tag to delete.
      * @return Sting array of tags {@link BuildTags}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public BuildTags deleteTag(String tag) throws ConnectionException, AzDException {
+    public BuildTags deleteTag(String tag) throws AzDException {
         String r = send(RequestMethod.DELETE, CONNECTION, BUILD, CONNECTION.getProject(),
                 AREA, null,"tags/" + tag, ApiVersion.BUILD_TAGS, null,null);
 
@@ -884,12 +806,10 @@ public class BuildApi implements BuildDetails {
      * Gets the tags for a build.
      * @param buildId The ID of the build.
      * @return Sting array of tags {@link BuildTags}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public BuildTags getBuildTags(int buildId) throws ConnectionException, AzDException {
+    public BuildTags getBuildTags(int buildId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
                 AREA + "/builds", Integer.toString(buildId),"tags", ApiVersion.BUILD_TAGS, null,null);
 
@@ -900,12 +820,10 @@ public class BuildApi implements BuildDetails {
      * Gets the tags for a definition.
      * @param definitionId Id of build definition.
      * @return Sting array of tags
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public BuildTags getDefinitionTags(int definitionId) throws ConnectionException, AzDException {
+    public BuildTags getDefinitionTags(int definitionId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
                 AREA + "/definitions", Integer.toString(definitionId),"tags", ApiVersion.BUILD_TAGS, null,null);
 
@@ -917,12 +835,10 @@ public class BuildApi implements BuildDetails {
      * @param definitionId Id of build definition.
      * @param revision The definition revision number. If not specified, uses the latest revision of the definition.
      * @return Sting array of tags {@link BuildTags}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public BuildTags getDefinitionTags(int definitionId, int revision) throws ConnectionException, AzDException {
+    public BuildTags getDefinitionTags(int definitionId, int revision) throws AzDException {
         var q = new HashMap<String, Object>(){{
             put("revision", revision);
         }};
@@ -936,12 +852,10 @@ public class BuildApi implements BuildDetails {
     /***
      * Gets a list of all build tags in the project.
      * @return Sting array of tags {@link BuildTags}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public BuildTags getTags() throws ConnectionException, AzDException {
+    public BuildTags getTags() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
                 AREA, null,"tags", ApiVersion.BUILD_TAGS, null,null);
 
@@ -954,12 +868,10 @@ public class BuildApi implements BuildDetails {
      * @param tags The tags to update.
      * @param toRemove If true removes the tags. Use this to remove tags that has special characters.
      * @return Sting array of tags {@link BuildTags}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public BuildTags updateBuildTags(int buildId, String[] tags, boolean toRemove) throws ConnectionException, AzDException {
+    public BuildTags updateBuildTags(int buildId, String[] tags, boolean toRemove) throws AzDException {
 
         var tagValue = toRemove ? "tagsToRemove" : "tagsToAdd" ;
 
@@ -979,12 +891,10 @@ public class BuildApi implements BuildDetails {
      * @param tags The tags to update.
      * @param toRemove If true removes the tags. Use this to remove tags that has special characters.
      * @return Sting array of tags {@link BuildTags}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public BuildTags updateDefinitionTags(int definitionId, String[] tags, boolean toRemove) throws ConnectionException, AzDException {
+    public BuildTags updateDefinitionTags(int definitionId, String[] tags, boolean toRemove) throws AzDException {
         var tagValue = toRemove ? "tagsToRemove" : "tagsToAdd" ;
 
         var body = new HashMap<String, Object>(){{
@@ -995,5 +905,70 @@ public class BuildApi implements BuildDetails {
                 AREA + "/definitions", Integer.toString(definitionId),"tags", ApiVersion.BUILD_TAGS, null, body);
 
         return MAPPER.mapJsonResponse(r, BuildTags.class);
+    }
+
+    /***
+     * Converts a definition to YAML.
+     * @param definitionId The ID of the definition.
+     * @return Yaml build object {@link YamlBuild}
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public YamlBuild getYaml(int definitionId) throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
+                AREA + "/definitions", Integer.toString(definitionId),"yaml", ApiVersion.BUILD_YAML, null, null);
+
+        return MAPPER.mapJsonResponse(r, YamlBuild.class);
+    }
+
+    /***
+     * Converts a definition to YAML, optionally at a specific revision.
+     * @param definitionId The ID of the definition.
+     * @param includeLatestBuilds if true includes latest builds
+     * @param minMetricsTime If specified, indicates the date from which metrics should be included.
+     * @param propertyFilters A comma-delimited list of properties to include in the results.
+     * @param revision The revision number to retrieve. If this is not specified, the latest version will be returned.
+     * @return Yaml build object {@link YamlBuild}
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public YamlBuild getYaml(int definitionId, boolean includeLatestBuilds, String minMetricsTime,
+                             String[] propertyFilters, int revision) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("includeLatestBuilds", includeLatestBuilds);
+            put("minMetricsTime", minMetricsTime);
+            put("propertyFilters", String.join(",", propertyFilters));
+            put("revision", revision);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
+                AREA + "/definitions", Integer.toString(definitionId),"yaml", ApiVersion.BUILD_YAML, q, null);
+
+        return MAPPER.mapJsonResponse(r, YamlBuild.class);
+    }
+
+    /***
+     * Update a build stage.
+     * @param buildId Id of the build to update the stage.
+     * @param stageReferenceName Name of the stage to update.
+     * @param forceRetryAllJobs if true forcefully retries all jobs.
+     * @param state state to update.
+     * @throws AzDException Default Api Exception handler.  
+     */
+    @Override
+    public void updateBuildStage(int buildId, String stageReferenceName, boolean forceRetryAllJobs, StageUpdateType state)
+            throws AzDException {
+        try {
+            var body = new HashMap<String, Object>(){{
+               put("forceRetryAllJobs", forceRetryAllJobs);
+               put("state", state.toString().toLowerCase());
+            }};
+
+            String r = send(RequestMethod.PATCH, CONNECTION, BUILD, CONNECTION.getProject(),
+                    AREA + "/builds", buildId + "/stages/" + stageReferenceName,null, ApiVersion.BUILD_STAGE,null, body);
+            if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
+        } catch (AzDException e) {
+            throw e;
+        }
     }
 }

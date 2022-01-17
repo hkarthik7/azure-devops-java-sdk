@@ -1,7 +1,6 @@
 package org.azd;
 
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.GraphDetails;
@@ -31,19 +30,19 @@ public class GraphApiTest {
     }
 
     @Test
-    public void shouldGetGraphUsers() throws ConnectionException, AzDException {
+    public void shouldGetGraphUsers() throws AzDException {
         g.getUsers().getUsers();
     }
 
     @Test
-    public void shouldGetAGraphUser() throws ConnectionException, AzDException {
+    public void shouldGetAGraphUser() throws AzDException {
         var user = g.getUsers().getUsers().stream().findFirst().get();
         var descriptor = user.getDescriptor();
         assertEquals(descriptor, g.getUser(descriptor).getDescriptor());
     }
 
     @Test
-    public void shouldCreateAGraphUsers() throws ConnectionException, AzDException {
+    public void shouldCreateAGraphUsers() throws AzDException {
         var user = g.getUsers().getUsers().stream().findFirst().get();
         var descriptor = user.getDescriptor();
         var emailId = "test@gmail.com";
@@ -51,27 +50,27 @@ public class GraphApiTest {
     }
 
     @Test
-    public void shouldGetGraphGroups() throws ConnectionException, AzDException {
+    public void shouldGetGraphGroups() throws AzDException {
         var group = g.getGroups().getGraphGroups().stream().filter(x -> x.getDisplayName().equals("Contributors")).findFirst().get();
         var expectedValue = "Contributors";
         assertEquals(expectedValue, group.getDisplayName());
     }
 
     @Test
-    public void shouldGetAGraphGroup() throws ConnectionException, AzDException {
+    public void shouldGetAGraphGroup() throws AzDException {
         var group = g.getGroups().getGraphGroups().stream().filter(x -> x.getDisplayName().equals("Contributors")).findFirst().get();
         g.getGroup(group.getDescriptor());
     }
 
     @Test
-    public void shouldAddAUserToGroup() throws ConnectionException, AzDException {
+    public void shouldAddAUserToGroup() throws AzDException {
         var group = g.getGroups().getGraphGroups().stream().filter(x -> x.getDisplayName().equals("Contributors")).findFirst().get();
         var emailId = "test@gmail.com";
         g.addUserToGroup(emailId, group.getDescriptor());
     }
 
     @Test
-    public void shouldDeleteAUser() throws ConnectionException, AzDException {
+    public void shouldDeleteAUser() throws AzDException {
         var user = g.getUser("msa.YWE3YWY5MzQtYzcxMi03ODliLWJkMDEtZmRhMWQ4NjEzN2Rh");
         g.deleteUser(user.getDescriptor());
     }

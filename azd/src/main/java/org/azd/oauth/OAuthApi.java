@@ -1,7 +1,6 @@
 package org.azd.oauth;
 
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.helpers.URLHelper;
 import org.azd.oauth.types.AuthorizedToken;
@@ -26,7 +25,7 @@ public class OAuthApi {
     static {
         try {
             VSTS_BASE_URL = Client.getLocationUrl(AREA,null);
-        } catch (ConnectionException | AzDException e) {
+        } catch (AzDException e) {
 
         }
     }
@@ -114,11 +113,9 @@ public class OAuthApi {
      * @param authCode URL encoded "code" provided via the code query parameter to your callback URL
      * @param callbackUrl callback URL registered with the app
      * @return AuthorizedToken object {@link AuthorizedToken}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
-    public static AuthorizedToken getRefreshToken(String appSecret, String authCode, String callbackUrl) throws AzDException, ConnectionException {
+    public static AuthorizedToken getRefreshToken(String appSecret, String authCode, String callbackUrl) throws AzDException {
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(VSTS_BASE_URL);

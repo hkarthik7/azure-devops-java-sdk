@@ -4,7 +4,6 @@ import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.ServiceHooksDetails;
 import org.azd.servicehooks.types.ServiceHooksSubscription;
@@ -38,12 +37,10 @@ public class ServiceHooksApi implements ServiceHooksDetails {
      * Get a specific service hooks subscription.
      * @param subscriptionId ID for a subscription.
      * @return ServiceHooksSubscription {@link ServiceHooksSubscription}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public ServiceHooksSubscription getSubscription(String subscriptionId) throws ConnectionException, AzDException {
+    public ServiceHooksSubscription getSubscription(String subscriptionId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, null, null,
                 AREA + "/subscriptions",  subscriptionId, null, ApiVersion.SERVICE_HOOKS, null,null);
 
@@ -53,12 +50,10 @@ public class ServiceHooksApi implements ServiceHooksDetails {
     /***
      * Get a list of subscriptions.
      * @return ServiceHooksSubscriptions {@link ServiceHooksSubscriptions}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public ServiceHooksSubscriptions getSubscriptions() throws ConnectionException, AzDException {
+    public ServiceHooksSubscriptions getSubscriptions() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, null, null,
                 AREA + "/subscriptions",  null, null, ApiVersion.SERVICE_HOOKS, null,null);
 
@@ -72,13 +67,11 @@ public class ServiceHooksApi implements ServiceHooksDetails {
      * @param eventType The event type to filter on (if any).
      * @param publisherId ID for a subscription.
      * @return ServiceHooksSubscriptions {@link ServiceHooksSubscriptions}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public ServiceHooksSubscriptions getSubscriptions(String consumerActionId, String consumerId, String eventType, String publisherId)
-            throws ConnectionException, AzDException {
+            throws AzDException {
         var q = new HashMap<String, Object>(){{
             put("publisherId", publisherId);
             put("eventType", eventType);
@@ -95,17 +88,15 @@ public class ServiceHooksApi implements ServiceHooksDetails {
     /***
      * Delete a specific service hooks subscription.
      * @param subscriptionId ID for a subscription.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteSubscription(String subscriptionId) throws ConnectionException, AzDException {
+    public void deleteSubscription(String subscriptionId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, null, null,
                     AREA + "/subscriptions",  subscriptionId, null, ApiVersion.SERVICE_HOOKS, null,null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
-        } catch (ConnectionException | AzDException e) {
+        } catch (AzDException e) {
             throw e;
         }
     }
@@ -121,8 +112,6 @@ public class ServiceHooksApi implements ServiceHooksDetails {
      * @param consumerInputs Represents the parameter for request body. Specify the consumer inputs.
      *  Reference: https://docs.microsoft.com/en-us/azure/devops/service-hooks/events?view=azure-devops#workitem.created
      * @return ServiceHooksSubscription {@link ServiceHooksSubscription}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
@@ -130,7 +119,7 @@ public class ServiceHooksApi implements ServiceHooksDetails {
                                                        String resourceVersion, String consumerId,
                                                        String consumerActionId, LinkedHashMap<String, Object> publisherInputs,
                                                        LinkedHashMap<String, Object> consumerInputs)
-            throws ConnectionException, AzDException {
+            throws AzDException {
 
         var requestBody = new LinkedHashMap<String, Object>(){{
             put("publisherId", publisherId);

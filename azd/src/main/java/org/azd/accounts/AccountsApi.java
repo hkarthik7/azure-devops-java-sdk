@@ -8,7 +8,6 @@ import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AccountsDetails;
 
@@ -39,12 +38,10 @@ public class AccountsApi implements AccountsDetails {
      * Get a list of accounts for a specific member.
      * @param memberId Specify the member Id. This can be obtained by running getUserEntitlements() from MemberEntitlementManagementApi.
      * @return Accounts object {@link Accounts}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public Accounts getAccounts(String memberId) throws ConnectionException, AzDException {
+    public Accounts getAccounts(String memberId) throws AzDException {
         var q = new HashMap<String, Object>(){{
             put("memberId", memberId);
         }};
@@ -59,12 +56,10 @@ public class AccountsApi implements AccountsDetails {
      * Get the list of organizations that you have access to. Note that while creating and granting access to the personal
      * access token select all organizations to apply the access on all available organizations.
      * @return A list of Organization. {@link Organizations}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public List<Organization> getOrganizations() throws ConnectionException, AzDException {
+    public List<Organization> getOrganizations() throws AzDException {
         var ids = new ArrayList<>();
         ids.add("ms.vss-features.my-organizations-data-provider");
 
@@ -84,12 +79,10 @@ public class AccountsApi implements AccountsDetails {
     /***
      * Gets the logged in user profile.
      * @return a profile object. {@link Profile}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public Profile getProfile() throws ConnectionException, AzDException {
+    public Profile getProfile() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, AREA, null,
                 "/profile/profiles", "me", null, ApiVersion.PROFILE, null, null);
 
@@ -100,12 +93,10 @@ public class AccountsApi implements AccountsDetails {
      * Gets a user profile.
      * @param id pass the user id
      * @return a profile object. {@link Profile}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public Profile getProfile(String id) throws ConnectionException, AzDException {
+    public Profile getProfile(String id) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, AREA, null,
                 "/profile/profiles", id, null, ApiVersion.PROFILE, null, null);
 

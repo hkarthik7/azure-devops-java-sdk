@@ -60,7 +60,7 @@ public class Main {
 
             // get user entitlement summary
             mem.getUserEntitlementSummary();            
-        } catch (AzDException | ConnectionException e) {
+        } catch (AzDException e) {
             e.printStackTrace();
         }
     }

@@ -2,7 +2,6 @@ package org.azd;
 
 import org.azd.enums.PullRequestStatus;
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.ConnectionException;
 import org.azd.git.types.WebApiTagDefinition;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AzDClient;
@@ -31,52 +30,52 @@ public class GitApiTest {
     }
 
     @Test(expected = AzDException.class)
-    public void shouldCreateANewRepository() throws ConnectionException, AzDException {
+    public void shouldCreateANewRepository() throws AzDException {
         g.createRepository("testRepository", "00000000-0000-0000-0000-000000000000");
     }
 
     @Test(expected = AzDException.class)
-    public void shouldDeleteRepository() throws ConnectionException, AzDException {
+    public void shouldDeleteRepository() throws AzDException {
         g.deleteRepository("00000000-0000-0000-0000-000000000000");
     }
 
     @Test(expected = AzDException.class)
-    public void shouldDeleteRepositoryFromRecycleBin() throws ConnectionException, AzDException {
+    public void shouldDeleteRepositoryFromRecycleBin() throws AzDException {
         g.deleteRepositoryFromRecycleBin("00000000-0000-0000-0000-000000000000");
     }
 
     @Test
-    public void shouldGetDeletedGitRepositories() throws ConnectionException, AzDException {
+    public void shouldGetDeletedGitRepositories() throws AzDException {
         g.getDeletedRepositories();
     }
 
     @Test
-    public void shouldGetRecycleBinRepositories() throws ConnectionException, AzDException {
+    public void shouldGetRecycleBinRepositories() throws AzDException {
         g.getRecycleBinRepositories();
     }
 
     @Test
-    public void shouldGetRepository() throws ConnectionException, AzDException {
+    public void shouldGetRepository() throws AzDException {
         g.getRepository("testRepository");
     }
 
     @Test
-    public void shouldGetRepositories() throws ConnectionException, AzDException {
+    public void shouldGetRepositories() throws AzDException {
         g.getRepositories();
     }
 
     @Test(expected = AzDException.class)
-    public void shouldRestoreRepositoryFromRecycleBin() throws ConnectionException, AzDException {
+    public void shouldRestoreRepositoryFromRecycleBin() throws AzDException {
         g.restoreRepositoryFromRecycleBin("00000000-0000-0000-0000-000000000000", false);
     }
 
     @Test(expected = AzDException.class)
-    public void shouldUpdateRepository() throws ConnectionException, AzDException {
+    public void shouldUpdateRepository() throws AzDException {
         g.updateRepository(g.getRepository("newName").getId(), "newRepo", "main");
     }
 
     @Test(expected = AzDException.class)
-    public void shouldCreateANewPullRequest() throws ConnectionException, AzDException {
+    public void shouldCreateANewPullRequest() throws AzDException {
         g.createPullRequest(g.getRepositories().getRepositories().stream().findFirst().get().getId(),
                 "refs/heads/develop", "refs/heads/master", "New feature", "Adding new feature",
                 new String[]{ "d6245f20-2af8-44f4-9451-8107cb2767db" });
@@ -85,79 +84,79 @@ public class GitApiTest {
     // failing the test intentionally. If not this will create many pull requests on each run.
     // To pass the test remove (expected = AzDException.class) and replace targetRefName: master with main.
     @Test(expected = AzDException.class)
-    public void shouldCreateANewPullRequestAsDraft() throws ConnectionException, AzDException {
+    public void shouldCreateANewPullRequestAsDraft() throws AzDException {
         var repoId = g.getRepository("testRepository").getId();
         g.createPullRequest(repoId,"develop", "master", "New feature", "Adding new feature", true);
     }
 
     @Test
-    public void shouldRetrieveAPullRequest() throws ConnectionException, AzDException {
+    public void shouldRetrieveAPullRequest() throws AzDException {
         g.getPullRequest(g.getRepository("testRepository").getName(), 3);
     }
 
     @Test
-    public void shouldRetrieveAPullRequestById() throws ConnectionException, AzDException {
+    public void shouldRetrieveAPullRequestById() throws AzDException {
         g.getPullRequestById(2);
     }
 
     @Test
-    public void shouldRetrieveAllPullRequestsFromARepository() throws ConnectionException, AzDException {
+    public void shouldRetrieveAllPullRequestsFromARepository() throws AzDException {
         g.getPullRequests(g.getRepositories().getRepositories().stream().findFirst().get().getName());
     }
 
     @Test
-    public void shouldGetPullRequestsByProject() throws ConnectionException, AzDException {
+    public void shouldGetPullRequestsByProject() throws AzDException {
         g.getPullRequestsByProject().getPullRequests();
     }
 
     @Test
-    public void shouldGetTopTenPullRequestsByProject() throws ConnectionException, AzDException {
+    public void shouldGetTopTenPullRequestsByProject() throws AzDException {
         g.getPullRequestsByProject(10);
     }
 
     @Test
-    public void shouldGetPullRequestsByProjectWithCompletedStatus() throws ConnectionException, AzDException {
+    public void shouldGetPullRequestsByProjectWithCompletedStatus() throws AzDException {
         g.getPullRequestsByProject(PullRequestStatus.COMPLETED).getPullRequests();
     }
 
     @Test
-    public void shouldLockABranch() throws ConnectionException, AzDException {
+    public void shouldLockABranch() throws AzDException {
         g.updateBranchLock("testRepository", "develop", true);
     }
 
     @Test
-    public void shouldUnLockABranch() throws ConnectionException, AzDException {
+    public void shouldUnLockABranch() throws AzDException {
         g.updateBranchLock("testRepository", "develop", false);
     }
 
     @Test
-    public void shouldGetPullRequestWorkItems() throws ConnectionException, AzDException {
+    public void shouldGetPullRequestWorkItems() throws AzDException {
         var pr = g.getPullRequestById(4);
         g.getPullRequestWorkItems(pr.getPullRequestId(), pr.getRepository().getName());
     }
 
     @Test
-    public void shouldCreateAPullRequestLabel() throws ConnectionException, AzDException {
+    public void shouldCreateAPullRequestLabel() throws AzDException {
         g.createPullRequestLabel("testRepository", 7, "DevOps");
     }
 
     @Test
-    public void shouldGetAPullRequestLabel() throws ConnectionException, AzDException {
+    public void shouldGetAPullRequestLabel() throws AzDException {
         g.getPullRequestLabel("testRepository", 7, "azd");
     }
 
     @Test
-    public void shouldGetPullRequestLabels() throws ConnectionException, AzDException {
+    public void shouldGetPullRequestLabels() throws AzDException {
         g.getPullRequestLabels("testRepository", 7);
     }
 
     @Test
-    public void shouldDeleteAPullRequestLabels() throws ConnectionException, AzDException {
+    public void shouldDeleteAPullRequestLabels() throws AzDException {
         WebApiTagDefinition label = null;
 
         try {
             label = g.getPullRequestLabel("testRepository", 7, "DevOps");
-        } catch (ConnectionException | AzDException ignored) { }
+        } catch (AzDException ignored) { }
 
         if (label.getUrl().isEmpty()) {
             g.createPullRequestLabel("testRepository", 7, "DevOps");
@@ -166,27 +165,27 @@ public class GitApiTest {
     }
 
     @Test
-    public void shouldCreateAPullRequestReviewer() throws ConnectionException, AzDException {
+    public void shouldCreateAPullRequestReviewer() throws AzDException {
         g.createPullRequestReviewer(8, "testRepository", "0e5f1643-a006-67e7-bdb9-20f45e698f9f", 0, false);
     }
 
     @Test(expected = AzDException.class)
-    public void shouldDeleteAPullRequestReviewer() throws ConnectionException, AzDException {
+    public void shouldDeleteAPullRequestReviewer() throws AzDException {
         g.deletePullRequestReviewer(8, "testRepository", "id");
     }
 
     @Test
-    public void shouldGetAPullRequestReviewer() throws ConnectionException, AzDException {
+    public void shouldGetAPullRequestReviewer() throws AzDException {
         g.getPullRequestReviewer(8, "testRepository", "10bb49f0-c425-6735-b8de-71ecf84728d6");
     }
 
     @Test
-    public void shouldGetPullRequestReviewers() throws ConnectionException, AzDException {
+    public void shouldGetPullRequestReviewers() throws AzDException {
         g.getPullRequestReviewers(8, "testRepository");
     }
 
     @Test
-    public void shouldUpdateAPullRequestReviewer() throws ConnectionException, AzDException {
+    public void shouldUpdateAPullRequestReviewer() throws AzDException {
         g.updatePullRequestReviewer(8, "testRepository",
                 "10bb49f0-c425-6735-b8de-71ecf84728d6", true, false);
     }

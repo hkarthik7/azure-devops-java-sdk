@@ -5,7 +5,6 @@ import org.azd.connection.Connection;
 import org.azd.enums.PipelinesExpandOptions;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.ConnectionException;
 import org.azd.git.GitApi;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.PipelinesDetails;
@@ -40,12 +39,10 @@ public class PipelinesApi implements PipelinesDetails {
      * @param runId ID of the run of that pipeline.
      * @param artifactName Name of the artifact.
      * @return PipelinesArtifact object {@link PipelinesArtifact}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public PipelinesArtifact getArtifacts(int pipelineId, int runId, String artifactName) throws ConnectionException, AzDException {
+    public PipelinesArtifact getArtifacts(int pipelineId, int runId, String artifactName) throws AzDException {
         var q = new HashMap<String, Object>(){{
             put("artifactName", artifactName);
         }};
@@ -63,13 +60,11 @@ public class PipelinesApi implements PipelinesDetails {
      * @param artifactName Name of the artifact.
      * @param expandOptions Expand options. Default is None. {@link PipelinesExpandOptions}
      * @return PipelinesArtifact object {@link PipelinesArtifact}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public PipelinesArtifact getArtifacts(int pipelineId, int runId, String artifactName, PipelinesExpandOptions expandOptions)
-            throws ConnectionException, AzDException {
+            throws AzDException {
         var q = new HashMap<String, Object>(){{
             put("artifactName", artifactName);
             put("$expand", expandOptions.toString().toLowerCase());
@@ -87,12 +82,10 @@ public class PipelinesApi implements PipelinesDetails {
      * @param runId ID of the run of that pipeline.
      * @param logId ID of the log.
      * @return PipelineLog object {@link PipelineLog}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public PipelineLog getPipelineLog(int pipelineId, int runId, int logId) throws ConnectionException, AzDException {
+    public PipelineLog getPipelineLog(int pipelineId, int runId, int logId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, PIPELINES, CONNECTION.getProject(),
                 AREA, Integer.toString(pipelineId), "runs/" + runId + "/logs/" + logId, ApiVersion.PIPELINES, null, null);
 
@@ -106,12 +99,10 @@ public class PipelinesApi implements PipelinesDetails {
      * @param logId ID of the log.
      * @param expandOptions Expand options. Default is None. {@link PipelinesExpandOptions}
      * @return PipelineLog object {@link PipelineLog}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public PipelineLog getPipelineLog(int pipelineId, int runId, int logId, PipelinesExpandOptions expandOptions) throws ConnectionException, AzDException {
+    public PipelineLog getPipelineLog(int pipelineId, int runId, int logId, PipelinesExpandOptions expandOptions) throws AzDException {
         var q = new HashMap<String, Object>(){{
             put("$expand", expandOptions.toString().toLowerCase());
         }};
@@ -127,12 +118,10 @@ public class PipelinesApi implements PipelinesDetails {
      * @param pipelineId ID of the pipeline.
      * @param runId ID of the run of that pipeline.
      * @return LogCollection object {@link LogCollection}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public LogCollection getPipelineLogs(int pipelineId, int runId) throws ConnectionException, AzDException {
+    public LogCollection getPipelineLogs(int pipelineId, int runId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, PIPELINES, CONNECTION.getProject(),
                 AREA, Integer.toString(pipelineId), "runs/" + runId + "/logs", ApiVersion.PIPELINES, null, null);
 
@@ -145,12 +134,10 @@ public class PipelinesApi implements PipelinesDetails {
      * @param runId ID of the run of that pipeline.
      * @param expandOptions Expand options. Default is None. {@link PipelinesExpandOptions}
      * @return LogCollection object {@link LogCollection}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public LogCollection getPipelineLogs(int pipelineId, int runId, PipelinesExpandOptions expandOptions) throws ConnectionException, AzDException {
+    public LogCollection getPipelineLogs(int pipelineId, int runId, PipelinesExpandOptions expandOptions) throws AzDException {
         var q = new HashMap<String, Object>(){{
             put("$expand", expandOptions.toString().toLowerCase());
         }};
@@ -169,12 +156,10 @@ public class PipelinesApi implements PipelinesDetails {
      * @param repositoryId Id of the repository
      * @param repositoryName Name of the repository
      * @return Pipeline object {@link Pipeline}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public Pipeline createPipeline(String name, String folder, String pathOfYamlFile, String repositoryId, String repositoryName) throws ConnectionException, AzDException {
+    public Pipeline createPipeline(String name, String folder, String pathOfYamlFile, String repositoryId, String repositoryName) throws AzDException {
         var git = new GitApi(CONNECTION);
 
         var body = new HashMap<String, Object>(){{
@@ -201,12 +186,10 @@ public class PipelinesApi implements PipelinesDetails {
      * Gets a pipeline, optionally at the specified version
      * @param pipelineId The pipeline ID
      * @return Pipeline object {@link Pipeline}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public Pipeline getPipeline(int pipelineId) throws ConnectionException, AzDException {
+    public Pipeline getPipeline(int pipelineId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, PIPELINES, CONNECTION.getProject(),
                 AREA, Integer.toString(pipelineId), null, ApiVersion.PIPELINES, null, null);
 
@@ -218,12 +201,10 @@ public class PipelinesApi implements PipelinesDetails {
      * @param pipelineId The pipeline ID
      * @param pipelineVersion The pipeline version
      * @return Pipeline object {@link Pipeline}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public Pipeline getPipeline(int pipelineId, String pipelineVersion) throws ConnectionException, AzDException {
+    public Pipeline getPipeline(int pipelineId, String pipelineVersion) throws AzDException {
         var q = new HashMap<String, Object>(){{
             put("pipelineVersion", pipelineVersion);
         }};
@@ -237,12 +218,10 @@ public class PipelinesApi implements PipelinesDetails {
     /***
      * Get a list of pipelines.
      * @return Pipelines {@link Pipelines}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public Pipelines getPipelines() throws ConnectionException, AzDException {
+    public Pipelines getPipelines() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, PIPELINES, CONNECTION.getProject(),
                 AREA, null, null, ApiVersion.PIPELINES, null, null);
 
@@ -254,12 +233,10 @@ public class PipelinesApi implements PipelinesDetails {
      * @param pipelineId The pipeline ID.
      * @param previewRun If true, don't actually create a new run. Instead, return the final YAML document after parsing templates.
      * @return PreviewRun object {@link PreviewRun}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public PreviewRun previewPipeline(int pipelineId, boolean previewRun) throws ConnectionException, AzDException {
+    public PreviewRun previewPipeline(int pipelineId, boolean previewRun) throws AzDException {
         var body = new HashMap<String, Object>(){{
             put("previewRun", previewRun);
         }};
@@ -277,12 +254,10 @@ public class PipelinesApi implements PipelinesDetails {
      * @param yamlOverride If you use the preview run option, you may optionally supply different YAML.
      * This allows you to preview the final YAML document without committing a changed file.
      * @return PreviewRun object {@link PreviewRun}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public PreviewRun previewPipeline(int pipelineId, boolean previewRun, String yamlOverride) throws ConnectionException, AzDException {
+    public PreviewRun previewPipeline(int pipelineId, boolean previewRun, String yamlOverride) throws AzDException {
         var body = new HashMap<String, Object>(){{
             put("previewRun", previewRun);
             put("yamlOverride", yamlOverride);
@@ -299,12 +274,10 @@ public class PipelinesApi implements PipelinesDetails {
      * @param pipelineId The pipeline id
      * @param runId The run id
      * @return Pipeline run object {@link PipelineRun}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public PipelineRun getPipelineRun(int pipelineId, int runId) throws ConnectionException, AzDException {
+    public PipelineRun getPipelineRun(int pipelineId, int runId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, PIPELINES, CONNECTION.getProject(),
                 AREA, Integer.toString(pipelineId), "runs/" + runId, ApiVersion.PIPELINES, null, null);
 
@@ -315,12 +288,10 @@ public class PipelinesApi implements PipelinesDetails {
      * Gets top 10000 runs for a particular pipeline.
      * @param pipelineId The pipeline id
      * @return a list of pipeline run object {@link PipelineRuns}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public PipelineRuns getPipelineRuns(int pipelineId) throws ConnectionException, AzDException {
+    public PipelineRuns getPipelineRuns(int pipelineId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, PIPELINES, CONNECTION.getProject(),
                 AREA, Integer.toString(pipelineId), "runs", ApiVersion.PIPELINES, null, null);
 
@@ -331,12 +302,10 @@ public class PipelinesApi implements PipelinesDetails {
      * Runs a pipeline.
      * @param pipelineId The pipeline id
      * @return a pipeline run object {@link PipelineRun}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public PipelineRun runPipeline(int pipelineId) throws ConnectionException, AzDException {
+    public PipelineRun runPipeline(int pipelineId) throws AzDException {
         var body = new HashMap<String, Object>(){{
            put("resources", "{}");
         }};
@@ -352,12 +321,10 @@ public class PipelinesApi implements PipelinesDetails {
      * @param pipelineId The pipeline id
      * @param pipelineRunParameters a map of request parameters.
      * @return a pipeline run object {@link PipelineRun}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public PipelineRun runPipeline(int pipelineId, Map pipelineRunParameters) throws ConnectionException, AzDException {
+    public PipelineRun runPipeline(int pipelineId, Map pipelineRunParameters) throws AzDException {
         String r = send(RequestMethod.POST, CONNECTION, PIPELINES, CONNECTION.getProject(),
                 AREA, Integer.toString(pipelineId), "runs", ApiVersion.PIPELINES, null, pipelineRunParameters);
 

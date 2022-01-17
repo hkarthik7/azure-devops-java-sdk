@@ -28,7 +28,7 @@ public class PipelineRun {
      * Pipeline Id
      */
     @JsonProperty("id")
-    private String id;
+    private int id;
     /***
      * Name of the pipeline
      */
@@ -89,11 +89,11 @@ public class PipelineRun {
         this.finishedDate = finishedDate;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -47,7 +47,7 @@ public class Main {
             // get a user profile with id
             accounts.getProfile("user-id");
 
-        } catch (ConnectionException | AzDException e) {
+        } catch (AzDException e) {
             e.printStackTrace();
         }
     }

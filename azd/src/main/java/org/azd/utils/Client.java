@@ -4,7 +4,6 @@ import org.azd.common.types.LocationUrl;
 import org.azd.connection.Connection;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 
 import java.util.HashMap;
@@ -31,7 +30,6 @@ public abstract class Client extends BaseClient {
      * @param contentType true to return the request url
      * @param body body of the request to post and patch
      * @return String response from API
-     * @throws ConnectionException user must create a Connection Object before calling this method
      * @throws AzDException throws user understandable error message with error code from API
      */
     public static String send(
@@ -45,7 +43,7 @@ public abstract class Client extends BaseClient {
             String apiVersion,
             HashMap<String, Object> queryString,
             boolean contentType,
-            String body) throws ConnectionException, AzDException {
+            String body) throws AzDException {
         String requestUrl = buildRequestUrl(connection.getOrganization(), resourceId, project, area, id, resource, apiVersion, queryString);
 
         // I need to maintain consistency across the library. Since this send method is not used in any of the classes to call
@@ -70,7 +68,6 @@ public abstract class Client extends BaseClient {
      * @param queryString query string to append the url
      * @param body body of the request to post and patch
      * @return String response from API
-     * @throws ConnectionException user must create a Connection Object before calling this method
      * @throws AzDException throws user understandable error message with error code from API
      */
     public static String send(
@@ -83,7 +80,7 @@ public abstract class Client extends BaseClient {
             String resource,
             String apiVersion,
             Map<String, Object> queryString,
-            Map<String, Object> body) throws ConnectionException, AzDException {
+            Map<String, Object> body) throws AzDException {
         String requestUrl = buildRequestUrl(connection.getOrganization(), resourceId, project, area, id, resource, apiVersion, queryString);
 
         if (requestMethod.toString().equals("GET")) {
@@ -123,7 +120,6 @@ public abstract class Client extends BaseClient {
      * @param body body of the request to post and patch
      * @param contentType content type to pass in the request header
      * @return String response from API
-     * @throws ConnectionException user must create a Connection Object before calling this method
      * @throws AzDException throws user understandable error message with error code from API
      */
     public static String send(
@@ -137,7 +133,7 @@ public abstract class Client extends BaseClient {
             String apiVersion,
             Map<String, Object> queryString,
             Map<String, Object> body,
-            String contentType) throws ConnectionException, AzDException {
+            String contentType) throws AzDException {
         String requestUrl = buildRequestUrl(connection.getOrganization(), resourceId, project, area, id, resource, apiVersion, queryString);
 
         if (requestMethod.toString().equals("GET") & (contentType != null)) {
@@ -182,7 +178,6 @@ public abstract class Client extends BaseClient {
      * @param requestBody body of the request to post and patch. This should be a list of HashMap
      * @param contentType content type to pass in the request header
      * @return String response from API
-     * @throws ConnectionException user must create a Connection Object before calling this method
      * @throws AzDException throws user understandable error message with error code from API
      */
     public static String send(
@@ -197,7 +192,7 @@ public abstract class Client extends BaseClient {
             Map<String, Object> queryString,
             Map<String, Object> body,
             List<Object> requestBody,
-            String contentType) throws ConnectionException, AzDException {
+            String contentType) throws AzDException {
         String requestUrl = buildRequestUrl(connection.getOrganization(), resourceId, project, area, id, resource, apiVersion, queryString);
 
         if (requestMethod.toString().equals("GET") & (contentType != null)) {
@@ -243,11 +238,10 @@ public abstract class Client extends BaseClient {
      *  Gets the resource area url based on resource id passed for the organization
      * @param resourceID pass the resource id
      * @param organizationName pass the organization name
-     * @throws ConnectionException user must create a Connection Object before calling this method
      * @throws AzDException throws user understandable error message with error code from API
      * @return resource area url
      */
-    public static String getLocationUrl(String resourceID, String organizationName) throws ConnectionException, AzDException {
+    public static String getLocationUrl(String resourceID, String organizationName) throws AzDException {
 
         String INSTANCE = "https://dev.azure.com/";
 
@@ -284,7 +278,6 @@ public abstract class Client extends BaseClient {
      * @param resource pass the resource entity e.g., Releases
      * @param apiVersion pass the API version
      * @param queryString pass the query string to form the url
-     * @throws ConnectionException user must create a Connection Object before calling this method
      * @throws AzDException throws user understandable error message with error code from API
      * @return resource area url
      */
@@ -296,7 +289,7 @@ public abstract class Client extends BaseClient {
             String id,
             String resource,
             String apiVersion,
-            Map<String, Object> queryString) throws ConnectionException, AzDException {
+            Map<String, Object> queryString) throws AzDException {
         // build the request url to dynamically serve the API requests
 
         StringBuilder stringBuilder = new StringBuilder();

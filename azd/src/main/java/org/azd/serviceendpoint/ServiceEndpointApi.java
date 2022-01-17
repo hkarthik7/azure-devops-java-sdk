@@ -6,7 +6,6 @@ import org.azd.core.CoreApi;
 import org.azd.enums.RequestMethod;
 import org.azd.enums.ServiceEndpointActionFilter;
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.ServiceEndpointDetails;
 import org.azd.serviceendpoint.types.ServiceEndpoint;
@@ -46,12 +45,10 @@ public class ServiceEndpointApi implements ServiceEndpointDetails {
      * @param requestBody Request body to create a service endpoint.
      * Reference https://docs.microsoft.com/en-us/rest/api/azure/devops/serviceendpoint/endpoints/create?view=azure-devops-rest-6.1#create-service-endpoint
      * @return ServiceEndpoint {@link ServiceEndpoint}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public ServiceEndpoint createServiceEndpoint(String endpointName, String endpointType, Map requestBody) throws ConnectionException, AzDException {
+    public ServiceEndpoint createServiceEndpoint(String endpointName, String endpointType, Map requestBody) throws AzDException {
         requestBody.put("name", endpointName);
         requestBody.put("type", endpointType);
 
@@ -69,14 +66,12 @@ public class ServiceEndpointApi implements ServiceEndpointDetails {
      * @param subscriptionId subscription Id
      * @param subscriptionName subscription name
      * @return ServiceEndpoint {@link ServiceEndpoint}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public ServiceEndpoint createAzureRMServiceEndpoint(String endpointName, String servicePrincipalId, String servicePrincipalKey,
                                                         String tenantId, String subscriptionId,
-                                                        String subscriptionName) throws ConnectionException, AzDException {
+                                                        String subscriptionName) throws AzDException {
         var project = CORE.getProject(CONNECTION.getProject());
 
         var ref = new LinkedHashMap<String, Object>(){{
@@ -119,12 +114,10 @@ public class ServiceEndpointApi implements ServiceEndpointDetails {
      * Get the service endpoint details.
      * @param endpointId Id of the service endpoint.
      * @return ServiceEndpoint {@link ServiceEndpoint}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public ServiceEndpoint getServiceEndpoint(String endpointId) throws ConnectionException, AzDException {
+    public ServiceEndpoint getServiceEndpoint(String endpointId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, SERVICE_ENDPOINT, CONNECTION.getProject(),
                 AREA + "/endpoints", endpointId, null, ApiVersion.SERVICE_ENDPOINTS, null, null);
         return MAPPER.mapJsonResponse(r, ServiceEndpoint.class);
@@ -135,12 +128,10 @@ public class ServiceEndpointApi implements ServiceEndpointDetails {
      * @param endpointId Id of the service endpoint.
      * @param actionFilter Action filter for the service connection. It specifies the action which can be performed on the service connection.
      * @return ServiceEndpoint {@link ServiceEndpoint}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public ServiceEndpoint getServiceEndpoint(String endpointId, ServiceEndpointActionFilter actionFilter) throws ConnectionException, AzDException {
+    public ServiceEndpoint getServiceEndpoint(String endpointId, ServiceEndpointActionFilter actionFilter) throws AzDException {
         var q = new HashMap<String, Object>(){{ put("actionFilter", actionFilter.toString().toLowerCase()); }};
 
         String r = send(RequestMethod.GET, CONNECTION, SERVICE_ENDPOINT, CONNECTION.getProject(),
@@ -151,12 +142,10 @@ public class ServiceEndpointApi implements ServiceEndpointDetails {
     /***
      * Get the service endpoints.
      * @return ServiceEndpoints {@link ServiceEndpoints}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public ServiceEndpoints getServiceEndpoints() throws ConnectionException, AzDException {
+    public ServiceEndpoints getServiceEndpoints() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, SERVICE_ENDPOINT, CONNECTION.getProject(),
                 AREA + "/endpoints", null, null, ApiVersion.SERVICE_ENDPOINTS, null, null);
         return MAPPER.mapJsonResponse(r, ServiceEndpoints.class);
@@ -166,12 +155,10 @@ public class ServiceEndpointApi implements ServiceEndpointDetails {
      * Delete a service endpoint
      * @param endpointId Endpoint Id of endpoint to delete
      * @param projectIds project Ids from which endpoint needs to be deleted
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteServiceEndpoint(String endpointId, String[] projectIds) throws ConnectionException, AzDException {
+    public void deleteServiceEndpoint(String endpointId, String[] projectIds) throws AzDException {
         try {
             var q = new HashMap<String, Object>(){{ put("projectIds", String.join(",", projectIds)); }};
 
@@ -179,7 +166,7 @@ public class ServiceEndpointApi implements ServiceEndpointDetails {
                 AREA + "/endpoints", endpointId, null, ApiVersion.SERVICE_ENDPOINTS, q, null);
 
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
-        } catch (ConnectionException | AzDException e) {
+        } catch (AzDException e) {
             throw e;
         }
     }
@@ -189,12 +176,10 @@ public class ServiceEndpointApi implements ServiceEndpointDetails {
      * @param endpointId Endpoint Id of endpoint to delete
      * @param projectIds project Ids from which endpoint needs to be deleted
      * @param deep delete the spn created by endpoint
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteServiceEndpoint(String endpointId, String[] projectIds, boolean deep) throws ConnectionException, AzDException {
+    public void deleteServiceEndpoint(String endpointId, String[] projectIds, boolean deep) throws AzDException {
         try {
             var q = new HashMap<String, Object>(){{
                 put("projectIds", String.join(",", projectIds));
@@ -205,7 +190,7 @@ public class ServiceEndpointApi implements ServiceEndpointDetails {
                     AREA + "/endpoints", endpointId, null, ApiVersion.SERVICE_ENDPOINTS, q, null);
 
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
-        } catch (ConnectionException | AzDException e) {
+        } catch (AzDException e) {
             throw e;
         }
     }
@@ -214,12 +199,10 @@ public class ServiceEndpointApi implements ServiceEndpointDetails {
      * Get the service endpoints by name.
      * @param endpointNames Names of the service endpoints.
      * @return ServiceEndpoint {@link ServiceEndpoint}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public ServiceEndpoints getServiceEndpointsByNames(String[] endpointNames) throws ConnectionException, AzDException {
+    public ServiceEndpoints getServiceEndpointsByNames(String[] endpointNames) throws AzDException {
         var q = new HashMap<String, Object>(){{ put("endpointNames", String.join(",", endpointNames)); }};
 
         String r = send(RequestMethod.GET, CONNECTION, SERVICE_ENDPOINT, CONNECTION.getProject(),
@@ -237,13 +220,11 @@ public class ServiceEndpointApi implements ServiceEndpointDetails {
      * @param owner Owner for service endpoints.
      * @param type Type of the service endpoints.
      * @return ServiceEndpoint {@link ServiceEndpoint}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public ServiceEndpoints getServiceEndpointsByNames(String[] endpointNames, String[] authSchemes, boolean includeDetails,
-                                                       boolean includeFailed, String owner, String type) throws ConnectionException, AzDException {
+                                                       boolean includeFailed, String owner, String type) throws AzDException {
         var q = new HashMap<String, Object>(){{
             put("endpointNames", String.join(",", endpointNames));
             put("type", type);
@@ -263,12 +244,10 @@ public class ServiceEndpointApi implements ServiceEndpointDetails {
      * @param endpointId Endpoint Id of the endpoint to share
      * @param projectName Provide the project name to which the service endpoint connection to be shared
      * @param connectionName Name of the connection
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void shareServiceEndpoint(String endpointId, String projectName, String connectionName) throws ConnectionException, AzDException {
+    public void shareServiceEndpoint(String endpointId, String projectName, String connectionName) throws AzDException {
         try {
             var project = CORE.getProject(projectName);
 
@@ -286,7 +265,7 @@ public class ServiceEndpointApi implements ServiceEndpointDetails {
             String r = send(RequestMethod.PATCH, CONNECTION, SERVICE_ENDPOINT, CONNECTION.getProject(),
                     AREA + "/endpoints", endpointId, null, ApiVersion.SERVICE_ENDPOINTS, null, null, ref, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
-        } catch (ConnectionException | AzDException e) {
+        } catch (AzDException e) {
             throw e;
         }
     }
@@ -297,12 +276,10 @@ public class ServiceEndpointApi implements ServiceEndpointDetails {
      * @param requestBody Request body to update the service endpoint
      * Reference: https://docs.microsoft.com/en-us/rest/api/azure/devops/serviceendpoint/endpoints/update-service-endpoint?view=azure-devops-rest-6.1#update-service-endpoint
      * @return ServiceEndpoint {@link ServiceEndpoint}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public ServiceEndpoint updateServiceEndpoint(String endpointId, Map requestBody) throws ConnectionException, AzDException {
+    public ServiceEndpoint updateServiceEndpoint(String endpointId, Map requestBody) throws AzDException {
         String r = send(RequestMethod.PUT, CONNECTION, SERVICE_ENDPOINT, CONNECTION.getProject(),
                 AREA + "/endpoints", endpointId, null, ApiVersion.SERVICE_ENDPOINTS, null, requestBody);
         return MAPPER.mapJsonResponse(r, ServiceEndpoint.class);

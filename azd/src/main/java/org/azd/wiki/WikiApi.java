@@ -5,7 +5,6 @@ import org.azd.connection.Connection;
 import org.azd.enums.RequestMethod;
 import org.azd.enums.WikiType;
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.WikiDetails;
 import org.azd.wiki.types.WikiV2;
@@ -42,13 +41,11 @@ public class WikiApi implements WikiDetails {
      * @param repositoryId ID of the git repository that backs up the wiki. Not required for ProjectWiki type.
      * @param mappedPath Folder path inside repository which is shown as Wiki. Not required for ProjectWiki type.
      * @return WikiV2 {@link WikiV2}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public WikiV2 createWiki(String branchName, WikiType type, String wikiName, String projectId,
-                             String repositoryId, String mappedPath) throws ConnectionException, AzDException {
+                             String repositoryId, String mappedPath) throws AzDException {
         var b = new HashMap<String, Object>(){{
            put("version", new HashMap<String, Object>(){{ put("version", branchName); }});
            put("type", WikiType.CODEWIKI.toString().toLowerCase());
@@ -68,12 +65,10 @@ public class WikiApi implements WikiDetails {
      * Deletes the wiki corresponding to the wiki ID or wiki name provided.
      * @param wikiIdentifier Wiki ID or wiki name.
      * @return WikiV2 {@link WikiV2}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public WikiV2 deleteWiki(String wikiIdentifier) throws ConnectionException, AzDException {
+    public WikiV2 deleteWiki(String wikiIdentifier) throws AzDException {
         String r = send(RequestMethod.DELETE, CONNECTION, WIKI, CONNECTION.getProject(),
                 AREA, wikiIdentifier , null, ApiVersion.WIKI, null, null);
 
@@ -84,12 +79,10 @@ public class WikiApi implements WikiDetails {
      * Gets the wiki corresponding to the wiki ID or wiki name provided.
      * @param wikiIdentifier Wiki ID or wiki name.
      * @return WikiV2 {@link WikiV2}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public WikiV2 getWiki(String wikiIdentifier) throws ConnectionException, AzDException {
+    public WikiV2 getWiki(String wikiIdentifier) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, WIKI, CONNECTION.getProject(),
                 AREA, wikiIdentifier , null, ApiVersion.WIKI, null, null);
 
@@ -99,12 +92,10 @@ public class WikiApi implements WikiDetails {
     /***
      * Gets all wikis in a project or collection.
      * @return WikiV2s {@link WikiV2Pages}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public WikiV2Pages getWikis() throws ConnectionException, AzDException {
+    public WikiV2Pages getWikis() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, WIKI, CONNECTION.getProject(),
                 AREA, null , null, ApiVersion.WIKI, null, null);
 

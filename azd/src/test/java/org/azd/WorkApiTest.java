@@ -2,7 +2,6 @@ package org.azd;
 
 import org.azd.enums.IterationsTimeFrame;
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AzDClient;
 import org.azd.utils.AzDClientApi;
@@ -32,32 +31,32 @@ public class WorkApiTest {
     }
 
     @Test
-    public void shouldGetTeamIterations() throws ConnectionException, AzDException {
+    public void shouldGetTeamIterations() throws AzDException {
         w.getTeamSettingsIterations("azure-devops-java-sdk Team");
     }
 
     @Test
-    public void shouldGetTeamIterationsWithTimeFrame() throws ConnectionException, AzDException {
+    public void shouldGetTeamIterationsWithTimeFrame() throws AzDException {
         var res = w.getTeamSettingsIterations("azure-devops-java-sdk Team", IterationsTimeFrame.CURRENT);
         assertEquals("Sprint 1", res.getIterations().stream().findFirst().get().getName());
     }
 
     @Test
-    public void shouldGetTeamIterationWorkItems() throws ConnectionException, AzDException {
+    public void shouldGetTeamIterationWorkItems() throws AzDException {
         var id = w.getTeamSettingsIterations("azure-devops-java-sdk Team").getIterations().stream().findFirst().get().getId();
         var res = w.getTeamIterationWorkItems("azure-devops-java-sdk Team", id);
         res.get_links();
     }
 
     @Test
-    public void shouldGetATeamIteration() throws ConnectionException, AzDException {
+    public void shouldGetATeamIteration() throws AzDException {
         var id = w.getTeamSettingsIterations("azure-devops-java-sdk Team")
                 .getIterations().stream().findFirst().get().getId();
         w.getTeamSettingsIteration("azure-devops-java-sdk Team", id);
     }
 
     @Test(expected = AzDException.class)
-    public void shouldDeleteATeamIteration() throws ConnectionException, AzDException {
+    public void shouldDeleteATeamIteration() throws AzDException {
         w.deleteTeamSettingsIteration("azure-devops-java-sdk Team", "0000-00000-00000-00000-00000");
     }
 }

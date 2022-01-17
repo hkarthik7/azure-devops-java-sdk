@@ -1,7 +1,6 @@
 package org.azd;
 
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.CoreDetails;
@@ -33,7 +32,7 @@ public class ServiceHooksApiTest {
     }
 
     @Test
-    public void shouldCreateASubscription() throws ConnectionException, AzDException {
+    public void shouldCreateASubscription() throws AzDException {
         var projectId = c.getProject("azure-devops-java-sdk");
 
         var pI = new LinkedHashMap<String, Object>(){{
@@ -53,18 +52,18 @@ public class ServiceHooksApiTest {
     }
 
     @Test
-    public void shouldGetASubscription() throws ConnectionException, AzDException {
+    public void shouldGetASubscription() throws AzDException {
         var subscriptions = s.getSubscriptions();
         s.getSubscription(subscriptions.getSubscriptions().stream().findFirst().get().getId());
     }
 
     @Test
-    public void shouldGetSubscriptions() throws ConnectionException, AzDException {
+    public void shouldGetSubscriptions() throws AzDException {
         s.getSubscriptions();
     }
 
     @Test
-    public void shouldDeleteASubscription() throws ConnectionException, AzDException {
+    public void shouldDeleteASubscription() throws AzDException {
         var subscriptions = s.getSubscriptions();
         s.deleteSubscription(subscriptions.getSubscriptions().stream().findFirst().get().getId());
     }

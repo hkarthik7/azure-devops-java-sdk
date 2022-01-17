@@ -105,7 +105,7 @@ public abstract class BaseClient {
      * @throws AzDException throws user friendly error message with error code from API
      * @return response string from the API if any
      */
-    public static String post(String requestUrl, String token, Map<String, Object> body) throws AzDException {
+    public static String post(String requestUrl, String token, Map body) throws AzDException {
         return response(
                 request(requestUrl, token)
                     .POST(HttpRequest.BodyPublishers.ofString(MAPPER.convertToString(body)))
@@ -168,7 +168,7 @@ public abstract class BaseClient {
      * @throws AzDException throws user friendly error message with error code from API
      * @return response string from the API if any
      */
-    public static String patch(String requestUrl, String token, Map<String, Object> body) throws AzDException {
+    public static String patch(String requestUrl, String token, Map body) throws AzDException {
         return response(
                 request(requestUrl, token)
                         .method(RequestMethod.PATCH.toString(), HttpRequest.BodyPublishers.ofString(MAPPER.convertToString(body)))
@@ -185,7 +185,7 @@ public abstract class BaseClient {
      * @throws AzDException throws user friendly error message with error code from API
      * @return response string from the API if any
      */
-    public static String patch(String requestUrl, String token, Map<String, Object> body, String contentType) throws AzDException {
+    public static String patch(String requestUrl, String token, Map body, String contentType) throws AzDException {
         return response(
                 request(requestUrl, token)
                         .method(RequestMethod.PATCH.toString(), HttpRequest.BodyPublishers.ofString(MAPPER.convertToString(body)))

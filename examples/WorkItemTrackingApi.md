@@ -74,7 +74,7 @@ public class Main {
             workitemtracking.addHyperLinks(2, hyperlinks);
 
             w.updateWorkItem(277, fieldsToUpdate);
-        } catch (AzDException | ConnectionException e) {
+        } catch (AzDException e) {
             e.printStackTrace();
         }
     }

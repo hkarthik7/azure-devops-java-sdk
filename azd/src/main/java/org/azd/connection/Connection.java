@@ -1,7 +1,6 @@
 package org.azd.connection;
 
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.ConnectionException;
 import org.azd.oauth.OAuthApi;
 import org.azd.oauth.types.AuthorizedToken;
 
@@ -154,11 +153,9 @@ public class Connection {
     /***
      * Get the personal access token
      * @return the personal access token
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
-    public String getPersonalAccessToken() throws AzDException, ConnectionException {
+    public String getPersonalAccessToken() throws AzDException {
         if(oauthToken != null) {
             if(OAuthApi.hasTokenExpired(oauthToken)){
                 setOauthToken(OAuthApi.getRefreshToken(appSecret,oauthToken.getRefreshToken(),appCallBackURL));

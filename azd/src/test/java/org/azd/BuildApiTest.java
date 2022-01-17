@@ -1,7 +1,6 @@
 package org.azd;
 
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.BuildDetails;
@@ -18,7 +17,7 @@ public class BuildApiTest {
     private static int buildId;
 
     @Before
-    public void init() throws AzDException, ConnectionException {
+    public void init() throws AzDException {
         String dir = System.getProperty("user.dir");
         File file = new File(dir + "/src/test/java/org/azd/_unitTest.json");
         MockParameters m = MAPPER.mapJsonFromFile(file, MockParameters.class);
@@ -31,199 +30,202 @@ public class BuildApiTest {
     }
 
     @Test(expected = AzDException.class)
-    public void shouldDeleteABuild() throws ConnectionException, AzDException {
+    public void shouldDeleteABuild() throws AzDException {
         b.deleteBuild(122);
     }
 
     @Test
-    public void shouldGetABuild() throws ConnectionException, AzDException {
+    public void shouldGetABuild() throws AzDException {
         b.getBuild(buildId);
     }
 
     @Test
-    public void shouldReturnABuildChanges() throws ConnectionException, AzDException {
+    public void shouldReturnABuildChanges() throws AzDException {
         b.getBuildChanges(buildId);
     }
 
     @Test
-    public void shouldReturnABuildChangesWithOptionalParameters() throws ConnectionException, AzDException {
+    public void shouldReturnABuildChangesWithOptionalParameters() throws AzDException {
         b.getBuildChanges(buildId, 10, "1", true);
     }
 
     @Test
-    public void shouldReturnABuildLog() throws ConnectionException, AzDException {
+    public void shouldReturnABuildLog() throws AzDException {
         b.getBuildLog(50, 3);
     }
 
     @Test
-    public void shouldReturnABuildLogWithOptionalParameters() throws ConnectionException, AzDException {
+    public void shouldReturnABuildLogWithOptionalParameters() throws AzDException {
         b.getBuildLog(127, 3, 3, 6);
     }
 
     @Test
-    public void shouldReturnBuildLogs() throws ConnectionException, AzDException {
+    public void shouldReturnBuildLogs() throws AzDException {
         b.getBuildLogs(buildId);
     }
 
     @Test
-    public void shouldReturnBuildWorkItems() throws ConnectionException, AzDException {
+    public void shouldReturnBuildWorkItems() throws AzDException {
         b.getBuildWorkItems(buildId);
     }
 
     @Test
-    public void shouldReturnBuildWorkItemsWithOptionalParameters() throws ConnectionException, AzDException {
+    public void shouldReturnBuildWorkItemsWithOptionalParameters() throws AzDException {
         b.getBuildWorkItems(buildId, 10);
     }
 
     @Test
-    public void shouldReturnChangesBetweenBuilds() throws ConnectionException, AzDException {
+    public void shouldReturnChangesBetweenBuilds() throws AzDException {
         b.getChangesBetweenBuilds(buildId, buildId, 10);
     }
 
     @Test
-    public void shouldReturnWorkItemsBetweenBuilds() throws ConnectionException, AzDException {
+    public void shouldReturnWorkItemsBetweenBuilds() throws AzDException {
         b.getWorkItemsBetweenBuilds(buildId, buildId, 10);
     }
 
     @Test
-    public void shouldReturnBuilds() throws ConnectionException, AzDException { b.getBuilds(); }
+    public void shouldReturnBuilds() throws AzDException { b.getBuilds(); }
 
     @Test
-    public void shouldReturnBuildsWithArrayOfBuildIds() throws ConnectionException, AzDException {
+    public void shouldReturnBuildsWithArrayOfBuildIds() throws AzDException {
         b.getBuilds(new int[]{126, 127});
     }
 
     @Test
-    public void shouldReturnTopTwoBuilds() throws ConnectionException, AzDException {
+    public void shouldReturnTopTwoBuilds() throws AzDException {
         b.getBuilds(2);
     }
 
     @Test
-    public void shouldQueueTheBuild() throws ConnectionException, AzDException {
+    public void shouldQueueTheBuild() throws AzDException {
         b.queueBuild(22);
     }
 
     @Test
-    public void shouldReturnListOfBuildController() throws ConnectionException, AzDException {
+    public void shouldReturnListOfBuildController() throws AzDException {
         b.getBuildControllers();
     }
 
     @Test(expected = AzDException.class)
-    public void shouldReturnABuildController() throws ConnectionException, AzDException {
+    public void shouldReturnABuildController() throws AzDException {
         // should throw an exception if build controller doesn't exists
         b.getBuildController(25);
     }
 
     @Test(expected = AzDException.class)
-    public void shouldCreateBuildDefinition() throws ConnectionException, AzDException {
+    public void shouldCreateBuildDefinition() throws AzDException {
         b.createBuildDefinition("");
     }
 
     @Test
-    public void shouldDeleteABuildDefinition() throws ConnectionException, AzDException {
+    public void shouldDeleteABuildDefinition() throws AzDException {
         b.deleteBuildDefinition(13);
     }
 
     @Test
-    public void shouldReturnBuildDefinition() throws ConnectionException, AzDException {
+    public void shouldReturnBuildDefinition() throws AzDException {
         b.getBuildDefinition(9);
     }
 
     @Test
-    public void shouldReturnBuildDefinitionWithOptionalParameters() throws ConnectionException, AzDException {
+    public void shouldReturnBuildDefinitionWithOptionalParameters() throws AzDException {
         b.getBuildDefinition(9, true, null, 2);
     }
 
     @Test
-    public void shouldReturnBuildDefinitionRevisions() throws ConnectionException, AzDException {
+    public void shouldReturnBuildDefinitionRevisions() throws AzDException {
         b.getBuildDefinitionRevisions(9);
     }
 
     @Test
-    public void shouldReturnBuildDefinitions() throws ConnectionException, AzDException {
+    public void shouldReturnBuildDefinitions() throws AzDException {
         b.getBuildDefinitions();
     }
 
     @Test
-    public void shouldReturnBuildDefinitionsWithIds() throws ConnectionException, AzDException {
+    public void shouldReturnBuildDefinitionsWithIds() throws AzDException {
         b.getBuildDefinitions(new int[]{ 8, 9 });
     }
 
     @Test
-    public void shouldReturnTopTwoBuildDefinitions() throws ConnectionException, AzDException {
+    public void shouldReturnTopTwoBuildDefinitions() throws AzDException {
         b.getBuildDefinitions(2);
     }
 
     @Test
-    public void shouldReturnBuildDefinitionsWithName() throws ConnectionException, AzDException {
+    public void shouldReturnBuildDefinitionsWithName() throws AzDException {
         b.getBuildDefinitions("azure-devops-java-sdk");
     }
 
     @Test(expected = AzDException.class)
-    public void shouldRestoreBuildDefinition() throws ConnectionException, AzDException {
+    public void shouldRestoreBuildDefinition() throws AzDException {
         b.restoreBuildDefinition(126, false);
 
     }
 
     @Test
-    public void shouldAddABuildTag() throws ConnectionException, AzDException {
-        b.addBuildTag(523, "Demo");
-
+    public void shouldAddABuildTag() throws AzDException {
+        b.addBuildTag(buildId, "Demo");
     }
 
     @Test
-    public void shouldAddBuildTags() throws ConnectionException, AzDException {
-        b.addBuildTags(523, new String[]{ "Demo", "CI", "Test" });
-
+    public void shouldAddBuildTags() throws AzDException {
+        b.addBuildTags(buildId, new String[]{ "Demo", "CI", "Test" });
     }
 
     @Test
-    public void shouldAddADefinitionTag() throws ConnectionException, AzDException {
+    public void shouldAddADefinitionTag() throws AzDException {
         b.addDefinitionTag(22, "TestDefinition");
     }
 
     @Test
-    public void shouldAddDefinitionTags() throws ConnectionException, AzDException {
+    public void shouldAddDefinitionTags() throws AzDException {
         b.addDefinitionTags(22, new String[]{ "TestDefinition", "DemoDefinition"});
     }
 
     @Test
-    public void shouldDeleteABuildTag() throws ConnectionException, AzDException {
-        b.deleteBuildTag(523, "Test");
+    public void shouldDeleteABuildTag() throws AzDException {
+        b.deleteBuildTag(buildId, "Test");
     }
 
     @Test
-    public void shouldDeleteADefinitionTag() throws ConnectionException, AzDException {
+    public void shouldDeleteADefinitionTag() throws AzDException {
         b.deleteDefinitionTag(22, "DemoDefinition");
     }
 
     @Test
-    public void shouldDeleteATag() throws ConnectionException, AzDException {
+    public void shouldDeleteATag() throws AzDException {
         b.deleteTag("DemoDefinition");
     }
 
     @Test
-    public void shouldGetBuildTags() throws ConnectionException, AzDException {
-        b.getBuildTags(523);
+    public void shouldGetBuildTags() throws AzDException {
+        b.getBuildTags(buildId);
     }
 
     @Test
-    public void shouldGetDefinitionTags() throws ConnectionException, AzDException {
+    public void shouldGetDefinitionTags() throws AzDException {
         b.getDefinitionTags(22);
     }
 
     @Test
-    public void shouldGetTags() throws ConnectionException, AzDException {
+    public void shouldGetTags() throws AzDException {
         b.getTags();
     }
 
     @Test
-    public void shouldUpdateBuildTags() throws ConnectionException, AzDException {
-        b.updateBuildTags(523, new String[]{ "Demo", "CI", "Test" }, false);
+    public void shouldUpdateBuildTags() throws AzDException {
+        b.updateBuildTags(buildId, new String[]{ "Demo", "CI", "Test" }, false);
     }
 
     @Test
-    public void shouldUpdateDefinitionTags() throws ConnectionException, AzDException {
+    public void shouldUpdateDefinitionTags() throws AzDException {
         b.updateDefinitionTags(22, new String[]{ "TestDefinition", "DemoDefinition"}, false);
+    }
+
+    @Test
+    public void shouldGetYamlBuildForADefinition() throws AzDException {
+        b.getYaml(22).getYaml();
     }
 }

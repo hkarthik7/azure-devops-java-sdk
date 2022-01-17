@@ -65,7 +65,7 @@ public class Main {
             // Remember that this method does a PUT request to the API.
             distributedTask.updateVariableGroup("groupId", "name", "description", variables);
 
-        } catch (AzDException | ConnectionException e) {
+        } catch (AzDException e) {
             e.printStackTrace();
         }
     }

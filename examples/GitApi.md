@@ -72,7 +72,7 @@ public class Main {
             
             // delete a pull request reviewer
             g.deletePullRequestReviewer("pull-request-id", "repository-name", "reviewer-id");
-        } catch (AzDException | ConnectionException e) {
+        } catch (AzDException e) {
             e.printStackTrace();
         }
     }
