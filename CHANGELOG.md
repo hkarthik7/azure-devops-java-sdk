@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.5.10
+- Extended functionality of **Release Api**.
+  - Delete and Update a release
+  - Manage release environments
+  - Kick off a release pipeline using `queueRelease` method
+  - Approve a release
+  - Update the manual intervention for a release
+- Extended functionality of **Build Api**.
+  - Get the `yaml` for a designer build pipeline
+  - Update a stage or all stages in the build pipeline
+
+
 ## 2.5.9
 - Expanded the WorkItemTrackingDetails interface with two updateWorkItem
   methods and added hyperlinks support. [Associated PR](https://github.com/hkarthik7/azure-devops-java-sdk/pull/10)
