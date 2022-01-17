@@ -41,10 +41,6 @@ public class ServiceEndpointApiTest {
 
     @Test
     public void shouldGetAllServiceEndpoints() throws AzDException {
-        var sEndpoints = s.getServiceEndpoints();
-        for (var endPoint: sEndpoints.getServiceEndpoints()) {
-            System.out.println(endPoint.getId() + ": " + endPoint.getName());
-        }
         s.getServiceEndpoints();
     }
 

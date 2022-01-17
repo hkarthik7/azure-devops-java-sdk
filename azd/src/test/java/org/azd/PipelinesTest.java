@@ -31,7 +31,7 @@ public class PipelinesTest {
         webApi = new AzDClientApi(organization, project, token);
         p = webApi.getPipelinesApi();
         g = webApi.getGitApi();
-        runId = p.getPipelineRuns(8).getPipelineRuns().stream().findFirst().get().getId();
+        runId = p.getPipelineRuns(8).getPipelineRuns().stream().filter(x -> x.getResult().equals("succeeded")).findFirst().get().getId();
     }
 
     @Test
