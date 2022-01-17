@@ -24,7 +24,7 @@ To download the library and use it in your project, just add below in your pom.x
 <dependency>
   <groupId>io.github.hkarthik7</groupId>
   <artifactId>azd</artifactId>
-  <version>${latest Version}</version>
+  <version>2.5.9</version>
 </dependency>
 ```
 **Java docs**
@@ -32,7 +32,7 @@ To download the library and use it in your project, just add below in your pom.x
 <dependency>
     <groupId>io.github.hkarthik7</groupId>
     <artifactId>azd</artifactId>
-    <version>${latest Version}</version>
+    <version>2.5.9</version>
     <classifier>javadoc</classifier>
 </dependency>
 ```
@@ -42,7 +42,7 @@ To download the library and use it in your project, just add below in your pom.x
 <dependency>
     <groupId>io.github.hkarthik7</groupId>
     <artifactId>azd</artifactId>
-    <version>${latest Version}</version>
+    <version>2.5.9</version>
     <classifier>sources</classifier>
 </dependency>
 ```
@@ -73,7 +73,7 @@ public class Main {
         
             // list all the teams
             core.getTeams();
-        } catch (AzDException | ConnectionException e1) {
+        } catch (AzDException e1) {
             e1.printStackTrace();
         }
     }
@@ -102,7 +102,7 @@ public class Main {
             
             build.cloneBuildDefinition(ciName, ciCloneName);
             
-        } catch (AzDException | ConnectionException e1) {
+        } catch (AzDException e1) {
             e1.printStackTrace();
         }
     }
