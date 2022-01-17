@@ -1,6 +1,9 @@
 # Changelog
 
-## 2.5.10
+## 3.0.0
+
+**Breaking changes**
+- Removed **ConnectionException** class as it is not used anymore.  
 - Extended functionality of **Release Api**.
   - Delete and Update a release
   - Manage release environments
@@ -10,7 +13,6 @@
 - Extended functionality of **Build Api**.
   - Get the `yaml` for a designer build pipeline
   - Update a stage or all stages in the build pipeline
-
 
 ## 2.5.9
 - Expanded the WorkItemTrackingDetails interface with two updateWorkItem
