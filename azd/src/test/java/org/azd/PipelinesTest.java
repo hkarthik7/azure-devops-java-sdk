@@ -31,16 +31,16 @@ public class PipelinesTest {
         webApi = new AzDClientApi(organization, project, token);
         p = webApi.getPipelinesApi();
         g = webApi.getGitApi();
-        runId = p.getPipelineRuns(8).getPipelineRuns().stream().filter(x -> x.getResult().equals("succeeded")).findFirst().get().getId();
+        runId = 676;
     }
 
     @Test
-    public void shouldGetArtifacts() throws AzDException, IOException {
+    public void shouldGetArtifacts() throws AzDException {
         p.getArtifacts(8, runId, "drop");
     }
 
     @Test
-    public void shouldGetArtifactsWithContentsExpanded() throws AzDException, IOException {
+    public void shouldGetArtifactsWithContentsExpanded() throws AzDException {
 //        String url = p.getArtifacts(8, 531, "drop", PipelinesArtifactExpandOptions.SIGNEDCONTENT).getSignedContent().getUrl();
 //        new FileOutputStream("drop.zip").getChannel().transferFrom(Channels.newChannel(
 //                new URL(url).openStream()), 0, Long.MAX_VALUE);
@@ -48,40 +48,40 @@ public class PipelinesTest {
     }
 
     @Test
-    public void shouldGetPipelines() throws AzDException, IOException {
+    public void shouldGetPipelines() throws AzDException {
         p.getPipelines();
     }
 
     @Test
-    public void shouldGetPipelineLog() throws AzDException, IOException {
+    public void shouldGetPipelineLog() throws AzDException {
         p.getPipelineLog(8, runId, 1);
     }
 
     @Test
-    public void shouldGetPipelineLogWithOptions() throws AzDException, IOException {
+    public void shouldGetPipelineLogWithOptions() throws AzDException {
         p.getPipelineLog(8, runId, 1, PipelinesExpandOptions.SIGNEDCONTENT);
     }
 
     @Test
-    public void shouldGetPipelineLogs() throws AzDException, IOException {
+    public void shouldGetPipelineLogs() throws AzDException {
         p.getPipelineLogs(8, runId);
     }
 
     // Should throw PipelineExistsException;
     // Modify this test if the pipeline doesn't exist to create a new one.
     @Test(expected = AzDException.class)
-    public void shouldCreateAPipeline() throws AzDException, IOException {
+    public void shouldCreateAPipeline() throws AzDException {
         String repoId = g.getRepository("newRepo").getId();
         p.createPipeline("Demo-Pipeline-CI", "/", "/azure-pipelines.yaml", repoId, "newRepo");
     }
 
     @Test
-    public void shouldPreviewADryRunAndReturnYaml() throws AzDException, IOException {
+    public void shouldPreviewADryRunAndReturnYaml() throws AzDException {
         p.previewPipeline(25, true);
     }
 
     @Test
-    public void shouldRunAnExistingPipeline() throws AzDException, IOException {
+    public void shouldRunAnExistingPipeline() throws AzDException {
         p.runPipeline(25);
     }
 }
