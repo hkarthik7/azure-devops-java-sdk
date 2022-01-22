@@ -5,6 +5,7 @@ import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.CoreDetails;
 import org.azd.interfaces.ServiceHooksDetails;
+import org.azd.servicehooks.types.ServiceHooks;
 import org.azd.utils.AzDClientApi;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,6 +35,7 @@ public class ServiceHooksApiTest {
     @Test
     public void shouldCreateASubscription() throws AzDException {
         var projectId = c.getProject("azure-devops-java-sdk");
+        var serviceHooks = new ServiceHooks();
 
         var pI = new LinkedHashMap<String, Object>(){{
             put("buildStatus", "Failed");
@@ -45,8 +47,15 @@ public class ServiceHooksApiTest {
             put("url", "https://mywebsite/api/webhook");
         }};
 
-        var res = s.createSubscription("tfs", "build.complete", "1.0-preview.1", "webHooks",
-                "httpRequest", pI, cI);
+        serviceHooks.setPublisherId("tfs");
+        serviceHooks.setEventType("build.complete");
+        serviceHooks.setResourceVersion("1.0-preview.1");
+        serviceHooks.setConsumerId("webHooks");
+        serviceHooks.setConsumerActionId("httpRequest");
+        serviceHooks.setPublisherInputs(pI);
+        serviceHooks.setConsumerInputs(cI);
+
+        var res = s.createSubscription(serviceHooks);
 
         res.getId();
     }
