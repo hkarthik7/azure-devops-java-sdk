@@ -2,6 +2,7 @@ package org.azd.helpers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.azd.enums.ApiExceptionTypes;
 import org.azd.exceptions.AzDException;
 
 import java.io.File;
@@ -21,7 +22,7 @@ public class JsonMapper extends ObjectMapper {
         try {
             return this.writeValueAsString(value);
         } catch (JsonProcessingException e) {
-            throw new AzDException("Couldn't parse the request content, validate the arguments passed. \n" + value);
+            throw new AzDException(ApiExceptionTypes.StringValueParsingException.toString(), e.getMessage());
         }
     }
 
@@ -40,10 +41,10 @@ public class JsonMapper extends ObjectMapper {
             if (content.contains("The request is invalid."))
                 throw new AzDException();
             if (content.contains("Object moved"))
-                throw new AzDException("InvalidPersonalAccessTokenException", "Personal access token passed is invalid; Pass the valid token and try again.");
+                throw new AzDException(ApiExceptionTypes.InvalidPersonalAccessTokenException.toString(), "Personal access token passed is invalid; Pass the valid token and try again.");
             return this.readValue(content, valueType);
         } catch (JsonProcessingException e) {
-            throw new AzDException("Couldn't parse the response content, validate the arguments passed. \n" + content);
+            throw new AzDException(ApiExceptionTypes.ApiResponseParsingException.toString(), e.getMessage());
         }
     }
 
@@ -59,7 +60,7 @@ public class JsonMapper extends ObjectMapper {
         try {
             return this.readValue(src, valueType);
         } catch (Exception e) {
-            throw new AzDException("Couldn't parse the content from file, validate the file & path and try again. \n" + src);
+            throw new AzDException(ApiExceptionTypes.FileContentParsingException.toString(), e.getMessage());
         }
     }
 }
