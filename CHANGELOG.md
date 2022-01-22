@@ -13,6 +13,8 @@
 - Extended functionality of **Build Api**.
   - Get the `yaml` for a designer build pipeline
   - Update a stage or all stages in the build pipeline
+- Change in input parameters for **createSubscription** in **ServiceHooksApi**.
+  - **createSubscription** method is tied to type **ServiceHooks** that extracts the parameters from it.
 
 ## 2.5.9
 - Expanded the WorkItemTrackingDetails interface with two updateWorkItem
@@ -39,7 +41,7 @@
 - Added support to **OAuth2**. 
 - Merged PR: [Connection using oauth token #5](https://github.com/hkarthik7/azure-devops-java-sdk/pull/5).
 - Create the authorization endpoint, get the access token and refresh the access token using **OAuthApi**.
-**Connection** class automatically refreshes the token if it's expired.
+- **Connection** class automatically refreshes the token if it's expired.
 - Moved version details to a single class **ApiVersion**.
 - Added support to **Accounts** Api.
 
