@@ -230,7 +230,7 @@ public class CoreApi implements CoreDetails {
      * @return an object or team project with url
      */
     @Override
-    public OperationReference updateProject(String projectId, HashMap<String, Object> projectParameters) throws AzDException {
+    public OperationReference updateProject(String projectId, Map<String, Object> projectParameters) throws AzDException {
 
         String r = send(RequestMethod.PATCH, CONNECTION, CORE, null,
                         AREA, projectId, null, ApiVersion.PROJECT, null, projectParameters);

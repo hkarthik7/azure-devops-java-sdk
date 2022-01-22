@@ -121,7 +121,7 @@ public class WorkItemTrackingApi implements WorkItemTrackingDetails {
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public WorkItem createWorkItem(String workItemType, String title, String description, HashMap<String, Object> additionalFields)
+    public WorkItem createWorkItem(String workItemType, String title, String description, Map<String, Object> additionalFields)
             throws AzDException {
         var req = new ArrayList<>();
 
@@ -633,7 +633,7 @@ public class WorkItemTrackingApi implements WorkItemTrackingDetails {
      * @throws AzDException Handles errors from REST API and validates passed arguments.
      */
 	@Override
-	public WorkItem updateWorkItem(int workItemId, HashMap<String, Object> fieldsToUpdate)
+	public WorkItem updateWorkItem(int workItemId, Map<String, Object> fieldsToUpdate)
 			throws AzDException {
 		return updateWorkItem(workItemId, fieldsToUpdate, WorkItemOperation.ADD);
 	}
@@ -647,7 +647,7 @@ public class WorkItemTrackingApi implements WorkItemTrackingDetails {
      * @throws AzDException Handles errors from REST API and validates passed arguments.
      */
 	@Override
-	public WorkItem updateWorkItem(int workItemId, HashMap<String, Object> fieldsToUpdate, WorkItemOperation operation)
+	public WorkItem updateWorkItem(int workItemId, Map<String, Object> fieldsToUpdate, WorkItemOperation operation)
 			throws AzDException {
 
 		var req = new ArrayList<>();
@@ -684,7 +684,7 @@ public class WorkItemTrackingApi implements WorkItemTrackingDetails {
      */
 	@Override
 	public WorkItem updateWorkItem(int workItemId, WorkItemExpand expand, boolean bypassRules,
-			boolean suppressNotifications, boolean validateOnly, HashMap<String, Object> fieldsToUpdate)
+			boolean suppressNotifications, boolean validateOnly, Map<String, Object> fieldsToUpdate)
 			throws AzDException {
 
 		return updateWorkItem(workItemId, expand, bypassRules, suppressNotifications, validateOnly, fieldsToUpdate,
@@ -705,7 +705,7 @@ public class WorkItemTrackingApi implements WorkItemTrackingDetails {
      */
 	@Override
 	public WorkItem updateWorkItem(int workItemId, WorkItemExpand expand, boolean bypassRules,
-			boolean suppressNotifications, boolean validateOnly, HashMap<String, Object> fieldsToUpdate,
+			boolean suppressNotifications, boolean validateOnly, Map<String, Object> fieldsToUpdate,
 			WorkItemOperation operation) throws AzDException {
 
 		var req = new ArrayList<>();

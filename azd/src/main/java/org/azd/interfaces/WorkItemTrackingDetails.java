@@ -6,7 +6,6 @@ import org.azd.enums.WorkItemOperation;
 import org.azd.exceptions.AzDException;
 import org.azd.workitemtracking.types.*;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +15,7 @@ public interface WorkItemTrackingDetails {
 	WorkItem createWorkItem(String workItemType, WorkItemOperation operation, String title, String description,
 			String[] tags) throws AzDException;
 	WorkItem createWorkItem(String workItemType, String title, String description,
-			HashMap<String, Object> additionalFields) throws AzDException;
+			Map<String, Object> additionalFields) throws AzDException;
 	WorkItemDelete deleteWorkItem(int id) throws AzDException;
 	void deleteWorkItem(int id, boolean destroy) throws AzDException;
 	WorkItem getWorkItem(int id) throws AzDException;
@@ -47,14 +46,14 @@ public interface WorkItemTrackingDetails {
 	WorkItemDeleteShallowReferences getDeletedWorkItemsFromRecycleBin() throws AzDException;
 	WorkItemDeleteReferences getDeletedWorkItemsFromRecycleBin(int[] ids) throws AzDException;
 	WorkItemDeleteReference restoreWorkItemFromRecycleBin(int id) throws AzDException;
-	WorkItem updateWorkItem(int workItemId, HashMap<String, Object> fieldsToUpdate)
+	WorkItem updateWorkItem(int workItemId, Map<String, Object> fieldsToUpdate)
 			throws AzDException;
-	WorkItem updateWorkItem(int workItemId, HashMap<String, Object> fieldsToUpdate, WorkItemOperation operation)
+	WorkItem updateWorkItem(int workItemId, Map<String, Object> fieldsToUpdate, WorkItemOperation operation)
 			throws AzDException;
 	WorkItem updateWorkItem(int workItemId, WorkItemExpand expand, boolean bypassRules, boolean suppressNotifications,
-			boolean validateOnly, HashMap<String, Object> fieldsToUpdate) throws AzDException;
+			boolean validateOnly, Map<String, Object> fieldsToUpdate) throws AzDException;
 	WorkItem updateWorkItem(int workItemId, WorkItemExpand expand, boolean bypassRules, boolean suppressNotifications,
-			boolean validateOnly, HashMap<String, Object> fieldsToUpdate, WorkItemOperation operation)
+			boolean validateOnly, Map<String, Object> fieldsToUpdate, WorkItemOperation operation)
 			throws AzDException;
 	WorkItem addHyperLinks(int workItemId, Map<String, String> hyperlinksMap) throws AzDException;
 	WorkItem removeHyperLinks(int workItemId, List<String> urls) throws AzDException;

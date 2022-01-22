@@ -4,7 +4,6 @@ import org.azd.build.types.*;
 import org.azd.enums.StageUpdateType;
 import org.azd.exceptions.AzDException;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public interface BuildDetails {
@@ -46,7 +45,7 @@ public interface BuildDetails {
 
     Build queueBuild(int definitionId) throws AzDException;
 
-    Build queueBuild(HashMap<String, Object> buildParameters) throws AzDException;
+    Build queueBuild(Map<String, Object> buildParameters) throws AzDException;
 
     BuildControllers getBuildControllers() throws AzDException;
 

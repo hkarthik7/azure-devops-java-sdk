@@ -376,7 +376,7 @@ public class BuildApi implements BuildDetails {
      * @return a build object {@link Build}
      */
     @Override
-    public Build queueBuild(HashMap<String, Object> buildParameters) throws AzDException {
+    public Build queueBuild(Map<String, Object> buildParameters) throws AzDException {
 
         String r = send(RequestMethod.POST, CONNECTION, BUILD, CONNECTION.getProject(),
                         AREA + "/builds", null,null, ApiVersion.BUILD,null, buildParameters);

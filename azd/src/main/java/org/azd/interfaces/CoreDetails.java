@@ -3,7 +3,7 @@ package org.azd.interfaces;
 import org.azd.core.types.*;
 import org.azd.exceptions.AzDException;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public interface CoreDetails {
     Processes getProcesses() throws AzDException;
@@ -26,7 +26,7 @@ public interface CoreDetails {
     Projects getProjects(int skip, int top, String continuationToken,
                          boolean getDefaultTeamImageUrl, String stateFilter) throws AzDException;
 
-    OperationReference updateProject(String projectId, HashMap<String, Object> projectParameters) throws AzDException;
+    OperationReference updateProject(String projectId, Map<String, Object> projectParameters) throws AzDException;
 
     WebApiTeam createTeam(String projectName, String teamName) throws AzDException;
 
