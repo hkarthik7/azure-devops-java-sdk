@@ -6,6 +6,7 @@ import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.ServiceHooksDetails;
+import org.azd.servicehooks.types.ServiceHooks;
 import org.azd.servicehooks.types.ServiceHooksSubscription;
 import org.azd.servicehooks.types.ServiceHooksSubscriptions;
 
@@ -103,32 +104,23 @@ public class ServiceHooksApi implements ServiceHooksDetails {
 
     /***
      * Create a subscription.
-     * @param publisherId Represents the parameter for request body. Specify the publisher Id. E.g., tfs;
-     * @param eventType Represents the parameter for request body. Specify the event type. E.g., workitem.created;
-     * @param resourceVersion Represents the parameter for request body. Specify the resource version. E.g., 1.0;
-     * @param consumerId Represents the parameter for request body. Specify the consumer id. E.g., webHooks;
-     * @param consumerActionId Represents the parameter for request body. Specify the consumer action id. E.g., httpRequest;
-     * @param publisherInputs Represents the parameter for request body. Specify the publisher inputs.
-     * @param consumerInputs Represents the parameter for request body. Specify the consumer inputs.
+     * @param serviceHooks service hooks object {@link ServiceHooks}
      *  Reference: https://docs.microsoft.com/en-us/azure/devops/service-hooks/events?view=azure-devops#workitem.created
      * @return ServiceHooksSubscription {@link ServiceHooksSubscription}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public ServiceHooksSubscription createSubscription(String publisherId, String eventType,
-                                                       String resourceVersion, String consumerId,
-                                                       String consumerActionId, LinkedHashMap<String, Object> publisherInputs,
-                                                       LinkedHashMap<String, Object> consumerInputs)
+    public ServiceHooksSubscription createSubscription(ServiceHooks serviceHooks)
             throws AzDException {
 
         var requestBody = new LinkedHashMap<String, Object>(){{
-            put("publisherId", publisherId);
-            put("eventType", eventType);
-            put("resourceVersion", resourceVersion);
-            put("consumerId", consumerId);
-            put("consumerActionId", consumerActionId);
-            put("publisherInputs", publisherInputs);
-            put("consumerInputs", consumerInputs);
+            put("publisherId", serviceHooks.getPublisherId());
+            put("eventType", serviceHooks.getEventType());
+            put("resourceVersion", serviceHooks.getResourceVersion());
+            put("consumerId", serviceHooks.getConsumerId());
+            put("consumerActionId", serviceHooks.getConsumerActionId());
+            put("publisherInputs", serviceHooks.getPublisherInputs());
+            put("consumerInputs", serviceHooks.getConsumerInputs());
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, null, null,
