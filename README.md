@@ -3,10 +3,12 @@
 [![Build Status](https://dev.azure.com/harishkarthic/azure-devops-java-sdk/_apis/build/status/hkarthik7.azure-devops-java-sdk?branchName=main)](https://dev.azure.com/harishkarthic/azure-devops-java-sdk/_build/latest?definitionId=8&branchName=main)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/hkarthik7/azure-devops-java-sdk/blob/main/LICENSE)
 [![Documentation Status](https://readthedocs.org/projects/azure-devops-java-sdk-docs/badge/?version=latest)](https://azure-devops-java-sdk-docs.readthedocs.io/en/latest/?badge=latest)
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.hkarthik7/azd.svg)](https://search.maven.org/artifact/io.github.hkarthik7/azd/2.5.9/jar)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.hkarthik7/azd.svg)](https://search.maven.org/artifact/io.github.hkarthik7/azd/3.0.0/jar)
 
 **azd** library helps to manage **Azure DevOps** REST API with ease. This provides functionality to the significant services 
 in **Azure DevOps** and manage in granular level.
+
+The extension method `.createAsync()` is available for all the Apis in the sdk and returns a **CompletableFuture** object on the method that is called.
 
 You can view the [blog post](https://hkarthik7.github.io/azure%20devops/2020/12/04/AzureDevOpsJavaSDK.html) for details about the library.
 
@@ -24,7 +26,7 @@ To download the library and use it in your project, just add below in your pom.x
 <dependency>
   <groupId>io.github.hkarthik7</groupId>
   <artifactId>azd</artifactId>
-  <version>2.5.9</version>
+  <version>3.0.0</version>
 </dependency>
 ```
 **Java docs**
@@ -32,7 +34,7 @@ To download the library and use it in your project, just add below in your pom.x
 <dependency>
     <groupId>io.github.hkarthik7</groupId>
     <artifactId>azd</artifactId>
-    <version>2.5.9</version>
+    <version>3.0.0</version>
     <classifier>javadoc</classifier>
 </dependency>
 ```
@@ -42,7 +44,7 @@ To download the library and use it in your project, just add below in your pom.x
 <dependency>
     <groupId>io.github.hkarthik7</groupId>
     <artifactId>azd</artifactId>
-    <version>2.5.9</version>
+    <version>3.0.0</version>
     <classifier>sources</classifier>
 </dependency>
 ```
@@ -64,6 +66,18 @@ public class Main {
         try {
             // get the list of projects
             core.getProjects();
+            
+            // Get the list of projects asynchronously
+            // This returns a CompletableFuture<List<Project>>
+            var future = core.createAsync(core.getProjects.getProjects());
+
+            System.out.println("Do something here...");
+
+            var projects = future.join(); // Get the results
+            
+            projects.stream()
+                    .map(Project::getName)
+                    .forEach(System.out::println);
             
             // create a new project
             core.createProject("my-new-project", "Finance management");
