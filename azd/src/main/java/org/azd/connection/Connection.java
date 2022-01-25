@@ -34,11 +34,6 @@ public class Connection {
     public interface TokenRefreshedHandler {
         void tokenRefreshed (AuthorizedToken newToken);
     }
-    /***
-     * default with no parameters
-     */
-    public Connection() {
-    }
 
     static {
         Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -51,15 +46,10 @@ public class Connection {
         });
     }
 
-    public ExecutorService getExecutorService() {
-        if (executorService == null) {
-            synchronized (Connection.class) {
-                if (executorService == null) {
-                    executorService = Executors.newCachedThreadPool();
-                }
-            }
-        }
-        return executorService;
+    /***
+     * default with no parameters
+     */
+    public Connection() {
     }
 
     /**
@@ -208,4 +198,18 @@ public class Connection {
         tokenRefreshedHandler.tokenRefreshed(oauthToken);
     }
 
+    /**
+     * Create and return the executor service with a new cached thread pool.
+     * @return Executor service {@link ExecutorService}
+     */
+    public ExecutorService getExecutorService() {
+        if (executorService == null) {
+            synchronized (Connection.class) {
+                if (executorService == null) {
+                    executorService = Executors.newCachedThreadPool();
+                }
+            }
+        }
+        return executorService;
+    }
 }
