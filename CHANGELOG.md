@@ -15,6 +15,7 @@
   - Update a stage or all stages in the build pipeline
 - Change in input parameters for **createSubscription** in **ServiceHooksApi**.
   - **createSubscription** method is tied to type **ServiceHooks** that extracts the parameters from it.
+- Added **AzDAsyncApi** that helps to create asynchronous operation across all the methods in the library.
 
 ## 2.5.9
 - Expanded the WorkItemTrackingDetails interface with two updateWorkItem
