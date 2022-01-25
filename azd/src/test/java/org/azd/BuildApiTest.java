@@ -1,5 +1,6 @@
 package org.azd;
 
+import org.azd.build.types.BuildDefinition;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AzDClient;
@@ -89,7 +90,11 @@ public class BuildApiTest {
 
     @Test
     public void shouldReturnBuildsWithArrayOfBuildIds() throws AzDException {
-        b.getBuilds(new int[]{126, 127});
+        var builds = b.getBuilds().getBuildResults().stream()
+                .mapToInt(x -> x.getId())
+                .limit(2)
+                .toArray();
+        b.getBuilds(builds);
     }
 
     @Test
@@ -125,17 +130,17 @@ public class BuildApiTest {
 
     @Test
     public void shouldReturnBuildDefinition() throws AzDException {
-        b.getBuildDefinition(9);
+        b.getBuildDefinition(b.getBuildDefinitions().getBuildDefinition().stream().findFirst().get().getId());
     }
 
     @Test
     public void shouldReturnBuildDefinitionWithOptionalParameters() throws AzDException {
-        b.getBuildDefinition(9, true, null, 2);
+        b.getBuildDefinition(b.getBuildDefinitions().getBuildDefinition().stream().findFirst().get().getId(), true, null, 2);
     }
 
     @Test
     public void shouldReturnBuildDefinitionRevisions() throws AzDException {
-        b.getBuildDefinitionRevisions(9);
+        b.getBuildDefinitionRevisions(b.getBuildDefinitions().getBuildDefinition().stream().findFirst().get().getId());
     }
 
     @Test
@@ -145,7 +150,11 @@ public class BuildApiTest {
 
     @Test
     public void shouldReturnBuildDefinitionsWithIds() throws AzDException {
-        b.getBuildDefinitions(new int[]{ 8, 9 });
+        var defs = b.getBuildDefinitions().getBuildDefinition().stream()
+                .mapToInt(BuildDefinition::getId)
+                .limit(2)
+                .toArray();
+        b.getBuildDefinitions(defs);
     }
 
     @Test
@@ -155,7 +164,7 @@ public class BuildApiTest {
 
     @Test
     public void shouldReturnBuildDefinitionsWithName() throws AzDException {
-        b.getBuildDefinitions("azure-devops-java-sdk");
+        b.getBuildDefinitions(b.getBuildDefinitions().getBuildDefinition().stream().findFirst().get().getName());
     }
 
     @Test(expected = AzDException.class)
