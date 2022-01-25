@@ -15,12 +15,12 @@ public interface ServiceEndpointDetails {
     ServiceEndpoint getServiceEndpoint(String endpointId) throws AzDException;
     ServiceEndpoint getServiceEndpoint(String endpointId, ServiceEndpointActionFilter actionFilter) throws AzDException;
     ServiceEndpoints getServiceEndpoints() throws AzDException;
-    void deleteServiceEndpoint(String endpointId, String[] projectIds) throws AzDException;
-    void deleteServiceEndpoint(String endpointId, String[] projectIds, boolean deep) throws AzDException;
+    Void deleteServiceEndpoint(String endpointId, String[] projectIds) throws AzDException;
+    Void deleteServiceEndpoint(String endpointId, String[] projectIds, boolean deep) throws AzDException;
     ServiceEndpoints getServiceEndpointsByNames(String[] endpointNames) throws AzDException;
     ServiceEndpoints getServiceEndpointsByNames(String[] endpointNames, String[] authSchemes,
                                                 boolean includeDetails, boolean includeFailed,
                                                 String owner, String type) throws AzDException;
-    void shareServiceEndpoint(String endpointId, String projectName, String connectionName) throws AzDException;
+    Void shareServiceEndpoint(String endpointId, String projectName, String connectionName) throws AzDException;
     ServiceEndpoint updateServiceEndpoint(String endpointId, Map serviceEndpoint) throws AzDException;
 }

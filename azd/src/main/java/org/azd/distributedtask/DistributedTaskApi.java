@@ -9,6 +9,7 @@ import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.DistributedTaskDetails;
 import org.azd.release.types.ProjectReference;
+import org.azd.utils.AzDAsyncApi;
 
 import java.util.*;
 
@@ -17,7 +18,7 @@ import static org.azd.utils.Client.send;
 /***
  * DistributedTaskApi class to manage Agents, Deployment groups, Environments and Variable groups API
  */
-public class DistributedTaskApi implements DistributedTaskDetails {
+public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implements DistributedTaskDetails {
     /***
      * Connection object
      */
@@ -30,7 +31,9 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * Pass the connection object
      * @param connection Connection object
      */
-    public DistributedTaskApi(Connection connection) { this.CONNECTION = connection; }
+    public DistributedTaskApi(Connection connection) {
+        super(connection);
+        this.CONNECTION = connection; }
 
     /***
      * Delete an agent.
@@ -39,7 +42,7 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteAgent(int poolId, int agentId) throws AzDException {
+    public Void deleteAgent(int poolId, int agentId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, DISTRIBUTEDTASK, null,
                     AREA + "/pools", poolId + "/agents/" + agentId, null, ApiVersion.DISTRIBUTED_TASK, null, null);
@@ -48,6 +51,7 @@ public class DistributedTaskApi implements DistributedTaskDetails {
         } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 
     /***
@@ -204,7 +208,7 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteDeploymentGroup(int deploymentGroupId) throws AzDException {
+    public Void deleteDeploymentGroup(int deploymentGroupId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
                     AREA + "/deploymentgroups", Integer.toString(deploymentGroupId), null, ApiVersion.DISTRIBUTED_TASK, null, null);
@@ -213,6 +217,7 @@ public class DistributedTaskApi implements DistributedTaskDetails {
         } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 
     /***
@@ -412,7 +417,7 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteEnvironment(int environmentId) throws AzDException {
+    public Void deleteEnvironment(int environmentId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
                     AREA + "/environments", Integer.toString(environmentId), null, ApiVersion.DISTRIBUTED_TASK, null, null);
@@ -421,6 +426,7 @@ public class DistributedTaskApi implements DistributedTaskDetails {
         } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 
     /***
@@ -614,7 +620,7 @@ public class DistributedTaskApi implements DistributedTaskDetails {
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteVariableGroup(int variableGroupId, String[] projectIds) throws AzDException {
+    public Void deleteVariableGroup(int variableGroupId, String[] projectIds) throws AzDException {
         try {
             var q = new HashMap<String, Object>(){{
                 put("projectIds", String.join(",", projectIds));
@@ -627,6 +633,7 @@ public class DistributedTaskApi implements DistributedTaskDetails {
         } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 
     /***

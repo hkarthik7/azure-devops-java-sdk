@@ -4,6 +4,9 @@ import org.azd.exceptions.AzDException;
 import org.azd.oauth.OAuthApi;
 import org.azd.oauth.types.AuthorizedToken;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
  * The factory class which sets the default parameters to use this library.
  * <p>
@@ -19,6 +22,7 @@ public class Connection {
     private String appCallBackURL;
     private AuthorizedToken oauthToken = null;
     private TokenRefreshedHandler tokenRefreshedHandler = defaultTokenRefreshedHandler;
+    private static volatile ExecutorService executorService;
     private static TokenRefreshedHandler defaultTokenRefreshedHandler = new TokenRefreshedHandler() {
 
     @Override
@@ -36,6 +40,27 @@ public class Connection {
     public Connection() {
     }
 
+    static {
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            @Override
+            public void run() {
+                if (executorService != null) {
+                    executorService.shutdownNow();
+                }
+            }
+        });
+    }
+
+    public ExecutorService getExecutorService() {
+        if (executorService == null) {
+            synchronized (Connection.class) {
+                if (executorService == null) {
+                    executorService = Executors.newCachedThreadPool();
+                }
+            }
+        }
+        return executorService;
+    }
 
     /**
      * Instantiates the class with organization name, project name and personal access token

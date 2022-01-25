@@ -2,6 +2,7 @@ package org.azd.feedmanagement;
 
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
+import org.azd.core.CoreApi;
 import org.azd.enums.FeedViewType;
 import org.azd.enums.FeedVisibility;
 import org.azd.enums.RequestMethod;
@@ -9,6 +10,7 @@ import org.azd.exceptions.AzDException;
 import org.azd.feedmanagement.types.*;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.FeedManagementDetails;
+import org.azd.utils.AzDAsyncApi;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +21,7 @@ import static org.azd.utils.Client.send;
 /***
  * Feed Management class to manage Artifacts API
  */
-public class FeedManagementApi implements FeedManagementDetails {
+public class FeedManagementApi extends AzDAsyncApi<FeedManagementApi> implements FeedManagementDetails {
     /***
      * Connection object
      */
@@ -32,7 +34,9 @@ public class FeedManagementApi implements FeedManagementDetails {
      * Pass the connection object to work with Feed Management Api
      * @param connection Connection object
      */
-    public FeedManagementApi(Connection connection) { this.CONNECTION = connection; }
+    public FeedManagementApi(Connection connection) {
+        super(connection);
+        this.CONNECTION = connection; }
 
     /***
      * Create a feed, a container for various package types.
@@ -107,7 +111,7 @@ public class FeedManagementApi implements FeedManagementDetails {
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteFeed(String feedId) throws AzDException {
+    public Void deleteFeed(String feedId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, PACKAGING,
                     CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
@@ -116,6 +120,7 @@ public class FeedManagementApi implements FeedManagementDetails {
         } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 
     /***
@@ -128,7 +133,7 @@ public class FeedManagementApi implements FeedManagementDetails {
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteFeedView(String feedId, String feedViewId) throws AzDException {
+    public Void deleteFeedView(String feedId, String feedViewId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, PACKAGING,
                         CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
@@ -137,6 +142,7 @@ public class FeedManagementApi implements FeedManagementDetails {
         } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 
     /***

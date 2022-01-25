@@ -7,7 +7,7 @@ import org.azd.exceptions.AzDException;
 import java.util.Map;
 
 public interface DistributedTaskDetails {
-    void deleteAgent(int poolId, int agentId) throws AzDException;
+    Void deleteAgent(int poolId, int agentId) throws AzDException;
     TaskAgent getAgent(int poolId, int agentId) throws AzDException;
     TaskAgent getAgent(int poolId, int agentId, boolean includeAssignedRequest, boolean includeCapabilities,
                        boolean includeLastCompletedRequest, String[] propertyFilters) throws AzDException;
@@ -17,7 +17,7 @@ public interface DistributedTaskDetails {
     TaskAgent updateAgent(int poolId, int agentId, Map requestBody) throws AzDException;
     DeploymentGroup addDeploymentGroup(String name, String description) throws AzDException;
     DeploymentGroup addDeploymentGroup(String name, String description, int poolId) throws AzDException;
-    void deleteDeploymentGroup(int deploymentGroupId) throws AzDException;
+    Void deleteDeploymentGroup(int deploymentGroupId) throws AzDException;
     DeploymentGroup getDeploymentGroup(int deploymentGroupId) throws AzDException;
     DeploymentGroup getDeploymentGroup(int deploymentGroupId, DeploymentGroupExpands expand, DeploymentGroupActionFilter actionFilter)
             throws AzDException;
@@ -31,7 +31,7 @@ public interface DistributedTaskDetails {
             throws AzDException;
     DeploymentGroup updateDeploymentGroup(int deploymentGroupId, String name, String description) throws AzDException;
     EnvironmentInstance addEnvironment(String name, String description) throws AzDException;
-    void deleteEnvironment(int environmentId) throws AzDException;
+    Void deleteEnvironment(int environmentId) throws AzDException;
     EnvironmentInstance getEnvironment(int environmentId) throws AzDException;
     EnvironmentInstance getEnvironment(int environmentId, EnvironmentExpands expands) throws AzDException;
     EnvironmentInstances getEnvironments() throws AzDException;
@@ -41,7 +41,7 @@ public interface DistributedTaskDetails {
     EnvironmentInstance updateEnvironment(int environmentId, String name, String description) throws AzDException;
     VariableGroup addVariableGroup(VariableGroupDefinition variableGroupDefinition) throws AzDException;
     VariableGroup addVariableGroup(String name, String description, Map variables) throws AzDException;
-    void deleteVariableGroup(int variableGroupId, String[] projectIds) throws AzDException;
+    Void deleteVariableGroup(int variableGroupId, String[] projectIds) throws AzDException;
     VariableGroup getVariableGroup(int variableGroupId) throws AzDException;
     VariableGroups getVariableGroups() throws AzDException;
     VariableGroups getVariableGroups(int top) throws AzDException;

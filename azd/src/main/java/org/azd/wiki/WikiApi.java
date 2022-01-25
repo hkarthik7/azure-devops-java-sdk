@@ -2,11 +2,13 @@ package org.azd.wiki;
 
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
+import org.azd.core.CoreApi;
 import org.azd.enums.RequestMethod;
 import org.azd.enums.WikiType;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.WikiDetails;
+import org.azd.utils.AzDAsyncApi;
 import org.azd.wiki.types.WikiV2;
 import org.azd.wiki.types.WikiV2Pages;
 
@@ -17,7 +19,7 @@ import static org.azd.utils.Client.send;
 /***
  * Wiki class to manage Wiki API
  */
-public class WikiApi implements WikiDetails {
+public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
     /***
      * Connection object
      */
@@ -30,7 +32,9 @@ public class WikiApi implements WikiDetails {
      * Pass the connection object to work with Work Api
      * @param connection Connection object
      */
-    public WikiApi(Connection connection) { this.CONNECTION = connection; }
+    public WikiApi(Connection connection) {
+        super(connection);
+        this.CONNECTION = connection; }
 
     /***
      * Creates the wiki resource.

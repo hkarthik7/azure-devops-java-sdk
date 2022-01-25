@@ -10,7 +10,7 @@ public interface ServiceHooksDetails {
     ServiceHooksSubscriptions getSubscriptions() throws AzDException;
     ServiceHooksSubscriptions getSubscriptions(String consumerActionId, String consumerId,
                                                String eventType, String publisherId) throws AzDException;
-    void deleteSubscription(String subscriptionId) throws AzDException;
+    Void deleteSubscription(String subscriptionId) throws AzDException;
     ServiceHooksSubscription createSubscription(ServiceHooks serviceHooks)
             throws AzDException;
 }

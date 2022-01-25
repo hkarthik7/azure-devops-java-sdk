@@ -2,11 +2,13 @@ package org.azd.work;
 
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
+import org.azd.core.CoreApi;
 import org.azd.enums.IterationsTimeFrame;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.WorkDetails;
+import org.azd.utils.AzDAsyncApi;
 import org.azd.work.types.IterationWorkItems;
 import org.azd.work.types.TeamSettingsIteration;
 import org.azd.work.types.TeamSettingsIterations;
@@ -20,7 +22,7 @@ import static org.azd.utils.Client.send;
 /***
  * Work class to manage work API
  */
-public class WorkApi implements WorkDetails {
+public class WorkApi extends AzDAsyncApi<WorkApi> implements WorkDetails {
     /***
      * Connection object
      */
@@ -33,7 +35,9 @@ public class WorkApi implements WorkDetails {
      * Pass the connection object to work with Work Api
      * @param connection Connection object
      */
-    public WorkApi(Connection connection) { this.CONNECTION = connection; }
+    public WorkApi(Connection connection) {
+        super(connection);
+        this.CONNECTION = connection; }
 
     /***
      * Get a team's iterations
@@ -111,7 +115,7 @@ public class WorkApi implements WorkDetails {
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteTeamSettingsIteration(String teamName, String iterationId) throws AzDException {
+    public Void deleteTeamSettingsIteration(String teamName, String iterationId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, WORK,
                         (CONNECTION.getProject() + "/" + encodeSpace(teamName)),
@@ -120,6 +124,7 @@ public class WorkApi implements WorkDetails {
         } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 
 }

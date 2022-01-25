@@ -12,9 +12,9 @@ public interface FeedManagementDetails {
 
     FeedView createFeedView(String feedName, String name, FeedViewType feedViewType, FeedVisibility visibility) throws AzDException;
 
-    void deleteFeed(String feedId) throws AzDException;
+    Void deleteFeed(String feedId) throws AzDException;
 
-    void deleteFeedView(String feedId, String feedViewId) throws AzDException;
+    Void deleteFeedView(String feedId, String feedViewId) throws AzDException;
 
     Feed getFeed(String feedName) throws AzDException;
 

@@ -2,12 +2,14 @@ package org.azd.git;
 
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
+import org.azd.core.CoreApi;
 import org.azd.enums.PullRequestStatus;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.git.types.*;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.GitDetails;
+import org.azd.utils.AzDAsyncApi;
 
 import java.util.*;
 
@@ -16,7 +18,7 @@ import static org.azd.utils.Client.send;
 /***
  * GIT class to manage git API
  */
-public class GitApi implements GitDetails {
+public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
 
     /***
      * Connection object
@@ -30,7 +32,9 @@ public class GitApi implements GitDetails {
      * Pass the connection object to work with Git Api
      * @param connection Connection object
      */
-    public GitApi(Connection connection) { this.CONNECTION = connection; }
+    public GitApi(Connection connection) {
+        super(connection);
+        this.CONNECTION = connection; }
 
     /***
      * Create a git repository in a team project.
@@ -59,7 +63,7 @@ public class GitApi implements GitDetails {
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteRepository(String repositoryId) throws AzDException {
+    public Void deleteRepository(String repositoryId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, GIT, CONNECTION.getProject(),
                     AREA + "/repositories", repositoryId, null, ApiVersion.GIT, null, null);
@@ -67,6 +71,7 @@ public class GitApi implements GitDetails {
         } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 
     /***
@@ -75,7 +80,7 @@ public class GitApi implements GitDetails {
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteRepositoryFromRecycleBin(String repositoryId) throws AzDException {
+    public Void deleteRepositoryFromRecycleBin(String repositoryId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, GIT, CONNECTION.getProject(),
                     AREA + "/recycleBin/repositories", repositoryId, null, ApiVersion.GIT, null, null);
@@ -83,6 +88,7 @@ public class GitApi implements GitDetails {
         } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 
     /***
@@ -463,7 +469,7 @@ public class GitApi implements GitDetails {
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deletePullRequestLabel(String repositoryName, int pullRequestId, String labelName) throws AzDException {
+    public Void deletePullRequestLabel(String repositoryName, int pullRequestId, String labelName) throws AzDException {
         try {
             String resource = "pullrequests/" + pullRequestId + "/labels/" + labelName;
             String r = send(RequestMethod.DELETE, CONNECTION, GIT, CONNECTION.getProject(),
@@ -472,6 +478,7 @@ public class GitApi implements GitDetails {
         } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 
     /***
@@ -542,7 +549,7 @@ public class GitApi implements GitDetails {
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deletePullRequestReviewer(int pullRequestId, String repositoryName, String reviewerId) throws AzDException {
+    public Void deletePullRequestReviewer(int pullRequestId, String repositoryName, String reviewerId) throws AzDException {
         try {
             String id = repositoryName + "/pullrequests/" + pullRequestId + "/reviewers/" + reviewerId;
 
@@ -552,6 +559,7 @@ public class GitApi implements GitDetails {
         } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 
     /***

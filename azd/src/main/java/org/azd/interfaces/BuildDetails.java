@@ -7,7 +7,7 @@ import org.azd.exceptions.AzDException;
 import java.util.Map;
 
 public interface BuildDetails {
-    void deleteBuild(int buildId) throws AzDException;
+    Void deleteBuild(int buildId) throws AzDException;
 
     Build getBuild(int buildId) throws AzDException;
 
@@ -57,7 +57,7 @@ public interface BuildDetails {
 
     BuildDefinition cloneBuildDefinition(String definitionName, String definitionCloneName) throws AzDException;
 
-    void deleteBuildDefinition(int definitionId) throws AzDException;
+    Void deleteBuildDefinition(int definitionId) throws AzDException;
 
     BuildDefinition getBuildDefinition(int definitionId) throws AzDException;
 
@@ -74,7 +74,7 @@ public interface BuildDetails {
 
     BuildDefinitions getBuildDefinitions(String name) throws AzDException;
 
-    Map getBuildDefinitions(
+    BuildDefinitions getBuildDefinitions(
             String builtAfter, String continuationToken, boolean includeAllProperties,
             boolean includeLatestBuilds, String minMetricsTime, String notBuiltAfter,
             String path, int processType, String queryOrder, String repositoryId,
@@ -113,5 +113,5 @@ public interface BuildDetails {
     YamlBuild getYaml(int definitionId, boolean includeLatestBuilds, String minMetricsTime,
                       String[] propertyFilters, int revision) throws AzDException;
 
-    void updateBuildStage(int buildId, String stageReferenceName, boolean forceRetryAllJobs, StageUpdateType state) throws AzDException;
+    Void updateBuildStage(int buildId, String stageReferenceName, boolean forceRetryAllJobs, StageUpdateType state) throws AzDException;
 }

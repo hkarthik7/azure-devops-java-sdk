@@ -2,6 +2,7 @@ package org.azd.policy;
 
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
+import org.azd.core.CoreApi;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
@@ -10,6 +11,7 @@ import org.azd.policy.types.PolicyConfiguration;
 import org.azd.policy.types.PolicyConfigurations;
 import org.azd.policy.types.PolicyType;
 import org.azd.policy.types.PolicyTypes;
+import org.azd.utils.AzDAsyncApi;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -20,7 +22,7 @@ import static org.azd.utils.Client.send;
 /***
  * PolicyApi class to manage Policy API
  */
-public class PolicyApi implements PolicyDetails {
+public class PolicyApi extends AzDAsyncApi<PolicyApi> implements PolicyDetails {
     /***
      * Connection object
      */
@@ -33,7 +35,9 @@ public class PolicyApi implements PolicyDetails {
      * Pass the connection object to work with Policy Api
      * @param connection Connection object
      */
-    public PolicyApi(Connection connection) { this.CONNECTION = connection; }
+    public PolicyApi(Connection connection) {
+        super(connection);
+        this.CONNECTION = connection; }
 
     /***
      * Create a policy configuration of a given policy type.
@@ -69,7 +73,7 @@ public class PolicyApi implements PolicyDetails {
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deletePolicyConfiguration(int configurationId) throws AzDException {
+    public Void deletePolicyConfiguration(int configurationId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, POLICY, CONNECTION.getProject(),
                     AREA + "/configurations", Integer.toString(configurationId), null, ApiVersion.POLICY, null, null);
@@ -77,6 +81,7 @@ public class PolicyApi implements PolicyDetails {
         } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 
     /***

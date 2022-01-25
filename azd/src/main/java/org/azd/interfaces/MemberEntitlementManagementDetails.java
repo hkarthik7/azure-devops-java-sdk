@@ -14,10 +14,10 @@ public interface MemberEntitlementManagementDetails {
     UsersSummary getUserEntitlementSummary() throws AzDException;
     PagedGraphMemberList getMembers(String groupId) throws AzDException;
     PagedGraphMemberList getMembers(String groupId, int maxResults, String pagingToken) throws AzDException;
-    void removeMemberFromGroup(String groupId, String memberId) throws AzDException;
+    Void removeMemberFromGroup(String groupId, String memberId) throws AzDException;
     UserEntitlementsResponse addUserEntitlement(AccountLicenseType accountLicenseType, String emailId, GroupType groupType, String projectId)
             throws AzDException;
-    void deleteUserEntitlement(String userId) throws AzDException;
+    Void deleteUserEntitlement(String userId) throws AzDException;
     UserEntitlement getUserEntitlement(String userId) throws AzDException;
     PagedGraphMemberList getUserEntitlements() throws AzDException;
     UserEntitlementsResponse updateUserEntitlement (String userId, List<Object> requestBody) throws AzDException;

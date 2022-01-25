@@ -10,7 +10,7 @@ import java.util.Map;
 
 public interface PolicyDetails {
     PolicyConfiguration createPolicyConfiguration(String typeId, boolean isEnabled, boolean isBlocking, Map settings) throws AzDException;
-    void deletePolicyConfiguration(int configurationId) throws AzDException;
+    Void deletePolicyConfiguration(int configurationId) throws AzDException;
     PolicyConfiguration getPolicyConfiguration(int configurationId) throws AzDException;
     PolicyConfigurations getPolicyConfigurations() throws AzDException;
     PolicyConfigurations getPolicyConfigurations(int top, String continuationToken, String policyType) throws AzDException;

@@ -7,9 +7,9 @@ import org.azd.git.types.*;
 public interface GitDetails {
     Repository createRepository(String repositoryName, String projectId) throws AzDException;
 
-    void deleteRepository(String repositoryId) throws AzDException;
+    Void deleteRepository(String repositoryId) throws AzDException;
 
-    void deleteRepositoryFromRecycleBin(String repositoryId) throws AzDException;
+    Void deleteRepositoryFromRecycleBin(String repositoryId) throws AzDException;
 
     GitDeletedRepositories getDeletedRepositories() throws AzDException;
 
@@ -53,7 +53,7 @@ public interface GitDetails {
 
     WebApiTagDefinition createPullRequestLabel(String repositoryName, int pullRequestId, String labelName) throws AzDException;
 
-    void deletePullRequestLabel(String repositoryName, int pullRequestId, String labelName) throws AzDException;
+    Void deletePullRequestLabel(String repositoryName, int pullRequestId, String labelName) throws AzDException;
 
     WebApiTagDefinition getPullRequestLabel(String repositoryName, int pullRequestId, String labelName) throws AzDException;
 
@@ -62,7 +62,7 @@ public interface GitDetails {
     PullRequestReviewer createPullRequestReviewer(int pullRequestId, String repositoryId,
                                                   String reviewerId, int vote, boolean isRequired) throws AzDException;
 
-    void deletePullRequestReviewer(int pullRequestId, String repositoryId, String reviewerId) throws AzDException;
+    Void deletePullRequestReviewer(int pullRequestId, String repositoryId, String reviewerId) throws AzDException;
 
     PullRequestReviewer getPullRequestReviewer(int pullRequestId, String repositoryId,
                                                String reviewerId) throws AzDException;

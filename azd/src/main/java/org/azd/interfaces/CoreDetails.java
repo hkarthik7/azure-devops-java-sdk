@@ -30,7 +30,7 @@ public interface CoreDetails {
 
     WebApiTeam createTeam(String projectName, String teamName) throws AzDException;
 
-    void deleteTeam(String projectName, String teamName) throws AzDException;
+    Void deleteTeam(String projectName, String teamName) throws AzDException;
 
     Team getTeam(String projectName, String teamName) throws AzDException;
 

@@ -2,6 +2,7 @@ package org.azd.workitemtracking;
 
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
+import org.azd.core.CoreApi;
 import org.azd.enums.RequestMethod;
 import org.azd.enums.WorkItemErrorPolicy;
 import org.azd.enums.WorkItemExpand;
@@ -9,6 +10,7 @@ import org.azd.enums.WorkItemOperation;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.WorkItemTrackingDetails;
+import org.azd.utils.AzDAsyncApi;
 import org.azd.workitemtracking.types.*;
 
 import java.text.MessageFormat;
@@ -21,7 +23,7 @@ import static org.azd.utils.Client.send;
 /***
  * WorkItem Tracking class to manage work items API
  */
-public class WorkItemTrackingApi implements WorkItemTrackingDetails {
+public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implements WorkItemTrackingDetails {
 
     /***
      * Connection object
@@ -35,7 +37,9 @@ public class WorkItemTrackingApi implements WorkItemTrackingDetails {
      * Pass the connection object to work with WorkItem Tracking Api
      * @param connection Connection object
      */
-    public WorkItemTrackingApi(Connection connection) { this.CONNECTION = connection; }
+    public WorkItemTrackingApi(Connection connection) {
+        super(connection);
+        this.CONNECTION = connection; }
 
     /***
      * Creates a single work item.
@@ -185,7 +189,7 @@ public class WorkItemTrackingApi implements WorkItemTrackingDetails {
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteWorkItem(int id, boolean destroy) throws AzDException {
+    public Void deleteWorkItem(int id, boolean destroy) throws AzDException {
         try {
             var q = new HashMap<String, Object>(){{put("destroy", destroy);}};
 
@@ -196,6 +200,7 @@ public class WorkItemTrackingApi implements WorkItemTrackingDetails {
         } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 
     /***
@@ -552,7 +557,7 @@ public class WorkItemTrackingApi implements WorkItemTrackingDetails {
      * @throws AzDException Handles errors from REST API and validates passed arguments
      */
     @Override
-    public void removeWorkItemFromRecycleBin(int id) throws AzDException {
+    public Void removeWorkItemFromRecycleBin(int id) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, WIT, CONNECTION.getProject(),
                     AREA + "/recyclebin", Integer.toString(id), null, ApiVersion.WIT_RECYCLE_BIN, null, null);
@@ -560,6 +565,7 @@ public class WorkItemTrackingApi implements WorkItemTrackingDetails {
         } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 
     /***

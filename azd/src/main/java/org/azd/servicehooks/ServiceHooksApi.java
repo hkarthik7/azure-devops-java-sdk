@@ -2,6 +2,7 @@ package org.azd.servicehooks;
 
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
+import org.azd.core.CoreApi;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
@@ -9,6 +10,7 @@ import org.azd.interfaces.ServiceHooksDetails;
 import org.azd.servicehooks.types.ServiceHooks;
 import org.azd.servicehooks.types.ServiceHooksSubscription;
 import org.azd.servicehooks.types.ServiceHooksSubscriptions;
+import org.azd.utils.AzDAsyncApi;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -19,7 +21,7 @@ import static org.azd.utils.Client.send;
 /***
  * Service Hooks Api to manage service hooks service
  */
-public class ServiceHooksApi implements ServiceHooksDetails {
+public class ServiceHooksApi extends AzDAsyncApi<ServiceHooksApi> implements ServiceHooksDetails {
     /***
      * Connection object
      */
@@ -32,7 +34,9 @@ public class ServiceHooksApi implements ServiceHooksDetails {
      * Pass the connection object to work with Service hooks Api
      * @param connection Connection object
      */
-    public ServiceHooksApi(Connection connection) { this.CONNECTION = connection; }
+    public ServiceHooksApi(Connection connection) {
+        super(connection);
+        this.CONNECTION = connection; }
 
     /***
      * Get a specific service hooks subscription.
@@ -92,7 +96,7 @@ public class ServiceHooksApi implements ServiceHooksDetails {
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteSubscription(String subscriptionId) throws AzDException {
+    public Void deleteSubscription(String subscriptionId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, null, null,
                     AREA + "/subscriptions",  subscriptionId, null, ApiVersion.SERVICE_HOOKS, null,null);
@@ -100,6 +104,7 @@ public class ServiceHooksApi implements ServiceHooksDetails {
         } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 
     /***

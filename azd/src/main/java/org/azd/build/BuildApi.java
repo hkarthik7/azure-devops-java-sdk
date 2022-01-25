@@ -8,10 +8,13 @@ import org.azd.enums.StageUpdateType;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.BuildDetails;
+import org.azd.utils.AzDAsyncApi;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 import java.util.stream.Collectors;
 
 import static org.azd.utils.Client.send;
@@ -19,7 +22,7 @@ import static org.azd.utils.Client.send;
 /***
  * Build class to manage build API
  */
-public class BuildApi implements BuildDetails {
+public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     /***
      * Connection object
      */
@@ -29,10 +32,13 @@ public class BuildApi implements BuildDetails {
     private final String BUILD = "5d6898bb-45ec-463f-95f9-54d49c71752e";
 
     /***
-     * Pass the connection object to work with Build Api
+     * Pass the connection object
      * @param connection Connection object
      */
-    public BuildApi(Connection connection) { this.CONNECTION = connection; }
+    public BuildApi(Connection connection) {
+        super(connection);
+        this.CONNECTION = connection;
+    }
 
     /***
      * Deletes a build.
@@ -40,7 +46,7 @@ public class BuildApi implements BuildDetails {
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteBuild(int buildId) throws AzDException {
+    public Void deleteBuild(int buildId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, BUILD, CONNECTION.getProject(),
                     AREA + "/builds", Integer.toString(buildId), null, ApiVersion.BUILD, null, null);
@@ -48,6 +54,7 @@ public class BuildApi implements BuildDetails {
         } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 
     /***
@@ -491,7 +498,7 @@ public class BuildApi implements BuildDetails {
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteBuildDefinition(int definitionId) throws AzDException {
+    public Void deleteBuildDefinition(int definitionId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, BUILD, CONNECTION.getProject(),
                     AREA + "/definitions", Integer.toString(definitionId),null, ApiVersion.BUILD_DEFINITIONS,null,null);
@@ -499,6 +506,7 @@ public class BuildApi implements BuildDetails {
         } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 
     /***
@@ -648,7 +656,7 @@ public class BuildApi implements BuildDetails {
      * @return build definitions {@link BuildDefinitions}
      */
     @Override
-    public Map getBuildDefinitions(
+    public BuildDefinitions getBuildDefinitions(
             String builtAfter, String continuationToken, boolean includeAllProperties,
             boolean includeLatestBuilds, String minMetricsTime, String notBuiltAfter,
             String path, int processType, String queryOrder, String repositoryId,
@@ -673,7 +681,7 @@ public class BuildApi implements BuildDetails {
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
                         AREA + "/definitions",null,null, ApiVersion.BUILD_DEFINITIONS, q,null);
 
-        return MAPPER.mapJsonResponse(r, Map.class);
+        return MAPPER.mapJsonResponse(r, BuildDefinitions.class);
     }
 
     /***
@@ -956,8 +964,7 @@ public class BuildApi implements BuildDetails {
      * @throws AzDException Default Api Exception handler.  
      */
     @Override
-    public void updateBuildStage(int buildId, String stageReferenceName, boolean forceRetryAllJobs, StageUpdateType state)
-            throws AzDException {
+    public Void updateBuildStage(int buildId, String stageReferenceName, boolean forceRetryAllJobs, StageUpdateType state) throws AzDException {
         try {
             var body = new HashMap<String, Object>(){{
                put("forceRetryAllJobs", forceRetryAllJobs);
@@ -970,5 +977,6 @@ public class BuildApi implements BuildDetails {
         } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 }

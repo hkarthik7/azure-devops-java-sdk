@@ -2,6 +2,7 @@ package org.azd.extensionmanagement;
 
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
+import org.azd.core.CoreApi;
 import org.azd.enums.ExtensionStateFlags;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
@@ -9,6 +10,7 @@ import org.azd.extensionmanagement.types.InstalledExtension;
 import org.azd.extensionmanagement.types.InstalledExtensions;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.ExtensionManagementDetails;
+import org.azd.utils.AzDAsyncApi;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +20,7 @@ import static org.azd.utils.Client.send;
 /***
  * ExtensionManagementApi class to manage installed extensions API
  */
-public class ExtensionManagementApi implements ExtensionManagementDetails {
+public class ExtensionManagementApi extends AzDAsyncApi<ExtensionManagementApi> implements ExtensionManagementDetails {
     /***
      * Connection object
      */
@@ -31,7 +33,9 @@ public class ExtensionManagementApi implements ExtensionManagementDetails {
      * Pass the connection object to work with Member Entitlement Management Api
      * @param connection Connection object
      */
-    public ExtensionManagementApi(Connection connection) { this.CONNECTION = connection; }
+    public ExtensionManagementApi(Connection connection) {
+        super(connection);
+        this.CONNECTION = connection; }
 
     /***
      * Get an installed extension by its publisher and extension id.
@@ -111,7 +115,7 @@ public class ExtensionManagementApi implements ExtensionManagementDetails {
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void uninstallExtension(String publisherId, String extensionId) throws AzDException {
+    public Void uninstallExtension(String publisherId, String extensionId) throws AzDException {
         try {
             String id = publisherId + "/" + extensionId;
 
@@ -123,6 +127,7 @@ public class ExtensionManagementApi implements ExtensionManagementDetails {
         } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 
     /***
@@ -134,7 +139,7 @@ public class ExtensionManagementApi implements ExtensionManagementDetails {
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void uninstallExtension(String publisherId, String extensionId, String reason, String reasonCode)
+    public Void uninstallExtension(String publisherId, String extensionId, String reason, String reasonCode)
             throws AzDException {
         try {
             String id = publisherId + "/" + extensionId;
@@ -151,6 +156,7 @@ public class ExtensionManagementApi implements ExtensionManagementDetails {
         } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 
     /***

@@ -2,6 +2,7 @@ package org.azd.memberentitlementmanagement;
 
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
+import org.azd.core.CoreApi;
 import org.azd.enums.AccountLicenseType;
 import org.azd.enums.GroupType;
 import org.azd.enums.LicensingSource;
@@ -10,6 +11,7 @@ import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.MemberEntitlementManagementDetails;
 import org.azd.memberentitlementmanagement.types.*;
+import org.azd.utils.AzDAsyncApi;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -21,7 +23,7 @@ import static org.azd.utils.Client.send;
 /***
  * MemberEntitlementManagementApi class to manage groups and user entitlements API
  */
-public class MemberEntitlementManagementApi implements MemberEntitlementManagementDetails {
+public class MemberEntitlementManagementApi extends AzDAsyncApi<MemberEntitlementManagementApi> implements MemberEntitlementManagementDetails {
     /***
      * Connection object
      */
@@ -35,7 +37,9 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
      * Pass the connection object to work with Member Entitlement Management Api
      * @param connection Connection object
      */
-    public MemberEntitlementManagementApi(Connection connection) { this.CONNECTION = connection; }
+    public MemberEntitlementManagementApi(Connection connection) {
+        super(connection);
+        this.CONNECTION = connection; }
 
     /***
      * Get the group entitlements for an account.
@@ -120,7 +124,7 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void removeMemberFromGroup(String groupId, String memberId) throws AzDException {
+    public Void removeMemberFromGroup(String groupId, String memberId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, MEMBERENTITLEMENTMANAGEMENT, null,
                     GROUP_AREA, groupId, "members/" + memberId,
@@ -131,11 +135,12 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
         } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 
     /***
      * Add a user, assign license and make them a member of a project group in an account.
-     * @param accountLicenseType Type of Account License (e.g. Express, Stakeholder etc.) {@link AccountLicenseType}
+     * @param accountLicenseType Type of Accounts License (e.g. Express, Stakeholder etc.) {@link AccountLicenseType}
      * @param emailId Email address of the user.
      * @param groupType Type of the group. (e.g. Project Administrator, Project Contributor, etc.) {@link GroupType}
      * @param projectId Id of the project. Get the project id by running getProjects() or getProject("projectName") from CoreApi.
@@ -180,7 +185,7 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteUserEntitlement(String userId) throws AzDException {
+    public Void deleteUserEntitlement(String userId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, MEMBERENTITLEMENTMANAGEMENT, null,
                     USER_AREA, userId, null,
@@ -191,6 +196,7 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
         } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 
     /***
@@ -238,8 +244,8 @@ public class MemberEntitlementManagementApi implements MemberEntitlementManageme
     /***
      * Edit the entitlements License for a user. Set the license account type and license source type for a user.
      * @param userId ID of the user. Run getUserEntitlements() to get a list of users and get the user id.
-     * @param accountLicenseType Type of Account License (e.g. Express, Stakeholder etc.) {@link AccountLicenseType}
-     * @param licensingSource Licensing Source (e.g. Account. MSDN etc.) {@link LicensingSource}
+     * @param accountLicenseType Type of Accounts License (e.g. Express, Stakeholder etc.) {@link AccountLicenseType}
+     * @param licensingSource Licensing Source (e.g. Accounts. MSDN etc.) {@link LicensingSource}
      * @return UserEntitlementsResponse {@link UserEntitlementsResponse}
      * @throws AzDException Default Api Exception handler.
      */

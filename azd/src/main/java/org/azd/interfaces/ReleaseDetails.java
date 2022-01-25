@@ -32,12 +32,12 @@ public interface ReleaseDetails {
                          String[] releaseIdFilter, String searchText, String sourceBranchFilter,
                          String sourceId, ReleaseStatus statusFilter, String[] tagFilter) throws AzDException;
     ReleaseDefinition createReleaseDefinition(String releaseDefinitionParameters) throws AzDException;
-    void deleteReleaseDefinition(int definitionId) throws AzDException;
-    void deleteReleaseDefinition(int definitionId, String comment, boolean forceDelete) throws AzDException;
+    Void deleteReleaseDefinition(int definitionId) throws AzDException;
+    Void deleteReleaseDefinition(int definitionId, String comment, boolean forceDelete) throws AzDException;
     ReleaseDefinition getReleaseDefinition(int definitionId) throws AzDException;
     ReleaseDefinitionRevisions getReleaseDefinitionHistory(int definitionId) throws AzDException;
     ReleaseDefinitions getReleaseDefinitions() throws AzDException;
-    void deleteRelease(int releaseId) throws AzDException;
+    Void deleteRelease(int releaseId) throws AzDException;
     Release updateRelease(int releaseId, String releaseDefinitionParameters) throws AzDException;
     ReleaseEnvironment updateReleaseEnvironment(int releaseId, int environmentId, String comment,
                                                 String scheduledDeploymentTime, ReleaseEnvironmentStatus status, Map variables)

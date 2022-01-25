@@ -9,7 +9,10 @@ import java.util.List;
 
 public interface AccountsDetails {
     Accounts getAccounts(String memberId) throws AzDException;
+
     List<Organization> getOrganizations() throws AzDException;
+
     Profile getProfile() throws AzDException;
+
     Profile getProfile(String id) throws AzDException;
 }

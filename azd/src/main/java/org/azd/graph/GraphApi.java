@@ -2,6 +2,7 @@ package org.azd.graph;
 
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
+import org.azd.core.CoreApi;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.graph.types.GraphGroup;
@@ -10,6 +11,7 @@ import org.azd.graph.types.GraphUser;
 import org.azd.graph.types.GraphUsers;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.GraphDetails;
+import org.azd.utils.AzDAsyncApi;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +21,7 @@ import static org.azd.utils.Client.send;
 /***
  * GraphApi class to manage graph users and groups
  */
-public class GraphApi implements GraphDetails {
+public class GraphApi extends AzDAsyncApi<GraphApi> implements GraphDetails {
     /***
      * Connection object
      */
@@ -32,7 +34,9 @@ public class GraphApi implements GraphDetails {
      * Pass the connection object to work with Graph Api
      * @param connection Connection object
      */
-    public GraphApi(Connection connection) { this.CONNECTION = connection; }
+    public GraphApi(Connection connection) {
+        super(connection);
+        this.CONNECTION = connection; }
 
     /***
      * Materialize an existing AAD or MSA user into the VSTS account.
@@ -88,7 +92,7 @@ public class GraphApi implements GraphDetails {
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteUser(String userDescriptor) throws AzDException {
+    public Void deleteUser(String userDescriptor) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, GRAPH, null,
                     AREA, null, "users/" + userDescriptor, ApiVersion.GRAPH, null, null);
@@ -97,6 +101,7 @@ public class GraphApi implements GraphDetails {
         } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 
     /***

@@ -12,5 +12,5 @@ public interface WorkDetails {
     TeamSettingsIterations getTeamSettingsIterations(String teamName, IterationsTimeFrame timeFrame) throws AzDException;
     IterationWorkItems getTeamIterationWorkItems(String teamName, String iterationId) throws AzDException;
     TeamSettingsIteration getTeamSettingsIteration(String teamName, String iterationId) throws AzDException;
-    void deleteTeamSettingsIteration(String teamName, String iterationId) throws AzDException;
+    Void deleteTeamSettingsIteration(String teamName, String iterationId) throws AzDException;
 }

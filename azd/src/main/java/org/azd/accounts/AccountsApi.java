@@ -10,6 +10,7 @@ import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AccountsDetails;
+import org.azd.utils.AzDAsyncApi;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +21,7 @@ import static org.azd.utils.Client.send;
 /***
  * Accounts class to manage Accounts Api
  */
-public class AccountsApi implements AccountsDetails {
+public class AccountsApi extends AzDAsyncApi<AccountsApi> implements AccountsDetails {
     /***
      * Connection object
      */
@@ -32,7 +33,10 @@ public class AccountsApi implements AccountsDetails {
      * Pass the connection object to work with Accounts Api
      * @param connection Connection object
      */
-    public AccountsApi(Connection connection) { this.CONNECTION = connection; }
+    public AccountsApi(Connection connection) {
+        super(connection);
+        this.CONNECTION = connection;
+    }
 
     /***
      * Get a list of accounts for a specific member.

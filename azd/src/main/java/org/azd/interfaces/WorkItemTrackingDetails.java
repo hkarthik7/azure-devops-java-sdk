@@ -17,7 +17,7 @@ public interface WorkItemTrackingDetails {
 	WorkItem createWorkItem(String workItemType, String title, String description,
 			Map<String, Object> additionalFields) throws AzDException;
 	WorkItemDelete deleteWorkItem(int id) throws AzDException;
-	void deleteWorkItem(int id, boolean destroy) throws AzDException;
+	Void deleteWorkItem(int id, boolean destroy) throws AzDException;
 	WorkItem getWorkItem(int id) throws AzDException;
 	WorkItem getWorkItem(int id, WorkItemExpand expand) throws AzDException;
 	WorkItem getWorkItem(int id, WorkItemExpand expand, String asOf) throws AzDException;
@@ -41,7 +41,7 @@ public interface WorkItemTrackingDetails {
 	WorkItemQueryResult queryByWiql(String team, String query) throws AzDException;
 	WorkItemQueryResult queryByWiql(String team, String query, int top, boolean timePrecision)
 			throws AzDException;
-	void removeWorkItemFromRecycleBin(int id) throws AzDException;
+	Void removeWorkItemFromRecycleBin(int id) throws AzDException;
 	WorkItemDeleteReference getWorkItemFromRecycleBin(int id) throws AzDException;
 	WorkItemDeleteShallowReferences getDeletedWorkItemsFromRecycleBin() throws AzDException;
 	WorkItemDeleteReferences getDeletedWorkItemsFromRecycleBin(int[] ids) throws AzDException;

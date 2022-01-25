@@ -7,6 +7,8 @@ import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.CoreDetails;
+import org.azd.utils.AzDAsyncApi;
+import org.azd.utils.AzDClientApi;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -17,7 +19,7 @@ import static org.azd.utils.Client.send;
 /***
  * Core class to manage core API
  */
-public class CoreApi implements CoreDetails {
+public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
     /***
      * Connection object
      */
@@ -30,7 +32,9 @@ public class CoreApi implements CoreDetails {
      * Pass the connection object to work with Core Api
      * @param connection Connection object
      */
-    public CoreApi(Connection connection) { this.CONNECTION = connection; }
+    public CoreApi(Connection connection) {
+        super(connection);
+        this.CONNECTION = connection; }
 
     /***
      * Get a list of processes.
@@ -265,7 +269,7 @@ public class CoreApi implements CoreDetails {
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteTeam(String projectName, String teamName) throws AzDException {
+    public Void deleteTeam(String projectName, String teamName) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, CORE, null,
                     AREA, projectName, "teams/" + teamName, ApiVersion.PROJECT_TEAMS, null, null);
@@ -273,6 +277,7 @@ public class CoreApi implements CoreDetails {
         } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 
     /***

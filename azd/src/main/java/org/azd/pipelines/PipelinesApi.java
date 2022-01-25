@@ -2,6 +2,7 @@ package org.azd.pipelines;
 
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
+import org.azd.core.CoreApi;
 import org.azd.enums.PipelinesExpandOptions;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
@@ -9,6 +10,7 @@ import org.azd.git.GitApi;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.PipelinesDetails;
 import org.azd.pipelines.types.*;
+import org.azd.utils.AzDAsyncApi;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +20,7 @@ import static org.azd.utils.Client.send;
 /***
  * PipelinesApi class to manage Pipelines API
  */
-public class PipelinesApi implements PipelinesDetails {
+public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements PipelinesDetails {
     /***
      * Connection object
      */
@@ -31,7 +33,9 @@ public class PipelinesApi implements PipelinesDetails {
      * Pass the connection object to work with Pipelines Api
      * @param connection Connection object
      */
-    public PipelinesApi(Connection connection) { this.CONNECTION = connection; }
+    public PipelinesApi(Connection connection) {
+        super(connection);
+        this.CONNECTION = connection; }
 
     /***
      * Get a specific artifact from a pipeline run

@@ -10,6 +10,7 @@ import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.ServiceEndpointDetails;
 import org.azd.serviceendpoint.types.ServiceEndpoint;
 import org.azd.serviceendpoint.types.ServiceEndpoints;
+import org.azd.utils.AzDAsyncApi;
 
 import java.util.*;
 
@@ -18,7 +19,7 @@ import static org.azd.utils.Client.send;
 /***
  * Service Endpoint Api to manage service endpoint service
  */
-public class ServiceEndpointApi implements ServiceEndpointDetails {
+public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implements ServiceEndpointDetails {
     /***
      * Connection object
      */
@@ -34,6 +35,7 @@ public class ServiceEndpointApi implements ServiceEndpointDetails {
      * @param connection Connection object
      */
     public ServiceEndpointApi(Connection connection) {
+        super(connection);
         this.CONNECTION = connection;
         CORE = new CoreApi(CONNECTION);
     }
@@ -158,7 +160,7 @@ public class ServiceEndpointApi implements ServiceEndpointDetails {
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteServiceEndpoint(String endpointId, String[] projectIds) throws AzDException {
+    public Void deleteServiceEndpoint(String endpointId, String[] projectIds) throws AzDException {
         try {
             var q = new HashMap<String, Object>(){{ put("projectIds", String.join(",", projectIds)); }};
 
@@ -169,6 +171,7 @@ public class ServiceEndpointApi implements ServiceEndpointDetails {
         } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 
     /***
@@ -179,7 +182,7 @@ public class ServiceEndpointApi implements ServiceEndpointDetails {
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteServiceEndpoint(String endpointId, String[] projectIds, boolean deep) throws AzDException {
+    public Void deleteServiceEndpoint(String endpointId, String[] projectIds, boolean deep) throws AzDException {
         try {
             var q = new HashMap<String, Object>(){{
                 put("projectIds", String.join(",", projectIds));
@@ -193,6 +196,7 @@ public class ServiceEndpointApi implements ServiceEndpointDetails {
         } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 
     /***
@@ -247,7 +251,7 @@ public class ServiceEndpointApi implements ServiceEndpointDetails {
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void shareServiceEndpoint(String endpointId, String projectName, String connectionName) throws AzDException {
+    public Void shareServiceEndpoint(String endpointId, String projectName, String connectionName) throws AzDException {
         try {
             var project = CORE.getProject(projectName);
 
@@ -268,6 +272,7 @@ public class ServiceEndpointApi implements ServiceEndpointDetails {
         } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 
     /***

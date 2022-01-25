@@ -2,11 +2,13 @@ package org.azd.release;
 
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
+import org.azd.core.CoreApi;
 import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.ReleaseDetails;
 import org.azd.release.types.*;
+import org.azd.utils.AzDAsyncApi;
 
 import java.util.*;
 
@@ -15,7 +17,7 @@ import static org.azd.utils.Client.send;
 /***
  * Release Api to manage releases service
  */
-public class ReleaseApi implements ReleaseDetails {
+public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetails {
     /***
      * Connection object
      */
@@ -28,7 +30,9 @@ public class ReleaseApi implements ReleaseDetails {
      * Pass the connection object to work with Release Api
      * @param connection Connection object
      */
-    public ReleaseApi(Connection connection) { this.CONNECTION = connection; }
+    public ReleaseApi(Connection connection) {
+        super(connection);
+        this.CONNECTION = connection; }
 
     /***
      * Create a release.
@@ -372,7 +376,7 @@ public class ReleaseApi implements ReleaseDetails {
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteReleaseDefinition(int definitionId) throws AzDException {
+    public Void deleteReleaseDefinition(int definitionId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, RELEASE, CONNECTION.getProject(),
                     AREA.replace("releases", "definitions"), Integer.toString(definitionId),
@@ -381,6 +385,7 @@ public class ReleaseApi implements ReleaseDetails {
         } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 
     /***
@@ -392,7 +397,7 @@ public class ReleaseApi implements ReleaseDetails {
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteReleaseDefinition(int definitionId, String comment, boolean forceDelete) throws AzDException {
+    public Void deleteReleaseDefinition(int definitionId, String comment, boolean forceDelete) throws AzDException {
         try {
             var q = new HashMap<String, Object>(){{
                 put("comment", comment);
@@ -406,6 +411,7 @@ public class ReleaseApi implements ReleaseDetails {
         } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 
     /***
@@ -458,7 +464,7 @@ public class ReleaseApi implements ReleaseDetails {
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deleteRelease(int releaseId) throws AzDException {
+    public Void deleteRelease(int releaseId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, RELEASE, CONNECTION.getProject(),
                     AREA, Integer.toString(releaseId), null, ApiVersion.RELEASES, null, null);
@@ -466,6 +472,7 @@ public class ReleaseApi implements ReleaseDetails {
         } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 
     /***
