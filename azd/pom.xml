@@ -6,7 +6,7 @@
 
   <groupId>io.github.hkarthik7</groupId>
   <artifactId>azd</artifactId>
-  <version>3.0.0</version>
+  <version>3.0.1</version>
 <packaging>jar</packaging>
 
   <name>azd</name>
