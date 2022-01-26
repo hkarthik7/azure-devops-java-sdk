@@ -35,6 +35,9 @@ public class Connection {
         void tokenRefreshed (AuthorizedToken newToken);
     }
 
+    /*
+        Ensures the executor service is shutdown once the async operation is completed.
+     */
     static {
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
