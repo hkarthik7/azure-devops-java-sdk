@@ -2,7 +2,6 @@ package org.azd.git;
 
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
-import org.azd.core.CoreApi;
 import org.azd.enums.PullRequestStatus;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
@@ -33,8 +32,8 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * @param connection Connection object
      */
     public GitApi(Connection connection) {
-        super(connection);
-        this.CONNECTION = connection; }
+        this.CONNECTION = connection;
+    }
 
     /***
      * Create a git repository in a team project.

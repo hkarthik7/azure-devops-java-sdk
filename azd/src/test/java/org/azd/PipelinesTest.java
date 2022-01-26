@@ -11,7 +11,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
-import java.io.IOException;
 
 public class PipelinesTest {
     private static final JsonMapper MAPPER = new JsonMapper();

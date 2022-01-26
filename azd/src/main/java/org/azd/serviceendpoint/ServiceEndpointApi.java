@@ -35,7 +35,6 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
      * @param connection Connection object
      */
     public ServiceEndpointApi(Connection connection) {
-        super(connection);
         this.CONNECTION = connection;
         CORE = new CoreApi(CONNECTION);
     }

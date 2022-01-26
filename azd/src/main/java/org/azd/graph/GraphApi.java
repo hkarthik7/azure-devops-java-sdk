@@ -2,7 +2,6 @@ package org.azd.graph;
 
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
-import org.azd.core.CoreApi;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.graph.types.GraphGroup;
@@ -35,8 +34,8 @@ public class GraphApi extends AzDAsyncApi<GraphApi> implements GraphDetails {
      * @param connection Connection object
      */
     public GraphApi(Connection connection) {
-        super(connection);
-        this.CONNECTION = connection; }
+        this.CONNECTION = connection;
+    }
 
     /***
      * Materialize an existing AAD or MSA user into the VSTS account.

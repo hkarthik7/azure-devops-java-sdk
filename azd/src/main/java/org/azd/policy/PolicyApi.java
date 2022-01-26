@@ -2,7 +2,6 @@ package org.azd.policy;
 
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
-import org.azd.core.CoreApi;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
@@ -36,8 +35,8 @@ public class PolicyApi extends AzDAsyncApi<PolicyApi> implements PolicyDetails {
      * @param connection Connection object
      */
     public PolicyApi(Connection connection) {
-        super(connection);
-        this.CONNECTION = connection; }
+        this.CONNECTION = connection;
+    }
 
     /***
      * Create a policy configuration of a given policy type.

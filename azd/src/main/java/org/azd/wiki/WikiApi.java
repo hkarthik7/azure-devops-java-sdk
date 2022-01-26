@@ -2,7 +2,6 @@ package org.azd.wiki;
 
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
-import org.azd.core.CoreApi;
 import org.azd.enums.RequestMethod;
 import org.azd.enums.WikiType;
 import org.azd.exceptions.AzDException;
@@ -33,8 +32,8 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
      * @param connection Connection object
      */
     public WikiApi(Connection connection) {
-        super(connection);
-        this.CONNECTION = connection; }
+        this.CONNECTION = connection;
+    }
 
     /***
      * Creates the wiki resource.

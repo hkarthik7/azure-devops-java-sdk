@@ -8,7 +8,6 @@ import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.CoreDetails;
 import org.azd.utils.AzDAsyncApi;
-import org.azd.utils.AzDClientApi;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -33,8 +32,8 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
      * @param connection Connection object
      */
     public CoreApi(Connection connection) {
-        super(connection);
-        this.CONNECTION = connection; }
+        this.CONNECTION = connection;
+    }
 
     /***
      * Get a list of processes.

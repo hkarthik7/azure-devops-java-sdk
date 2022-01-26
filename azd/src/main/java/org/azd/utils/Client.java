@@ -10,9 +10,6 @@ import org.azd.helpers.JsonMapper;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionException;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Wrapper class to build request url and to call Azure DevOps REST API

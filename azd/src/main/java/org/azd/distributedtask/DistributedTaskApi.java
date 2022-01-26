@@ -32,8 +32,8 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      * @param connection Connection object
      */
     public DistributedTaskApi(Connection connection) {
-        super(connection);
-        this.CONNECTION = connection; }
+        this.CONNECTION = connection;
+    }
 
     /***
      * Delete an agent.

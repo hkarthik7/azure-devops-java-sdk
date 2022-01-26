@@ -2,7 +2,6 @@ package org.azd.workitemtracking;
 
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
-import org.azd.core.CoreApi;
 import org.azd.enums.RequestMethod;
 import org.azd.enums.WorkItemErrorPolicy;
 import org.azd.enums.WorkItemExpand;
@@ -38,8 +37,8 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      * @param connection Connection object
      */
     public WorkItemTrackingApi(Connection connection) {
-        super(connection);
-        this.CONNECTION = connection; }
+        this.CONNECTION = connection;
+    }
 
     /***
      * Creates a single work item.

@@ -13,8 +13,6 @@ import org.azd.utils.AzDAsyncApi;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionException;
 import java.util.stream.Collectors;
 
 import static org.azd.utils.Client.send;
@@ -36,7 +34,6 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
      * @param connection Connection object
      */
     public BuildApi(Connection connection) {
-        super(connection);
         this.CONNECTION = connection;
     }
 

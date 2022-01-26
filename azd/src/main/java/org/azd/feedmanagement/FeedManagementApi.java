@@ -2,7 +2,6 @@ package org.azd.feedmanagement;
 
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
-import org.azd.core.CoreApi;
 import org.azd.enums.FeedViewType;
 import org.azd.enums.FeedVisibility;
 import org.azd.enums.RequestMethod;
@@ -35,8 +34,8 @@ public class FeedManagementApi extends AzDAsyncApi<FeedManagementApi> implements
      * @param connection Connection object
      */
     public FeedManagementApi(Connection connection) {
-        super(connection);
-        this.CONNECTION = connection; }
+        this.CONNECTION = connection;
+    }
 
     /***
      * Create a feed, a container for various package types.

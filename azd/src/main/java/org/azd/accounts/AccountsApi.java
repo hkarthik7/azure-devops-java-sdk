@@ -34,7 +34,6 @@ public class AccountsApi extends AzDAsyncApi<AccountsApi> implements AccountsDet
      * @param connection Connection object
      */
     public AccountsApi(Connection connection) {
-        super(connection);
         this.CONNECTION = connection;
     }
 

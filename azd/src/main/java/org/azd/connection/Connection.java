@@ -4,9 +4,6 @@ import org.azd.exceptions.AzDException;
 import org.azd.oauth.OAuthApi;
 import org.azd.oauth.types.AuthorizedToken;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 /**
  * The factory class which sets the default parameters to use this library.
  * <p>
@@ -22,7 +19,6 @@ public class Connection {
     private String appCallBackURL;
     private AuthorizedToken oauthToken = null;
     private TokenRefreshedHandler tokenRefreshedHandler = defaultTokenRefreshedHandler;
-    private static volatile ExecutorService executorService;
     private static TokenRefreshedHandler defaultTokenRefreshedHandler = new TokenRefreshedHandler() {
 
     @Override
@@ -33,20 +29,6 @@ public class Connection {
 
     public interface TokenRefreshedHandler {
         void tokenRefreshed (AuthorizedToken newToken);
-    }
-
-    /*
-        Ensures the executor service is shutdown once the async operation is completed.
-     */
-    static {
-        Runtime.getRuntime().addShutdownHook(new Thread() {
-            @Override
-            public void run() {
-                if (executorService != null) {
-                    executorService.shutdownNow();
-                }
-            }
-        });
     }
 
     /***
@@ -201,18 +183,4 @@ public class Connection {
         tokenRefreshedHandler.tokenRefreshed(oauthToken);
     }
 
-    /**
-     * Create and return the executor service with a new cached thread pool.
-     * @return Executor service {@link ExecutorService}
-     */
-    public ExecutorService getExecutorService() {
-        if (executorService == null) {
-            synchronized (Connection.class) {
-                if (executorService == null) {
-                    executorService = Executors.newCachedThreadPool();
-                }
-            }
-        }
-        return executorService;
-    }
 }

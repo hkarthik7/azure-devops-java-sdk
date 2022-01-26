@@ -2,7 +2,6 @@ package org.azd.release;
 
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
-import org.azd.core.CoreApi;
 import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
@@ -31,8 +30,8 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
      * @param connection Connection object
      */
     public ReleaseApi(Connection connection) {
-        super(connection);
-        this.CONNECTION = connection; }
+        this.CONNECTION = connection;
+    }
 
     /***
      * Create a release.

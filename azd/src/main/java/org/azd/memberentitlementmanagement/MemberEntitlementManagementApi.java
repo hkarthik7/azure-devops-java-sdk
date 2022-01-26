@@ -2,7 +2,6 @@ package org.azd.memberentitlementmanagement;
 
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
-import org.azd.core.CoreApi;
 import org.azd.enums.AccountLicenseType;
 import org.azd.enums.GroupType;
 import org.azd.enums.LicensingSource;
@@ -38,8 +37,8 @@ public class MemberEntitlementManagementApi extends AzDAsyncApi<MemberEntitlemen
      * @param connection Connection object
      */
     public MemberEntitlementManagementApi(Connection connection) {
-        super(connection);
-        this.CONNECTION = connection; }
+        this.CONNECTION = connection;
+    }
 
     /***
      * Get the group entitlements for an account.
