@@ -1,5 +1,15 @@
 # Changelog
 
+## 3.0.2
+
+**Minor incremental release**
+- Merged PR: [Issue #13: Change size from int to long #14](https://github.com/hkarthik7/azure-devops-java-sdk/pull/14)
+- Extended support for **Git Api**.
+
+## 3.0.1
+
+- Bug fix for executor service in **AzDAsyncApi**.
+
 ## 3.0.0
 
 **Breaking changes**
