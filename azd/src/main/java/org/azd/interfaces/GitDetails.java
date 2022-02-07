@@ -1,8 +1,13 @@
 package org.azd.interfaces;
 
+import org.azd.enums.GitHistoryMode;
+import org.azd.enums.GitVersionOptions;
+import org.azd.enums.GitVersionType;
 import org.azd.enums.PullRequestStatus;
 import org.azd.exceptions.AzDException;
 import org.azd.git.types.*;
+
+import java.util.List;
 
 public interface GitDetails {
     Repository createRepository(String repositoryName, String projectId) throws AzDException;
@@ -71,4 +76,32 @@ public interface GitDetails {
 
     PullRequestReviewer updatePullRequestReviewer(int pullRequestId, String repositoryId, String reviewerId,
                                                   boolean isFlagged, boolean hasDeclined) throws AzDException;
+
+    GitAnnotatedTag createAnnotatedTag(String repositoryName, String tagName, String objectId, String message) throws AzDException;
+
+    GitAnnotatedTag getAnnotatedTag(String repositoryName, String objectId) throws AzDException;
+
+    GitCommit getCommit(String repositoryName, String commitId) throws AzDException;
+
+    GitCommit getCommit(String repositoryName, String commitId, int changeCount) throws AzDException;
+
+    GitCommitChanges getChanges(String repositoryName, String commitId) throws AzDException;
+
+    GitCommitChanges getChanges(String repositoryName, String commitId, int top, int skip) throws AzDException;
+
+    GitCommits getCommits(String repositoryName) throws AzDException;
+
+    GitCommits getCommits(String repositoryName, int top) throws AzDException;
+
+    GitCommits getCommits(String repositoryName, List<String> ids) throws AzDException;
+
+    GitCommits getCommits(String repositoryName, int top, int skip, String author, String version, GitVersionOptions versionOptions,
+                          GitVersionType versionType, boolean excludeDeletes, String fromCommitId, String toCommitId, String fromDate,
+                          String toDate, GitHistoryMode historyMode, List<String> ids, boolean includeLinks, boolean includePushData,
+                          boolean includeUserImageUrl, boolean includeWorkItems, String itemPath, boolean showOldestCommitsFirst,
+                          String user, String itemVersion, GitVersionOptions itemVersionOptions, GitVersionType itemVersionType) throws AzDException;
+
+    GitCommits getPushCommits(String repositoryName, int pushId) throws AzDException;
+
+    GitCommits getPushCommits(String repositoryName, int pushId, boolean includeLinks, int top, int skip) throws AzDException;
 }

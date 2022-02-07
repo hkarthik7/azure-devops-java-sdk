@@ -2,8 +2,7 @@ package org.azd.git;
 
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
-import org.azd.enums.PullRequestStatus;
-import org.azd.enums.RequestMethod;
+import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
 import org.azd.git.types.*;
 import org.azd.helpers.JsonMapper;
@@ -622,5 +621,277 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
                 AREA + "/repositories", id, null, ApiVersion.GIT, null, b);
 
         return MAPPER.mapJsonResponse(r, PullRequestReviewer.class);
+    }
+
+    /**
+     * Create an annotated tag.
+     * @param repositoryName Name of the repository.
+     * @param tagName The name of the annotated tag.
+     * @param objectId The objectId (Sha1Id) of the tag.
+     * @param message The tagging Message.
+     * @return A Git annotated tag object {@link GitAnnotatedTag}.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public GitAnnotatedTag createAnnotatedTag(String repositoryName, String tagName, String objectId, String message) throws AzDException {
+        var b = new HashMap<String, Object>(){{
+            put("name", tagName);
+            put("taggedObject", new HashMap<String, String>(){{ put("objectId", objectId); }});
+            put("message", message);
+        }};
+
+        String r = send(RequestMethod.POST, CONNECTION, GIT, CONNECTION.getProject(),
+                AREA + "/repositories", repositoryName, "annotatedtags", ApiVersion.GIT, null, b);
+
+        return MAPPER.mapJsonResponse(r, GitAnnotatedTag.class);
+    }
+
+    /**
+     * Get an annotated tag.
+     * @param repositoryName Name of the repository.
+     * @param objectId ObjectId (Sha1Id) of tag to get.
+     * @return A Git annotated tag object {@link GitAnnotatedTag}.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public GitAnnotatedTag getAnnotatedTag(String repositoryName, String objectId) throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
+                AREA + "/repositories", repositoryName, "annotatedtags/" + objectId, ApiVersion.GIT, null, null);
+
+        return MAPPER.mapJsonResponse(r, GitAnnotatedTag.class);
+    }
+
+    /**
+     * Retrieve a particular commit.
+     * @param repositoryName Name of the repository.
+     * @param commitId The id of the commit.
+     * @return Git commit object {@link GitCommit}
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public GitCommit getCommit(String repositoryName, String commitId) throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
+                AREA + "/repositories", repositoryName, "commits/" + commitId, ApiVersion.GIT, null, null);
+
+        return MAPPER.mapJsonResponse(r, GitCommit.class);
+    }
+
+    /**
+     * Retrieve a particular commit.
+     * @param repositoryName Name of the repository.
+     * @param commitId The id of the commit.
+     * @param changeCount The number of changes to include in the result.
+     * @return Git commit object {@link GitCommit}
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public GitCommit getCommit(String repositoryName, String commitId, int changeCount) throws AzDException {
+        var q = new HashMap<String, Object>(){{ put("changeCount", changeCount); }};
+
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
+                AREA + "/repositories", repositoryName, "commits/" + commitId, ApiVersion.GIT, q, null);
+
+        return MAPPER.mapJsonResponse(r, GitCommit.class);
+    }
+
+    /**
+     * Retrieve changes for a particular commit.
+     * @param repositoryName Name of the repository.
+     * @param commitId The id of the commit.
+     * @return Git commit changes object {@link GitCommitChanges}
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public GitCommitChanges getChanges(String repositoryName, String commitId) throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
+                AREA + "/repositories", repositoryName, "commits/" + commitId + "/changes", ApiVersion.GIT, null, null);
+
+        return MAPPER.mapJsonResponse(r, GitCommitChanges.class);
+    }
+
+    /**
+     * Retrieve changes for a particular commit.
+     * @param repositoryName Name of the repository.
+     * @param commitId The id of the commit.
+     * @param top The maximum number of changes to return.
+     * @param skip The number of changes to skip.
+     * @return Git commit changes object {@link GitCommitChanges}
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public GitCommitChanges getChanges(String repositoryName, String commitId, int top, int skip) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("top", top);
+            put("skip", skip);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
+                AREA + "/repositories", repositoryName, "commits/" + commitId + "/changes", ApiVersion.GIT, q, null);
+
+        return MAPPER.mapJsonResponse(r, GitCommitChanges.class);
+    }
+
+    /**
+     * Retrieve git commits for a project.
+     * @param repositoryName Name of the repository.
+     * @return Array Git commit object {@link GitCommits}
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public GitCommits getCommits(String repositoryName) throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
+                AREA + "/repositories", repositoryName, "commits", ApiVersion.GIT, null, null);
+
+        return MAPPER.mapJsonResponse(r, GitCommits.class);
+    }
+
+    /**
+     * Retrieve git commits for a project.
+     * @param repositoryName Name of the repository.
+     * @param top Maximum number of entries to retrieve
+     * @return Array Git commit object {@link GitCommits}
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public GitCommits getCommits(String repositoryName, int top) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("top", top);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
+                AREA + "/repositories", repositoryName, "commits", ApiVersion.GIT, q, null);
+
+        return MAPPER.mapJsonResponse(r, GitCommits.class);
+    }
+
+    /**
+     * Retrieve git commits for a project.
+     * @param repositoryName Name of the repository.
+     * @param ids If provided, specifies the exact commit ids of the commits to fetch. May not be combined with other parameters.
+     * @return Array Git commit object {@link GitCommits}
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public GitCommits getCommits(String repositoryName, List<String> ids) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("ids", String.join(",", ids));
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
+                AREA + "/repositories", repositoryName, "commits", ApiVersion.GIT, q, null);
+
+        return MAPPER.mapJsonResponse(r, GitCommits.class);
+    }
+
+    /**
+     * Retrieve git commits for a project.
+     * @param repositoryName Name of the repository.
+     * @param top Maximum number of entries to retrieve.
+     * @param skip Number of entries to skip.
+     * @param author Alias or display name of the author.
+     * @param version Version string identifier (name of tag/branch, SHA1 of commit).
+     * @param versionOptions Version options - Specify additional modifiers to version (e.g Previous).
+     * @param versionType Version type (branch, tag, or commit). Determines how Id is interpreted.
+     * @param excludeDeletes Only applies when an itemPath is specified. This determines whether to exclude delete entries of the specified path.
+     * @param fromCommitId If provided, a lower bound for filtering commits alphabetically.
+     * @param toCommitId If provided, an upper bound for filtering commits alphabetically
+     * @param fromDate If provided, only include history entries created after this date (string).
+     * @param toDate If provided, only include history entries created before this date (string)
+     * @param historyMode What Git history mode should be used. This only applies to the search criteria when Ids = null and an itemPath is specified.
+     * @param ids If provided, specifies the exact commit ids of the commits to fetch. May not be combined with other parameters.
+     * @param includeLinks Whether to include the _links field on the shallow references
+     * @param includePushData Whether to include the push information
+     * @param includeUserImageUrl Whether to include the image Url for committers and authors
+     * @param includeWorkItems Whether to include linked work items
+     * @param itemPath Path of item to search under
+     * @param showOldestCommitsFirst If enabled, this option will ignore the itemVersion and compareVersion parameters.
+     * @param user Alias or display name of the committer
+     * @param itemVersion Version string identifier (name of tag/branch, SHA1 of commit)
+     * @param itemVersionOptions Version options - Specify additional modifiers to version (e.g Previous)
+     * @param itemVersionType Version type (branch, tag, or commit). Determines how Id is interpreted
+     * @return Array Git commit object {@link GitCommits}
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public GitCommits getCommits(String repositoryName, int top, int skip, String author, String version,
+                                 GitVersionOptions versionOptions, GitVersionType versionType, boolean excludeDeletes,
+                                 String fromCommitId, String toCommitId, String fromDate, String toDate,
+                                 GitHistoryMode historyMode, List<String> ids, boolean includeLinks, boolean includePushData,
+                                 boolean includeUserImageUrl, boolean includeWorkItems, String itemPath, boolean showOldestCommitsFirst,
+                                 String user, String itemVersion, GitVersionOptions itemVersionOptions,
+                                 GitVersionType itemVersionType) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("$top", top);
+            put("$skip", skip);
+            put("author", author);
+            put("compareVersion.version", version);
+            put("compareVersion.versionOptions", versionOptions.toString().toLowerCase());
+            put("compareVersion.versionType", versionType.toString().toLowerCase());
+            put("excludeDeletes", excludeDeletes);
+            put("fromCommitId", fromCommitId);
+            put("fromDate", fromDate);
+            put("historyMode", historyMode.toString().toLowerCase());
+            put("ids", String.join(",", ids));
+            put("includeLinks", includeLinks);
+            put("includePushData", includePushData);
+            put("includeUserImageUrl", includeUserImageUrl);
+            put("itemPath", itemPath);
+            put("itemVersion.version", itemVersion);
+            put("itemVersion.versionOptions", itemVersionOptions.toString().toLowerCase());
+            put("itemVersion.versionType", itemVersionType.toString().toLowerCase());
+            put("showOldestCommitsFirst", showOldestCommitsFirst);
+            put("toCommitId", toCommitId);
+            put("toDate", toDate);
+            put("user", user);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
+                AREA + "/repositories", repositoryName, "commits", ApiVersion.GIT, q, null);
+
+        return MAPPER.mapJsonResponse(r, GitCommits.class);
+    }
+
+    /**
+     * Retrieve a list of commits associated with a particular push.
+     * @param repositoryName Name of the repository.
+     * @param pushId The id of the push.
+     * @return Array Git commit object {@link GitCommits}
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public GitCommits getPushCommits(String repositoryName, int pushId) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("pushId", pushId);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
+                AREA + "/repositories", repositoryName, "commits", ApiVersion.GIT, q, null);
+
+        return MAPPER.mapJsonResponse(r, GitCommits.class);
+    }
+
+    /**
+     * Retrieve a list of commits associated with a particular push.
+     * @param repositoryName Name of the repository.
+     * @param pushId The id of the push.
+     * @param includeLinks Set to false to avoid including REST Url links for resources. Defaults to true.
+     * @param top The maximum number of commits to return ("get the top x commits").
+     * @param skip The number of commits to skip.
+     * @return Array Git commit object {@link GitCommits}
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public GitCommits getPushCommits(String repositoryName, int pushId, boolean includeLinks, int top, int skip) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("pushId", pushId);
+            put("top", top);
+            put("skip", skip);
+            put("includeLinks", includeLinks);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
+                AREA + "/repositories", repositoryName, "commits", ApiVersion.GIT, q, null);
+
+        return MAPPER.mapJsonResponse(r, GitCommits.class);
     }
 }
