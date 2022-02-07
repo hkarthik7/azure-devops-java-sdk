@@ -189,4 +189,31 @@ public class GitApiTest {
         g.updatePullRequestReviewer(8, "testRepository",
                 "10bb49f0-c425-6735-b8de-71ecf84728d6", true, false);
     }
+
+    @Test(expected = AzDException.class)
+    public void shouldCreateAnAnnotatedTag() throws AzDException {
+        g.createAnnotatedTag("testRepository", "annotatedTestTag", "83764e57d4b290766046da65b1c7c4afe8b71a92",
+                "Annotated Tag for testing");
+    }
+
+    @Test
+    public void shouldGetAnAnnotatedTag() throws AzDException {
+        g.getAnnotatedTag("testRepository", "d993d67b34ea8365defbee2945755d5a7d3185f4");
+    }
+
+    @Test
+    public void shouldGetCommitsFromARepository() throws AzDException {
+        g.getCommits("testRepository").getCommits();
+    }
+
+    @Test
+    public void shouldGetACommitsFromTheRepository() throws AzDException {
+        var commitId = g.getCommits("testRepository")
+                .getCommits()
+                .stream()
+                .findFirst()
+                .get()
+                .getCommitId();
+        g.getCommit("testRepository", commitId);
+    }
 }
