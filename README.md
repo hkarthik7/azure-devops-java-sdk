@@ -69,7 +69,7 @@ public class Main {
             
             // Get the list of projects asynchronously
             // This returns a CompletableFuture<List<Project>>
-            var future = core.createAsync(core.getProjects.getProjects());
+            var future = core.createAsync(core.getProjects().getProjects());
 
             System.out.println("Do something here...");
 
