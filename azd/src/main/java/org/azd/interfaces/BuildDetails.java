@@ -1,9 +1,11 @@
 package org.azd.interfaces;
 
 import org.azd.build.types.*;
+import org.azd.enums.SourceProviderResultSet;
 import org.azd.enums.StageUpdateType;
 import org.azd.exceptions.AzDException;
 
+import java.util.List;
 import java.util.Map;
 
 public interface BuildDetails {
@@ -114,4 +116,26 @@ public interface BuildDetails {
                       String[] propertyFilters, int revision) throws AzDException;
 
     Void updateBuildStage(int buildId, String stageReferenceName, boolean forceRetryAllJobs, StageUpdateType state) throws AzDException;
+
+    String getFileContents(String providerName, String serviceEndpointId, String repositoryName, String branchName, String path) throws AzDException;
+
+    SourceRepositoryItems getPathContents(String providerName, String serviceEndpointId, String repositoryName, String branchName, String filePath) throws AzDException;
+
+    SourceProviderPullRequest getPullRequest(String providerName, String pullRequestId, String repositoryName, String serviceEndpointId) throws AzDException;
+
+    SourceProviderAttributes getSourceProviders() throws AzDException;
+
+    SourceProvideBranches getBranches(String providerName, String serviceEndpointId, String repositoryName) throws AzDException;
+
+    SourceProvideBranches getBranches(String providerName, String serviceEndpointId, String repositoryName, String branchName) throws AzDException;
+
+    SourceRepositories getRepositories(String providerName, String serviceEndpointId) throws AzDException;
+
+    SourceRepositories getRepositories(String providerName, String serviceEndpointId, String repositoryName) throws AzDException;
+
+    SourceRepositories getRepositories(String providerName, String serviceEndpointId, String repositoryName, String continuationToken, boolean pageResults, SourceProviderResultSet resultSet) throws AzDException;
+
+    RepositoryWebhooks getWebHooks(String providerName, String serviceEndpointId, String repositoryName) throws AzDException;
+
+    Void restoreWebHooks(String providerName, String serviceEndpointId, String repositoryName, List<String> triggerTypes) throws AzDException;
 }

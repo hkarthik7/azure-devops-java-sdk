@@ -237,4 +237,42 @@ public class BuildApiTest {
     public void shouldGetYamlBuildForADefinition() throws AzDException {
         b.getYaml(22).getYaml();
     }
+
+    @Test(expected = AzDException.class)
+    public void shouldGetSourceProvidersFileContents() throws AzDException {
+        b.getFileContents("Github", "a7054ra9-0a34-46ac-bfdf-b8a1da865tdfd6",
+                "hkarthik7/PSDB", "master", "LICENSE");
+    }
+
+    @Test(expected = AzDException.class)
+    public void shouldGetSourceProvidersPathContents() throws AzDException {
+        b.getPathContents("Github", "a7054ra9-0a34-46ac-bfdf-b8a1da865tdfd6",
+                "hkarthik7/PSDB", "master", "/");
+    }
+
+    @Test(expected = AzDException.class)
+    public void shouldGetSourceProvidersPullRequest() throws AzDException {
+        b.getPullRequest("Github", "2",
+                "hkarthik7/PSDB", "a7054ra9-0a34-46ac-bfdf-b8a1da865tdfd6");
+    }
+
+    @Test
+    public void shouldGetSourceProviders() throws AzDException {
+        b.getSourceProviders();
+    }
+
+    @Test(expected = AzDException.class)
+    public void shouldGetSourceProvidersBranches() throws AzDException {
+        b.getBranches("Github", "a7054ra9-0a34-46ac-bfdf-b8a1da865tdfd6", "hkarthik7/PSDB");
+    }
+
+    @Test(expected = AzDException.class)
+    public void shouldGetSourceProvidersRepositories() throws AzDException {
+        b.getRepositories("Github", "a7054ra9-0a34-46ac-bfdf-b8a1da865tdfd6");
+    }
+
+    @Test(expected = AzDException.class)
+    public void shouldGetSourceProvidersWebhooks() throws AzDException {
+        b.getWebHooks("Github", "a7054ra9-0a34-46ac-bfdf-b8a1da865tdfd6", "hkarthik7/PSDB");
+    }
 }

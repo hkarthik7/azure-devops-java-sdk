@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.3
+
+- Addressed issue: [browsing repository content #15](https://github.com/hkarthik7/azure-devops-java-sdk/issues/15)
+- Added support for **Source Providers** in **BuildApi**.
+- Updated dependency jackson-databind version.
+
 ## 3.0.2
 
 **Minor incremental release**

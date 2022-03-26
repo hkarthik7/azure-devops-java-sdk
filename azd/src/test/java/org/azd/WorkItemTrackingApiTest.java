@@ -74,19 +74,19 @@ public class WorkItemTrackingApiTest {
 
 	@Test
 	public void shouldGetWorkItems() throws AzDException {
-		w.getWorkItems(new int[] { 1, 2, 3 });
+		w.getWorkItems(new int[] { 1, 2, 4 });
 	}
 
 	@Test
 	public void shouldGetWorkItemRevisions() throws AzDException {
-		var r = w.getWorkItemRevisions(3, WorkItemExpand.ALL).getWorkItems().stream().findFirst().get().getFields()
+		var r = w.getWorkItemRevisions(2, WorkItemExpand.ALL).getWorkItems().stream().findFirst().get().getFields()
 				.getSystemAreaId();
 		assertEquals(12, r);
 	}
 
 	@Test
 	public void shouldGetWorkItemRevision() throws AzDException {
-		w.getWorkItemRevision(3, 1);
+		w.getWorkItemRevision(2, 1);
 	}
 
 	@Test
@@ -111,7 +111,7 @@ public class WorkItemTrackingApiTest {
 
 	@Test
 	public void shouldGetWorkItemFromRecycleBin() throws AzDException {
-		w.getWorkItemFromRecycleBin(74);
+		w.getWorkItemFromRecycleBin(760);
 	}
 
 	@Test
