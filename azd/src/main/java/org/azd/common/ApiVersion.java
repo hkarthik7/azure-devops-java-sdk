@@ -12,6 +12,7 @@ public abstract class ApiVersion {
     public static final String BUILD_STAGE = "6.1-preview.1";
     public static final String BUILD_TAGS = "6.1-preview.3";
     public static final String BUILD_YAML = "6.1-preview.1";
+    public static final String BUILD_SOURCE_PROVIDERS = "6.1-preview.1";
     public static final String CORE = "6.1-preview.1";
     public static final String DISTRIBUTED_TASK = "6.1-preview.1";
     public static final String EXTENSION_MANAGEMENT = "6.1-preview.1";

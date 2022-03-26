@@ -4,6 +4,7 @@ import org.azd.build.types.*;
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
 import org.azd.enums.RequestMethod;
+import org.azd.enums.SourceProviderResultSet;
 import org.azd.enums.StageUpdateType;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
@@ -12,6 +13,7 @@ import org.azd.utils.AzDAsyncApi;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -958,7 +960,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
      * @param stageReferenceName Name of the stage to update.
      * @param forceRetryAllJobs if true forcefully retries all jobs.
      * @param state state to update.
-     * @throws AzDException Default Api Exception handler.  
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public Void updateBuildStage(int buildId, String stageReferenceName, boolean forceRetryAllJobs, StageUpdateType state) throws AzDException {
@@ -970,6 +972,276 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
 
             String r = send(RequestMethod.PATCH, CONNECTION, BUILD, CONNECTION.getProject(),
                     AREA + "/builds", buildId + "/stages/" + stageReferenceName,null, ApiVersion.BUILD_STAGE,null, body);
+            if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
+        } catch (AzDException e) {
+            throw e;
+        }
+        return null;
+    }
+
+    /**
+     * Gets the contents of a file in the given source code repository.
+     * @param providerName The name of the source provider. E.g., Github
+     * @param serviceEndpointId If specified, the ID of the service endpoint to query. Can only be omitted for providers
+     * that do not use service endpoints, e.g. TFVC or TFGit.
+     * @param repositoryName If specified, the vendor-specific identifier or the name of the repository to get branches.
+     * Can only be omitted for providers that do not support multiple repositories.
+     * @param branchName The identifier of the commit or branch from which a file's contents are retrieved.
+     * @param path The path to the file to retrieve, relative to the root of the repository.
+     * @return Contents of the file given String. {@link String}
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public String getFileContents(String providerName, String serviceEndpointId, String repositoryName, String branchName, String path)
+            throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("serviceEndpointId", serviceEndpointId);
+            put("repository", repositoryName);
+            put("commitOrBranch", branchName);
+            put("path", path);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
+                "sourceProviders", null,providerName + "/filecontents", ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
+
+        // Look for all the keys as genuine response can also contain any key in the content.
+        if (!r.isEmpty() && r.contains("innerException") && r.contains("$id") && r.contains("eventId") && r.contains("typeName"))
+            MAPPER.mapJsonResponse(r, Map.class);
+
+        return r;
+    }
+
+    /**
+     * Gets the contents of a directory in the given source code repository.
+     * @param providerName The name of the source provider. E.g., Github
+     * @param serviceEndpointId If specified, the ID of the service endpoint to query. Can only be omitted for providers
+     * that do not use service endpoints, e.g. TFVC or TFGit.
+     * @param repositoryName If specified, the vendor-specific identifier or the name of the repository to get branches.
+     * Can only be omitted for providers that do not support multiple repositories.
+     * @param branchName The identifier of the commit or branch from which a file's contents are retrieved.
+     * @param path The path to the file to retrieve, relative to the root of the repository.
+     * @return SourceRepositoryItems {@link SourceRepositoryItems}
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public SourceRepositoryItems getPathContents(String providerName, String serviceEndpointId, String repositoryName, String branchName, String path)
+            throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("serviceEndpointId", serviceEndpointId);
+            put("repository", repositoryName);
+            put("commitOrBranch", branchName);
+            put("path", path);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
+                "sourceProviders", null,providerName + "/pathcontents", ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
+
+        return MAPPER.mapJsonResponse(r, SourceRepositoryItems.class);
+    }
+
+    /**
+     * Gets a pull request object from source provider.
+     * @param providerName The name of the source provider.
+     * @param pullRequestId Vendor-specific id of the pull request.
+     * @param repositoryName Vendor-specific identifier or the name of the repository that contains the pull request.
+     * @param serviceEndpointId If specified, the ID of the service endpoint to query.
+     * Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit.
+     * @return SourceProviderPullRequest {@link SourceProviderPullRequest}
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public SourceProviderPullRequest getPullRequest(String providerName, String pullRequestId, String repositoryName, String serviceEndpointId)
+            throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("serviceEndpointId", serviceEndpointId);
+            put("repositoryId", repositoryName);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
+                "sourceProviders", null,providerName + "/pullrequests/" + pullRequestId, ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
+
+        return MAPPER.mapJsonResponse(r, SourceProviderPullRequest.class);
+    }
+
+    /**
+     * Get a list of source providers and their capabilities.
+     * @return SourceProviderAttributes {@link SourceProviderAttributes}
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public SourceProviderAttributes getSourceProviders() throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
+                "sourceProviders", null,null, ApiVersion.BUILD_SOURCE_PROVIDERS, null, null);
+
+        return MAPPER.mapJsonResponse(r, SourceProviderAttributes.class);
+    }
+
+    /**
+     * Gets a list of branches for the given source code repository.
+     * @param providerName The name of the source provider.
+     * @param serviceEndpointId If specified, the ID of the service endpoint to query.
+     * Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit.
+     * @param repositoryName The vendor-specific identifier or the name of the repository to get branches.
+     * Can only be omitted for providers that do not support multiple repositories.
+     * @return SourceProvideBranches {@link SourceProvideBranches}
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public SourceProvideBranches getBranches(String providerName, String serviceEndpointId, String repositoryName) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("serviceEndpointId", serviceEndpointId);
+            put("repository", repositoryName);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
+                "sourceProviders", null,providerName + "/branches", ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
+
+        return MAPPER.mapJsonResponse(r, SourceProvideBranches.class);
+    }
+
+    /**
+     * Gets a list of branches for the given source code repository.
+     * @param providerName The name of the source provider.
+     * @param serviceEndpointId If specified, the ID of the service endpoint to query.
+     * Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit.
+     * @param repositoryName The vendor-specific identifier or the name of the repository to get branches.
+     * Can only be omitted for providers that do not support multiple repositories.
+     * @param branchName If supplied, the name of the branch to check for specifically.
+     * @return SourceProvideBranches {@link SourceProvideBranches}
+     * @throws AzDException
+     */
+    @Override
+    public SourceProvideBranches getBranches(String providerName, String serviceEndpointId, String repositoryName, String branchName) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("serviceEndpointId", serviceEndpointId);
+            put("repository", repositoryName);
+            put("branchName", branchName);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
+                "sourceProviders", null,providerName + "/branches", ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
+
+        return MAPPER.mapJsonResponse(r, SourceProvideBranches.class);
+    }
+
+    /**
+     * Gets a list of source code repositories.
+     * @param providerName The name of the source provider.
+     * @param serviceEndpointId If specified, the ID of the service endpoint to query.
+     * Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit.
+     * @return SourceRepositories {@link SourceRepositories}
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public SourceRepositories getRepositories(String providerName, String serviceEndpointId) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("serviceEndpointId", serviceEndpointId);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
+                "sourceProviders", null,providerName + "/repositories", ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
+
+        return MAPPER.mapJsonResponse(r, SourceRepositories.class);
+    }
+
+    /**
+     * Gets a list of source code repositories.
+     * @param providerName The name of the source provider.
+     * @param serviceEndpointId If specified, the ID of the service endpoint to query.
+     * Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit.
+     * @param repositoryName If specified, the vendor-specific identifier or the name of a single repository to get.
+     * @return SourceRepositories {@link SourceRepositories}
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public SourceRepositories getRepositories(String providerName, String serviceEndpointId, String repositoryName) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("serviceEndpointId", serviceEndpointId);
+            put("repository", repositoryName);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
+                "sourceProviders", null,providerName + "/repositories", ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
+
+        return MAPPER.mapJsonResponse(r, SourceRepositories.class);
+    }
+
+    /**
+     * Gets a list of source code repositories.
+     * @param providerName The name of the source provider.
+     * @param serviceEndpointId If specified, the ID of the service endpoint to query.
+     * Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit.
+     * @param repositoryName If specified, the vendor-specific identifier or the name of a single repository to get.
+     * @param continuationToken When paging results, this is a continuation token, returned by a previous call to
+     * this method, that can be used to return the next set of repositories.
+     * @param pageResults If set to true, this will limit the set of results and will return a continuation token to continue the query.
+     * @param resultSet 'top' for the repositories most relevant for the endpoint. If not set, all repositories are returned. Ignored if 'repository' is set.
+     * @return SourceRepositories {@link SourceRepositories}
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public SourceRepositories getRepositories(String providerName, String serviceEndpointId, String repositoryName, String continuationToken,
+                                              boolean pageResults, SourceProviderResultSet resultSet) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("serviceEndpointId", serviceEndpointId);
+            put("repository", repositoryName);
+            put("resultSet", resultSet.toString().toLowerCase());
+            put("pageResults", pageResults);
+            put("continuationToken", continuationToken);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
+                "sourceProviders", null,providerName + "/repositories", ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
+
+        return MAPPER.mapJsonResponse(r, SourceRepositories.class);
+    }
+
+    /**
+     * Gets a list of webhooks installed in the given source code repository.
+     * @param providerName The name of the source provider.
+     * @param serviceEndpointId If specified, the ID of the service endpoint to query.
+     * Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit.
+     * @param repositoryName If specified, the vendor-specific identifier or the name of the repository to get webhooks.
+     * Can only be omitted for providers that do not support multiple repositories.
+     * @return RepositoryWebhooks {@link RepositoryWebhooks}
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public RepositoryWebhooks getWebHooks(String providerName, String serviceEndpointId, String repositoryName) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("serviceEndpointId", serviceEndpointId);
+            put("repository", repositoryName);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
+                "sourceProviders", null,providerName + "/webhooks", ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
+
+        return MAPPER.mapJsonResponse(r, RepositoryWebhooks.class);
+    }
+
+    /**
+     * Recreates the webhooks for the specified triggers in the given source code repository.
+     * @param providerName The name of the source provider.
+     * @param serviceEndpointId If specified, the ID of the service endpoint to query.
+     * Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit.
+     * @param repositoryName If specified, the vendor-specific identifier or the name of the repository to get webhooks.
+     * Can only be omitted for providers that do not support multiple repositories.
+     * @param triggerTypes The types of triggers to restore webhooks for.
+     * @return Void; successful operation
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public Void restoreWebHooks(String providerName, String serviceEndpointId, String repositoryName, List<String> triggerTypes) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("serviceEndpointId", serviceEndpointId);
+            put("repository", repositoryName);
+        }};
+
+        var reqBody = MAPPER.mapJsonResponse(MAPPER.convertToString(triggerTypes), Map.class);
+
+        try {
+            String r = send(RequestMethod.POST, CONNECTION, BUILD, CONNECTION.getProject(),
+                    "sourceProviders", null,providerName + "/webhooks", ApiVersion.BUILD_SOURCE_PROVIDERS, q, reqBody);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
             throw e;
