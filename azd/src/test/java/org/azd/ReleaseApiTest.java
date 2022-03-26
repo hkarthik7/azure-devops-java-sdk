@@ -103,6 +103,6 @@ public class ReleaseApiTest {
 
     @Test
     public void shouldGetManualInterventions() throws AzDException {
-        r.getManualInterventions(357);
+        r.getManualInterventions(490);
     }
 }
