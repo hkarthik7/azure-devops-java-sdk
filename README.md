@@ -44,7 +44,7 @@ To download the library and use it in your project, just add below in your pom.x
 <dependency>
     <groupId>io.github.hkarthik7</groupId>
     <artifactId>azd</artifactId>
-    <version>3.0.1</version>
+    <version>3.0.3</version>
     <classifier>sources</classifier>
 </dependency>
 ```
