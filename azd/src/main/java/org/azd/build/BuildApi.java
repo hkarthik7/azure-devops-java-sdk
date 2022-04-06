@@ -1108,7 +1108,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
      * Can only be omitted for providers that do not support multiple repositories.
      * @param branchName If supplied, the name of the branch to check for specifically.
      * @return SourceProvideBranches {@link SourceProvideBranches}
-     * @throws AzDException
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public SourceProvideBranches getBranches(String providerName, String serviceEndpointId, String repositoryName, String branchName) throws AzDException {
