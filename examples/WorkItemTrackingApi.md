@@ -59,6 +59,8 @@ public class Main {
                 put("System.AssignedTo", "test@xmail.com");
                 put("System.AreaPath", "you-team-area-path");
             }};
+
+            w.updateWorkItem(277, fieldsToUpdate);
             
             // add hyperlinks to the work item
             Map<String, String> hyperlinksMap = new HashMap<>();
@@ -73,7 +75,6 @@ public class Main {
             
             workitemtracking.addHyperLinks(2, hyperlinks);
 
-            w.updateWorkItem(277, fieldsToUpdate);
         } catch (AzDException e) {
             e.printStackTrace();
         }
