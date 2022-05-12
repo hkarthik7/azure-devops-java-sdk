@@ -8,6 +8,7 @@ import org.azd.extensionmanagement.ExtensionManagementApi;
 import org.azd.feedmanagement.FeedManagementApi;
 import org.azd.git.GitApi;
 import org.azd.graph.GraphApi;
+import org.azd.maven.MavenApi;
 import org.azd.memberentitlementmanagement.MemberEntitlementManagementApi;
 import org.azd.oauth.OAuthApi;
 import org.azd.pipelines.PipelinesApi;
@@ -27,6 +28,7 @@ public interface AzDClient {
     FeedManagementApi getFeedManagementApi();
     GitApi getGitApi();
     GraphApi getGraphApi();
+    MavenApi getMavenApi();
     MemberEntitlementManagementApi getMemberEntitlementManagementApi();
     ReleaseApi getReleaseApi();
     ServiceHooksApi getServiceHooksApi();

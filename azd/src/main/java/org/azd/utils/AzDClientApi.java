@@ -10,6 +10,7 @@ import org.azd.feedmanagement.FeedManagementApi;
 import org.azd.git.GitApi;
 import org.azd.graph.GraphApi;
 import org.azd.interfaces.AzDClient;
+import org.azd.maven.MavenApi;
 import org.azd.memberentitlementmanagement.MemberEntitlementManagementApi;
 import org.azd.oauth.OAuthApi;
 import org.azd.oauth.types.AuthorizedToken;
@@ -139,6 +140,13 @@ public class AzDClientApi implements AzDClient {
      */
     @Override
     public GraphApi getGraphApi() { return new GraphApi(CONNECTION); }
+
+    /***
+     * Returns an instance of Maven Api
+     * @return instance of Maven Api {@link MavenApi}
+     */
+    @Override
+    public MavenApi getMavenApi() { return new MavenApi(CONNECTION); }
 
     /***
      * Returns an instance of Member Entitlement management Api
