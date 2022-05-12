@@ -49,7 +49,7 @@ stages:
   - job: Windows
 
     pool:
-      vmImage: vs2017-win2016
+      vmImage: windows-latest
       demands: maven
 
     steps:
@@ -88,7 +88,7 @@ stages:
   - job: Publish_Artifact
 
     pool:
-        vmImage: vs2017-win2016
+        vmImage: windows-latest
         demands: maven
 
     steps:
