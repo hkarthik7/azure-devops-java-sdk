@@ -1,5 +1,8 @@
 package org.azd.interfaces;
 
+import java.util.List;
+import java.util.Map;
+
 import org.azd.exceptions.AzDException;
 import org.azd.maven.types.JsonPatchOperation;
 import org.azd.maven.types.MavenPackageVersionDeletionState;
@@ -26,20 +29,20 @@ public interface MavenDetails {
         void updatePackageVersion(String feedId, String groupId, String artifactId, String version,
                         String promote) throws AzDException;
 
-        // void updatePackageVersions(String feedId) throws AzDException;
+        void updatePackageVersions(String feedId, String promote, List<Map<String, Object>> packages)
+                        throws AzDException;
 
         // void updateRecycleBinPackages(String feedId) throws AzDException;
 
         void deletePackageVersion(String feedId, String groupId, String artifactId,
-        String version) throws AzDException;
+                        String version) throws AzDException;
 
-        void deletePackageVersionFromRecycleBin(String feedId, String groupId, String
-        artifactId, String version)
-        throws AzDException;
+        void deletePackageVersionFromRecycleBin(String feedId, String groupId, String artifactId, String version)
+                        throws AzDException;
 
-        // void restorePackageVersionFromRecycleBin(String feedId, String groupId,
-        // String artifactId, String version)
-        // throws AzDException;
+        void restorePackageVersionFromRecycleBin(String feedId, String groupId,
+                        String artifactId, String version)
+                        throws AzDException;
 
         // void setUpstreamingBehavior(String feedId, String groupId, String artifactId)
         // throws AzDException;
