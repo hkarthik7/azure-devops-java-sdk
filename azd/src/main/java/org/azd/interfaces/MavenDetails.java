@@ -3,6 +3,7 @@ package org.azd.interfaces;
 import java.util.List;
 import java.util.Map;
 
+import org.azd.enums.MavenPackagePromote;
 import org.azd.exceptions.AzDException;
 import org.azd.maven.types.JsonPatchOperation;
 import org.azd.maven.types.MavenPackageVersionDeletionState;
@@ -27,9 +28,9 @@ public interface MavenDetails {
         //                 throws AzDException;
 
         void updatePackageVersion(String feedId, String groupId, String artifactId, String version,
-                        String promote) throws AzDException;
+                                  MavenPackagePromote promote) throws AzDException;
 
-        void updatePackageVersions(String feedId, String promote, List<Map<String, Object>> packages)
+        void updatePackageVersions(String feedId, MavenPackagePromote promote, List<Map<String, Object>> packages)
                         throws AzDException;
 
         // void updateRecycleBinPackages(String feedId) throws AzDException;

@@ -1,23 +1,24 @@
 package org.azd.maven;
 
-import static org.azd.utils.Client.send;
+import org.azd.common.ApiVersion;
+import org.azd.connection.Connection;
+import org.azd.enums.MavenOperation;
+import org.azd.enums.MavenPackagePromote;
+import org.azd.enums.RequestMethod;
+import org.azd.exceptions.AzDException;
+import org.azd.helpers.JsonMapper;
+import org.azd.interfaces.MavenDetails;
+import org.azd.maven.types.MavenPackageVersionDeletionState;
+import org.azd.maven.types.Package;
+import org.azd.maven.types.UpstreamingBehavior;
+import org.azd.utils.AzDAsyncApi;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.azd.common.ApiVersion;
-import org.azd.connection.Connection;
-import org.azd.enums.RequestMethod;
-import org.azd.exceptions.AzDException;
-import org.azd.helpers.JsonMapper;
-import org.azd.interfaces.MavenDetails;
-import org.azd.enums.MavenOperation;
-import org.azd.maven.types.MavenPackageVersionDeletionState;
-import org.azd.maven.types.Package;
-import org.azd.maven.types.UpstreamingBehavior;
-import org.azd.utils.AzDAsyncApi;
+import static org.azd.utils.Client.send;
 
 /***
  * MavenApi class to manage maven artifact package api
@@ -33,7 +34,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
 
     /***
      * Pass the connection object to work with Maven Package Api
-     * 
+     *
      * @param connection Connection object
      */
     public MavenApi(Connection connection) {
@@ -42,7 +43,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
 
     /***
      * Get information about a package version.
-     * 
+     *
      * @param feedId     Name or ID of the feed. Example: "mavenfeed".
      * @param groupId    Group ID of the package. Example: "com.example".
      * @param artifactId Artifact ID of the package. Example: "app".
@@ -63,7 +64,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
 
     /***
      * Get information about a package version.
-     * 
+     *
      * @param feedId     Name or ID of the feed. Example: "mavenfeed".
      * @param groupId    Group ID of the package. Example: "com.example".
      * @param artifactId Artifact ID of the package. Example: "app".
@@ -73,7 +74,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
      */
     @Override
     public Package getPackageVersion(String feedId, String groupId, String artifactId, String version,
-            boolean showDeleted)
+                                     boolean showDeleted)
             throws AzDException {
         HashMap<String, Object> q = new HashMap<>() {
             {
@@ -90,7 +91,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
 
     /***
      * Get information about a package version in the recycle bin.
-     * 
+     *
      * @param feedId     Name or ID of the feed. Example: "mavenfeed".
      * @param groupId    Group ID of the package. Example: "com.example".
      * @param artifactId Artifact ID of the package. Example: "app".
@@ -101,7 +102,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
      */
     @Override
     public MavenPackageVersionDeletionState getPackageVersionFromRecycleBin(String feedId, String groupId,
-            String artifactId, String version)
+                                                                            String artifactId, String version)
             throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, MAVEN, CONNECTION.getProject(),
                 AREA + "/feeds", feedId,
@@ -113,7 +114,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
 
     /***
      * Get the upstreaming behavior of a package within the context of a feed
-     * 
+     *
      * @param feedId     Name or ID of the feed. Example: "mavenfeed".
      * @param groupId    Group ID of the package. Example: "com.example".
      * @param artifactId Artifact ID of the package. Example: "app".
@@ -154,7 +155,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
 
     /***
      * Delete a package version from the feed and move it to the feed's recycle bin.
-     * 
+     *
      * @param feedId     Name or ID of the feed. Example: "mavenfeed".
      * @param groupId    Group ID of the package. Example: "com.example".
      * @param artifactId Artifact ID of the package. Example: "app".
@@ -179,7 +180,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
 
     /***
      * Permanently delete a package from a feed's recycle bin.
-     * 
+     *
      * @param feedId     Name or ID of the feed. Example: "mavenfeed".
      * @param groupId    Group ID of the package. Example: "com.example".
      * @param artifactId Artifact ID of the package. Example: "app".
@@ -204,7 +205,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
 
     /***
      * Set mutable state on a package version.(eg. prelease, release)
-     * 
+     *
      * @param feedId     Name or ID of the feed. Example: "mavenfeed".
      * @param groupId    Group ID of the package. Example: "com.example".
      * @param artifactId Artifact ID of the package. Example: "app".
@@ -213,14 +214,14 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void updatePackageVersion(String feedId, String groupId, String artifactId, String version, String promote)
+    public void updatePackageVersion(String feedId, String groupId, String artifactId, String version, MavenPackagePromote promote)
             throws AzDException {
 
         var req = new HashMap<String, Object>() {
             {
                 put("op", MavenOperation.ADD.toString());
                 put("path", "/views/-");
-                put("value", promote); // "release" or "prelease"
+                put("value", promote.toString().toLowerCase()); // "release" or "prelease"
             }
         };
         var body = new HashMap<String, Object>() {
@@ -245,19 +246,19 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
     /***
      * Update several packages from a single feed in a single request. The updates
      * to the packages do not happen atomically.
-     * 
+     *
      * @param feedId   Name or ID of the feed. Example: "mavenfeed".
      * @param promote  Group ID of the package. Example: "com.example".
      * @param packages Identifies a particular Maven package versions
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void updatePackageVersions(String feedId, String promote,
-            List<Map<String, Object>> packages)
+    public void updatePackageVersions(String feedId, MavenPackagePromote promote,
+                                      List<Map<String, Object>> packages)
             throws AzDException {
         var req = new HashMap<String, Object>();
         try {
-            req.put("data", Map.of("viewId", promote));
+            req.put("data", Map.of("viewId", promote.toString().toLowerCase()));
             req.put("operation", 0);
 
             List l = new ArrayList();
@@ -279,7 +280,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
 
     /***
      * Restore a package version from the recycle bin to its associated feed.
-     * 
+     *
      * @param feedId   Name or ID of the feed. Example: "mavenfeed".
      * @param groupId  Group ID of the package. Example: "com.example".
      * @param artifactId Artifact ID of the package. Example: "app".
@@ -293,7 +294,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
             String r = send(RequestMethod.PATCH, CONNECTION, MAVEN, CONNECTION.getProject(),
                     AREA + "/feeds", feedId,
                     "maven/RecycleBin/groups/" + groupId + "/artifacts/" + artifactId + "/versions/" + version,
-                    ApiVersion.MAVEN, null, Map.of("deleted","false"));
+                    ApiVersion.MAVEN, null, Map.of("deleted", "false"));
             if (!r.isEmpty())
                 MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
