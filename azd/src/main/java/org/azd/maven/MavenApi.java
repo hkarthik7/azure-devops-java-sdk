@@ -13,7 +13,7 @@ import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.MavenDetails;
-import org.azd.maven.types.MavenOperation;
+import org.azd.enums.MavenOperation;
 import org.azd.maven.types.MavenPackageVersionDeletionState;
 import org.azd.maven.types.Package;
 import org.azd.maven.types.UpstreamingBehavior;

@@ -2,6 +2,7 @@ package org.azd.maven.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.enums.MavenOperation;
 
 /***
  * The JSON model for a JSON Patch operation.

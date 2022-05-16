@@ -1,4 +1,4 @@
-package org.azd.maven.types;
+package org.azd.enums;
 
 /***
  * The patch operation.
