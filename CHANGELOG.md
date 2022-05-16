@@ -1,5 +1,18 @@
 # Changelog
 
+## 3.0.4
+
+- Merged PR: [Added support for maven api #20](https://github.com/hkarthik7/azure-devops-java-sdk/pull/20)
+- **MavenApi** supports
+    - `getPackageVersion`
+    - `getPackageVersionFromRecycleBin`
+    - `getUpstreamingBehavior`
+    - `deletePackageVersion`
+    - `deletePackageVersionFromRecycleBin`
+    - `updatePackageVersion`
+    - `updatePackageVersions`
+    - `restorePackageVersionFromRecycleBin`
+
 ## 3.0.3
 
 - Addressed issue: [browsing repository content #15](https://github.com/hkarthik7/azure-devops-java-sdk/issues/15)
