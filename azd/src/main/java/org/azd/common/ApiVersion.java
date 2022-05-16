@@ -42,4 +42,5 @@ public abstract class ApiVersion {
     public static final String WIT_WIQL = "6.1-preview.2";
     public static final String WIT_RECYCLE_BIN = "6.1-preview.2";
     public static final String WORK_ITEM_TYPES = "6.0";
+    public static final String MAVEN = "7.1-preview.1";
 }
