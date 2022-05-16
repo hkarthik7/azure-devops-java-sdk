@@ -2,6 +2,7 @@
 
 ## 3.0.4
 
+- Updated Api version from 6.1 to 7.1.
 - Merged PR: [Added support for maven api #20](https://github.com/hkarthik7/azure-devops-java-sdk/pull/20)
 - **MavenApi** supports
     - `getPackageVersion`
