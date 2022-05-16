@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.azd.enums.MavenPackagePromote;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AzDClient;
@@ -32,24 +33,24 @@ public class MavenApiTest {
         mvn = webApi.getMavenApi();
     }
 
-    @Test(expected = AzDException.class)
+    @Test
     public void shouldGetPackageVersion() throws AzDException {
-        mvn.getPackageVersion("test2", "com.acme", "app", "1.0.5");
+        mvn.getPackageVersion("maven-feed", "org.HelloWorld", "HelloWorld", "1.0.0");
     }
 
-    @Test(expected = AzDException.class)
+    @Test
     public void shouldGetPackageVersionWithQueryParameters() throws AzDException {
-        mvn.getPackageVersion("test2", "com.acme", "app", "1.0.4", true);
+        mvn.getPackageVersion("maven-feed", "org.tester.maven", "MavenTester", "1.1.0", true);
     }
 
-    @Test(expected = AzDException.class)
+    @Test
     public void shouldGetPackageVersionFromRecycleBin() throws AzDException {
-        mvn.getPackageVersionFromRecycleBin("test2", "com.acme", "app","1.0.4");
+        mvn.getPackageVersionFromRecycleBin("maven-feed", "org.jack.click", "ClickJack","2.5.0");
     }
     
-    @Test(expected = AzDException.class)
+    @Test
     public void shouldGetUpstreamingBehavior() throws AzDException {
-        mvn.getUpstreamingBehavior("test2", "com.acme", "app");
+        mvn.getUpstreamingBehavior("maven-feed", "org.HelloWorld", "HelloWorld");
     }
 
     // @Test
@@ -58,44 +59,51 @@ public class MavenApiTest {
     //     System.out.println("t");
     // }
 
-    @Test(expected = AzDException.class)
+    @Test
     public void shouldDeletePackageVersion() throws AzDException {
-        mvn.deletePackageVersion("test2", "com.acme", "app", "1.0.2");
+        mvn.deletePackageVersion("maven-feed", "org.jack.click", "ClickJack", "2.5.0");
     }
 
-    @Test(expected = AzDException.class)
+    @Test
     public void shouldDeletePackageVersionFromRecycleBin() throws AzDException {
-        mvn.deletePackageVersionFromRecycleBin("test2", "com.acme", "app", "1.0.2");
+        mvn.deletePackageVersionFromRecycleBin("maven-feed", "org.jack.click", "ClickJack", "3.0.0");
     }
 
-    @Test(expected = AzDException.class)
+    @Test
     public void shouldUpdatePackageVersion() throws AzDException {
-        mvn.updatePackageVersion("test2", "com.acme", "app", "1.0.1", "PRERELEAS");
+        mvn.updatePackageVersion("maven-feed", "org.HelloWorld", "HelloWorld", "1.0.0", MavenPackagePromote.PRERELEASE);
     }
 
-    @Test(expected = AzDException.class)
+    @Test
     public void shouldUpdatePackageVersions() throws AzDException {
         List packages = new ArrayList<>();
 
         Map<String, Object> p1 = new HashMap<>();
-        p1.put("group", "com.acme");
-        p1.put("artifact", "app");
+        p1.put("group", "org.HelloWorld");
+        p1.put("artifact", "HelloWorld");
         p1.put("version", "1.0.0");
         packages.add(p1);
         
         Map<String, Object> p2 = new HashMap<>();
-        p2.put("group", "com.acme");
-        p2.put("artifact", "app");
-        p2.put("version", "1.0.1");
+        p2.put("group", "org.tester.maven");
+        p2.put("artifact", "MavenTester");
+        p2.put("version", "1.1.0");
         packages.add(p2);
 
-        mvn.updatePackageVersions("test2", "tes", packages);
+        mvn.updatePackageVersions("maven-feed", MavenPackagePromote.PRERELEASE, packages);
     }
 
-    @Test(expected = AzDException.class)
-    public void shouldrestorePackageVersionFromRecycleBin() throws AzDException{
-        mvn.restorePackageVersionFromRecycleBin("test2", "com.acme", "app", "1.0.3");
+    @Test
+    public void shouldRestorePackageVersionFromRecycleBin() throws AzDException, InterruptedException {
+        org.azd.maven.types.Package pkg = null;
+        try {
+            pkg = mvn.getPackageVersion("maven-feed", "org.jack.click", "ClickJack", "1.5.0");
+        } catch (Exception e) { }
+        if (pkg != null) {
+            mvn.deletePackageVersion("maven-feed", "org.jack.click", "ClickJack", "1.5.0");
+            Thread.sleep(3000); // Wait until package is deleted.
+        }
+
+        mvn.restorePackageVersionFromRecycleBin("maven-feed", "org.jack.click", "ClickJack", "1.5.0");
     }
-
-
 }
