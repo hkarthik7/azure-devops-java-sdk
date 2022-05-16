@@ -14,7 +14,15 @@ public class UpstreamingBehavior {
      * package
      */
     @JsonProperty("versionsFromExternalUpstreams")
-    private UpstreamVersionVisibility versionsFromExternalUpstreams;
+    private String versionsFromExternalUpstreams;
+
+    public String getVersionsFromExternalUpstreams() {
+        return versionsFromExternalUpstreams;
+    }
+
+    public void setVersionsFromExternalUpstreams(String versionsFromExternalUpstreams) {
+        this.versionsFromExternalUpstreams = versionsFromExternalUpstreams;
+    }
 
     @Override
     public String toString() {
