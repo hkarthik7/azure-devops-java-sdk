@@ -12,7 +12,10 @@
     - `deletePackageVersionFromRecycleBin`
     - `updatePackageVersion`
     - `updatePackageVersions`
+    - `updateRecycleBinPackages`
     - `restorePackageVersionFromRecycleBin`
+    - `setUpstreamingBehavior`
+    - `clearUpstreamingBehavior`
 
 ## 3.0.3
 
