@@ -268,9 +268,8 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
      * to the packages do not happen atomically.
      * 
      * @param feedId    Name or ID of the feed. Example: "mavenfeed".
-     * @param viewId    Type of operation that needs to be performed on packages.
-     * @param operation Data required to perform the operation. This is optional
-     *                  based on type of operation. {@link PackagesBatchOperation}.
+     * @param viewId    Name of ID the view, packages need to be promoted to.
+     * @param operation Type of operation that needs to be performed on packages. {@link PackagesBatchOperation}.
      * @param packages  Identifies a particular Maven package versions
      * @throws AzDException Default Api Exception handler.
      */
@@ -392,15 +391,17 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
     /***
      * Delete or restore several package versions from the recycle bin.
      * 
-     * @param feedId     Name or ID of the feed. Example: "mavenfeed".
-     * @param groupId    Group ID of the package. Example: "com.example".
-     * @param artifactId Artifact ID of the package. Example: "app".
-     * @param operation  Data required to perform the operation. This is optional
-     *                   based on type of operation. {@link PackagesBatchOperation}.
+     * @param feedId                 Name or ID of the feed. Example: "mavenfeed".
+     * @param operation Type of operation that needs to be performed on
+     *                               packages. Recycle Bin supports only
+     *                               PERMANENTDELETE or
+     *                               RESTORETOFEED. {@link PackagesBatchOperation}
+     * @param packages               Identifies a particular Maven package versions
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void updateRecycleBinPackages(String feedId, PackagesBatchOperation operation, List<Map<String, Object>> packages)
+    public void updateRecycleBinPackages(String feedId, PackagesBatchOperation operation,
+            List<Map<String, Object>> packages)
             throws AzDException {
         var req = new HashMap<String, Object>();
         try {
