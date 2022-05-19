@@ -20,7 +20,7 @@ import org.azd.maven.types.MavenPackageVersionDeletionState;
 import org.azd.maven.types.Package;
 import org.azd.maven.types.UpstreamingBehavior;
 import org.azd.utils.AzDClientApi;
-import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,13 +31,13 @@ public class MavenApiTest {
     private static MavenDetails mvn;
 
     private static final String FEED = "maven-feed";
-    private static final String TEST1_GROUP = "org.HelloWorld";
-    private static final String TEST1_ARTIFACT = "HelloWorld";
-    private static final String TEST1_VERSION = "1.0.1";
+    private static final String TEST1_GROUP = "org.jack.click";
+    private static final String TEST1_ARTIFACT = "ClickJack";
+    private static final String TEST1_VERSION = "1.5.0";
 
-    private static final String TEST2_GROUP = "org.jack.click";
-    private static final String TEST2_ARTIFACT = "ClickJack";
-    private static final String TEST2_VERSION = "1.5.0";
+    private static final String TEST2_GROUP = "org.tester.maven";
+    private static final String TEST2_ARTIFACT = "MavenTester";
+    private static final String TEST2_VERSION = "1.1.0";
 
     // Recycle bin Package
     private static final String TEST3_GROUP = "org.jack.click";
@@ -60,7 +60,7 @@ public class MavenApiTest {
     public void shouldGetPackageVersion() throws AzDException {
         System.out.println("Maven API TEST : getPackageVersion");
         Package testPackage=mvn.getPackageVersion(FEED, TEST1_GROUP, TEST1_ARTIFACT, TEST1_VERSION);
-        assertEquals(TEST1_GROUP+":"+TEST1_ARTIFACT, testPackage.getId());
+        assertEquals(TEST1_GROUP+":"+TEST1_ARTIFACT, testPackage.getName());
         assertEquals(TEST1_VERSION, testPackage.getVersion());
         System.out.println("Maven API TEST : getPackageVersion - OK");
     }
@@ -69,78 +69,17 @@ public class MavenApiTest {
     public void shouldGetPackageVersionWithQueryParameters() throws AzDException { 
         System.out.println("Maven API TEST : getPackageVersion with query parameters");
         Package testPackage=mvn.getPackageVersion(FEED, TEST1_GROUP, TEST1_ARTIFACT, TEST1_VERSION, true);
-        assertEquals(TEST1_GROUP+":"+TEST1_ARTIFACT, testPackage.getId());
+        assertEquals(TEST1_GROUP+":"+TEST1_ARTIFACT, testPackage.getName());
         assertEquals(TEST1_VERSION, testPackage.getVersion());
         System.out.println("Maven API TEST : getPackageVersion with query parameters - OK");
     }
 
-    @Test
-    public void shouldGetPackageVersionFromRecycleBin() throws AzDException {
-        System.out.println("shouldGetPackageVersionFromRecycleBin");
-        mvn.getPackageVersionFromRecycleBin(FEED, TEST3_GROUP, TEST3_ARTIFACT, TEST3_VERSION);
-        System.out.println("shouldGetPackageVersionFromRecycleBin - OK");
-    }
-    
     @Test
     public void shouldGetUpstreamingBehavior() throws AzDException {
         System.out.println("Maven API TEST : getUpstreamingBehavior");
         UpstreamingBehavior behavior=mvn.getUpstreamingBehavior(FEED, TEST1_GROUP, TEST1_ARTIFACT);
         assertTrue(behavior.getVersionsFromExternalUpstreams().equals("allowExternalVersions") || behavior.getVersionsFromExternalUpstreams().equals("auto"));        
         System.out.println("Maven API TEST : getUpstreamingBehavior - OK");
-    }
-
-    // @Test
-    // public void shouldDownloadPackage() throws AzDException {
-    //     mvn.downloadPackage("test2", "com.acme", "app", "1.0.2", "app-1.0.2.zip");
-    // }
-
-    @Test
-    public void shouldDeletePackageVersion() throws AzDException {
-        System.out.println("Maven API TEST : deletePackageVersion");
-        mvn.deletePackageVersion(FEED, TEST1_GROUP, TEST1_ARTIFACT, TEST1_VERSION);
-        System.out.println("Maven API TEST : deletePackageVersion - OK");
-    }
-
-    @Test(expected = AzDException.class) // cannot be undone test
-    public void shouldDeletePackageVersionFromRecycleBin() throws AzDException {
-        System.out.println("Maven API TEST : deletePackageVersionFromRecycleBin");
-        mvn.deletePackageVersionFromRecycleBin(FEED, TEST1_GROUP, TEST1_ARTIFACT, "0.0.0"); // cant not be undone
-        System.out.println("Maven API TEST : deletePackageVersionFromRecycleBin - OK");
-    }
-
-    @Test
-    public void shouldUpdatePackageVersion() throws AzDException {
-        System.out.println("Maven API TEST : updatePackageVersion");
-        mvn.updatePackageVersion(FEED, TEST1_GROUP, TEST1_ARTIFACT, TEST1_VERSION, "Release");
-        System.out.println("Maven API TEST : updatePackageVersion - OK");
-    }
-
-    @Test
-    public void shouldUpdatePackageVersions() throws AzDException {
-        System.out.println("Maven API TEST : updatePackageVersions");
-        List packages = new ArrayList<>();
-
-        Map<String, Object> p1 = new HashMap<>();
-        p1.put("group", TEST1_GROUP);
-        p1.put("artifact", TEST1_ARTIFACT);
-        p1.put("version", TEST1_VERSION);
-        packages.add(p1);
-        
-        Map<String, Object> p2 = new HashMap<>();
-        p2.put("group", TEST2_GROUP);
-        p2.put("artifact", TEST2_ARTIFACT);
-        p2.put("version", TEST2_VERSION);
-        packages.add(p2);
-
-        mvn.updatePackageVersions(FEED, "Release", PackagesBatchOperation.PROMOTE, packages);
-        System.out.println("Maven API TEST : updatePackageVersions - OK");
-    }
-
-    @Test(expected = AzDException.class)
-    public void shouldRestorePackageVersionFromRecycleBin() throws AzDException{
-        System.out.println("Maven API TEST : restorePackageVersionFromRecycleBin");
-        mvn.restorePackageVersionFromRecycleBin(FEED, TEST1_GROUP, TEST1_ARTIFACT, "0.0.0");
-        System.out.println("Maven API TEST : restorePackageVersionFromRecycleBin - OK");
     }
 
     @Test
@@ -157,9 +96,36 @@ public class MavenApiTest {
         System.out.println("Maven API TEST : clearUpstreamingBehavior - OK");
     }
 
-    @Test(expected = AzDException.class)
-    public void shouldUpdateRecycleBinPackages() throws AzDException{
-        System.out.println("Maven API TEST : updateRecycleBinPackages");
+    @Test
+    public void shouldUpdatePackageVersion() throws AzDException {
+        System.out.println("Maven API TEST : updatePackageVersion");
+        mvn.updatePackageVersion(FEED, TEST1_GROUP, TEST1_ARTIFACT, TEST1_VERSION, "Release");
+        System.out.println("Maven API TEST : updatePackageVersion - OK");
+    }
+    
+    @Test
+    public void shouldDeleteRestorePackageVersion() throws AzDException, InterruptedException {
+        System.out.println("Maven API TEST : deletePackageVersion");
+        mvn.deletePackageVersion(FEED, TEST1_GROUP, TEST1_ARTIFACT, TEST1_VERSION);
+        TimeUnit.SECONDS.sleep(5);
+        System.out.println("Maven API TEST : deletePackageVersion - OK");
+
+        System.out.println("Maven API TEST : restorePackageVersionFromRecycleBin");
+        mvn.restorePackageVersionFromRecycleBin(FEED, TEST1_GROUP, TEST1_ARTIFACT, TEST1_VERSION);
+        TimeUnit.SECONDS.sleep(5);
+        System.out.println("Maven API TEST : restorePackageVersionFromRecycleBin - OK");
+    }
+
+    @Test
+    public void shouldGetPackageVersionFromRecycleBin() throws AzDException {
+        System.out.println("Maven API TEST : shouldGetPackageVersionFromRecycleBin");
+        mvn.getPackageVersionFromRecycleBin(FEED, TEST3_GROUP, TEST3_ARTIFACT, TEST3_VERSION);
+        System.out.println("Maven API TEST : shouldGetPackageVersionFromRecycleBin - OK");
+    }
+
+    @Test
+    public void shouldUpdatePackageVersions() throws AzDException, InterruptedException {
+        System.out.println("Maven API TEST : updatePackageVersions");
         List packages = new ArrayList<>();
 
         Map<String, Object> p1 = new HashMap<>();
@@ -174,8 +140,27 @@ public class MavenApiTest {
         p2.put("version", TEST2_VERSION);
         packages.add(p2);
 
-        mvn.updateRecycleBinPackages("test2", PackagesBatchOperation.RESTORETOFEED, packages);
+        mvn.updatePackageVersions(FEED, "Release", PackagesBatchOperation.PROMOTE, packages);
+        mvn.updatePackageVersions(FEED, "Release", PackagesBatchOperation.DELETE, packages);
+        TimeUnit.SECONDS.sleep(3);
+        System.out.println("Maven API TEST : updatePackageVersions - OK");
+
+        System.out.println("Maven API TEST : updateRecycleBinPackages");
+        mvn.updateRecycleBinPackages(FEED, PackagesBatchOperation.RESTORETOFEED, packages);
+        TimeUnit.SECONDS.sleep(3);
         System.out.println("Maven API TEST : updateRecycleBinPackages - OK");
+    }
+
+    // @Test
+    // public void shouldDownloadPackage() throws AzDException {
+    //     mvn.downloadPackage("test2", "com.acme", "app", "1.0.2", "app-1.0.2.zip");
+    // }
+
+    @Test(expected = AzDException.class) // cannot be undone test
+    public void shouldDeletePackageVersionFromRecycleBin() throws AzDException {
+        System.out.println("Maven API TEST : deletePackageVersionFromRecycleBin");
+        mvn.deletePackageVersionFromRecycleBin(FEED, TEST1_GROUP, TEST1_ARTIFACT, "0.0.0"); // cant not be undone
+        System.out.println("Maven API TEST : deletePackageVersionFromRecycleBin - OK");
     }
 
     // It should be test last.
@@ -186,7 +171,7 @@ public class MavenApiTest {
         // 1-1 GetPackageVersion
         System.out.println("Maven API TEST : GetPackageVersion");
         Package testPackage=mvn.getPackageVersion(FEED, TEST1_GROUP, TEST1_ARTIFACT, TEST1_VERSION);    
-        assertEquals(TEST1_GROUP+":"+TEST1_ARTIFACT, testPackage.getId());
+        assertEquals(TEST1_GROUP+":"+TEST1_ARTIFACT, testPackage.getName());
         assertEquals(TEST1_VERSION, testPackage.getVersion());
         System.out.println("Maven API TEST : GetPackageVersion - OK");
 
@@ -254,14 +239,14 @@ public class MavenApiTest {
 
         // 2-2. UpdateRecycleBinPackages
         System.out.println("Maven API TEST : UpdateRecycleBinPackages");
-        mvn.updateRecycleBinPackages("test2", PackagesBatchOperation.RESTORETOFEED, packages);
+        mvn.updateRecycleBinPackages(FEED, PackagesBatchOperation.RESTORETOFEED, packages);
         System.out.println("Maven API TEST : UpdateRecycleBinPackages - OK");
 
         System.out.println("Maven API TEST : Integration Testing - OK");
     }
 
-    @After
-    public void restorePackage(){
+    @AfterClass	
+    public static void restorePackage(){
         try{
             List packages = new ArrayList<>();
 
@@ -277,9 +262,8 @@ public class MavenApiTest {
             p2.put("version", TEST2_VERSION);
             packages.add(p2);
     
-            mvn.updateRecycleBinPackages("test2", PackagesBatchOperation.RESTORETOFEED, packages);
+            mvn.updateRecycleBinPackages(FEED, PackagesBatchOperation.RESTORETOFEED, packages);
         } catch(Exception e){
         }
-
     }
 }
