@@ -12,8 +12,10 @@
     - `deletePackageVersionFromRecycleBin`
     - `updatePackageVersion`
     - `updatePackageVersions`
+    - `updateRecycleBinPackages`
     - `restorePackageVersionFromRecycleBin`
-- Added support for build timeline Api.  
+    - `setUpstreamingBehavior`
+    - `clearUpstreamingBehavior`
 
 ## 3.0.3
 
