@@ -1249,6 +1249,12 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return null;
     }
 
+    /**
+     * Gets details for a build.
+     * @param buildId Id of the build. use getBuilds() to list all the builds.
+     * @return a timeline object. {@link Timeline}
+     * @throws AzDException Default Api Exception handler.
+     */
     @Override
     public Timeline getTimeline(int buildId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
@@ -1257,6 +1263,13 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, Timeline.class);
     }
 
+    /**
+     * Gets details for a build.
+     * @param buildId Id of the build. use getBuilds() to list all the builds.
+     * @param timelineId Id of the build timeline.
+     * @return a timeline object. {@link Timeline}
+     * @throws AzDException Default Api Exception handler.
+     */
     @Override
     public Timeline getTimeline(int buildId, String timelineId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
@@ -1265,6 +1278,15 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, Timeline.class);
     }
 
+    /**
+     * Gets details for a build.
+     * @param buildId Id of the build. use getBuilds() to list all the builds.
+     * @param timelineId Id of the build timeline.
+     * @param changeId Timeline change id.
+     * @param planId Timeline plan id. This value can be null if unknown.
+     * @return a timeline object. {@link Timeline}
+     * @throws AzDException Default Api Exception handler.
+     */
     @Override
     public Timeline getTimeline(int buildId, String timelineId, int changeId, String planId) throws AzDException {
         var q = new HashMap<String, Object>(){{
