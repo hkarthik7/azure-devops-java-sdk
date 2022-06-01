@@ -11,6 +11,7 @@ public abstract class ApiVersion {
     public static final String BUILD_DEFINITION_REVISIONS = "7.1-preview.3";
     public static final String BUILD_STAGE = "7.1-preview.1";
     public static final String BUILD_TAGS = "7.1-preview.3";
+    public static final String BUILD_TIMELINE = "7.1-preview.2";
     public static final String BUILD_YAML = "7.1-preview.1";
     public static final String BUILD_SOURCE_PROVIDERS = "7.1-preview.1";
     public static final String CORE = "7.1-preview.1";
@@ -42,5 +43,6 @@ public abstract class ApiVersion {
     public static final String WIT_WIQL = "7.1-preview.2";
     public static final String WIT_RECYCLE_BIN = "7.1-preview.2";
     public static final String WORK_ITEM_TYPES = "7.1-preview.2";
+    public static final String WORK_ITEM_ATTACHMENT = "7.1-preview.3";
     public static final String MAVEN = "7.1-preview.1";
 }

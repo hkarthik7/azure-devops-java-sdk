@@ -1248,4 +1248,33 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }
         return null;
     }
+
+    @Override
+    public Timeline getTimeline(int buildId) throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
+                AREA + "/builds", Integer.toString(buildId),"timeline", ApiVersion.BUILD_TIMELINE, null, null);
+
+        return MAPPER.mapJsonResponse(r, Timeline.class);
+    }
+
+    @Override
+    public Timeline getTimeline(int buildId, String timelineId) throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
+                AREA + "/builds", Integer.toString(buildId),"timeline/" + timelineId, ApiVersion.BUILD_TIMELINE, null, null);
+
+        return MAPPER.mapJsonResponse(r, Timeline.class);
+    }
+
+    @Override
+    public Timeline getTimeline(int buildId, String timelineId, int changeId, String planId) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("changeId", changeId);
+            put("planId", planId);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
+                AREA + "/builds", Integer.toString(buildId),"timeline/" + timelineId, ApiVersion.BUILD_TIMELINE, q, null);
+
+        return MAPPER.mapJsonResponse(r, Timeline.class);
+    }
 }

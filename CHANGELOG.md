@@ -13,6 +13,7 @@
     - `updatePackageVersion`
     - `updatePackageVersions`
     - `restorePackageVersionFromRecycleBin`
+- Added support for build timeline Api.  
 
 ## 3.0.3
 

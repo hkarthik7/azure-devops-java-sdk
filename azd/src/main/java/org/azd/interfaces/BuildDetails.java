@@ -138,4 +138,11 @@ public interface BuildDetails {
     RepositoryWebhooks getWebHooks(String providerName, String serviceEndpointId, String repositoryName) throws AzDException;
 
     Void restoreWebHooks(String providerName, String serviceEndpointId, String repositoryName, List<String> triggerTypes) throws AzDException;
+
+    Timeline getTimeline(int buildId) throws AzDException;
+
+    Timeline getTimeline(int buildId, String timelineId) throws AzDException;
+
+    Timeline getTimeline(int buildId, String timelineId, int changeId, String planId) throws AzDException;
+
 }

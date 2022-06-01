@@ -275,4 +275,21 @@ public class BuildApiTest {
     public void shouldGetSourceProvidersWebhooks() throws AzDException {
         b.getWebHooks("Github", "a7054ra9-0a34-46ac-bfdf-b8a1da865tdfd6", "hkarthik7/PSDB");
     }
+
+    @Test()
+    public void shouldGetBuildTimelines() throws AzDException {
+        b.getTimeline(1103);
+    }
+
+    @Test()
+    public void shouldGetBuildTimelinesWithTimelineId() throws AzDException {
+        var timeline = b.getTimeline(1103);
+        b.getTimeline(1103, timeline.getId());
+    }
+
+    @Test()
+    public void shouldGetBuildTimelinesWithChangeAndPlanId() throws AzDException {
+        var timeline = b.getTimeline(1103);
+        b.getTimeline(1103, timeline.getId(), timeline.getChangeId(), null);
+    }
 }
