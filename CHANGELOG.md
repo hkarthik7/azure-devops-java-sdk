@@ -2,7 +2,7 @@
 
 ## 3.0.4
 
-- Updated Api version from 6.1 to 7.1.
+- Updated Api version from 6.x to 7.x.
 - Merged PR: [Added support for maven api #20](https://github.com/hkarthik7/azure-devops-java-sdk/pull/20)
 - **MavenApi** supports
     - `getPackageVersion`
@@ -16,6 +16,7 @@
     - `restorePackageVersionFromRecycleBin`
     - `setUpstreamingBehavior`
     - `clearUpstreamingBehavior`
+- Added support for timeline in **BuildApi**.
 
 ## 3.0.3
 
