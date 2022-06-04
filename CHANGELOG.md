@@ -17,6 +17,14 @@
     - `setUpstreamingBehavior`
     - `clearUpstreamingBehavior`
 - Added support for timeline in **BuildApi**.
+- Extended functionality of **Graph API**.
+  - get members of a group
+  - get groups a user (or nested group) is a member of
+  - add nested group membership
+  - remove membership
+  - create/delete group
+  - resolve resource descriptor from storageKey
+  - resolve graph resources from descriptors
 
 ## 3.0.3
 

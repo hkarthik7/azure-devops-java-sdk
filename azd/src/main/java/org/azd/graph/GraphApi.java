@@ -4,14 +4,12 @@ import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
-import org.azd.graph.types.GraphGroup;
-import org.azd.graph.types.GraphGroups;
-import org.azd.graph.types.GraphUser;
-import org.azd.graph.types.GraphUsers;
+import org.azd.graph.types.*;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.GraphDetails;
 import org.azd.utils.AzDAsyncApi;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -183,5 +181,159 @@ public class GraphApi extends AzDAsyncApi<GraphApi> implements GraphDetails {
                 AREA, null, "groups", ApiVersion.GRAPH, null, null);
 
         return MAPPER.mapJsonResponse(r, GraphGroups.class);
+    }
+
+    /***
+     * get subjects (users, groups) that are a member of the specified group
+     * @param groupDescriptor
+     * @return
+     * @throws AzDException
+     */
+    @Override
+    public GraphMemberships getGroupMembersOf(String groupDescriptor) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("direction", "down");
+        }};
+        String r = send(RequestMethod.GET, CONNECTION, GRAPH, null,
+                AREA, null, "memberships/" + groupDescriptor, ApiVersion.GRAPH, q, null);
+
+        return MAPPER.mapJsonResponse(r, GraphMemberships.class);
+    }
+
+    /***
+     * get groups that the specified subject (user, group) belongs to
+     * @param groupDescriptor
+     * @return
+     * @throws AzDException
+     */
+    @Override
+    public GraphMemberships getMemberOfGroups(String subjectDescriptor) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("direction", "up");
+        }};
+        String r = send(RequestMethod.GET, CONNECTION, GRAPH, null,
+                AREA, null, "memberships/" + subjectDescriptor, ApiVersion.GRAPH, q, null);
+
+        return MAPPER.mapJsonResponse(r, GraphMemberships.class);
+    }
+
+    /***
+     * add a membership relation between a subject (user or group) and a container (group)
+     *
+     * a more general case that allows nested groups
+     * @param subjectDescriptor
+     * @param groupDescriptor
+     * @return
+     * @throws AzDException
+     */
+    @Override
+    public GraphMembership addMembership(String subjectDescriptor, String groupDescriptor) throws AzDException {
+        String r = send(RequestMethod.PUT, CONNECTION, GRAPH, null,
+                AREA, null, "memberships/" + subjectDescriptor + "/" + groupDescriptor, ApiVersion.GRAPH, null, null);
+
+        return MAPPER.mapJsonResponse(r, GraphMembership.class);
+    }
+
+    /***
+     * remove a membership relation between a subject (user or group) and a container (group)
+     * @param subjectDescriptor
+     * @param groupDescriptor
+     * @return
+     * @throws AzDException
+     */
+    @Override
+    public Void removeMembership(String subjectDescriptor, String groupDescriptor) throws AzDException {
+        String r = send(RequestMethod.DELETE, CONNECTION, GRAPH, null,
+                AREA, null, "memberships/" + subjectDescriptor + "/" + groupDescriptor, ApiVersion.GRAPH, null, null);
+
+        if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
+        return null;
+    }
+
+    /***
+     * create a local group at the collection level
+     * @param displayName
+     * @param description
+     * @return
+     * @throws AzDException
+     */
+    @Override
+    public GraphMembership createGroup(String displayName, String description) throws AzDException {
+        return createGroup(displayName, description, null);
+    }
+
+    /***
+     * create a local group at the project level
+     * @param displayName
+     * @param description
+     * @return
+     * @throws AzDException
+     */
+    @Override
+    public GraphMembership createGroup(String displayName, String description, String projectDescriptor) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            if (projectDescriptor != null) put("scopeDescriptor", projectDescriptor);
+        }};
+        var b = new HashMap<String, Object>(){{
+            put("displayName", displayName);
+            put("description", description);
+        }};
+        String r = send(RequestMethod.POST, CONNECTION, GRAPH, null,
+                AREA, null, "groups", ApiVersion.GRAPH, q, b);
+
+        return MAPPER.mapJsonResponse(r, GraphMembership.class);
+    }
+
+    /***
+     * Removes an Azure DevOps group from all of its parent groups.
+     *
+     * The group will still be visible, but membership checks for the group, and all descendants which derive membership through it, will return false.
+     * @param groupDescriptor
+     * @return
+     * @throws AzDException
+     */
+    @Override
+    public Void deleteGroup(String groupDescriptor) throws AzDException {
+        String r = send(RequestMethod.DELETE, CONNECTION, GRAPH, null,
+                AREA, null, "groups/" + groupDescriptor, ApiVersion.GRAPH, null, null);
+         if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
+         return null;
+    }
+
+    /***
+     * Resolve a storage key to a descriptor
+     * @param storageKey
+     * @return
+     * @throws AzDException
+     */
+    @Override
+    public GraphDescriptor getDescriptor(String storageKey) throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, GRAPH, null,
+                AREA, null, "descriptors/" + storageKey, ApiVersion.GRAPH, null, null);
+
+        return MAPPER.mapJsonResponse(r, GraphDescriptor.class);
+    }
+
+    /***
+     * resolve descriptors to subjects
+     * @param descriptors
+     * @return
+     * @throws AzDException
+     */
+    @Override
+    public SubjectLookupResponse subjectLookup(String... descriptors) throws AzDException {
+        var b = new HashMap<String, Object>(){{
+            put("lookupKeys", new ArrayList<>(){{
+                for (String descriptor : descriptors) {
+                    add(new HashMap<String, String>(){{
+                        put("descriptor", descriptor);
+                    }});
+                }
+            }});
+        }};
+        String r = send(RequestMethod.POST, CONNECTION, GRAPH, null,
+                AREA, null, "subjectlookup", ApiVersion.GRAPH, null, b);
+
+        return MAPPER.mapJsonResponse(r, SubjectLookupResponse.class);
     }
 }
