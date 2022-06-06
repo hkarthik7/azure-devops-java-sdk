@@ -907,9 +907,11 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      * that the attachment should already be created using createAttachment method.
      * @param workItemId Id of the work item.
      * @param fieldsToUpdate Map of url and comments.
-     * E.g., var attachments = new HashMap<String, Object>(){{
+     * {@code}
+     * E.g., var attachments = new HashMap&#60;String, Object&#62;(){{
      *      put("https://url/of/attachment", "This is a comment");
      * }};
+     * {@code}
      * @return The work item object. WorkItem {@link WorkItem}
      * @throws AzDException Handles errors from REST API and validates passed arguments.
      */
