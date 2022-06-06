@@ -53,6 +53,9 @@ public abstract class Client extends BaseClient {
         if (requestMethod.toString().equals("POST") && contentType) {
             return post(requestUrl, connection.getPersonalAccessToken(), body, "application/json");
         }
+        if (requestMethod.toString().equals("POST") && !contentType) {
+            return post(requestUrl, connection.getPersonalAccessToken(), body, "application/octet-stream");
+        }
         return null;
     }
 

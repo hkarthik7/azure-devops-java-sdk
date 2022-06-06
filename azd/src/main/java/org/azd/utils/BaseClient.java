@@ -161,7 +161,7 @@ public abstract class BaseClient {
     }
 
     /**
-     *  Sends a PATCH request to REST API with basic authentication and request body
+     * Sends a PATCH request to REST API with basic authentication and request body
      * @param requestUrl pass the request url
      * @param token pass the personal access token
      * @param body pass the request body to update the request
@@ -177,7 +177,7 @@ public abstract class BaseClient {
     }
 
     /**
-     *  Sends a PATCH request to REST API with basic authentication and request body
+     * Sends a PATCH request to REST API with basic authentication and request body
      * @param requestUrl pass the request url
      * @param token pass the personal access token
      * @param body pass the request body to update the request
@@ -210,7 +210,7 @@ public abstract class BaseClient {
     }
 
     /**
-     *  Sends a PATCH request to REST API with basic authentication and request body
+     * Sends a PATCH request to REST API with basic authentication and request body
      * @param requestUrl pass the request url
      * @param token pass the personal access token
      * @param body pass the request body to update the request
@@ -243,7 +243,7 @@ public abstract class BaseClient {
     }
 
     /**
-     *  Sends a DELETE request to REST API with basic authentication
+     * Sends a DELETE request to REST API with basic authentication
      * @param requestUrl pass the request url
      * @param token pass the personal access token
      * @return response string from the API if any
