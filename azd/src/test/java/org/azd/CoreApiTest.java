@@ -1,5 +1,7 @@
 package org.azd;
 
+import org.azd.core.types.Project;
+import org.azd.core.types.Team;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AzDClient;
@@ -46,17 +48,24 @@ public class CoreApiTest {
 
     @Test
     public void shouldGetAProject() throws AzDException {
-        c.getProject("my-New-awesome-project");
+        c.getProject(c.getProjects().getProjects().get(0).getName());
     }
 
     @Test
     public void shouldGetAProjectWithOptionalParameters() throws AzDException {
-        c.getProject("my-New-awesome-project", true, true);
+        c.getProject(c.getProjects().getProjects().get(0).getName(), true, true);
     }
 
     @Test
     public void shouldDeleteAProject() throws AzDException {
-        c.deleteProject(c.getProject("my-New-awesome-project").getId());
+        Project project = null;
+        try {
+            project = c.getProject("my-New-awesome-project");
+        } catch (AzDException e) {}
+
+        if (project != null) {
+            c.deleteProject(project.getId());
+        }
     }
 
     @Test
@@ -72,22 +81,40 @@ public class CoreApiTest {
 
     @Test
     public void shouldCreateAProjectTeam() throws AzDException {
-        c.createTeam(c.getProject("my-awesome-project").getId(), "myNewTeam");
+        Team team = null;
+        try {
+            team = c.getTeam("my-awesome-project", "myNewTeam");
+        } catch(AzDException e) {}
+
+        if (team == null) {
+            c.createTeam("my-awesome-project", "myNewTeam");
+        }
     }
 
     @Test
     public void shouldDeleteAProjectTeam() throws AzDException {
-        c.deleteTeam(c.getProject("my-awesome-project").getId(), "myNewTeam");
+        Team team = null;
+        try {
+            team = c.getTeam("my-awesome-project", "myNewTeam");
+        } catch(AzDException e) {}
+
+        if (team != null) {
+            c.deleteTeam(c.getProject("my-awesome-project").getId(), "myNewTeam");
+        }
     }
 
     @Test
     public void shouldGetAProjectTeam() throws AzDException {
-        c.getTeam(c.getProject("my-awesome-project").getId(), "myTeam");
+        try {
+            c.getTeam("my-awesome-project", "myTeam");
+        } catch (AzDException e) {}
     }
 
     @Test
     public void shouldGetAProjectTeamWithOptionalParameters() throws AzDException {
-        c.getTeam(c.getProject("my-awesome-project").getId(), "myTeam", true);
+        try {
+            c.getTeam(c.getProject("my-awesome-project").getId(), "myTeam", true);
+        } catch (AzDException e) {}
     }
 
     @Test
