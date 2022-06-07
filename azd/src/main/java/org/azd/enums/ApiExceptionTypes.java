@@ -24,5 +24,9 @@ public enum ApiExceptionTypes {
     /**
      * Throw this error type if the user passes invalid organization name.
      */
-    InvalidOrganizationNameException
+    InvalidOrganizationNameException,
+    /**
+     * This type will be thrown if the given argument is invalid.
+     */
+    InvalidArgumentException
 }

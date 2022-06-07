@@ -74,6 +74,24 @@ public class Main {
             hyperlinks.add("https://docs.microsoft.com/en-us/rest/api/azure/devops");
             
             workitemtracking.addHyperLinks(2, hyperlinks);
+            
+            // Add an attachment to the work item.
+            var attachment = w.createAttachment("testFile.txt", AttachmentUploadType.SIMPLE, "my-team", "Sample content");
+            var attachmentFields = new HashMap<String, String>(){{ put(attachment.getUrl(), "Test File url."); }};
+            
+            w.addWorkItemAttachment(133, attachmentFields);
+            
+            // Remove an attachment from the work item.
+            var relations = w.getWorkItem(133, WorkItemExpand.RELATIONS).getRelations();
+            String fileNameToRemove = "testFile.txt";
+            List<String> attachmentUrl = new ArrayList<>();
+
+            for (var relation: relations) {
+                if (relation.getAttributes().getName().equals(fileNameToRemove)) {
+                    attachmentUrl.add(relation.getUrl());
+                    w.removeWorkItemAttachment(133, attachmentUrl);
+                }
+            }
 
         } catch (AzDException e) {
             e.printStackTrace();

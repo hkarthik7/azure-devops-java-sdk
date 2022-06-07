@@ -1,5 +1,6 @@
 package org.azd;
 
+import org.azd.enums.AttachmentUploadType;
 import org.azd.enums.WorkItemExpand;
 import org.azd.enums.WorkItemOperation;
 import org.azd.exceptions.AzDException;
@@ -11,10 +12,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 
@@ -166,5 +167,45 @@ public class WorkItemTrackingApiTest {
 	@Test
 	public void shouldGetAWorkItemType() throws AzDException {
 		w.getWorkItemType("Bug");
+	}
+
+	@Test
+	public void shouldCreateWorkItemAttachment() throws AzDException, IOException {
+		w.createAttachment("testFile.txt",
+				AttachmentUploadType.SIMPLE, "azure-devops-java-sdk", "Sample content");
+	}
+
+	@Test
+	public void shouldGetWorkItemAttachment() throws AzDException {
+		w.getAttachment("0aea937a-c5c2-4936-b828-e5da0e389210", "testFile.txt");
+	}
+
+	@Test
+	public void shouldAddAnAttachmentToAWorkItem() throws AzDException {
+		var attachment = w.createAttachment("testFile.txt",
+				AttachmentUploadType.SIMPLE, "azure-devops-java-sdk", "Sample content");
+		var attachmentFields = new HashMap<String, String>(){{
+			put(attachment.getUrl(), "Test File url.");
+		}};
+
+		w.addWorkItemAttachment(994, attachmentFields);
+	}
+
+	@Test
+	public void shouldRemoveAnAttachmentFromAWorkItem() throws AzDException {
+		var attachment = w.createAttachment("testFile.txt",
+				AttachmentUploadType.SIMPLE, "azure-devops-java-sdk", "Sample content");
+		var attachmentFields = new HashMap<String, String>(){{
+			put(attachment.getUrl(), "Test File url.");
+		}};
+
+		w.addWorkItemAttachment(994, attachmentFields);
+
+		String url = w.getWorkItem(994, WorkItemExpand.RELATIONS).getRelations().get(0).getUrl();
+
+		List<String> attachmentUrl = new ArrayList<>();
+		attachmentUrl.add(url);
+
+		w.removeWorkItemAttachment(994, attachmentUrl);
 	}
 }

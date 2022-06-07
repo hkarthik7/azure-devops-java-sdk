@@ -2,10 +2,7 @@ package org.azd.workitemtracking;
 
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
-import org.azd.enums.RequestMethod;
-import org.azd.enums.WorkItemErrorPolicy;
-import org.azd.enums.WorkItemExpand;
-import org.azd.enums.WorkItemOperation;
+import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.WorkItemTrackingDetails;
@@ -864,7 +861,145 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
 		return MAPPER.mapJsonResponse(r, WorkItemType.class);
 	}
 
-	/***
+    /**
+     * Uploads an attachment. The attachment should not exceed beyond 130MB.
+     * @param fileName The name of the file.
+     * @param uploadType Attachment upload type: Simple or Chunked. Choose AttachmentUploadType.SIMPLE for this method.
+     * @param teamAreaPath Target project Area Path.
+     * @param contents Contents of the attachment in string.
+     * @return AttachmentReference; Url and Id of the attachment. {@link AttachmentReference}
+     * @throws AzDException Handles errors from REST API and validates passed arguments.
+     */
+    @Override
+    public AttachmentReference createAttachment(String fileName, AttachmentUploadType uploadType, String teamAreaPath, String contents) throws AzDException {
+	    var q = new HashMap<String, Object>(){{
+	        put("fileName", fileName);
+	        put("uploadType", uploadType.toString().toLowerCase());
+	        put("areaPath", teamAreaPath);
+
+        }};
+
+        String r = send(RequestMethod.POST, CONNECTION, WIT, CONNECTION.getProject(), AREA, null,
+                "attachments", ApiVersion.WORK_ITEM_ATTACHMENT, q, false, contents);
+
+        return MAPPER.mapJsonResponse(r, AttachmentReference.class);
+    }
+
+    /**
+     * Downloads an attachment.
+     * @param id Attachment ID.
+     * @param fileName Name of the file.
+     * @return The contents of the attachment.
+     * @throws AzDException Handles errors from REST API and validates passed arguments.
+     */
+    @Override
+    public String getAttachment(String id, String fileName) throws AzDException {
+        var q = new HashMap<String, Object>(){{ put("fileName", fileName); }};
+
+        String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(), AREA + "/attachments", id,
+                null, ApiVersion.WORK_ITEM_ATTACHMENT, q, null);
+
+        return r;
+    }
+
+    /**
+     * Add an attachment to a work item. Pass the url of the attachment and comments as a Map to add the attachment to work item. Note
+     * that the attachment should already be created using createAttachment method.
+     * @param workItemId Id of the work item.
+     * @param fieldsToUpdate Map of url and comments.
+     * {@code}
+     * E.g., var attachments = new HashMap&#60;String, Object&#62;(){{
+     *      put("https://url/of/attachment", "This is a comment");
+     * }};
+     * {@code}
+     * @return The work item object. WorkItem {@link WorkItem}
+     * @throws AzDException Handles errors from REST API and validates passed arguments.
+     */
+    @Override
+    public WorkItem addWorkItemAttachment(int workItemId, Map<String, String> fieldsToUpdate) throws AzDException {
+        List<Object> reqBody = new ArrayList<>();
+
+        for (Entry<String, String> entry : fieldsToUpdate.entrySet()) {
+            String url = entry.getKey();
+            String comment = entry.getValue();
+
+            Map<String, Object> attributesMap = null;
+            if (comment != null && !comment.isEmpty()) {
+                attributesMap = new HashMap<>();
+                attributesMap.put("comment", comment);
+            }
+
+            Map<String, Object> attachment = new HashMap<>();
+            attachment.put("rel", "AttachedFile");
+            attachment.put("url", url);
+            if (attributesMap != null) {
+                attachment.put("attributes", attributesMap);
+            }
+
+            Map<String, Object> reqBodyMap = new HashMap<>();
+            reqBodyMap.put("op", WorkItemOperation.ADD.name().toLowerCase());
+            reqBodyMap.put("path", "/relations/-");
+            reqBodyMap.put("value", attachment);
+
+            reqBody.add(reqBodyMap);
+        }
+
+        String res = send(RequestMethod.PATCH, CONNECTION, WIT, CONNECTION.getProject(), AREA + "/workitems",
+                Integer.toString(workItemId), null, ApiVersion.WORK_ITEM_TRACKING, null, null, reqBody,
+                "application/json-patch+json; charset=utf-8");
+
+        return MAPPER.mapJsonResponse(res, WorkItem.class);
+    }
+
+    /**
+     * Removes the attachment from a work item. Pass the list of attachment url to be removed.
+     * @param workItemId ID of the work item.
+     * @param attachmentUrl List of attachment url.
+     * @return The work item object. WorkItem {@link WorkItem}
+     * @throws AzDException Handles errors from REST API and validates passed arguments.
+     */
+    @Override
+    public WorkItem removeWorkItemAttachment(int workItemId, List<String> attachmentUrl) throws AzDException {
+	    if (attachmentUrl.size() <= 0) {
+	        throw new AzDException("The attachment url list cannot be null. Please validate the argument before passing");
+        }
+
+        List<Object> reqBody = new ArrayList<>();
+
+        var relations = getWorkItem(workItemId, WorkItemExpand.RELATIONS).getRelations();
+
+        for (String url: attachmentUrl) {
+            int attachmentRelationNumber = -1;
+
+            for (int i = 0; i < relations.size(); i++) {
+                if (relations.get(i).getUrl().equals(url)) {
+                    attachmentRelationNumber = i;
+
+                    Map<String, Object> reqBodyMap = new HashMap<>();
+                    reqBodyMap.put("op", WorkItemOperation.REMOVE.name().toLowerCase());
+                    reqBodyMap.put("path", "/relations/" + attachmentRelationNumber);
+
+                    reqBody.add(reqBodyMap);
+                }
+            }
+
+            if (attachmentRelationNumber == -1) {
+                throw new AzDException(ApiExceptionTypes.InvalidArgumentException.name() ,MessageFormat.format(
+                        "Unable to remove the attachment ''{0}'' from work item with ID ''{1}'': The attachment doesn't exist.",
+                        url, workItemId));
+            }
+        }
+
+
+
+        String res = send(RequestMethod.PATCH, CONNECTION, WIT, CONNECTION.getProject(), AREA + "/workitems",
+                Integer.toString(workItemId), null, ApiVersion.WORK_ITEM_TRACKING, null, null, reqBody,
+                "application/json-patch+json; charset=utf-8");
+
+        return MAPPER.mapJsonResponse(res, WorkItem.class);
+    }
+
+    /***
 	 * Helper method to convert integer array to string.
 	 * @param i integer array
 	 * @return {@link String}

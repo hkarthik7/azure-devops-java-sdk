@@ -1,5 +1,6 @@
 package org.azd.interfaces;
 
+import org.azd.enums.AttachmentUploadType;
 import org.azd.enums.WorkItemErrorPolicy;
 import org.azd.enums.WorkItemExpand;
 import org.azd.enums.WorkItemOperation;
@@ -53,10 +54,13 @@ public interface WorkItemTrackingDetails {
 	WorkItem updateWorkItem(int workItemId, WorkItemExpand expand, boolean bypassRules, boolean suppressNotifications,
 			boolean validateOnly, Map<String, Object> fieldsToUpdate) throws AzDException;
 	WorkItem updateWorkItem(int workItemId, WorkItemExpand expand, boolean bypassRules, boolean suppressNotifications,
-			boolean validateOnly, Map<String, Object> fieldsToUpdate, WorkItemOperation operation)
-			throws AzDException;
+			boolean validateOnly, Map<String, Object> fieldsToUpdate, WorkItemOperation operation) throws AzDException;
 	WorkItem addHyperLinks(int workItemId, Map<String, String> hyperlinksMap) throws AzDException;
 	WorkItem removeHyperLinks(int workItemId, List<String> urls) throws AzDException;
 	WorkItemTypes getWorkItemTypes() throws AzDException;
 	WorkItemType getWorkItemType(String workItemTypeName) throws AzDException;
+	AttachmentReference createAttachment(String fileName, AttachmentUploadType uploadType, String teamAreaPath, String contents) throws AzDException;
+	String getAttachment(String id, String fileName) throws AzDException;
+	WorkItem addWorkItemAttachment(int workItemId, Map<String, String> fieldsToUpdate) throws AzDException;
+	WorkItem removeWorkItemAttachment(int workItemId, List<String> attachmentUrl) throws AzDException;
 }
