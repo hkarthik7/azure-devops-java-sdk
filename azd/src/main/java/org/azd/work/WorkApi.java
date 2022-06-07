@@ -48,7 +48,7 @@ public class WorkApi extends AzDAsyncApi<WorkApi> implements WorkDetails {
     public TeamSettingsIterations getTeamSettingsIterations(String teamName) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, WORK,
                 (CONNECTION.getProject() + "/" + encodeSpace(teamName)),
-                AREA,null , "teamsettings/iterations", ApiVersion.WORK, null, null);
+                AREA, null, "teamsettings/iterations", ApiVersion.WORK, null, null);
 
         return MAPPER.mapJsonResponse(r, TeamSettingsIterations.class);
     }
@@ -64,13 +64,13 @@ public class WorkApi extends AzDAsyncApi<WorkApi> implements WorkDetails {
     @Override
     public TeamSettingsIterations getTeamSettingsIterations(String teamName, IterationsTimeFrame timeFrame) throws AzDException {
 
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$timeframe", timeFrame.toString().toLowerCase());
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, WORK,
                 (CONNECTION.getProject() + "/" + encodeSpace(teamName)),
-                AREA,null , "teamsettings/iterations", ApiVersion.WORK, q, null);
+                AREA, null, "teamsettings/iterations", ApiVersion.WORK, q, null);
 
         return MAPPER.mapJsonResponse(r, TeamSettingsIterations.class);
     }
@@ -86,7 +86,7 @@ public class WorkApi extends AzDAsyncApi<WorkApi> implements WorkDetails {
     public IterationWorkItems getTeamIterationWorkItems(String teamName, String iterationId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, WORK,
                 (CONNECTION.getProject() + "/" + encodeSpace(teamName)),
-                AREA + "/teamsettings/iterations",iterationId , "workitems", ApiVersion.WORK, null, null);
+                AREA + "/teamsettings/iterations", iterationId, "workitems", ApiVersion.WORK, null, null);
 
         return MAPPER.mapJsonResponse(r, IterationWorkItems.class);
     }
@@ -102,7 +102,7 @@ public class WorkApi extends AzDAsyncApi<WorkApi> implements WorkDetails {
     public TeamSettingsIteration getTeamSettingsIteration(String teamName, String iterationId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, WORK,
                 (CONNECTION.getProject() + "/" + encodeSpace(teamName)),
-                AREA + "/teamsettings/iterations",iterationId , null, ApiVersion.WORK, null, null);
+                AREA + "/teamsettings/iterations", iterationId, null, ApiVersion.WORK, null, null);
 
         return MAPPER.mapJsonResponse(r, TeamSettingsIteration.class);
     }
@@ -117,8 +117,8 @@ public class WorkApi extends AzDAsyncApi<WorkApi> implements WorkDetails {
     public Void deleteTeamSettingsIteration(String teamName, String iterationId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, WORK,
-                        (CONNECTION.getProject() + "/" + encodeSpace(teamName)),
-                        AREA + "/teamsettings/iterations", iterationId, null, ApiVersion.WORK, null, null);
+                    (CONNECTION.getProject() + "/" + encodeSpace(teamName)),
+                    AREA + "/teamsettings/iterations", iterationId, null, ApiVersion.WORK, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
             throw e;

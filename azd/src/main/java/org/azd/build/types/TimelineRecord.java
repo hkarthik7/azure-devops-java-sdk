@@ -32,7 +32,7 @@ public class TimelineRecord {
     @JsonProperty("currentOperation")
     private String currentOperation;
     /**
-     *  A reference to a sub-timeline.
+     * A reference to a sub-timeline.
      */
     @JsonProperty("details")
     private TimelineReference details;

@@ -51,7 +51,7 @@ public class GraphApi extends AzDAsyncApi<GraphApi> implements GraphDetails {
      */
     @Override
     public GraphUser createUser(String emailId, String userDescriptor) throws AzDException {
-        var b = new HashMap<String, Object>(){{
+        var b = new HashMap<String, Object>() {{
             put("principalName", emailId);
         }};
 
@@ -71,11 +71,11 @@ public class GraphApi extends AzDAsyncApi<GraphApi> implements GraphDetails {
      */
     @Override
     public GraphUser addUserToGroup(String emailId, String groupDescriptor) throws AzDException {
-        var b = new HashMap<String, Object>(){{
+        var b = new HashMap<String, Object>() {{
             put("principalName", emailId);
         }};
 
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("groupDescriptors", groupDescriptor);
         }};
 
@@ -146,7 +146,7 @@ public class GraphApi extends AzDAsyncApi<GraphApi> implements GraphDetails {
      */
     @Override
     public GraphUsers getUsers(String continuationToken, String scopeDescriptor, String subjectTypes) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("subjectTypes", String.join(",", subjectTypes));
             put("continuationToken", continuationToken);
             put("scopeDescriptor", scopeDescriptor);

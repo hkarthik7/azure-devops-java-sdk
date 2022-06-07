@@ -2,8 +2,6 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.exceptions.AzDException;
-import org.azd.helpers.JsonMapper;
 
 import java.util.List;
 

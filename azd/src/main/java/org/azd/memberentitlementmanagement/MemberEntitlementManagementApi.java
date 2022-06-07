@@ -105,8 +105,8 @@ public class MemberEntitlementManagementApi extends AzDAsyncApi<MemberEntitlemen
      */
     @Override
     public PagedGraphMemberList getMembers(String groupId, int maxResults, String pagingToken) throws AzDException {
-        var q = new HashMap<String, Object>(){{
-           put("maxResults", maxResults);
+        var q = new HashMap<String, Object>() {{
+            put("maxResults", maxResults);
             put("pagingToken", pagingToken);
         }};
 
@@ -150,20 +150,20 @@ public class MemberEntitlementManagementApi extends AzDAsyncApi<MemberEntitlemen
     public UserEntitlementsResponse addUserEntitlement(AccountLicenseType accountLicenseType, String emailId, GroupType groupType, String projectId)
             throws AzDException {
 
-        var projectEntitlement = new LinkedHashMap<String, Object>(){{
-            put("group", new LinkedHashMap<String, Object>(){{
+        var projectEntitlement = new LinkedHashMap<String, Object>() {{
+            put("group", new LinkedHashMap<String, Object>() {{
                 put("groupType", groupType.toString().toLowerCase());
             }});
-            put("projectRef", new LinkedHashMap<String, Object>(){{
+            put("projectRef", new LinkedHashMap<String, Object>() {{
                 put("id", projectId);
             }});
         }};
 
-        var body = new LinkedHashMap<String, Object>(){{
-            put("accessLevel", new LinkedHashMap<String, Object>(){{
+        var body = new LinkedHashMap<String, Object>() {{
+            put("accessLevel", new LinkedHashMap<String, Object>() {{
                 put("accountLicenseType", accountLicenseType.toString().toLowerCase());
             }});
-            put("user", new LinkedHashMap<String, Object>(){{
+            put("user", new LinkedHashMap<String, Object>() {{
                 put("principalName", emailId);
                 put("subjectKind", "user");
             }});
@@ -251,11 +251,11 @@ public class MemberEntitlementManagementApi extends AzDAsyncApi<MemberEntitlemen
     @Override
     public UserEntitlementsResponse updateUserEntitlement(String userId, AccountLicenseType accountLicenseType, LicensingSource licensingSource)
             throws AzDException {
-        var pos = new LinkedHashMap<String, Object>(){{
+        var pos = new LinkedHashMap<String, Object>() {{
             put("from", "");
             put("op", "replace");
             put("path", "/accessLevel");
-            put("value", new LinkedHashMap<String, Object>(){{
+            put("value", new LinkedHashMap<String, Object>() {{
                 put("accountLicenseType", accountLicenseType.toString().toLowerCase());
                 put("licensingSource", licensingSource.toString().toLowerCase());
             }});

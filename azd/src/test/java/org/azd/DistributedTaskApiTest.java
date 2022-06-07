@@ -110,14 +110,14 @@ public class DistributedTaskApiTest {
         projectReference.setName(project.getName());
         projectReference.setId(project.getId());
 
-        var variables = new HashMap<String, Object>(){{
-                put("userName", new HashMap<String, String>(){{
+        var variables = new HashMap<String, Object>() {{
+            put("userName", new HashMap<String, String>() {{
                 put("value", "testUser");
             }});
-            put("passCode", new HashMap<String, Integer>(){{
+            put("passCode", new HashMap<String, Integer>() {{
                 put("value", 2255);
             }});
-            put("details", new HashMap<String, Object>(){{
+            put("details", new HashMap<String, Object>() {{
                 put("value", "Test Value");
                 put("isSecret", true);
             }});
@@ -134,14 +134,14 @@ public class DistributedTaskApiTest {
 
     @Test(expected = AzDException.class)
     public void shouldAddANewVariableGroupToDefaultProject() throws AzDException {
-        var variables = new HashMap<String, Object>(){{
-            put("userName", new HashMap<String, String>(){{
+        var variables = new HashMap<String, Object>() {{
+            put("userName", new HashMap<String, String>() {{
                 put("value", "testUser");
             }});
-            put("passCode", new HashMap<String, Integer>(){{
+            put("passCode", new HashMap<String, Integer>() {{
                 put("value", 2255);
             }});
-            put("details", new HashMap<String, Object>(){{
+            put("details", new HashMap<String, Object>() {{
                 put("value", "Test Value");
                 put("isSecret", true);
             }});
@@ -157,10 +157,10 @@ public class DistributedTaskApiTest {
 
     @Test
     public void shouldDeleteAVariableGroup() throws AzDException {
-        var variables = new HashMap<>(){{
-           put("userName", new HashMap<>(){{
-               put("value", "testUser");
-           }});
+        var variables = new HashMap<>() {{
+            put("userName", new HashMap<>() {{
+                put("value", "testUser");
+            }});
         }};
 
         var projectId = c.getProject("azure-devops-java-sdk").getId();
@@ -172,12 +172,12 @@ public class DistributedTaskApiTest {
 
     @Test
     public void shouldUpdateAVariableGroup() throws AzDException {
-        var variablesToUpdate = new HashMap<>(){{
-            put("userName", new HashMap<>(){{
+        var variablesToUpdate = new HashMap<>() {{
+            put("userName", new HashMap<>() {{
                 put("value", "testUser");
             }});
 
-            put("password", new HashMap<>(){{
+            put("password", new HashMap<>() {{
                 put("value", "testUser");
                 put("isSecret", true);
             }});

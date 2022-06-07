@@ -43,6 +43,8 @@ public class WorkItemAttributes {
      */
     @JsonProperty("revisedDate")
     private String revisedDate;
+    @JsonProperty("resourceModifiedDate")
+    private String resourceModifiedDate;
 
     @Override
     public String toString() {
@@ -57,9 +59,6 @@ public class WorkItemAttributes {
                 ", revisedDate='" + revisedDate + '\'' +
                 '}';
     }
-
-    @JsonProperty("resourceModifiedDate")
-    private String resourceModifiedDate;
 
     public boolean isLocked() {
         return isLocked;

@@ -22,22 +22,40 @@ import org.azd.workitemtracking.WorkItemTrackingApi;
 
 public interface AzDClient {
     AccountsApi getAccountsApi();
+
     BuildApi getBuildApi();
+
     CoreApi getCoreApi();
+
     DistributedTaskApi getDistributedTaskApi();
+
     FeedManagementApi getFeedManagementApi();
+
     GitApi getGitApi();
+
     GraphApi getGraphApi();
+
     MavenApi getMavenApi();
+
     MemberEntitlementManagementApi getMemberEntitlementManagementApi();
+
     ReleaseApi getReleaseApi();
+
     ServiceHooksApi getServiceHooksApi();
+
     WikiApi getWikiApi();
+
     WorkApi getWorkApi();
+
     WorkItemTrackingApi getWorkItemTrackingApi();
+
     OAuthApi getOAuth();
+
     ServiceEndpointApi getServiceEndpointApi();
+
     ExtensionManagementApi getExtensionManagementApi();
+
     PolicyApi getPolicyApi();
+
     PipelinesApi getPipelinesApi();
 }

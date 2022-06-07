@@ -46,7 +46,7 @@ public class ExtensionManagementApi extends AzDAsyncApi<ExtensionManagementApi> 
     @Override
     public InstalledExtension getExtension(String extensionId, String publisherId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, EXTENSIONMANAGEMENT, null,
-                AREA + "/installedextensions", extensionId + "/" + publisherId, null, ApiVersion.EXTENSION_MANAGEMENT,null, null);
+                AREA + "/installedextensions", extensionId + "/" + publisherId, null, ApiVersion.EXTENSION_MANAGEMENT, null, null);
 
         return MAPPER.mapJsonResponse(r, InstalledExtension.class);
     }
@@ -62,11 +62,11 @@ public class ExtensionManagementApi extends AzDAsyncApi<ExtensionManagementApi> 
     @Override
     public InstalledExtension getExtension(String extensionId, String publisherId, String[] assetTypes)
             throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("assetTypes", String.join(",", assetTypes));
         }};
         String r = send(RequestMethod.GET, CONNECTION, EXTENSIONMANAGEMENT, null,
-                AREA + "/installedextensions" , extensionId + "/" + publisherId, null, ApiVersion.EXTENSION_MANAGEMENT,q, null);
+                AREA + "/installedextensions", extensionId + "/" + publisherId, null, ApiVersion.EXTENSION_MANAGEMENT, q, null);
 
         return MAPPER.mapJsonResponse(r, InstalledExtension.class);
     }
@@ -79,7 +79,7 @@ public class ExtensionManagementApi extends AzDAsyncApi<ExtensionManagementApi> 
     @Override
     public InstalledExtensions getExtensions() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, EXTENSIONMANAGEMENT, null,
-                AREA + "/installedextensions" , null, null, ApiVersion.EXTENSION_MANAGEMENT,null, null);
+                AREA + "/installedextensions", null, null, ApiVersion.EXTENSION_MANAGEMENT, null, null);
 
         return MAPPER.mapJsonResponse(r, InstalledExtensions.class);
     }
@@ -102,7 +102,7 @@ public class ExtensionManagementApi extends AzDAsyncApi<ExtensionManagementApi> 
         }
 
         String r = send(RequestMethod.POST, CONNECTION, EXTENSIONMANAGEMENT, null,
-                AREA + "/installedextensionsbyname" , id, null, ApiVersion.EXTENSION_MANAGEMENT,null, null);
+                AREA + "/installedextensionsbyname", id, null, ApiVersion.EXTENSION_MANAGEMENT, null, null);
 
         return MAPPER.mapJsonResponse(r, InstalledExtension.class);
     }
@@ -142,9 +142,9 @@ public class ExtensionManagementApi extends AzDAsyncApi<ExtensionManagementApi> 
             throws AzDException {
         try {
             String id = publisherId + "/" + extensionId;
-            var q = new HashMap<String, Object>(){{
-                put("reason",reason);
-                put("reasonCode",reasonCode);
+            var q = new HashMap<String, Object>() {{
+                put("reason", reason);
+                put("reasonCode", reasonCode);
             }};
 
             String r = send(RequestMethod.DELETE, CONNECTION, EXTENSIONMANAGEMENT, null,
@@ -169,16 +169,16 @@ public class ExtensionManagementApi extends AzDAsyncApi<ExtensionManagementApi> 
     @Override
     public InstalledExtension updateExtension(String publisherId, String extensionId, ExtensionStateFlags extensionState)
             throws AzDException {
-        var body = new HashMap<String, Object>(){{
+        var body = new HashMap<String, Object>() {{
             put("publisherId", publisherId);
             put("extensionId", extensionId);
-            put("installState", new HashMap<String, Object>(){{
+            put("installState", new HashMap<String, Object>() {{
                 put("flags", extensionState.toString().toLowerCase());
             }});
         }};
 
         String r = send(RequestMethod.PATCH, CONNECTION, EXTENSIONMANAGEMENT, null,
-                AREA + "/installedextensions" , null, null, ApiVersion.EXTENSION_MANAGEMENT,null, body);
+                AREA + "/installedextensions", null, null, ApiVersion.EXTENSION_MANAGEMENT, null, body);
 
         return MAPPER.mapJsonResponse(r, InstalledExtension.class);
     }

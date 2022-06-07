@@ -46,7 +46,7 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
      */
     @Override
     public PipelinesArtifact getArtifacts(int pipelineId, int runId, String artifactName) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("artifactName", artifactName);
         }};
 
@@ -68,7 +68,7 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
     @Override
     public PipelinesArtifact getArtifacts(int pipelineId, int runId, String artifactName, PipelinesExpandOptions expandOptions)
             throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("artifactName", artifactName);
             put("$expand", expandOptions.toString().toLowerCase());
         }};
@@ -106,7 +106,7 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
      */
     @Override
     public PipelineLog getPipelineLog(int pipelineId, int runId, int logId, PipelinesExpandOptions expandOptions) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$expand", expandOptions.toString().toLowerCase());
         }};
 
@@ -141,7 +141,7 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
      */
     @Override
     public LogCollection getPipelineLogs(int pipelineId, int runId, PipelinesExpandOptions expandOptions) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$expand", expandOptions.toString().toLowerCase());
         }};
 
@@ -165,13 +165,13 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
     public Pipeline createPipeline(String name, String folder, String pathOfYamlFile, String repositoryId, String repositoryName) throws AzDException {
         var git = new GitApi(CONNECTION);
 
-        var body = new HashMap<String, Object>(){{
+        var body = new HashMap<String, Object>() {{
             put("name", name);
             put("folder", folder);
-            put("configuration", new HashMap<>(){{
+            put("configuration", new HashMap<>() {{
                 put("type", "yaml");
                 put("path", pathOfYamlFile);
-                put("repository", new HashMap<>(){{
+                put("repository", new HashMap<>() {{
                     put("id", repositoryId);
                     put("name", repositoryName);
                     put("type", "azureReposGit");
@@ -208,7 +208,7 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
      */
     @Override
     public Pipeline getPipeline(int pipelineId, String pipelineVersion) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("pipelineVersion", pipelineVersion);
         }};
 
@@ -240,7 +240,7 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
      */
     @Override
     public PreviewRun previewPipeline(int pipelineId, boolean previewRun) throws AzDException {
-        var body = new HashMap<String, Object>(){{
+        var body = new HashMap<String, Object>() {{
             put("previewRun", previewRun);
         }};
 
@@ -261,7 +261,7 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
      */
     @Override
     public PreviewRun previewPipeline(int pipelineId, boolean previewRun, String yamlOverride) throws AzDException {
-        var body = new HashMap<String, Object>(){{
+        var body = new HashMap<String, Object>() {{
             put("previewRun", previewRun);
             put("yamlOverride", yamlOverride);
         }};
@@ -309,8 +309,8 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
      */
     @Override
     public PipelineRun runPipeline(int pipelineId) throws AzDException {
-        var body = new HashMap<String, Object>(){{
-           put("resources", "{}");
+        var body = new HashMap<String, Object>() {{
+            put("resources", "{}");
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, PIPELINES, CONNECTION.getProject(),

@@ -66,7 +66,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     public Build getBuild(int buildId) throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                        AREA + "/builds", Integer.toString(buildId), null, ApiVersion.BUILD, null, null);
+                AREA + "/builds", Integer.toString(buildId), null, ApiVersion.BUILD, null, null);
 
         return MAPPER.mapJsonResponse(r, Build.class);
     }
@@ -80,7 +80,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public BuildChanges getBuildChanges(int buildId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId), "changes", ApiVersion.BUILD_CHANGES,null, null);
+                AREA + "/builds", Integer.toString(buildId), "changes", ApiVersion.BUILD_CHANGES, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildChanges.class);
     }
@@ -134,13 +134,13 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public String getBuildLog(int buildId, int logId, long startLine, long endLine) throws AzDException {
 
-        HashMap<String, Object> q = new HashMap<>(){{
+        HashMap<String, Object> q = new HashMap<>() {{
             put("startLine", startLine);
             put("endLine", endLine);
         }};
 
         return send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId),"logs/" + logId, ApiVersion.BUILD_LOGS, q, null,"text");
+                AREA + "/builds", Integer.toString(buildId), "logs/" + logId, ApiVersion.BUILD_LOGS, q, null, "text");
     }
 
     /***
@@ -153,7 +153,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     public BuildLogs getBuildLogs(int buildId) throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId),"logs", ApiVersion.BUILD_LOGS,null,null);
+                AREA + "/builds", Integer.toString(buildId), "logs", ApiVersion.BUILD_LOGS, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildLogs.class);
     }
@@ -168,7 +168,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     public BuildWorkItems getBuildWorkItems(int buildId) throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                        AREA + "/builds", Integer.toString(buildId), "workitems", ApiVersion.BUILD_WORK_ITEMS,null,null);
+                AREA + "/builds", Integer.toString(buildId), "workitems", ApiVersion.BUILD_WORK_ITEMS, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildWorkItems.class);
     }
@@ -183,12 +183,12 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public BuildWorkItems getBuildWorkItems(int buildId, int top) throws AzDException {
 
-        HashMap<String, Object> q = new HashMap<>(){{
+        HashMap<String, Object> q = new HashMap<>() {{
             put("$top", top);
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                        AREA + "/builds", Integer.toString(buildId),"workitems", ApiVersion.BUILD_WORK_ITEMS, q,null);
+                AREA + "/builds", Integer.toString(buildId), "workitems", ApiVersion.BUILD_WORK_ITEMS, q, null);
 
         return MAPPER.mapJsonResponse(r, BuildWorkItems.class);
     }
@@ -204,14 +204,14 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public BuildChanges getChangesBetweenBuilds(int fromBuildId, int toBuildId, int top) throws AzDException {
 
-        HashMap<String, Object> q = new HashMap<>(){{
+        HashMap<String, Object> q = new HashMap<>() {{
             put("$top", top);
             put("fromBuildId", fromBuildId);
             put("toBuildId", toBuildId);
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA, null, "changes", ApiVersion.BUILD_CHANGES, q,null);
+                AREA, null, "changes", ApiVersion.BUILD_CHANGES, q, null);
 
         return MAPPER.mapJsonResponse(r, BuildChanges.class);
     }
@@ -227,14 +227,14 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public BuildWorkItems getWorkItemsBetweenBuilds(int fromBuildId, int toBuildId, int top) throws AzDException {
 
-        HashMap<String, Object> q = new HashMap<>(){{
+        HashMap<String, Object> q = new HashMap<>() {{
             put("$top", top);
             put("fromBuildId", fromBuildId);
             put("toBuildId", toBuildId);
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA, null,"workitems", ApiVersion.BUILD_WORK_ITEMS, q,null);
+                AREA, null, "workitems", ApiVersion.BUILD_WORK_ITEMS, q, null);
 
         return MAPPER.mapJsonResponse(r, BuildWorkItems.class);
     }
@@ -248,7 +248,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     public Builds getBuilds() throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds",null,null, ApiVersion.BUILD,null,null);
+                AREA + "/builds", null, null, ApiVersion.BUILD, null, null);
 
         return MAPPER.mapJsonResponse(r, Builds.class);
     }
@@ -264,12 +264,12 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
 
         String ids = Arrays.stream(buildIds).mapToObj(String::valueOf).collect(Collectors.joining(","));
 
-        HashMap<String, Object> q = new HashMap<>(){{
+        HashMap<String, Object> q = new HashMap<>() {{
             put("buildIds", ids);
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds",null,null, ApiVersion.BUILD, q,null);
+                AREA + "/builds", null, null, ApiVersion.BUILD, q, null);
 
         return MAPPER.mapJsonResponse(r, Builds.class);
     }
@@ -283,12 +283,12 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public Builds getBuilds(int top) throws AzDException {
 
-        HashMap<String, Object> q = new HashMap<>(){{
+        HashMap<String, Object> q = new HashMap<>() {{
             put("$top", top);
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds",null,null, ApiVersion.BUILD, q,null);
+                AREA + "/builds", null, null, ApiVersion.BUILD, q, null);
 
         return MAPPER.mapJsonResponse(r, Builds.class);
     }
@@ -325,10 +325,10 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
             String repositoryId, String repositoryType, String requestedFor, String resultFilter,
             String statusFilter, String tagFilters) throws AzDException {
 
-            String ids = (definitions != null) ? Arrays.stream(definitions).mapToObj(String::valueOf).collect(Collectors.joining(",")) : null;
-            String queueIds = (queues != null) ? Arrays.stream(queues).mapToObj(String::valueOf).collect(Collectors.joining(",")) : null;
+        String ids = (definitions != null) ? Arrays.stream(definitions).mapToObj(String::valueOf).collect(Collectors.joining(",")) : null;
+        String queueIds = (queues != null) ? Arrays.stream(queues).mapToObj(String::valueOf).collect(Collectors.joining(",")) : null;
 
-        HashMap<String, Object> q = new HashMap<>(){{
+        HashMap<String, Object> q = new HashMap<>() {{
             put("$top", top);
             put("branchName", branchName);
             put("buildNumber", buildNumber);
@@ -351,7 +351,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds",null,null, ApiVersion.BUILD, q,null);
+                AREA + "/builds", null, null, ApiVersion.BUILD, q, null);
 
         return MAPPER.mapJsonResponse(r, Builds.class);
     }
@@ -370,7 +370,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds",null,null, ApiVersion.BUILD, q,null);
+                AREA + "/builds", null, null, ApiVersion.BUILD, q, null);
 
         return MAPPER.mapJsonResponse(r, Build.class);
     }
@@ -385,7 +385,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     public Build queueBuild(Map<String, Object> buildParameters) throws AzDException {
 
         String r = send(RequestMethod.POST, CONNECTION, BUILD, CONNECTION.getProject(),
-                        AREA + "/builds", null,null, ApiVersion.BUILD,null, buildParameters);
+                AREA + "/builds", null, null, ApiVersion.BUILD, null, buildParameters);
 
         return MAPPER.mapJsonResponse(r, Build.class);
     }
@@ -398,8 +398,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public BuildControllers getBuildControllers() throws AzDException {
 
-        String r = send(RequestMethod.GET, CONNECTION, BUILD,null,
-                        AREA,null,"controllers", ApiVersion.BUILD_CONTROLLERS,null,null);
+        String r = send(RequestMethod.GET, CONNECTION, BUILD, null,
+                AREA, null, "controllers", ApiVersion.BUILD_CONTROLLERS, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildControllers.class);
     }
@@ -413,12 +413,12 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public BuildControllers getBuildControllers(String name) throws AzDException {
 
-        HashMap<String, Object> q = new HashMap<>(){{
+        HashMap<String, Object> q = new HashMap<>() {{
             put("name", name);
         }};
 
-        String r = send(RequestMethod.GET, CONNECTION, BUILD,null,
-                AREA,null,"controllers", ApiVersion.BUILD_CONTROLLERS, q,null);
+        String r = send(RequestMethod.GET, CONNECTION, BUILD, null,
+                AREA, null, "controllers", ApiVersion.BUILD_CONTROLLERS, q, null);
 
         return MAPPER.mapJsonResponse(r, BuildControllers.class);
     }
@@ -432,8 +432,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public BuildController getBuildController(int controllerId) throws AzDException {
 
-        String r = send(RequestMethod.GET, CONNECTION, BUILD,null,
-                AREA + "/controllers", Integer.toString(controllerId),null, ApiVersion.BUILD_CONTROLLERS,null,null);
+        String r = send(RequestMethod.GET, CONNECTION, BUILD, null,
+                AREA + "/controllers", Integer.toString(controllerId), null, ApiVersion.BUILD_CONTROLLERS, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildController.class);
     }
@@ -452,7 +452,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         var requestBody = MAPPER.mapJsonResponse(buildDefinitionParameters, Map.class);
 
         String r = send(RequestMethod.POST, CONNECTION, BUILD, CONNECTION.getProject(),
-                        AREA,null,"definitions", ApiVersion.BUILD_DEFINITIONS,null, requestBody);
+                AREA, null, "definitions", ApiVersion.BUILD_DEFINITIONS, null, requestBody);
 
         return MAPPER.mapJsonResponse(r, BuildDefinition.class);
     }
@@ -500,7 +500,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     public Void deleteBuildDefinition(int definitionId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, BUILD, CONNECTION.getProject(),
-                    AREA + "/definitions", Integer.toString(definitionId),null, ApiVersion.BUILD_DEFINITIONS,null,null);
+                    AREA + "/definitions", Integer.toString(definitionId), null, ApiVersion.BUILD_DEFINITIONS, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
             throw e;
@@ -518,7 +518,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     public BuildDefinition getBuildDefinition(int definitionId) throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                        AREA + "/definitions", Integer.toString(definitionId),null, ApiVersion.BUILD_DEFINITIONS,null,null);
+                AREA + "/definitions", Integer.toString(definitionId), null, ApiVersion.BUILD_DEFINITIONS, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildDefinition.class);
     }
@@ -536,14 +536,14 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     public BuildDefinition getBuildDefinition(
             int definitionId, boolean includeLatestBuilds, String minMetricsTime, int revision) throws AzDException {
 
-        HashMap<String, Object> q = new HashMap<>(){{
+        HashMap<String, Object> q = new HashMap<>() {{
             put("includeLatestBuilds", includeLatestBuilds);
             put("minMetricsTime", minMetricsTime);
             put("revision", revision);
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                        AREA + "/definitions", Integer.toString(definitionId),null, ApiVersion.BUILD_DEFINITIONS, q,null);
+                AREA + "/definitions", Integer.toString(definitionId), null, ApiVersion.BUILD_DEFINITIONS, q, null);
 
         return MAPPER.mapJsonResponse(r, BuildDefinition.class);
     }
@@ -558,7 +558,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     public BuildDefinitionRevisions getBuildDefinitionRevisions(int definitionId) throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/definitions", Integer.toString(definitionId),"revisions", ApiVersion.BUILD_DEFINITION_REVISIONS,null,null);
+                AREA + "/definitions", Integer.toString(definitionId), "revisions", ApiVersion.BUILD_DEFINITION_REVISIONS, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildDefinitionRevisions.class);
     }
@@ -572,7 +572,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     public BuildDefinitions getBuildDefinitions() throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/definitions",null,null, ApiVersion.BUILD_DEFINITIONS,null,null);
+                AREA + "/definitions", null, null, ApiVersion.BUILD_DEFINITIONS, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildDefinitions.class);
     }
@@ -588,12 +588,12 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
 
         String ids = Arrays.stream(definitionIds).mapToObj(String::valueOf).collect(Collectors.joining(","));
 
-        HashMap<String, Object> q = new HashMap<>(){{
+        HashMap<String, Object> q = new HashMap<>() {{
             put("definitionIds", ids);
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/definitions",null,null, ApiVersion.BUILD_DEFINITIONS, q,null);
+                AREA + "/definitions", null, null, ApiVersion.BUILD_DEFINITIONS, q, null);
 
         return MAPPER.mapJsonResponse(r, BuildDefinitions.class);
     }
@@ -607,12 +607,12 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public BuildDefinitions getBuildDefinitions(int top) throws AzDException {
 
-        HashMap<String, Object> q = new HashMap<>(){{
+        HashMap<String, Object> q = new HashMap<>() {{
             put("$top", top);
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/definitions",null,null, ApiVersion.BUILD_DEFINITIONS, q,null);
+                AREA + "/definitions", null, null, ApiVersion.BUILD_DEFINITIONS, q, null);
 
         return MAPPER.mapJsonResponse(r, BuildDefinitions.class);
     }
@@ -626,12 +626,12 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public BuildDefinitions getBuildDefinitions(String name) throws AzDException {
 
-        HashMap<String, Object> q = new HashMap<>(){{
+        HashMap<String, Object> q = new HashMap<>() {{
             put("name", name);
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/definitions", null, null, ApiVersion.BUILD_DEFINITIONS, q,null);
+                AREA + "/definitions", null, null, ApiVersion.BUILD_DEFINITIONS, q, null);
 
         return MAPPER.mapJsonResponse(r, BuildDefinitions.class);
     }
@@ -661,7 +661,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
             String path, int processType, String queryOrder, String repositoryId,
             String repositoryType, String taskIdFilter, String yamlFilename) throws AzDException {
 
-        HashMap<String, Object> q = new HashMap<>(){{
+        HashMap<String, Object> q = new HashMap<>() {{
             put("builtAfter", builtAfter);
             put("continuationToken", continuationToken);
             put("includeAllProperties", includeAllProperties);
@@ -678,7 +678,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                        AREA + "/definitions",null,null, ApiVersion.BUILD_DEFINITIONS, q,null);
+                AREA + "/definitions", null, null, ApiVersion.BUILD_DEFINITIONS, q, null);
 
         return MAPPER.mapJsonResponse(r, BuildDefinitions.class);
     }
@@ -693,12 +693,12 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public BuildDefinition restoreBuildDefinition(int definitionId, boolean deleted) throws AzDException {
 
-        HashMap<String, Object> q = new HashMap<>(){{
+        HashMap<String, Object> q = new HashMap<>() {{
             put("deleted", deleted);
         }};
 
         String r = send(RequestMethod.PATCH, CONNECTION, BUILD, CONNECTION.getProject(),
-                        AREA + "/definitions", Integer.toString(definitionId),null, ApiVersion.BUILD_DEFINITIONS, q,null);
+                AREA + "/definitions", Integer.toString(definitionId), null, ApiVersion.BUILD_DEFINITIONS, q, null);
 
         return MAPPER.mapJsonResponse(r, BuildDefinition.class);
     }
@@ -713,7 +713,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public BuildTags addBuildTag(int buildId, String tag) throws AzDException {
         String r = send(RequestMethod.PUT, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId),"tags/" + tag, ApiVersion.BUILD_TAGS, null,null);
+                AREA + "/builds", Integer.toString(buildId), "tags/" + tag, ApiVersion.BUILD_TAGS, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
@@ -728,7 +728,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public BuildTags addBuildTags(int buildId, String[] tags) throws AzDException {
         String r = send(RequestMethod.POST, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId),"tags", ApiVersion.BUILD_TAGS, null, true, MAPPER.convertToString(tags));
+                AREA + "/builds", Integer.toString(buildId), "tags", ApiVersion.BUILD_TAGS, null, true, MAPPER.convertToString(tags));
 
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
@@ -743,7 +743,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public BuildTags addDefinitionTag(int definitionId, String tag) throws AzDException {
         String r = send(RequestMethod.PUT, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/definitions", Integer.toString(definitionId),"tags/" + tag, ApiVersion.BUILD_TAGS, null,null);
+                AREA + "/definitions", Integer.toString(definitionId), "tags/" + tag, ApiVersion.BUILD_TAGS, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
@@ -758,7 +758,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public BuildTags addDefinitionTags(int definitionId, String[] tags) throws AzDException {
         String r = send(RequestMethod.POST, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/definitions", Integer.toString(definitionId),"tags", ApiVersion.BUILD_TAGS, null, true, MAPPER.convertToString(tags));
+                AREA + "/definitions", Integer.toString(definitionId), "tags", ApiVersion.BUILD_TAGS, null, true, MAPPER.convertToString(tags));
 
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
@@ -774,7 +774,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public BuildTags deleteBuildTag(int buildId, String tag) throws AzDException {
         String r = send(RequestMethod.DELETE, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId),"tags/" + tag, ApiVersion.BUILD_TAGS, null,null);
+                AREA + "/builds", Integer.toString(buildId), "tags/" + tag, ApiVersion.BUILD_TAGS, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
@@ -790,7 +790,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public BuildTags deleteDefinitionTag(int definitionId, String tag) throws AzDException {
         String r = send(RequestMethod.DELETE, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/definitions", Integer.toString(definitionId),"tags/" + tag, ApiVersion.BUILD_TAGS, null,null);
+                AREA + "/definitions", Integer.toString(definitionId), "tags/" + tag, ApiVersion.BUILD_TAGS, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
@@ -804,7 +804,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public BuildTags deleteTag(String tag) throws AzDException {
         String r = send(RequestMethod.DELETE, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA, null,"tags/" + tag, ApiVersion.BUILD_TAGS, null,null);
+                AREA, null, "tags/" + tag, ApiVersion.BUILD_TAGS, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
@@ -818,7 +818,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public BuildTags getBuildTags(int buildId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId),"tags", ApiVersion.BUILD_TAGS, null,null);
+                AREA + "/builds", Integer.toString(buildId), "tags", ApiVersion.BUILD_TAGS, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
@@ -832,7 +832,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public BuildTags getDefinitionTags(int definitionId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/definitions", Integer.toString(definitionId),"tags", ApiVersion.BUILD_TAGS, null,null);
+                AREA + "/definitions", Integer.toString(definitionId), "tags", ApiVersion.BUILD_TAGS, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
@@ -846,12 +846,12 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
      */
     @Override
     public BuildTags getDefinitionTags(int definitionId, int revision) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("revision", revision);
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/definitions", Integer.toString(definitionId),"tags", ApiVersion.BUILD_TAGS, q,null);
+                AREA + "/definitions", Integer.toString(definitionId), "tags", ApiVersion.BUILD_TAGS, q, null);
 
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
@@ -864,7 +864,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public BuildTags getTags() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA, null,"tags", ApiVersion.BUILD_TAGS, null,null);
+                AREA, null, "tags", ApiVersion.BUILD_TAGS, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
@@ -880,14 +880,14 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public BuildTags updateBuildTags(int buildId, String[] tags, boolean toRemove) throws AzDException {
 
-        var tagValue = toRemove ? "tagsToRemove" : "tagsToAdd" ;
+        var tagValue = toRemove ? "tagsToRemove" : "tagsToAdd";
 
-        var body = new HashMap<String, Object>(){{
+        var body = new HashMap<String, Object>() {{
             put(tagValue, tags);
         }};
 
         String r = send(RequestMethod.PATCH, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId),"tags", ApiVersion.BUILD_TAGS, null, body);
+                AREA + "/builds", Integer.toString(buildId), "tags", ApiVersion.BUILD_TAGS, null, body);
 
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
@@ -902,14 +902,14 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
      */
     @Override
     public BuildTags updateDefinitionTags(int definitionId, String[] tags, boolean toRemove) throws AzDException {
-        var tagValue = toRemove ? "tagsToRemove" : "tagsToAdd" ;
+        var tagValue = toRemove ? "tagsToRemove" : "tagsToAdd";
 
-        var body = new HashMap<String, Object>(){{
+        var body = new HashMap<String, Object>() {{
             put(tagValue, tags);
         }};
 
         String r = send(RequestMethod.PATCH, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/definitions", Integer.toString(definitionId),"tags", ApiVersion.BUILD_TAGS, null, body);
+                AREA + "/definitions", Integer.toString(definitionId), "tags", ApiVersion.BUILD_TAGS, null, body);
 
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
@@ -923,7 +923,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public YamlBuild getYaml(int definitionId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/definitions", Integer.toString(definitionId),"yaml", ApiVersion.BUILD_YAML, null, null);
+                AREA + "/definitions", Integer.toString(definitionId), "yaml", ApiVersion.BUILD_YAML, null, null);
 
         return MAPPER.mapJsonResponse(r, YamlBuild.class);
     }
@@ -941,7 +941,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public YamlBuild getYaml(int definitionId, boolean includeLatestBuilds, String minMetricsTime,
                              String[] propertyFilters, int revision) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("includeLatestBuilds", includeLatestBuilds);
             put("minMetricsTime", minMetricsTime);
             put("propertyFilters", String.join(",", propertyFilters));
@@ -949,7 +949,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/definitions", Integer.toString(definitionId),"yaml", ApiVersion.BUILD_YAML, q, null);
+                AREA + "/definitions", Integer.toString(definitionId), "yaml", ApiVersion.BUILD_YAML, q, null);
 
         return MAPPER.mapJsonResponse(r, YamlBuild.class);
     }
@@ -965,13 +965,13 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public Void updateBuildStage(int buildId, String stageReferenceName, boolean forceRetryAllJobs, StageUpdateType state) throws AzDException {
         try {
-            var body = new HashMap<String, Object>(){{
-               put("forceRetryAllJobs", forceRetryAllJobs);
-               put("state", state.toString().toLowerCase());
+            var body = new HashMap<String, Object>() {{
+                put("forceRetryAllJobs", forceRetryAllJobs);
+                put("state", state.toString().toLowerCase());
             }};
 
             String r = send(RequestMethod.PATCH, CONNECTION, BUILD, CONNECTION.getProject(),
-                    AREA + "/builds", buildId + "/stages/" + stageReferenceName,null, ApiVersion.BUILD_STAGE,null, body);
+                    AREA + "/builds", buildId + "/stages/" + stageReferenceName, null, ApiVersion.BUILD_STAGE, null, body);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
             throw e;
@@ -981,20 +981,21 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
 
     /**
      * Gets the contents of a file in the given source code repository.
-     * @param providerName The name of the source provider. E.g., Github
+     *
+     * @param providerName      The name of the source provider. E.g., Github
      * @param serviceEndpointId If specified, the ID of the service endpoint to query. Can only be omitted for providers
-     * that do not use service endpoints, e.g. TFVC or TFGit.
-     * @param repositoryName If specified, the vendor-specific identifier or the name of the repository to get branches.
-     * Can only be omitted for providers that do not support multiple repositories.
-     * @param branchName The identifier of the commit or branch from which a file's contents are retrieved.
-     * @param path The path to the file to retrieve, relative to the root of the repository.
+     *                          that do not use service endpoints, e.g. TFVC or TFGit.
+     * @param repositoryName    If specified, the vendor-specific identifier or the name of the repository to get branches.
+     *                          Can only be omitted for providers that do not support multiple repositories.
+     * @param branchName        The identifier of the commit or branch from which a file's contents are retrieved.
+     * @param path              The path to the file to retrieve, relative to the root of the repository.
      * @return Contents of the file given String. {@link String}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public String getFileContents(String providerName, String serviceEndpointId, String repositoryName, String branchName, String path)
             throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("serviceEndpointId", serviceEndpointId);
             put("repository", repositoryName);
             put("commitOrBranch", branchName);
@@ -1002,7 +1003,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                "sourceProviders", null,providerName + "/filecontents", ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
+                "sourceProviders", null, providerName + "/filecontents", ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
 
         // Look for all the keys as genuine response can also contain any key in the content.
         if (!r.isEmpty() && r.contains("innerException") && r.contains("$id") && r.contains("eventId") && r.contains("typeName"))
@@ -1013,20 +1014,21 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
 
     /**
      * Gets the contents of a directory in the given source code repository.
-     * @param providerName The name of the source provider. E.g., Github
+     *
+     * @param providerName      The name of the source provider. E.g., Github
      * @param serviceEndpointId If specified, the ID of the service endpoint to query. Can only be omitted for providers
-     * that do not use service endpoints, e.g. TFVC or TFGit.
-     * @param repositoryName If specified, the vendor-specific identifier or the name of the repository to get branches.
-     * Can only be omitted for providers that do not support multiple repositories.
-     * @param branchName The identifier of the commit or branch from which a file's contents are retrieved.
-     * @param path The path to the file to retrieve, relative to the root of the repository.
+     *                          that do not use service endpoints, e.g. TFVC or TFGit.
+     * @param repositoryName    If specified, the vendor-specific identifier or the name of the repository to get branches.
+     *                          Can only be omitted for providers that do not support multiple repositories.
+     * @param branchName        The identifier of the commit or branch from which a file's contents are retrieved.
+     * @param path              The path to the file to retrieve, relative to the root of the repository.
      * @return SourceRepositoryItems {@link SourceRepositoryItems}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public SourceRepositoryItems getPathContents(String providerName, String serviceEndpointId, String repositoryName, String branchName, String path)
             throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("serviceEndpointId", serviceEndpointId);
             put("repository", repositoryName);
             put("commitOrBranch", branchName);
@@ -1034,155 +1036,162 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                "sourceProviders", null,providerName + "/pathcontents", ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
+                "sourceProviders", null, providerName + "/pathcontents", ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
 
         return MAPPER.mapJsonResponse(r, SourceRepositoryItems.class);
     }
 
     /**
      * Gets a pull request object from source provider.
-     * @param providerName The name of the source provider.
-     * @param pullRequestId Vendor-specific id of the pull request.
-     * @param repositoryName Vendor-specific identifier or the name of the repository that contains the pull request.
+     *
+     * @param providerName      The name of the source provider.
+     * @param pullRequestId     Vendor-specific id of the pull request.
+     * @param repositoryName    Vendor-specific identifier or the name of the repository that contains the pull request.
      * @param serviceEndpointId If specified, the ID of the service endpoint to query.
-     * Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit.
+     *                          Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit.
      * @return SourceProviderPullRequest {@link SourceProviderPullRequest}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public SourceProviderPullRequest getPullRequest(String providerName, String pullRequestId, String repositoryName, String serviceEndpointId)
             throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("serviceEndpointId", serviceEndpointId);
             put("repositoryId", repositoryName);
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                "sourceProviders", null,providerName + "/pullrequests/" + pullRequestId, ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
+                "sourceProviders", null, providerName + "/pullrequests/" + pullRequestId, ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
 
         return MAPPER.mapJsonResponse(r, SourceProviderPullRequest.class);
     }
 
     /**
      * Get a list of source providers and their capabilities.
+     *
      * @return SourceProviderAttributes {@link SourceProviderAttributes}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public SourceProviderAttributes getSourceProviders() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                "sourceProviders", null,null, ApiVersion.BUILD_SOURCE_PROVIDERS, null, null);
+                "sourceProviders", null, null, ApiVersion.BUILD_SOURCE_PROVIDERS, null, null);
 
         return MAPPER.mapJsonResponse(r, SourceProviderAttributes.class);
     }
 
     /**
      * Gets a list of branches for the given source code repository.
-     * @param providerName The name of the source provider.
+     *
+     * @param providerName      The name of the source provider.
      * @param serviceEndpointId If specified, the ID of the service endpoint to query.
-     * Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit.
-     * @param repositoryName The vendor-specific identifier or the name of the repository to get branches.
-     * Can only be omitted for providers that do not support multiple repositories.
+     *                          Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit.
+     * @param repositoryName    The vendor-specific identifier or the name of the repository to get branches.
+     *                          Can only be omitted for providers that do not support multiple repositories.
      * @return SourceProvideBranches {@link SourceProvideBranches}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public SourceProvideBranches getBranches(String providerName, String serviceEndpointId, String repositoryName) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("serviceEndpointId", serviceEndpointId);
             put("repository", repositoryName);
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                "sourceProviders", null,providerName + "/branches", ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
+                "sourceProviders", null, providerName + "/branches", ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
 
         return MAPPER.mapJsonResponse(r, SourceProvideBranches.class);
     }
 
     /**
      * Gets a list of branches for the given source code repository.
-     * @param providerName The name of the source provider.
+     *
+     * @param providerName      The name of the source provider.
      * @param serviceEndpointId If specified, the ID of the service endpoint to query.
-     * Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit.
-     * @param repositoryName The vendor-specific identifier or the name of the repository to get branches.
-     * Can only be omitted for providers that do not support multiple repositories.
-     * @param branchName If supplied, the name of the branch to check for specifically.
+     *                          Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit.
+     * @param repositoryName    The vendor-specific identifier or the name of the repository to get branches.
+     *                          Can only be omitted for providers that do not support multiple repositories.
+     * @param branchName        If supplied, the name of the branch to check for specifically.
      * @return SourceProvideBranches {@link SourceProvideBranches}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public SourceProvideBranches getBranches(String providerName, String serviceEndpointId, String repositoryName, String branchName) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("serviceEndpointId", serviceEndpointId);
             put("repository", repositoryName);
             put("branchName", branchName);
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                "sourceProviders", null,providerName + "/branches", ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
+                "sourceProviders", null, providerName + "/branches", ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
 
         return MAPPER.mapJsonResponse(r, SourceProvideBranches.class);
     }
 
     /**
      * Gets a list of source code repositories.
-     * @param providerName The name of the source provider.
+     *
+     * @param providerName      The name of the source provider.
      * @param serviceEndpointId If specified, the ID of the service endpoint to query.
-     * Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit.
+     *                          Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit.
      * @return SourceRepositories {@link SourceRepositories}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public SourceRepositories getRepositories(String providerName, String serviceEndpointId) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("serviceEndpointId", serviceEndpointId);
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                "sourceProviders", null,providerName + "/repositories", ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
+                "sourceProviders", null, providerName + "/repositories", ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
 
         return MAPPER.mapJsonResponse(r, SourceRepositories.class);
     }
 
     /**
      * Gets a list of source code repositories.
-     * @param providerName The name of the source provider.
+     *
+     * @param providerName      The name of the source provider.
      * @param serviceEndpointId If specified, the ID of the service endpoint to query.
-     * Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit.
-     * @param repositoryName If specified, the vendor-specific identifier or the name of a single repository to get.
+     *                          Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit.
+     * @param repositoryName    If specified, the vendor-specific identifier or the name of a single repository to get.
      * @return SourceRepositories {@link SourceRepositories}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public SourceRepositories getRepositories(String providerName, String serviceEndpointId, String repositoryName) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("serviceEndpointId", serviceEndpointId);
             put("repository", repositoryName);
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                "sourceProviders", null,providerName + "/repositories", ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
+                "sourceProviders", null, providerName + "/repositories", ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
 
         return MAPPER.mapJsonResponse(r, SourceRepositories.class);
     }
 
     /**
      * Gets a list of source code repositories.
-     * @param providerName The name of the source provider.
+     *
+     * @param providerName      The name of the source provider.
      * @param serviceEndpointId If specified, the ID of the service endpoint to query.
-     * Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit.
-     * @param repositoryName If specified, the vendor-specific identifier or the name of a single repository to get.
+     *                          Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit.
+     * @param repositoryName    If specified, the vendor-specific identifier or the name of a single repository to get.
      * @param continuationToken When paging results, this is a continuation token, returned by a previous call to
-     * this method, that can be used to return the next set of repositories.
-     * @param pageResults If set to true, this will limit the set of results and will return a continuation token to continue the query.
-     * @param resultSet 'top' for the repositories most relevant for the endpoint. If not set, all repositories are returned. Ignored if 'repository' is set.
+     *                          this method, that can be used to return the next set of repositories.
+     * @param pageResults       If set to true, this will limit the set of results and will return a continuation token to continue the query.
+     * @param resultSet         'top' for the repositories most relevant for the endpoint. If not set, all repositories are returned. Ignored if 'repository' is set.
      * @return SourceRepositories {@link SourceRepositories}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public SourceRepositories getRepositories(String providerName, String serviceEndpointId, String repositoryName, String continuationToken,
                                               boolean pageResults, SourceProviderResultSet resultSet) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("serviceEndpointId", serviceEndpointId);
             put("repository", repositoryName);
             put("resultSet", resultSet.toString().toLowerCase());
@@ -1191,48 +1200,50 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                "sourceProviders", null,providerName + "/repositories", ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
+                "sourceProviders", null, providerName + "/repositories", ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
 
         return MAPPER.mapJsonResponse(r, SourceRepositories.class);
     }
 
     /**
      * Gets a list of webhooks installed in the given source code repository.
-     * @param providerName The name of the source provider.
+     *
+     * @param providerName      The name of the source provider.
      * @param serviceEndpointId If specified, the ID of the service endpoint to query.
-     * Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit.
-     * @param repositoryName If specified, the vendor-specific identifier or the name of the repository to get webhooks.
-     * Can only be omitted for providers that do not support multiple repositories.
+     *                          Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit.
+     * @param repositoryName    If specified, the vendor-specific identifier or the name of the repository to get webhooks.
+     *                          Can only be omitted for providers that do not support multiple repositories.
      * @return RepositoryWebhooks {@link RepositoryWebhooks}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public RepositoryWebhooks getWebHooks(String providerName, String serviceEndpointId, String repositoryName) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("serviceEndpointId", serviceEndpointId);
             put("repository", repositoryName);
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                "sourceProviders", null,providerName + "/webhooks", ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
+                "sourceProviders", null, providerName + "/webhooks", ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
 
         return MAPPER.mapJsonResponse(r, RepositoryWebhooks.class);
     }
 
     /**
      * Recreates the webhooks for the specified triggers in the given source code repository.
-     * @param providerName The name of the source provider.
+     *
+     * @param providerName      The name of the source provider.
      * @param serviceEndpointId If specified, the ID of the service endpoint to query.
-     * Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit.
-     * @param repositoryName If specified, the vendor-specific identifier or the name of the repository to get webhooks.
-     * Can only be omitted for providers that do not support multiple repositories.
-     * @param triggerTypes The types of triggers to restore webhooks for.
+     *                          Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit.
+     * @param repositoryName    If specified, the vendor-specific identifier or the name of the repository to get webhooks.
+     *                          Can only be omitted for providers that do not support multiple repositories.
+     * @param triggerTypes      The types of triggers to restore webhooks for.
      * @return Void; successful operation
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public Void restoreWebHooks(String providerName, String serviceEndpointId, String repositoryName, List<String> triggerTypes) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("serviceEndpointId", serviceEndpointId);
             put("repository", repositoryName);
         }};
@@ -1241,7 +1252,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
 
         try {
             String r = send(RequestMethod.POST, CONNECTION, BUILD, CONNECTION.getProject(),
-                    "sourceProviders", null,providerName + "/webhooks", ApiVersion.BUILD_SOURCE_PROVIDERS, q, reqBody);
+                    "sourceProviders", null, providerName + "/webhooks", ApiVersion.BUILD_SOURCE_PROVIDERS, q, reqBody);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
             throw e;
@@ -1251,6 +1262,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
 
     /**
      * Gets details for a build.
+     *
      * @param buildId Id of the build. use getBuilds() to list all the builds.
      * @return a timeline object. {@link Timeline}
      * @throws AzDException Default Api Exception handler.
@@ -1258,14 +1270,15 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public Timeline getTimeline(int buildId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId),"timeline", ApiVersion.BUILD_TIMELINE, null, null);
+                AREA + "/builds", Integer.toString(buildId), "timeline", ApiVersion.BUILD_TIMELINE, null, null);
 
         return MAPPER.mapJsonResponse(r, Timeline.class);
     }
 
     /**
      * Gets details for a build.
-     * @param buildId Id of the build. use getBuilds() to list all the builds.
+     *
+     * @param buildId    Id of the build. use getBuilds() to list all the builds.
      * @param timelineId Id of the build timeline.
      * @return a timeline object. {@link Timeline}
      * @throws AzDException Default Api Exception handler.
@@ -1273,29 +1286,30 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public Timeline getTimeline(int buildId, String timelineId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId),"timeline/" + timelineId, ApiVersion.BUILD_TIMELINE, null, null);
+                AREA + "/builds", Integer.toString(buildId), "timeline/" + timelineId, ApiVersion.BUILD_TIMELINE, null, null);
 
         return MAPPER.mapJsonResponse(r, Timeline.class);
     }
 
     /**
      * Gets details for a build.
-     * @param buildId Id of the build. use getBuilds() to list all the builds.
+     *
+     * @param buildId    Id of the build. use getBuilds() to list all the builds.
      * @param timelineId Id of the build timeline.
-     * @param changeId Timeline change id.
-     * @param planId Timeline plan id. This value can be null if unknown.
+     * @param changeId   Timeline change id.
+     * @param planId     Timeline plan id. This value can be null if unknown.
      * @return a timeline object. {@link Timeline}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public Timeline getTimeline(int buildId, String timelineId, int changeId, String planId) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("changeId", changeId);
             put("planId", planId);
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId),"timeline/" + timelineId, ApiVersion.BUILD_TIMELINE, q, null);
+                AREA + "/builds", Integer.toString(buildId), "timeline/" + timelineId, ApiVersion.BUILD_TIMELINE, q, null);
 
         return MAPPER.mapJsonResponse(r, Timeline.class);
     }

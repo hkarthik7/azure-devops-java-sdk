@@ -11,7 +11,8 @@ public class ServiceHooks {
     private Map publisherInputs;
     private Map consumerInputs;
 
-    public ServiceHooks() {}
+    public ServiceHooks() {
+    }
 
     public ServiceHooks(String publisherId, String eventType, String resourceVersion, String consumerId,
                         String consumerActionId, Map publisherInputs, Map consumerInputs) {

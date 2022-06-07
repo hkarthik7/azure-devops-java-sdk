@@ -3,7 +3,7 @@ package org.azd.enums;
 /***
  * Release environment status.
  */
-public enum ReleaseEnvironmentStatus  {
+public enum ReleaseEnvironmentStatus {
     /***
      * Environment is in canceled state.
      */

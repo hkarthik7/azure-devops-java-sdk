@@ -220,7 +220,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
     @Override
     public void updatePackageVersion(String feedId, String groupId, String artifactId, String version, MavenPackagePromote promote)
             throws AzDException {
-                updatePackageVersion(feedId, groupId, artifactId, version, promote.toString().toLowerCase());
+        updatePackageVersion(feedId, groupId, artifactId, version, promote.toString().toLowerCase());
     }
 
     /***
@@ -266,7 +266,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
     /***
      * Update several packages from a single feed in a single request. The updates
      * to the packages do not happen atomically.
-     * 
+     *
      * @param feedId    Name or ID of the feed. Example: "mavenfeed".
      * @param viewId    Name of ID the view, packages need to be promoted to.
      * @param operation Type of operation that needs to be performed on packages. {@link PackagesBatchOperation}.
@@ -275,7 +275,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
      */
     @Override
     public void updatePackageVersions(String feedId, String viewId, PackagesBatchOperation operation,
-            List<Map<String, Object>> packages)
+                                      List<Map<String, Object>> packages)
             throws AzDException {
         var req = new HashMap<String, Object>();
         try {
@@ -300,7 +300,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
 
     /***
      * Restore a package version from the recycle bin to its associated feed.
-     * 
+     *
      * @param feedId     Name or ID of the feed. Example: "mavenfeed".
      * @param groupId    Group ID of the package. Example: "com.example".
      * @param artifactId Artifact ID of the package. Example: "app".
@@ -324,7 +324,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
 
     /***
      * Set the upstreaming behavior of a (scoped) package.
-     * 
+     *
      * @param feedId     Name or ID of the feed. Example: "mavenfeed".
      * @param groupId    Group ID of the package. Example: "com.example".
      * @param artifactId Artifact ID of the package. Example: "app".
@@ -338,7 +338,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
 
     /***
      * Set the upstreaming behavior of a (scoped) package.
-     * 
+     *
      * @param feedId     Name or ID of the feed. Example: "mavenfeed".
      * @param groupId    Group ID of the package. Example: "com.example".
      * @param artifactId Artifact ID of the package. Example: "app".
@@ -365,7 +365,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
 
     /***
      * To clear the upstream behavior of a (scoped) package.
-     * 
+     *
      * @param feedId     Name or ID of the feed. Example: "mavenfeed".
      * @param groupId    Group ID of the package. Example: "com.example".
      * @param artifactId Artifact ID of the package. Example: "app".
@@ -390,7 +390,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
 
     /***
      * Delete or restore several package versions from the recycle bin.
-     * 
+     *
      * @param feedId                 Name or ID of the feed. Example: "mavenfeed".
      * @param operation Type of operation that needs to be performed on
      *                               packages. Recycle Bin supports only
@@ -401,7 +401,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
      */
     @Override
     public void updateRecycleBinPackages(String feedId, PackagesBatchOperation operation,
-            List<Map<String, Object>> packages)
+                                         List<Map<String, Object>> packages)
             throws AzDException {
         var req = new HashMap<String, Object>();
         try {

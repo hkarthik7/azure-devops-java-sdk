@@ -13,199 +13,202 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
 public class WorkItemTrackingApiTest {
 
-	private static final JsonMapper MAPPER = new JsonMapper();
+    private static final JsonMapper MAPPER = new JsonMapper();
 
-	private static AzDClient webApi;
+    private static AzDClient webApi;
 
-	private static WorkItemTrackingApi w;
+    private static WorkItemTrackingApi w;
 
-	@Before
-	public void init() throws AzDException {
-		String dir = System.getProperty("user.dir");
-		File file = new File(dir + "/src/test/java/org/azd/_unitTest.json");
-		MockParameters m = MAPPER.mapJsonFromFile(file, MockParameters.class);
-		String organization = m.getO();
-		String token = m.getT();
-		String project = m.getP();
-		webApi = new AzDClientApi(organization, project, token);
-		w = webApi.getWorkItemTrackingApi();
-	}
+    @Before
+    public void init() throws AzDException {
+        String dir = System.getProperty("user.dir");
+        File file = new File(dir + "/src/test/java/org/azd/_unitTest.json");
+        MockParameters m = MAPPER.mapJsonFromFile(file, MockParameters.class);
+        String organization = m.getO();
+        String token = m.getT();
+        String project = m.getP();
+        webApi = new AzDClientApi(organization, project, token);
+        w = webApi.getWorkItemTrackingApi();
+    }
 
-	@Test
-	public void shouldGetWorkItem() throws AzDException {
-		var expectedValue = "azure-devops-java-sdk";
-		var result = w.getWorkItem(2).getFields().getSystemTeamProject();
-		assertEquals(expectedValue, result);
-	}
+    @Test
+    public void shouldGetWorkItem() throws AzDException {
+        var expectedValue = "azure-devops-java-sdk";
+        var result = w.getWorkItem(2).getFields().getSystemTeamProject();
+        assertEquals(expectedValue, result);
+    }
 
-	@Test
-	public void shouldGetWorkItemWithOptionalParameters() throws AzDException {
-		var expectedValue = "azure-devops-java-sdk";
-		var result = w.getWorkItem(2, WorkItemExpand.ALL).getFields().getSystemTeamProject();
-		assertEquals(expectedValue, result);
-	}
+    @Test
+    public void shouldGetWorkItemWithOptionalParameters() throws AzDException {
+        var expectedValue = "azure-devops-java-sdk";
+        var result = w.getWorkItem(2, WorkItemExpand.ALL).getFields().getSystemTeamProject();
+        assertEquals(expectedValue, result);
+    }
 
-	@Test
-	public void shouldCreateAWorkItem() throws AzDException {
-		w.createWorkItem("user story", WorkItemOperation.ADD, "Sample User story", "Description for the user story",
-				new String[] { "DevOps", "Java", "SDK" });
-	}
+    @Test
+    public void shouldCreateAWorkItem() throws AzDException {
+        w.createWorkItem("user story", WorkItemOperation.ADD, "Sample User story", "Description for the user story",
+                new String[]{"DevOps", "Java", "SDK"});
+    }
 
-	@Test
-	public void shouldCreateAWorkItemWithAdditionalFields() throws AzDException {
-		var additionalFields = new HashMap<String, Object>() {{
-			put("System.Tags", String.join(",", "DevOps", "Java", "SDK"));
-		}};
+    @Test
+    public void shouldCreateAWorkItemWithAdditionalFields() throws AzDException {
+        var additionalFields = new HashMap<String, Object>() {{
+            put("System.Tags", String.join(",", "DevOps", "Java", "SDK"));
+        }};
 
-		w.createWorkItem("user story", "Sample User story", "Description for the user story", additionalFields);
-	}
+        w.createWorkItem("user story", "Sample User story", "Description for the user story", additionalFields);
+    }
 
-	@Test(expected = AzDException.class)
-	public void shouldDeleteAWorkItem() throws AzDException {
-		w.deleteWorkItem(6);
-	}
+    @Test(expected = AzDException.class)
+    public void shouldDeleteAWorkItem() throws AzDException {
+        w.deleteWorkItem(6);
+    }
 
-	@Test
-	public void shouldGetWorkItems() throws AzDException {
-		w.getWorkItems(new int[] { 1, 2, 4 });
-	}
+    @Test
+    public void shouldGetWorkItems() throws AzDException {
+        w.getWorkItems(new int[]{1, 2, 4});
+    }
 
-	@Test
-	public void shouldGetWorkItemRevisions() throws AzDException {
-		var r = w.getWorkItemRevisions(2, WorkItemExpand.ALL).getWorkItems().stream().findFirst().get().getFields()
-				.getSystemAreaId();
-		assertEquals(12, r);
-	}
+    @Test
+    public void shouldGetWorkItemRevisions() throws AzDException {
+        var r = w.getWorkItemRevisions(2, WorkItemExpand.ALL).getWorkItems().stream().findFirst().get().getFields()
+                .getSystemAreaId();
+        assertEquals(12, r);
+    }
 
-	@Test
-	public void shouldGetWorkItemRevision() throws AzDException {
-		w.getWorkItemRevision(2, 1);
-	}
+    @Test
+    public void shouldGetWorkItemRevision() throws AzDException {
+        w.getWorkItemRevision(2, 1);
+    }
 
-	@Test
-	public void shouldQueryWorkItems() throws AzDException {
-		var query = "Select * From WorkItems Where [System.WorkItemType] = 'User Story'";
-		var team = "azure-devops-java-sdk Team";
-		w.queryByWiql(team, query, 10, true).getWorkItems();
-	}
+    @Test
+    public void shouldQueryWorkItems() throws AzDException {
+        var query = "Select * From WorkItems Where [System.WorkItemType] = 'User Story'";
+        var team = "azure-devops-java-sdk Team";
+        w.queryByWiql(team, query, 10, true).getWorkItems();
+    }
 
-	@Test
-	public void shouldQueryWorkItemsAndGetExactlyOneResult() throws AzDException {
-		var query = "Select * From WorkItems Where [System.WorkItemType] = 'User Story'";
-		var team = "azure-devops-java-sdk Team";
-		var res = (long) w.queryByWiql(team, query, 1, true).getWorkItems().size();
-		assertEquals(1, res);
-	}
+    @Test
+    public void shouldQueryWorkItemsAndGetExactlyOneResult() throws AzDException {
+        var query = "Select * From WorkItems Where [System.WorkItemType] = 'User Story'";
+        var team = "azure-devops-java-sdk Team";
+        var res = (long) w.queryByWiql(team, query, 1, true).getWorkItems().size();
+        assertEquals(1, res);
+    }
 
-	@Test(expected = AzDException.class)
-	public void shouldRemoveWorkItemFromRecycleBin() throws AzDException {
-		w.removeWorkItemFromRecycleBin(93);
-	}
+    @Test(expected = AzDException.class)
+    public void shouldRemoveWorkItemFromRecycleBin() throws AzDException {
+        w.removeWorkItemFromRecycleBin(93);
+    }
 
-	@Test
-	public void shouldGetWorkItemFromRecycleBin() throws AzDException {
-		w.getWorkItemFromRecycleBin(760);
-	}
+    @Test
+    public void shouldGetWorkItemFromRecycleBin() throws AzDException {
+        w.getWorkItemFromRecycleBin(760);
+    }
 
-	@Test
-	public void shouldGetDeletedWorkItemFromRecycleBin() throws AzDException {
-		w.getDeletedWorkItemsFromRecycleBin();
-	}
+    @Test
+    public void shouldGetDeletedWorkItemFromRecycleBin() throws AzDException {
+        w.getDeletedWorkItemsFromRecycleBin();
+    }
 
-	@Test(expected = AzDException.class)
-	public void shouldGetDeletedWorkItemsFromRecycleBin() throws AzDException {
-		w.getDeletedWorkItemsFromRecycleBin(new int[] { 71, 72, 73, 74 });
-	}
+    @Test(expected = AzDException.class)
+    public void shouldGetDeletedWorkItemsFromRecycleBin() throws AzDException {
+        w.getDeletedWorkItemsFromRecycleBin(new int[]{71, 72, 73, 74});
+    }
 
-	@Test(expected = AzDException.class)
-	public void shouldRestoreWorkItemFromRecycleBin() throws AzDException {
-		w.restoreWorkItemFromRecycleBin(70);
-	}
+    @Test(expected = AzDException.class)
+    public void shouldRestoreWorkItemFromRecycleBin() throws AzDException {
+        w.restoreWorkItemFromRecycleBin(70);
+    }
 
-	@Test
-	public void shouldUpdateAWorkItem() throws AzDException {
-		var fieldsToUpdate = new HashMap<String, Object>() {{ put("System.AssignedTo", "test@xmail.com"); }};
-		w.updateWorkItem(176, fieldsToUpdate);
-	}
+    @Test
+    public void shouldUpdateAWorkItem() throws AzDException {
+        var fieldsToUpdate = new HashMap<String, Object>() {{
+            put("System.AssignedTo", "test@xmail.com");
+        }};
+        w.updateWorkItem(176, fieldsToUpdate);
+    }
 
-	@Test
-	public void shouldAddHyperlink() throws AzDException {
-		Map<String, String> hyperlinksMap = new HashMap<>();
-		hyperlinksMap.put("https://docs.microsoft.com/en-us/rest/api/azure/devops",
-				"This is a hyperlink that points to the Azure DevOps REST documentation.");
-		w.addHyperLinks(1, hyperlinksMap);
-	}
+    @Test
+    public void shouldAddHyperlink() throws AzDException {
+        Map<String, String> hyperlinksMap = new HashMap<>();
+        hyperlinksMap.put("https://docs.microsoft.com/en-us/rest/api/azure/devops",
+                "This is a hyperlink that points to the Azure DevOps REST documentation.");
+        w.addHyperLinks(1, hyperlinksMap);
+    }
 
-	@Test
-	public void shouldRemoveHyperlink() throws AzDException {
-		List<String> hyperlinks = new ArrayList<>();
-		hyperlinks.add("https://docs.microsoft.com/en-us/rest/api/azure/devops");
-		try {
-			w.removeHyperLinks(1, hyperlinks);
-		} catch (AzDException e) {
-			// Test is also successful if hyperlink doesn't exist.
-			if (e.getMessage().toLowerCase().contains("the hyperlink doesn't exist")) {
-				return;
-			}
-			throw e;
-		}
-	}
+    @Test
+    public void shouldRemoveHyperlink() throws AzDException {
+        List<String> hyperlinks = new ArrayList<>();
+        hyperlinks.add("https://docs.microsoft.com/en-us/rest/api/azure/devops");
+        try {
+            w.removeHyperLinks(1, hyperlinks);
+        } catch (AzDException e) {
+            // Test is also successful if hyperlink doesn't exist.
+            if (e.getMessage().toLowerCase().contains("the hyperlink doesn't exist")) {
+                return;
+            }
+            throw e;
+        }
+    }
 
-	@Test
-	public void shouldGetWorkItemTypes() throws AzDException {
-		w.getWorkItemTypes();
-	}
+    @Test
+    public void shouldGetWorkItemTypes() throws AzDException {
+        w.getWorkItemTypes();
+    }
 
-	@Test
-	public void shouldGetAWorkItemType() throws AzDException {
-		w.getWorkItemType("Bug");
-	}
+    @Test
+    public void shouldGetAWorkItemType() throws AzDException {
+        w.getWorkItemType("Bug");
+    }
 
-	@Test
-	public void shouldCreateWorkItemAttachment() throws AzDException, IOException {
-		w.createAttachment("testFile.txt",
-				AttachmentUploadType.SIMPLE, "azure-devops-java-sdk", "Sample content");
-	}
+    @Test
+    public void shouldCreateWorkItemAttachment() throws AzDException, IOException {
+        w.createAttachment("testFile.txt",
+                AttachmentUploadType.SIMPLE, "azure-devops-java-sdk", "Sample content");
+    }
 
-	@Test
-	public void shouldGetWorkItemAttachment() throws AzDException {
-		w.getAttachment("0aea937a-c5c2-4936-b828-e5da0e389210", "testFile.txt");
-	}
+    @Test
+    public void shouldGetWorkItemAttachment() throws AzDException {
+        w.getAttachment("0aea937a-c5c2-4936-b828-e5da0e389210", "testFile.txt");
+    }
 
-	@Test
-	public void shouldAddAnAttachmentToAWorkItem() throws AzDException {
-		var attachment = w.createAttachment("testFile.txt",
-				AttachmentUploadType.SIMPLE, "azure-devops-java-sdk", "Sample content");
-		var attachmentFields = new HashMap<String, String>(){{
-			put(attachment.getUrl(), "Test File url.");
-		}};
+    @Test
+    public void shouldAddAnAttachmentToAWorkItem() throws AzDException {
+        var attachment = w.createAttachment("testFile.txt",
+                AttachmentUploadType.SIMPLE, "azure-devops-java-sdk", "Sample content");
+        var attachmentFields = new HashMap<String, String>() {{
+            put(attachment.getUrl(), "Test File url.");
+        }};
 
-		w.addWorkItemAttachment(994, attachmentFields);
-	}
+        w.addWorkItemAttachment(994, attachmentFields);
+    }
 
-	@Test
-	public void shouldRemoveAnAttachmentFromAWorkItem() throws AzDException {
-		var attachment = w.createAttachment("testFile.txt",
-				AttachmentUploadType.SIMPLE, "azure-devops-java-sdk", "Sample content");
-		var attachmentFields = new HashMap<String, String>(){{
-			put(attachment.getUrl(), "Test File url.");
-		}};
+    @Test
+    public void shouldRemoveAnAttachmentFromAWorkItem() throws AzDException {
+        var attachment = w.createAttachment("testFile.txt",
+                AttachmentUploadType.SIMPLE, "azure-devops-java-sdk", "Sample content");
+        var attachmentFields = new HashMap<String, String>() {{
+            put(attachment.getUrl(), "Test File url.");
+        }};
 
-		w.addWorkItemAttachment(994, attachmentFields);
+        w.addWorkItemAttachment(994, attachmentFields);
 
-		String url = w.getWorkItem(994, WorkItemExpand.RELATIONS).getRelations().get(0).getUrl();
+        String url = w.getWorkItem(994, WorkItemExpand.RELATIONS).getRelations().get(0).getUrl();
 
-		List<String> attachmentUrl = new ArrayList<>();
-		attachmentUrl.add(url);
+        List<String> attachmentUrl = new ArrayList<>();
+        attachmentUrl.add(url);
 
-		w.removeWorkItemAttachment(994, attachmentUrl);
-	}
+        w.removeWorkItemAttachment(994, attachmentUrl);
+    }
 }

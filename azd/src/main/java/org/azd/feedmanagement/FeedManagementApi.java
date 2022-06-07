@@ -65,8 +65,8 @@ public class FeedManagementApi extends AzDAsyncApi<FeedManagementApi> implements
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, PACKAGING,
-                        CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
-                        AREA, null, "feeds", ApiVersion.FEEDS, null, requestBody);
+                CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
+                AREA, null, "feeds", ApiVersion.FEEDS, null, requestBody);
 
         return MAPPER.mapJsonResponse(r, Feed.class);
     }
@@ -94,8 +94,8 @@ public class FeedManagementApi extends AzDAsyncApi<FeedManagementApi> implements
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, PACKAGING,
-                        CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
-                        AREA + "/feeds", feedName, "views", ApiVersion.FEEDS, null, requestBody);
+                CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
+                AREA + "/feeds", feedName, "views", ApiVersion.FEEDS, null, requestBody);
 
         return MAPPER.mapJsonResponse(r, FeedView.class);
     }
@@ -135,8 +135,8 @@ public class FeedManagementApi extends AzDAsyncApi<FeedManagementApi> implements
     public Void deleteFeedView(String feedId, String feedViewId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, PACKAGING,
-                        CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
-                        AREA + "/feeds", feedId, "views/" + feedViewId, ApiVersion.FEEDS, null, null);
+                    CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
+                    AREA + "/feeds", feedId, "views/" + feedViewId, ApiVersion.FEEDS, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
             throw e;
@@ -158,8 +158,8 @@ public class FeedManagementApi extends AzDAsyncApi<FeedManagementApi> implements
     public Feed getFeed(String feedName) throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, PACKAGING,
-                    CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
-                    AREA + "/Feeds", feedName, null, ApiVersion.FEEDS,null, null);
+                CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
+                AREA + "/Feeds", feedName, null, ApiVersion.FEEDS, null, null);
 
         return MAPPER.mapJsonResponse(r, Feed.class);
     }
@@ -203,8 +203,8 @@ public class FeedManagementApi extends AzDAsyncApi<FeedManagementApi> implements
     public FeedPermissions getFeedPermissions(String feedName) throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, PACKAGING,
-                        CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
-                        AREA + "/Feeds", feedName, "permissions", ApiVersion.FEEDS, null, null);
+                CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
+                AREA + "/Feeds", feedName, "permissions", ApiVersion.FEEDS, null, null);
 
         return MAPPER.mapJsonResponse(r, FeedPermissions.class);
     }
@@ -359,8 +359,8 @@ public class FeedManagementApi extends AzDAsyncApi<FeedManagementApi> implements
         List<Object> o = List.of(h);
 
         String r = send(RequestMethod.PATCH, CONNECTION, PACKAGING,
-                        CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
-                        AREA + "/Feeds", feedName, "permissions", ApiVersion.FEEDS, null, null, o, null);
+                CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
+                AREA + "/Feeds", feedName, "permissions", ApiVersion.FEEDS, null, null, o, null);
 
         return MAPPER.mapJsonResponse(r, FeedPermissions.class);
     }
@@ -395,8 +395,8 @@ public class FeedManagementApi extends AzDAsyncApi<FeedManagementApi> implements
         List<Object> o = List.of(h);
 
         String r = send(RequestMethod.PATCH, CONNECTION, PACKAGING,
-                        CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
-                        AREA + "/Feeds", feedName, null, ApiVersion.FEEDS, null, null, o, null);
+                CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
+                AREA + "/Feeds", feedName, null, ApiVersion.FEEDS, null, null, o, null);
 
         return MAPPER.mapJsonResponse(r, Feed.class);
     }

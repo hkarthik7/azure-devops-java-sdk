@@ -49,17 +49,19 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
     @Override
     public WikiV2 createWiki(String branchName, WikiType type, String wikiName, String projectId,
                              String repositoryId, String mappedPath) throws AzDException {
-        var b = new HashMap<String, Object>(){{
-           put("version", new HashMap<String, Object>(){{ put("version", branchName); }});
-           put("type", WikiType.CODEWIKI.toString().toLowerCase());
-           put("name", wikiName);
-           put("projectId", projectId);
-           put("repositoryId", repositoryId);
-           put("mappedPath", mappedPath);
+        var b = new HashMap<String, Object>() {{
+            put("version", new HashMap<String, Object>() {{
+                put("version", branchName);
+            }});
+            put("type", WikiType.CODEWIKI.toString().toLowerCase());
+            put("name", wikiName);
+            put("projectId", projectId);
+            put("repositoryId", repositoryId);
+            put("mappedPath", mappedPath);
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, WIKI, CONNECTION.getProject(),
-                AREA,null , null, ApiVersion.WIKI, null, b);
+                AREA, null, null, ApiVersion.WIKI, null, b);
 
         return MAPPER.mapJsonResponse(r, WikiV2.class);
     }
@@ -73,7 +75,7 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
     @Override
     public WikiV2 deleteWiki(String wikiIdentifier) throws AzDException {
         String r = send(RequestMethod.DELETE, CONNECTION, WIKI, CONNECTION.getProject(),
-                AREA, wikiIdentifier , null, ApiVersion.WIKI, null, null);
+                AREA, wikiIdentifier, null, ApiVersion.WIKI, null, null);
 
         return MAPPER.mapJsonResponse(r, WikiV2.class);
     }
@@ -87,7 +89,7 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
     @Override
     public WikiV2 getWiki(String wikiIdentifier) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, WIKI, CONNECTION.getProject(),
-                AREA, wikiIdentifier , null, ApiVersion.WIKI, null, null);
+                AREA, wikiIdentifier, null, ApiVersion.WIKI, null, null);
 
         return MAPPER.mapJsonResponse(r, WikiV2.class);
     }
@@ -100,7 +102,7 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
     @Override
     public WikiV2Pages getWikis() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, WIKI, CONNECTION.getProject(),
-                AREA, null , null, ApiVersion.WIKI, null, null);
+                AREA, null, null, ApiVersion.WIKI, null, null);
 
         return MAPPER.mapJsonResponse(r, WikiV2Pages.class);
     }

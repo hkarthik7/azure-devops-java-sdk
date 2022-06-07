@@ -51,10 +51,10 @@ public class PolicyApi extends AzDAsyncApi<PolicyApi> implements PolicyDetails {
      */
     @Override
     public PolicyConfiguration createPolicyConfiguration(String typeId, boolean isEnabled, boolean isBlocking, Map settings) throws AzDException {
-        LinkedHashMap<String, Object> h = new LinkedHashMap<>(){{
+        LinkedHashMap<String, Object> h = new LinkedHashMap<>() {{
             put("isEnabled", isEnabled);
             put("isBlocking", isBlocking);
-            put("type", new LinkedHashMap<String, String>(){{
+            put("type", new LinkedHashMap<String, String>() {{
                 put("id", typeId);
             }});
             put("settings", settings);
@@ -120,7 +120,7 @@ public class PolicyApi extends AzDAsyncApi<PolicyApi> implements PolicyDetails {
      */
     @Override
     public PolicyConfigurations getPolicyConfigurations(int top, String continuationToken, String policyType) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$top", top);
             put("continuationToken", continuationToken);
             put("policyType", policyType);
@@ -152,10 +152,10 @@ public class PolicyApi extends AzDAsyncApi<PolicyApi> implements PolicyDetails {
         if (typeId.isEmpty()) id = getPolicyConfiguration(configurationId).getType().getId();
         else id = typeId;
 
-        LinkedHashMap<String, Object> h = new LinkedHashMap<>(){{
+        LinkedHashMap<String, Object> h = new LinkedHashMap<>() {{
             put("isEnabled", isEnabled);
             put("isBlocking", isBlocking);
-            put("type", new LinkedHashMap<String, String>(){{
+            put("type", new LinkedHashMap<String, String>() {{
                 put("id", id);
             }});
             put("settings", settings);

@@ -86,7 +86,9 @@ public class BuildApiTest {
     }
 
     @Test
-    public void shouldReturnBuilds() throws AzDException { b.getBuilds(); }
+    public void shouldReturnBuilds() throws AzDException {
+        b.getBuilds();
+    }
 
     @Test
     public void shouldReturnBuildsWithArrayOfBuildIds() throws AzDException {
@@ -180,7 +182,7 @@ public class BuildApiTest {
 
     @Test
     public void shouldAddBuildTags() throws AzDException {
-        b.addBuildTags(buildId, new String[]{ "Demo", "CI", "Test" });
+        b.addBuildTags(buildId, new String[]{"Demo", "CI", "Test"});
     }
 
     @Test
@@ -190,7 +192,7 @@ public class BuildApiTest {
 
     @Test
     public void shouldAddDefinitionTags() throws AzDException {
-        b.addDefinitionTags(22, new String[]{ "TestDefinition", "DemoDefinition"});
+        b.addDefinitionTags(22, new String[]{"TestDefinition", "DemoDefinition"});
     }
 
     @Test
@@ -225,12 +227,12 @@ public class BuildApiTest {
 
     @Test
     public void shouldUpdateBuildTags() throws AzDException {
-        b.updateBuildTags(buildId, new String[]{ "Demo", "CI", "Test" }, false);
+        b.updateBuildTags(buildId, new String[]{"Demo", "CI", "Test"}, false);
     }
 
     @Test
     public void shouldUpdateDefinitionTags() throws AzDException {
-        b.updateDefinitionTags(22, new String[]{ "TestDefinition", "DemoDefinition"}, false);
+        b.updateDefinitionTags(22, new String[]{"TestDefinition", "DemoDefinition"}, false);
     }
 
     @Test

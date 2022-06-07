@@ -49,15 +49,15 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
                                  String artifactId, String artifactName,
                                  boolean isDraft) throws AzDException {
 
-        var artifacts = new LinkedHashMap<String, Object>(){{
+        var artifacts = new LinkedHashMap<String, Object>() {{
             put("alias", artifactAlias);
-            put("instanceReference", new LinkedHashMap<String, Object>(){{
+            put("instanceReference", new LinkedHashMap<String, Object>() {{
                 put("id", artifactId);
                 put("name", artifactName);
             }});
         }};
 
-        var h = new LinkedHashMap<String, Object>(){{
+        var h = new LinkedHashMap<String, Object>() {{
             put("definitionId", Integer.toString(releaseDefinitionId));
             put("description", description);
             put("artifacts", List.of(artifacts));
@@ -95,7 +95,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
      */
     @Override
     public Release getRelease(int releaseId, SingleReleaseExpands expand) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$expand", expand.toString().toLowerCase());
         }};
 
@@ -122,7 +122,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
     public Release getRelease(int releaseId, SingleReleaseExpands expand,
                               ReleaseApprovalFilters approvalFilters, String[] propertyFilters,
                               int topGateRecords) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("approvalFilters", approvalFilters);
             put("propertyFilters", String.join(",", propertyFilters));
             put("$expand", expand.toString().toLowerCase());
@@ -162,7 +162,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
     @Override
     public ReleaseEnvironment getReleaseEnvironment(int releaseId, int environmentId,
                                                     SingleReleaseExpands expand) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$expand", expand.toString().toLowerCase());
         }};
 
@@ -194,7 +194,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
      */
     @Override
     public Releases getReleases(ReleaseExpands expand) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$expand", expand.toString().toLowerCase());
         }};
 
@@ -212,7 +212,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
      */
     @Override
     public Releases getReleases(int definitionId) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("definitionId", definitionId);
         }};
 
@@ -231,7 +231,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
      */
     @Override
     public Releases getReleases(ReleaseExpands expand, int top) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$expand", expand.toString().toLowerCase());
             put("$top", top);
         }};
@@ -250,7 +250,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
      */
     @Override
     public Releases getReleases(String[] releaseIdFilter) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("releaseIdFilter", String.join(",", releaseIdFilter));
         }};
 
@@ -269,7 +269,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
      */
     @Override
     public Releases getReleases(ReleaseExpands expand, String artifactVersionId) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$expand", expand.toString().toLowerCase());
             put("artifactVersionId", artifactVersionId);
         }};
@@ -321,7 +321,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
                                 String path, String[] propertyFilters, ReleaseQueryOrder queryOrder, String[] releaseIdFilter,
                                 String searchText, String sourceBranchFilter, String sourceId, ReleaseStatus statusFilter,
                                 String[] tagFilter) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("definitionId", definitionId);
             put("definitionEnvironmentId", definitionEnvironmentId);
             put("searchText", searchText);
@@ -398,7 +398,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
     @Override
     public Void deleteReleaseDefinition(int definitionId, String comment, boolean forceDelete) throws AzDException {
         try {
-            var q = new HashMap<String, Object>(){{
+            var q = new HashMap<String, Object>() {{
                 put("comment", comment);
                 put("forceDelete", forceDelete);
             }};
@@ -506,7 +506,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
     public ReleaseEnvironment updateReleaseEnvironment(int releaseId, int environmentId, String comment,
                                                        String scheduledDeploymentTime, ReleaseEnvironmentStatus status, Map variables)
             throws AzDException {
-        var b = new HashMap<String, Object>(){{
+        var b = new HashMap<String, Object>() {{
             put("comment", comment);
             put("scheduledDeploymentTime", scheduledDeploymentTime);
             put("status", status.toString().toLowerCase());
@@ -533,7 +533,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
     @Override
     public Release updateReleaseResource(int releaseId, String comment, boolean keepForever, String[] manualEnvironments,
                                          ReleaseStatus status, String name) throws AzDException {
-        var b = new HashMap<String, Object>(){{
+        var b = new HashMap<String, Object>() {{
             put("comment", comment);
             put("keepForever", keepForever);
             put("status", status.toString().toLowerCase());
@@ -608,7 +608,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
      */
     @Override
     public ReleaseApprovals getReleaseApprovals(int[] releaseIdsFilter) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("releaseIdsFilter", String.join(",", intArrayToString(releaseIdsFilter)));
         }};
 
@@ -636,7 +636,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
     public ReleaseApprovals getReleaseApprovals(String assignedToFilter, int continuationToken, boolean includeMyGroupApprovals,
                                                 ReleaseQueryOrder queryOrder, int[] releaseIdsFilter, ReleaseApprovalStatus statusFilter,
                                                 int top, ReleaseApprovalType typeFilter) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("assignedToFilter", assignedToFilter);
             put("continuationToken", continuationToken);
             put("includeMyGroupApprovals", includeMyGroupApprovals);
@@ -663,7 +663,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
      */
     @Override
     public ReleaseApproval updateApproval(int approvalId, ReleaseApprovalStatus status, String comments) throws AzDException {
-        var body = new HashMap<String, Object>(){{
+        var body = new HashMap<String, Object>() {{
             put("status", status.toString().toLowerCase());
             put("comments", comments);
         }};
@@ -717,7 +717,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
     @Override
     public ManualIntervention updateManualIntervention(int releaseId, int manualInterventionId, String comment, ManualInterventionStatus status)
             throws AzDException {
-        var body = new HashMap<String, Object>(){{
+        var body = new HashMap<String, Object>() {{
             put("status", status.toString().toLowerCase());
             put("comment", comment);
         }};

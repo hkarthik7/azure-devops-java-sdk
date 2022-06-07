@@ -78,7 +78,7 @@ public class GitApiTest {
     public void shouldCreateANewPullRequest() throws AzDException {
         g.createPullRequest(g.getRepositories().getRepositories().stream().findFirst().get().getId(),
                 "refs/heads/develop", "refs/heads/master", "New feature", "Adding new feature",
-                new String[]{ "d6245f20-2af8-44f4-9451-8107cb2767db" });
+                new String[]{"d6245f20-2af8-44f4-9451-8107cb2767db"});
     }
 
     // failing the test intentionally. If not this will create many pull requests on each run.
@@ -86,7 +86,7 @@ public class GitApiTest {
     @Test(expected = AzDException.class)
     public void shouldCreateANewPullRequestAsDraft() throws AzDException {
         var repoId = g.getRepository("testRepository").getId();
-        g.createPullRequest(repoId,"develop", "master", "New feature", "Adding new feature", true);
+        g.createPullRequest(repoId, "develop", "master", "New feature", "Adding new feature", true);
     }
 
     @Test
@@ -156,7 +156,8 @@ public class GitApiTest {
 
         try {
             label = g.getPullRequestLabel("testRepository", 7, "DevOps");
-        } catch (AzDException ignored) { }
+        } catch (AzDException ignored) {
+        }
 
         if (label.getUrl().isEmpty()) {
             g.createPullRequestLabel("testRepository", 7, "DevOps");

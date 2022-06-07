@@ -11,7 +11,7 @@ public interface CoreDetails {
     OperationReference createProject(String projectName, String description) throws AzDException;
 
     OperationReference createProject(String projectName, String description, String sourceControlType,
-                      String templateTypeId) throws AzDException;
+                                     String templateTypeId) throws AzDException;
 
     OperationReference deleteProject(String projectId) throws AzDException;
 

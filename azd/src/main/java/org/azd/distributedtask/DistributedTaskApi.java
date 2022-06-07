@@ -83,7 +83,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
     @Override
     public TaskAgent getAgent(int poolId, int agentId, boolean includeAssignedRequest, boolean includeCapabilities,
                               boolean includeLastCompletedRequest, String[] propertyFilters) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("includeAssignedRequest", includeAssignedRequest);
             put("includeCapabilities", includeCapabilities);
             put("includeLastCompletedRequest", includeLastCompletedRequest);
@@ -126,7 +126,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
     public TaskAgents getAgents(int poolId, String agentName, String[] demands, boolean includeAssignedRequest,
                                 boolean includeCapabilities, boolean includeLastCompletedRequest, String[] propertyFilters)
             throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("agentName", agentName);
             put("demands", String.join(",", demands));
             put("includeAssignedRequest", includeAssignedRequest);
@@ -169,7 +169,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public DeploymentGroup addDeploymentGroup(String name, String description) throws AzDException {
-        var requestBody = new HashMap<String, Object>(){{
+        var requestBody = new HashMap<String, Object>() {{
             put("name", name);
             put("description", description);
         }};
@@ -190,7 +190,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public DeploymentGroup addDeploymentGroup(String name, String description, int poolId) throws AzDException {
-        var requestBody = new HashMap<String, Object>(){{
+        var requestBody = new HashMap<String, Object>() {{
             put("name", name);
             put("description", description);
             put("poolId", poolId);
@@ -245,7 +245,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
     @Override
     public DeploymentGroup getDeploymentGroup(int deploymentGroupId, DeploymentGroupExpands expand, DeploymentGroupActionFilter actionFilter)
             throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$expand", expand.toString().toLowerCase());
             put("actionFilter", actionFilter.toString().toLowerCase());
         }};
@@ -277,7 +277,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public DeploymentGroups getDeploymentGroups(int top) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$top", top);
         }};
 
@@ -295,7 +295,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public DeploymentGroups getDeploymentGroups(int[] ids) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("ids", intArrayToString(ids));
         }};
 
@@ -313,7 +313,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public DeploymentGroups getDeploymentGroups(String name) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("name", name);
         }};
 
@@ -331,7 +331,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public DeploymentGroups getDeploymentGroups(DeploymentGroupExpands expand) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$expand", expand.toString().toLowerCase());
         }};
 
@@ -355,7 +355,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
     @Override
     public DeploymentGroups getDeploymentGroups(DeploymentGroupExpands expand, int top, DeploymentGroupActionFilter actionFilter,
                                                 String continuationToken, int[] ids, String name) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$expand", expand.toString().toLowerCase());
             put("$top", top);
             put("actionFilter", actionFilter.toString().toLowerCase());
@@ -380,7 +380,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public DeploymentGroup updateDeploymentGroup(int deploymentGroupId, String name, String description) throws AzDException {
-        var requestBody = new HashMap<String, Object>(){{
+        var requestBody = new HashMap<String, Object>() {{
             put("name", name);
             put("description", description);
         }};
@@ -400,7 +400,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public EnvironmentInstance addEnvironment(String name, String description) throws AzDException {
-        var requestBody = new HashMap<String, Object>(){{
+        var requestBody = new HashMap<String, Object>() {{
             put("name", name);
             put("description", description);
         }};
@@ -452,7 +452,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public EnvironmentInstance getEnvironment(int environmentId, EnvironmentExpands expands) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("expands", expands.toString().toLowerCase());
         }};
 
@@ -483,7 +483,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public EnvironmentInstances getEnvironments(int top) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$top", top);
         }};
 
@@ -501,7 +501,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public EnvironmentInstances getEnvironments(String name) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("name", name);
         }};
 
@@ -521,7 +521,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public EnvironmentInstances getEnvironments(int top, String continuationToken, String name) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$top", top);
             put("continuationToken", continuationToken);
             put("name", name);
@@ -543,7 +543,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public EnvironmentInstance updateEnvironment(int environmentId, String name, String description) throws AzDException {
-        var requestBody = new HashMap<String, Object>(){{
+        var requestBody = new HashMap<String, Object>() {{
             put("name", name);
             put("description", description);
         }};
@@ -571,7 +571,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         List<Object> o = new ArrayList<>();
         o.add(ref);
 
-        var requestBody = new HashMap<String, Object>(){{
+        var requestBody = new HashMap<String, Object>() {{
             put("variableGroupProjectReferences", o);
             put("name", variableGroupDefinition.getName());
             put("description", variableGroupDefinition.getDescription());
@@ -622,7 +622,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
     @Override
     public Void deleteVariableGroup(int variableGroupId, String[] projectIds) throws AzDException {
         try {
-            var q = new HashMap<String, Object>(){{
+            var q = new HashMap<String, Object>() {{
                 put("projectIds", String.join(",", projectIds));
             }};
 
@@ -671,8 +671,8 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public VariableGroups getVariableGroups(int top) throws AzDException {
-        var q = new HashMap<String, Object>(){{
-           put("$top", top);
+        var q = new HashMap<String, Object>() {{
+            put("$top", top);
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
@@ -689,7 +689,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public VariableGroups getVariableGroups(String groupName) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("groupName", groupName);
         }};
 
@@ -712,7 +712,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
     @Override
     public VariableGroups getVariableGroups(int top, VariableGroupActionFilter actionFilter, int continuationToken, String groupName,
                                             VariableGroupQueryOrder queryOrder) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$top", top);
             put("actionFilter", actionFilter.toString().toLowerCase());
             put("continuationToken", continuationToken);
@@ -771,7 +771,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         List<Object> o = new ArrayList<>();
         o.add(ref);
 
-        var requestBody = new HashMap<String, Object>(){{
+        var requestBody = new HashMap<String, Object>() {{
             put("variableGroupProjectReferences", o);
             put("name", variableGroupDefinition.getName());
             put("description", variableGroupDefinition.getDescription());

@@ -75,8 +75,8 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
                                                         String subscriptionName) throws AzDException {
         var project = CORE.getProject(CONNECTION.getProject());
 
-        var ref = new LinkedHashMap<String, Object>(){{
-            put("projectReference", new LinkedHashMap<String, Object>(){{
+        var ref = new LinkedHashMap<String, Object>() {{
+            put("projectReference", new LinkedHashMap<String, Object>() {{
                 put("id", project.getId());
                 put("name", project.getName());
             }});
@@ -85,9 +85,9 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
 
         var lRef = List.of(ref);
 
-        var body = new LinkedHashMap<String, Object>(){{
-            put("authorization", new LinkedHashMap<String, Object>(){{
-                put("parameters", new LinkedHashMap<String, Object>(){{
+        var body = new LinkedHashMap<String, Object>() {{
+            put("authorization", new LinkedHashMap<String, Object>() {{
+                put("parameters", new LinkedHashMap<String, Object>() {{
                     put("tenantid", tenantId);
                     put("serviceprincipalid", servicePrincipalId);
                     put("authenticationType", "spnKey");
@@ -95,7 +95,7 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
                 }});
                 put("scheme", "ServicePrincipal");
             }});
-            put("data", new LinkedHashMap<String, Object>(){{
+            put("data", new LinkedHashMap<String, Object>() {{
                 put("subscriptionId", subscriptionId);
                 put("subscriptionName", subscriptionName);
                 put("environment", "AzureCloud");
@@ -133,7 +133,9 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
      */
     @Override
     public ServiceEndpoint getServiceEndpoint(String endpointId, ServiceEndpointActionFilter actionFilter) throws AzDException {
-        var q = new HashMap<String, Object>(){{ put("actionFilter", actionFilter.toString().toLowerCase()); }};
+        var q = new HashMap<String, Object>() {{
+            put("actionFilter", actionFilter.toString().toLowerCase());
+        }};
 
         String r = send(RequestMethod.GET, CONNECTION, SERVICE_ENDPOINT, CONNECTION.getProject(),
                 AREA + "/endpoints", endpointId, null, ApiVersion.SERVICE_ENDPOINTS, q, null);
@@ -161,10 +163,12 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
     @Override
     public Void deleteServiceEndpoint(String endpointId, String[] projectIds) throws AzDException {
         try {
-            var q = new HashMap<String, Object>(){{ put("projectIds", String.join(",", projectIds)); }};
+            var q = new HashMap<String, Object>() {{
+                put("projectIds", String.join(",", projectIds));
+            }};
 
             String r = send(RequestMethod.DELETE, CONNECTION, SERVICE_ENDPOINT, CONNECTION.getProject(),
-                AREA + "/endpoints", endpointId, null, ApiVersion.SERVICE_ENDPOINTS, q, null);
+                    AREA + "/endpoints", endpointId, null, ApiVersion.SERVICE_ENDPOINTS, q, null);
 
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
@@ -183,7 +187,7 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
     @Override
     public Void deleteServiceEndpoint(String endpointId, String[] projectIds, boolean deep) throws AzDException {
         try {
-            var q = new HashMap<String, Object>(){{
+            var q = new HashMap<String, Object>() {{
                 put("projectIds", String.join(",", projectIds));
                 put("deep", deep);
             }};
@@ -206,7 +210,9 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
      */
     @Override
     public ServiceEndpoints getServiceEndpointsByNames(String[] endpointNames) throws AzDException {
-        var q = new HashMap<String, Object>(){{ put("endpointNames", String.join(",", endpointNames)); }};
+        var q = new HashMap<String, Object>() {{
+            put("endpointNames", String.join(",", endpointNames));
+        }};
 
         String r = send(RequestMethod.GET, CONNECTION, SERVICE_ENDPOINT, CONNECTION.getProject(),
                 AREA + "/endpoints", null, null, ApiVersion.SERVICE_ENDPOINTS, q, null);
@@ -228,7 +234,7 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
     @Override
     public ServiceEndpoints getServiceEndpointsByNames(String[] endpointNames, String[] authSchemes, boolean includeDetails,
                                                        boolean includeFailed, String owner, String type) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("endpointNames", String.join(",", endpointNames));
             put("type", type);
             put("authSchemes", String.join(",", authSchemes));
@@ -254,8 +260,8 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
         try {
             var project = CORE.getProject(projectName);
 
-            var body = new LinkedHashMap<String, Object>(){{
-                put("projectReference", new LinkedHashMap<String, Object>(){{
+            var body = new LinkedHashMap<String, Object>() {{
+                put("projectReference", new LinkedHashMap<String, Object>() {{
                     put("id", project.getId());
                     put("name", project.getName());
                 }});

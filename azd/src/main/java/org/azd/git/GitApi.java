@@ -44,14 +44,14 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     @Override
     public Repository createRepository(String repositoryName, String projectId) throws AzDException {
 
-        LinkedHashMap<String, Object> h = new LinkedHashMap<>(){{
+        LinkedHashMap<String, Object> h = new LinkedHashMap<>() {{
             put("name", repositoryName);
-            put("project", new LinkedHashMap<String, String>(){{
+            put("project", new LinkedHashMap<String, String>() {{
                 put("id", projectId);
             }});
         }};
         String r = send(RequestMethod.POST, CONNECTION, GIT, projectId,
-                        AREA, null, "repositories", ApiVersion.GIT, null, h);
+                AREA, null, "repositories", ApiVersion.GIT, null, h);
         return MAPPER.mapJsonResponse(r, Repository.class);
     }
 
@@ -98,7 +98,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     public GitDeletedRepositories getDeletedRepositories() throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
-                        AREA, null, "deletedrepositories", ApiVersion.GIT, null, null);
+                AREA, null, "deletedrepositories", ApiVersion.GIT, null, null);
 
         return MAPPER.mapJsonResponse(r, GitDeletedRepositories.class);
     }
@@ -112,7 +112,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     public GitDeletedRepositories getRecycleBinRepositories() throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
-                        AREA, null, "recycleBin/repositories", ApiVersion.GIT, null, null);
+                AREA, null, "recycleBin/repositories", ApiVersion.GIT, null, null);
 
         return MAPPER.mapJsonResponse(r, GitDeletedRepositories.class);
     }
@@ -127,7 +127,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     public Repository getRepository(String repositoryName) throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
-                        AREA + "/repositories", repositoryName, null, ApiVersion.GIT, null, null);
+                AREA + "/repositories", repositoryName, null, ApiVersion.GIT, null, null);
 
         return MAPPER.mapJsonResponse(r, Repository.class);
     }
@@ -141,7 +141,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     public Repositories getRepositories() throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
-                        AREA, null, "repositories", ApiVersion.GIT, null, null);
+                AREA, null, "repositories", ApiVersion.GIT, null, null);
 
         return MAPPER.mapJsonResponse(r, Repositories.class);
     }
@@ -157,12 +157,12 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     @Override
     public Repository restoreRepositoryFromRecycleBin(String repositoryId, boolean deleted) throws AzDException {
 
-        HashMap<String, Object> h = new HashMap<>(){{
+        HashMap<String, Object> h = new HashMap<>() {{
             put("deleted", deleted);
         }};
 
         String r = send(RequestMethod.PATCH, CONNECTION, GIT, CONNECTION.getProject(),
-                        AREA + "/recycleBin/repositories", repositoryId, null, ApiVersion.GIT, null, h);
+                AREA + "/recycleBin/repositories", repositoryId, null, ApiVersion.GIT, null, h);
 
         return MAPPER.mapJsonResponse(r, Repository.class);
     }
@@ -178,13 +178,13 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     @Override
     public Repository updateRepository(String repositoryId, String repositoryName, String defaultBranchName) throws AzDException {
 
-        HashMap<String, Object> h = new HashMap<>(){{
+        HashMap<String, Object> h = new HashMap<>() {{
             put("name", repositoryName);
             put("defaultBranch", "refs/heads/" + defaultBranchName);
         }};
 
         String r = send(RequestMethod.PATCH, CONNECTION, GIT, CONNECTION.getProject(),
-                        AREA + "/repositories", repositoryId, null, ApiVersion.GIT, null, h);
+                AREA + "/repositories", repositoryId, null, ApiVersion.GIT, null, h);
 
         return MAPPER.mapJsonResponse(r, Repository.class);
     }
@@ -208,11 +208,13 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         List<Object> o = new ArrayList<>();
 
         for (String reviewer : reviewers) {
-            HashMap<String, String> id = new HashMap<>(){{ put("id", reviewer); }};
+            HashMap<String, String> id = new HashMap<>() {{
+                put("id", reviewer);
+            }};
             o.add(id);
         }
 
-        HashMap<String, Object> h = new HashMap<>(){{
+        HashMap<String, Object> h = new HashMap<>() {{
             put("sourceRefName", sourceRefName);
             put("targetRefName", targetRefName);
             put("title", title);
@@ -245,7 +247,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         var sourceBranch = sourceRefName.contains(referenceHead) ? sourceRefName : referenceHead + sourceRefName;
         var targetBranch = targetRefName.contains(referenceHead) ? targetRefName : referenceHead + targetRefName;
 
-        var b = new HashMap<String, Object>(){{
+        var b = new HashMap<String, Object>() {{
             put("sourceRefName", sourceBranch);
             put("targetRefName", targetBranch);
             put("title", title);
@@ -270,7 +272,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     public PullRequest getPullRequest(String repositoryName, int pullRequestId) throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
-                AREA + "/repositories", repositoryName, "pullrequests/" + pullRequestId, ApiVersion.GIT, null,null);
+                AREA + "/repositories", repositoryName, "pullrequests/" + pullRequestId, ApiVersion.GIT, null, null);
 
         return MAPPER.mapJsonResponse(r, PullRequest.class);
     }
@@ -284,7 +286,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     @Override
     public PullRequest getPullRequestById(int pullRequestId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
-                AREA + "/pullrequests", Integer.toString(pullRequestId), null, ApiVersion.GIT, null,null);
+                AREA + "/pullrequests", Integer.toString(pullRequestId), null, ApiVersion.GIT, null, null);
 
 
         return MAPPER.mapJsonResponse(r, PullRequest.class);
@@ -300,7 +302,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     public PullRequests getPullRequests(String repositoryName) throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
-                AREA + "/repositories", repositoryName, "pullrequests", ApiVersion.GIT, null,null);
+                AREA + "/repositories", repositoryName, "pullrequests", ApiVersion.GIT, null, null);
 
         return MAPPER.mapJsonResponse(r, PullRequests.class);
     }
@@ -315,7 +317,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     public PullRequests getPullRequestsByProject() throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
-                AREA, null, "pullrequests", ApiVersion.GIT, null,null);
+                AREA, null, "pullrequests", ApiVersion.GIT, null, null);
 
         return MAPPER.mapJsonResponse(r, PullRequests.class);
     }
@@ -329,12 +331,12 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      */
     @Override
     public PullRequests getPullRequestsByProject(int top) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$top", top);
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
-                AREA, null, "pullrequests", ApiVersion.GIT, q,null);
+                AREA, null, "pullrequests", ApiVersion.GIT, q, null);
 
         return MAPPER.mapJsonResponse(r, PullRequests.class);
     }
@@ -348,12 +350,12 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      */
     @Override
     public PullRequests getPullRequestsByProject(PullRequestStatus status) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("searchCriteria.status", status.toString().toLowerCase());
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
-                AREA, null, "pullrequests", ApiVersion.GIT, q,null);
+                AREA, null, "pullrequests", ApiVersion.GIT, q, null);
 
         return MAPPER.mapJsonResponse(r, PullRequests.class);
     }
@@ -379,7 +381,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
                                                  boolean includeLinks, String repositoryId, String reviewerId,
                                                  String sourceRefName, String sourceRepositoryId, PullRequestStatus status,
                                                  String targetRefName) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$skip", skip);
             put("$top", top);
             put("searchCriteria.creatorId", creatorId);
@@ -393,7 +395,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
-                AREA, null, "pullrequests", ApiVersion.GIT, q,null);
+                AREA, null, "pullrequests", ApiVersion.GIT, q, null);
 
         return MAPPER.mapJsonResponse(r, PullRequests.class);
     }
@@ -408,16 +410,16 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      */
     @Override
     public GitRef updateBranchLock(String repositoryName, String branchName, boolean isLocked) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("filter", "heads/" + branchName);
         }};
 
-        var b = new HashMap<String, Object>(){{
+        var b = new HashMap<String, Object>() {{
             put("isLocked", isLocked);
         }};
 
         String r = send(RequestMethod.PATCH, CONNECTION, GIT, CONNECTION.getProject(),
-                AREA + "/repositories", repositoryName, "refs", ApiVersion.GIT, q,b);
+                AREA + "/repositories", repositoryName, "refs", ApiVersion.GIT, q, b);
 
         return MAPPER.mapJsonResponse(r, GitRef.class);
     }
@@ -449,7 +451,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     public WebApiTagDefinition createPullRequestLabel(String repositoryName, int pullRequestId, String labelName)
             throws AzDException {
 
-        var b = new HashMap<String, Object>(){{
+        var b = new HashMap<String, Object>() {{
             put("name", labelName);
         }};
 
@@ -471,7 +473,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         try {
             String resource = "pullrequests/" + pullRequestId + "/labels/" + labelName;
             String r = send(RequestMethod.DELETE, CONNECTION, GIT, CONNECTION.getProject(),
-                AREA + "/repositories", repositoryName, resource, ApiVersion.GIT, null, null);
+                    AREA + "/repositories", repositoryName, resource, ApiVersion.GIT, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
             throw e;
@@ -526,7 +528,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     @Override
     public PullRequestReviewer createPullRequestReviewer(int pullRequestId, String repositoryName,
                                                          String reviewerId, int vote, boolean isRequired) throws AzDException {
-        var b = new HashMap<String, Object>(){{
+        var b = new HashMap<String, Object>() {{
             put("vote", vote);
             put("id", reviewerId);
         }};
@@ -610,7 +612,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     public PullRequestReviewer updatePullRequestReviewer(int pullRequestId, String repositoryName,
                                                          String reviewerId, boolean isFlagged, boolean hasDeclined)
             throws AzDException {
-        var b = new HashMap<String, Object>(){{
+        var b = new HashMap<String, Object>() {{
             put("isFlagged", isFlagged);
             put("hasDeclined", hasDeclined);
         }};
@@ -625,18 +627,21 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
 
     /**
      * Create an annotated tag.
+     *
      * @param repositoryName Name of the repository.
-     * @param tagName The name of the annotated tag.
-     * @param objectId The objectId (Sha1Id) of the tag.
-     * @param message The tagging Message.
+     * @param tagName        The name of the annotated tag.
+     * @param objectId       The objectId (Sha1Id) of the tag.
+     * @param message        The tagging Message.
      * @return A Git annotated tag object {@link GitAnnotatedTag}.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public GitAnnotatedTag createAnnotatedTag(String repositoryName, String tagName, String objectId, String message) throws AzDException {
-        var b = new HashMap<String, Object>(){{
+        var b = new HashMap<String, Object>() {{
             put("name", tagName);
-            put("taggedObject", new HashMap<String, String>(){{ put("objectId", objectId); }});
+            put("taggedObject", new HashMap<String, String>() {{
+                put("objectId", objectId);
+            }});
             put("message", message);
         }};
 
@@ -648,8 +653,9 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
 
     /**
      * Get an annotated tag.
+     *
      * @param repositoryName Name of the repository.
-     * @param objectId ObjectId (Sha1Id) of tag to get.
+     * @param objectId       ObjectId (Sha1Id) of tag to get.
      * @return A Git annotated tag object {@link GitAnnotatedTag}.
      * @throws AzDException Default Api Exception handler.
      */
@@ -663,8 +669,9 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
 
     /**
      * Retrieve a particular commit.
+     *
      * @param repositoryName Name of the repository.
-     * @param commitId The id of the commit.
+     * @param commitId       The id of the commit.
      * @return Git commit object {@link GitCommit}
      * @throws AzDException Default Api Exception handler.
      */
@@ -678,15 +685,18 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
 
     /**
      * Retrieve a particular commit.
+     *
      * @param repositoryName Name of the repository.
-     * @param commitId The id of the commit.
-     * @param changeCount The number of changes to include in the result.
+     * @param commitId       The id of the commit.
+     * @param changeCount    The number of changes to include in the result.
      * @return Git commit object {@link GitCommit}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public GitCommit getCommit(String repositoryName, String commitId, int changeCount) throws AzDException {
-        var q = new HashMap<String, Object>(){{ put("changeCount", changeCount); }};
+        var q = new HashMap<String, Object>() {{
+            put("changeCount", changeCount);
+        }};
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
                 AREA + "/repositories", repositoryName, "commits/" + commitId, ApiVersion.GIT, q, null);
@@ -696,8 +706,9 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
 
     /**
      * Retrieve changes for a particular commit.
+     *
      * @param repositoryName Name of the repository.
-     * @param commitId The id of the commit.
+     * @param commitId       The id of the commit.
      * @return Git commit changes object {@link GitCommitChanges}
      * @throws AzDException Default Api Exception handler.
      */
@@ -711,16 +722,17 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
 
     /**
      * Retrieve changes for a particular commit.
+     *
      * @param repositoryName Name of the repository.
-     * @param commitId The id of the commit.
-     * @param top The maximum number of changes to return.
-     * @param skip The number of changes to skip.
+     * @param commitId       The id of the commit.
+     * @param top            The maximum number of changes to return.
+     * @param skip           The number of changes to skip.
      * @return Git commit changes object {@link GitCommitChanges}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public GitCommitChanges getChanges(String repositoryName, String commitId, int top, int skip) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("top", top);
             put("skip", skip);
         }};
@@ -733,6 +745,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
 
     /**
      * Retrieve git commits for a project.
+     *
      * @param repositoryName Name of the repository.
      * @return Array Git commit object {@link GitCommits}
      * @throws AzDException Default Api Exception handler.
@@ -747,14 +760,15 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
 
     /**
      * Retrieve git commits for a project.
+     *
      * @param repositoryName Name of the repository.
-     * @param top Maximum number of entries to retrieve
+     * @param top            Maximum number of entries to retrieve
      * @return Array Git commit object {@link GitCommits}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public GitCommits getCommits(String repositoryName, int top) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("top", top);
         }};
 
@@ -766,14 +780,15 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
 
     /**
      * Retrieve git commits for a project.
+     *
      * @param repositoryName Name of the repository.
-     * @param ids If provided, specifies the exact commit ids of the commits to fetch. May not be combined with other parameters.
+     * @param ids            If provided, specifies the exact commit ids of the commits to fetch. May not be combined with other parameters.
      * @return Array Git commit object {@link GitCommits}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public GitCommits getCommits(String repositoryName, List<String> ids) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("ids", String.join(",", ids));
         }};
 
@@ -785,30 +800,31 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
 
     /**
      * Retrieve git commits for a project.
-     * @param repositoryName Name of the repository.
-     * @param top Maximum number of entries to retrieve.
-     * @param skip Number of entries to skip.
-     * @param author Alias or display name of the author.
-     * @param version Version string identifier (name of tag/branch, SHA1 of commit).
-     * @param versionOptions Version options - Specify additional modifiers to version (e.g Previous).
-     * @param versionType Version type (branch, tag, or commit). Determines how Id is interpreted.
-     * @param excludeDeletes Only applies when an itemPath is specified. This determines whether to exclude delete entries of the specified path.
-     * @param fromCommitId If provided, a lower bound for filtering commits alphabetically.
-     * @param toCommitId If provided, an upper bound for filtering commits alphabetically
-     * @param fromDate If provided, only include history entries created after this date (string).
-     * @param toDate If provided, only include history entries created before this date (string)
-     * @param historyMode What Git history mode should be used. This only applies to the search criteria when Ids = null and an itemPath is specified.
-     * @param ids If provided, specifies the exact commit ids of the commits to fetch. May not be combined with other parameters.
-     * @param includeLinks Whether to include the _links field on the shallow references
-     * @param includePushData Whether to include the push information
-     * @param includeUserImageUrl Whether to include the image Url for committers and authors
-     * @param includeWorkItems Whether to include linked work items
-     * @param itemPath Path of item to search under
+     *
+     * @param repositoryName         Name of the repository.
+     * @param top                    Maximum number of entries to retrieve.
+     * @param skip                   Number of entries to skip.
+     * @param author                 Alias or display name of the author.
+     * @param version                Version string identifier (name of tag/branch, SHA1 of commit).
+     * @param versionOptions         Version options - Specify additional modifiers to version (e.g Previous).
+     * @param versionType            Version type (branch, tag, or commit). Determines how Id is interpreted.
+     * @param excludeDeletes         Only applies when an itemPath is specified. This determines whether to exclude delete entries of the specified path.
+     * @param fromCommitId           If provided, a lower bound for filtering commits alphabetically.
+     * @param toCommitId             If provided, an upper bound for filtering commits alphabetically
+     * @param fromDate               If provided, only include history entries created after this date (string).
+     * @param toDate                 If provided, only include history entries created before this date (string)
+     * @param historyMode            What Git history mode should be used. This only applies to the search criteria when Ids = null and an itemPath is specified.
+     * @param ids                    If provided, specifies the exact commit ids of the commits to fetch. May not be combined with other parameters.
+     * @param includeLinks           Whether to include the _links field on the shallow references
+     * @param includePushData        Whether to include the push information
+     * @param includeUserImageUrl    Whether to include the image Url for committers and authors
+     * @param includeWorkItems       Whether to include linked work items
+     * @param itemPath               Path of item to search under
      * @param showOldestCommitsFirst If enabled, this option will ignore the itemVersion and compareVersion parameters.
-     * @param user Alias or display name of the committer
-     * @param itemVersion Version string identifier (name of tag/branch, SHA1 of commit)
-     * @param itemVersionOptions Version options - Specify additional modifiers to version (e.g Previous)
-     * @param itemVersionType Version type (branch, tag, or commit). Determines how Id is interpreted
+     * @param user                   Alias or display name of the committer
+     * @param itemVersion            Version string identifier (name of tag/branch, SHA1 of commit)
+     * @param itemVersionOptions     Version options - Specify additional modifiers to version (e.g Previous)
+     * @param itemVersionType        Version type (branch, tag, or commit). Determines how Id is interpreted
      * @return Array Git commit object {@link GitCommits}
      * @throws AzDException Default Api Exception handler.
      */
@@ -820,7 +836,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
                                  boolean includeUserImageUrl, boolean includeWorkItems, String itemPath, boolean showOldestCommitsFirst,
                                  String user, String itemVersion, GitVersionOptions itemVersionOptions,
                                  GitVersionType itemVersionType) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$top", top);
             put("$skip", skip);
             put("author", author);
@@ -853,14 +869,15 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
 
     /**
      * Retrieve a list of commits associated with a particular push.
+     *
      * @param repositoryName Name of the repository.
-     * @param pushId The id of the push.
+     * @param pushId         The id of the push.
      * @return Array Git commit object {@link GitCommits}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public GitCommits getPushCommits(String repositoryName, int pushId) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("pushId", pushId);
         }};
 
@@ -872,17 +889,18 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
 
     /**
      * Retrieve a list of commits associated with a particular push.
+     *
      * @param repositoryName Name of the repository.
-     * @param pushId The id of the push.
-     * @param includeLinks Set to false to avoid including REST Url links for resources. Defaults to true.
-     * @param top The maximum number of commits to return ("get the top x commits").
-     * @param skip The number of commits to skip.
+     * @param pushId         The id of the push.
+     * @param includeLinks   Set to false to avoid including REST Url links for resources. Defaults to true.
+     * @param top            The maximum number of commits to return ("get the top x commits").
+     * @param skip           The number of commits to skip.
      * @return Array Git commit object {@link GitCommits}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public GitCommits getPushCommits(String repositoryName, int pushId, boolean includeLinks, int top, int skip) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("pushId", pushId);
             put("top", top);
             put("skip", skip);

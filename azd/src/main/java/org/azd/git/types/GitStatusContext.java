@@ -14,7 +14,6 @@ public class GitStatusContext {
     @JsonProperty("genre")
     private String genre;
     /**
-     *
      * Name identifier of the status, cannot be null or empty.
      */
     @JsonProperty("name")

@@ -43,8 +43,8 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
     @Override
     public Processes getProcesses() throws AzDException {
 
-        String r = send(RequestMethod.GET, CONNECTION, CORE,null,
-                        "process/processes",null,null, ApiVersion.CORE,null,null);
+        String r = send(RequestMethod.GET, CONNECTION, CORE, null,
+                "process/processes", null, null, ApiVersion.CORE, null, null);
 
         return MAPPER.mapJsonResponse(r, Processes.class);
     }
@@ -72,8 +72,8 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
             }});
         }};
 
-        String r = send(RequestMethod.POST, CONNECTION, CORE,null,
-                        AREA,null, null, ApiVersion.PROJECT,null, h);
+        String r = send(RequestMethod.POST, CONNECTION, CORE, null,
+                AREA, null, null, ApiVersion.PROJECT, null, h);
 
         return MAPPER.mapJsonResponse(r, OperationReference.class);
     }
@@ -89,7 +89,7 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
      */
     @Override
     public OperationReference createProject(String projectName, String description, String sourceControlType,
-                             String templateTypeId) throws AzDException {
+                                            String templateTypeId) throws AzDException {
 
         LinkedHashMap<String, Object> h = new LinkedHashMap<>() {{
             put("name", projectName);
@@ -104,8 +104,8 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
             }});
         }};
 
-        String r = send(RequestMethod.POST, CONNECTION, CORE,null,
-                        AREA,null,null, ApiVersion.PROJECT, null, h);
+        String r = send(RequestMethod.POST, CONNECTION, CORE, null,
+                AREA, null, null, ApiVersion.PROJECT, null, h);
 
         return MAPPER.mapJsonResponse(r, OperationReference.class);
     }
@@ -125,7 +125,7 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
     public OperationReference deleteProject(String projectId) throws AzDException {
 
         String r = send(RequestMethod.DELETE, CONNECTION, CORE, null,
-                        AREA, projectId,null, ApiVersion.PROJECT,null,null);
+                AREA, projectId, null, ApiVersion.PROJECT, null, null);
 
         return MAPPER.mapJsonResponse(r, OperationReference.class);
     }
@@ -139,8 +139,8 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
     @Override
     public Project getProject(String projectName) throws AzDException {
 
-        String r = send(RequestMethod.GET, CONNECTION, CORE,null,
-                        AREA, projectName,null, ApiVersion.PROJECT,null,null);
+        String r = send(RequestMethod.GET, CONNECTION, CORE, null,
+                AREA, projectName, null, ApiVersion.PROJECT, null, null);
 
         return MAPPER.mapJsonResponse(r, Project.class);
     }
@@ -161,8 +161,8 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
             put("includeHistory", includeHistory);
         }};
 
-        String r = send(RequestMethod.GET, CONNECTION, CORE,null,
-                        AREA, projectName,null, ApiVersion.PROJECT, q,null);
+        String r = send(RequestMethod.GET, CONNECTION, CORE, null,
+                AREA, projectName, null, ApiVersion.PROJECT, q, null);
 
         return MAPPER.mapJsonResponse(r, Project.class);
     }
@@ -191,7 +191,7 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
     public Projects getProjects() throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, CORE, null,
-                        AREA, null, null, ApiVersion.PROJECT, null, null);
+                AREA, null, null, ApiVersion.PROJECT, null, null);
 
         return MAPPER.mapJsonResponse(r, Projects.class);
     }
@@ -210,7 +210,7 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
     public Projects getProjects(int skip, int top, String continuationToken,
                                 boolean getDefaultTeamImageUrl, String stateFilter) throws AzDException {
 
-        HashMap<String, Object> q = new HashMap<>(){{
+        HashMap<String, Object> q = new HashMap<>() {{
             put("$skip", skip);
             put("$top", top);
             put("continuationToken", continuationToken);
@@ -219,7 +219,7 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, CORE, null,
-                        AREA, null, null, ApiVersion.PROJECT, q, null);
+                AREA, null, null, ApiVersion.PROJECT, q, null);
 
         return MAPPER.mapJsonResponse(r, Projects.class);
     }
@@ -236,7 +236,7 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
     public OperationReference updateProject(String projectId, Map<String, Object> projectParameters) throws AzDException {
 
         String r = send(RequestMethod.PATCH, CONNECTION, CORE, null,
-                        AREA, projectId, null, ApiVersion.PROJECT, null, projectParameters);
+                AREA, projectId, null, ApiVersion.PROJECT, null, projectParameters);
 
         return MAPPER.mapJsonResponse(r, OperationReference.class);
     }
@@ -251,12 +251,12 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
     @Override
     public WebApiTeam createTeam(String projectName, String teamName) throws AzDException {
 
-        HashMap<String, Object> h = new HashMap<>(){{
+        HashMap<String, Object> h = new HashMap<>() {{
             put("name", teamName);
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, CORE, null,
-                        AREA, projectName, "teams", ApiVersion.PROJECT_TEAMS, null, h);
+                AREA, projectName, "teams", ApiVersion.PROJECT_TEAMS, null, h);
 
         return MAPPER.mapJsonResponse(r, WebApiTeam.class);
     }
@@ -290,7 +290,7 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
     public Team getTeam(String projectName, String teamName) throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, CORE, null,
-                        AREA, projectName, "teams/" + teamName, ApiVersion.PROJECT_TEAMS, null, null);
+                AREA, projectName, "teams/" + teamName, ApiVersion.PROJECT_TEAMS, null, null);
 
         return MAPPER.mapJsonResponse(r, Team.class);
     }
@@ -306,7 +306,7 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
     @Override
     public Team getTeam(String projectName, String teamName, boolean expandIdentity) throws AzDException {
 
-        HashMap<String, Object> q = new HashMap<>(){{
+        HashMap<String, Object> q = new HashMap<>() {{
             put("$expandIdentity", expandIdentity);
         }};
 
@@ -325,7 +325,7 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
     public Teams getTeams() throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, CORE, null,
-                        "teams", null, null, ApiVersion.PROJECT_TEAMS, null, null);
+                "teams", null, null, ApiVersion.PROJECT_TEAMS, null, null);
         return MAPPER.mapJsonResponse(r, Teams.class);
     }
 
@@ -341,7 +341,7 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
     @Override
     public Teams getTeams(boolean expandIdentity, String mine, int skip, int top) throws AzDException {
 
-        HashMap<String, Object> q = new HashMap<>(){{
+        HashMap<String, Object> q = new HashMap<>() {{
             put("$expandIdentity", expandIdentity);
             put("$mine", mine);
             put("$skip", skip);
@@ -349,7 +349,7 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, CORE, null,
-                        "teams", null, null, ApiVersion.PROJECT_TEAMS, q, null);
+                "teams", null, null, ApiVersion.PROJECT_TEAMS, q, null);
 
         return MAPPER.mapJsonResponse(r, Teams.class);
     }
@@ -365,13 +365,13 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
     @Override
     public Team updateTeams(String projectName, String teamName, String description) throws AzDException {
 
-        HashMap<String, Object> h = new HashMap<>(){{
+        HashMap<String, Object> h = new HashMap<>() {{
             put("name", teamName);
             put("description", description);
         }};
 
         String r = send(RequestMethod.PATCH, CONNECTION, CORE, null,
-                        AREA, projectName, "teams/" + teamName, ApiVersion.PROJECT_TEAMS, null, h);
+                AREA, projectName, "teams/" + teamName, ApiVersion.PROJECT_TEAMS, null, h);
 
         return MAPPER.mapJsonResponse(r, Team.class);
     }

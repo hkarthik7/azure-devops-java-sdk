@@ -45,7 +45,7 @@ public class AccountsApi extends AzDAsyncApi<AccountsApi> implements AccountsDet
      */
     @Override
     public Accounts getAccounts(String memberId) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("memberId", memberId);
         }};
 
@@ -66,9 +66,11 @@ public class AccountsApi extends AzDAsyncApi<AccountsApi> implements AccountsDet
         var ids = new ArrayList<>();
         ids.add("ms.vss-features.my-organizations-data-provider");
 
-        var b = new HashMap<String, Object>(){{
+        var b = new HashMap<String, Object>() {{
             put("contributionIds", ids);
-            put("dataProviderContext", new HashMap<String, Object>(){{ put("properties", "{}"); }});
+            put("dataProviderContext", new HashMap<String, Object>() {{
+                put("properties", "{}");
+            }});
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, null, null,

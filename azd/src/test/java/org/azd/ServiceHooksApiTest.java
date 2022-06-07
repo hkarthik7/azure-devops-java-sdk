@@ -37,13 +37,13 @@ public class ServiceHooksApiTest {
         var projectId = c.getProject("azure-devops-java-sdk");
         var serviceHooks = new ServiceHooks();
 
-        var pI = new LinkedHashMap<String, Object>(){{
+        var pI = new LinkedHashMap<String, Object>() {{
             put("buildStatus", "Failed");
             put("definitionName", "Demo-CI");
             put("projectId", projectId.getId());
         }};
 
-        var cI = new LinkedHashMap<String, Object>(){{
+        var cI = new LinkedHashMap<String, Object>() {{
             put("url", "https://mywebsite/api/webhook");
         }};
 

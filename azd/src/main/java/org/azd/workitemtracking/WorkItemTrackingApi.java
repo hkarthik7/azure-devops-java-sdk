@@ -49,7 +49,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
     public WorkItem createWorkItem(String workItemType,
                                    WorkItemOperation operation,
                                    String title) throws AzDException {
-        var req = new HashMap<String, Object>(){{
+        var req = new HashMap<String, Object>() {{
             put("op", operation.toString().toLowerCase());
             put("path", "/fields/System.Title");
             put("from", null);
@@ -57,7 +57,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, WIT, CONNECTION.getProject(),
-                AREA + "/workitems",  null, "$"+ encodeSpace(workItemType), ApiVersion.WORK_ITEM_TRACKING,
+                AREA + "/workitems", null, "$" + encodeSpace(workItemType), ApiVersion.WORK_ITEM_TRACKING,
                 null, null, List.of(req), null);
 
         return MAPPER.mapJsonResponse(r, WorkItem.class);
@@ -77,21 +77,21 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
     public WorkItem createWorkItem(String workItemType,
                                    WorkItemOperation operation, String title,
                                    String description, String[] tags) throws AzDException {
-        var t = new HashMap<String, Object>(){{
+        var t = new HashMap<String, Object>() {{
             put("op", operation.toString().toLowerCase());
             put("path", "/fields/System.Title");
             put("from", null);
             put("value", title);
         }};
 
-        var d = new HashMap<String, Object>(){{
+        var d = new HashMap<String, Object>() {{
             put("op", operation.toString().toLowerCase());
             put("path", "/fields/System.Description");
             put("from", null);
             put("value", description);
         }};
 
-        var tt = new HashMap<String, Object>(){{
+        var tt = new HashMap<String, Object>() {{
             put("op", operation.toString().toLowerCase());
             put("path", "/fields/System.Tags");
             put("from", null);
@@ -104,7 +104,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         req.add(tt);
 
         String r = send(RequestMethod.POST, CONNECTION, WIT, CONNECTION.getProject(),
-                AREA + "/workitems",  null, "$"+ encodeSpace(workItemType), ApiVersion.WORK_ITEM_TRACKING,
+                AREA + "/workitems", null, "$" + encodeSpace(workItemType), ApiVersion.WORK_ITEM_TRACKING,
                 null, null, req, null);
 
         return MAPPER.mapJsonResponse(r, WorkItem.class);
@@ -125,14 +125,14 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
             throws AzDException {
         var req = new ArrayList<>();
 
-        var t = new HashMap<String, Object>(){{
+        var t = new HashMap<String, Object>() {{
             put("op", "add");
             put("path", "/fields/System.Title");
             put("from", null);
             put("value", title);
         }};
 
-        var d = new HashMap<String, Object>(){{
+        var d = new HashMap<String, Object>() {{
             put("op", "add");
             put("path", "/fields/System.Description");
             put("from", null);
@@ -143,7 +143,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         req.add(d);
 
         for (var key : additionalFields.keySet()) {
-            var i = new HashMap<String, Object>(){{
+            var i = new HashMap<String, Object>() {{
                 put("op", "add");
                 put("path", "/fields/" + key);
                 put("from", null);
@@ -154,7 +154,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         }
 
         String r = send(RequestMethod.POST, CONNECTION, WIT, CONNECTION.getProject(),
-                AREA + "/workitems",  null, "$"+ encodeSpace(workItemType), ApiVersion.WORK_ITEM_TRACKING,
+                AREA + "/workitems", null, "$" + encodeSpace(workItemType), ApiVersion.WORK_ITEM_TRACKING,
                 null, null, req, null);
 
         return MAPPER.mapJsonResponse(r, WorkItem.class);
@@ -169,7 +169,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
     @Override
     public WorkItemDelete deleteWorkItem(int id) throws AzDException {
         String r = send(RequestMethod.DELETE, CONNECTION, WIT, CONNECTION.getProject(),
-                AREA + "/workitems",  String.valueOf(id),null , ApiVersion.WORK_ITEM_TRACKING, null, null);
+                AREA + "/workitems", String.valueOf(id), null, ApiVersion.WORK_ITEM_TRACKING, null, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemDelete.class);
     }
@@ -187,10 +187,12 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
     @Override
     public Void deleteWorkItem(int id, boolean destroy) throws AzDException {
         try {
-            var q = new HashMap<String, Object>(){{put("destroy", destroy);}};
+            var q = new HashMap<String, Object>() {{
+                put("destroy", destroy);
+            }};
 
             String r = send(RequestMethod.DELETE, CONNECTION, WIT, CONNECTION.getProject(),
-                    AREA + "/workitems",  String.valueOf(id),null , ApiVersion.WORK_ITEM_TRACKING, q, null);
+                    AREA + "/workitems", String.valueOf(id), null, ApiVersion.WORK_ITEM_TRACKING, q, null);
 
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
@@ -223,7 +225,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      */
     @Override
     public WorkItem getWorkItem(int id, WorkItemExpand expand) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$expand", expand.toString().toLowerCase());
         }};
 
@@ -244,7 +246,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      */
     @Override
     public WorkItem getWorkItem(int id, WorkItemExpand expand, String asOf) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("asOf", asOf);
             put("$expand", expand.toString().toLowerCase());
         }};
@@ -266,7 +268,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      */
     @Override
     public WorkItem getWorkItem(int id, WorkItemExpand expand, String[] fields) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("fields", String.join(",", fields));
             put("$expand", expand.toString().toLowerCase());
         }};
@@ -289,7 +291,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      */
     @Override
     public WorkItem getWorkItem(int id, WorkItemExpand expand, String[] fields, String asOf) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("fields", String.join(",", fields));
             put("asOf", asOf);
             put("$expand", expand.toString().toLowerCase());
@@ -309,7 +311,9 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      */
     @Override
     public WorkItemList getWorkItems(int[] ids) throws AzDException {
-        var q = new HashMap<String, Object>(){{put("ids", intArrayToString(ids));}};
+        var q = new HashMap<String, Object>() {{
+            put("ids", intArrayToString(ids));
+        }};
 
         String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
                 AREA + "/workitems", null, null, ApiVersion.WORK_ITEM_TRACKING, q, null);
@@ -327,7 +331,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      */
     @Override
     public WorkItemList getWorkItems(int[] ids, WorkItemExpand expand) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("ids", intArrayToString(ids));
             put("$expand", expand.toString().toLowerCase());
         }};
@@ -349,7 +353,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      */
     @Override
     public WorkItemList getWorkItems(int[] ids, WorkItemExpand expand, String asOf) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("ids", intArrayToString(ids));
             put("$expand", expand.toString().toLowerCase());
             put("fields", asOf);
@@ -372,7 +376,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      */
     @Override
     public WorkItemList getWorkItems(int[] ids, WorkItemExpand expand, String[] fields) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("ids", intArrayToString(ids));
             put("$expand", expand.toString().toLowerCase());
             put("fields", String.join(",", fields));
@@ -399,7 +403,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
     @Override
     public WorkItemList getWorkItems(int[] ids, WorkItemExpand expand, String[] fields, String asOf, WorkItemErrorPolicy errorPolicy)
             throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("ids", intArrayToString(ids));
             put("$expand", expand.toString().toLowerCase());
             put("asOf", asOf);
@@ -437,7 +441,9 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      */
     @Override
     public WorkItemList getWorkItemRevisions(int workItemId, WorkItemExpand expand) throws AzDException {
-        var q = new HashMap<String, Object>(){{put("$expand", expand.toString().toLowerCase());}};
+        var q = new HashMap<String, Object>() {{
+            put("$expand", expand.toString().toLowerCase());
+        }};
 
         String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
                 AREA + "/workitems", Integer.toString(workItemId), "revisions", ApiVersion.WORK_ITEM_TRACKING, q, null);
@@ -458,7 +464,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      */
     @Override
     public WorkItemList getWorkItemRevisions(int workItemId, WorkItemExpand expand, int top, int skip) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$expand", expand.toString().toLowerCase());
             put("$top", top);
             put("$skip", skip);
@@ -497,7 +503,9 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      */
     @Override
     public WorkItem getWorkItemRevision(int workItemId, int revisionNumber, WorkItemExpand expand) throws AzDException {
-        var q = new HashMap<String, Object>(){{put("$expand", expand.toString().toLowerCase());}};
+        var q = new HashMap<String, Object>() {{
+            put("$expand", expand.toString().toLowerCase());
+        }};
 
         String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
                 AREA + "/workitems", Integer.toString(workItemId), "revisions/" + revisionNumber,
@@ -515,7 +523,9 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      */
     @Override
     public WorkItemQueryResult queryByWiql(String team, String query) throws AzDException {
-        var body = new HashMap<String, Object>(){{put("query", query);}};
+        var body = new HashMap<String, Object>() {{
+            put("query", query);
+        }};
 
         String r = send(RequestMethod.POST, CONNECTION, WIT, CONNECTION.getProject() + "/" + encodeSpace(team),
                 AREA, null, "wiql", ApiVersion.WIT_WIQL, null, body);
@@ -534,9 +544,11 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      */
     @Override
     public WorkItemQueryResult queryByWiql(String team, String query, int top, boolean timePrecision) throws AzDException {
-        var body = new HashMap<String, Object>(){{put("query", query);}};
+        var body = new HashMap<String, Object>() {{
+            put("query", query);
+        }};
 
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$top", top);
             put("timePrecision", timePrecision);
         }};
@@ -599,7 +611,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      */
     @Override
     public WorkItemDeleteReferences getDeletedWorkItemsFromRecycleBin(int[] ids) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("ids", intArrayToString(ids));
         }};
 
@@ -617,7 +629,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      */
     @Override
     public WorkItemDeleteReference restoreWorkItemFromRecycleBin(int id) throws AzDException {
-        var b = new HashMap<String, Object>(){{
+        var b = new HashMap<String, Object>() {{
             put("isDeleted", false);
         }};
 
@@ -634,11 +646,11 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      * @return The updated {@link WorkItem}.
      * @throws AzDException Handles errors from REST API and validates passed arguments.
      */
-	@Override
-	public WorkItem updateWorkItem(int workItemId, Map<String, Object> fieldsToUpdate)
-			throws AzDException {
-		return updateWorkItem(workItemId, fieldsToUpdate, WorkItemOperation.ADD);
-	}
+    @Override
+    public WorkItem updateWorkItem(int workItemId, Map<String, Object> fieldsToUpdate)
+            throws AzDException {
+        return updateWorkItem(workItemId, fieldsToUpdate, WorkItemOperation.ADD);
+    }
 
     /***
      * Update a single work item with the internal field names.
@@ -648,14 +660,14 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      * @return WorkItem {@link WorkItem}
      * @throws AzDException Handles errors from REST API and validates passed arguments.
      */
-	@Override
-	public WorkItem updateWorkItem(int workItemId, Map<String, Object> fieldsToUpdate, WorkItemOperation operation)
-			throws AzDException {
+    @Override
+    public WorkItem updateWorkItem(int workItemId, Map<String, Object> fieldsToUpdate, WorkItemOperation operation)
+            throws AzDException {
 
-		var req = new ArrayList<>();
+        var req = new ArrayList<>();
 
-		for (var key : fieldsToUpdate.keySet()) {
-			var i = new HashMap<String, Object>() {{
+        for (var key : fieldsToUpdate.keySet()) {
+            var i = new HashMap<String, Object>() {{
                 put("op", operation.name().toLowerCase());
                 put("path", "/fields/" + key);
                 put("from", null);
@@ -663,15 +675,15 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
                     put("value", fieldsToUpdate.get(key));
                 }
             }};
-			req.add(i);
-		}
+            req.add(i);
+        }
 
-		String r = send(RequestMethod.PATCH, CONNECTION, WIT, CONNECTION.getProject(), AREA + "/workitems",
-				Integer.toString(workItemId), null, ApiVersion.WORK_ITEM_TRACKING, null, null, req,
-				"application/json-patch+json; charset=utf-8");
+        String r = send(RequestMethod.PATCH, CONNECTION, WIT, CONNECTION.getProject(), AREA + "/workitems",
+                Integer.toString(workItemId), null, ApiVersion.WORK_ITEM_TRACKING, null, null, req,
+                "application/json-patch+json; charset=utf-8");
 
-		return MAPPER.mapJsonResponse(r, WorkItem.class);
-	}
+        return MAPPER.mapJsonResponse(r, WorkItem.class);
+    }
 
     /***
      * Update a single work item with the internal field names. The operation type that will be used is {@link WorkItemOperation#ADD}.
@@ -684,14 +696,14 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      * @return WorkItemDeleteReference {@link WorkItemDeleteReference}
      * @throws AzDException Handles errors from REST API and validates passed arguments.
      */
-	@Override
-	public WorkItem updateWorkItem(int workItemId, WorkItemExpand expand, boolean bypassRules,
-			boolean suppressNotifications, boolean validateOnly, Map<String, Object> fieldsToUpdate)
-			throws AzDException {
+    @Override
+    public WorkItem updateWorkItem(int workItemId, WorkItemExpand expand, boolean bypassRules,
+                                   boolean suppressNotifications, boolean validateOnly, Map<String, Object> fieldsToUpdate)
+            throws AzDException {
 
-		return updateWorkItem(workItemId, expand, bypassRules, suppressNotifications, validateOnly, fieldsToUpdate,
-				WorkItemOperation.ADD);
-	}
+        return updateWorkItem(workItemId, expand, bypassRules, suppressNotifications, validateOnly, fieldsToUpdate,
+                WorkItemOperation.ADD);
+    }
 
     /***
      * Update a single work item with the internal field names.
@@ -705,177 +717,180 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      * @return WorkItem {@link WorkItem}
      * @throws AzDException Handles errors from REST API and validates passed arguments.
      */
-	@Override
-	public WorkItem updateWorkItem(int workItemId, WorkItemExpand expand, boolean bypassRules,
-			boolean suppressNotifications, boolean validateOnly, Map<String, Object> fieldsToUpdate,
-			WorkItemOperation operation) throws AzDException {
+    @Override
+    public WorkItem updateWorkItem(int workItemId, WorkItemExpand expand, boolean bypassRules,
+                                   boolean suppressNotifications, boolean validateOnly, Map<String, Object> fieldsToUpdate,
+                                   WorkItemOperation operation) throws AzDException {
 
-		var req = new ArrayList<>();
+        var req = new ArrayList<>();
 
-		for (var key : fieldsToUpdate.keySet()) {
-			var i = new HashMap<String, Object>() {{
+        for (var key : fieldsToUpdate.keySet()) {
+            var i = new HashMap<String, Object>() {{
                 put("op", operation.name().toLowerCase());
                 put("path", "/fields/" + key);
                 put("from", null);
                 if (operation != WorkItemOperation.REMOVE) {
                     put("value", fieldsToUpdate.get(key));
                 }
-			}};
-			req.add(i);
-		}
+            }};
+            req.add(i);
+        }
 
-		var q = new HashMap<String, Object>() {{
+        var q = new HashMap<String, Object>() {{
             put("validateOnly", validateOnly);
             put("bypassRules", bypassRules);
             put("suppressNotifications", suppressNotifications);
             put("$expand", expand.toString().toLowerCase());
-		}};
+        }};
 
-		String r = send(RequestMethod.PATCH, CONNECTION, WIT, CONNECTION.getProject(), AREA + "/workitems",
-				Integer.toString(workItemId), null, ApiVersion.WORK_ITEM_TRACKING, q, null, req,
-				"application/json-patch+json; charset=utf-8");
+        String r = send(RequestMethod.PATCH, CONNECTION, WIT, CONNECTION.getProject(), AREA + "/workitems",
+                Integer.toString(workItemId), null, ApiVersion.WORK_ITEM_TRACKING, q, null, req,
+                "application/json-patch+json; charset=utf-8");
 
-		return MAPPER.mapJsonResponse(r, WorkItem.class);
-	}
+        return MAPPER.mapJsonResponse(r, WorkItem.class);
+    }
 
     /**
      * Create hyperlinks for the given work item.
-     * @param workItemId The work item's ID.
+     *
+     * @param workItemId    The work item's ID.
      * @param hyperlinksMap A {@link Map} that each entry represents a hyperlink. The key is the hyperlink URL and
-     * the value is its comment. If a comment is not desired then the value can either be null (if its supported by the map) or an empty string.
+     *                      the value is its comment. If a comment is not desired then the value can either be null (if its supported by the map) or an empty string.
      * @return The updated {@link WorkItem}.
      * @throws AzDException Handles errors from REST API and validates passed arguments.
      */
-	@Override
-	public WorkItem addHyperLinks(int workItemId, Map<String, String> hyperlinksMap)
-			throws AzDException {
+    @Override
+    public WorkItem addHyperLinks(int workItemId, Map<String, String> hyperlinksMap)
+            throws AzDException {
 
-		List<Object> reqBody = new ArrayList<>();
+        List<Object> reqBody = new ArrayList<>();
 
-		for (Entry<String, String> hyperlinkEntry : hyperlinksMap.entrySet()) {
-			String url = hyperlinkEntry.getKey();
-			String comment = hyperlinkEntry.getValue();
+        for (Entry<String, String> hyperlinkEntry : hyperlinksMap.entrySet()) {
+            String url = hyperlinkEntry.getKey();
+            String comment = hyperlinkEntry.getValue();
 
-			Map<String, Object> attributesMap = null;
-			if (comment != null && !comment.isEmpty()) {
-				attributesMap = new HashMap<>();
-				attributesMap.put("comment", comment);
-			}
+            Map<String, Object> attributesMap = null;
+            if (comment != null && !comment.isEmpty()) {
+                attributesMap = new HashMap<>();
+                attributesMap.put("comment", comment);
+            }
 
-			Map<String, Object> hyperlinkMap = new HashMap<>();
-			hyperlinkMap.put("rel", "Hyperlink");
-			hyperlinkMap.put("url", url);
-			if (attributesMap != null) {
-				hyperlinkMap.put("attributes", attributesMap);
-			}
+            Map<String, Object> hyperlinkMap = new HashMap<>();
+            hyperlinkMap.put("rel", "Hyperlink");
+            hyperlinkMap.put("url", url);
+            if (attributesMap != null) {
+                hyperlinkMap.put("attributes", attributesMap);
+            }
 
-			Map<String, Object> reqBodyMap = new HashMap<>();
-			reqBodyMap.put("op", WorkItemOperation.ADD.name().toLowerCase());
-			reqBodyMap.put("path", "/relations/-");
-			reqBodyMap.put("value", hyperlinkMap);
+            Map<String, Object> reqBodyMap = new HashMap<>();
+            reqBodyMap.put("op", WorkItemOperation.ADD.name().toLowerCase());
+            reqBodyMap.put("path", "/relations/-");
+            reqBodyMap.put("value", hyperlinkMap);
 
-			reqBody.add(reqBodyMap);
-		}
+            reqBody.add(reqBodyMap);
+        }
 
-		String reply = send(RequestMethod.PATCH, CONNECTION, WIT, CONNECTION.getProject(), AREA + "/workitems",
-				Integer.toString(workItemId), null, ApiVersion.WORK_ITEM_TRACKING, null, null, reqBody,
-				"application/json-patch+json; charset=utf-8");
+        String reply = send(RequestMethod.PATCH, CONNECTION, WIT, CONNECTION.getProject(), AREA + "/workitems",
+                Integer.toString(workItemId), null, ApiVersion.WORK_ITEM_TRACKING, null, null, reqBody,
+                "application/json-patch+json; charset=utf-8");
 
-		return MAPPER.mapJsonResponse(reply, WorkItem.class);
-	}
+        return MAPPER.mapJsonResponse(reply, WorkItem.class);
+    }
 
     /**
      * Remove hyperlinks for the given work item.
      * <p>
      * <b>Note:</b> All hyperlinks must exist in order to be removed. Even if one doesn't then an {@link AzDException} is thrown.
      * </p>
+     *
      * @param workItemId The work item's ID.
-     * @param urls A {@link List} with the URL of the hyperlinks.
+     * @param urls       A {@link List} with the URL of the hyperlinks.
      * @return The updated {@link WorkItem}.
      * @throws AzDException Handles errors from REST API and validates passed arguments.
      */
-	@Override
-	public WorkItem removeHyperLinks(int workItemId, List<String> urls) throws AzDException {
+    @Override
+    public WorkItem removeHyperLinks(int workItemId, List<String> urls) throws AzDException {
 
-		List<Object> reqBody = new ArrayList<>();
+        List<Object> reqBody = new ArrayList<>();
 
-		List<WorkItemRelations> relations = getWorkItem(workItemId, WorkItemExpand.RELATIONS).getRelations();
+        List<WorkItemRelations> relations = getWorkItem(workItemId, WorkItemExpand.RELATIONS).getRelations();
 
-		for (String url : urls) {
-			int hyperlinkRelationNumber = -1;
-			for (int i = 0; i < relations.size(); i++) {
-				WorkItemRelations workItemRelations = relations.get(i);
-				if (!workItemRelations.getRel().equals("Hyperlink")) {
-					continue;
-				}
-				if (workItemRelations.getUrl().equals(url)) {
-					hyperlinkRelationNumber = i;
-					break;
-				}
-			}
+        for (String url : urls) {
+            int hyperlinkRelationNumber = -1;
+            for (int i = 0; i < relations.size(); i++) {
+                WorkItemRelations workItemRelations = relations.get(i);
+                if (!workItemRelations.getRel().equals("Hyperlink")) {
+                    continue;
+                }
+                if (workItemRelations.getUrl().equals(url)) {
+                    hyperlinkRelationNumber = i;
+                    break;
+                }
+            }
 
-			if (hyperlinkRelationNumber == -1) {
-				throw new AzDException(MessageFormat.format(
-						"Unable to remove hyperlink ''{0}'' from work item with ID ''{1}'': The hyperlink doesn't exist.",
-						url, hyperlinkRelationNumber));
-			}
+            if (hyperlinkRelationNumber == -1) {
+                throw new AzDException(MessageFormat.format(
+                        "Unable to remove hyperlink ''{0}'' from work item with ID ''{1}'': The hyperlink doesn't exist.",
+                        url, hyperlinkRelationNumber));
+            }
 
-			Map<String, Object> reqBodyMap = new HashMap<>();
-			reqBodyMap.put("op", WorkItemOperation.REMOVE.name().toLowerCase());
-			reqBodyMap.put("path", "/relations/" + hyperlinkRelationNumber);
+            Map<String, Object> reqBodyMap = new HashMap<>();
+            reqBodyMap.put("op", WorkItemOperation.REMOVE.name().toLowerCase());
+            reqBodyMap.put("path", "/relations/" + hyperlinkRelationNumber);
 
-			reqBody.add(reqBodyMap);
-		}
+            reqBody.add(reqBodyMap);
+        }
 
-		String reply = send(RequestMethod.PATCH, CONNECTION, WIT, CONNECTION.getProject(), AREA + "/workitems",
-				Integer.toString(workItemId), null, ApiVersion.WORK_ITEM_TRACKING, null, null, reqBody,
-				"application/json-patch+json; charset=utf-8");
+        String reply = send(RequestMethod.PATCH, CONNECTION, WIT, CONNECTION.getProject(), AREA + "/workitems",
+                Integer.toString(workItemId), null, ApiVersion.WORK_ITEM_TRACKING, null, null, reqBody,
+                "application/json-patch+json; charset=utf-8");
 
-		return MAPPER.mapJsonResponse(reply, WorkItem.class);
-	}
+        return MAPPER.mapJsonResponse(reply, WorkItem.class);
+    }
 
-	/***
-	 * Returns the list of work item types
-	 * @return list of Work Item type {@link WorkItemTypes}
-	 * @throws AzDException	Handles errors from REST API and validates passed arguments
-	 */
-	@Override
-	public WorkItemTypes getWorkItemTypes() throws AzDException {
-		String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(), AREA, null, "workitemtypes",
-				ApiVersion.WORK_ITEM_TYPES, null, null);
+    /***
+     * Returns the list of work item types
+     * @return list of Work Item type {@link WorkItemTypes}
+     * @throws AzDException    Handles errors from REST API and validates passed arguments
+     */
+    @Override
+    public WorkItemTypes getWorkItemTypes() throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(), AREA, null, "workitemtypes",
+                ApiVersion.WORK_ITEM_TYPES, null, null);
 
-		return MAPPER.mapJsonResponse(r, WorkItemTypes.class);
-	}
+        return MAPPER.mapJsonResponse(r, WorkItemTypes.class);
+    }
 
-	/***
-	 * Returns a work item type definition.
-	 * @param workItemTypeName provide the work item type name. e.g., Bug or user story etc.
-	 * @return work item type {@link WorkItemType}
-	 * @throws AzDException	Handles errors from REST API and validates passed arguments
-	 */
-	@Override
-	public WorkItemType getWorkItemType(String workItemTypeName) throws AzDException {
-		String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(), AREA, null,
-				"workitemtypes/" + workItemTypeName, ApiVersion.WORK_ITEM_TYPES, null, null);
+    /***
+     * Returns a work item type definition.
+     * @param workItemTypeName provide the work item type name. e.g., Bug or user story etc.
+     * @return work item type {@link WorkItemType}
+     * @throws AzDException    Handles errors from REST API and validates passed arguments
+     */
+    @Override
+    public WorkItemType getWorkItemType(String workItemTypeName) throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(), AREA, null,
+                "workitemtypes/" + workItemTypeName, ApiVersion.WORK_ITEM_TYPES, null, null);
 
-		return MAPPER.mapJsonResponse(r, WorkItemType.class);
-	}
+        return MAPPER.mapJsonResponse(r, WorkItemType.class);
+    }
 
     /**
      * Uploads an attachment. The attachment should not exceed beyond 130MB.
-     * @param fileName The name of the file.
-     * @param uploadType Attachment upload type: Simple or Chunked. Choose AttachmentUploadType.SIMPLE for this method.
+     *
+     * @param fileName     The name of the file.
+     * @param uploadType   Attachment upload type: Simple or Chunked. Choose AttachmentUploadType.SIMPLE for this method.
      * @param teamAreaPath Target project Area Path.
-     * @param contents Contents of the attachment in string.
+     * @param contents     Contents of the attachment in string.
      * @return AttachmentReference; Url and Id of the attachment. {@link AttachmentReference}
      * @throws AzDException Handles errors from REST API and validates passed arguments.
      */
     @Override
     public AttachmentReference createAttachment(String fileName, AttachmentUploadType uploadType, String teamAreaPath, String contents) throws AzDException {
-	    var q = new HashMap<String, Object>(){{
-	        put("fileName", fileName);
-	        put("uploadType", uploadType.toString().toLowerCase());
-	        put("areaPath", teamAreaPath);
+        var q = new HashMap<String, Object>() {{
+            put("fileName", fileName);
+            put("uploadType", uploadType.toString().toLowerCase());
+            put("areaPath", teamAreaPath);
 
         }};
 
@@ -887,14 +902,17 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
 
     /**
      * Downloads an attachment.
-     * @param id Attachment ID.
+     *
+     * @param id       Attachment ID.
      * @param fileName Name of the file.
      * @return The contents of the attachment.
      * @throws AzDException Handles errors from REST API and validates passed arguments.
      */
     @Override
     public String getAttachment(String id, String fileName) throws AzDException {
-        var q = new HashMap<String, Object>(){{ put("fileName", fileName); }};
+        var q = new HashMap<String, Object>() {{
+            put("fileName", fileName);
+        }};
 
         String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(), AREA + "/attachments", id,
                 null, ApiVersion.WORK_ITEM_ATTACHMENT, q, null);
@@ -905,13 +923,14 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
     /**
      * Add an attachment to a work item. Pass the url of the attachment and comments as a Map to add the attachment to work item. Note
      * that the attachment should already be created using createAttachment method.
-     * @param workItemId Id of the work item.
+     *
+     * @param workItemId     Id of the work item.
      * @param fieldsToUpdate Map of url and comments.
-     * {@code}
-     * E.g., var attachments = new HashMap&#60;String, Object&#62;(){{
-     *      put("https://url/of/attachment", "This is a comment");
-     * }};
-     * {@code}
+     *                       {@code}
+     *                       E.g., var attachments = new HashMap&#60;String, Object&#62;(){{
+     *                       put("https://url/of/attachment", "This is a comment");
+     *                       }};
+     *                       {@code}
      * @return The work item object. WorkItem {@link WorkItem}
      * @throws AzDException Handles errors from REST API and validates passed arguments.
      */
@@ -953,22 +972,23 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
 
     /**
      * Removes the attachment from a work item. Pass the list of attachment url to be removed.
-     * @param workItemId ID of the work item.
+     *
+     * @param workItemId    ID of the work item.
      * @param attachmentUrl List of attachment url.
      * @return The work item object. WorkItem {@link WorkItem}
      * @throws AzDException Handles errors from REST API and validates passed arguments.
      */
     @Override
     public WorkItem removeWorkItemAttachment(int workItemId, List<String> attachmentUrl) throws AzDException {
-	    if (attachmentUrl.size() <= 0) {
-	        throw new AzDException("The attachment url list cannot be null. Please validate the argument before passing");
+        if (attachmentUrl.size() <= 0) {
+            throw new AzDException("The attachment url list cannot be null. Please validate the argument before passing");
         }
 
         List<Object> reqBody = new ArrayList<>();
 
         var relations = getWorkItem(workItemId, WorkItemExpand.RELATIONS).getRelations();
 
-        for (String url: attachmentUrl) {
+        for (String url : attachmentUrl) {
             int attachmentRelationNumber = -1;
 
             for (int i = 0; i < relations.size(); i++) {
@@ -984,12 +1004,11 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
             }
 
             if (attachmentRelationNumber == -1) {
-                throw new AzDException(ApiExceptionTypes.InvalidArgumentException.name() ,MessageFormat.format(
+                throw new AzDException(ApiExceptionTypes.InvalidArgumentException.name(), MessageFormat.format(
                         "Unable to remove the attachment ''{0}'' from work item with ID ''{1}'': The attachment doesn't exist.",
                         url, workItemId));
             }
         }
-
 
 
         String res = send(RequestMethod.PATCH, CONNECTION, WIT, CONNECTION.getProject(), AREA + "/workitems",
@@ -1000,12 +1019,12 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
     }
 
     /***
-	 * Helper method to convert integer array to string.
-	 * @param i integer array
-	 * @return {@link String}
-	 */
-	private String intArrayToString(int[] i) {
-		var r = Arrays.stream(i).mapToObj(String::valueOf).toArray(String[]::new);
-		return String.join(",", r);
-	}
+     * Helper method to convert integer array to string.
+     * @param i integer array
+     * @return {@link String}
+     */
+    private String intArrayToString(int[] i) {
+        var r = Arrays.stream(i).mapToObj(String::valueOf).toArray(String[]::new);
+        return String.join(",", r);
+    }
 }

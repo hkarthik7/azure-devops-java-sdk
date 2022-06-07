@@ -27,8 +27,8 @@ public class JsonPatchOperation {
      * be used to specify the position in the array (e.g. /biscuits/0/name). The "-"
      * character can be used instead of an index to insert at the end of the array
      * (e.g. /biscuits/-).
-     * 
-     * 
+     *
+     *
      */
     @JsonProperty("path")
     private String path;
