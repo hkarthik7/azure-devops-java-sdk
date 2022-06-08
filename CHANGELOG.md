@@ -29,6 +29,9 @@
 - Merged PR: [Feature/upack #24](https://github.com/hkarthik7/azure-devops-java-sdk/pull/24)
 - Merged PR: [Added support for Attachments in WorkItemTrackingApi. #25](https://github.com/hkarthik7/azure-devops-java-sdk/pull/25)
 - Merged PR: [GraphAPI enhancements. #26](https://github.com/hkarthik7/azure-devops-java-sdk/pull/26)
+- Fix:
+  - Feed type to fix json parse error on create
+  - feed update key changed from name to id (req'd for PATCH call)
 
 ## 3.0.3
 

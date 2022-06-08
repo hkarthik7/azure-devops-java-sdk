@@ -58,7 +58,8 @@ public class Main {
             feedManagement.getFeeds().getFeed().stream().forEach(System.out::println);
 
             // update the existing feed;
-            feedManagement.updateFeed("myFeed", true, "My new feed", true, true);
+            var myFeed_id = feedManagement.getFeed("myFeed").getId();
+            feedManagement.updateFeed(myFeed_id, "myFeed", true, "My new feed", true, true);
         } 
         catch (AzDException e1) {
             e1.printStackTrace();

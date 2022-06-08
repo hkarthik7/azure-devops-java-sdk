@@ -41,7 +41,7 @@ public interface FeedManagementDetails {
             String identityDescriptor, boolean isInheritedRole, String role) throws AzDException;
 
     Feed updateFeed(
-            String feedName, boolean badgesEnabled, String description,
+            String id, String feedName, boolean badgesEnabled, String description,
             boolean hideDeletedPackageVersions, boolean upstreamEnabled) throws AzDException;
 
     FeedView updateFeedView(String feedName, String feedViewName, FeedViewType feedViewType, FeedVisibility visibility) throws AzDException;

@@ -381,7 +381,7 @@ public class FeedManagementApi extends AzDAsyncApi<FeedManagementApi> implements
      */
     @Override
     public Feed updateFeed(
-            String feedName, boolean badgesEnabled, String description,
+            String id, String feedName, boolean badgesEnabled, String description,
             boolean hideDeletedPackageVersions, boolean upstreamEnabled) throws AzDException {
 
         HashMap<String, Object> h = new HashMap<>() {{
@@ -392,11 +392,9 @@ public class FeedManagementApi extends AzDAsyncApi<FeedManagementApi> implements
             put("upstreamEnabled", upstreamEnabled);
         }};
 
-        List<Object> o = List.of(h);
-
         String r = send(RequestMethod.PATCH, CONNECTION, PACKAGING,
                 CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
-                AREA + "/Feeds", feedName, null, ApiVersion.FEEDS, null, null, o, null);
+                AREA + "/Feeds", id, null, ApiVersion.FEEDS, null, h);
 
         return MAPPER.mapJsonResponse(r, Feed.class);
     }

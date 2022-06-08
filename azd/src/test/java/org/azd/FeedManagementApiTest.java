@@ -1,16 +1,20 @@
 package org.azd;
 
+import org.azd.core.types.Project;
 import org.azd.enums.FeedViewType;
 import org.azd.enums.FeedVisibility;
 import org.azd.exceptions.AzDException;
+import org.azd.feedmanagement.types.Feed;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.FeedManagementDetails;
 import org.azd.utils.AzDClientApi;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.util.UUID;
 
 public class FeedManagementApiTest {
 
@@ -97,11 +101,30 @@ public class FeedManagementApiTest {
 
     @Test(expected = AzDException.class)
     public void shouldUpdateAFeed() throws AzDException {
-        f.updateFeed("TestFeed", true, null, false, true);
+        var feedId = "93aaa3a7-a876-4b01-be80-e7a14b595ec2";
+        // feedId = f.getFeed("TestFeed").getId();
+        f.updateFeed(feedId,"TestFeed", true, null, false, true);
     }
 
     @Test
     public void shouldUpdateAFeedView() throws AzDException {
         f.updateFeedView("TestFeed", "myView", FeedViewType.RELEASE, FeedVisibility.ORGANIZATION);
+    }
+
+    @Test
+    public void shouldCreateAndUpdateAFeed() throws AzDException {
+        String feedName = "MyTestFeed-" + UUID.randomUUID();
+        try {
+            f.createFeed(feedName, "this is a new feed", true, true);
+            Thread.sleep(2000l); // to allow for feed creation
+        } catch (AzDException e) {
+            // ignore feed already exists
+        } catch (InterruptedException e) {
+            // ignore wait interrupt
+        }
+        Feed feed = f.getFeed(feedName);
+        f.updateFeed(feed.getId(), feedName, true, "my description", true, false);
+
+        f.deleteFeed(feed.getId());
     }
 }
