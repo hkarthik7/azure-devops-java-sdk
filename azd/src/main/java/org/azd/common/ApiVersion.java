@@ -45,4 +45,5 @@ public abstract class ApiVersion {
     public static final String WORK_ITEM_TYPES = "7.1-preview.2";
     public static final String WORK_ITEM_ATTACHMENT = "7.1-preview.3";
     public static final String MAVEN = "7.1-preview.1";
+    public static final String UPACK = "7.1-preview.1";
 }

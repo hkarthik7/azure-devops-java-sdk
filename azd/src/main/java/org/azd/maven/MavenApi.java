@@ -2,8 +2,8 @@ package org.azd.maven;
 
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
-import org.azd.enums.MavenOperation;
-import org.azd.enums.MavenPackagePromote;
+import org.azd.enums.PackageOperation;
+import org.azd.enums.PackagePromote;
 import org.azd.enums.PackagesBatchOperation;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
@@ -66,17 +66,17 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
     /***
      * Get information about a package version.
      *
-     * @param feedId     Name or ID of the feed. Example: "mavenfeed".
-     * @param groupId    Group ID of the package. Example: "com.example".
-     * @param artifactId Artifact ID of the package. Example: "app".
-     * @param version    Version of the package. Example: "1.0.0".
+     * @param feedId      Name or ID of the feed. Example: "mavenfeed".
+     * @param groupId     Group ID of the package. Example: "com.example".
+     * @param artifactId  Artifact ID of the package. Example: "app".
+     * @param version     Version of the package. Example: "1.0.0".
+     * @param showDeleted True to show information for deleted versions
      * @return Package {@link Package}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public Package getPackageVersion(String feedId, String groupId, String artifactId, String version,
-                                     boolean showDeleted)
-            throws AzDException {
+            boolean showDeleted) throws AzDException {
         HashMap<String, Object> q = new HashMap<>() {
             {
                 put("showDeleted", showDeleted);
@@ -103,8 +103,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
      */
     @Override
     public MavenPackageVersionDeletionState getPackageVersionFromRecycleBin(String feedId, String groupId,
-                                                                            String artifactId, String version)
-            throws AzDException {
+            String artifactId, String version) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, MAVEN, CONNECTION.getProject(),
                 AREA + "/feeds", feedId,
                 "maven/RecycleBin/groups/" + groupId + "/artifacts/" + artifactId + "/versions/" + version,
@@ -214,11 +213,12 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
      * @param groupId    Group ID of the package. Example: "com.example".
      * @param artifactId Artifact ID of the package. Example: "app".
      * @param version    Version of the package. Example: "1.0.0".
-     * @param promote    State of the package. Example: "prelease". {@link MavenPackagePromote}
+     * @param promote    State of the package. Example: "prelease".
+     *                   {@link PackagePromote}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void updatePackageVersion(String feedId, String groupId, String artifactId, String version, MavenPackagePromote promote)
+    public void updatePackageVersion(String feedId, String groupId, String artifactId, String version, PackagePromote promote)
             throws AzDException {
         updatePackageVersion(feedId, groupId, artifactId, version, promote.toString().toLowerCase());
     }
@@ -230,7 +230,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
      * @param groupId    Group ID of the package. Example: "com.example".
      * @param artifactId Artifact ID of the package. Example: "app".
      * @param version    Version of the package. Example: "1.0.0".
-     * @param promote    State of the package. Example: "prelease". 
+     * @param promote    State of the package. Example: "prelease".
      * @throws AzDException Default Api Exception handler.
      */
     @Override
@@ -239,9 +239,9 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
 
         var req = new HashMap<String, Object>() {
             {
-                put("op", MavenOperation.ADD.toString());
+                put("op", PackageOperation.ADD.toString());
                 put("path", "/views/-");
-                put("value", promote.toString()); //"prmote package type"
+                put("value", promote.toString()); // "prmote package type"
             }
         };
         var body = new HashMap<String, Object>() {
@@ -269,7 +269,9 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
      *
      * @param feedId    Name or ID of the feed. Example: "mavenfeed".
      * @param viewId    Name of ID the view, packages need to be promoted to.
-     * @param operation Type of operation that needs to be performed on packages. {@link PackagesBatchOperation}.
+     * @param operation Type of operation that needs to be performed on packages.
+     *                  supports only PROMOTE or DELETE.
+     *                  {@link PackagesBatchOperation}.
      * @param packages  Identifies a particular Maven package versions
      * @throws AzDException Default Api Exception handler.
      */
@@ -279,7 +281,9 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
             throws AzDException {
         var req = new HashMap<String, Object>();
         try {
-            req.put("data", Map.of("viewId", viewId));
+            if (operation == PackagesBatchOperation.PROMOTE) {
+                req.put("data", Map.of("viewId", viewId));
+            }
             req.put("operation", operation.toString().toLowerCase());
 
             List l = new ArrayList();
@@ -408,7 +412,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
             req.put("data", null);
             req.put("operation", operation.toString().toLowerCase());
 
-            List l = new ArrayList();
+            List l = new ArrayList<Map>();
             for (var pkg : packages) {
                 l.add(Map.of("group", pkg.get("group"), "artifact", pkg.get("artifact"), "version",
                         pkg.get("version")));

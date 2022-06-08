@@ -1,6 +1,6 @@
 package org.azd.enums;
 
-public enum MavenPackagePromote {
+public enum PackagePromote {
     RELEASE,
     PRERELEASE
 }

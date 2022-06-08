@@ -1,4 +1,4 @@
-# Feed Management
+# Maven
 
 - [REST API](https://docs.microsoft.com/en-us/rest/api/azure/devops/artifactspackagetypes/maven?view=azure-devops-rest-7.1)
 - API Version: 7.1

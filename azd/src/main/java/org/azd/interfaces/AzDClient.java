@@ -16,6 +16,7 @@ import org.azd.policy.PolicyApi;
 import org.azd.release.ReleaseApi;
 import org.azd.serviceendpoint.ServiceEndpointApi;
 import org.azd.servicehooks.ServiceHooksApi;
+import org.azd.upack.UPackApi;
 import org.azd.wiki.WikiApi;
 import org.azd.work.WorkApi;
 import org.azd.workitemtracking.WorkItemTrackingApi;
@@ -58,4 +59,5 @@ public interface AzDClient {
     PolicyApi getPolicyApi();
 
     PipelinesApi getPipelinesApi();
+    UPackApi getUPackApi();
 }
