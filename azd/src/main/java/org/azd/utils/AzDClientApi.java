@@ -19,6 +19,7 @@ import org.azd.policy.PolicyApi;
 import org.azd.release.ReleaseApi;
 import org.azd.serviceendpoint.ServiceEndpointApi;
 import org.azd.servicehooks.ServiceHooksApi;
+import org.azd.upack.UPackApi;
 import org.azd.wiki.WikiApi;
 import org.azd.work.WorkApi;
 import org.azd.workitemtracking.WorkItemTrackingApi;
@@ -256,4 +257,11 @@ public class AzDClientApi implements AzDClient {
     public PipelinesApi getPipelinesApi() {
         return new PipelinesApi(CONNECTION);
     }
+
+    /***
+     * Returns an instance of Universal Package Api
+     * @return instance of UPackApi {@link UPackApi}
+     */
+    @Override
+    public UPackApi getUPackApi() { return new UPackApi(CONNECTION); }
 }

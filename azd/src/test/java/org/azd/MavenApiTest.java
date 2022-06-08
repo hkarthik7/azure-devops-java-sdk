@@ -1,5 +1,6 @@
 package org.azd;
 
+import org.azd.enums.PackagePromote;
 import org.azd.enums.PackagesBatchOperation;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
@@ -117,6 +118,7 @@ public class MavenApiTest {
     public void shouldUpdatePackageVersion() throws AzDException {
         System.out.println("Maven API TEST : updatePackageVersion");
         mvn.updatePackageVersion(FEED, TEST1_GROUP, TEST1_ARTIFACT, TEST1_VERSION, "Release");
+        mvn.updatePackageVersion(FEED, TEST1_GROUP, TEST1_ARTIFACT, TEST1_VERSION, PackagePromote.PRERELEASE);
         System.out.println("Maven API TEST : updatePackageVersion - OK");
     }
 

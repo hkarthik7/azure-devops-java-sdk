@@ -1,6 +1,6 @@
 package org.azd.interfaces;
 
-import org.azd.enums.MavenPackagePromote;
+import org.azd.enums.PackagePromote;
 import org.azd.enums.PackagesBatchOperation;
 import org.azd.exceptions.AzDException;
 import org.azd.maven.types.MavenPackageVersionDeletionState;
@@ -28,15 +28,13 @@ public interface MavenDetails {
     // throws AzDException;
 
     void updatePackageVersion(String feedId, String groupId, String artifactId, String version,
-                              MavenPackagePromote promote) throws AzDException;
+                              PackagePromote promote) throws AzDException;
 
     void updatePackageVersion(String feedId, String groupId, String artifactId, String version,
                               String promote) throws AzDException;
 
     void updatePackageVersions(String feedId, String viewId, PackagesBatchOperation operation, List<Map<String, Object>> packages)
             throws AzDException;
-
-    ;
 
     void updateRecycleBinPackages(String feedId, PackagesBatchOperation operation, List<Map<String, Object>> packages)
             throws AzDException;
