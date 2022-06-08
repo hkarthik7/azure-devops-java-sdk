@@ -223,7 +223,7 @@ public class GraphApi extends AzDAsyncApi<GraphApi> implements GraphDetails {
      * a more general case that allows nested groups
      * @param subjectDescriptor The descriptor of the subject to add to the container
      * @param groupDescriptor The descriptor of the container to which to add the subject
-     * @return @GraphMembership {@link GraphMembership}
+     * @return GraphMembership {@link GraphMembership}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
