@@ -1,6 +1,9 @@
 package org.azd;
 
 import org.azd.exceptions.AzDException;
+import org.azd.graph.types.GraphGroup;
+import org.azd.graph.types.GraphMembership;
+import org.azd.graph.types.GraphMemberships;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.GraphDetails;
@@ -9,8 +12,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
+import static org.junit.Assume.assumeFalse;
+import static org.junit.Assume.assumeTrue;
 
 public class GraphApiTest {
     private static final JsonMapper MAPPER = new JsonMapper();
@@ -74,4 +80,85 @@ public class GraphApiTest {
         var user = g.getUser("msa.YWE3YWY5MzQtYzcxMi03ODliLWJkMDEtZmRhMWQ4NjEzN2Rh");
         g.deleteUser(user.getDescriptor());
     }
+
+    @Test
+    public void shouldGetMembersInGroup() throws AzDException {
+        var group = g.getGroups().getGraphGroups().stream().filter(x -> x.getDisplayName().equals("Contributors")).findFirst().get();
+        GraphMemberships groupMembers = g.getGroupMembersOf(group.getDescriptor());
+        assertFalse(groupMembers.getGraphMemberships().isEmpty());
+    }
+
+    @Test
+    public void shouldGetGroupsForUser() throws AzDException {
+        var user = g.getUsers().getUsers().stream().findAny().get();
+        GraphMemberships memberGroups = g.getMemberOfGroups(user.getDescriptor());
+        assertFalse(memberGroups.getGraphMemberships().isEmpty());
+    }
+
+    @Test
+    public void shouldGetBiDirectionalMemberRelationship() throws AzDException {
+        var group = g.getGroups().getGraphGroups().stream().filter(x -> x.getDisplayName().equals("Contributors")).findFirst().get();
+        GraphMemberships groupMembers = g.getGroupMembersOf(group.getDescriptor());
+        var userMembership = groupMembers.getGraphMemberships().stream().filter(g -> g.get_links().getMember().getHref().toLowerCase().contains("/graph/users/")).findAny();
+        assumeTrue(userMembership.isPresent());
+        var user = g.getUser(userMembership.get().getMemberDescriptor());
+        GraphMemberships memberGroups = g.getMemberOfGroups(user.getDescriptor());
+        assertTrue(memberGroups.getGraphMemberships().stream().anyMatch(g -> g.getContainerDescriptor().equals(group.getDescriptor())));
+    }
+
+    @Test
+    public void shouldAddSubjectToGroup() throws AzDException {
+        var group = g.getGroups().getGraphGroups().stream().filter(x -> x.getDisplayName().equals("Contributors")).findFirst().get();
+        var groupMembers = g.getGroupMembersOf(group.getDescriptor()).getGraphMemberships().stream().map(GraphMembership::getMemberDescriptor).collect(Collectors.toList());
+        var allUsers = g.getUsers();
+        var userNotInGroup = allUsers.getUsers().stream().filter(u -> !groupMembers.contains(u.getDescriptor())).findAny();
+        assumeTrue(userNotInGroup.isPresent());
+        GraphMembership graphMembership = g.addMembership(userNotInGroup.get().getDescriptor(), group.getDescriptor());
+        assertTrue(g.getGroupMembersOf(group.getDescriptor()).getGraphMemberships().stream().anyMatch(x -> x.getMemberDescriptor().equals(userNotInGroup.get().getDescriptor())));
+        System.out.println("Added " + userNotInGroup.get().getDescriptor() + " to " + group.getDescriptor());
+    }
+
+    @Test
+    public void removeSubjectFromGroup() throws AzDException {
+        var subjDesc = "svc.ZDNhMjJkYTUtNDljMC00OTQ5LTk4Y2MtZDM4ZmQzNzBkZmYzOkJ1aWxkOjgwYjQ4NjI2LTBiMjAtNGMyZi04NGE3LWQ2ZGEzMWVlMzQ2OQ";
+        var group = g.getGroups().getGraphGroups().stream().filter(x -> x.getDisplayName().equals("Contributors")).findFirst().get();
+        var groupDesc = "vssgp.Uy0xLTktMTU1MTM3NDI0NS0zOTI3OTgxMTY4LTIzMDM3Mzk1Ny0yNzIwNTg1NjYxLTMyMTM5NDc3NzAtMS0yMTM0NTMyMjg3LTMwNTc4NTM3NjctMjU1MTY0NTQyMi02NzAyNTM2ODQ";
+        g.removeMembership(subjDesc, group.getDescriptor());
+    }
+
+    @Test
+    public void shouldNotAddGroupToSelf() throws AzDException {
+        var group = g.getGroups().getGraphGroups().stream().filter(x -> x.getDisplayName().endsWith("Project Valid Users")).findFirst().get();
+        assertNotNull(group);
+        g.addMembership(group.getDescriptor(), group.getDescriptor());
+        var groupMembers = g.getGroupMembersOf(group.getDescriptor());
+        assertFalse(groupMembers.getGraphMemberships().stream().anyMatch(x -> x.getMemberDescriptor().equals(group.getDescriptor())));
+    }
+
+    @Test
+    public void shouldAllowGroupInGroup() throws AzDException {
+        var group = g.getGroups().getGraphGroups().stream().filter(x -> x.getDisplayName().endsWith("Project Collection Administrators")).findFirst().get();
+        var subject = g.getGroups().getGraphGroups().stream().filter(x -> x.getDisplayName().endsWith("Project-Scoped Users")).findFirst().get();
+        var groupMembers = g.getGroupMembersOf(group.getDescriptor());
+        assumeFalse(groupMembers.getGraphMemberships().stream().anyMatch(x -> x.getMemberDescriptor().equals(subject.getDescriptor())));
+        g.addMembership(subject.getDescriptor(), group.getDescriptor());
+        groupMembers = g.getGroupMembersOf(group.getDescriptor());
+        assertTrue(groupMembers.getGraphMemberships().stream().anyMatch(x -> x.getMemberDescriptor().equals(subject.getDescriptor())));
+        g.removeMembership(subject.getDescriptor(), group.getDescriptor());
+    }
+
+    @Test
+    public void shouldCreateGroup() throws AzDException {
+        var groupName = "my-new-org-group";
+        GraphMembership group = g.createGroup(groupName, "this is a local org group");
+        System.out.println(group.toString());
+    }
+
+    @Test
+    public void shouldRemoveGroup() throws AzDException {
+        var groupName = "my-new-org-group";
+        GraphGroup graphGroup = g.getGroups().getGraphGroups().stream().filter(x -> x.getDisplayName().endsWith(groupName)).findAny().get();
+        g.deleteGroup(graphGroup.getDescriptor());
+    }
+
 }
