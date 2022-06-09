@@ -27,17 +27,29 @@ public class MembershipReferenceLinks {
     @JsonProperty("container")
     private Reference container;
 
-    public Reference getSelf() {return self;}
+    public Reference getSelf() {
+        return self;
+    }
 
-    public void setSelf(Reference self) {this.self = self;}
+    public void setSelf(Reference self) {
+        this.self = self;
+    }
 
-    public Reference getMember() {return member;}
+    public Reference getMember() {
+        return member;
+    }
 
-    public void setMember(Reference member) {this.member = member;}
+    public void setMember(Reference member) {
+        this.member = member;
+    }
 
-    public Reference getContainer() {return container;}
+    public Reference getContainer() {
+        return container;
+    }
 
-    public void setContainer(Reference container) {this.container = container;}
+    public void setContainer(Reference container) {
+        this.container = container;
+    }
 
     @Override
     public String toString() {

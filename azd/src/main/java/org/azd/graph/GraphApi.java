@@ -191,7 +191,7 @@ public class GraphApi extends AzDAsyncApi<GraphApi> implements GraphDetails {
      */
     @Override
     public GraphMemberships getGroupMembersOf(String groupDescriptor) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("direction", "down");
         }};
         String r = send(RequestMethod.GET, CONNECTION, GRAPH, null,
@@ -208,7 +208,7 @@ public class GraphApi extends AzDAsyncApi<GraphApi> implements GraphDetails {
      */
     @Override
     public GraphMemberships getMemberOfGroups(String subjectDescriptor) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("direction", "up");
         }};
         String r = send(RequestMethod.GET, CONNECTION, GRAPH, null,
@@ -270,10 +270,10 @@ public class GraphApi extends AzDAsyncApi<GraphApi> implements GraphDetails {
      */
     @Override
     public GraphMembership createGroup(String displayName, String description, String projectDescriptor) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             if (projectDescriptor != null) put("scopeDescriptor", projectDescriptor);
         }};
-        var b = new HashMap<String, Object>(){{
+        var b = new HashMap<String, Object>() {{
             put("displayName", displayName);
             put("description", description);
         }};
@@ -294,8 +294,8 @@ public class GraphApi extends AzDAsyncApi<GraphApi> implements GraphDetails {
     public Void deleteGroup(String groupDescriptor) throws AzDException {
         String r = send(RequestMethod.DELETE, CONNECTION, GRAPH, null,
                 AREA, null, "groups/" + groupDescriptor, ApiVersion.GRAPH, null, null);
-         if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
-         return null;
+        if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
+        return null;
     }
 
     /***
@@ -326,10 +326,10 @@ public class GraphApi extends AzDAsyncApi<GraphApi> implements GraphDetails {
      */
     @Override
     public SubjectLookupResponse subjectLookup(String... descriptors) throws AzDException {
-        var b = new HashMap<String, Object>(){{
-            put("lookupKeys", new ArrayList<>(){{
+        var b = new HashMap<String, Object>() {{
+            put("lookupKeys", new ArrayList<>() {{
                 for (String descriptor : descriptors) {
-                    add(new HashMap<String, String>(){{
+                    add(new HashMap<String, String>() {{
                         put("descriptor", descriptor);
                     }});
                 }

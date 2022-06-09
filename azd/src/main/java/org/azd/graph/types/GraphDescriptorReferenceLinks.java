@@ -38,9 +38,13 @@ public class GraphDescriptorReferenceLinks {
         this.storageKey = storageKey;
     }
 
-    public Reference getSubject() {return subject;}
+    public Reference getSubject() {
+        return subject;
+    }
 
-    public void setSubject(Reference subject) {this.subject = subject;}
+    public void setSubject(Reference subject) {
+        this.subject = subject;
+    }
 
     @Override
     public String toString() {

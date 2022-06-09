@@ -29,9 +29,13 @@ public class GraphDescriptor {
         this._links = _links;
     }
 
-    public String getValue() {return value;}
+    public String getValue() {
+        return value;
+    }
 
-    public void setValue(String value) {this.value = value;}
+    public void setValue(String value) {
+        this.value = value;
+    }
 
     @Override
     public String toString() {

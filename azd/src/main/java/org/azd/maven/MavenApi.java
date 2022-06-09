@@ -76,7 +76,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
      */
     @Override
     public Package getPackageVersion(String feedId, String groupId, String artifactId, String version,
-            boolean showDeleted) throws AzDException {
+                                     boolean showDeleted) throws AzDException {
         HashMap<String, Object> q = new HashMap<>() {
             {
                 put("showDeleted", showDeleted);
@@ -103,7 +103,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
      */
     @Override
     public MavenPackageVersionDeletionState getPackageVersionFromRecycleBin(String feedId, String groupId,
-            String artifactId, String version) throws AzDException {
+                                                                            String artifactId, String version) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, MAVEN, CONNECTION.getProject(),
                 AREA + "/feeds", feedId,
                 "maven/RecycleBin/groups/" + groupId + "/artifacts/" + artifactId + "/versions/" + version,

@@ -263,5 +263,7 @@ public class AzDClientApi implements AzDClient {
      * @return instance of UPackApi {@link UPackApi}
      */
     @Override
-    public UPackApi getUPackApi() { return new UPackApi(CONNECTION); }
+    public UPackApi getUPackApi() {
+        return new UPackApi(CONNECTION);
+    }
 }

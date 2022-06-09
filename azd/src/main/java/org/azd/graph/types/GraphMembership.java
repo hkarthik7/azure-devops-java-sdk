@@ -3,8 +3,6 @@ package org.azd.graph.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.Objects;
-
 /***
  * Graph membership entity.
  * This captures the relationship between a container (group) and member (user)
@@ -34,17 +32,29 @@ public class GraphMembership {
     @JsonProperty("memberDescriptor")
     private String memberDescriptor;
 
-    public MembershipReferenceLinks get_links() {return _links;}
+    public MembershipReferenceLinks get_links() {
+        return _links;
+    }
 
-    public void set_links(MembershipReferenceLinks _links) {this._links = _links;}
+    public void set_links(MembershipReferenceLinks _links) {
+        this._links = _links;
+    }
 
-    public String getContainerDescriptor() {return containerDescriptor;}
+    public String getContainerDescriptor() {
+        return containerDescriptor;
+    }
 
-    public void setContainerDescriptor(String containerDescriptor) {this.containerDescriptor = containerDescriptor;}
+    public void setContainerDescriptor(String containerDescriptor) {
+        this.containerDescriptor = containerDescriptor;
+    }
 
-    public String getMemberDescriptor() {return memberDescriptor;}
+    public String getMemberDescriptor() {
+        return memberDescriptor;
+    }
 
-    public void setMemberDescriptor(String memberDescriptor) {this.memberDescriptor = memberDescriptor;}
+    public void setMemberDescriptor(String memberDescriptor) {
+        this.memberDescriptor = memberDescriptor;
+    }
 
     @Override
     public String toString() {

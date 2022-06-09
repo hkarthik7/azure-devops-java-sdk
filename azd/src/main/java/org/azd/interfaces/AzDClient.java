@@ -59,5 +59,6 @@ public interface AzDClient {
     PolicyApi getPolicyApi();
 
     PipelinesApi getPipelinesApi();
+
     UPackApi getUPackApi();
 }

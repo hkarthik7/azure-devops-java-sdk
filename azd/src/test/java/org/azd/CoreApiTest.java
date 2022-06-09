@@ -43,7 +43,11 @@ public class CoreApiTest {
 
     @Test
     public void shouldCreateProjectWithAdditionalParameters() throws AzDException {
-        c.createProject("my-New-awesome-project", "My new awesome project", "Git", "b8a3a935-7e91-48b8-a94c-606d37c3e9f2");
+        try {
+            c.createProject("my-New-awesome-project", "My new awesome project", "Git", "b8a3a935-7e91-48b8-a94c-606d37c3e9f2");
+        } catch (AzDException e) {
+            // Ignore project already exists error.
+        }
     }
 
     @Test

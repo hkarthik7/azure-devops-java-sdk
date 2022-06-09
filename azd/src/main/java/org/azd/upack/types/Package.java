@@ -31,13 +31,13 @@ public class Package {
      */
     @JsonProperty("name")
     private String name;
-    
+
     /***
      * If and when the package was permanently deleted.
      */
     @JsonProperty("permanentlyDeletedDate")
     private String permanentlyDeletedDate;
-    
+
     /***
      * The version of the package.
      */

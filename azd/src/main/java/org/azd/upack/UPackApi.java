@@ -1,12 +1,5 @@
 package org.azd.upack;
 
-import static org.azd.utils.Client.send;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
 import org.azd.enums.PackageOperation;
@@ -19,6 +12,13 @@ import org.azd.interfaces.UpackDetails;
 import org.azd.upack.types.Package;
 import org.azd.upack.types.UPackPackageVersionDeletionState;
 import org.azd.utils.AzDAsyncApi;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.azd.utils.Client.send;
 
 /***
  * UpackApi class to manage Universal Package artifact package api
@@ -94,7 +94,7 @@ public class UPackApi extends AzDAsyncApi<UPackApi> implements UpackDetails {
      */
     @Override
     public UPackPackageVersionDeletionState getPackageVersionFromRecycleBin(String feedId, String packageName,
-            String version) throws AzDException {
+                                                                            String version) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, UPACK, CONNECTION.getProject(), AREA + "/feeds", feedId,
                 "upack/RecycleBin/packages/" + packageName + "/versions/" + version, ApiVersion.UPACK, null, null);
 
@@ -211,7 +211,7 @@ public class UPackApi extends AzDAsyncApi<UPackApi> implements UpackDetails {
      */
     @Override
     public void updatePackageVersions(String feedId, String viewId, PackagesBatchOperation operation,
-            List<Map<String, Object>> packages) throws AzDException {
+                                      List<Map<String, Object>> packages) throws AzDException {
         var req = new HashMap<String, Object>();
         try {
             if (operation == PackagesBatchOperation.PROMOTE) {
@@ -269,7 +269,7 @@ public class UPackApi extends AzDAsyncApi<UPackApi> implements UpackDetails {
      */
     @Override
     public void updateRecycleBinPackages(String feedId, PackagesBatchOperation operation,
-            List<Map<String, Object>> packages) throws AzDException {
+                                         List<Map<String, Object>> packages) throws AzDException {
         var req = new HashMap<String, Object>();
         try {
             req.put("data", null);
