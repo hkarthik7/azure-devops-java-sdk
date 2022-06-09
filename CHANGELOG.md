@@ -25,6 +25,10 @@
   - create/delete group
   - resolve resource descriptor from storageKey
   - resolve graph resources from descriptors
+- Merged PR: [Added remain Maven API, update test #22](https://github.com/hkarthik7/azure-devops-java-sdk/pull/22)
+- Merged PR: [Feature/upack #24](https://github.com/hkarthik7/azure-devops-java-sdk/pull/24)
+- Merged PR: [Added support for Attachments in WorkItemTrackingApi. #25](https://github.com/hkarthik7/azure-devops-java-sdk/pull/25)
+- Merged PR: [GraphAPI enhancements. #26](https://github.com/hkarthik7/azure-devops-java-sdk/pull/26)
 
 ## 3.0.3
 
