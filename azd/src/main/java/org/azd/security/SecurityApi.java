@@ -119,7 +119,10 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
     public ACLs getAccessControlLists(String namespaceId, String[] descriptors, String token, boolean includeExtendedInfo, boolean recurse) throws AzDException {
         HashMap<String, Object> q = new HashMap<>(){{
            if (descriptors != null && descriptors.length > 0) {
-               put("descriptors", Arrays.stream(descriptors).map(URLHelper::encodeSpecialWithSpace).collect(Collectors.joining(",")));
+               put("descriptors", Arrays.stream(descriptors)
+                       .filter(x -> x != null && !x.isBlank())
+                       .map(URLHelper::encodeSpecialWithSpace)
+                       .collect(Collectors.joining(",")));
            }
            if (token != null) {
                put("token", token);
@@ -148,13 +151,22 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
     public Identities getIdentities(String[] descriptors, String[] identityIds, String[] subjectDescriptors, String filterValue, String queryMembership, String searchFilter) throws AzDException {
         LinkedHashMap<String, Object> q = new LinkedHashMap<>(){{
             if (descriptors != null && descriptors.length > 0) {
-                put("descriptors", Arrays.stream(descriptors).map(URLHelper::encodeSpecialWithSpace).collect(Collectors.joining(",")));
+                put("descriptors", Arrays.stream(descriptors)
+                        .filter(x -> x != null && !x.isBlank())
+                        .map(URLHelper::encodeSpecialWithSpace)
+                        .collect(Collectors.joining(",")));
             }
             if (identityIds != null && identityIds.length > 0) {
-                put("identityIds", Arrays.stream(identityIds).map(URLHelper::encodeSpecialWithSpace).collect(Collectors.joining(",")));
+                put("identityIds", Arrays.stream(identityIds)
+                        .filter(x -> x != null && !x.isBlank())
+                        .map(URLHelper::encodeSpecialWithSpace)
+                        .collect(Collectors.joining(",")));
             }
             if (subjectDescriptors != null && subjectDescriptors.length > 0) {
-                put("subjectDescriptors", Arrays.stream(subjectDescriptors).map(URLHelper::encodeSpecialWithSpace).collect(Collectors.joining(",")));
+                put("subjectDescriptors", Arrays.stream(subjectDescriptors)
+                        .filter(x -> x != null && !x.isBlank())
+                        .map(URLHelper::encodeSpecialWithSpace)
+                        .collect(Collectors.joining(",")));
             }
             if (filterValue != null) put("filterValue", URLHelper.encodeSpecialWithSpace(filterValue));
             if (validIdentityQueryMembership(queryMembership)) put("queryMembership", URLHelper.encodeSpecialWithSpace(queryMembership));
@@ -195,8 +207,14 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
             throw new AzDException(ApiExceptionTypes.InvalidArgumentException.name(), "Descriptors list must not be empty.");
         }
         HashMap<String, Object> q = new HashMap<>(){{
-            put("tokens", Arrays.stream(tokens).map(URLHelper::encodeSpecialWithSpace).collect(Collectors.joining(",")));
-            put("descriptors", Arrays.stream(descriptors).map(URLHelper::encodeSpecialWithSpace).collect(Collectors.joining(",")));
+            put("tokens", Arrays.stream(tokens)
+                    .filter(x -> x != null && !x.isBlank())
+                    .map(URLHelper::encodeSpecialWithSpace)
+                    .collect(Collectors.joining(",")));
+            put("descriptors", Arrays.stream(descriptors)
+                    .filter(x -> x != null && !x.isBlank())
+                    .map(URLHelper::encodeSpecialWithSpace)
+                    .collect(Collectors.joining(",")));
         }};
         String r = send(RequestMethod.DELETE, CONNECTION, SECURITY, null,
                 AREA_ACE, namespaceId, null, ApiVersion.SECURITY, q, null);
@@ -233,7 +251,10 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
             throw new AzDException(ApiExceptionTypes.InvalidArgumentException.name(), "Tokens list must not be empty.");
         }
         HashMap<String, Object> q = new HashMap<>(){{
-            put("tokens", Arrays.stream(tokens).map(URLHelper::encodeSpecialWithSpace).collect(Collectors.joining(",")));
+            put("tokens", Arrays.stream(tokens)
+                    .filter(x -> x != null && !x.isBlank())
+                    .map(URLHelper::encodeSpecialWithSpace)
+                    .collect(Collectors.joining(",")));
             put("recurse", recurse);
         }};
         String r = send(RequestMethod.DELETE, CONNECTION, SECURITY, null,

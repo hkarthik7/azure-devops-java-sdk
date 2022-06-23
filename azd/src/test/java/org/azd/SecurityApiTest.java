@@ -163,6 +163,8 @@ public class SecurityApiTest {
      * - update ACL
      * - re-fetch ACL and compare, assert allow / deny value changed
      * - reset ACL
+     *
+     * test requires project to be set in connection, and project to contain respositories (requirement of GitApi)
      * @throws AzDException
      */
     @Test
@@ -174,9 +176,9 @@ public class SecurityApiTest {
 
         long allowMask = 1 + 2 + 4 + 256 + 1024;
         long denyMask = 8 + 16 + 32;
-        Optional<GraphUser> userOptional = graphApi.getUsers().getUsers().stream().filter(x -> x.getDescriptor().startsWith("aad")).findAny();
-        assertTrue(userOptional.isPresent());
-        Optional<Repository> repositoryOptional = gitApi.getRepositories().getRepositories().stream().filter(x -> x.getProject().getName().equals(projectName)).findAny();
+        Optional<GraphUser> userOptional = graphApi.getUsers().getUsers().stream().findAny();
+        assumeTrue(userOptional.isPresent());
+        Optional<Repository> repositoryOptional = gitApi.getRepositories().getRepositories().stream().findAny();
         assumeTrue(repositoryOptional.isPresent());
         System.out.println("" + repositoryOptional.get());
 
@@ -245,9 +247,9 @@ public class SecurityApiTest {
         GraphApi graphApi = webApi.getGraphApi();
 
         //s.getNamespace(SecurityToken.Scope.GIT.getNamespace()).getActions().stream().sorted(Comparator.comparingInt(x -> x.getBit())).forEach(x -> System.out.println("Action ("+x.getBit()+"): " + x.getDisplayName()));
-        Optional<GraphUser> userOptional = graphApi.getUsers().getUsers().stream().filter(x -> x.getDescriptor().startsWith("aad")).findAny();
-        assertTrue(userOptional.isPresent());
-        Optional<Repository> repositoryOptional = gitApi.getRepositories().getRepositories().stream().filter(x -> x.getProject().getName().equals(projectName)).findAny();
+        Optional<GraphUser> userOptional = graphApi.getUsers().getUsers().stream().findAny();
+        assumeTrue(userOptional.isPresent());
+        Optional<Repository> repositoryOptional = gitApi.getRepositories().getRepositories().stream().findAny();
         assumeTrue(repositoryOptional.isPresent());
         //System.out.println("" + repositoryOptional.get());
 
