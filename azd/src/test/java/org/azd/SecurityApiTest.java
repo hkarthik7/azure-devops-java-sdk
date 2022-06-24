@@ -1,15 +1,20 @@
 package org.azd;
 
+import org.azd.build.BuildApi;
 import org.azd.core.CoreApi;
 import org.azd.core.types.Project;
 import org.azd.exceptions.AzDException;
 import org.azd.git.GitApi;
+import org.azd.git.types.Repositories;
 import org.azd.git.types.Repository;
 import org.azd.graph.GraphApi;
 import org.azd.graph.types.GraphGroup;
+import org.azd.graph.types.GraphMembership;
 import org.azd.graph.types.GraphUser;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.*;
+import org.azd.pipelines.PipelinesApi;
+import org.azd.pipelines.types.Pipeline;
 import org.azd.security.SecurityToken;
 import org.azd.security.types.*;
 import org.azd.utils.AzDClientApi;
@@ -20,6 +25,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.Assert.*;
@@ -74,7 +80,8 @@ public class SecurityApiTest {
         Optional<Project> anyProject = coreApi.getProjects().getProjects().stream().findAny();
         Assume.assumeTrue(anyProject.isPresent());
         SecurityNamespace securityNamespace = s.getNamespaces().getSecurityNamespaces().stream().filter(x -> x.getDisplayName().equals(namespace)).findFirst().get();
-        String token = SecurityToken.generate(SecurityToken.Scope.GIT, Map.of("PROJECT_ID", anyProject.get().getId()));
+        String token = SecurityToken.generate(SecurityToken.Scope.Collection, Map.of());
+        //String token = SecurityToken.generate(SecurityToken.Scope.GIT, Map.of("PROJECT_ID", anyProject.get().getId()));
         ACLs acLs = s.getAccessControlLists(securityNamespace.getNamespaceId(), null, token, true, false);
         assertFalse(acLs.getACLs().isEmpty());
         Optional<ACL> any = acLs.getACLs().stream().filter(x -> x.getAcesDictionary().values().stream().anyMatch(y -> y.getExtendedInfo() != null && y.getExtendedInfo().getEffectiveAllow() != null)).findAny();
@@ -157,6 +164,66 @@ public class SecurityApiTest {
         assertEquals(expected, generated2);
     }
 
+    @Test
+    public void shouldAddAndRemoveACL() throws AzDException {
+        CoreApi coreApi = webApi.getCoreApi();
+        PipelinesApi pipelinesApi = webApi.getPipelinesApi();
+        GraphApi graphApi = webApi.getGraphApi();
+        long allowMask = 1 + 2 + 4 + 256 + 1024;
+        long denyMask = 8 + 16 + 32;
+
+        // create a group
+        graphApi.createGroup("test-acl-group", "test group created to grant new permissions");
+        Optional<GraphGroup> groupOptional = graphApi.getGroups().getGraphGroups().stream().filter(x -> x.getDisplayName().equals("test-acl-group")).findAny();
+        assertTrue(groupOptional.isPresent());
+        Identities identitiesFromSubjectDescriptors = s.getIdentitiesFromSubjectDescriptors(groupOptional.get().getDescriptor());
+        assertTrue(identitiesFromSubjectDescriptors.getIdentities().size() == 1);
+        String descriptor = identitiesFromSubjectDescriptors.getIdentities().stream().findFirst().get().getDescriptor();
+        System.out.println(groupOptional.get().getDescriptor() + " ==> " + descriptor);
+
+        // random project
+        Optional<Project> projectOptional = coreApi.getProjects().getProjects().stream().filter(x -> x.getName().equals("My-Project")).findAny();
+        assumeTrue(projectOptional.isPresent());
+        Map<String, String> tokenParameters = new HashMap<>(){{
+            put("PROJECT_ID", projectOptional.get().getId());
+        }};
+        Optional<Pipeline> pipelineOptional = pipelinesApi.getPipelines().getPipelines().stream().findAny();
+        if (pipelineOptional.isPresent()) {
+            tokenParameters.put("BUILD_DEFINITION_ID", Integer.toString(pipelineOptional.get().getId()));
+        }
+        String projectBuildToken = SecurityToken.generate(SecurityToken.Scope.Build, tokenParameters);
+        System.out.println("Generated token: " + projectBuildToken);
+
+        ACLs accessControlLists = s.getAccessControlLists(SecurityToken.Scope.Build.getNamespace(), new String[]{descriptor}, projectBuildToken, false, false);
+        assertTrue(accessControlLists.getACLs() == null || accessControlLists.getACLs().isEmpty());
+        System.out.println("ACLS: " + accessControlLists);
+
+        ACL newEntry = new ACL();
+        ACE ace = new ACE();
+        ace.setDescriptor(descriptor);
+        ace.setAllow(allowMask);
+        ace.setDeny(denyMask);
+        newEntry.setToken(projectBuildToken);
+        newEntry.setInheritPermissions(false);
+        newEntry.setAcesDictionary(Map.of(descriptor, ace));
+        ACLs newEntrySet = new ACLs();
+        newEntrySet.setACLs(List.of(newEntry));
+        try {
+            s.setAccessControlList(SecurityToken.Scope.Build.getNamespace(), newEntrySet);
+            Thread.sleep(5000l); // may occasionally fail if we don't wait long enough after removal
+            ACLs updatedACL = s.getAccessControlLists(SecurityToken.Scope.Build.getNamespace(), new String[]{descriptor}, projectBuildToken, false, false);
+            assertTrue(updatedACL.getACLs() != null && updatedACL.getACLs().size() == 1);
+            s.removeAccessControlLists(SecurityToken.Scope.Build.getNamespace(), false, new String[]{projectBuildToken});
+            Thread.sleep(5000l); // may occasionally fail if we don't wait long enough after removal
+            ACLs removedACLs = s.getAccessControlLists(SecurityToken.Scope.Build.getNamespace(), new String[]{descriptor}, projectBuildToken, false, false);
+            assertTrue(removedACLs.getACLs() == null || removedACLs.getACLs().isEmpty());
+        } catch (InterruptedException e) {
+            // ignore
+        } finally {
+            graphApi.deleteGroup(groupOptional.get().getDescriptor());
+        }
+    }
+
     /***
      * - lookup a user and a repository
      * - get current ACL
@@ -164,62 +231,74 @@ public class SecurityApiTest {
      * - re-fetch ACL and compare, assert allow / deny value changed
      * - reset ACL
      *
-     * test requires project to be set in connection, and project to contain respositories (requirement of GitApi)
      * @throws AzDException
      */
     @Test
-    public void shouldAddAccessControlList() throws AzDException {
-        var projectName = "my-awesome-project";
-        GitApi gitApi = webApi.getGitApi();
-        CoreApi coreApi = webApi.getCoreApi();
+    public void shouldUpdateAccessControlList() throws AzDException {
         GraphApi graphApi = webApi.getGraphApi();
 
         long allowMask = 1 + 2 + 4 + 256 + 1024;
         long denyMask = 8 + 16 + 32;
         Optional<GraphUser> userOptional = graphApi.getUsers().getUsers().stream().findAny();
         assumeTrue(userOptional.isPresent());
-        Optional<Repository> repositoryOptional = gitApi.getRepositories().getRepositories().stream().findAny();
-        assumeTrue(repositoryOptional.isPresent());
-        System.out.println("" + repositoryOptional.get());
 
         Identities identitiesFromSubjectDescriptors = s.getIdentitiesFromSubjectDescriptors(userOptional.get().getDescriptor());
         String descriptor = identitiesFromSubjectDescriptors.getIdentities().stream().findFirst().get().getDescriptor();
         System.out.println(userOptional.get().getDescriptor() + " ==> " + descriptor);
 
-        String token = SecurityToken.generate(SecurityToken.Scope.GIT, Map.of(
-                "PROJECT_ID", repositoryOptional.get().getProject().getId(),
-                "REPO_ID", repositoryOptional.get().getId()
-        ));
-        System.out.println("Token: " + token);
-        ACLs accessControlLists = s.getAccessControlLists(SecurityToken.Scope.GIT.getNamespace(), new String[]{descriptor}, token, false, false);
-        assertTrue(accessControlLists.getACLs().size() == 1);
-        assertTrue(accessControlLists.getACLs().get(0).getAcesDictionary().containsKey(descriptor));
-        ACE currentEntry = accessControlLists.getACLs().get(0).getAcesDictionary().get(descriptor);
-        //accessControlLists.getACLs().stream().map(ACL::toString).forEach(System.out::println);
+        // scan all ACLs and find one matching our (randomly selected) descriptor
+        // copy it with different permissions
+        List<ACL> accessControlLists = s.getAccessControlLists(SecurityToken.Scope.GIT.getNamespace(), new String[]{descriptor}, null, false, false).getACLs();
+        assumeFalse(accessControlLists.isEmpty());
+        //accessControlLists.stream().forEach(x -> {
+        //    System.out.println("ACL: " + x.getToken() + "   " + x.getAcesDictionary().keySet().size());
+        //});
+        ACL existingACL = accessControlLists.stream().findAny().get();
+        System.out.println("Token: " + existingACL.getToken());
+        ACE currentACE = existingACL.getAcesDictionary().get(descriptor);
         ACL newACL = new ACL();
-        newACL.setToken(token);
+        newACL.setToken(existingACL.getToken());
         ACE entry = new ACE();
         entry.setDescriptor(descriptor);
-        if (allowMask == currentEntry.getAllow()) {
+        if (allowMask == currentACE.getAllow()) {
             // flip a bit in case allow is already the same
-            allowMask = allowMask ^ 1;
+            allowMask = allowMask ^ (Math.round(Math.random()) % 1025);
          }
         entry.setAllow(allowMask);
+        if (denyMask == currentACE.getDeny()) {
+            denyMask = denyMask ^ (Math.round(Math.random()) % 1025);
+        }
         entry.setDeny(denyMask);
         newACL.setAcesDictionary(Map.of(descriptor, entry));
         ACLs newAclSet = new ACLs();
         newAclSet.setACLs(List.of(newACL));
         try {
             s.setAccessControlList(SecurityToken.Scope.GIT.getNamespace(), newAclSet);
+            try {
+                Thread.sleep(5000l); // delay to allow change to take effect
+            } catch (InterruptedException e) {}
+            ACLs updatedControlLists = s.getAccessControlLists(SecurityToken.Scope.GIT.getNamespace(), new String[]{descriptor}, existingACL.getToken(), false, false);
+            //updatedControlLists.getACLs().stream().forEach(x -> {
+            //    System.out.println("Updated ACL: " + x.getToken() + "   " + x.getAcesDictionary().keySet().size());
+            //});
 
-            ACLs updatedControlLists = s.getAccessControlLists(SecurityToken.Scope.GIT.getNamespace(), new String[]{descriptor}, token, false, false);
-
-            assertTrue(updatedControlLists.getACLs().size() == 1);
-            assertTrue(updatedControlLists.getACLs().get(0).getAcesDictionary().containsKey(descriptor));
-            assertNotEquals(updatedControlLists.getACLs().get(0).getAcesDictionary().get(descriptor).getAllow(), accessControlLists.getACLs().get(0).getAcesDictionary().get(descriptor).getAllow());
-            assertNotEquals(updatedControlLists.getACLs().get(0).getAcesDictionary().get(descriptor).getDeny(), accessControlLists.getACLs().get(0).getAcesDictionary().get(descriptor).getDeny());
+            for (ACL updatedAcl : updatedControlLists.getACLs()) {
+                Optional<ACL> originalAcl = accessControlLists.stream().filter(x -> x.getToken().equals(updatedAcl.getToken()) && x.getAcesDictionary().containsKey(descriptor)).findAny();
+                assertTrue(originalAcl.isPresent());
+                assertTrue(updatedAcl.getAcesDictionary().containsKey(descriptor));
+                assertNotEquals(updatedAcl.getAcesDictionary().get(descriptor).getAllow(), originalAcl.get().getAcesDictionary().get(descriptor).getAllow());
+                assertNotEquals(updatedAcl.getAcesDictionary().get(descriptor).getDeny(), originalAcl.get().getAcesDictionary().get(descriptor).getDeny());
+                StringBuilder sb = new StringBuilder().append("Allow: ")
+                        .append(originalAcl.get().getAcesDictionary().get(descriptor).getAllow()).append(" => ").append(updatedAcl.getAcesDictionary().get(descriptor).getAllow())
+                                .append(", Deny: ")
+                        .append(originalAcl.get().getAcesDictionary().get(descriptor).getDeny()).append(" => ").append(updatedAcl.getAcesDictionary().get(descriptor).getDeny());
+                sb.append("    ").append(descriptor).append(" : ").append(updatedAcl.getToken());
+                System.out.println(sb.toString());
+            }
         } finally {
-            s.setAccessControlList(SecurityToken.Scope.GIT.getNamespace(), accessControlLists);
+            ACLs acLs = new ACLs();
+            acLs.setACLs(List.of(existingACL));
+            s.setAccessControlList(SecurityToken.Scope.GIT.getNamespace(), acLs);
         }
     }
 
@@ -263,8 +342,8 @@ public class SecurityApiTest {
         ));
         System.out.println("Token: " + token);
         ACLs accessControlLists = s.getAccessControlLists(SecurityToken.Scope.GIT.getNamespace(), new String[]{descriptor}, token, false, false);
-        assertTrue(accessControlLists.getACLs().size() == 1);
-        assertTrue(accessControlLists.getACLs().get(0).getAcesDictionary().containsKey(descriptor));
+        //assumeFalse(accessControlLists.getACLs().isEmpty());
+        //assertTrue(accessControlLists.getACLs().get(0).getAcesDictionary().containsKey(descriptor));
         //System.out.println("Original: ");
         //accessControlLists.getACLs().stream().map(ACL::toString).forEach(System.out::println);
         ACEs newACEs = new ACEs();
@@ -284,13 +363,20 @@ public class SecurityApiTest {
 
             assertTrue(updatedControlLists.getACLs().size() == 1);
             assertTrue(updatedControlLists.getACLs().get(0).getAcesDictionary().containsKey(descriptor));
-            BitSet originalAllow = BitSet.valueOf(new long[]{accessControlLists.getACLs().get(0).getAcesDictionary().get(descriptor).getAllow()});
-            BitSet originalDeny = BitSet.valueOf(new long[]{accessControlLists.getACLs().get(0).getAcesDictionary().get(descriptor).getDeny()});
+
+            // set original values == 0 if they didn't exist
+            BitSet originalAllow = new BitSet();
+            BitSet originalDeny = new BitSet();
+            if (accessControlLists.getACLs() != null && !accessControlLists.getACLs().isEmpty()) {
+                originalAllow = BitSet.valueOf(new long[]{accessControlLists.getACLs().get(0).getAcesDictionary().get(descriptor).getAllow()});
+                originalDeny = BitSet.valueOf(new long[]{accessControlLists.getACLs().get(0).getAcesDictionary().get(descriptor).getDeny()});
+            }
             BitSet deltaAllow = BitSet.valueOf(new long[]{allowMask});
             BitSet deltaDeny = BitSet.valueOf(new long[]{denyMask});
+
+            // set expected values via bitset operations
             deltaAllow.or(originalAllow);
             deltaDeny.or(originalDeny);
-
             deltaAllow.andNot(deltaDeny);
 
             BitSet updatedAllow = BitSet.valueOf(new long[]{updatedControlLists.getACLs().get(0).getAcesDictionary().get(descriptor).getAllow()});
@@ -302,7 +388,11 @@ public class SecurityApiTest {
             assertEquals(0, Arrays.compare(updatedAllow.toLongArray(), deltaAllow.toLongArray()));
             assertEquals(0, Arrays.compare(updatedDeny.toLongArray(), deltaDeny.toLongArray()));
         } finally {
-            s.setAccessControlList(SecurityToken.Scope.GIT.getNamespace(), accessControlLists);
+            if (accessControlLists.getACLs() == null || accessControlLists.getACLs().isEmpty()) {
+                s.removeAccessControlEntries(SecurityToken.Scope.GIT.getNamespace(), new String[]{descriptor}, new String[]{token});
+            } else {
+                s.setAccessControlList(SecurityToken.Scope.GIT.getNamespace(), accessControlLists);
+            }
         }
     }
 }
