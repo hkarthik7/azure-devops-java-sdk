@@ -1,18 +1,18 @@
 package org.azd;
 
-import org.azd.build.BuildApi;
 import org.azd.core.CoreApi;
 import org.azd.core.types.Project;
 import org.azd.exceptions.AzDException;
 import org.azd.git.GitApi;
-import org.azd.git.types.Repositories;
 import org.azd.git.types.Repository;
 import org.azd.graph.GraphApi;
 import org.azd.graph.types.GraphGroup;
-import org.azd.graph.types.GraphMembership;
 import org.azd.graph.types.GraphUser;
 import org.azd.helpers.JsonMapper;
-import org.azd.interfaces.*;
+import org.azd.interfaces.AzDClient;
+import org.azd.interfaces.CoreDetails;
+import org.azd.interfaces.GraphDetails;
+import org.azd.interfaces.SecurityDetails;
 import org.azd.pipelines.PipelinesApi;
 import org.azd.pipelines.types.Pipeline;
 import org.azd.security.SecurityToken;
@@ -25,11 +25,14 @@ import org.junit.Test;
 
 import java.io.File;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.Assert.*;
-import static org.junit.Assume.*;
+import static org.junit.Assume.assumeFalse;
+import static org.junit.Assume.assumeTrue;
 
 public class SecurityApiTest {
     private static final JsonMapper MAPPER = new JsonMapper();
@@ -356,6 +359,10 @@ public class SecurityApiTest {
         newACEs.setAccessControlEntries(List.of(entry));
         try {
             s.setAccessControlEntries(SecurityToken.Scope.GIT.getNamespace(), newACEs);
+
+            try {
+                Thread.sleep(5000l); // wait for completion
+            } catch (InterruptedException ie) {}
 
             ACLs updatedControlLists = s.getAccessControlLists(SecurityToken.Scope.GIT.getNamespace(), new String[]{descriptor}, token, false, false);
             //System.out.println("Updated: ");
