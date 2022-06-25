@@ -1,5 +1,9 @@
 # Changelog
 
+**Breaking changes**
+- Added GraphEntity as parent of GraphUser and GraphGroup
+  - minor risk if extending from GraphUser or GraphGroup
+
 ## 3.0.5
 - Expanded the GitApi to get the branches of a repository or a specific branch from a repository based on the branch name.
 
