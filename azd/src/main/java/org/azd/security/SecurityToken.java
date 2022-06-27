@@ -3,7 +3,7 @@ package org.azd.security;
 
 import org.azd.exceptions.AzDException;
 
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -43,6 +43,22 @@ public class SecurityToken {
             matcher.reset(output);
         }
         return output.replaceAll("/*$", ""); // strip forward slash at end of string
+    }
+
+    /***
+     * Extract set of keys required to populate token string fully
+     * @param scope security scope entry in enum set
+     * @return collection of unique strings (property key names)
+     */
+    public static Set<String> keys(SecurityToken.Scope scope) {
+        Set<String> output = new HashSet<>();
+        if (scope == null || scope.format.equals("")) { return output; }
+        Matcher matcher = tokenPattern.matcher(scope.format);
+        while (matcher.find()) {
+            String match = matcher.group(1);
+            if (match != null && !match.isBlank()) output.add(matcher.group(1));
+        }
+        return output;
     }
 
     public enum Scope {

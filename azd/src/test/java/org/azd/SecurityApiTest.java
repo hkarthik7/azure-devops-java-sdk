@@ -168,6 +168,14 @@ public class SecurityApiTest {
     }
 
     @Test
+    public void shouldListRequiredTokenProperties() throws AzDException {
+        Set<String> keys = SecurityToken.keys(SecurityToken.Scope.GIT);
+        assertEquals(2, keys.size());
+        assertTrue(keys.contains("PROJECT_ID"));
+        assertTrue(keys.contains("REPO_ID"));
+    }
+
+    @Test
     public void shouldAddAndRemoveACL() throws AzDException {
         CoreApi coreApi = webApi.getCoreApi();
         PipelinesApi pipelinesApi = webApi.getPipelinesApi();
