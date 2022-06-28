@@ -125,7 +125,7 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
                        .collect(Collectors.joining(",")));
            }
            if (token != null) {
-               put("token", token);
+               put("token", URLHelper.encodeSpecialWithSpace(token));
            }
            put("includeExtendedInfo", includeExtendedInfo);
            put("recurse", recurse);
