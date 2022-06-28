@@ -1,16 +1,20 @@
 package org.azd;
 
 import org.azd.core.types.Project;
+import org.azd.core.types.ProjectFeature;
 import org.azd.core.types.Team;
+import org.azd.enums.FeatureManagement;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.CoreDetails;
 import org.azd.utils.AzDClientApi;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.util.Optional;
 
 public class CoreApiTest {
     private static final JsonMapper MAPPER = new JsonMapper();
@@ -136,4 +140,20 @@ public class CoreApiTest {
         c.updateTeams(c.getProject("my-awesome-project").getId(), "myTeam", "Description for my super team");
     }
 
+    @Test
+    public void shouldReadProjectFeatures() throws AzDException {
+        Project project = c.getProject("my-awesome-project");
+        Assume.assumeNotNull(project);
+        for (FeatureManagement value : FeatureManagement.values()) {
+            Optional<Boolean> featureState = c.getFeatureState(project.getId(), value);
+        }
+    }
+
+    @Test
+    public void shouldToggleFeature() throws AzDException {
+        Project project = c.getProject("my-awesome-project");
+        Assume.assumeNotNull(project);
+        ProjectFeature projectFeature = c.featureToggle(project.getId(), FeatureManagement.TEST_PLANS, false);
+        //System.out.println("Feature: " + projectFeature);
+    }
 }
