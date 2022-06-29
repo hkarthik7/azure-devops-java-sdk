@@ -36,7 +36,7 @@ public class MavenApiTest {
     // Recycle bin Package
     private static final String TEST3_GROUP = "org.jack.click";
     private static final String TEST3_ARTIFACT = "ClickJack";
-    private static final String TEST3_VERSION = "2.5.0";
+    private static final String TEST3_VERSION = "3.5.0";
     private static AzDClient webApi;
     private static MavenDetails mvn;
 
