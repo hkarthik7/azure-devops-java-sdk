@@ -151,7 +151,7 @@ public class GraphApiTest {
     public void shouldCreateGroup() throws AzDException {
         var groupName = "my-new-org-group";
         GraphMembership group = g.createGroup(groupName, "this is a local org group");
-        System.out.println(group.toString());
+        group.toString();
     }
 
     @Test
