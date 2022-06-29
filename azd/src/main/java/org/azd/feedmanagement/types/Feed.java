@@ -84,7 +84,7 @@ public class Feed {
      *
      */
     @JsonProperty("permissions")
-    private FeedPermissions permissions;
+    private List<FeedPermission> permissions;
     /***
      * The project that this feed is associated with.
      */
@@ -151,11 +151,11 @@ public class Feed {
         this.permanentDeletedDate = permanentDeletedDate;
     }
 
-    public FeedPermissions getPermissions() {
+    public List<FeedPermission> getPermissions() {
         return permissions;
     }
 
-    public void setPermissions(FeedPermissions permissions) {
+    public void setPermissions(List<FeedPermission> permissions) {
         this.permissions = permissions;
     }
 
