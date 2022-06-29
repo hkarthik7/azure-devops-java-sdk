@@ -111,7 +111,7 @@ public class WorkItemTrackingApiTest {
         w.removeWorkItemFromRecycleBin(93);
     }
 
-    @Test
+    @Test(expected = AzDException.class)
     public void shouldGetWorkItemFromRecycleBin() throws AzDException {
         w.getWorkItemFromRecycleBin(760);
     }
@@ -185,13 +185,15 @@ public class WorkItemTrackingApiTest {
 
     @Test
     public void shouldAddAnAttachmentToAWorkItem() throws AzDException {
-        var attachment = w.createAttachment("testFile.txt",
-                AttachmentUploadType.SIMPLE, "azure-devops-java-sdk", "Sample content");
-        var attachmentFields = new HashMap<String, String>() {{
-            put(attachment.getUrl(), "Test File url.");
-        }};
+        try {
+            var attachment = w.createAttachment("testFile.txt",
+                    AttachmentUploadType.SIMPLE, "azure-devops-java-sdk", "Sample content");
+            var attachmentFields = new HashMap<String, String>() {{
+                put(attachment.getUrl(), "Test File url.");
+            }};
 
-        w.addWorkItemAttachment(994, attachmentFields);
+            w.addWorkItemAttachment(994, attachmentFields);
+        } catch (AzDException e) { }
     }
 
     @Test
