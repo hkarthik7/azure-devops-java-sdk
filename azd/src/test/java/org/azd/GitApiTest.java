@@ -217,4 +217,28 @@ public class GitApiTest {
                 .getCommitId();
         g.getCommit("testRepository", commitId);
     }
+
+    @Test
+    public void shouldGetRefs() throws AzDException {
+        g.getRefs("testRepository");
+    }
+
+    @Test
+    public void shouldGetRefsWithQueryParameters() throws AzDException {
+        g.getRefs("testRepository","heads/");
+    }
+
+    public void shouldUpdateRefs() throws AzDException {
+        g.updateRefs("testRepository","refs/heads/test2", "0000000000000000000000000000000000000000", "0000000000000000000000000000000000000000");
+    }
+
+    @Test
+    public void shouldCreateTag() throws AzDException {
+        g.createTag("testRepository", "createTestTag", "main");
+    }
+
+    @Test
+    public void shouldDeleteTag() throws AzDException {
+        g.deleteTag("testRepository", "createTestTag");
+    }
 }

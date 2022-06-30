@@ -104,4 +104,15 @@ public interface GitDetails {
     GitCommits getPushCommits(String repositoryName, int pushId) throws AzDException;
 
     GitCommits getPushCommits(String repositoryName, int pushId, boolean includeLinks, int top, int skip) throws AzDException;
+
+    GitRefs getRefs(String repositoryName) throws AzDException;
+
+    GitRefs getRefs(String repositoryName, String filter) throws AzDException;
+    
+    GitRefUpdateResults updateRefs(String repositoryName, String refName, String oldObjectId, String newObjectId) throws AzDException;
+    
+    GitRefUpdateResults createTag(String repositoryName, String tagName, String ref) throws AzDException;
+    
+    GitRefUpdateResults deleteTag(String repositoryName, String tagName) throws AzDException;
+
 }
