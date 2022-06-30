@@ -1,8 +1,8 @@
 package org.azd;
 
+import org.azd.enums.ReleaseApprovalStatus;
 import org.azd.enums.SingleReleaseExpands;
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.BuildDetails;
@@ -33,42 +33,76 @@ public class ReleaseApiTest {
     }
 
     @Test
-    public void shouldCreateARelease() throws ConnectionException, AzDException {
+    public void shouldCreateARelease() throws AzDException {
         var build = b.getBuild(176);
         r.createRelease(2, "Sample Release", "_Demo-CI", build.getBuildNumber(),
                 "Demo-CI", false);
     }
 
     @Test
-    public void shouldGetAllReleases() throws ConnectionException, AzDException {
+    public void shouldGetAllReleases() throws AzDException {
         r.getReleases();
     }
 
     @Test
-    public void shouldGetARelease() throws ConnectionException, AzDException {
+    public void shouldGetARelease() throws AzDException {
         var rId = r.getReleases().getReleases().stream().findFirst().get().getId();
         r.getRelease(rId);
     }
 
     @Test
-    public void shouldGetReleaseEnvironmentDetails() throws ConnectionException, AzDException {
+    public void shouldGetReleaseEnvironmentDetails() throws AzDException {
         var rId = r.getReleases().getReleases().stream().findFirst().get().getId();
         var res = r.getRelease(rId, SingleReleaseExpands.TASKS);
         r.getReleaseEnvironment(res.getId(), res.getEnvironments().stream().findFirst().get().getId());
     }
 
     @Test
-    public void shouldGetAllReleaseDefinitions() throws ConnectionException, AzDException {
+    public void shouldGetAllReleaseDefinitions() throws AzDException {
         r.getReleaseDefinitions();
     }
 
     @Test
-    public void shouldGetAReleaseDefinition() throws ConnectionException, AzDException {
+    public void shouldGetAReleaseDefinition() throws AzDException {
         r.getReleaseDefinition(2);
     }
 
     @Test
-    public void shouldGetReleaseDefinitionHistory() throws ConnectionException, AzDException {
+    public void shouldGetReleaseDefinitionHistory() throws AzDException {
         r.getReleaseDefinitionHistory(2);
+    }
+
+    @Test
+    public void shouldDeleteARelease() throws AzDException {
+        var build = b.getBuild(176);
+        var release = r.createRelease(2, "Sample Release", "_Demo-CI", build.getBuildNumber(),
+                "Demo-CI", false);
+        r.deleteRelease(release.getId());
+    }
+
+    @Test(expected = AzDException.class)
+    public void shouldQueueAReleaseWithEnvironmentName() throws AzDException {
+        r.queueRelease(354, "D");
+    }
+
+    @Test(expected = AzDException.class)
+    public void shouldAbandonARelease() throws AzDException {
+        // Expected :- InvalidRequestException: VS402966: Transitioning of release from state 'Abandoned' to state 'Abandoned' is not allowed.
+        r.abandonRelease(355);
+    }
+
+    @Test
+    public void shouldGetReleaseApprovals() throws AzDException {
+        r.getReleaseApprovals();
+    }
+
+    @Test(expected = AzDException.class)
+    public void shouldUpdateReleaseApprovals() throws AzDException {
+        r.updateApproval(2, ReleaseApprovalStatus.APPROVED, "Good to go");
+    }
+
+    @Test
+    public void shouldGetManualInterventions() throws AzDException {
+        r.getManualInterventions(490);
     }
 }

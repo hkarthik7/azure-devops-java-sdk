@@ -14,6 +14,8 @@ import java.util.Map;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WorkItemFields {
+    // for non-system (custom) fields
+    Map<String, Object> otherFields = new HashMap<>();
     @JsonProperty("System.Id")
     private int systemId;
     @JsonProperty("System.AreaId")
@@ -86,9 +88,6 @@ public class WorkItemFields {
     private String acceptanceCriteria;
     @JsonProperty("System.Tags")
     private String systemTags;
-
-    // for non-system (custom) fields
-    Map<String, Object> otherFields = new HashMap<>();
 
     // Capture all other fields that Jackson do not match other members
     @JsonAnyGetter

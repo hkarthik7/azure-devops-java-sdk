@@ -43,7 +43,7 @@ public class Main {
             
             // delete a wiki page
             wiki.deleteWiki("MyProjectWiki");   
-        } catch (AzDException | ConnectionException e) {
+        } catch (AzDException e) {
             e.printStackTrace();
         }
     }

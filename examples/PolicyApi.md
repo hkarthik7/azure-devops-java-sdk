@@ -78,7 +78,7 @@ public class Main {
             // Get all policy types
             policy.getPolicyTypes();
             
-        } catch (AzDException | ConnectionException e) {
+        } catch (AzDException e) {
             e.printStackTrace();
         }
     }

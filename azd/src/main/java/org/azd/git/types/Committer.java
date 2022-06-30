@@ -54,6 +54,6 @@ public class Committer {
     }
 
     public void setDate(String date) {
-            this.date = date;
-        }
+        this.date = date;
+    }
 }

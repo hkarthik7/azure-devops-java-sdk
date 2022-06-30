@@ -10,6 +10,7 @@ import org.azd.feedmanagement.FeedManagementApi;
 import org.azd.git.GitApi;
 import org.azd.graph.GraphApi;
 import org.azd.interfaces.AzDClient;
+import org.azd.maven.MavenApi;
 import org.azd.memberentitlementmanagement.MemberEntitlementManagementApi;
 import org.azd.oauth.OAuthApi;
 import org.azd.oauth.types.AuthorizedToken;
@@ -18,6 +19,7 @@ import org.azd.policy.PolicyApi;
 import org.azd.release.ReleaseApi;
 import org.azd.serviceendpoint.ServiceEndpointApi;
 import org.azd.servicehooks.ServiceHooksApi;
+import org.azd.upack.UPackApi;
 import org.azd.wiki.WikiApi;
 import org.azd.work.WorkApi;
 import org.azd.workitemtracking.WorkItemTrackingApi;
@@ -60,26 +62,26 @@ public class AzDClientApi implements AzDClient {
     }
 
     public void setProject(String project) {
-        if(this.CONNECTION != null) {
+        if (this.CONNECTION != null) {
             this.CONNECTION.setProject(project);
         }
     }
 
-    public void setOrganization(String org) {
-        if(this.CONNECTION != null) {
-            this.CONNECTION.setOrganization(org);
-        }
-    }
-
     public String getOrganization() {
-        if(this.CONNECTION != null) {
+        if (this.CONNECTION != null) {
             return this.CONNECTION.getOrganization();
         }
         return null;
     }
 
+    public void setOrganization(String org) {
+        if (this.CONNECTION != null) {
+            this.CONNECTION.setOrganization(org);
+        }
+    }
+
     public void setOauthToken(AuthorizedToken token) {
-        if(this.CONNECTION != null) {
+        if (this.CONNECTION != null) {
             this.CONNECTION.setOauthToken(token);
         }
     }
@@ -89,7 +91,9 @@ public class AzDClientApi implements AzDClient {
      * @return an instance of AccountsApi {@link AccountsApi}
      */
     @Override
-    public AccountsApi getAccountsApi() { return new AccountsApi(CONNECTION); }
+    public AccountsApi getAccountsApi() {
+        return new AccountsApi(CONNECTION);
+    }
 
     /***
      * Returns an instance of Build Api
@@ -115,7 +119,9 @@ public class AzDClientApi implements AzDClient {
      */
 
     @Override
-    public DistributedTaskApi getDistributedTaskApi() { return new DistributedTaskApi(CONNECTION); }
+    public DistributedTaskApi getDistributedTaskApi() {
+        return new DistributedTaskApi(CONNECTION);
+    }
 
     /***
      * Returns an instance of FeedManagement Api
@@ -131,63 +137,90 @@ public class AzDClientApi implements AzDClient {
      * @return instance of Git Api {@link GitApi}
      */
     @Override
-    public GitApi getGitApi() { return new GitApi(CONNECTION); }
+    public GitApi getGitApi() {
+        return new GitApi(CONNECTION);
+    }
 
     /***
      * Returns an instance of GraphApi
      * @return instance of Graph Api {@link GraphApi}
      */
     @Override
-    public GraphApi getGraphApi() { return new GraphApi(CONNECTION); }
+    public GraphApi getGraphApi() {
+        return new GraphApi(CONNECTION);
+    }
+
+    /***
+     * Returns an instance of Maven Api
+     * @return instance of Maven Api {@link MavenApi}
+     */
+    @Override
+    public MavenApi getMavenApi() {
+        return new MavenApi(CONNECTION);
+    }
 
     /***
      * Returns an instance of Member Entitlement management Api
      * @return instance of Member Entitle management Api {@link MemberEntitlementManagementApi}
      */
     @Override
-    public MemberEntitlementManagementApi getMemberEntitlementManagementApi() { return new MemberEntitlementManagementApi(CONNECTION); }
+    public MemberEntitlementManagementApi getMemberEntitlementManagementApi() {
+        return new MemberEntitlementManagementApi(CONNECTION);
+    }
 
     /***
      * Returns an instance of Release Api
      * @return instance of Release Api {@link ReleaseApi}
      */
     @Override
-    public ReleaseApi getReleaseApi() { return new ReleaseApi(CONNECTION); }
+    public ReleaseApi getReleaseApi() {
+        return new ReleaseApi(CONNECTION);
+    }
 
     /***
      * Returns an instance of Service Hooks Api
      * @return instance of Service Hooks Api {@link ServiceHooksApi}
      */
     @Override
-    public ServiceHooksApi getServiceHooksApi() { return new ServiceHooksApi(CONNECTION); }
+    public ServiceHooksApi getServiceHooksApi() {
+        return new ServiceHooksApi(CONNECTION);
+    }
 
     /***
      * Returns an instance of WikiApi
      * @return instance of Wiki Api {@link WikiApi}
      */
     @Override
-    public WikiApi getWikiApi() { return new WikiApi(CONNECTION); }
+    public WikiApi getWikiApi() {
+        return new WikiApi(CONNECTION);
+    }
 
     /***
      * Returns an instance of Work Api
      * @return instance of Work Api {@link WorkApi}
      */
     @Override
-    public WorkApi getWorkApi() { return new WorkApi(CONNECTION); }
+    public WorkApi getWorkApi() {
+        return new WorkApi(CONNECTION);
+    }
 
     /***
      * Returns an instance of Work item tracking Api
      * @return instance of work item tracking Api {@link WorkItemTrackingApi}
      */
     @Override
-    public WorkItemTrackingApi getWorkItemTrackingApi() { return new WorkItemTrackingApi(CONNECTION); }
+    public WorkItemTrackingApi getWorkItemTrackingApi() {
+        return new WorkItemTrackingApi(CONNECTION);
+    }
 
     /***
      * Returns an instance of OAuth Api
      * @return instance of OAuth Api {@link OAuthApi}
      */
     @Override
-    public OAuthApi getOAuth() { return new OAuthApi(); }
+    public OAuthApi getOAuth() {
+        return new OAuthApi();
+    }
 
     /***
      * Returns an instance of Service endpoint Api
@@ -212,12 +245,25 @@ public class AzDClientApi implements AzDClient {
      * @return instance of PolicyApi {@link PolicyApi}
      */
     @Override
-    public PolicyApi getPolicyApi() { return new PolicyApi(CONNECTION); }
+    public PolicyApi getPolicyApi() {
+        return new PolicyApi(CONNECTION);
+    }
 
     /***
      * Returns an instance of Pipelines Api
      * @return instance of PipelinesApi {@link PipelinesApi}
      */
     @Override
-    public PipelinesApi getPipelinesApi() { return new PipelinesApi(CONNECTION); }
+    public PipelinesApi getPipelinesApi() {
+        return new PipelinesApi(CONNECTION);
+    }
+
+    /***
+     * Returns an instance of Universal Package Api
+     * @return instance of UPackApi {@link UPackApi}
+     */
+    @Override
+    public UPackApi getUPackApi() {
+        return new UPackApi(CONNECTION);
+    }
 }

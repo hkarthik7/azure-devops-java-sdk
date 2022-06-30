@@ -1,5 +1,71 @@
 # Changelog
 
+## 3.0.4
+
+- Updated Api version from 6.x to 7.x.
+- Merged PR: [Added support for maven api #20](https://github.com/hkarthik7/azure-devops-java-sdk/pull/20)
+- **MavenApi** supports
+    - `getPackageVersion`
+    - `getPackageVersionFromRecycleBin`
+    - `getUpstreamingBehavior`
+    - `deletePackageVersion`
+    - `deletePackageVersionFromRecycleBin`
+    - `updatePackageVersion`
+    - `updatePackageVersions`
+    - `updateRecycleBinPackages`
+    - `restorePackageVersionFromRecycleBin`
+    - `setUpstreamingBehavior`
+    - `clearUpstreamingBehavior`
+- Added support for timeline in **BuildApi**.
+- Extended functionality of **Graph API**.
+  - get members of a group
+  - get groups a user (or nested group) is a member of
+  - add nested group membership
+  - remove membership
+  - create/delete group
+  - resolve resource descriptor from storageKey
+  - resolve graph resources from descriptors
+- Merged PR: [Added remain Maven API, update test #22](https://github.com/hkarthik7/azure-devops-java-sdk/pull/22)
+- Merged PR: [Feature/upack #24](https://github.com/hkarthik7/azure-devops-java-sdk/pull/24)
+- Merged PR: [Added support for Attachments in WorkItemTrackingApi. #25](https://github.com/hkarthik7/azure-devops-java-sdk/pull/25)
+- Merged PR: [GraphAPI enhancements. #26](https://github.com/hkarthik7/azure-devops-java-sdk/pull/26)
+- Fix:
+  - Feed type to fix json parse error on create
+  - feed update key changed from name to id (req'd for PATCH call)
+
+## 3.0.3
+
+- Addressed issue: [browsing repository content #15](https://github.com/hkarthik7/azure-devops-java-sdk/issues/15)
+- Added support for **Source Providers** in **BuildApi**.
+- Updated dependency jackson-databind version.
+
+## 3.0.2
+
+**Minor incremental release**
+- Merged PR: [Issue #13: Change size from int to long #14](https://github.com/hkarthik7/azure-devops-java-sdk/pull/14)
+- Extended support for **Git Api**.
+
+## 3.0.1
+
+- Bug fix for executor service in **AzDAsyncApi**.
+
+## 3.0.0
+
+**Breaking changes**
+- Removed **ConnectionException** class as it is not used anymore.  
+- Extended functionality of **Release Api**.
+  - Delete and Update a release
+  - Manage release environments
+  - Kick off a release pipeline using `queueRelease` method
+  - Approve a release
+  - Update the manual intervention for a release
+- Extended functionality of **Build Api**.
+  - Get the `yaml` for a designer build pipeline
+  - Update a stage or all stages in the build pipeline
+- Change in input parameters for **createSubscription** in **ServiceHooksApi**.
+  - **createSubscription** method is tied to type **ServiceHooks** that extracts the parameters from it.
+- Added **AzDAsyncApi** that helps to create asynchronous operation across all the methods in the library.
+
 ## 2.5.9
 - Expanded the WorkItemTrackingDetails interface with two updateWorkItem
   methods and added hyperlinks support. [Associated PR](https://github.com/hkarthik7/azure-devops-java-sdk/pull/10)
@@ -25,7 +91,7 @@
 - Added support to **OAuth2**. 
 - Merged PR: [Connection using oauth token #5](https://github.com/hkarthik7/azure-devops-java-sdk/pull/5).
 - Create the authorization endpoint, get the access token and refresh the access token using **OAuthApi**.
-**Connection** class automatically refreshes the token if it's expired.
+- **Connection** class automatically refreshes the token if it's expired.
 - Moved version details to a single class **ApiVersion**.
 - Added support to **Accounts** Api.
 

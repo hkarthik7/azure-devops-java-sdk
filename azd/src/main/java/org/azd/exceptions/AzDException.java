@@ -7,10 +7,12 @@ package org.azd.exceptions;
 public class AzDException extends Exception {
 
     public AzDException() {
-        super("Validate the arguments passed for the parameters;");
+        super("Cannot validate the arguments passed for the parameters; Please pass the correct values and try again.");
     }
 
-    public AzDException(Throwable cause) { super(cause); }
+    public AzDException(Throwable cause) {
+        super(cause);
+    }
 
     public AzDException(String message) {
         super("An Error Occurred: " + message);

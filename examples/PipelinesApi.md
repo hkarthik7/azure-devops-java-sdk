@@ -51,7 +51,7 @@ public class Main {
             // Run a pipeline with id
             pipelines.runPipeline(22);
 
-        } catch (ConnectionException | AzDException e) {
+        } catch (AzDException e) {
             e.printStackTrace();
         }
     }

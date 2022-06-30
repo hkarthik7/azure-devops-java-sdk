@@ -52,7 +52,7 @@ public class Main {
 
             // Update a service endpoint
             sEndpoint.updateServiceEndpoint("endpoint", "Specify the request body with all details to update a service endpoint");
-        } catch (AzDException | ConnectionException e) {
+        } catch (AzDException e) {
             e.printStackTrace();
         }
     }

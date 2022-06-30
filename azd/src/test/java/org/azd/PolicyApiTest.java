@@ -1,7 +1,6 @@
 package org.azd;
 
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.GitDetails;
@@ -34,18 +33,18 @@ public class PolicyApiTest {
     }
 
     @Test(expected = AzDException.class)
-    public void shouldCreatePolicyConfiguration() throws ConnectionException, AzDException {
+    public void shouldCreatePolicyConfiguration() throws AzDException {
         String repoId = g.getRepository("azure-devops-java-sdk").getId();
         var scope = new ArrayList<>();
-        var obj = new HashMap<String, Object>(){{
-           put("repositoryId", repoId);
-           put("refName", "refs/heads/develop");
-           put("matchKind", "exact");
+        var obj = new HashMap<String, Object>() {{
+            put("repositoryId", repoId);
+            put("refName", "refs/heads/develop");
+            put("matchKind", "exact");
         }};
 
         scope.add(obj);
 
-        var settings = new HashMap<String, Object>(){{
+        var settings = new HashMap<String, Object>() {{
             put("minimumApproverCount", 1);
             put("creatorVoteCounts", false);
             put("scope", scope);
@@ -55,20 +54,20 @@ public class PolicyApiTest {
     }
 
     @Test
-    public void shouldGetPolicyConfigurations() throws ConnectionException, AzDException {
+    public void shouldGetPolicyConfigurations() throws AzDException {
         p.getPolicyConfigurations().getPolicyConfigurations();
     }
 
     @Test
-    public void shouldGetPolicyConfiguration() throws ConnectionException, AzDException {
+    public void shouldGetPolicyConfiguration() throws AzDException {
         p.getPolicyConfiguration(1);
     }
 
     @Test
-    public void shouldUpdatePolicyConfiguration() throws ConnectionException, AzDException {
+    public void shouldUpdatePolicyConfiguration() throws AzDException {
         String repoId = g.getRepository("azure-devops-java-sdk").getId();
         var scope = new ArrayList<>();
-        var obj = new HashMap<String, Object>(){{
+        var obj = new HashMap<String, Object>() {{
             put("repositoryId", repoId);
             put("refName", "refs/heads/develop");
             put("matchKind", "exact");
@@ -76,22 +75,22 @@ public class PolicyApiTest {
 
         scope.add(obj);
 
-        var settings = new HashMap<String, Object>(){{
+        var settings = new HashMap<String, Object>() {{
             put("minimumApproverCount", 1);
             put("creatorVoteCounts", false);
             put("scope", scope);
         }};
 
-        System.out.println(p.updatePolicyConfiguration(1,"fa4e907d-c16b-4a4c-9dfa-4906e5d171dd", true, false, settings));
+        p.updatePolicyConfiguration(1, "fa4e907d-c16b-4a4c-9dfa-4906e5d171dd", true, false, settings);
     }
 
     @Test
-    public void shouldGetPolicyTypes() throws ConnectionException, AzDException {
+    public void shouldGetPolicyTypes() throws AzDException {
         p.getPolicyTypes().getPolicyTypes();
     }
 
     @Test
-    public void shouldGetPolicyType() throws ConnectionException, AzDException {
+    public void shouldGetPolicyType() throws AzDException {
         p.getPolicyType("fa4e907d-c16b-4a4c-9dfa-4906e5d171dd");
     }
 }

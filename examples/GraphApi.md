@@ -51,9 +51,18 @@ public class Main {
             // get a list of groups
             graph.getGroups();
 
+            // get a list of other users in the group
+            var groupMembers = graph.getGroupMembersOf(groupDescriptor);
+            
+            // get a list of other groups the user is a member of
+            var groups = graph.getMemberOfGroups(userDescriptor);
+            
+            // create a new group
+            graph.createGroup("ReadersPlus", "A group containing both readers and additional privileges");
+            
             // delete a user by user descriptor
             graph.deleteUser(userDescriptor);
-        } catch (AzDException | ConnectionException e) {
+        } catch (AzDException e) {
             e.printStackTrace();
         }
     }

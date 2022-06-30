@@ -1,7 +1,6 @@
 package org.azd.oauth;
 
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.helpers.URLHelper;
 import org.azd.oauth.types.AuthorizedToken;
@@ -25,8 +24,8 @@ public class OAuthApi {
 
     static {
         try {
-            VSTS_BASE_URL = Client.getLocationUrl(AREA,null);
-        } catch (ConnectionException | AzDException e) {
+            VSTS_BASE_URL = Client.getLocationUrl(AREA, null);
+        } catch (AzDException e) {
 
         }
     }
@@ -34,7 +33,8 @@ public class OAuthApi {
     /***
      * Default constructor
      */
-    public OAuthApi() {}
+    public OAuthApi() {
+    }
 
     /***
      * Generate the authorization endpoint with client id, state, scope and redirection url.
@@ -46,7 +46,7 @@ public class OAuthApi {
      */
     public static String getAuthorizationEndpoint(String clientId, String state, String scope, String redirectUrl) {
 
-        var queryString = new LinkedHashMap<String, Object>(){{
+        var queryString = new LinkedHashMap<String, Object>() {{
             put("response_type", "Assertion");
             put("state", state);
             put("scope", URLHelper.encodeSpace(scope));
@@ -67,7 +67,8 @@ public class OAuthApi {
 
     /**
      * Helps to create a query string from given key and value
-     * @param key pass the key of the HashMap
+     *
+     * @param key   pass the key of the HashMap
      * @param value pass the value of the HasMap
      * @return query string
      */
@@ -114,11 +115,9 @@ public class OAuthApi {
      * @param authCode URL encoded "code" provided via the code query parameter to your callback URL
      * @param callbackUrl callback URL registered with the app
      * @return AuthorizedToken object {@link AuthorizedToken}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
-    public static AuthorizedToken getRefreshToken(String appSecret, String authCode, String callbackUrl) throws AzDException, ConnectionException {
+    public static AuthorizedToken getRefreshToken(String appSecret, String authCode, String callbackUrl) throws AzDException {
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(VSTS_BASE_URL);
@@ -146,6 +145,6 @@ public class OAuthApi {
      * @return True if the token has expired. {@link Boolean}
      */
     public static boolean hasTokenExpired(AuthorizedToken authorizedToken) {
-        return authorizedToken.getReceivedTimestamp() < 1629897097271L || (authorizedToken.getReceivedTimestamp() + authorizedToken.getExpiresIn()*1000) < System.currentTimeMillis();
+        return authorizedToken.getReceivedTimestamp() < 1629897097271L || (authorizedToken.getReceivedTimestamp() + authorizedToken.getExpiresIn() * 1000) < System.currentTimeMillis();
     }
 }

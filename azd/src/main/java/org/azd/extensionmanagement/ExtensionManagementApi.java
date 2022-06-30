@@ -5,11 +5,11 @@ import org.azd.connection.Connection;
 import org.azd.enums.ExtensionStateFlags;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.ConnectionException;
 import org.azd.extensionmanagement.types.InstalledExtension;
 import org.azd.extensionmanagement.types.InstalledExtensions;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.ExtensionManagementDetails;
+import org.azd.utils.AzDAsyncApi;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +19,7 @@ import static org.azd.utils.Client.send;
 /***
  * ExtensionManagementApi class to manage installed extensions API
  */
-public class ExtensionManagementApi implements ExtensionManagementDetails {
+public class ExtensionManagementApi extends AzDAsyncApi<ExtensionManagementApi> implements ExtensionManagementDetails {
     /***
      * Connection object
      */
@@ -32,21 +32,21 @@ public class ExtensionManagementApi implements ExtensionManagementDetails {
      * Pass the connection object to work with Member Entitlement Management Api
      * @param connection Connection object
      */
-    public ExtensionManagementApi(Connection connection) { this.CONNECTION = connection; }
+    public ExtensionManagementApi(Connection connection) {
+        this.CONNECTION = connection;
+    }
 
     /***
      * Get an installed extension by its publisher and extension id.
      * @param extensionId Id of the extension. Example: "sonarqube".
      * @param publisherId Id of the publisher. Example: "sonarsource".
      * @return InstalledExtension {@link InstalledExtension}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public InstalledExtension getExtension(String extensionId, String publisherId) throws ConnectionException, AzDException {
+    public InstalledExtension getExtension(String extensionId, String publisherId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, EXTENSIONMANAGEMENT, null,
-                AREA + "/installedextensions", extensionId + "/" + publisherId, null, ApiVersion.EXTENSION_MANAGEMENT,null, null);
+                AREA + "/installedextensions", extensionId + "/" + publisherId, null, ApiVersion.EXTENSION_MANAGEMENT, null, null);
 
         return MAPPER.mapJsonResponse(r, InstalledExtension.class);
     }
@@ -57,18 +57,16 @@ public class ExtensionManagementApi implements ExtensionManagementDetails {
      * @param publisherId Id of the publisher. Example: "sonarsource".
      * @param assetTypes type of asset
      * @return InstalledExtension {@link InstalledExtension}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public InstalledExtension getExtension(String extensionId, String publisherId, String[] assetTypes)
-            throws ConnectionException, AzDException {
-        var q = new HashMap<String, Object>(){{
+            throws AzDException {
+        var q = new HashMap<String, Object>() {{
             put("assetTypes", String.join(",", assetTypes));
         }};
         String r = send(RequestMethod.GET, CONNECTION, EXTENSIONMANAGEMENT, null,
-                AREA + "/installedextensions" , extensionId + "/" + publisherId, null, ApiVersion.EXTENSION_MANAGEMENT,q, null);
+                AREA + "/installedextensions", extensionId + "/" + publisherId, null, ApiVersion.EXTENSION_MANAGEMENT, q, null);
 
         return MAPPER.mapJsonResponse(r, InstalledExtension.class);
     }
@@ -76,14 +74,12 @@ public class ExtensionManagementApi implements ExtensionManagementDetails {
     /***
      * List the installed extensions
      * @return InstalledExtensions {@link InstalledExtensions}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public InstalledExtensions getExtensions() throws ConnectionException, AzDException {
+    public InstalledExtensions getExtensions() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, EXTENSIONMANAGEMENT, null,
-                AREA + "/installedextensions" , null, null, ApiVersion.EXTENSION_MANAGEMENT,null, null);
+                AREA + "/installedextensions", null, null, ApiVersion.EXTENSION_MANAGEMENT, null, null);
 
         return MAPPER.mapJsonResponse(r, InstalledExtensions.class);
     }
@@ -94,13 +90,11 @@ public class ExtensionManagementApi implements ExtensionManagementDetails {
      * @param publisherId Id of the publisher. Example: "sonarsource".
      * @param version if null latest version will be selected
      * @return InstalledExtension {@link InstalledExtension}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public InstalledExtension installExtension(String publisherId, String extensionId, String version)
-            throws ConnectionException, AzDException {
+            throws AzDException {
         String id = publisherId + "/" + extensionId;
 
         if (version != null) {
@@ -108,7 +102,7 @@ public class ExtensionManagementApi implements ExtensionManagementDetails {
         }
 
         String r = send(RequestMethod.POST, CONNECTION, EXTENSIONMANAGEMENT, null,
-                AREA + "/installedextensionsbyname" , id, null, ApiVersion.EXTENSION_MANAGEMENT,null, null);
+                AREA + "/installedextensionsbyname", id, null, ApiVersion.EXTENSION_MANAGEMENT, null, null);
 
         return MAPPER.mapJsonResponse(r, InstalledExtension.class);
     }
@@ -117,12 +111,10 @@ public class ExtensionManagementApi implements ExtensionManagementDetails {
      * Uninstall the specified extension
      * @param extensionId Id of the extension. Example: "sonarqube".
      * @param publisherId Id of the publisher. Example: "sonarsource".
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void uninstallExtension(String publisherId, String extensionId) throws ConnectionException, AzDException {
+    public Void uninstallExtension(String publisherId, String extensionId) throws AzDException {
         try {
             String id = publisherId + "/" + extensionId;
 
@@ -131,9 +123,10 @@ public class ExtensionManagementApi implements ExtensionManagementDetails {
 
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
 
-        } catch (ConnectionException | AzDException e) {
+        } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 
     /***
@@ -142,18 +135,16 @@ public class ExtensionManagementApi implements ExtensionManagementDetails {
      * @param publisherId Id of the publisher. Example: "sonarsource".
      * @param reason reason for uninstall
      * @param reasonCode reason code for uninstall
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void uninstallExtension(String publisherId, String extensionId, String reason, String reasonCode)
-            throws ConnectionException, AzDException {
+    public Void uninstallExtension(String publisherId, String extensionId, String reason, String reasonCode)
+            throws AzDException {
         try {
             String id = publisherId + "/" + extensionId;
-            var q = new HashMap<String, Object>(){{
-                put("reason",reason);
-                put("reasonCode",reasonCode);
+            var q = new HashMap<String, Object>() {{
+                put("reason", reason);
+                put("reasonCode", reasonCode);
             }};
 
             String r = send(RequestMethod.DELETE, CONNECTION, EXTENSIONMANAGEMENT, null,
@@ -161,9 +152,10 @@ public class ExtensionManagementApi implements ExtensionManagementDetails {
 
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
 
-        } catch (ConnectionException | AzDException e) {
+        } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 
     /***
@@ -172,23 +164,21 @@ public class ExtensionManagementApi implements ExtensionManagementDetails {
      * @param publisherId Id of the publisher. Example: "sonarsource".
      * @param extensionState If none extension will be enabled. {@link ExtensionStateFlags}
      * @return InstalledExtension {@link InstalledExtension}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public InstalledExtension updateExtension(String publisherId, String extensionId, ExtensionStateFlags extensionState)
-            throws ConnectionException, AzDException {
-        var body = new HashMap<String, Object>(){{
+            throws AzDException {
+        var body = new HashMap<String, Object>() {{
             put("publisherId", publisherId);
             put("extensionId", extensionId);
-            put("installState", new HashMap<String, Object>(){{
+            put("installState", new HashMap<String, Object>() {{
                 put("flags", extensionState.toString().toLowerCase());
             }});
         }};
 
         String r = send(RequestMethod.PATCH, CONNECTION, EXTENSIONMANAGEMENT, null,
-                AREA + "/installedextensions" , null, null, ApiVersion.EXTENSION_MANAGEMENT,null, body);
+                AREA + "/installedextensions", null, null, ApiVersion.EXTENSION_MANAGEMENT, null, body);
 
         return MAPPER.mapJsonResponse(r, InstalledExtension.class);
     }

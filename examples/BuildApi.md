@@ -53,8 +53,27 @@ public class Main {
 
             // queue a build with its' definition Id
             build.queueBuild(12);
+            
+            // get the file contents from a source provider repository
+            // Name of the source provider, service endpoint id, complete name of repository name,
+            // branch name and the name of file to get the contents from.
+            build.getFileContents("Github", "a7054ra9-0a34-46ac-bfdf-b8a1da865tdfd6",
+                    "hkarthik7/PSDB", "master", "LICENSE");
+            
+            // Get the list of files and folders from the source provider repository path
+            build.getPathContents("Github", "a7054ra9-0a34-46ac-bfdf-b8a1da865tdfd6",
+                    "hkarthik7/PSDB", "master", "/");
+            
+            // Get the build timeline with build id.
+            build.getTimeline(122);
+            
+            // Get the stage name, state of the stage and result of the stage from build timeline API
+            var timeline = b.getTimeline(122);
+            for(var record: timeline.getRecords()) {
+                System.out.println(record.getName() + " - " + record.getState() + " - " + record.getResult());
+            }
 
-        } catch (ConnectionException | AzDException e) {
+        } catch (AzDException e) {
             e.printStackTrace();
         }
     }

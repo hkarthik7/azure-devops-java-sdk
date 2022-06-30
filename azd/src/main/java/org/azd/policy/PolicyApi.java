@@ -4,13 +4,13 @@ import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.PolicyDetails;
 import org.azd.policy.types.PolicyConfiguration;
 import org.azd.policy.types.PolicyConfigurations;
 import org.azd.policy.types.PolicyType;
 import org.azd.policy.types.PolicyTypes;
+import org.azd.utils.AzDAsyncApi;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -21,7 +21,7 @@ import static org.azd.utils.Client.send;
 /***
  * PolicyApi class to manage Policy API
  */
-public class PolicyApi implements PolicyDetails {
+public class PolicyApi extends AzDAsyncApi<PolicyApi> implements PolicyDetails {
     /***
      * Connection object
      */
@@ -34,7 +34,9 @@ public class PolicyApi implements PolicyDetails {
      * Pass the connection object to work with Policy Api
      * @param connection Connection object
      */
-    public PolicyApi(Connection connection) { this.CONNECTION = connection; }
+    public PolicyApi(Connection connection) {
+        this.CONNECTION = connection;
+    }
 
     /***
      * Create a policy configuration of a given policy type.
@@ -45,16 +47,14 @@ public class PolicyApi implements PolicyDetails {
      * Check https://docs.microsoft.com/en-us/rest/api/azure/devops/policy/configurations/create?view=azure-devops-rest-6.1#examples
      * for more examples and how to configure the policy.
      * @return PolicyConfiguration object {@link PolicyConfiguration}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public PolicyConfiguration createPolicyConfiguration(String typeId, boolean isEnabled, boolean isBlocking, Map settings) throws ConnectionException, AzDException {
-        LinkedHashMap<String, Object> h = new LinkedHashMap<>(){{
+    public PolicyConfiguration createPolicyConfiguration(String typeId, boolean isEnabled, boolean isBlocking, Map settings) throws AzDException {
+        LinkedHashMap<String, Object> h = new LinkedHashMap<>() {{
             put("isEnabled", isEnabled);
             put("isBlocking", isBlocking);
-            put("type", new LinkedHashMap<String, String>(){{
+            put("type", new LinkedHashMap<String, String>() {{
                 put("id", typeId);
             }});
             put("settings", settings);
@@ -69,31 +69,28 @@ public class PolicyApi implements PolicyDetails {
     /***
      * Delete a policy configuration by its ID.
      * @param configurationId ID of the policy configuration to delete.
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public void deletePolicyConfiguration(int configurationId) throws ConnectionException, AzDException {
+    public Void deletePolicyConfiguration(int configurationId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, POLICY, CONNECTION.getProject(),
                     AREA + "/configurations", Integer.toString(configurationId), null, ApiVersion.POLICY, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
-        } catch (ConnectionException | AzDException e) {
+        } catch (AzDException e) {
             throw e;
         }
+        return null;
     }
 
     /***
      * Get a policy configuration by its ID.
      * @param configurationId ID of the policy configuration
      * @return PolicyConfiguration object {@link PolicyConfiguration}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public PolicyConfiguration getPolicyConfiguration(int configurationId) throws ConnectionException, AzDException {
+    public PolicyConfiguration getPolicyConfiguration(int configurationId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, POLICY, CONNECTION.getProject(),
                 AREA + "/configurations", Integer.toString(configurationId), null, ApiVersion.POLICY, null, null);
 
@@ -103,12 +100,10 @@ public class PolicyApi implements PolicyDetails {
     /***
      * Get a list of policy configurations in a project.
      * @return PolicyConfigurations object {@link PolicyConfigurations}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public PolicyConfigurations getPolicyConfigurations() throws ConnectionException, AzDException {
+    public PolicyConfigurations getPolicyConfigurations() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, POLICY, CONNECTION.getProject(),
                 AREA + "/configurations", null, null, ApiVersion.POLICY, null, null);
 
@@ -121,13 +116,11 @@ public class PolicyApi implements PolicyDetails {
      * @param continuationToken The continuation token used for pagination.
      * @param policyType Filter returned policies to only this type
      * @return PolicyConfigurations object {@link PolicyConfigurations}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public PolicyConfigurations getPolicyConfigurations(int top, String continuationToken, String policyType) throws ConnectionException, AzDException {
-        var q = new HashMap<String, Object>(){{
+    public PolicyConfigurations getPolicyConfigurations(int top, String continuationToken, String policyType) throws AzDException {
+        var q = new HashMap<String, Object>() {{
             put("$top", top);
             put("continuationToken", continuationToken);
             put("policyType", policyType);
@@ -149,22 +142,20 @@ public class PolicyApi implements PolicyDetails {
      * Check https://docs.microsoft.com/en-us/rest/api/azure/devops/policy/configurations/update?view=azure-devops-rest-6.1#examples
      * for more examples and how to configure the policy.
      * @return PolicyConfiguration object {@link PolicyConfiguration}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public PolicyConfiguration updatePolicyConfiguration(int configurationId, String typeId, boolean isEnabled, boolean isBlocking, Map settings)
-            throws ConnectionException, AzDException {
+            throws AzDException {
         String id;
 
         if (typeId.isEmpty()) id = getPolicyConfiguration(configurationId).getType().getId();
         else id = typeId;
 
-        LinkedHashMap<String, Object> h = new LinkedHashMap<>(){{
+        LinkedHashMap<String, Object> h = new LinkedHashMap<>() {{
             put("isEnabled", isEnabled);
             put("isBlocking", isBlocking);
-            put("type", new LinkedHashMap<String, String>(){{
+            put("type", new LinkedHashMap<String, String>() {{
                 put("id", id);
             }});
             put("settings", settings);
@@ -180,12 +171,10 @@ public class PolicyApi implements PolicyDetails {
      * Retrieve a specific policy type by ID.
      * @param typeId Guid of the configuration policy type.
      * @return PolicyType object {@link PolicyType}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public PolicyType getPolicyType(String typeId) throws ConnectionException, AzDException {
+    public PolicyType getPolicyType(String typeId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, POLICY, CONNECTION.getProject(),
                 AREA + "/types", typeId, null, ApiVersion.POLICY, null, null);
 
@@ -195,12 +184,10 @@ public class PolicyApi implements PolicyDetails {
     /***
      * Retrieve all available policy types.
      * @return PolicyTypes object {@link PolicyTypes}
-     * @throws ConnectionException A connection object should be created with Azure DevOps organization name, personal access token
-     * and project. This validates the connection object and throws exception if it is not provided.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public PolicyTypes getPolicyTypes() throws ConnectionException, AzDException {
+    public PolicyTypes getPolicyTypes() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, POLICY, CONNECTION.getProject(),
                 AREA + "/types", null, null, ApiVersion.POLICY, null, null);
 

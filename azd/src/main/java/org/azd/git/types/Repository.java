@@ -60,7 +60,7 @@ public class Repository {
      * Compressed size (bytes) of the repository.
      */
     @JsonProperty("size")
-    private int size;
+    private long size;
     /***
      * SSH url
      */
@@ -162,11 +162,11 @@ public class Repository {
         this.defaultBranch = defaultBranch;
     }
 
-    public int getSize() {
+    public long getSize() {
         return size;
     }
 
-    public void setSize(int size) {
+    public void setSize(long size) {
         this.size = size;
     }
 

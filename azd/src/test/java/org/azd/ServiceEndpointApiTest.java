@@ -1,7 +1,6 @@
 package org.azd;
 
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.ServiceEndpointDetails;
@@ -29,7 +28,7 @@ public class ServiceEndpointApiTest {
     }
 
     @Test(expected = AzDException.class)
-    public void shouldCreateAzureRMServiceEndpoint() throws ConnectionException, AzDException {
+    public void shouldCreateAzureRMServiceEndpoint() throws AzDException {
 
         s.createAzureRMServiceEndpoint(
                 "myEndpoint",
@@ -41,21 +40,17 @@ public class ServiceEndpointApiTest {
     }
 
     @Test
-    public void shouldGetAllServiceEndpoints() throws ConnectionException, AzDException {
-        var sEndpoints = s.getServiceEndpoints();
-        for (var endPoint: sEndpoints.getServiceEndpoints()) {
-            System.out.println(endPoint.getId() + ": " + endPoint.getName());
-        }
+    public void shouldGetAllServiceEndpoints() throws AzDException {
         s.getServiceEndpoints();
     }
 
     @Test(expected = AzDException.class)
-    public void shouldDeleteAServiceEndpoint() throws ConnectionException, AzDException {
+    public void shouldDeleteAServiceEndpoint() throws AzDException {
         s.deleteServiceEndpoint("endpointId", new String[]{"projectName"});
     }
 
     @Test(expected = AzDException.class)
-    public void shouldShareServiceEndpointConnection() throws ConnectionException, AzDException {
+    public void shouldShareServiceEndpointConnection() throws AzDException {
         var endpointId = s.getServiceEndpoints().getServiceEndpoints()
                 .stream()
                 .filter(x -> x.getName().equals("myEndpoint"))

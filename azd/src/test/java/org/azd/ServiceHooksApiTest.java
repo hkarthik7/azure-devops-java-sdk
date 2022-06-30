@@ -1,11 +1,11 @@
 package org.azd;
 
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.ConnectionException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.CoreDetails;
 import org.azd.interfaces.ServiceHooksDetails;
+import org.azd.servicehooks.types.ServiceHooks;
 import org.azd.utils.AzDClientApi;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,38 +33,46 @@ public class ServiceHooksApiTest {
     }
 
     @Test
-    public void shouldCreateASubscription() throws ConnectionException, AzDException {
+    public void shouldCreateASubscription() throws AzDException {
         var projectId = c.getProject("azure-devops-java-sdk");
+        var serviceHooks = new ServiceHooks();
 
-        var pI = new LinkedHashMap<String, Object>(){{
+        var pI = new LinkedHashMap<String, Object>() {{
             put("buildStatus", "Failed");
             put("definitionName", "Demo-CI");
             put("projectId", projectId.getId());
         }};
 
-        var cI = new LinkedHashMap<String, Object>(){{
+        var cI = new LinkedHashMap<String, Object>() {{
             put("url", "https://mywebsite/api/webhook");
         }};
 
-        var res = s.createSubscription("tfs", "build.complete", "1.0-preview.1", "webHooks",
-                "httpRequest", pI, cI);
+        serviceHooks.setPublisherId("tfs");
+        serviceHooks.setEventType("build.complete");
+        serviceHooks.setResourceVersion("1.0-preview.1");
+        serviceHooks.setConsumerId("webHooks");
+        serviceHooks.setConsumerActionId("httpRequest");
+        serviceHooks.setPublisherInputs(pI);
+        serviceHooks.setConsumerInputs(cI);
+
+        var res = s.createSubscription(serviceHooks);
 
         res.getId();
     }
 
     @Test
-    public void shouldGetASubscription() throws ConnectionException, AzDException {
+    public void shouldGetASubscription() throws AzDException {
         var subscriptions = s.getSubscriptions();
         s.getSubscription(subscriptions.getSubscriptions().stream().findFirst().get().getId());
     }
 
     @Test
-    public void shouldGetSubscriptions() throws ConnectionException, AzDException {
+    public void shouldGetSubscriptions() throws AzDException {
         s.getSubscriptions();
     }
 
     @Test
-    public void shouldDeleteASubscription() throws ConnectionException, AzDException {
+    public void shouldDeleteASubscription() throws AzDException {
         var subscriptions = s.getSubscriptions();
         s.deleteSubscription(subscriptions.getSubscriptions().stream().findFirst().get().getId());
     }

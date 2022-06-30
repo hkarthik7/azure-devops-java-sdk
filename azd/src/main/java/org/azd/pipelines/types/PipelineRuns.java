@@ -3,6 +3,8 @@ package org.azd.pipelines.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
 /***
  * List of Run object
  */
@@ -12,13 +14,13 @@ public class PipelineRuns {
      * List of Run object
      */
     @JsonProperty("value")
-    private String pipelineRuns;
+    private List<PipelineRun> pipelineRuns;
 
-    public String getPipelineRuns() {
+    public List<PipelineRun> getPipelineRuns() {
         return pipelineRuns;
     }
 
-    public void setPipelineRuns(String pipelineRuns) {
+    public void setPipelineRuns(List<PipelineRun> pipelineRuns) {
         this.pipelineRuns = pipelineRuns;
     }
 

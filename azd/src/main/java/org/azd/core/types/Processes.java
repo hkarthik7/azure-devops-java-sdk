@@ -8,20 +8,20 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Processes {
     @JsonProperty("value")
-    private List<Process> value;
+    private List<Process> processes;
 
     @Override
     public String toString() {
         return "Processes{" +
-                "value=" + value +
+                "value=" + processes +
                 '}';
     }
 
     public List<Process> getProcesses() {
-        return value;
+        return processes;
     }
 
-    public void setProcesses(List<Process> value) {
-        this.value = value;
+    public void setProcesses(List<Process> processes) {
+        this.processes = processes;
     }
 }

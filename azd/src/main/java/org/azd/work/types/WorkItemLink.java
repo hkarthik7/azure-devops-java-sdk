@@ -55,5 +55,5 @@ public class WorkItemLink {
 
     public void setTarget(WorkItemReference target) {
         this.target = target;
-        }
+    }
 }

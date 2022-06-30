@@ -1,17 +1,20 @@
 package org.azd;
 
+import org.azd.core.types.Project;
 import org.azd.enums.FeedViewType;
 import org.azd.enums.FeedVisibility;
 import org.azd.exceptions.AzDException;
-import org.azd.exceptions.ConnectionException;
+import org.azd.feedmanagement.types.Feed;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.FeedManagementDetails;
 import org.azd.utils.AzDClientApi;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.util.UUID;
 
 public class FeedManagementApiTest {
 
@@ -32,77 +35,96 @@ public class FeedManagementApiTest {
     }
 
     @Test(expected = AzDException.class)
-    public void shouldCreateAFeed() throws ConnectionException, AzDException {
+    public void shouldCreateAFeed() throws AzDException {
         f.createFeed("myFeed", "My Test Feed", false, true);
     }
 
     @Test(expected = AzDException.class)
-    public void shouldCreateAFeedView() throws ConnectionException, AzDException {
+    public void shouldCreateAFeedView() throws AzDException {
         f.createFeedView("myFeed", "TestFeedView", FeedViewType.RELEASE, FeedVisibility.ORGANIZATION);
     }
 
     @Test(expected = AzDException.class)
-    public void shouldDeleteAFeedView() throws ConnectionException, AzDException {
+    public void shouldDeleteAFeedView() throws AzDException {
         f.deleteFeedView("myFeed", "TestFeedView");
     }
 
     @Test(expected = AzDException.class)
-    public void shouldDeleteAFeed() throws ConnectionException, AzDException {
+    public void shouldDeleteAFeed() throws AzDException {
         f.deleteFeed("myFeed");
     }
 
     @Test
-    public void shouldGetAFeed() throws ConnectionException, AzDException {
+    public void shouldGetAFeed() throws AzDException {
         f.getFeed("newTestFeed");
     }
 
     @Test(expected = AzDException.class)
-    public void shouldGetAFeedWithQueryParameters() throws ConnectionException, AzDException {
+    public void shouldGetAFeedWithQueryParameters() throws AzDException {
         f.getFeed("myFeed", false);
     }
 
     @Test
-    public void shouldGetAFeedPermissions() throws ConnectionException, AzDException {
+    public void shouldGetAFeedPermissions() throws AzDException {
         f.getFeedPermissions("TestFeed");
     }
 
     @Test(expected = AzDException.class)
-    public void shouldGetAFeedPermissionsWithQueryParameters() throws ConnectionException, AzDException {
+    public void shouldGetAFeedPermissionsWithQueryParameters() throws AzDException {
         f.getFeedPermissions("TestFeed", true, null, true, true);
     }
 
     @Test
-    public void shouldGetAFeedView() throws ConnectionException, AzDException {
+    public void shouldGetAFeedView() throws AzDException {
         f.getFeedView("TestFeed", "myView");
     }
 
     @Test
-    public void shouldGetFeedViews() throws ConnectionException, AzDException {
+    public void shouldGetFeedViews() throws AzDException {
         f.getFeedViews("TestFeed");
     }
 
     @Test
-    public void shouldGetFeeds() throws ConnectionException, AzDException {
+    public void shouldGetFeeds() throws AzDException {
         f.getFeeds();
     }
 
     @Test
-    public void shouldGetFeedsWithQueryParameters() throws ConnectionException, AzDException {
+    public void shouldGetFeedsWithQueryParameters() throws AzDException {
         f.getFeeds("Administrator", true, true);
     }
 
     @Test(expected = AzDException.class)
-    public void shouldSetFeedPermissions() throws ConnectionException, AzDException {
+    public void shouldSetFeedPermissions() throws AzDException {
         f.setFeedPermissions("TestFeed", null, "", false, "reader");
     }
 
     @Test(expected = AzDException.class)
-    public void shouldUpdateAFeed() throws ConnectionException, AzDException {
-        f.updateFeed("TestFeed", true, null, false, true);
+    public void shouldUpdateAFeed() throws AzDException {
+        var feedId = "93aaa3a7-a876-4b01-be80-e7a14b595ec2";
+        // feedId = f.getFeed("TestFeed").getId();
+        f.updateFeed(feedId,"TestFeed", true, null, false, true);
     }
 
     @Test
-    public void shouldUpdateAFeedView() throws ConnectionException, AzDException {
+    public void shouldUpdateAFeedView() throws AzDException {
         f.updateFeedView("TestFeed", "myView", FeedViewType.RELEASE, FeedVisibility.ORGANIZATION);
+    }
+
+    @Test
+    public void shouldCreateAndUpdateAFeed() throws AzDException {
+        String feedName = "MyTestFeed-" + UUID.randomUUID();
+        try {
+            f.createFeed(feedName, "this is a new feed", true, true);
+            Thread.sleep(2000l); // to allow for feed creation
+        } catch (AzDException e) {
+            // ignore feed already exists
+        } catch (InterruptedException e) {
+            // ignore wait interrupt
+        }
+        Feed feed = f.getFeed(feedName);
+        f.updateFeed(feed.getId(), feedName, true, "my description", true, false);
+
+        f.deleteFeed(feed.getId());
     }
 }

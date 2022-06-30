@@ -3,9 +3,10 @@ package org.azd.common.types;
 /**
  * Response class for getting the resource area url.
  * <p>
- *     This class is used as a placeholder to deserialize the json response from
- *     REST API and to get the organization resource are url.
+ * This class is used as a placeholder to deserialize the json response from
+ * REST API and to get the organization resource are url.
  * </p>
+ *
  * @author Harish Karthic
  */
 public class LocationUrl {
@@ -26,7 +27,9 @@ public class LocationUrl {
      * Set the id of resource area
      * @param id of the resource
      */
-    public void setId(String id) { this.id = id; }
+    public void setId(String id) {
+        this.id = id;
+    }
 
     /**
      * Get the name of the resource area.
@@ -41,7 +44,9 @@ public class LocationUrl {
      * Set the name of the resource
      * @param name name of the resource
      */
-    public void setName(String name) { this.name = name; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
     /**
      * Get the location url of the resource area.
@@ -57,7 +62,9 @@ public class LocationUrl {
      * deserialization.
      * @param locationUrl resource area url
      */
-    public void setLocationUrl(String locationUrl) { this.locationUrl = locationUrl; }
+    public void setLocationUrl(String locationUrl) {
+        this.locationUrl = locationUrl;
+    }
 
     /***
      * Convert the resource object to string
