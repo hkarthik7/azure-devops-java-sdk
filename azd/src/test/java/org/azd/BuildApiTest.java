@@ -280,18 +280,18 @@ public class BuildApiTest {
 
     @Test()
     public void shouldGetBuildTimelines() throws AzDException {
-        b.getTimeline(1103);
+        b.getTimeline(buildId);
     }
 
     @Test()
     public void shouldGetBuildTimelinesWithTimelineId() throws AzDException {
-        var timeline = b.getTimeline(1103);
-        b.getTimeline(1103, timeline.getId());
+        var timeline = b.getTimeline(buildId);
+        b.getTimeline(buildId, timeline.getId());
     }
 
     @Test()
     public void shouldGetBuildTimelinesWithChangeAndPlanId() throws AzDException {
-        var timeline = b.getTimeline(1103);
-        b.getTimeline(1103, timeline.getId(), timeline.getChangeId(), null);
+        var timeline = b.getTimeline(buildId);
+        b.getTimeline(buildId, timeline.getId(), timeline.getChangeId(), null);
     }
 }
