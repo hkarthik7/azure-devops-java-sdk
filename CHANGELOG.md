@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.0.5
+- Expanded the GitApi to get the branches of a repository or a specific branch from a repository based on the branch name.
+
 ## 3.0.4
 
 - Updated Api version from 6.x to 7.x.

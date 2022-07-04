@@ -1,107 +1,131 @@
 package org.azd.interfaces;
 
+import java.util.List;
+
 import org.azd.enums.GitHistoryMode;
 import org.azd.enums.GitVersionOptions;
 import org.azd.enums.GitVersionType;
 import org.azd.enums.PullRequestStatus;
 import org.azd.exceptions.AzDException;
-import org.azd.git.types.*;
-
-import java.util.List;
+import org.azd.git.types.GitAnnotatedTag;
+import org.azd.git.types.GitCommit;
+import org.azd.git.types.GitCommitChanges;
+import org.azd.git.types.GitCommits;
+import org.azd.git.types.GitDeletedRepositories;
+import org.azd.git.types.GitRef;
+import org.azd.git.types.GitRefs;
+import org.azd.git.types.PullRequest;
+import org.azd.git.types.PullRequestReviewer;
+import org.azd.git.types.PullRequestReviewers;
+import org.azd.git.types.PullRequests;
+import org.azd.git.types.Repositories;
+import org.azd.git.types.Repository;
+import org.azd.git.types.ResourceRefs;
+import org.azd.git.types.WebApiTagDefinition;
+import org.azd.git.types.WebApiTagDefinitions;
 
 public interface GitDetails {
-    Repository createRepository(String repositoryName, String projectId) throws AzDException;
 
-    Void deleteRepository(String repositoryId) throws AzDException;
+	Repository createRepository(String repositoryName, String projectId) throws AzDException;
 
-    Void deleteRepositoryFromRecycleBin(String repositoryId) throws AzDException;
+	Void deleteRepository(String repositoryId) throws AzDException;
 
-    GitDeletedRepositories getDeletedRepositories() throws AzDException;
+	Void deleteRepositoryFromRecycleBin(String repositoryId) throws AzDException;
 
-    GitDeletedRepositories getRecycleBinRepositories() throws AzDException;
+	GitDeletedRepositories getDeletedRepositories() throws AzDException;
 
-    Repository getRepository(String repositoryName) throws AzDException;
+	GitDeletedRepositories getRecycleBinRepositories() throws AzDException;
 
-    Repositories getRepositories() throws AzDException;
+	Repository getRepository(String repositoryName) throws AzDException;
 
-    Repository restoreRepositoryFromRecycleBin(String repositoryId, boolean deleted) throws AzDException;
+	Repositories getRepositories() throws AzDException;
 
-    Repository updateRepository(String repositoryId, String repositoryName, String defaultBranchName) throws AzDException;
+	Repository restoreRepositoryFromRecycleBin(String repositoryId, boolean deleted) throws AzDException;
 
-    PullRequest createPullRequest(
-            String repositoryId, String sourceRefName, String targetRefName,
-            String title, String description, String[] reviewers) throws AzDException;
+	Repository updateRepository(String repositoryId, String repositoryName, String defaultBranchName)
+			throws AzDException;
 
-    PullRequest createPullRequest(
-            String repositoryId, String sourceRefName, String targetRefName,
-            String title, String description, boolean isDraft) throws AzDException;
+	PullRequest createPullRequest(String repositoryId, String sourceRefName, String targetRefName, String title,
+			String description, String[] reviewers) throws AzDException;
 
-    PullRequest getPullRequest(String repositoryName, int pullRequestId) throws AzDException;
+	PullRequest createPullRequest(String repositoryId, String sourceRefName, String targetRefName, String title,
+			String description, boolean isDraft) throws AzDException;
 
-    PullRequest getPullRequestById(int pullRequestId) throws AzDException;
+	PullRequest getPullRequest(String repositoryName, int pullRequestId) throws AzDException;
 
-    PullRequests getPullRequests(String repositoryName) throws AzDException;
+	PullRequest getPullRequestById(int pullRequestId) throws AzDException;
 
-    PullRequests getPullRequestsByProject() throws AzDException;
+	PullRequests getPullRequests(String repositoryName) throws AzDException;
 
-    PullRequests getPullRequestsByProject(int top) throws AzDException;
+	PullRequests getPullRequestsByProject() throws AzDException;
 
-    PullRequests getPullRequestsByProject(PullRequestStatus status) throws AzDException;
+	PullRequests getPullRequestsByProject(int top) throws AzDException;
 
-    PullRequests getPullRequestsByProject(int skip, int top, String creatorId, boolean includeLinks,
-                                          String repositoryId, String reviewerId, String sourceRefName,
-                                          String sourceRepositoryId, PullRequestStatus status, String targetRefName) throws AzDException;
+	PullRequests getPullRequestsByProject(PullRequestStatus status) throws AzDException;
 
-    GitRef updateBranchLock(String repositoryName, String branchName, boolean isLocked) throws AzDException;
+	PullRequests getPullRequestsByProject(int skip, int top, String creatorId, boolean includeLinks,
+			String repositoryId, String reviewerId, String sourceRefName, String sourceRepositoryId,
+			PullRequestStatus status, String targetRefName) throws AzDException;
 
-    ResourceRefs getPullRequestWorkItems(int pullRequestId, String repositoryName) throws AzDException;
+	GitRef getBranch(String repositoryName, String branchName) throws AzDException;
 
-    WebApiTagDefinition createPullRequestLabel(String repositoryName, int pullRequestId, String labelName) throws AzDException;
+	GitRefs getBranches(String repositoryName) throws AzDException;
 
-    Void deletePullRequestLabel(String repositoryName, int pullRequestId, String labelName) throws AzDException;
+	GitRef updateBranchLock(String repositoryName, String branchName, boolean isLocked) throws AzDException;
 
-    WebApiTagDefinition getPullRequestLabel(String repositoryName, int pullRequestId, String labelName) throws AzDException;
+	ResourceRefs getPullRequestWorkItems(int pullRequestId, String repositoryName) throws AzDException;
 
-    WebApiTagDefinitions getPullRequestLabels(String repositoryName, int pullRequestId) throws AzDException;
+	WebApiTagDefinition createPullRequestLabel(String repositoryName, int pullRequestId, String labelName)
+			throws AzDException;
 
-    PullRequestReviewer createPullRequestReviewer(int pullRequestId, String repositoryId,
-                                                  String reviewerId, int vote, boolean isRequired) throws AzDException;
+	Void deletePullRequestLabel(String repositoryName, int pullRequestId, String labelName) throws AzDException;
 
-    Void deletePullRequestReviewer(int pullRequestId, String repositoryId, String reviewerId) throws AzDException;
+	WebApiTagDefinition getPullRequestLabel(String repositoryName, int pullRequestId, String labelName)
+			throws AzDException;
 
-    PullRequestReviewer getPullRequestReviewer(int pullRequestId, String repositoryId,
-                                               String reviewerId) throws AzDException;
+	WebApiTagDefinitions getPullRequestLabels(String repositoryName, int pullRequestId) throws AzDException;
 
-    PullRequestReviewers getPullRequestReviewers(int pullRequestId, String repositoryId) throws AzDException;
+	PullRequestReviewer createPullRequestReviewer(int pullRequestId, String repositoryId, String reviewerId, int vote,
+			boolean isRequired) throws AzDException;
 
-    PullRequestReviewer updatePullRequestReviewer(int pullRequestId, String repositoryId, String reviewerId,
-                                                  boolean isFlagged, boolean hasDeclined) throws AzDException;
+	Void deletePullRequestReviewer(int pullRequestId, String repositoryId, String reviewerId) throws AzDException;
 
-    GitAnnotatedTag createAnnotatedTag(String repositoryName, String tagName, String objectId, String message) throws AzDException;
+	PullRequestReviewer getPullRequestReviewer(int pullRequestId, String repositoryId, String reviewerId)
+			throws AzDException;
 
-    GitAnnotatedTag getAnnotatedTag(String repositoryName, String objectId) throws AzDException;
+	PullRequestReviewers getPullRequestReviewers(int pullRequestId, String repositoryId) throws AzDException;
 
-    GitCommit getCommit(String repositoryName, String commitId) throws AzDException;
+	PullRequestReviewer updatePullRequestReviewer(int pullRequestId, String repositoryId, String reviewerId,
+			boolean isFlagged, boolean hasDeclined) throws AzDException;
 
-    GitCommit getCommit(String repositoryName, String commitId, int changeCount) throws AzDException;
+	GitAnnotatedTag createAnnotatedTag(String repositoryName, String tagName, String objectId, String message)
+			throws AzDException;
 
-    GitCommitChanges getChanges(String repositoryName, String commitId) throws AzDException;
+	GitAnnotatedTag getAnnotatedTag(String repositoryName, String objectId) throws AzDException;
 
-    GitCommitChanges getChanges(String repositoryName, String commitId, int top, int skip) throws AzDException;
+	GitCommit getCommit(String repositoryName, String commitId) throws AzDException;
 
-    GitCommits getCommits(String repositoryName) throws AzDException;
+	GitCommit getCommit(String repositoryName, String commitId, int changeCount) throws AzDException;
 
-    GitCommits getCommits(String repositoryName, int top) throws AzDException;
+	GitCommitChanges getChanges(String repositoryName, String commitId) throws AzDException;
 
-    GitCommits getCommits(String repositoryName, List<String> ids) throws AzDException;
+	GitCommitChanges getChanges(String repositoryName, String commitId, int top, int skip) throws AzDException;
 
-    GitCommits getCommits(String repositoryName, int top, int skip, String author, String version, GitVersionOptions versionOptions,
-                          GitVersionType versionType, boolean excludeDeletes, String fromCommitId, String toCommitId, String fromDate,
-                          String toDate, GitHistoryMode historyMode, List<String> ids, boolean includeLinks, boolean includePushData,
-                          boolean includeUserImageUrl, boolean includeWorkItems, String itemPath, boolean showOldestCommitsFirst,
-                          String user, String itemVersion, GitVersionOptions itemVersionOptions, GitVersionType itemVersionType) throws AzDException;
+	GitCommits getCommits(String repositoryName) throws AzDException;
 
-    GitCommits getPushCommits(String repositoryName, int pushId) throws AzDException;
+	GitCommits getCommits(String repositoryName, int top) throws AzDException;
 
-    GitCommits getPushCommits(String repositoryName, int pushId, boolean includeLinks, int top, int skip) throws AzDException;
+	GitCommits getCommits(String repositoryName, List<String> ids) throws AzDException;
+
+	GitCommits getCommits(String repositoryName, int top, int skip, String author, String version,
+			GitVersionOptions versionOptions, GitVersionType versionType, boolean excludeDeletes, String fromCommitId,
+			String toCommitId, String fromDate, String toDate, GitHistoryMode historyMode, List<String> ids,
+			boolean includeLinks, boolean includePushData, boolean includeUserImageUrl, boolean includeWorkItems,
+			String itemPath, boolean showOldestCommitsFirst, String user, String itemVersion,
+			GitVersionOptions itemVersionOptions, GitVersionType itemVersionType) throws AzDException;
+
+	GitCommits getPushCommits(String repositoryName, int pushId) throws AzDException;
+
+	GitCommits getPushCommits(String repositoryName, int pushId, boolean includeLinks, int top, int skip)
+			throws AzDException;
 }
