@@ -15,22 +15,22 @@ public class GraphReferenceLinks {
      * self reference url
      */
     @JsonProperty("self")
-    private Reference self;
+    protected Reference self;
     /***
      * Represents the ulr of membership API
      */
     @JsonProperty("memberships")
-    private Reference memberships;
+    protected Reference memberships;
     /***
      * Membership state url
      */
     @JsonProperty("membershipState")
-    private Reference membershipState;
+    protected Reference membershipState;
     /***
      * Storage key url
      */
     @JsonProperty("storageKey")
-    private Reference storageKey;
+    protected Reference storageKey;
 
     public Reference getSelf() {
         return self;
