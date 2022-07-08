@@ -1,6 +1,5 @@
 package org.azd;
 
-import org.azd.core.types.Project;
 import org.azd.enums.FeedViewType;
 import org.azd.enums.FeedVisibility;
 import org.azd.exceptions.AzDException;
@@ -9,7 +8,6 @@ import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.FeedManagementDetails;
 import org.azd.utils.AzDClientApi;
-import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -103,7 +101,7 @@ public class FeedManagementApiTest {
     public void shouldUpdateAFeed() throws AzDException {
         var feedId = "93aaa3a7-a876-4b01-be80-e7a14b595ec2";
         // feedId = f.getFeed("TestFeed").getId();
-        f.updateFeed(feedId,"TestFeed", true, null, false, true);
+        f.updateFeed(feedId, "TestFeed", true, null, false, true);
     }
 
     @Test

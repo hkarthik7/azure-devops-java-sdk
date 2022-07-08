@@ -118,7 +118,8 @@ public class GraphApiTest {
 //            assertTrue(g.getGroupMembersOf(group.getDescriptor()).getGraphMemberships().stream().anyMatch(x -> x.getMemberDescriptor().equals(userNotInGroup.get().getDescriptor())));
 //            System.out.println("Added " + userNotInGroup.get().getDescriptor() + " to " + group.getDescriptor());
             g.addMembership(userNotInGroup.get().getDescriptor(), group.getDescriptor());
-        } catch (AzDException e) { }
+        } catch (AzDException e) {
+        }
     }
 
     @Test

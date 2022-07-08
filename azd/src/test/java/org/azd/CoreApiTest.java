@@ -65,7 +65,8 @@ public class CoreApiTest {
         Project project = null;
         try {
             project = c.getProject("my-New-awesome-project");
-        } catch (AzDException e) {}
+        } catch (AzDException e) {
+        }
 
         if (project != null) {
             c.deleteProject(project.getId());
@@ -88,7 +89,8 @@ public class CoreApiTest {
         Team team = null;
         try {
             team = c.getTeam("my-awesome-project", "myNewTeam");
-        } catch(AzDException e) {}
+        } catch (AzDException e) {
+        }
 
         if (team == null) {
             c.createTeam("my-awesome-project", "myNewTeam");
@@ -100,7 +102,8 @@ public class CoreApiTest {
         Team team = null;
         try {
             team = c.getTeam("my-awesome-project", "myNewTeam");
-        } catch(AzDException e) {}
+        } catch (AzDException e) {
+        }
 
         if (team != null) {
             c.deleteTeam(c.getProject("my-awesome-project").getId(), "myNewTeam");
@@ -111,14 +114,16 @@ public class CoreApiTest {
     public void shouldGetAProjectTeam() throws AzDException {
         try {
             c.getTeam("my-awesome-project", "myTeam");
-        } catch (AzDException e) {}
+        } catch (AzDException e) {
+        }
     }
 
     @Test
     public void shouldGetAProjectTeamWithOptionalParameters() throws AzDException {
         try {
             c.getTeam(c.getProject("my-awesome-project").getId(), "myTeam", true);
-        } catch (AzDException e) {}
+        } catch (AzDException e) {
+        }
     }
 
     @Test

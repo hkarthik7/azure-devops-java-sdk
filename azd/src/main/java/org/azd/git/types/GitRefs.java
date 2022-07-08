@@ -1,9 +1,9 @@
 package org.azd.git.types;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.List;
 
 /***
  * List of refs (branches).
@@ -11,22 +11,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GitRefs {
 
-	/***
-	 * List of refs (branches).
-	 */
-	@JsonProperty("value")
-	private List<GitRef> value;
+    /***
+     * List of refs (branches).
+     */
+    @JsonProperty("value")
+    private List<GitRef> value;
 
-	public List<GitRef> getBranches() {
-		return value;
-	}
+    public List<GitRef> getBranches() {
+        return value;
+    }
 
-	public void setBranches(List<GitRef> value) {
-		this.value = value;
-	}
+    public void setBranches(List<GitRef> value) {
+        this.value = value;
+    }
 
-	@Override
-	public String toString() {
-		return "GitRefs{" + "value=" + value + '}';
-	}
+    @Override
+    public String toString() {
+        return "GitRefs{" + "value=" + value + '}';
+    }
 }

@@ -193,7 +193,8 @@ public class WorkItemTrackingApiTest {
             }};
 
             w.addWorkItemAttachment(994, attachmentFields);
-        } catch (AzDException e) { }
+        } catch (AzDException e) {
+        }
     }
 
     @Test
