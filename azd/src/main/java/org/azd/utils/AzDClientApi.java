@@ -17,6 +17,7 @@ import org.azd.oauth.types.AuthorizedToken;
 import org.azd.pipelines.PipelinesApi;
 import org.azd.policy.PolicyApi;
 import org.azd.release.ReleaseApi;
+import org.azd.security.SecurityApi;
 import org.azd.serviceendpoint.ServiceEndpointApi;
 import org.azd.servicehooks.ServiceHooksApi;
 import org.azd.upack.UPackApi;
@@ -266,4 +267,11 @@ public class AzDClientApi implements AzDClient {
     public UPackApi getUPackApi() {
         return new UPackApi(CONNECTION);
     }
+
+    /***
+     * Returns an instance of security api
+     * @return instance of securityApi {@link SecurityApi}
+     */
+    @Override
+    public SecurityApi getSecurityApi() {return new SecurityApi(CONNECTION);}
 }
