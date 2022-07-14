@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.0.6
+- Implement **Security API** and **Identity API** functionality
+  - query security namespaces
+  - query access control lists
+  - set / remove access control lists
+  - set / remove access control entries
+  - read identity descriptors (convert from user / group descriptors)
+
 **Breaking changes**
 - Added GraphEntity as parent of GraphUser and GraphGroup
   - minor risk if extending from GraphUser or GraphGroup

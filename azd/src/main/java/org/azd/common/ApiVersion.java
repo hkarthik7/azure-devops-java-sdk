@@ -34,6 +34,8 @@ public abstract class ApiVersion {
     public static final String RELEASE_DEFINITION = "7.1-preview.4";
     public static final String RELEASE_DEFINITION_HISTORY = "7.1-preview.1";
     public static final String RELEASE_MANUAL_INTERVENTION = "7.1-preview.1";
+    public static final String IDENTITY = "7.1-preview.1";
+    public static final String SECURITY = "7.1-preview.1";
     public static final String SERVICE_ENDPOINTS = "7.1-preview.4";
     public static final String SERVICE_HOOKS = "7.1-preview.1";
     public static final String VARIABLE_GROUPS = "7.1-preview.2";

@@ -14,6 +14,7 @@ import org.azd.oauth.OAuthApi;
 import org.azd.pipelines.PipelinesApi;
 import org.azd.policy.PolicyApi;
 import org.azd.release.ReleaseApi;
+import org.azd.security.SecurityApi;
 import org.azd.serviceendpoint.ServiceEndpointApi;
 import org.azd.servicehooks.ServiceHooksApi;
 import org.azd.upack.UPackApi;
@@ -61,4 +62,6 @@ public interface AzDClient {
     PipelinesApi getPipelinesApi();
 
     UPackApi getUPackApi();
+
+    SecurityApi getSecurityApi();
 }
