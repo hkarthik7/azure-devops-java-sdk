@@ -1,19 +1,21 @@
 # Changelog
 
-## 3.0.6
+## 4.0.0
+
+**Breaking changes**
+- Added GraphEntity as parent of GraphUser and GraphGroup
+- Minor risk if extending from GraphUser or GraphGroup
+- Merged PR: [Refactor GraphEntity as parent of GraphUser and GraphGroup #32](https://github.com/hkarthik7/azure-devops-java-sdk/pull/32)
 - Implement **Security API** and **Identity API** functionality
   - query security namespaces
   - query access control lists
   - set / remove access control lists
   - set / remove access control entries
   - read identity descriptors (convert from user / group descriptors)
-
-**Breaking changes**
-- Added GraphEntity as parent of GraphUser and GraphGroup
-  - minor risk if extending from GraphUser or GraphGroup
-
-## 3.0.5
-- Expanded the GitApi to get the branches of a repository or a specific branch from a repository based on the branch name.
+- Merged PR: [Added support for Git tag #31](https://github.com/hkarthik7/azure-devops-java-sdk/pull/31)
+- Merged PR: [Implement **Security API** and **Identity API** functionality #30](https://github.com/hkarthik7/azure-devops-java-sdk/pull/30)
+- Expanded the GitApi to get the branches of a repository, or a specific branch from a repository based on the branch name.
+- Merged PR: [Getting repository branches support #35](https://github.com/hkarthik7/azure-devops-java-sdk/pull/35)
 
 ## 3.0.4
 
