@@ -67,6 +67,17 @@ public class ACE {
         this.extendedInfo = extendedInfo;
     }
 
+    @Override
+    public String toString() {
+        return "AceDictionaryEntry{" +
+                "descriptor='" + descriptor + '\'' +
+                ", allow=" + allow +
+                ", deny=" + deny +
+                ", includeExtendedInfo=" + isIncludeExtendedInfo() +
+                ", extendedInfo=" + extendedInfo +
+                '}';
+    }
+
     @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public class ExtendedInfo {
@@ -98,16 +109,5 @@ public class ACE {
                     ", effectiveAllow=" + effectiveAllow +
                     '}';
         }
-    }
-
-    @Override
-    public String toString() {
-        return "AceDictionaryEntry{" +
-                "descriptor='" + descriptor + '\'' +
-                ", allow=" + allow +
-                ", deny=" + deny +
-                ", includeExtendedInfo=" + isIncludeExtendedInfo() +
-                ", extendedInfo=" + extendedInfo +
-                '}';
     }
 }

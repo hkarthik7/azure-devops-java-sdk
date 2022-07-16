@@ -273,5 +273,7 @@ public class AzDClientApi implements AzDClient {
      * @return instance of securityApi {@link SecurityApi}
      */
     @Override
-    public SecurityApi getSecurityApi() {return new SecurityApi(CONNECTION);}
+    public SecurityApi getSecurityApi() {
+        return new SecurityApi(CONNECTION);
+    }
 }

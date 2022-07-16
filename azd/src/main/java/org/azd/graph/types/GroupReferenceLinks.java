@@ -1,8 +1,6 @@
 package org.azd.graph.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.Reference;
 
 /***
  * This field contains zero or more interesting links about the graph subject.

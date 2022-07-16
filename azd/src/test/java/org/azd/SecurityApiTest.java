@@ -25,9 +25,6 @@ import org.junit.Test;
 
 import java.io.File;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.Assert.*;
@@ -149,7 +146,7 @@ public class SecurityApiTest {
         for (SecurityNamespace ns : securityNamespaces) {
             System.out.println("Namespace: " + ns.getDisplayName());
             ns.getActions().stream().forEach(x -> {
-                System.out.println("  Action: " + x.getDisplayName() + " ("+x.getBit()+")");
+                System.out.println("  Action: " + x.getDisplayName() + " (" + x.getBit() + ")");
             });
         }
     }
@@ -196,7 +193,7 @@ public class SecurityApiTest {
         // random project
         Optional<Project> projectOptional = coreApi.getProjects().getProjects().stream().filter(x -> x.getName().equals("My-Project")).findAny();
         assumeTrue(projectOptional.isPresent());
-        Map<String, String> tokenParameters = new HashMap<>(){{
+        Map<String, String> tokenParameters = new HashMap<>() {{
             put("PROJECT_ID", projectOptional.get().getId());
         }};
         Optional<Pipeline> pipelineOptional = pipelinesApi.getPipelines().getPipelines().stream().findAny();
@@ -275,7 +272,7 @@ public class SecurityApiTest {
         if (allowMask == currentACE.getAllow()) {
             // flip a bit in case allow is already the same
             allowMask = allowMask ^ (Math.round(Math.random()) % 1025);
-         }
+        }
         entry.setAllow(allowMask);
         if (denyMask == currentACE.getDeny()) {
             denyMask = denyMask ^ (Math.round(Math.random()) % 1025);
@@ -288,7 +285,8 @@ public class SecurityApiTest {
             s.setAccessControlList(SecurityToken.Scope.GIT.getNamespace(), newAclSet);
             try {
                 Thread.sleep(5000l); // delay to allow change to take effect
-            } catch (InterruptedException e) {}
+            } catch (InterruptedException e) {
+            }
             ACLs updatedControlLists = s.getAccessControlLists(SecurityToken.Scope.GIT.getNamespace(), new String[]{descriptor}, existingACL.getToken(), false, false);
             //updatedControlLists.getACLs().stream().forEach(x -> {
             //    System.out.println("Updated ACL: " + x.getToken() + "   " + x.getAcesDictionary().keySet().size());
@@ -302,7 +300,7 @@ public class SecurityApiTest {
                 assertNotEquals(updatedAcl.getAcesDictionary().get(descriptor).getDeny(), originalAcl.get().getAcesDictionary().get(descriptor).getDeny());
                 StringBuilder sb = new StringBuilder().append("Allow: ")
                         .append(originalAcl.get().getAcesDictionary().get(descriptor).getAllow()).append(" => ").append(updatedAcl.getAcesDictionary().get(descriptor).getAllow())
-                                .append(", Deny: ")
+                        .append(", Deny: ")
                         .append(originalAcl.get().getAcesDictionary().get(descriptor).getDeny()).append(" => ").append(updatedAcl.getAcesDictionary().get(descriptor).getDeny());
                 sb.append("    ").append(descriptor).append(" : ").append(updatedAcl.getToken());
                 System.out.println(sb.toString());
@@ -331,8 +329,8 @@ public class SecurityApiTest {
     @Test
     public void shouldUpdateAccessControlEntry() throws AzDException {
         var projectName = "my-awesome-project";
-        long allowMask = 2+4+16;
-        long denyMask = 256+512;
+        long allowMask = 2 + 4 + 16;
+        long denyMask = 256 + 512;
         GitApi gitApi = webApi.getGitApi();
         CoreApi coreApi = webApi.getCoreApi();
         GraphApi graphApi = webApi.getGraphApi();
@@ -342,8 +340,8 @@ public class SecurityApiTest {
         assumeTrue(userOptional.isPresent());
 //        Optional<Repository> repositoryOptional = gitApi.getRepositories().getRepositories().stream().findAny();
         Optional<Repository> repositoryOptional = gitApi.getRepositories().getRepositories().stream()
-                    .filter(x -> x.getName().equals("newRepo"))
-                    .findFirst();
+                .filter(x -> x.getName().equals("newRepo"))
+                .findFirst();
         assumeTrue(repositoryOptional.isPresent());
         //System.out.println("" + repositoryOptional.get());
 
@@ -374,7 +372,8 @@ public class SecurityApiTest {
 
             try {
                 Thread.sleep(5000l); // wait for completion
-            } catch (InterruptedException ie) {}
+            } catch (InterruptedException ie) {
+            }
 
             ACLs updatedControlLists = s.getAccessControlLists(SecurityToken.Scope.GIT.getNamespace(), new String[]{descriptor}, token, false, false);
             //System.out.println("Updated: ");

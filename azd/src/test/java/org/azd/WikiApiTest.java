@@ -61,6 +61,7 @@ public class WikiApiTest {
     public void shouldDeleteAWikiPage() throws AzDException {
         try {
             w.deleteWiki("MyProjectWiki");
-        } catch (AzDException e) {}
+        } catch (AzDException e) {
+        }
     }
 }

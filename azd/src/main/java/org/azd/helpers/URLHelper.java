@@ -34,5 +34,7 @@ public class URLHelper {
      * @param s input string value
      * @return String encoded string value
      */
-    public static String encodeSpecialWithSpace(String s) { return URLEncoder.encode(s, StandardCharsets.UTF_8).replace("+", "%20"); }
+    public static String encodeSpecialWithSpace(String s) {
+        return URLEncoder.encode(s, StandardCharsets.UTF_8).replace("+", "%20");
+    }
 }

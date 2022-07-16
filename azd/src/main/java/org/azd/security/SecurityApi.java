@@ -11,8 +11,6 @@ import org.azd.interfaces.SecurityDetails;
 import org.azd.security.types.*;
 import org.azd.utils.AzDAsyncApi;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -25,8 +23,6 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
     private final Connection CONNECTION;
     private final JsonMapper MAPPER = new JsonMapper();
     private final String SECURITY = "2e426be0-da4d-48c4-9178-978da8562255";
-    //"id": "2e426be0-da4d-48c4-9178-978da8562255",
-    // resourceArea == authorization?
     private final String IDENTITY = "fc3682be-3d6c-427a-87c8-e527b16a1d05";
     private final String AREA_NAMESPACE = "securitynamespaces";
     private final String AREA_ACL = "accesscontrollists";
@@ -80,6 +76,7 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
 
     /***
      * return a namespace with the specific identifier
+     *
      * @param namespaceId namespace identifier
      * @return SecurityNamespace {@link SecurityNamespace}
      * @throws AzDException Default Api Exception handler.
@@ -94,7 +91,9 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
     }
 
     /***
-     * Return a list of access control lists for the specified security namespace and token. All ACLs in the security namespace will be retrieved if no optional parameters are provided.
+     * Return a list of access control lists for the specified security namespace and token.
+     * All ACLs in the security namespace will be retrieved if no optional parameters are provided.
+     *
      * @param namespaceId identifier of namespace
      * @return ACLs {@link ACLs}
      * @throws AzDException Default Api Exception handler.
@@ -117,18 +116,18 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
      */
     @Override
     public ACLs getAccessControlLists(String namespaceId, String[] descriptors, String token, boolean includeExtendedInfo, boolean recurse) throws AzDException {
-        HashMap<String, Object> q = new HashMap<>(){{
-           if (descriptors != null && descriptors.length > 0) {
-               put("descriptors", Arrays.stream(descriptors)
-                       .filter(x -> x != null && !x.isBlank())
-                       .map(URLHelper::encodeSpecialWithSpace)
-                       .collect(Collectors.joining(",")));
-           }
-           if (token != null) {
-               put("token", URLHelper.encodeSpecialWithSpace(token));
-           }
-           put("includeExtendedInfo", includeExtendedInfo);
-           put("recurse", recurse);
+        HashMap<String, Object> q = new HashMap<>() {{
+            if (descriptors != null && descriptors.length > 0) {
+                put("descriptors", Arrays.stream(descriptors)
+                        .filter(x -> x != null && !x.isBlank())
+                        .map(URLHelper::encodeSpecialWithSpace)
+                        .collect(Collectors.joining(",")));
+            }
+            if (token != null) {
+                put("token", URLHelper.encodeSpecialWithSpace(token));
+            }
+            put("includeExtendedInfo", includeExtendedInfo);
+            put("recurse", recurse);
         }};
         String r = send(RequestMethod.GET, CONNECTION, SECURITY, null,
                 AREA_ACL, namespaceId, null, ApiVersion.SECURITY, q, null);
@@ -138,6 +137,7 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
 
     /***
      * Resolve legacy identity information for use with older APIs such as the Security APIs
+     *
      * @param descriptors A list of identity descriptors to resolve
      * @param identityIds A list of storage keys to resolve
      * @param subjectDescriptors list of subject descriptors to resolve
@@ -149,7 +149,7 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
      */
     @Override
     public Identities getIdentities(String[] descriptors, String[] identityIds, String[] subjectDescriptors, String filterValue, String queryMembership, String searchFilter) throws AzDException {
-        LinkedHashMap<String, Object> q = new LinkedHashMap<>(){{
+        LinkedHashMap<String, Object> q = new LinkedHashMap<>() {{
             if (descriptors != null && descriptors.length > 0) {
                 put("descriptors", Arrays.stream(descriptors)
                         .filter(x -> x != null && !x.isBlank())
@@ -169,8 +169,10 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
                         .collect(Collectors.joining(",")));
             }
             if (filterValue != null) put("filterValue", URLHelper.encodeSpecialWithSpace(filterValue));
-            if (validIdentityQueryMembership(queryMembership)) put("queryMembership", URLHelper.encodeSpecialWithSpace(queryMembership));
-            if (validIdentitySearchFilter(searchFilter)) put("searchFilter", URLHelper.encodeSpecialWithSpace(searchFilter));
+            if (validIdentityQueryMembership(queryMembership))
+                put("queryMembership", URLHelper.encodeSpecialWithSpace(queryMembership));
+            if (validIdentitySearchFilter(searchFilter))
+                put("searchFilter", URLHelper.encodeSpecialWithSpace(searchFilter));
         }};
         String r = send(RequestMethod.GET, CONNECTION, IDENTITY, null,
                 AREA_IDENTITIES, null, null, ApiVersion.IDENTITY, q, null);
@@ -190,6 +192,16 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
         return getIdentities(null, null, subjectDescriptors, null, null, null);
     }
 
+    /**
+     * Add or update ACEs in the ACL for the provided token.  The request body contains the target token, a list of ACEs and a optional merge parameter.
+     * In the case of a collision (by identity descriptor) with an existing ACE in the ACL, the "merge" parameter determines the behavior.
+     * If set, the existing ACE has its allow and deny merged with the incoming ACE's allow and deny. If unset, the existing ACE is displaced.
+     *
+     * @param namespaceId Security namespace identifier.
+     * @param payload     An array of {@link ACEs}. Class for encapsulating the allowed and denied permissions for a given IdentityDescriptor.
+     * @return ACEs {@link ACEs}
+     * @throws AzDException Default Api Exception handler.
+     */
     @Override
     public ACEs setAccessControlEntries(String namespaceId, ACEs payload) throws AzDException {
         String b = MAPPER.convertToString(payload);
@@ -198,6 +210,14 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
         return null;
     }
 
+    /**
+     * Remove the specified ACEs from the ACL belonging to the specified token.
+     *
+     * @param namespaceId Security namespace identifier.
+     * @param descriptors A list of identity descriptors whose entries should be removed.
+     * @param tokens      A list of tokens whose ACL should be modified.
+     * @throws AzDException Default Api Exception handler.
+     */
     @Override
     public Void removeAccessControlEntries(String namespaceId, String[] descriptors, String[] tokens) throws AzDException {
         if (tokens == null || tokens.length == 0) {
@@ -206,7 +226,7 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
         if (tokens == null || tokens.length == 0) {
             throw new AzDException(ApiExceptionTypes.InvalidArgumentException.name(), "Descriptors list must not be empty.");
         }
-        HashMap<String, Object> q = new HashMap<>(){{
+        HashMap<String, Object> q = new HashMap<>() {{
             put("tokens", Arrays.stream(tokens)
                     .filter(x -> x != null && !x.isBlank())
                     .map(URLHelper::encodeSpecialWithSpace)
@@ -223,6 +243,7 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
 
     /***
      * Create or update one or more access control lists. All data that currently exists for the ACLs supplied will be overwritten.
+     *
      * @param namespaceId Security namespace identifier.
      * @param payload ACLs {@link ACLs}
      * @throws AzDException Default Api Exception handler.
@@ -248,7 +269,7 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
         if (tokens == null || tokens.length == 0) {
             throw new AzDException(ApiExceptionTypes.InvalidArgumentException.name(), "Tokens list must not be empty.");
         }
-        HashMap<String, Object> q = new HashMap<>(){{
+        HashMap<String, Object> q = new HashMap<>() {{
             put("tokens", Arrays.stream(tokens)
                     .filter(x -> x != null && !x.isBlank())
                     .map(URLHelper::encodeSpecialWithSpace)
@@ -267,6 +288,4 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
     private boolean validIdentitySearchFilter(String searchFilter) {
         return searchFilter != null && List.of("accountname", "displayname", "mailaddress", "general", "localgroupname").contains(searchFilter.toLowerCase());
     }
-
-
 }

@@ -1,9 +1,9 @@
 package org.azd.security;
 
 
-import org.azd.exceptions.AzDException;
-
-import java.util.*;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,7 +36,9 @@ public class SecurityToken {
      */
     public static String generate(SecurityToken.Scope scope, Map<String, String> keys) {
         String output = scope.format;
-        if (scope.format.equals("")) { return scope.format; }
+        if (scope.format.equals("")) {
+            return scope.format;
+        }
         Matcher matcher = tokenPattern.matcher(scope.format);
         while (matcher.find()) {
             output = matcher.replaceFirst(keys.getOrDefault(matcher.group(1), ""));
@@ -52,7 +54,9 @@ public class SecurityToken {
      */
     public static Set<String> keys(SecurityToken.Scope scope) {
         Set<String> output = new HashSet<>();
-        if (scope == null || scope.format.equals("")) { return output; }
+        if (scope == null || scope.format.equals("")) {
+            return output;
+        }
         Matcher matcher = tokenPattern.matcher(scope.format);
         while (matcher.find()) {
             String match = matcher.group(1);
@@ -121,6 +125,9 @@ public class SecurityToken {
         WorkItemTrackingProvision("5a6cd233-6615-414d-9393-48dbb252bd23", "$/{PROJECT_ID}") // root token has the format "/$"
         ;
 
+        private String namespace;
+        private String format;
+
         /***
          * For informational purposes, the following namespaces are deprecated and read-only:
          *
@@ -154,7 +161,6 @@ public class SecurityToken {
          */
 
 
-
         Scope(String namespace) {
             this.namespace = namespace;
             this.format = "";
@@ -163,11 +169,13 @@ public class SecurityToken {
             this.namespace = namespace;
             this.format = format;
         }
-        private String namespace;
-        private String format;
 
-        public String getNamespace() {return namespace;}
+        public String getNamespace() {
+            return namespace;
+        }
 
-        public String getFormat() {return format;}
+        public String getFormat() {
+            return format;
+        }
     }
 }
