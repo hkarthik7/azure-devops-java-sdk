@@ -46,7 +46,7 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
      *
      * Security namespaces are used to store access control lists (ACLs) on tokens.
      * @return SecurityNamespaces {@link SecurityNamespaces}
-     * @throws AzDException
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public SecurityNamespaces getNamespaces() throws AzDException {
@@ -64,7 +64,7 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
      *
      * @param localOnly whether to include only local or all namespaces
      * @return SecurityNamespaces {@link SecurityNamespaces}
-     * @throws AzDException
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public SecurityNamespaces getNamespaces(boolean localOnly) throws AzDException {
@@ -82,7 +82,7 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
      * return a namespace with the specific identifier
      * @param namespaceId namespace identifier
      * @return SecurityNamespace {@link SecurityNamespace}
-     * @throws AzDException
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public SecurityNamespace getNamespace(String namespaceId) throws AzDException {
@@ -97,7 +97,7 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
      * Return a list of access control lists for the specified security namespace and token. All ACLs in the security namespace will be retrieved if no optional parameters are provided.
      * @param namespaceId identifier of namespace
      * @return ACLs {@link ACLs}
-     * @throws AzDException
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public ACLs getAccessControlLists(String namespaceId) throws AzDException {
@@ -113,7 +113,7 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
      * @param includeExtendedInfo If true, populate the extended information properties for the access control entries contained in the returned lists.
      * @param recurse If true and this is a hierarchical namespace, return child ACLs of the specified token.
      * @return ACLs {@link ACLs}
-     * @throws AzDException
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public ACLs getAccessControlLists(String namespaceId, String[] descriptors, String token, boolean includeExtendedInfo, boolean recurse) throws AzDException {
@@ -145,7 +145,7 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
      * @param queryMembership The membership information to include with the identities. Values can be None for no membership data or Direct to include the groups that the identity is a member of and the identities that are a member of this identity (groups only)
      * @param searchFilter The type of search to perform. Values can be AccountName (domain\alias), DisplayName, MailAddress, General (display name, account name, or unique name), or LocalGroupName (only search Azure Devops groups).
      * @return Identities {@link Identities}
-     * @throws AzDException
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public Identities getIdentities(String[] descriptors, String[] identityIds, String[] subjectDescriptors, String filterValue, String queryMembership, String searchFilter) throws AzDException {
@@ -183,7 +183,7 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
      *
      * @param subjectDescriptors list of subject descriptors to resolve
      * @return Identities {@link Identities}
-     * @throws AzDException
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public Identities getIdentitiesFromSubjectDescriptors(String... subjectDescriptors) throws AzDException {
@@ -225,8 +225,7 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
      * Create or update one or more access control lists. All data that currently exists for the ACLs supplied will be overwritten.
      * @param namespaceId Security namespace identifier.
      * @param payload ACLs {@link ACLs}
-     * @return
-     * @throws AzDException
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public Void setAccessControlList(String namespaceId, ACLs payload) throws AzDException {
@@ -242,8 +241,7 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
      * @param namespaceId Security namespace identifier.
      * @param recurse If true and this is a hierarchical namespace, also remove child ACLs of the specified tokens.
      * @param tokens One or more comma-separated security tokens
-     * @return
-     * @throws AzDException
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public Void removeAccessControlLists(String namespaceId, boolean recurse, String[] tokens) throws AzDException {
