@@ -48,7 +48,7 @@ public class GraphApiTest {
     }
 
     @Test
-    public void shouldCreateAGraphUsers() throws AzDException {
+    public void shouldCreateAGraphUser() throws AzDException {
         var user = g.getUsers().getUsers().stream().findFirst().get();
         var descriptor = user.getDescriptor();
         var emailId = "test@gmail.com";
@@ -126,7 +126,7 @@ public class GraphApiTest {
     public void removeSubjectFromGroup() throws AzDException {
         var subjDesc = "svc.ZDNhMjJkYTUtNDljMC00OTQ5LTk4Y2MtZDM4ZmQzNzBkZmYzOkJ1aWxkOjgwYjQ4NjI2LTBiMjAtNGMyZi04NGE3LWQ2ZGEzMWVlMzQ2OQ";
         var group = g.getGroups().getGraphGroups().stream().filter(x -> x.getDisplayName().equals("Contributors")).findFirst().get();
-        var groupDesc = "vssgp.Uy0xLTktMTU1MTM3NDI0NS0zOTI3OTgxMTY4LTIzMDM3Mzk1Ny0yNzIwNTg1NjYxLTMyMTM5NDc3NzAtMS0yMTM0NTMyMjg3LTMwNTc4NTM3NjctMjU1MTY0NTQyMi02NzAyNTM2ODQ";
+//        var groupDesc = "vssgp.Uy0xLTktMTU1MTM3NDI0NS0zOTI3OTgxMTY4LTIzMDM3Mzk1Ny0yNzIwNTg1NjYxLTMyMTM5NDc3NzAtMS0yMTM0NTMyMjg3LTMwNTc4NTM3NjctMjU1MTY0NTQyMi02NzAyNTM2ODQ";
         g.removeMembership(subjDesc, group.getDescriptor());
     }
 

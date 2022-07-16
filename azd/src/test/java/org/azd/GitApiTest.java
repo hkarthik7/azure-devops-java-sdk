@@ -202,7 +202,9 @@ public class GitApiTest {
 
     @Test
     public void shouldUpdateAPullRequestReviewer() throws AzDException {
-        g.updatePullRequestReviewer(8, "testRepository", "10bb49f0-c425-6735-b8de-71ecf84728d6", true, false);
+        var pr = g.getPullRequestReviewers(8, "testRepository").getPullRequestReviewers()
+                .get(1);
+        g.updatePullRequestReviewer(8, "testRepository", pr.getId(), true, false);
     }
 
     @Test(expected = AzDException.class)

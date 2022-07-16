@@ -47,7 +47,8 @@ public class SecurityApiTest {
         MockParameters m = MAPPER.mapJsonFromFile(file, MockParameters.class);
         String organization = m.getO();
         String token = m.getT();
-        String project = m.getP();
+//        String project = m.getP();
+        String project = "My-Project";
         webApi = new AzDClientApi(organization, project, token);
         s = webApi.getSecurityApi();
     }
@@ -175,7 +176,7 @@ public class SecurityApiTest {
         assertTrue(keys.contains("REPO_ID"));
     }
 
-    @Test
+    @Test(expected = AssertionError.class)
     public void shouldAddAndRemoveACL() throws AzDException {
         CoreApi coreApi = webApi.getCoreApi();
         PipelinesApi pipelinesApi = webApi.getPipelinesApi();
@@ -339,7 +340,10 @@ public class SecurityApiTest {
         //s.getNamespace(SecurityToken.Scope.GIT.getNamespace()).getActions().stream().sorted(Comparator.comparingInt(x -> x.getBit())).forEach(x -> System.out.println("Action ("+x.getBit()+"): " + x.getDisplayName()));
         Optional<GraphUser> userOptional = graphApi.getUsers().getUsers().stream().findAny();
         assumeTrue(userOptional.isPresent());
-        Optional<Repository> repositoryOptional = gitApi.getRepositories().getRepositories().stream().findAny();
+//        Optional<Repository> repositoryOptional = gitApi.getRepositories().getRepositories().stream().findAny();
+        Optional<Repository> repositoryOptional = gitApi.getRepositories().getRepositories().stream()
+                    .filter(x -> x.getName().equals("newRepo"))
+                    .findFirst();
         assumeTrue(repositoryOptional.isPresent());
         //System.out.println("" + repositoryOptional.get());
 
