@@ -18,11 +18,11 @@ public class GitRefs extends BaseAbstractMethod {
     @JsonProperty("value")
     private List<GitRef> value;
 
-    public List<GitRef> getBranches() {
+    public List<GitRef> getRefs() {
         return value;
     }
 
-    public void setBranches(List<GitRef> value) {
+    public void setRefs(List<GitRef> value) {
         this.value = value;
     }
 

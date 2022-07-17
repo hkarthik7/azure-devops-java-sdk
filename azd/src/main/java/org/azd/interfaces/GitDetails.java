@@ -112,6 +112,17 @@ public interface GitDetails {
     GitCommits getPushCommits(String repositoryName, int pushId, boolean includeLinks, int top, int skip)
             throws AzDException;
 
+    GitRefs getRefs(String repositoryName) throws AzDException;
+
+    GitRefs getRefs(String repositoryName, String filter) throws AzDException;
+    
+    GitRefUpdateResult updateRef(String repositoryName, String refName, String oldObjectId, String newObjectId) throws AzDException;
+    
+    GitRefUpdateResult createTag(String repositoryName, String tagName, String ref) throws AzDException;
+    
+    GitRefUpdateResult deleteTag(String repositoryName, String tagName) throws AzDException;
+
+
     GitBlobRef getBlob(String repositoryId, String sha1) throws AzDException;
 
     GitBlobRef getBlob(String repositoryId, String sha1, String fileName, boolean resolveLfs) throws AzDException;

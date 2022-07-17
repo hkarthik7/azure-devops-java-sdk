@@ -239,6 +239,31 @@ public class GitApiTest {
     }
 
     @Test
+    public void shouldGetRefs() throws AzDException {
+        g.getRefs("testRepository");
+    }
+
+    @Test
+    public void shouldGetRefsWithQueryParameters() throws AzDException {
+        g.getRefs("testRepository","heads/");
+    }
+
+    @Test
+    public void shouldUpdateRefs() throws AzDException {
+        g.updateRef("testRepository","refs/heads/test2", "0000000000000000000000000000000000000000", "0000000000000000000000000000000000000000");
+    }
+
+    @Test
+    public void shouldCreateTag() throws AzDException {
+        g.createTag("testRepository", "createTestTag", "main");
+    }
+
+    @Test
+    public void shouldDeleteTag() throws AzDException {
+        g.deleteTag("testRepository", "createTestTag");
+    }
+
+    @Test
     public void shouldGetABlob() throws AzDException {
         var repoId = g.getRepository("testRepository").getId();
         var items = g.getItems(repoId, VersionControlRecursionType.FULL).getItems();

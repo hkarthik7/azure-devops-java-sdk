@@ -12,6 +12,7 @@ import org.azd.utils.AzDAsyncApi;
 import java.io.InputStream;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.text.MessageFormat;
 import java.util.*;
 
 import static org.azd.utils.RestClient.send;
@@ -411,7 +412,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
                 repositoryName, "refs", ApiVersion.GIT, q, null, null);
 
-        List<GitRef> gitRefs = MAPPER.mapJsonResponse(r, GitRefs.class).getBranches();
+        List<GitRef> gitRefs = MAPPER.mapJsonResponse(r, GitRefs.class).getRefs();
 
         return gitRefs != null && !gitRefs.isEmpty() ? gitRefs.get(0) : null;
     }
@@ -964,6 +965,120 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
                 repositoryName, "commits", ApiVersion.GIT, q, null, null);
 
         return MAPPER.mapJsonResponse(r, GitCommits.class);
+    }
+
+
+    /**
+     * Queries the provided repository for its refs and returns them.
+     *
+     * @param repositoryName Name of the repository.
+     * @return Array Git ref object {@link GitRefs}
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public GitRefs getRefs(String repositoryName) throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
+            AREA + "/repositories", repositoryName, "refs", ApiVersion.GIT, null, null);
+
+        return MAPPER.mapJsonResponse(r, GitRefs.class);
+    }
+
+    /**
+     * Queries the provided repository for its refs and returns them.
+     *
+     * @param repositoryName Name of the repository.
+     * @param filter         A filter to apply to the refs (starts with).
+     * @return Array Git ref object {@link GitRefs}
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public GitRefs getRefs(String repositoryName, String filter) throws AzDException {
+        var q = new HashMap<String, Object>() {{
+            put("filter", filter);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
+            AREA + "/repositories", repositoryName, "refs", ApiVersion.GIT, q, null);
+            
+        return MAPPER.mapJsonResponse(r, GitRefs.class);
+    }
+
+    /**
+     * Creating, updating, or deleting git ref.
+     *
+     * @param repositoryName Name of the repository.
+     * @param refName        The ref to create, update, or delete.
+     * @param oldObjectId    The old object id of the ref.(SHA)
+     * @param newObjectId    The new object id of the ref.(SHA)
+     * @return Array Git update result object {@link GitRefUpdateResults}
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public GitRefUpdateResult updateRef(String repositoryName, String refName, String oldObjectId, String newObjectId) throws AzDException {
+        List requestBody = new ArrayList<Map>();
+        var h = new HashMap<String, Object>(){{
+            put("name", refName);
+            put("oldObjectId", oldObjectId);
+            put("newObjectId", newObjectId);
+        }}; 
+
+        requestBody.add(h);
+
+        String r = send(RequestMethod.POST, CONNECTION, GIT, CONNECTION.getProject(),
+            AREA + "/repositories", repositoryName, "refs", ApiVersion.GIT, null, true, MAPPER.convertToString(requestBody));    
+
+        return MAPPER.mapJsonResponse(r, GitRefUpdateResults.class).getGitRefUpdateResults().get(0);
+    }
+
+    /**
+     * Creates a new tag in the repository that points to the supplied ref.
+     *
+     * @param repositoryName Name of the repository.
+     * @param tagName        The name of the tag.
+     * @param ref            Create tag using commit SHA, another tag name, or branch name
+     * @return Git update result object {@link GitRefUpdateResult}
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public GitRefUpdateResult createTag(String repositoryName, String tagName, String ref) throws AzDException {        
+        if (ref.matches("^[a-fA-F0-9]{40}$")) {
+            return updateRef(repositoryName, "refs/tags/"+tagName, "0000000000000000000000000000000000000000", ref);
+        }
+
+        String objectId; 
+        GitRefs refs=getRefs(repositoryName, "tags/"+ref);
+        if(!refs.getRefs().isEmpty()){
+            objectId=refs.getRefs().get(0).getObjectId();
+            return updateRef(repositoryName, "refs/tags/"+tagName, "0000000000000000000000000000000000000000", objectId);
+        }
+
+        refs=getRefs(repositoryName, "heads/"+ref);
+        if(!refs.getRefs().isEmpty()){
+            objectId=refs.getRefs().get(0).getObjectId();
+            return updateRef(repositoryName, "refs/tags/"+tagName, "0000000000000000000000000000000000000000", objectId);
+        }
+
+        throw new AzDException(ApiExceptionTypes.InvalidArgumentException.name(), MessageFormat.format("Could not find ref {0}", ref));        
+    }
+
+    /**
+     * Deletes a tag of a repository with given name.
+     *
+     * @param repositoryName Name of the repository.
+     * @param tagName        The name of the tag.
+     * @return Array Git update result object {@link GitRefUpdateResults}
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public GitRefUpdateResult deleteTag(String repositoryName, String tagName) throws AzDException {
+        GitRefs refs=getRefs(repositoryName, "tags/"+tagName);
+        if(refs.getRefs().isEmpty()){
+            throw new AzDException(ApiExceptionTypes.InvalidArgumentException.name(), MessageFormat.format(
+                "Tag {0} does not exist in repository {1}", tagName, repositoryName));
+        }
+        String tagObjectId=refs.getRefs().get(0).getObjectId();
+
+        return updateRef(repositoryName, "refs/tags/"+tagName, tagObjectId, "0000000000000000000000000000000000000000");
     }
 
     /**
