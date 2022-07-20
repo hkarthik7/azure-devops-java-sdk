@@ -4,6 +4,7 @@ import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 
+import java.io.InputStream;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -11,6 +12,7 @@ import java.net.http.HttpResponse;
 import java.util.Base64;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Implements HttpRequest request methods to send GET, POST, PATCH and DELETE request
@@ -40,6 +42,7 @@ public abstract class BaseClient {
      * @return HttpRequest object to build
      */
     private static HttpRequest.Builder request(String requestUrl, String token) {
+        if (token == null) return request(requestUrl);
         return HttpRequest
                 .newBuilder()
                 .uri(URI.create(requestUrl))
@@ -252,6 +255,22 @@ public abstract class BaseClient {
                         .build());
     }
 
+    /***
+     * Sends a PUT request to REST API with basic authentication and request body
+     * @param requestUrl pass the request url
+     * @param token pass the personal access token
+     * @param body pass the request body to update the request
+     * @return response string from the API if any
+     * @throws AzDException throws user friendly error message with error code from API
+     */
+    public static String put(String requestUrl, String token, String body, String contentType) throws AzDException {
+        return response(
+                request(requestUrl, token)
+                        .method(RequestMethod.PUT.toString(), HttpRequest.BodyPublishers.ofString(body))
+                        .header("Content-Type", contentType)
+                        .build());
+    }
+
     /**
      * Sends a DELETE request to REST API with basic authentication
      *
@@ -261,5 +280,133 @@ public abstract class BaseClient {
      */
     public static String delete(String requestUrl, String token) {
         return response(request(requestUrl, token).DELETE().build());
+    }
+
+    /**
+     * Helper inner class for managing the response as stream.
+     */
+    public abstract static class StreamBuilder {
+        private static HttpClient.Redirect REDIRECT_POLICY = HttpClient.Redirect.NORMAL;
+
+        /**
+         * Get the current redirect policy.
+         * @return HttpClient.Redirect policy.
+         */
+        public static HttpClient.Redirect getRedirectPolicy() {
+            return REDIRECT_POLICY;
+        }
+
+        /**
+         * Set the current redirect policy.
+         * @param redirectPolicy HttpClient.Redirect policy.
+         */
+        public static void setRedirectPolicy(HttpClient.Redirect redirectPolicy) {
+            REDIRECT_POLICY = redirectPolicy;
+        }
+
+        /**
+         * Sends a POST request to REST API with basic authentication.
+         *
+         * @param requestMethod Type of request method - get, post, put, delete and patch. {@link RequestMethod}.
+         * @param requestUrl pass the request url.
+         * @param token pass the personal access token.
+         * @param contentType Type of content to send and accept from API.
+         * @param contentStream Request body as stream for post request.
+         * @param customHeaders custom headers to send with the post request.
+         * @param followRedirects if true follow the redirect URL.
+         * @return Input stream response from the API.
+         */
+        public static InputStream response(RequestMethod requestMethod, String requestUrl,
+                                              String token, String contentType, InputStream contentStream,
+                                              Map<String, String> customHeaders, boolean followRedirects) {
+            var client = getClient(followRedirects);
+
+            // TODO: Add handlers for PUT, PATCH and DELETE methods.
+            if (requestMethod.name().equals("GET"))
+                return client.sendAsync(request(requestUrl, token).GET().header("Accept", contentType).build(),
+                        HttpResponse.BodyHandlers.ofInputStream())
+                        .thenApplyAsync(HttpResponse::body)
+                        .join();
+
+            if (requestMethod.name().equals("POST")) {
+                // custom header can be content type, content length etc.
+                if (customHeaders != null) {
+                    for (var key : customHeaders.keySet()) {
+                        return client.sendAsync(request(requestUrl, token)
+                                .POST(HttpRequest.BodyPublishers.ofInputStream(() -> contentStream))
+                                .header("Accept", contentType)
+                                .header(key, customHeaders.get(key))
+                                .build(), HttpResponse.BodyHandlers.ofInputStream())
+                                .thenApplyAsync(HttpResponse::body)
+                                .join();
+                    }
+                } else {
+                    return client.sendAsync(request(requestUrl, token)
+                            .POST(HttpRequest.BodyPublishers.ofInputStream(() -> contentStream))
+                            .header("Accept", contentType)
+                            .build(), HttpResponse.BodyHandlers.ofInputStream())
+                            .thenApplyAsync(HttpResponse::body)
+                            .join();
+                }
+            }
+
+            return null;
+        }
+
+        /**
+         * Sends a POST request to REST API with basic authentication.
+         *
+         * @param requestMethod Type of request method - get, post, put, delete and patch. {@link RequestMethod}.
+         * @param requestUrl pass the request url.
+         * @param token pass the personal access token.
+         * @param contentType Type of content to send and accept from API.
+         * @param contentStream Request body as stream for post request.
+         * @param customHeaders custom headers to send with the post request.
+         * @return Input stream response from the API as CompletableFuture object.
+         */
+        public static CompletableFuture<HttpResponse<InputStream>> response(RequestMethod requestMethod, String requestUrl,
+                                           String token, String contentType, InputStream contentStream,
+                                           Map<String, String> customHeaders) {
+
+            var client = getClient(false);
+
+            // TODO: Add handlers for PUT, PATCH and DELETE methods.
+            if (requestMethod.name().equals("GET"))
+                return client.sendAsync(request(requestUrl, token).GET().header("Accept", contentType).build(),
+                        HttpResponse.BodyHandlers.ofInputStream());
+
+            if (requestMethod.name().equals("POST")) {
+                // custom header can be content type, content length etc.
+                if (customHeaders != null) {
+                    for (var key : customHeaders.keySet()) {
+                        return client.sendAsync(request(requestUrl, token)
+                                .POST(HttpRequest.BodyPublishers.ofInputStream(() -> contentStream))
+                                .header("Accept", contentType)
+                                .header(key, customHeaders.get(key))
+                                .build(), HttpResponse.BodyHandlers.ofInputStream());
+                    }
+                } else {
+                    return client.sendAsync(request(requestUrl, token)
+                            .POST(HttpRequest.BodyPublishers.ofInputStream(() -> contentStream))
+                            .header("Accept", contentType)
+                            .build(), HttpResponse.BodyHandlers.ofInputStream());
+                }
+            }
+            return null;
+        }
+
+        /**
+         * Return HttpClient object
+         * @param redirect If true adds redirect policy
+         * @return HttpClient object
+         */
+        private static HttpClient getClient(boolean redirect) {
+            var client = HttpClient.newBuilder();
+
+            if (redirect) {
+                return client.followRedirects(REDIRECT_POLICY).build();
+            }
+            return client.build();
+        }
     }
 }

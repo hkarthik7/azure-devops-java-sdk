@@ -7,6 +7,8 @@ import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 
+import java.io.InputStream;
+import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +20,8 @@ public abstract class Client extends BaseClient {
     private static final JsonMapper MAPPER = new JsonMapper();
 
     /***
-     * Request the Azure DevOps REST API and builds the request url dynamically based on resource id and endpoints passed
+     * Request the Azure DevOps REST API and builds the request url dynamically based on resource id and endpoints passed.
+     *
      * @param requestMethod type of request GET, POST, PATCH, DELETE {@link RequestMethod}
      * @param connection name of the organization
      * @param resourceId pass the resource id.
@@ -47,6 +50,8 @@ public abstract class Client extends BaseClient {
             String body) throws AzDException {
         String requestUrl = buildRequestUrl(connection.getOrganization(), resourceId, project, area, id, resource, apiVersion, queryString);
 
+        // TODO: Remove un-scalable method declarations.
+
         // I need to maintain consistency across the library. Since this send method is not used in any of the classes to call
         // the API I've modified it to suit Build Tags API call. Check BuildApi and addBuildTags for implementation.
         // This method signature shouldn't interfere or replace any implemented methods.
@@ -56,7 +61,60 @@ public abstract class Client extends BaseClient {
         if (requestMethod.toString().equals("POST") && !contentType) {
             return post(requestUrl, connection.getPersonalAccessToken(), body, "application/octet-stream");
         }
+        if (requestMethod.toString().equals("PUT") && !contentType) {
+            return put(requestUrl, connection.getPersonalAccessToken(), body, "application/json");
+        }
         return null;
+    }
+
+    /**
+     * Request the Azure DevOps REST API and builds the request url dynamically based on resource id and endpoints passed
+     *
+     * @param requestMethod type of request GET, POST, PATCH, DELETE {@link RequestMethod}
+     * @param connection name of the organization
+     * @param resourceId pass the resource id.
+     * @param project name of the project
+     * @param area resource area
+     * @param id resource id
+     * @param resource resource area endpoint
+     * @param apiVersion api version
+     * @param queryString query string to append the url
+     * @param contentType true to return the request url
+     * @param contentStream API payload as stream
+     * @param customHeaders Custom headers if any
+     * @param redirect if true looks for redirect URI from HttpResponse
+     * @return InputStream from API
+     * @throws AzDException Default Api exception handler
+     */
+    public static InputStream send(
+            RequestMethod requestMethod,
+            Connection connection,
+            String resourceId,
+            String project,
+            String area,
+            String id,
+            String resource,
+            String apiVersion,
+            HashMap<String, Object> queryString,
+            String contentType,
+            InputStream contentStream,
+            Map<String, String> customHeaders,
+            boolean redirect) throws AzDException {
+        String requestUrl = buildRequestUrl(connection.getOrganization(), resourceId, project, area, id, resource, apiVersion, queryString);
+
+        if (redirect) {
+            var res = StreamBuilder.response(requestMethod, requestUrl,
+                    connection.getPersonalAccessToken(), contentType, contentStream, customHeaders);
+
+            if (requestMethod.name().equals("GET"))
+                return StreamBuilder.response(requestMethod, res.thenApplyAsync(x -> x.uri().toString()).join(), null, contentType,
+                        null, null, true);
+
+            return res.thenApplyAsync(HttpResponse::body).join();
+        }
+
+        return StreamBuilder.response(requestMethod, requestUrl, connection.getPersonalAccessToken(),
+                contentType, contentStream, customHeaders, false);
     }
 
     /***
