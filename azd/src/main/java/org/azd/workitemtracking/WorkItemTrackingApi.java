@@ -5,10 +5,12 @@ import org.azd.connection.Connection;
 import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
+import org.azd.helpers.StreamHelper;
 import org.azd.interfaces.WorkItemTrackingDetails;
 import org.azd.utils.AzDAsyncApi;
 import org.azd.workitemtracking.types.*;
 
+import java.io.InputStream;
 import java.text.MessageFormat;
 import java.util.*;
 import java.util.Map.Entry;
@@ -851,7 +853,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
     /***
      * Returns the list of work item types
      * @return list of Work Item type {@link WorkItemTypes}
-     * @throws AzDException    Handles errors from REST API and validates passed arguments
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      */
     @Override
     public WorkItemTypes getWorkItemTypes() throws AzDException {
@@ -865,7 +867,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      * Returns a work item type definition.
      * @param workItemTypeName provide the work item type name. e.g., Bug or user story etc.
      * @return work item type {@link WorkItemType}
-     * @throws AzDException    Handles errors from REST API and validates passed arguments
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      */
     @Override
     public WorkItemType getWorkItemType(String workItemTypeName) throws AzDException {
@@ -876,17 +878,12 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
     }
 
     /**
-     * Uploads an attachment. The attachment should not exceed beyond 130MB.
-     *
-     * @param fileName     The name of the file.
-     * @param uploadType   Attachment upload type: Simple or Chunked. Choose AttachmentUploadType.SIMPLE for this method.
-     * @param teamAreaPath Target project Area Path.
-     * @param contents     Contents of the attachment in string.
-     * @return AttachmentReference; Url and Id of the attachment. {@link AttachmentReference}
-     * @throws AzDException Handles errors from REST API and validates passed arguments.
+     * @deprecated This method is deprecated as of version 4.0.1. Please use createAttachment()
+     * with content stream for working with work item attachment API.
      */
     @Override
-    public AttachmentReference createAttachment(String fileName, AttachmentUploadType uploadType, String teamAreaPath, String contents) throws AzDException {
+    @Deprecated public AttachmentReference createAttachment(String fileName, AttachmentUploadType uploadType,
+                                                            String teamAreaPath, String contents) throws AzDException {
         var q = new HashMap<String, Object>() {{
             put("fileName", fileName);
             put("uploadType", uploadType.toString().toLowerCase());
@@ -901,15 +898,76 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
     }
 
     /**
-     * Downloads an attachment.
-     *
-     * @param id       Attachment ID.
-     * @param fileName Name of the file.
-     * @return The contents of the attachment.
-     * @throws AzDException Handles errors from REST API and validates passed arguments.
+     * Uploads an attachment.
+     * @param fileName The name of the file
+     * @param uploadType Attachment upload type: Simple or Chunked. {@link AttachmentUploadType}
+     * @param teamAreaPath Target project Area Path
+     * @param contentStream Stream to upload. Payload to create the attachment.
+     * @return AttachmentReference {@link AttachmentReference}
+     * @throws AzDException Handles errors from REST API and validates passed arguments
      */
     @Override
-    public String getAttachment(String id, String fileName) throws AzDException {
+    public AttachmentReference createAttachment(String fileName, AttachmentUploadType uploadType,
+                                                String teamAreaPath, InputStream contentStream) throws AzDException {
+        var q = new HashMap<String, Object>() {{
+            put("fileName", fileName);
+            put("uploadType", uploadType.toString().toLowerCase());
+            put("areaPath", teamAreaPath);
+
+        }};
+
+        var response = send(RequestMethod.POST, CONNECTION, WIT, CONNECTION.getProject(), AREA, null,
+                "attachments", ApiVersion.WORK_ITEM_ATTACHMENT, q, "application/octet-stream", contentStream, null, false);
+
+        String r = StreamHelper.convertToString(response);
+
+        return MAPPER.mapJsonResponse(r, AttachmentReference.class);
+    }
+
+    /**
+     * Downloads an attachment.
+     * @param id Attachment ID
+     * @param fileName Name of the file
+     * @param download If set to true always download attachment
+     * @return Stream of the attachment content. Use {@link StreamHelper} to download the attachment contents to a file.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
+     */
+    @Override
+    public InputStream getAttachmentContent(String id, String fileName, boolean download) throws AzDException {
+        var q = new HashMap<String, Object>() {{
+            put("fileName", fileName);
+            put("download", download);
+        }};
+
+        return send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(), AREA + "/attachments", id,
+                null, ApiVersion.WORK_ITEM_ATTACHMENT, q, "application/octet-stream", null, null, false);
+    }
+
+    /**
+     * Downloads an attachment as a zip file.
+     * @param id Attachment ID
+     * @param fileName Name of the file
+     * @param download If set to true always download attachment
+     * @return Stream of the attachment content. Use {@link StreamHelper} to download the attachment contents to a file.
+     * @throws AzDException Handles errors from REST API and validates passed arguments
+     */
+    @Override
+    public InputStream getAttachmentAsZip(String id, String fileName, boolean download) throws AzDException {
+        var q = new HashMap<String, Object>() {{
+            put("fileName", fileName);
+            put("download", download);
+        }};
+
+        return send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(), AREA + "/attachments", id,
+                null, ApiVersion.WORK_ITEM_ATTACHMENT, q, "application/zip", null, null, false);
+    }
+
+    /**
+     * @deprecated This method is deprecated as of version 4.0.1. Please use getAttachmentContent() or getAttachmentAsZip()
+     * for working with work item attachment API.
+     */
+    @Override
+    @Deprecated public String getAttachment(String id, String fileName) throws AzDException {
         var q = new HashMap<String, Object>() {{
             put("fileName", fileName);
         }};

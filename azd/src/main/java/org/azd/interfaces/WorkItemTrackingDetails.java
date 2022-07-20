@@ -7,6 +7,7 @@ import org.azd.enums.WorkItemOperation;
 import org.azd.exceptions.AzDException;
 import org.azd.workitemtracking.types.*;
 
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -97,6 +98,12 @@ public interface WorkItemTrackingDetails {
     AttachmentReference createAttachment(String fileName, AttachmentUploadType uploadType, String teamAreaPath, String contents) throws AzDException;
 
     String getAttachment(String id, String fileName) throws AzDException;
+
+    AttachmentReference createAttachment(String fileName, AttachmentUploadType uploadType, String teamAreaPath, InputStream contentStream) throws AzDException;
+
+    InputStream getAttachmentContent(String id, String fileName, boolean download) throws AzDException;
+
+    InputStream getAttachmentAsZip(String id, String fileName, boolean download) throws AzDException;
 
     WorkItem addWorkItemAttachment(int workItemId, Map<String, String> fieldsToUpdate) throws AzDException;
 

@@ -5,6 +5,7 @@ import org.azd.enums.WorkItemExpand;
 import org.azd.enums.WorkItemOperation;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
+import org.azd.helpers.StreamHelper;
 import org.azd.interfaces.AzDClient;
 import org.azd.utils.AzDClientApi;
 import org.azd.workitemtracking.WorkItemTrackingApi;
@@ -12,7 +13,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -173,21 +173,31 @@ public class WorkItemTrackingApiTest {
     }
 
     @Test
-    public void shouldCreateWorkItemAttachment() throws AzDException, IOException {
-        w.createAttachment("testFile.txt",
-                AttachmentUploadType.SIMPLE, "azure-devops-java-sdk", "Sample content");
+    public void shouldCreateWorkItemAttachment() throws AzDException {
+        var contentStream = StreamHelper.convertToStream("This is sample content");
+        w.createAttachment("testFile.txt", AttachmentUploadType.SIMPLE,
+                "azure-devops-java-sdk", contentStream);
     }
 
     @Test
-    public void shouldGetWorkItemAttachment() throws AzDException {
-        w.getAttachment("0aea937a-c5c2-4936-b828-e5da0e389210", "testFile.txt");
+    public void shouldGetWorkItemAttachmentAsStreamToAFile() throws AzDException {
+        var responseStream = w.getAttachmentContent("1b8993be-1c0c-4282-9147-4a2141af1a91", "newTestFile.txt", true);
+        StreamHelper.download("newTestFile.txt", responseStream);
     }
 
     @Test
-    public void shouldAddAnAttachmentToAWorkItem() throws AzDException {
+    public void shouldGetWorkItemAttachmentAsZipFile() throws AzDException {
+        var responseStream = w.getAttachmentContent("7a62c972-9403-4032-8182-5a2b2eb927b7", "test.zip", true);
+        StreamHelper.download("test.zip", responseStream);
+    }
+
+    @Test
+    public void shouldAddAnAttachmentToAWorkItem() {
         try {
-            var attachment = w.createAttachment("testFile.txt",
-                    AttachmentUploadType.SIMPLE, "azure-devops-java-sdk", "Sample content");
+            var contentStream = StreamHelper.convertToStream("This is sample content");
+
+            var attachment = w.createAttachment("testFile.txt", AttachmentUploadType.SIMPLE,
+                    "azure-devops-java-sdk", contentStream);
             var attachmentFields = new HashMap<String, String>() {{
                 put(attachment.getUrl(), "Test File url.");
             }};
@@ -198,20 +208,12 @@ public class WorkItemTrackingApiTest {
     }
 
     @Test
-    public void shouldRemoveAnAttachmentFromAWorkItem() throws AzDException {
-        var attachment = w.createAttachment("testFile.txt",
-                AttachmentUploadType.SIMPLE, "azure-devops-java-sdk", "Sample content");
-        var attachmentFields = new HashMap<String, String>() {{
-            put(attachment.getUrl(), "Test File url.");
-        }};
-
-        w.addWorkItemAttachment(994, attachmentFields);
-
-        String url = w.getWorkItem(994, WorkItemExpand.RELATIONS).getRelations().get(0).getUrl();
-
-        List<String> attachmentUrl = new ArrayList<>();
-        attachmentUrl.add(url);
-
-        w.removeWorkItemAttachment(994, attachmentUrl);
+    public void shouldRemoveAnAttachmentFromAWorkItem() {
+        try {
+            var urls = w.getWorkItem(994, WorkItemExpand.RELATIONS).getRelations();
+            if (urls != null)
+                for (var url : urls)
+                    w.removeWorkItemAttachment(994, List.of(url.getUrl()));
+        } catch (AzDException e) { }
     }
 }
