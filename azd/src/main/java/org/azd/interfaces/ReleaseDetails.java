@@ -56,6 +56,8 @@ public interface ReleaseDetails {
 
     ReleaseDefinitions getReleaseDefinitions() throws AzDException;
 
+    ReleaseDefinition updateReleaseDefinition(ReleaseDefinition releaseDefinition) throws AzDException;
+
     Void deleteRelease(int releaseId) throws AzDException;
 
     Release updateRelease(int releaseId, String releaseDefinitionParameters) throws AzDException;

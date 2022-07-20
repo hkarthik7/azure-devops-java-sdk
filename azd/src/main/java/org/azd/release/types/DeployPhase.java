@@ -10,6 +10,8 @@ import java.util.List;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DeployPhase {
+    @JsonProperty("deploymentInput")
+    private Object deploymentInput;
     /***
      * Gets and sets the name of deploy phase.
      */
@@ -76,10 +78,19 @@ public class DeployPhase {
         this.workflowTasks = workflowTasks;
     }
 
+    public Object getDeploymentInput() {
+        return deploymentInput;
+    }
+
+    public void setDeploymentInput(Object deploymentInput) {
+        this.deploymentInput = deploymentInput;
+    }
+
     @Override
     public String toString() {
         return "DeployPhase{" +
-                "name='" + name + '\'' +
+                "deploymentInput=" + deploymentInput +
+                ", name='" + name + '\'' +
                 ", phaseType='" + phaseType + '\'' +
                 ", rank=" + rank +
                 ", refName='" + refName + '\'' +

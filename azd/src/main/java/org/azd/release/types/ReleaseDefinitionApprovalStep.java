@@ -33,7 +33,7 @@ public class ReleaseDefinitionApprovalStep {
      * Gets or sets the rank of approval step.
      */
     @JsonProperty("rank")
-    private boolean rank;
+    private int rank;
 
     public Author getApprover() {
         return approver;
@@ -67,11 +67,11 @@ public class ReleaseDefinitionApprovalStep {
         isNotificationOn = notificationOn;
     }
 
-    public boolean isRank() {
+    public int isRank() {
         return rank;
     }
 
-    public void setRank(boolean rank) {
+    public void setRank(int rank) {
         this.rank = rank;
     }
 

@@ -37,7 +37,7 @@ public class ApprovalOptions {
      * Approval timeout. Approval default timeout is 30 days. Maximum allowed timeout is 365 days. '0' means default timeout i.e 30 days.
      */
     @JsonProperty("timeoutInMinutes")
-    private boolean timeoutInMinutes;
+    private int timeoutInMinutes;
 
     public boolean isAutoTriggeredAndPreviousEnvironmentApprovedCanBeSkipped() {
         return autoTriggeredAndPreviousEnvironmentApprovedCanBeSkipped;
@@ -79,11 +79,11 @@ public class ApprovalOptions {
         this.requiredApproverCount = requiredApproverCount;
     }
 
-    public boolean isTimeoutInMinutes() {
+    public int isTimeoutInMinutes() {
         return timeoutInMinutes;
     }
 
-    public void setTimeoutInMinutes(boolean timeoutInMinutes) {
+    public void setTimeoutInMinutes(int timeoutInMinutes) {
         this.timeoutInMinutes = timeoutInMinutes;
     }
 

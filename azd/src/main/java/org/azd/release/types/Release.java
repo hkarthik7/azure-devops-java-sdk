@@ -17,7 +17,7 @@ public class Release {
      * Gets links to access the release.
      */
     @JsonProperty("_links")
-    private ReleaseReferenceLinks _links;
+    private Object _links;
     /***
      * Gets or sets the list of artifacts.
      */
@@ -144,11 +144,11 @@ public class Release {
     @JsonProperty("variables")
     private JsonNode variables;
 
-    public ReleaseReferenceLinks get_links() {
+    public Object get_links() {
         return _links;
     }
 
-    public void set_links(ReleaseReferenceLinks _links) {
+    public void set_links(Object _links) {
         this._links = _links;
     }
 

@@ -23,7 +23,7 @@ public class Author {
      * These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
      */
     @JsonProperty("_links")
-    private ReferenceLinks _links;
+    private Object _links;
     /***
      * Unique Id
      */
@@ -75,11 +75,11 @@ public class Author {
         this.url = url;
     }
 
-    public ReferenceLinks get_links() {
+    public Object get_links() {
         return _links;
     }
 
-    public void set_links(ReferenceLinks _links) {
+    public void set_links(Object _links) {
         this._links = _links;
     }
 

@@ -8,6 +8,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EnvironmentOptions {
+    @JsonProperty("emailNotificationType")
+    private String emailNotificationType;
+    @JsonProperty("emailRecipients")
+    private String emailRecipients;
+    @JsonProperty("skipArtifactsDownload")
+    private boolean skipArtifactsDownload;
+    @JsonProperty("timeoutInMinutes")
+    private int timeoutInMinutes;
+    @JsonProperty("enableAccessToken")
+    private boolean enableAccessToken;
     /***
      * Gets and sets as the auto link workitems or not.
      */
@@ -61,13 +71,59 @@ public class EnvironmentOptions {
         this.pullRequestDeploymentEnabled = pullRequestDeploymentEnabled;
     }
 
+    public String getEmailNotificationType() {
+        return emailNotificationType;
+    }
+
+    public void setEmailNotificationType(String emailNotificationType) {
+        this.emailNotificationType = emailNotificationType;
+    }
+
+    public String getEmailRecipients() {
+        return emailRecipients;
+    }
+
+    public void setEmailRecipients(String emailRecipients) {
+        this.emailRecipients = emailRecipients;
+    }
+
+    public boolean isSkipArtifactsDownload() {
+        return skipArtifactsDownload;
+    }
+
+    public void setSkipArtifactsDownload(boolean skipArtifactsDownload) {
+        this.skipArtifactsDownload = skipArtifactsDownload;
+    }
+
+    public int getTimeoutInMinutes() {
+        return timeoutInMinutes;
+    }
+
+    public void setTimeoutInMinutes(int timeoutInMinutes) {
+        this.timeoutInMinutes = timeoutInMinutes;
+    }
+
+    public boolean isEnableAccessToken() {
+        return enableAccessToken;
+    }
+
+    public void setEnableAccessToken(boolean enableAccessToken) {
+        this.enableAccessToken = enableAccessToken;
+    }
+
     @Override
     public String toString() {
         return "EnvironmentOptions{" +
-                "autoLinkWorkItems=" + autoLinkWorkItems +
+                "emailNotificationType='" + emailNotificationType + '\'' +
+                ", emailRecipients='" + emailRecipients + '\'' +
+                ", skipArtifactsDownload=" + skipArtifactsDownload +
+                ", timeoutInMinutes=" + timeoutInMinutes +
+                ", enableAccessToken=" + enableAccessToken +
+                ", autoLinkWorkItems=" + autoLinkWorkItems +
                 ", badgeEnabled=" + badgeEnabled +
                 ", publishDeploymentStatus=" + publishDeploymentStatus +
                 ", pullRequestDeploymentEnabled=" + pullRequestDeploymentEnabled +
                 '}';
     }
+
 }

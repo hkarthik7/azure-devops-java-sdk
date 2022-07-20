@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.util.HashMap;
 
 public class ReleaseApiTest {
     private static final JsonMapper MAPPER = new JsonMapper();
@@ -103,6 +104,29 @@ public class ReleaseApiTest {
 
     @Test
     public void shouldGetManualInterventions() throws AzDException {
-        r.getManualInterventions(490);
+        var releaseId = r.getReleases().getReleases().get(0).getId();
+        r.getManualInterventions(releaseId);
+    }
+
+    @Test
+    public void shouldUpdateAReleaseDefinitionOrPipeline() throws AzDException {
+        var releaseDef = r.getReleaseDefinition(2);
+
+        // Set the releases to keep in environment retention policy.
+        releaseDef.getEnvironments().stream().findFirst().get().getRetentionPolicy().setReleasesToKeep(4);
+
+        // Set the new value to the variables.
+        var variableValue = new HashMap<String, String>(){{
+            put("value", "NewCustomValue");
+        }};
+
+        var newValue = new HashMap<String, Object>(){{
+           put("Name", variableValue);
+        }};
+
+        var newVariable = MAPPER.valueToTree(newValue);
+        releaseDef.setVariables(newVariable);
+
+        r.updateReleaseDefinition(releaseDef);
     }
 }

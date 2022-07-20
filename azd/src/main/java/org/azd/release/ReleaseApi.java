@@ -457,6 +457,24 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         return MAPPER.mapJsonResponse(r, ReleaseDefinitions.class);
     }
 
+    /**
+     * Update a release definition.
+     * @param releaseDefinition Pass the release definition {@link ReleaseDefinition} object. You can get it by running
+     * either getReleaseDefinitions() or getReleaseDefinition(int definitionId)
+     * @return a ReleaseDefinition {@link ReleaseDefinition} object.
+     * @throws AzDException Default Api exception handler.
+     */
+    @Override
+    public ReleaseDefinition updateReleaseDefinition(ReleaseDefinition releaseDefinition) throws AzDException {
+        var reqBody = MAPPER.convertToString(releaseDefinition);
+
+        String r = send(RequestMethod.PUT, CONNECTION, RELEASE, CONNECTION.getProject(),
+                AREA.replace("releases", "definitions"), null,
+                null, ApiVersion.RELEASE_DEFINITION, null, false, reqBody);
+
+        return MAPPER.mapJsonResponse(r, ReleaseDefinition.class);
+    }
+
     /***
      * Delete a release using release id.
      * @param releaseId Release id to delete

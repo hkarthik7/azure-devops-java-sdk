@@ -58,6 +58,12 @@ public class WorkflowTask {
      */
     @JsonProperty("refName")
     private String refName;
+
+    /**
+     * Gets or sets the task retryCount.
+     */
+    @JsonProperty("retryCountOnTaskFailure")
+    private int retryCountOnTaskFailure;
     /***
      * Gets or sets the ID of the task.
      */
@@ -178,6 +184,14 @@ public class WorkflowTask {
         this.version = version;
     }
 
+    public int getRetryCountOnTaskFailure() {
+        return retryCountOnTaskFailure;
+    }
+
+    public void setRetryCountOnTaskFailure(int retryCountOnTaskFailure) {
+        this.retryCountOnTaskFailure = retryCountOnTaskFailure;
+    }
+
     @Override
     public String toString() {
         return "WorkflowTask{" +
@@ -191,9 +205,11 @@ public class WorkflowTask {
                 ", name='" + name + '\'' +
                 ", overrideInputs=" + overrideInputs +
                 ", refName='" + refName + '\'' +
+                ", retryCountOnTaskFailure=" + retryCountOnTaskFailure +
                 ", taskId='" + taskId + '\'' +
                 ", timeoutInMinutes=" + timeoutInMinutes +
                 ", version='" + version + '\'' +
                 '}';
     }
+
 }
