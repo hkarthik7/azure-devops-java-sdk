@@ -146,13 +146,13 @@ public class MavenApiTest {
         System.out.println("Maven API TEST : shouldGetPackageVersionFromRecycleBin - OK");
     }
 
-     @Test
-     public void shouldDownloadPackage() throws AzDException {
+    @Test
+    public void shouldDownloadPackage() throws AzDException {
         var feedId = feed.getFeed(FEED).getId();
-         var responseStream = mvn.downloadPackage(feedId, TEST1_GROUP, TEST1_ARTIFACT, TEST1_VERSION, "ClickJack-1.5.0.jar");
-         StreamHelper.download("ClickJack-1.5.0.jar", responseStream);
-         System.out.println("Maven API TEST : shouldDownloadPackage - OK");
-     }
+        var responseStream = mvn.downloadPackage(feedId, TEST1_GROUP, TEST1_ARTIFACT, TEST1_VERSION, "ClickJack-1.5.0.jar");
+        StreamHelper.download("ClickJack-1.5.0.jar", responseStream);
+        System.out.println("Maven API TEST : shouldDownloadPackage - OK");
+    }
 
     @Test
     public void shouldUpdatePackageVersions() throws AzDException, InterruptedException {

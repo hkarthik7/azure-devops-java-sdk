@@ -214,6 +214,7 @@ public class WorkItemTrackingApiTest {
             if (urls != null)
                 for (var url : urls)
                     w.removeWorkItemAttachment(994, List.of(url.getUrl()));
-        } catch (AzDException e) { }
+        } catch (AzDException e) {
+        }
     }
 }

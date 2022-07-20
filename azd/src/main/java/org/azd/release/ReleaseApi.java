@@ -459,8 +459,9 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
 
     /**
      * Update a release definition.
+     *
      * @param releaseDefinition Pass the release definition {@link ReleaseDefinition} object. You can get it by running
-     * either getReleaseDefinitions() or getReleaseDefinition(int definitionId)
+     *                          either getReleaseDefinitions() or getReleaseDefinition(int definitionId)
      * @return a ReleaseDefinition {@link ReleaseDefinition} object.
      * @throws AzDException Default Api exception handler.
      */

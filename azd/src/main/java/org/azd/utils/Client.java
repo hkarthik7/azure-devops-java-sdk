@@ -71,18 +71,18 @@ public abstract class Client extends BaseClient {
      * Request the Azure DevOps REST API and builds the request url dynamically based on resource id and endpoints passed
      *
      * @param requestMethod type of request GET, POST, PATCH, DELETE {@link RequestMethod}
-     * @param connection name of the organization
-     * @param resourceId pass the resource id.
-     * @param project name of the project
-     * @param area resource area
-     * @param id resource id
-     * @param resource resource area endpoint
-     * @param apiVersion api version
-     * @param queryString query string to append the url
-     * @param contentType true to return the request url
+     * @param connection    name of the organization
+     * @param resourceId    pass the resource id.
+     * @param project       name of the project
+     * @param area          resource area
+     * @param id            resource id
+     * @param resource      resource area endpoint
+     * @param apiVersion    api version
+     * @param queryString   query string to append the url
+     * @param contentType   true to return the request url
      * @param contentStream API payload as stream
      * @param customHeaders Custom headers if any
-     * @param redirect if true looks for redirect URI from HttpResponse
+     * @param redirect      if true looks for redirect URI from HttpResponse
      * @return InputStream from API
      * @throws AzDException Default Api exception handler
      */

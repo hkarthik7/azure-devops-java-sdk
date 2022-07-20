@@ -165,6 +165,7 @@ public class SecurityToken {
             this.namespace = namespace;
             this.format = "";
         }
+
         Scope(String namespace, String format) {
             this.namespace = namespace;
             this.format = format;

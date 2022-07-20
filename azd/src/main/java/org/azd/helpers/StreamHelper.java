@@ -14,6 +14,7 @@ public class StreamHelper {
 
     /**
      * Returns the default byte array size
+     *
      * @return Default byte array size
      */
     public static int getDefaultByteArraySize() {
@@ -22,6 +23,7 @@ public class StreamHelper {
 
     /**
      * Sets the byte array size
+     *
      * @param defaultByteArraySize Size of the byte array to set
      */
     public static void setDefaultByteArraySize(int defaultByteArraySize) {
@@ -30,7 +32,8 @@ public class StreamHelper {
 
     /**
      * Downloads the contents from InputStream and saves it in a file.
-     * @param fileName Pass the full path with file name to save the contents.
+     *
+     * @param fileName       Pass the full path with file name to save the contents.
      * @param responseStream Input response stream from Api or from a file.
      * @throws AzDException Default exception handler
      */
@@ -48,6 +51,7 @@ public class StreamHelper {
 
     /**
      * Convert the InputStream stream to string
+     *
      * @param responseStream Input response stream from Api or from a file.
      * @return String content
      * @throws AzDException Default exception handler
@@ -62,6 +66,7 @@ public class StreamHelper {
 
     /**
      * Convert the file contents to input stream
+     *
      * @param file File object specified with complete path
      * @return Input stream
      * @throws AzDException Default exception handler
@@ -76,6 +81,7 @@ public class StreamHelper {
 
     /**
      * Convert the string content to input stream
+     *
      * @param content String content to convert
      * @return Input stream
      * @throws AzDException Default exception handler

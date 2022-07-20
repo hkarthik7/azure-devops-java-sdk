@@ -290,6 +290,7 @@ public abstract class BaseClient {
 
         /**
          * Get the current redirect policy.
+         *
          * @return HttpClient.Redirect policy.
          */
         public static HttpClient.Redirect getRedirectPolicy() {
@@ -298,6 +299,7 @@ public abstract class BaseClient {
 
         /**
          * Set the current redirect policy.
+         *
          * @param redirectPolicy HttpClient.Redirect policy.
          */
         public static void setRedirectPolicy(HttpClient.Redirect redirectPolicy) {
@@ -307,18 +309,18 @@ public abstract class BaseClient {
         /**
          * Sends a POST request to REST API with basic authentication.
          *
-         * @param requestMethod Type of request method - get, post, put, delete and patch. {@link RequestMethod}.
-         * @param requestUrl pass the request url.
-         * @param token pass the personal access token.
-         * @param contentType Type of content to send and accept from API.
-         * @param contentStream Request body as stream for post request.
-         * @param customHeaders custom headers to send with the post request.
+         * @param requestMethod   Type of request method - get, post, put, delete and patch. {@link RequestMethod}.
+         * @param requestUrl      pass the request url.
+         * @param token           pass the personal access token.
+         * @param contentType     Type of content to send and accept from API.
+         * @param contentStream   Request body as stream for post request.
+         * @param customHeaders   custom headers to send with the post request.
          * @param followRedirects if true follow the redirect URL.
          * @return Input stream response from the API.
          */
         public static InputStream response(RequestMethod requestMethod, String requestUrl,
-                                              String token, String contentType, InputStream contentStream,
-                                              Map<String, String> customHeaders, boolean followRedirects) {
+                                           String token, String contentType, InputStream contentStream,
+                                           Map<String, String> customHeaders, boolean followRedirects) {
             var client = getClient(followRedirects);
 
             // TODO: Add handlers for PUT, PATCH and DELETE methods.
@@ -357,16 +359,16 @@ public abstract class BaseClient {
          * Sends a POST request to REST API with basic authentication.
          *
          * @param requestMethod Type of request method - get, post, put, delete and patch. {@link RequestMethod}.
-         * @param requestUrl pass the request url.
-         * @param token pass the personal access token.
-         * @param contentType Type of content to send and accept from API.
+         * @param requestUrl    pass the request url.
+         * @param token         pass the personal access token.
+         * @param contentType   Type of content to send and accept from API.
          * @param contentStream Request body as stream for post request.
          * @param customHeaders custom headers to send with the post request.
          * @return Input stream response from the API as CompletableFuture object.
          */
         public static CompletableFuture<HttpResponse<InputStream>> response(RequestMethod requestMethod, String requestUrl,
-                                           String token, String contentType, InputStream contentStream,
-                                           Map<String, String> customHeaders) {
+                                                                            String token, String contentType, InputStream contentStream,
+                                                                            Map<String, String> customHeaders) {
 
             var client = getClient(false);
 
@@ -397,6 +399,7 @@ public abstract class BaseClient {
 
         /**
          * Return HttpClient object
+         *
          * @param redirect If true adds redirect policy
          * @return HttpClient object
          */

@@ -147,7 +147,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
      */
     @Override
     public InputStream downloadPackage(String feedId, String groupId, String artifactId, String version, String fileName) throws AzDException {
-        var res =  send(RequestMethod.GET, CONNECTION, MAVEN, CONNECTION.getProject(), AREA + "/feeds", feedId,
+        var res = send(RequestMethod.GET, CONNECTION, MAVEN, CONNECTION.getProject(), AREA + "/feeds", feedId,
                 "maven/" + groupId + "/" + artifactId + "/" + version + "/" + fileName + "/content",
                 ApiVersion.MAVEN, null, "application/octet-stream", null, null, true);
 

@@ -67,6 +67,7 @@ public class JsonMapper extends ObjectMapper {
 
     /**
      * Converts a string response to Json string.
+     *
      * @param jsonString string response from Api.
      * @return JsonNode {@link JsonNode}
      * @throws AzDException Api exception handler.

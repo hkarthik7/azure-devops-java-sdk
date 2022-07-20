@@ -116,12 +116,12 @@ public class ReleaseApiTest {
         releaseDef.getEnvironments().stream().findFirst().get().getRetentionPolicy().setReleasesToKeep(4);
 
         // Set the new value to the variables.
-        var variableValue = new HashMap<String, String>(){{
+        var variableValue = new HashMap<String, String>() {{
             put("value", "NewCustomValue");
         }};
 
-        var newValue = new HashMap<String, Object>(){{
-           put("Name", variableValue);
+        var newValue = new HashMap<String, Object>() {{
+            put("Name", variableValue);
         }};
 
         var newVariable = MAPPER.valueToTree(newValue);

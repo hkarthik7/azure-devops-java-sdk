@@ -882,8 +882,9 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      * with content stream for working with work item attachment API.
      */
     @Override
-    @Deprecated public AttachmentReference createAttachment(String fileName, AttachmentUploadType uploadType,
-                                                            String teamAreaPath, String contents) throws AzDException {
+    @Deprecated
+    public AttachmentReference createAttachment(String fileName, AttachmentUploadType uploadType,
+                                                String teamAreaPath, String contents) throws AzDException {
         var q = new HashMap<String, Object>() {{
             put("fileName", fileName);
             put("uploadType", uploadType.toString().toLowerCase());
@@ -899,9 +900,10 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
 
     /**
      * Uploads an attachment.
-     * @param fileName The name of the file
-     * @param uploadType Attachment upload type: Simple or Chunked. {@link AttachmentUploadType}
-     * @param teamAreaPath Target project Area Path
+     *
+     * @param fileName      The name of the file
+     * @param uploadType    Attachment upload type: Simple or Chunked. {@link AttachmentUploadType}
+     * @param teamAreaPath  Target project Area Path
      * @param contentStream Stream to upload. Payload to create the attachment.
      * @return AttachmentReference {@link AttachmentReference}
      * @throws AzDException Handles errors from REST API and validates passed arguments
@@ -926,7 +928,8 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
 
     /**
      * Downloads an attachment.
-     * @param id Attachment ID
+     *
+     * @param id       Attachment ID
      * @param fileName Name of the file
      * @param download If set to true always download attachment
      * @return Stream of the attachment content. Use {@link StreamHelper} to download the attachment contents to a file.
@@ -945,7 +948,8 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
 
     /**
      * Downloads an attachment as a zip file.
-     * @param id Attachment ID
+     *
+     * @param id       Attachment ID
      * @param fileName Name of the file
      * @param download If set to true always download attachment
      * @return Stream of the attachment content. Use {@link StreamHelper} to download the attachment contents to a file.
@@ -967,7 +971,8 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      * for working with work item attachment API.
      */
     @Override
-    @Deprecated public String getAttachment(String id, String fileName) throws AzDException {
+    @Deprecated
+    public String getAttachment(String id, String fileName) throws AzDException {
         var q = new HashMap<String, Object>() {{
             put("fileName", fileName);
         }};
