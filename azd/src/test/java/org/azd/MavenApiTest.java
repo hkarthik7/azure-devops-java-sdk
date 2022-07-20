@@ -4,7 +4,9 @@ import org.azd.enums.PackagePromote;
 import org.azd.enums.PackagesBatchOperation;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
+import org.azd.helpers.StreamHelper;
 import org.azd.interfaces.AzDClient;
+import org.azd.interfaces.FeedManagementDetails;
 import org.azd.interfaces.MavenDetails;
 import org.azd.maven.types.MavenPackageVersionDeletionState;
 import org.azd.maven.types.Package;
@@ -39,6 +41,7 @@ public class MavenApiTest {
     private static final String TEST3_VERSION = "3.5.0";
     private static AzDClient webApi;
     private static MavenDetails mvn;
+    private static FeedManagementDetails feed;
 
     @AfterClass
     public static void restorePackage() {
@@ -72,6 +75,7 @@ public class MavenApiTest {
         String project = m.getP();
         webApi = new AzDClientApi(organization, project, token);
         mvn = webApi.getMavenApi();
+        feed = webApi.getFeedManagementApi();
     }
 
     @Test
@@ -142,10 +146,13 @@ public class MavenApiTest {
         System.out.println("Maven API TEST : shouldGetPackageVersionFromRecycleBin - OK");
     }
 
-    // @Test
-    // public void shouldDownloadPackage() throws AzDException {
-    //     mvn.downloadPackage("test2", "com.acme", "app", "1.0.2", "app-1.0.2.zip");
-    // }
+     @Test
+     public void shouldDownloadPackage() throws AzDException {
+        var feedId = feed.getFeed(FEED).getId();
+         var responseStream = mvn.downloadPackage(feedId, TEST1_GROUP, TEST1_ARTIFACT, TEST1_VERSION, "ClickJack-1.5.0.jar");
+         StreamHelper.download("ClickJack-1.5.0.jar", responseStream);
+         System.out.println("Maven API TEST : shouldDownloadPackage - OK");
+     }
 
     @Test
     public void shouldUpdatePackageVersions() throws AzDException, InterruptedException {

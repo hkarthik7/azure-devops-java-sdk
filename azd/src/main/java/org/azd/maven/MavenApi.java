@@ -14,6 +14,7 @@ import org.azd.maven.types.Package;
 import org.azd.maven.types.UpstreamingBehavior;
 import org.azd.utils.AzDAsyncApi;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -131,31 +132,27 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
         return MAPPER.mapJsonResponse(r, UpstreamingBehavior.class);
     }
 
-    // /***
-    // * Fulfills Maven package file download requests by either returning the URL
-    // of
-    // * the requested package file or, in the case of Azure DevOps Server (OnPrem),
-    // *
-    // * @param feedId Name or ID of the feed. Example: "mavenfeed".
-    // * @param groupId Group ID of the package. Example: "com.example".
-    // * @param artifactId Artifact ID of the package. Example: "app".
-    // * @param version Version of the package. Example: "1.0.0".
-    // * @param fileName File name to download. Example: "app-1.0.0.jar".
-    // * @return Package content.
-    // * @throws AzDException Default Api Exception handler.
-    // */
-    // @Override
-    // public String downloadPackage(String feedId, String groupId, String
-    // artifactId, String version, String fileName)
-    // throws AzDException {
-    // String r = send(RequestMethod.GET, CONNECTION, MAVEN,
-    // CONNECTION.getProject(),
-    // AREA + "/feeds", feedId,
-    // "maven/" + groupId + "/" + artifactId + "/" + version + "/" + fileName +
-    // "/content",
-    // ApiVersion.MAVEN, null, null,"application/octet-stream");
-    // return r;
-    // }
+    /***
+     * Fulfills Maven package file download requests by either returning the URL
+     of
+     * the requested package file or, in the case of Azure DevOps Server (OnPrem),
+     *
+     * @param feedId Name or ID of the feed. Example: "mavenfeed".
+     * @param groupId Group ID of the package. Example: "com.example".
+     * @param artifactId Artifact ID of the package. Example: "app".
+     * @param version Version of the package. Example: "1.0.0".
+     * @param fileName File name to download. Example: "app-1.0.0.jar".
+     * @return Package content.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public InputStream downloadPackage(String feedId, String groupId, String artifactId, String version, String fileName) throws AzDException {
+        var res =  send(RequestMethod.GET, CONNECTION, MAVEN, CONNECTION.getProject(), AREA + "/feeds", feedId,
+                "maven/" + groupId + "/" + artifactId + "/" + version + "/" + fileName + "/content",
+                ApiVersion.MAVEN, null, "application/octet-stream", null, null, true);
+
+        return res;
+    }
 
     /***
      * Delete a package version from the feed and move it to the feed's recycle bin.

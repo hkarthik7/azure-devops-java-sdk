@@ -7,6 +7,7 @@ import org.azd.maven.types.MavenPackageVersionDeletionState;
 import org.azd.maven.types.Package;
 import org.azd.maven.types.UpstreamingBehavior;
 
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -23,9 +24,7 @@ public interface MavenDetails {
     UpstreamingBehavior getUpstreamingBehavior(String feedId, String groupId, String artifactId)
             throws AzDException;
 
-    // String downloadPackage(String feedId, String groupId, String artifactId,
-    // String version, String fileName)
-    // throws AzDException;
+    InputStream downloadPackage(String feedId, String groupId, String artifactId, String version, String fileName) throws AzDException;
 
     void updatePackageVersion(String feedId, String groupId, String artifactId, String version,
                               PackagePromote promote) throws AzDException;
