@@ -1,6 +1,7 @@
 package org.azd.helpers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.azd.enums.ApiExceptionTypes;
 import org.azd.exceptions.AzDException;
@@ -61,6 +62,20 @@ public class JsonMapper extends ObjectMapper {
             return this.readValue(src, valueType);
         } catch (Exception e) {
             throw new AzDException(ApiExceptionTypes.FileContentParsingException.toString(), e.getMessage());
+        }
+    }
+
+    /**
+     * Converts a string response to Json string.
+     * @param jsonString string response from Api.
+     * @return JsonNode {@link JsonNode}
+     * @throws AzDException Api exception handler.
+     */
+    public JsonNode convertToJson(String jsonString) throws AzDException {
+        try {
+            return this.readTree(jsonString);
+        } catch (JsonProcessingException e) {
+            throw new AzDException(ApiExceptionTypes.StringValueParsingException.name(), e.getMessage());
         }
     }
 }
