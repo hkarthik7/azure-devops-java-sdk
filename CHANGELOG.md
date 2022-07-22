@@ -1,5 +1,7 @@
 # Changelog
 
+- Enable feature management for project services (i.e. Test Plans, Boards, etc)
+
 ## 4.0.0
 
 **Breaking changes**

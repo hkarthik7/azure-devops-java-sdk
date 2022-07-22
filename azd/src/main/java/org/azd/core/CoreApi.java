@@ -3,6 +3,7 @@ package org.azd.core;
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
 import org.azd.core.types.*;
+import org.azd.enums.FeatureManagement;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
@@ -12,6 +13,7 @@ import org.azd.utils.AzDAsyncApi;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import static org.azd.utils.Client.send;
 
@@ -374,5 +376,48 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
                 AREA, projectName, "teams/" + teamName, ApiVersion.PROJECT_TEAMS, null, h);
 
         return MAPPER.mapJsonResponse(r, Team.class);
+    }
+
+    /***
+     * Call un-published API feature to fetch project service feature state.
+     * See {@link FeatureManagement} for current list of features.
+     * Besides an 'enabled' and 'disabled' state, there is also an undefined state, hence the Optional return wrapper
+     * @param projectId project identifier
+     * @param feature FeatureManagement enum type for which to return state
+     * @return Optional wrapped boolean, empty if state is undefined
+     * @throws AzDException
+     */
+    @Override
+    public Optional<Boolean> getFeatureState(String projectId, FeatureManagement feature) throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, null, null,
+                "FeatureManagement/FeatureStates/host/project", projectId, feature.getFeatureId(), ApiVersion.FEATURE_MANAGEMENT, null, null);
+
+        return MAPPER.mapJsonResponse(r, ProjectFeature.class).getStateAsBoolean();
+    }
+
+    /***
+     * Set project feature state for project service
+     * See {@link FeatureManagement} for list of features
+     *
+     * @param projectId project identifier
+     * @param feature enum value for feature to enable or disable
+     * @param state enable or disable feature
+     * @return object containing feature id and state
+     * @throws AzDException
+     */
+    @Override
+    public ProjectFeature featureToggle(String projectId, FeatureManagement feature, boolean state) throws AzDException {
+        LinkedHashMap<String, Object> b = new LinkedHashMap<>() {{
+           put("featureId", feature.getFeatureId());
+           put("scope", new LinkedHashMap<>() {{
+               put("settingScope", "project");
+               put("userScoped", false);
+           }});
+           put("state", state ? 1 : 0);
+        }};
+        String r = send(RequestMethod.PATCH, CONNECTION, null, null,
+                "FeatureManagement/FeatureStates/host/project", projectId, feature.getFeatureId(), ApiVersion.FEATURE_MANAGEMENT, null, b);
+
+        return MAPPER.mapJsonResponse(r, ProjectFeature.class);
     }
 }

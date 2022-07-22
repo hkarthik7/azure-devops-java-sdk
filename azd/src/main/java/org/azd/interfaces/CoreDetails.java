@@ -1,9 +1,11 @@
 package org.azd.interfaces;
 
 import org.azd.core.types.*;
+import org.azd.enums.FeatureManagement;
 import org.azd.exceptions.AzDException;
 
 import java.util.Map;
+import java.util.Optional;
 
 public interface CoreDetails {
     Processes getProcesses() throws AzDException;
@@ -41,4 +43,8 @@ public interface CoreDetails {
     Teams getTeams(boolean expandIdentity, String mine, int skip, int top) throws AzDException;
 
     Team updateTeams(String projectName, String teamName, String description) throws AzDException;
+
+    Optional<Boolean> getFeatureState(String projectId, FeatureManagement feature) throws AzDException;
+
+    ProjectFeature featureToggle(String projectId, FeatureManagement feature, boolean state) throws AzDException;
 }
