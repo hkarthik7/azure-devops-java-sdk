@@ -11,7 +11,8 @@ and find the API to create a wrapper function.
 4. In your local development environment open the pom.xml file and sync to install dependencies.
 5. If you are adding a new method to the existing class
     1. Update the version in `ApiVersion` file
-    2. If you are adding any types, create a class and add it under `types` package
+    2. If you are adding any types, create a class and add it under `types` package. Please run the script `scrape.py`
+    under `tools` folder to create the `types` needed.
 6. Write tests first, this helps to decide on what is important and what to cover in the main class and method.
 7. Write help. It is important to explain what the function does to the user.
 8. Code the function/method.
