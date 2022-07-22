@@ -48,6 +48,14 @@ public class Main {
             core.updateProject("projectId", projectParameters);
     
             core.getProcesses().getProcesses().stream().forEach(name -> System.out.println(name.getName()));
+            
+            // query state of project service (feature)
+            Optional<Boolean> state = core.getFeatureState("projectId", FeatureManagement.BOARDS);
+            
+            // enable or disable project service (feature)
+            core.featureToggle("projectId", FeatureManagement.TEST_PLANS, false);
+            core.featureToggle("projectId", FeatureManagement.PIPELINES, true);
+            
         } catch (AzDException e) {
             e.printStackTrace();
         }
