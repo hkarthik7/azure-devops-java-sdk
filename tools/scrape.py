@@ -1,3 +1,4 @@
+from venv import create
 from bs4 import BeautifulSoup
 import requests
 import json
@@ -59,8 +60,35 @@ def read(fname):
     with open(os.path.join(os.path.dirname(__file__), fname)) as f:
         return f.read()
 
+def capitalize(word: str):
+    w = ''
+    for i,e in enumerate(word):
+        if i == 0:
+            w += word[i].title()
+        else:
+            w += word[i]
+    return w
+
+def create_getter(name: str, type_value: str):
+    val = f"public {type_value.title()} get{capitalize(name)}() {{ return {name}; }}"
+    return val
+
+def create_setter(name: str, type_value: str):
+    val = f"public void set{capitalize(name)}({type_value.title()} {name}) {{ this.{name} = {name}; }}"
+    return val
 
 _url: str = json.loads(read('settings.json'))['url']
+notes = '''
+/**
+----------------------------------------------------------
+    GENERATED FILE, should be edited to suit the purpose.
+----------------------------------------------------------
+**/
+'''
+import_statements = '''
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+'''
 sub_type_collector = []
 d_value = {}
 
@@ -122,16 +150,22 @@ if value_result is not None:
                 os.mkdir("types")
 
             f = open(f"types/{key}.java", 'w+')
-            f.write(f"/**\n * {value_result['Definitions'][key]} \n**/")
+            f.write(f"{notes.strip()}")
+            f.write(f"\n{import_statements}")
+            f.write(f"\n/**\n * {value_result['Definitions'][key]} \n**/")
             f.write("\n@JsonIgnoreProperties(ignoreUnknown = true)")
             f.write(f"\npublic class {key} {{\n")
 
             for v in value_result['SubDefinitions'].get(key):
                 if v['Description'] != '':
-                    f.write(f"/**\n * {v['Description']} \n**/")
+                    f.write(f"\t/**\n \t* {v['Description']} \n\t**/")
 
-                f.write(f"\n@JsonProperty('{v['Name']}')\n")
-                f.write(f"private {str(v['Type']).title()} {v['Name']};\n")
+                f.write(f"\n\t@JsonProperty('{v['Name']}')\n")
+                f.write(f"\tprivate {str(v['Type']).title()} {v['Name']};\n")
+
+            for v in value_result['SubDefinitions'].get(key):
+                f.write(f"\n\t{create_getter(v['Name'], str(v['Type']))}\n")
+                f.write(f"\n\t{create_setter(v['Name'], str(v['Type']))}\n")
 
             f.write("}")
         finally:
