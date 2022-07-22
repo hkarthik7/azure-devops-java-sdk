@@ -1,3 +1,4 @@
+import itertools
 from venv import create
 from bs4 import BeautifulSoup
 import requests
@@ -43,8 +44,17 @@ class ScrapeVsTsDocument(object):
 
         if definitions is not None:
 
-            for p in zip(definitions.find_all('a'), definitions.find_all('p')):
-                types_to_create[p[0].get_text()] = p[1].get_text()
+            for p in itertools.zip_longest(definitions.find_all('a'), definitions.find_all('p')):
+                if p[0] is None:
+                    key = 'None'
+                else:
+                    key = p[0].get_text()
+                if p[1] is None:
+                    value = 'None'
+                else:
+                    value = p[1].get_text()
+
+                types_to_create[key] = value
 
             result[root.get_text()] = types_to_create
 
@@ -99,6 +109,7 @@ scrape = ScrapeVsTsDocument(_url)
 response = scrape.get_response
 
 value_result = scrape.get_definitions(scrape._soup_object)
+
 
 if value_result is not None:
 
