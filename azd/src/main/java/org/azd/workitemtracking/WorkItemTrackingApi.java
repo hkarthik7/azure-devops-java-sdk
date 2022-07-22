@@ -1081,6 +1081,14 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return MAPPER.mapJsonResponse(res, WorkItem.class);
     }
 
+    @Override
+    public AccountRecentActivityWorkItems getMyWorkRecentActivity() throws AzDException {
+        String res = send(RequestMethod.GET , CONNECTION, null, null, "work/accountmyworkrecentactivity",
+                null, null, ApiVersion.WORK_ITEM_TYPES, null, null);
+
+        return MAPPER.mapJsonResponse(res, AccountRecentActivityWorkItems.class);
+    }
+
     /***
      * Helper method to convert integer array to string.
      * @param i integer array

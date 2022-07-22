@@ -217,4 +217,9 @@ public class WorkItemTrackingApiTest {
         } catch (AzDException e) {
         }
     }
+
+    @Test
+    public void shouldGetWorkItemActivities() throws AzDException {
+        System.out.println(w.getMyWorkRecentActivity());
+    }
 }

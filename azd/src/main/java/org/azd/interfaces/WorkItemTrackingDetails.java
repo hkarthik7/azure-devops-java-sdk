@@ -108,4 +108,6 @@ public interface WorkItemTrackingDetails {
     WorkItem addWorkItemAttachment(int workItemId, Map<String, String> fieldsToUpdate) throws AzDException;
 
     WorkItem removeWorkItemAttachment(int workItemId, List<String> attachmentUrl) throws AzDException;
+
+    AccountRecentActivityWorkItems getMyWorkRecentActivity() throws AzDException;
 }
