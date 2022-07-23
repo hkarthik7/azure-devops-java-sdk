@@ -63,6 +63,7 @@ class ScrapeVsTsDocument(object):
     def get_index(self, value: str):
         return self.get_page_content.find(value)
 
+
 ########################################## SCRIPT EXECUTION BLOCK #########################################################
 
 
@@ -70,24 +71,29 @@ def read(fname):
     with open(os.path.join(os.path.dirname(__file__), fname)) as f:
         return f.read()
 
+
 def capitalize(word: str):
     w = ''
-    for i,e in enumerate(word):
+    for i, e in enumerate(word):
         if i == 0:
             w += word[i].title()
         else:
             w += word[i]
     return w
 
+
 def create_getter(name: str, type_value: str):
-    val = f"public {type_value.title()} get{capitalize(name)}() {{ return {name}; }}"
+    val = f"public {capitalize(type_value)} get{capitalize(name)}() {{ return {name}; }}"
     return val
+
 
 def create_setter(name: str, type_value: str):
-    val = f"public void set{capitalize(name)}({type_value.title()} {name}) {{ this.{name} = {name}; }}"
+    val = f"public void set{capitalize(name)}({capitalize(type_value)} {name}) {{ this.{name} = {name}; }}"
     return val
 
+
 _url: str = json.loads(read('settings.json'))['url']
+package_name = f'package org.azd.{_url.split("/")[-3]}.types;'
 notes = '''
 /**
 ----------------------------------------------------------
@@ -110,7 +116,6 @@ response = scrape.get_response
 
 value_result = scrape.get_definitions(scrape._soup_object)
 
-
 if value_result is not None:
 
     for definition in value_result['Definitions']:
@@ -126,7 +131,6 @@ if value_result is not None:
             sub_type_collector.append(f"{prev}:{current_val}")
 
         prev = current_val
-
 
     for sub_set in sub_type_collector:
         sub_type = sub_set.split(':')
@@ -161,7 +165,8 @@ if value_result is not None:
                 os.mkdir("types")
 
             f = open(f"types/{key}.java", 'w+')
-            f.write(f"{notes.strip()}")
+            f.write(f"{package_name}")
+            f.write(f"\n{notes.strip()}")
             f.write(f"\n{import_statements}")
             f.write(f"\n/**\n * {value_result['Definitions'][key]} \n**/")
             f.write("\n@JsonIgnoreProperties(ignoreUnknown = true)")
@@ -171,8 +176,8 @@ if value_result is not None:
                 if v['Description'] != '':
                     f.write(f"\t/**\n \t* {v['Description']} \n\t**/")
 
-                f.write(f"\n\t@JsonProperty('{v['Name']}')\n")
-                f.write(f"\tprivate {str(v['Type']).title()} {v['Name']};\n")
+                f.write(f'\n\t@JsonProperty("{v["Name"]}")\n')
+                f.write(f"\tprivate {capitalize(str(v['Type']))} {v['Name']};\n")
 
             for v in value_result['SubDefinitions'].get(key):
                 f.write(f"\n\t{create_getter(v['Name'], str(v['Type']))}\n")
