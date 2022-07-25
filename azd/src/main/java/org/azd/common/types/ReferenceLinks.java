@@ -106,7 +106,7 @@ public class ReferenceLinks {
 
     @Override
     public String toString() {
-        return "ReferenceLinks{" +
+        return "Object{" +
                 "self=" + self +
                 ", workItemUpdates=" + workItemUpdates +
                 ", workItemRevisions=" + workItemRevisions +

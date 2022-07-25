@@ -24,7 +24,7 @@ public class ReferenceLinks {
 
     @Override
     public String toString() {
-        return "ReferenceLinks{" +
+        return "Object{" +
                 "links='" + links.toString() +
                 '}';
     }

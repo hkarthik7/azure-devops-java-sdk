@@ -220,6 +220,6 @@ public class WorkItemTrackingApiTest {
 
     @Test
     public void shouldGetWorkItemActivities() throws AzDException {
-        System.out.println(w.getMyWorkRecentActivity());
+        w.getMyWorkRecentActivity();
     }
 }

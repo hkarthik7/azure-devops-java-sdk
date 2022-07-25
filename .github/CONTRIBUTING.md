@@ -63,7 +63,6 @@ in your **Azure DevOps** artifacts.
 
 ![Postman Get Request](screencaptures/s3.PNG)
 
-
 ## Fork the repository
 
 It is good to get familiarised with the code by forking the repository and creating your own branch for your work.
@@ -79,5 +78,5 @@ the functionality of your code should be.
 - Code your function and write help.
 - Update `_unitTest.json` file under `test` package with your own organisation name, project and personal access token
 to run unit tests.
-- Once its all done, update `CHANGELOG.md`.
+- Once it's all done, update `CHANGELOG.md`.
 

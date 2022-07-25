@@ -1,7 +1,9 @@
 package org.azd.helpers;
 
 import org.azd.enums.ApiExceptionTypes;
+import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
+import org.azd.utils.BaseClient;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -47,6 +49,19 @@ public class StreamHelper {
         } catch (Exception e) {
             throw new AzDException(ApiExceptionTypes.InvalidArgumentException.name(), e.getMessage());
         }
+    }
+
+    /**
+     * Helper method to download the contents stream from a url.
+     *
+     * @param url      Provide the URL to download the contents from.
+     * @param fileName Full path along with file name to download the contents from URL.
+     * @throws AzDException Default Api exception handler.
+     */
+    public static void downloadFromUrl(String url, String fileName) throws AzDException {
+        var res = BaseClient.StreamBuilder.response(RequestMethod.GET, url, null, "application/octet-stream",
+                null, null, false);
+        download(fileName, res);
     }
 
     /**

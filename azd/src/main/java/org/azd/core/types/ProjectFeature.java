@@ -39,8 +39,14 @@ public class ProjectFeature {
         return state;
     }
 
+    public void setState(String state) {
+        this.state = state;
+    }
+
     public Optional<Boolean> getStateAsBoolean() {
-        if (state == null) { return Optional.empty(); }
+        if (state == null) {
+            return Optional.empty();
+        }
         if (state.equals("enabled") || state.equals("1")) {
             return Optional.of(Boolean.TRUE);
         } else if (state.equals("disabled") || state.equals("0")) {
@@ -49,16 +55,21 @@ public class ProjectFeature {
         return Optional.empty();
     }
 
-    public void setState(String state) {
-        this.state = state;
-    }
-
     public Scope getScope() {
         return scope;
     }
 
     public void setScope(Scope scope) {
         this.scope = scope;
+    }
+
+    @Override
+    public String toString() {
+        return "FeatureManagement{" +
+                "featureId='" + featureId + '\'' +
+                ", state=" + state +
+                ", scope=" + scope +
+                '}';
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -97,14 +108,5 @@ public class ProjectFeature {
                     ", settingScope='" + settingScope + '\'' +
                     '}';
         }
-    }
-
-    @Override
-    public String toString() {
-        return "FeatureManagement{" +
-                "featureId='" + featureId + '\'' +
-                ", state=" + state +
-                ", scope=" + scope +
-                '}';
     }
 }

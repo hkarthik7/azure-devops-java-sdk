@@ -408,12 +408,12 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
     @Override
     public ProjectFeature featureToggle(String projectId, FeatureManagement feature, boolean state) throws AzDException {
         LinkedHashMap<String, Object> b = new LinkedHashMap<>() {{
-           put("featureId", feature.getFeatureId());
-           put("scope", new LinkedHashMap<>() {{
-               put("settingScope", "project");
-               put("userScoped", false);
-           }});
-           put("state", state ? 1 : 0);
+            put("featureId", feature.getFeatureId());
+            put("scope", new LinkedHashMap<>() {{
+                put("settingScope", "project");
+                put("userScoped", false);
+            }});
+            put("state", state ? 1 : 0);
         }};
         String r = send(RequestMethod.PATCH, CONNECTION, null, null,
                 "FeatureManagement/FeatureStates/host/project", projectId, feature.getFeatureId(), ApiVersion.FEATURE_MANAGEMENT, null, b);

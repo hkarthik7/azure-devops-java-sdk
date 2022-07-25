@@ -1083,7 +1083,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
 
     @Override
     public AccountRecentActivityWorkItems getMyWorkRecentActivity() throws AzDException {
-        String res = send(RequestMethod.GET , CONNECTION, null, null, "work/accountmyworkrecentactivity",
+        String res = send(RequestMethod.GET, CONNECTION, null, null, "work/accountmyworkrecentactivity",
                 null, null, ApiVersion.WORK_ITEM_TYPES, null, null);
 
         return MAPPER.mapJsonResponse(res, AccountRecentActivityWorkItems.class);

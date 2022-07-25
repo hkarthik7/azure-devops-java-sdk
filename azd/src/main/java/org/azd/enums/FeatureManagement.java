@@ -11,9 +11,12 @@ public enum FeatureManagement {
     ARTIFACTS("ms.azure-artifacts.feature");
 
     private String featureId;
+
     FeatureManagement(String id) {
         featureId = id;
     }
 
-    public String getFeatureId() { return featureId; }
+    public String getFeatureId() {
+        return featureId;
+    }
 }

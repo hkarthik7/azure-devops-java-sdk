@@ -1,64 +1,70 @@
 package org.azd.build.types;
+/**
+ * ----------------------------------------------------------
+ * GENERATED FILE, should be edited to suit the purpose.
+ * ----------------------------------------------------------
+ **/
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.core.types.Project;
+import org.azd.enums.DefinitionQueueStatus;
+import org.azd.enums.DefinitionType;
 
-/***
- * Represents a reference to a definition.
- */
+/**
+ * The type of the definition. 
+ **/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DefinitionReference {
-    /***
+    /**
      * The date this version of the definition was created.
-     */
+     **/
     @JsonProperty("createdDate")
     private String createdDate;
-    /***
+    /**
      * The ID of the referenced definition.
-     */
+     **/
     @JsonProperty("id")
-    private String id;
-    /***
+    private Integer id;
+    /**
      * The name of the referenced definition.
-     */
+     **/
     @JsonProperty("name")
     private String name;
-    /***
-     * The REST URL of the definition.
-     */
-    @JsonProperty("url")
-    private String url;
-    /***
-     * The definition's URI.
-     */
-    @JsonProperty("uri")
-    private String uri;
-    /***
+    /**
      * The folder path of the definition.
-     */
+     **/
     @JsonProperty("path")
     private String path;
-    /***
-     * The type of the definition.
-     */
-    @JsonProperty("type")
-    private String type;
-    /***
-     * A value that indicates whether builds can be queued against this definition.
-     */
-    @JsonProperty("queueStatus")
-    private String queueStatus;
-    /***
-     * The definition revision number.
-     */
-    @JsonProperty("revision")
-    private int revision;
-    /***
+    /**
      * A reference to the project.
-     */
+     **/
     @JsonProperty("project")
-    private Project project;
+    private TeamProjectReference project;
+    /**
+     * A value that indicates whether builds can be queued against this definition.
+     **/
+    @JsonProperty("queueStatus")
+    private DefinitionQueueStatus queueStatus;
+    /**
+     * The definition revision number.
+     **/
+    @JsonProperty("revision")
+    private Integer revision;
+    /**
+     * The type of the definition.
+     **/
+    @JsonProperty("type")
+    private DefinitionType type;
+    /**
+     * The definition's URI.
+     **/
+    @JsonProperty("uri")
+    private String uri;
+    /**
+     * The REST URL of the definition.
+     **/
+    @JsonProperty("url")
+    private String url;
 
     public String getCreatedDate() {
         return createdDate;
@@ -68,11 +74,11 @@ public class DefinitionReference {
         this.createdDate = createdDate;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -84,12 +90,44 @@ public class DefinitionReference {
         this.name = name;
     }
 
-    public String getUrl() {
-        return url;
+    public String getPath() {
+        return path;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public TeamProjectReference getProject() {
+        return project;
+    }
+
+    public void setProject(TeamProjectReference project) {
+        this.project = project;
+    }
+
+    public DefinitionQueueStatus getQueueStatus() {
+        return queueStatus;
+    }
+
+    public void setQueueStatus(DefinitionQueueStatus queueStatus) {
+        this.queueStatus = queueStatus;
+    }
+
+    public Integer getRevision() {
+        return revision;
+    }
+
+    public void setRevision(Integer revision) {
+        this.revision = revision;
+    }
+
+    public DefinitionType getType() {
+        return type;
+    }
+
+    public void setType(DefinitionType type) {
+        this.type = type;
     }
 
     public String getUri() {
@@ -100,44 +138,12 @@ public class DefinitionReference {
         this.uri = uri;
     }
 
-    public String getPath() {
-        return path;
+    public String getUrl() {
+        return url;
     }
 
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getQueueStatus() {
-        return queueStatus;
-    }
-
-    public void setQueueStatus(String queueStatus) {
-        this.queueStatus = queueStatus;
-    }
-
-    public int getRevision() {
-        return revision;
-    }
-
-    public void setRevision(int revision) {
-        this.revision = revision;
-    }
-
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     @Override
@@ -146,13 +152,13 @@ public class DefinitionReference {
                 "createdDate='" + createdDate + '\'' +
                 ", id=" + id +
                 ", name='" + name + '\'' +
-                ", url='" + url + '\'' +
-                ", uri='" + uri + '\'' +
                 ", path='" + path + '\'' +
-                ", type='" + type + '\'' +
-                ", queueStatus='" + queueStatus + '\'' +
-                ", revision=" + revision +
                 ", project=" + project +
+                ", queueStatus=" + queueStatus +
+                ", revision=" + revision +
+                ", type=" + type +
+                ", uri='" + uri + '\'' +
+                ", url='" + url + '\'' +
                 '}';
     }
 }
