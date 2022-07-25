@@ -18,6 +18,7 @@ class ScrapeVsTsDocument(object):
     '''
     __id__ = 'definitions'
     __comment__ = 'uri-parameters'
+    __response__ = 'response'
 
     def __init__(self, url: str) -> None:
         self._url = url
@@ -88,12 +89,39 @@ class ScrapeVsTsDocument(object):
 
         return result
 
+    def get_response_type(self, soup: BeautifulSoup) -> dict:
+        result: dict = {}
+        types_to_create: dict = {}
+
+        # Get main definition
+        root = soup.find(id=self.__response__)
+        # Get the types to be created
+        definitions = soup.find('table', class_='parameters definitions')
+
+        if definitions is not None:
+
+            for p in itertools.zip_longest(definitions.find_all('a'), definitions.find_all('p')):
+                if p[0] is None:
+                    key = 'None'
+                else:
+                    key = p[0].get_text()
+                if p[1] is None:
+                    value = 'None'
+                else:
+                    value = p[1].get_text()
+
+                types_to_create[key] = value
+
+            result[root.get_text()] = types_to_create
+
+            return result
+
     def get_index(self, value: str):
         return self.get_page_content.find(value)
 
-# #########################################
-#           SCRIPT EXECUTION BLOCK        #
-# #########################################
+####################################
+#      SCRIPT EXECUTION BLOCK      #
+# ##################################
 
 
 def read(fname):
@@ -122,6 +150,7 @@ def create_setter(name: str, type_value: str):
 
 
 _url: str = json.loads(read('settings.json'))['url']
+comment_only: bool = json.loads(read('settings.json'))['commentOnly']
 package_name = f'package org.azd.{_url.split("/")[-3]}.types;'
 notes = '''
 /**
@@ -146,9 +175,9 @@ response = scrape.get_response
 
 value_result = scrape.get_definitions(scrape._soup_object)
 comments = scrape.get_comments(scrape._soup_object)['URI Parameters']
+res_type = scrape.get_response_type(scrape._soup_object)['Responses']
 
-
-if value_result is not None:
+if value_result is not None and not comment_only:
 
     for definition in value_result['Definitions']:
         if definition == list(value_result['Definitions'])[-1]:
@@ -157,7 +186,7 @@ if value_result is not None:
         current_val = scrape.get_index(
             str(scrape._soup_object.find(id=definition.lower())))
 
-        if current_val == last_val:
+        if (current_val == last_val):
             sub_type_collector.append(f"{last_val}:")
         if prev != 0:
             sub_type_collector.append(f"{prev}:{current_val}")
@@ -209,7 +238,8 @@ if value_result is not None:
                     f.write(f"\t/**\n \t* {v['Description']} \n\t**/")
 
                 f.write(f'\n\t@JsonProperty("{v["Name"]}")\n')
-                f.write(f"\tprivate {capitalize(str(v['Type']))} {v['Name']};\n")
+                f.write(
+                    f"\tprivate {capitalize(str(v['Type']))} {v['Name']};\n")
 
             for v in value_result['SubDefinitions'].get(key):
                 f.write(f"\n\t{create_getter(v['Name'], str(v['Type']))}\n")
@@ -220,19 +250,24 @@ if value_result is not None:
             f.close()
 
 else:
-    print("[INFO]: Couldn't find any definitions.")
+    if not comment_only:
+        print("[INFO]: Couldn't find any definitions.")
 
 
 if comments is not None:
 
     try:
         f = open(f"types/comments.txt", 'w+')
-        f.write(
-            f"/**\n * {scrape._soup_object.find_all('p')[2].get_text()} \n")
+        f.write(f"/**\n * {scrape._soup_object.find_all('p')[2].get_text()} \n")
+        f.write(f" *")
         for key in comments:
-            if ((key != 'organization') and (key != 'project')):
-                f.write(f"\n * {key} {comments.get(key)}")
-        f.write("\n **/")
+            if ((key != 'organization') and (key != 'project') and (key != 'api-version')):
+                f.write(f"\n * @param {key} {comments.get(key)}")
+        if res_type:
+            for k in res_type:
+                f.write(f"\n * @return {k} Object {{@link {k}}}")
+        f.write("\n * @throws AzDException Default Api Exception handler.")
+        f.write("\n**/")
     finally:
         f.close()
 
