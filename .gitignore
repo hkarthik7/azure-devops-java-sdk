@@ -36,3 +36,6 @@ target/
 # python virtual environment files
 /env
 /venv
+
+# Don't upload the types folder under tools/
+tools/types/
