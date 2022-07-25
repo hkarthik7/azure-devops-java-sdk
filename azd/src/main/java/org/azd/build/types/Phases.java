@@ -15,6 +15,31 @@ public class Phases {
      */
     @JsonProperty("steps")
     private List<Steps> steps;
+    /***
+     * Name of the task
+     */
+    @JsonProperty("name")
+    private String name;
+    /***
+     * Task reference name
+     */
+    @JsonProperty("refName")
+    private String refName;
+    /***
+     * Job authorization scope
+     */
+    @JsonProperty("jobAuthorizationScope")
+    private String jobAuthorizationScope;
+    /***
+     * Steps condition
+     */
+    @JsonProperty("condition")
+    private String condition;
+    /**
+     * Specifies the execution object and task details
+     */
+    @JsonProperty("target")
+    private Object target;
 
     public List<Steps> getSteps() {
         return steps;
@@ -24,10 +49,55 @@ public class Phases {
         this.steps = steps;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getRefName() {
+        return refName;
+    }
+
+    public void setRefName(String refName) {
+        this.refName = refName;
+    }
+
+    public String getJobAuthorizationScope() {
+        return jobAuthorizationScope;
+    }
+
+    public void setJobAuthorizationScope(String jobAuthorizationScope) {
+        this.jobAuthorizationScope = jobAuthorizationScope;
+    }
+
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
+
+    public Object getTarget() {
+        return target;
+    }
+
+    public void setTarget(Object target) {
+        this.target = target;
+    }
+
     @Override
     public String toString() {
         return "Phases{" +
                 "steps=" + steps +
+                ", name='" + name + '\'' +
+                ", refName='" + refName + '\'' +
+                ", jobAuthorizationScope='" + jobAuthorizationScope + '\'' +
+                ", condition='" + condition + '\'' +
+                ", target=" + target +
                 '}';
     }
 }

@@ -1,513 +1,250 @@
 package org.azd.build.types;
+/**
+ * ----------------------------------------------------------
+ * GENERATED FILE, should be edited to suit the purpose.
+ * ----------------------------------------------------------
+ **/
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
-import org.azd.core.types.Project;
+import org.azd.enums.BuildReason;
+import org.azd.enums.BuildResult;
+import org.azd.enums.BuildStatus;
+import org.azd.enums.QueuePriority;
 
 import java.util.Arrays;
-import java.util.List;
 
-/***
- * Data representation of a build.
- */
+/**
+ * The job authorization scope for builds queued against this definition. 
+ **/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Build {
-    /***
+    /**
      * The class to represent a collection of REST reference links.
-     */
+     **/
     @JsonProperty("_links")
-    private BuildReferenceLinks _links;
-    /***
+    private Object _links;
+    /**
      * The agent specification for the build.
-     */
+     **/
     @JsonProperty("agentSpecification")
     private AgentSpecification agentSpecification;
-    /***
+    /**
      * The build number/name of the build.
-     */
+     **/
     @JsonProperty("buildNumber")
     private String buildNumber;
-    /***
+    /**
      * The build number revision.
-     */
+     **/
     @JsonProperty("buildNumberRevision")
-    private int buildNumberRevision;
-    /***
+    private Integer buildNumberRevision;
+    /**
      * The build controller. This is only set if the definition type is Xaml.
-     */
+     **/
     @JsonProperty("controller")
     private BuildController controller;
-    /***
+    /**
      * The definition associated with the build.
-     */
+     **/
     @JsonProperty("definition")
     private DefinitionReference definition;
-    /***
+    /**
      * Indicates whether the build has been deleted.
-     */
+     **/
     @JsonProperty("deleted")
-    private boolean deleted;
-    /***
+    private Boolean deleted;
+    /**
      * The identity of the process or person that deleted the build.
-     */
+     **/
     @JsonProperty("deletedBy")
     private Author deletedBy;
-    /***
+    /**
      * The date the build was deleted.
-     */
+     **/
     @JsonProperty("deletedDate")
     private String deletedDate;
-    /***
+    /**
      * The description of how the build was deleted.
-     */
+     **/
     @JsonProperty("deletedReason")
     private String deletedReason;
-    /***
+    /**
      * A list of demands that represents the agent capabilities required by this build.
-     */
+     **/
     @JsonProperty("demands")
-    private List<Demand> demands;
-    /***
+    private Demand[] demands;
+    /**
      * The time that the build was completed.
-     */
+     **/
     @JsonProperty("finishTime")
     private String finishTime;
-    /***
+    /**
      * The ID of the build.
-     */
+     **/
     @JsonProperty("id")
-    private int id;
-    /***
-     * Indicates whether the build should be skipped by retention policies.
-     */
-    @JsonProperty("keepForever")
-    private boolean keepForever;
-    /***
+    private Integer id;
+    /**
      * The identity representing the process or person that last changed the build.
-     */
+     **/
     @JsonProperty("lastChangedBy")
     private Author lastChangedBy;
-    /***
+    /**
      * The date the build was last changed.
-     */
+     **/
     @JsonProperty("lastChangedDate")
     private String lastChangedDate;
-    /***
+    /**
      * Information about the build logs.
-     */
+     **/
     @JsonProperty("logs")
-    private Logs logs;
-    /***
+    private BuildLogReference logs;
+    /**
      * The orchestration plan for the build.
-     */
+     **/
     @JsonProperty("orchestrationPlan")
-    private OrchestrationPlan orchestrationPlan;
-    /***
+    private TaskOrchestrationPlanReference orchestrationPlan;
+    /**
      * The parameters for the build.
-     */
+     **/
     @JsonProperty("parameters")
     private String parameters;
-    /***
+    /**
      * Orchestration plans associated with the build (build, cleanup)
-     */
+     **/
     @JsonProperty("plans")
-    private List<OrchestrationPlan> plans;
-    /***
+    private TaskOrchestrationPlanReference[] plans;
+    /**
      * The build's priority.
-     */
+     **/
     @JsonProperty("priority")
-    private String priority;
-    /***
+    private QueuePriority priority;
+    /**
      * The team project.
-     */
+     **/
     @JsonProperty("project")
-    private Project project;
-    /***
+    private TeamProjectReference project;
+    /**
+     * The class represents a property bag as a collection of key-value pairs. Values of all primitive types (any type with a TypeCode != TypeCode.Object) except for DBNull are accepted. Values of type Byte[], Int32, Double, DateType and String preserve their type, other primitives are retuned as a String. Byte[] expected as base64 encoded string.
+     **/
+    @JsonProperty("properties")
+    private PropertiesCollection properties;
+    /**
      * The quality of the xaml build (good, bad, etc.)
-     */
+     **/
     @JsonProperty("quality")
     private String quality;
-    /***
+    /**
      * The queue. This is only set if the definition type is Build. WARNING: this field is deprecated and does not corresponds to the jobs queues.
-     */
+     **/
     @JsonProperty("queue")
-    private BuildQueue queue;
-    /***
+    private AgentPoolQueue queue;
+    /**
      * Additional options for queueing the build.
-     */
+     **/
     @JsonProperty("queueOptions")
-    private String queueOptions;
-    /***
+    private QueueOptions queueOptions;
+    /**
      * The current position of the build in the queue.
-     */
+     **/
     @JsonProperty("queuePosition")
-    private int queuePosition;
-    /***
+    private Integer queuePosition;
+    /**
      * The time that the build was queued.
-     */
+     **/
     @JsonProperty("queueTime")
     private String queueTime;
-    /***
+    /**
      * The reason that the build was created.
-     */
+     **/
     @JsonProperty("reason")
-    private String reason;
-    /***
+    private BuildReason reason;
+    /**
      * The repository.
-     */
+     **/
     @JsonProperty("repository")
-    private Repository repository;
-    /***
+    private BuildRepository repository;
+    /**
      * The identity that queued the build.
-     */
+     **/
     @JsonProperty("requestedBy")
     private Author requestedBy;
-    /***
+    /**
      * The identity on whose behalf the build was queued.
-     */
+     **/
     @JsonProperty("requestedFor")
-    private RequestedFor requestedFor;
-    /***
+    private Author requestedFor;
+    /**
      * The build result.
-     */
+     **/
     @JsonProperty("result")
-    private String result;
-    /***
+    private BuildResult result;
+    /**
      * Indicates whether the build is retained by a release.
-     */
+     **/
     @JsonProperty("retainedByRelease")
-    private boolean retainedByRelease;
-    /***
+    private Boolean retainedByRelease;
+    /**
      * The source branch.
-     */
+     **/
     @JsonProperty("sourceBranch")
     private String sourceBranch;
-    /***
+    /**
      * The source version.
-     */
+     **/
     @JsonProperty("sourceVersion")
     private String sourceVersion;
-    /***
+    /**
      * The time that the build was started.
-     */
+     **/
     @JsonProperty("startTime")
     private String startTime;
-    /***
+    /**
      * The status of the build.
-     */
+     **/
     @JsonProperty("status")
-    private String status;
-    /***
-     * Tags
-     */
+    private BuildStatus status;
+
     @JsonProperty("tags")
     private String[] tags;
-    /***
+    /**
+     * Parameters to template expression evaluation
+     **/
+    @JsonProperty("templateParameters")
+    private Object templateParameters;
+    /**
      * Sourceprovider-specific information about what triggered the build
-     */
+     **/
     @JsonProperty("triggerInfo")
-    private TriggerInfo triggerInfo;
-    /***
+    private Object triggerInfo;
+    /**
      * The build that triggered this build via a Build completion trigger.
-     */
+     **/
     @JsonProperty("triggeredByBuild")
     private Build triggeredByBuild;
-    /***
+    /**
      * The URI of the build.
-     */
-    @JsonProperty("url")
-    private String url;
-    /***
-     * The REST URL of the build.
-     */
+     **/
     @JsonProperty("uri")
     private String uri;
-    /***
+    /**
+     * The REST URL of the build.
+     **/
+    @JsonProperty("url")
+    private String url;
+    /**
      * Represents the result of validating a build request.
-     */
+     **/
     @JsonProperty("validationResults")
-    private List<BuildRequestValidationResult> validationResults;
+    private BuildRequestValidationResult[] validationResults;
 
-    @Override
-    public String toString() {
-        return "Build{" +
-                "_links=" + _links +
-                ", agentSpecification=" + agentSpecification +
-                ", buildNumber='" + buildNumber + '\'' +
-                ", buildNumberRevision=" + buildNumberRevision +
-                ", controller=" + controller +
-                ", definition=" + definition +
-                ", deleted=" + deleted +
-                ", deletedBy=" + deletedBy +
-                ", deletedDate='" + deletedDate + '\'' +
-                ", deletedReason='" + deletedReason + '\'' +
-                ", demands=" + demands +
-                ", finishTime='" + finishTime + '\'' +
-                ", id=" + id +
-                ", keepForever=" + keepForever +
-                ", lastChangedBy=" + lastChangedBy +
-                ", lastChangedDate='" + lastChangedDate + '\'' +
-                ", logs=" + logs +
-                ", orchestrationPlan=" + orchestrationPlan +
-                ", parameters='" + parameters + '\'' +
-                ", plans=" + plans +
-                ", priority='" + priority + '\'' +
-                ", project=" + project +
-                ", quality='" + quality + '\'' +
-                ", queue=" + queue +
-                ", queueOptions='" + queueOptions + '\'' +
-                ", queuePosition=" + queuePosition +
-                ", queueTime='" + queueTime + '\'' +
-                ", reason='" + reason + '\'' +
-                ", repository=" + repository +
-                ", requestedBy=" + requestedBy +
-                ", requestedFor=" + requestedFor +
-                ", result='" + result + '\'' +
-                ", retainedByRelease=" + retainedByRelease +
-                ", sourceBranch='" + sourceBranch + '\'' +
-                ", sourceVersion='" + sourceVersion + '\'' +
-                ", startTime='" + startTime + '\'' +
-                ", status='" + status + '\'' +
-                ", tags=" + Arrays.toString(tags) +
-                ", triggerInfo=" + triggerInfo +
-                ", triggeredByBuild='" + triggeredByBuild + '\'' +
-                ", url='" + url + '\'' +
-                ", uri='" + uri + '\'' +
-                ", validationResults=" + validationResults +
-                '}';
-    }
-
-    public BuildReferenceLinks get_links() {
+    public Object get_links() {
         return _links;
     }
 
-    public void set_links(BuildReferenceLinks _links) {
+    public void set_links(Object _links) {
         this._links = _links;
-    }
-
-    public String[] getTags() {
-        return tags;
-    }
-
-    public void setTags(String[] tags) {
-        this.tags = tags;
-    }
-
-    public List<OrchestrationPlan> getPlans() {
-        return plans;
-    }
-
-    public void setPlans(List<OrchestrationPlan> plans) {
-        this.plans = plans;
-    }
-
-    public TriggerInfo getTriggerInfo() {
-        return triggerInfo;
-    }
-
-    public void setTriggerInfo(TriggerInfo triggerInfo) {
-        this.triggerInfo = triggerInfo;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getBuildNumber() {
-        return buildNumber;
-    }
-
-    public void setBuildNumber(String buildNumber) {
-        this.buildNumber = buildNumber;
-    }
-
-    public int getBuildNumberRevision() {
-        return buildNumberRevision;
-    }
-
-    public void setBuildNumberRevision(int buildNumberRevision) {
-        this.buildNumberRevision = buildNumberRevision;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getResult() {
-        return result;
-    }
-
-    public void setResult(String result) {
-        this.result = result;
-    }
-
-    public String getQueueTime() {
-        return queueTime;
-    }
-
-    public void setQueueTime(String queueTime) {
-        this.queueTime = queueTime;
-    }
-
-    public String getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
-    }
-
-    public String getFinishTime() {
-        return finishTime;
-    }
-
-    public void setFinishTime(String finishTime) {
-        this.finishTime = finishTime;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public DefinitionReference getDefinition() {
-        return definition;
-    }
-
-    public void setDefinition(DefinitionReference definition) {
-        this.definition = definition;
-    }
-
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
-    }
-
-    public String getUri() {
-        return uri;
-    }
-
-    public void setUri(String uri) {
-        this.uri = uri;
-    }
-
-    public String getSourceBranch() {
-        return sourceBranch;
-    }
-
-    public void setSourceBranch(String sourceBranch) {
-        this.sourceBranch = sourceBranch;
-    }
-
-    public String getSourceVersion() {
-        return sourceVersion;
-    }
-
-    public void setSourceVersion(String sourceVersion) {
-        this.sourceVersion = sourceVersion;
-    }
-
-    public BuildQueue getQueue() {
-        return queue;
-    }
-
-    public void setQueue(BuildQueue queue) {
-        this.queue = queue;
-    }
-
-    public String getPriority() {
-        return priority;
-    }
-
-    public void setPriority(String priority) {
-        this.priority = priority;
-    }
-
-    public String getReason() {
-        return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
-
-    public RequestedFor getRequestedFor() {
-        return requestedFor;
-    }
-
-    public void setRequestedFor(RequestedFor requestedFor) {
-        this.requestedFor = requestedFor;
-    }
-
-    public String getLastChangedDate() {
-        return lastChangedDate;
-    }
-
-    public void setLastChangedDate(String lastChangedDate) {
-        this.lastChangedDate = lastChangedDate;
-    }
-
-    public OrchestrationPlan getOrchestrationPlan() {
-        return orchestrationPlan;
-    }
-
-    public void setOrchestrationPlan(OrchestrationPlan orchestrationPlan) {
-        this.orchestrationPlan = orchestrationPlan;
-    }
-
-    public Logs getLogs() {
-        return logs;
-    }
-
-    public void setLogs(Logs logs) {
-        this.logs = logs;
-    }
-
-    public Repository getRepository() {
-        return repository;
-    }
-
-    public void setRepository(Repository repository) {
-        this.repository = repository;
-    }
-
-    public boolean isKeepForever() {
-        return keepForever;
-    }
-
-    public void setKeepForever(boolean keepForever) {
-        this.keepForever = keepForever;
-    }
-
-    public boolean isRetainedByRelease() {
-        return retainedByRelease;
-    }
-
-    public void setRetainedByRelease(boolean retainedByRelease) {
-        this.retainedByRelease = retainedByRelease;
-    }
-
-    public Build getTriggeredByBuild() {
-        return triggeredByBuild;
-    }
-
-    public void setTriggeredByBuild(Build triggeredByBuild) {
-        this.triggeredByBuild = triggeredByBuild;
     }
 
     public AgentSpecification getAgentSpecification() {
@@ -518,6 +255,22 @@ public class Build {
         this.agentSpecification = agentSpecification;
     }
 
+    public String getBuildNumber() {
+        return buildNumber;
+    }
+
+    public void setBuildNumber(String buildNumber) {
+        this.buildNumber = buildNumber;
+    }
+
+    public Integer getBuildNumberRevision() {
+        return buildNumberRevision;
+    }
+
+    public void setBuildNumberRevision(Integer buildNumberRevision) {
+        this.buildNumberRevision = buildNumberRevision;
+    }
+
     public BuildController getController() {
         return controller;
     }
@@ -526,11 +279,19 @@ public class Build {
         this.controller = controller;
     }
 
-    public boolean isDeleted() {
+    public DefinitionReference getDefinition() {
+        return definition;
+    }
+
+    public void setDefinition(DefinitionReference definition) {
+        this.definition = definition;
+    }
+
+    public Boolean getDeleted() {
         return deleted;
     }
 
-    public void setDeleted(boolean deleted) {
+    public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
     }
 
@@ -558,12 +319,28 @@ public class Build {
         this.deletedReason = deletedReason;
     }
 
-    public List<Demand> getDemands() {
+    public Demand[] getDemands() {
         return demands;
     }
 
-    public void setDemands(List<Demand> demands) {
+    public void setDemands(Demand[] demands) {
         this.demands = demands;
+    }
+
+    public String getFinishTime() {
+        return finishTime;
+    }
+
+    public void setFinishTime(String finishTime) {
+        this.finishTime = finishTime;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Author getLastChangedBy() {
@@ -574,12 +351,68 @@ public class Build {
         this.lastChangedBy = lastChangedBy;
     }
 
+    public String getLastChangedDate() {
+        return lastChangedDate;
+    }
+
+    public void setLastChangedDate(String lastChangedDate) {
+        this.lastChangedDate = lastChangedDate;
+    }
+
+    public BuildLogReference getLogs() {
+        return logs;
+    }
+
+    public void setLogs(BuildLogReference logs) {
+        this.logs = logs;
+    }
+
+    public TaskOrchestrationPlanReference getOrchestrationPlan() {
+        return orchestrationPlan;
+    }
+
+    public void setOrchestrationPlan(TaskOrchestrationPlanReference orchestrationPlan) {
+        this.orchestrationPlan = orchestrationPlan;
+    }
+
     public String getParameters() {
         return parameters;
     }
 
     public void setParameters(String parameters) {
         this.parameters = parameters;
+    }
+
+    public TaskOrchestrationPlanReference[] getPlans() {
+        return plans;
+    }
+
+    public void setPlans(TaskOrchestrationPlanReference[] plans) {
+        this.plans = plans;
+    }
+
+    public QueuePriority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(QueuePriority priority) {
+        this.priority = priority;
+    }
+
+    public TeamProjectReference getProject() {
+        return project;
+    }
+
+    public void setProject(TeamProjectReference project) {
+        this.project = project;
+    }
+
+    public PropertiesCollection getProperties() {
+        return properties;
+    }
+
+    public void setProperties(PropertiesCollection properties) {
+        this.properties = properties;
     }
 
     public String getQuality() {
@@ -590,20 +423,52 @@ public class Build {
         this.quality = quality;
     }
 
-    public String getQueueOptions() {
+    public AgentPoolQueue getQueue() {
+        return queue;
+    }
+
+    public void setQueue(AgentPoolQueue queue) {
+        this.queue = queue;
+    }
+
+    public QueueOptions getQueueOptions() {
         return queueOptions;
     }
 
-    public void setQueueOptions(String queueOptions) {
+    public void setQueueOptions(QueueOptions queueOptions) {
         this.queueOptions = queueOptions;
     }
 
-    public int getQueuePosition() {
+    public Integer getQueuePosition() {
         return queuePosition;
     }
 
-    public void setQueuePosition(int queuePosition) {
+    public void setQueuePosition(Integer queuePosition) {
         this.queuePosition = queuePosition;
+    }
+
+    public String getQueueTime() {
+        return queueTime;
+    }
+
+    public void setQueueTime(String queueTime) {
+        this.queueTime = queueTime;
+    }
+
+    public BuildReason getReason() {
+        return reason;
+    }
+
+    public void setReason(BuildReason reason) {
+        this.reason = reason;
+    }
+
+    public BuildRepository getRepository() {
+        return repository;
+    }
+
+    public void setRepository(BuildRepository repository) {
+        this.repository = repository;
     }
 
     public Author getRequestedBy() {
@@ -614,11 +479,165 @@ public class Build {
         this.requestedBy = requestedBy;
     }
 
-    public List<BuildRequestValidationResult> getValidationResults() {
+    public Author getRequestedFor() {
+        return requestedFor;
+    }
+
+    public void setRequestedFor(Author requestedFor) {
+        this.requestedFor = requestedFor;
+    }
+
+    public BuildResult getResult() {
+        return result;
+    }
+
+    public void setResult(BuildResult result) {
+        this.result = result;
+    }
+
+    public Boolean getRetainedByRelease() {
+        return retainedByRelease;
+    }
+
+    public void setRetainedByRelease(Boolean retainedByRelease) {
+        this.retainedByRelease = retainedByRelease;
+    }
+
+    public String getSourceBranch() {
+        return sourceBranch;
+    }
+
+    public void setSourceBranch(String sourceBranch) {
+        this.sourceBranch = sourceBranch;
+    }
+
+    public String getSourceVersion() {
+        return sourceVersion;
+    }
+
+    public void setSourceVersion(String sourceVersion) {
+        this.sourceVersion = sourceVersion;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public BuildStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(BuildStatus status) {
+        this.status = status;
+    }
+
+    public String[] getTags() {
+        return tags;
+    }
+
+    public void setTags(String[] tags) {
+        this.tags = tags;
+    }
+
+    public java.lang.Object getTemplateParameters() {
+        return templateParameters;
+    }
+
+    public void setTemplateParameters(Object templateParameters) {
+        this.templateParameters = templateParameters;
+    }
+
+    public java.lang.Object getTriggerInfo() {
+        return triggerInfo;
+    }
+
+    public void setTriggerInfo(Object triggerInfo) {
+        this.triggerInfo = triggerInfo;
+    }
+
+    public Build getTriggeredByBuild() {
+        return triggeredByBuild;
+    }
+
+    public void setTriggeredByBuild(Build triggeredByBuild) {
+        this.triggeredByBuild = triggeredByBuild;
+    }
+
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public BuildRequestValidationResult[] getValidationResults() {
         return validationResults;
     }
 
-    public void setValidationResults(List<BuildRequestValidationResult> validationResults) {
+    public void setValidationResults(BuildRequestValidationResult[] validationResults) {
         this.validationResults = validationResults;
+    }
+
+    @Override
+    public String toString() {
+        return "Build{" +
+                "_links=" + _links +
+                ", agentSpecification=" + agentSpecification +
+                ", buildNumber='" + buildNumber + '\'' +
+                ", buildNumberRevision=" + buildNumberRevision +
+                ", controller=" + controller +
+                ", definition=" + definition +
+                ", deleted=" + deleted +
+                ", deletedBy=" + deletedBy +
+                ", deletedDate='" + deletedDate + '\'' +
+                ", deletedReason='" + deletedReason + '\'' +
+                ", demands=" + Arrays.toString(demands) +
+                ", finishTime='" + finishTime + '\'' +
+                ", id=" + id +
+                ", lastChangedBy=" + lastChangedBy +
+                ", lastChangedDate='" + lastChangedDate + '\'' +
+                ", logs=" + logs +
+                ", orchestrationPlan=" + orchestrationPlan +
+                ", parameters='" + parameters + '\'' +
+                ", plans=" + Arrays.toString(plans) +
+                ", priority=" + priority +
+                ", project=" + project +
+                ", properties=" + properties +
+                ", quality='" + quality + '\'' +
+                ", queue=" + queue +
+                ", queueOptions=" + queueOptions +
+                ", queuePosition=" + queuePosition +
+                ", queueTime='" + queueTime + '\'' +
+                ", reason=" + reason +
+                ", repository=" + repository +
+                ", requestedBy=" + requestedBy +
+                ", requestedFor=" + requestedFor +
+                ", result=" + result +
+                ", retainedByRelease=" + retainedByRelease +
+                ", sourceBranch='" + sourceBranch + '\'' +
+                ", sourceVersion='" + sourceVersion + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", status=" + status +
+                ", tags=" + Arrays.toString(tags) +
+                ", templateParameters=" + templateParameters +
+                ", triggerInfo=" + triggerInfo +
+                ", triggeredByBuild=" + triggeredByBuild +
+                ", uri='" + uri + '\'' +
+                ", url='" + url + '\'' +
+                ", validationResults=" + Arrays.toString(validationResults) +
+                '}';
     }
 }

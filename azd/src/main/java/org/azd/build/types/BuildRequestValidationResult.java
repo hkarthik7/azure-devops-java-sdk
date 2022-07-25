@@ -1,31 +1,28 @@
 package org.azd.build.types;
+/**
+ * ----------------------------------------------------------
+ * GENERATED FILE, should be edited to suit the purpose.
+ * ----------------------------------------------------------
+ **/
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/***
- * Represents the result of validating a build request.
- */
+/**
+ * The build status. 
+ **/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BuildRequestValidationResult {
-    /***
+    /**
      * The message associated with the result.
-     */
+     **/
     @JsonProperty("message")
     private String message;
-    /***
-     * The result
-     */
+    /**
+     * The result.
+     **/
     @JsonProperty("result")
-    private String result;
-
-    @Override
-    public String toString() {
-        return "BuildRequestValidationResult{" +
-                "message='" + message + '\'' +
-                ", result='" + result + '\'' +
-                '}';
-    }
+    private ValidationResult result;
 
     public String getMessage() {
         return message;
@@ -35,11 +32,19 @@ public class BuildRequestValidationResult {
         this.message = message;
     }
 
-    public String getResult() {
+    public ValidationResult getResult() {
         return result;
     }
 
-    public void setResult(String result) {
+    public void setResult(ValidationResult result) {
         this.result = result;
+    }
+
+    @Override
+    public String toString() {
+        return "BuildRequestValidationResult{" +
+                "message='" + message + '\'' +
+                ", result=" + result +
+                '}';
     }
 }

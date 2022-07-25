@@ -1,34 +1,39 @@
 package org.azd.build.types;
+/**
+ * ----------------------------------------------------------
+ * GENERATED FILE, should be edited to suit the purpose.
+ * ----------------------------------------------------------
+ **/
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * A reference to the log produced by this operation.
- */
+ * Represents the application of an optional behavior to a build definition. 
+ **/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BuildLogReference {
     /**
      * The ID of the log.
-     */
+     **/
     @JsonProperty("id")
-    private int id;
+    private Integer id;
     /**
      * The type of the log location.
-     */
+     **/
     @JsonProperty("type")
     private String type;
     /**
      * A full link to the log resource.
-     */
+     **/
     @JsonProperty("url")
     private String url;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

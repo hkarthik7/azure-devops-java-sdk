@@ -1,8 +1,11 @@
 package org.azd;
 
 import org.azd.build.types.BuildDefinition;
+import org.azd.build.types.Folder;
+import org.azd.enums.QueuePriority;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
+import org.azd.helpers.StreamHelper;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.BuildDetails;
 import org.azd.utils.AzDClientApi;
@@ -132,17 +135,17 @@ public class BuildApiTest {
 
     @Test
     public void shouldReturnBuildDefinition() throws AzDException {
-        b.getBuildDefinition(b.getBuildDefinitions().getBuildDefinition().stream().findFirst().get().getId());
+        b.getBuildDefinition(b.getBuildDefinitions().getBuildDefinitions().stream().findFirst().get().getId());
     }
 
     @Test
     public void shouldReturnBuildDefinitionWithOptionalParameters() throws AzDException {
-        b.getBuildDefinition(b.getBuildDefinitions().getBuildDefinition().stream().findFirst().get().getId(), true, null, 2);
+        b.getBuildDefinition(b.getBuildDefinitions().getBuildDefinitions().stream().findFirst().get().getId(), true, null, 2);
     }
 
     @Test
     public void shouldReturnBuildDefinitionRevisions() throws AzDException {
-        b.getBuildDefinitionRevisions(b.getBuildDefinitions().getBuildDefinition().stream().findFirst().get().getId());
+        b.getBuildDefinitionRevisions(b.getBuildDefinitions().getBuildDefinitions().stream().findFirst().get().getId());
     }
 
     @Test
@@ -152,7 +155,7 @@ public class BuildApiTest {
 
     @Test
     public void shouldReturnBuildDefinitionsWithIds() throws AzDException {
-        var defs = b.getBuildDefinitions().getBuildDefinition().stream()
+        var defs = b.getBuildDefinitions().getBuildDefinitions().stream()
                 .mapToInt(BuildDefinition::getId)
                 .limit(2)
                 .toArray();
@@ -166,7 +169,7 @@ public class BuildApiTest {
 
     @Test
     public void shouldReturnBuildDefinitionsWithName() throws AzDException {
-        b.getBuildDefinitions(b.getBuildDefinitions().getBuildDefinition().stream().findFirst().get().getName());
+        b.getBuildDefinitions(b.getBuildDefinitions().getBuildDefinitions().stream().findFirst().get().getName());
     }
 
     @Test(expected = AzDException.class)
@@ -293,5 +296,94 @@ public class BuildApiTest {
     public void shouldGetBuildTimelinesWithChangeAndPlanId() throws AzDException {
         var timeline = b.getTimeline(buildId);
         b.getTimeline(buildId, timeline.getId(), timeline.getChangeId(), null);
+    }
+
+    @Test
+    public void shouldCreateBuildArtifact() throws AzDException {
+        try {
+            var artifact = b.getArtifact(1629, "Test");
+            b.createArtifact(176, artifact);
+        } catch (AzDException e) {
+        }
+    }
+
+    @Test
+    public void shouldGetABuildArtifact() throws AzDException {
+        try {
+            b.getArtifact(1593, "drop").getResource();
+        } catch (AzDException e) {
+        }
+    }
+
+    @Test
+    public void shouldGetBuildArtifactAsZip() throws AzDException {
+        try {
+            var res = b.getArtifactAsZip(1593, "drop");
+            StreamHelper.download("drop.zip", res);
+        } catch (AzDException e) {
+        }
+    }
+
+    @Test
+    public void shouldGetABuildArtifacts() throws AzDException {
+        try {
+            b.getArtifacts(1593);
+        } catch (AzDException e) {
+        }
+    }
+
+    @Test()
+    public void shouldUpdateABuild() throws AzDException {
+        var build = b.getBuild(buildId);
+        build.setTags(new String[]{"Demo"});
+        // Set retry to true only when previous attempt of a build has failed and if retry is true build object
+        // should be set to null.
+        // b.updateBuild(null, build.getId(), true);
+        b.updateBuild(build, build.getId(), false);
+    }
+
+    @Test()
+    public void shouldUpdateMultipleBuilds() throws AzDException {
+        var builds = b.getBuilds(2);
+        for (var build : builds.getBuildResults()) {
+            build.setPriority(QueuePriority.LOW);
+        }
+        b.updateBuilds(builds);
+    }
+
+    @Test()
+    public void shouldUpdateBuildDefinition() throws AzDException {
+        var def = b.getBuildDefinition(23);
+        def.setDescription("Demo CI for azd project");
+        b.updateBuildDefinition(def);
+    }
+
+    @Test()
+    public void shouldCreateFolder() throws AzDException {
+        try {
+            var folder = new Folder();
+            folder.setDescription("New demo folder");
+            folder.setPath("\\Demo-Folder\\sub-demo");
+            b.createFolder(folder.getPath(), folder);
+        } catch (AzDException e) { }
+    }
+
+    @Test()
+    public void shouldDeleteAFolder() throws AzDException {
+        try {
+            b.deleteFolder("\\Demo-Folder\\sub-demo");
+        } catch (AzDException e) { }
+    }
+
+    @Test()
+    public void shouldGetAListOfFolders() throws AzDException {
+        b.getFolders();
+    }
+
+    @Test()
+    public void shouldUpdateFolder() throws AzDException {
+        var folder = b.getFolders().getFolders().get(1);
+        folder.setDescription("Demo folder for azd project");
+        b.updateFolder(folder.getPath(), folder);
     }
 }

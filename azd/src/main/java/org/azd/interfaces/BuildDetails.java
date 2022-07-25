@@ -5,6 +5,7 @@ import org.azd.enums.SourceProviderResultSet;
 import org.azd.enums.StageUpdateType;
 import org.azd.exceptions.AzDException;
 
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -49,6 +50,10 @@ public interface BuildDetails {
 
     Build queueBuild(Map<String, Object> buildParameters) throws AzDException;
 
+    Build updateBuild(Build build, int buildId, boolean retry) throws AzDException;
+
+    Builds updateBuilds(Builds builds) throws AzDException;
+
     BuildControllers getBuildControllers() throws AzDException;
 
     BuildControllers getBuildControllers(String name) throws AzDException;
@@ -83,6 +88,19 @@ public interface BuildDetails {
             String repositoryType, String taskIdFilter, String yamlFilename) throws AzDException;
 
     BuildDefinition restoreBuildDefinition(int definitionId, boolean deleted) throws AzDException;
+
+    BuildDefinition updateBuildDefinition(BuildDefinition definition) throws AzDException;
+
+    BuildDefinition updateBuildDefinition(BuildDefinition definition, int secretsSourceDefinitionId,
+                                          int secretsSourceDefinitionRevision) throws AzDException;
+
+    Folder createFolder(String path, Folder folder) throws AzDException;
+
+    Void deleteFolder(String path) throws AzDException;
+
+    Folders getFolders() throws AzDException;
+
+    Folder updateFolder(String path, Folder folder) throws AzDException;
 
     BuildTags addBuildTag(int buildId, String tag) throws AzDException;
 
@@ -144,5 +162,17 @@ public interface BuildDetails {
     Timeline getTimeline(int buildId, String timelineId) throws AzDException;
 
     Timeline getTimeline(int buildId, String timelineId, int changeId, String planId) throws AzDException;
+
+    BuildArtifact createArtifact(int buildId, BuildArtifact artifact) throws AzDException;
+
+    BuildArtifact getArtifact(int buildId, String artifactName) throws AzDException;
+
+    InputStream getArtifactAsZip(int buildId, String artifactName) throws AzDException;
+
+    InputStream getArtifactFile(int buildId, String artifactName, String fileId, String fileName) throws AzDException;
+
+    BuildArtifacts getArtifacts(int buildId) throws AzDException;
+
+    Attachments getAttachments(int buildId, String type) throws AzDException;
 
 }

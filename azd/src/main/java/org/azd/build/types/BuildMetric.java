@@ -1,43 +1,38 @@
 package org.azd.build.types;
+/**
+ * ----------------------------------------------------------
+ * GENERATED FILE, should be edited to suit the purpose.
+ * ----------------------------------------------------------
+ **/
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/***
- * Represents metadata about builds in the system.
- */
+/**
+ * Represents a reference to a build option definition. 
+ **/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BuildMetric {
-    /***
+    /**
      * The date for the scope.
-     */
+     **/
     @JsonProperty("date")
     private String date;
-    /***
+    /**
      * The value.
-     */
+     **/
     @JsonProperty("intValue")
-    private int intValue;
-    /***
+    private Integer intValue;
+    /**
      * The name of the metric.
-     */
+     **/
     @JsonProperty("name")
     private String name;
-    /***
+    /**
      * The scope.
-     */
+     **/
     @JsonProperty("scope")
     private String scope;
-
-    @Override
-    public String toString() {
-        return "BuildMetric{" +
-                "date='" + date + '\'' +
-                ", intValue=" + intValue +
-                ", name='" + name + '\'' +
-                ", scope='" + scope + '\'' +
-                '}';
-    }
 
     public String getDate() {
         return date;
@@ -47,11 +42,11 @@ public class BuildMetric {
         this.date = date;
     }
 
-    public int getIntValue() {
+    public Integer getIntValue() {
         return intValue;
     }
 
-    public void setIntValue(int intValue) {
+    public void setIntValue(Integer intValue) {
         this.intValue = intValue;
     }
 
@@ -69,5 +64,15 @@ public class BuildMetric {
 
     public void setScope(String scope) {
         this.scope = scope;
+    }
+
+    @Override
+    public String toString() {
+        return "BuildMetric{" +
+                "date='" + date + '\'' +
+                ", intValue=" + intValue +
+                ", name='" + name + '\'' +
+                ", scope='" + scope + '\'' +
+                '}';
     }
 }

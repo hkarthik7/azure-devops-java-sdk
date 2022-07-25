@@ -1,44 +1,48 @@
 package org.azd.build.types;
+/**
+ * ----------------------------------------------------------
+ * GENERATED FILE, should be edited to suit the purpose.
+ * ----------------------------------------------------------
+ **/
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonNode;
 
-/***
- * Represents a variable group.
- */
+import java.util.Map;
+
+/**
+ * None 
+ **/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class VariableGroup {
-    /***
+    /**
      * The Name of the variable group.
-     */
+     **/
     @JsonProperty("alias")
     private String alias;
-    /***
+    /**
      * The description.
-     */
+     **/
     @JsonProperty("description")
     private String description;
-    /***
+    /**
      * The ID of the variable group.
-     */
+     **/
     @JsonProperty("id")
-    private int id;
-    /***
-     * The Name of the variable group.
-     */
+    private Integer id;
+    /**
+     * The name of the variable group.
+     **/
     @JsonProperty("name")
     private String name;
-    /***
+    /**
      * The type of the variable group.
-     */
+     **/
     @JsonProperty("type")
     private String type;
-    /***
-     * Build variables
-     */
+
     @JsonProperty("variables")
-    private JsonNode variables;
+    private Map<String, BuildDefinitionVariable> variables;
 
     public String getAlias() {
         return alias;
@@ -56,11 +60,11 @@ public class VariableGroup {
         this.description = description;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -80,23 +84,11 @@ public class VariableGroup {
         this.type = type;
     }
 
-    public JsonNode getVariables() {
+    public Map<String, BuildDefinitionVariable> getVariables() {
         return variables;
     }
 
-    public void setVariables(JsonNode variables) {
+    public void setVariables(Map<String, BuildDefinitionVariable> variables) {
         this.variables = variables;
-    }
-
-    @Override
-    public String toString() {
-        return "VariableGroup{" +
-                "alias='" + alias + '\'' +
-                ", description='" + description + '\'' +
-                ", id=" + id +
-                ", name='" + name + '\'' +
-                ", type='" + type + '\'' +
-                ", variables=" + variables +
-                '}';
     }
 }

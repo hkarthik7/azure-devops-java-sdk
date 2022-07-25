@@ -14,20 +14,20 @@ public class BuildDefinitions {
      * List of build definition
      */
     @JsonProperty("value")
-    private List<BuildDefinition> value;
+    private List<BuildDefinition> buildDefinitions;
 
-    public List<BuildDefinition> getBuildDefinition() {
-        return value;
+    public List<BuildDefinition> getBuildDefinitions() {
+        return buildDefinitions;
     }
 
-    public void setBuildDefinition(List<BuildDefinition> value) {
-        this.value = value;
+    public void setBuildDefinitions(List<BuildDefinition> value) {
+        this.buildDefinitions = value;
     }
 
     @Override
     public String toString() {
         return "BuildDefinitions{" +
-                "value=" + value +
+                "value=" + buildDefinitions +
                 '}';
     }
 }

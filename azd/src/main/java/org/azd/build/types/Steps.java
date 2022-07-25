@@ -8,6 +8,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Steps {
+    /**
+     * Represents an environment
+     */
+    @JsonProperty("environment")
+    private Object environment;
+    /**
+     * Represents the inputs in task(s)
+     */
+    @JsonProperty("inputs")
+    private Object inputs;
     /***
      * If enabled or not
      */
@@ -33,6 +43,11 @@ public class Steps {
      */
     @JsonProperty("timeoutInMinutes")
     private int timeoutInMinutes;
+    /**
+     * Retry count
+     */
+    @JsonProperty("retryCountOnTaskFailure")
+    private int retryCountOnTaskFailure;
     /***
      * Steps condition
      */
@@ -43,21 +58,6 @@ public class Steps {
      */
     @JsonProperty("task")
     private Task task;
-    /***
-     * Name of the task
-     */
-    @JsonProperty("name")
-    private String name;
-    /***
-     * Task reference name
-     */
-    @JsonProperty("refName")
-    private String refName;
-    /***
-     * Job authorization scope
-     */
-    @JsonProperty("jobAuthorizationScope")
-    private String jobAuthorizationScope;
 
 
     public boolean isEnabled() {
@@ -116,43 +116,35 @@ public class Steps {
         this.task = task;
     }
 
-    public String getName() {
-        return name;
+    public Object getEnvironment() {
+        return environment;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setEnvironment(Object environment) {
+        this.environment = environment;
     }
 
-    public String getRefName() {
-        return refName;
+    public Object getInputs() {
+        return inputs;
     }
 
-    public void setRefName(String refName) {
-        this.refName = refName;
-    }
-
-    public String getJobAuthorizationScope() {
-        return jobAuthorizationScope;
-    }
-
-    public void setJobAuthorizationScope(String jobAuthorizationScope) {
-        this.jobAuthorizationScope = jobAuthorizationScope;
+    public void setInputs(Object inputs) {
+        this.inputs = inputs;
     }
 
     @Override
     public String toString() {
         return "Steps{" +
+                "environment=" + environment +
+                ", inputs=" + inputs +
                 ", enabled=" + enabled +
                 ", continueOnError=" + continueOnError +
                 ", alwaysRun=" + alwaysRun +
                 ", displayName='" + displayName + '\'' +
                 ", timeoutInMinutes=" + timeoutInMinutes +
+                ", retryCountOnTaskFailure=" + retryCountOnTaskFailure +
                 ", condition='" + condition + '\'' +
                 ", task=" + task +
-                ", name='" + name + '\'' +
-                ", refName='" + refName + '\'' +
-                ", jobAuthorizationScope='" + jobAuthorizationScope + '\'' +
                 '}';
     }
 }

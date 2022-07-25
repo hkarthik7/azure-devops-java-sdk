@@ -8,9 +8,11 @@ import org.azd.enums.SourceProviderResultSet;
 import org.azd.enums.StageUpdateType;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
+import org.azd.helpers.URLHelper;
 import org.azd.interfaces.BuildDetails;
 import org.azd.utils.AzDAsyncApi;
 
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -390,6 +392,46 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, Build.class);
     }
 
+    /**
+     * Updates a build.
+     *
+     * @param build pass the Build object to update. {@link Build}
+     * @param buildId The ID of the build.
+     * @param retry None
+     * @return Build Object {@link Build}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public Build updateBuild(Build build, int buildId, boolean retry) throws AzDException {
+        var q = new HashMap<String, Boolean>() {{
+            put("retry", retry);
+        }};
+
+        var b = MAPPER.convertToString(build);
+
+        String r = send(RequestMethod.PATCH, CONNECTION, BUILD, CONNECTION.getProject(),
+                AREA + "/builds", Integer.toString(buildId), null, ApiVersion.BUILD, q, false, b);
+
+        return MAPPER.mapJsonResponse(r, Build.class);
+    }
+
+    /**
+     * Updates multiple builds.
+     *
+     * @param builds List of build to update. {@link Builds}
+     * @return Build Object {@link Build}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public Builds updateBuilds(Builds builds) throws AzDException {
+        var b = MAPPER.convertToString(builds.getBuildResults());
+
+        String r = send(RequestMethod.PATCH, CONNECTION, BUILD, CONNECTION.getProject(),
+                AREA + "/builds", null, null, ApiVersion.BUILD, null, false, b);
+
+        return MAPPER.mapJsonResponse(r, Builds.class);
+    }
+
     /***
      * Gets controllers
      * @throws AzDException Default Api Exception handler.
@@ -471,7 +513,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
 
         try {
             def = getBuildDefinitions()
-                    .getBuildDefinition()
+                    .getBuildDefinitions()
                     .stream()
                     .filter(x -> x.getName().equals(definitionName))
                     .findFirst()
@@ -701,6 +743,133 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
                 AREA + "/definitions", Integer.toString(definitionId), null, ApiVersion.BUILD_DEFINITIONS, q, null);
 
         return MAPPER.mapJsonResponse(r, BuildDefinition.class);
+    }
+
+    /**
+     * Updates an existing build definition.
+     * In order for this operation to succeed, the value of the "Revision" property of the request body must match the
+     * existing build definition's. It is recommended that you obtain the existing build definition by using GET, modify
+     * the build definition as necessary, and then submit the modified definition with PUT.
+     *
+     * @param definition Build definition object.
+     * @return BuildDefinition Object {@link BuildDefinition}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public BuildDefinition updateBuildDefinition(BuildDefinition definition) throws AzDException {
+        String r = send(RequestMethod.PUT, CONNECTION, BUILD, CONNECTION.getProject(),
+                AREA + "/definitions", Integer.toString(definition.getId()), null, ApiVersion.BUILD_DEFINITIONS, null,
+                false, MAPPER.convertToString(definition));
+
+        return MAPPER.mapJsonResponse(r, BuildDefinition.class);
+    }
+
+    /**
+     * Updates an existing build definition.
+     * In order for this operation to succeed, the value of the "Revision" property of the request body must match the
+     * existing build definition's. It is recommended that you obtain the existing build definition by using GET, modify
+     * the build definition as necessary, and then submit the modified definition with PUT.
+     *
+     * @param secretsSourceDefinitionId None
+     * @param secretsSourceDefinitionRevision None
+     * @param definition Build definition object.
+     * @return BuildDefinition Object {@link BuildDefinition}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public BuildDefinition updateBuildDefinition(BuildDefinition definition, int secretsSourceDefinitionId, int secretsSourceDefinitionRevision)
+            throws AzDException {
+        var q = new HashMap<String, Integer>(){{
+            put("secretsSourceDefinitionId", secretsSourceDefinitionId);
+            put("secretsSourceDefinitionRevision", secretsSourceDefinitionRevision);
+        }};
+
+        String r = send(RequestMethod.PUT, CONNECTION, BUILD, CONNECTION.getProject(),
+                AREA + "/definitions", Integer.toString(definition.getId()), null, ApiVersion.BUILD_DEFINITIONS, null,
+                false, MAPPER.convertToString(definition));
+
+        return MAPPER.mapJsonResponse(r, BuildDefinition.class);
+    }
+
+    /**
+     * Creates a new folder.
+     *
+     * @param path The full path of the folder.
+     * @param folder Folder object with mandatory details.
+     * @return Folder Object {@link Folder}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public Folder createFolder(String path, Folder folder) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("path", URLHelper.encodeSpecialWithSpace(path));
+        }};
+
+        String r = send(RequestMethod.PUT, CONNECTION, BUILD, CONNECTION.getProject(),
+                AREA, null, "folders", ApiVersion.BUILD_FOLDER, q, false, MAPPER.convertToString(folder));
+
+        return MAPPER.mapJsonResponse(r, Folder.class);
+    }
+
+    /**
+     * Deletes a definition folder. Definitions and their corresponding builds will also be deleted.
+     *
+     * @param path The full path to the folder.
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public Void deleteFolder(String path) throws AzDException {
+        try {
+            var q = new HashMap<String, Object>(){{
+                put("path", URLHelper.encodeSpecialWithSpace(path));
+            }};
+
+            String r = send(RequestMethod.DELETE, CONNECTION, BUILD, CONNECTION.getProject(),
+                    AREA, null, "folders", ApiVersion.BUILD_FOLDER, q, null);
+
+            if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
+        } catch (AzDException e) {
+            throw e;
+        }
+        return null;
+    }
+
+    /**
+     * Gets a list of build definition folders.
+     *
+     * @return List of folder Object {@link Folders}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public Folders getFolders() throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
+                AREA, null, "folders", ApiVersion.BUILD_FOLDER, null, null);
+
+        return MAPPER.mapJsonResponse(r, Folders.class);
+    }
+
+    /**
+     * Updates an existing folder at given  existing path
+     *
+     * @param path The full path to the folder.
+     * @return Folder Object {@link Folder}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public Folder updateFolder(String path, Folder folder) throws AzDException {
+        String finalPath;
+
+        if (!path.isEmpty() && path.equals("+\\")) finalPath = "\\" + path;
+        else finalPath = path;
+
+        var q = new HashMap<String, Object>(){{
+            put("path", URLHelper.encodeSpecialWithSpace(finalPath));
+        }};
+
+        String r = send(RequestMethod.POST, CONNECTION, BUILD, CONNECTION.getProject(),
+                AREA, null, "folders", ApiVersion.BUILD_FOLDER, q, true, MAPPER.convertToString(folder));
+
+        return MAPPER.mapJsonResponse(r, Folder.class);
     }
 
     /***
@@ -1312,5 +1481,67 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
                 AREA + "/builds", Integer.toString(buildId), "timeline/" + timelineId, ApiVersion.BUILD_TIMELINE, q, null);
 
         return MAPPER.mapJsonResponse(r, Timeline.class);
+    }
+
+    @Override
+    public BuildArtifact createArtifact(int buildId, BuildArtifact artifact) throws AzDException {
+        var b = MAPPER.convertToString(artifact);
+
+        String r = send(RequestMethod.POST, CONNECTION, BUILD, CONNECTION.getProject(),
+                AREA + "/builds", Integer.toString(buildId), "artifacts", ApiVersion.BUILD_ARTIFACTS, null, true, b);
+
+        return MAPPER.mapJsonResponse(r, BuildArtifact.class);
+    }
+
+    @Override
+    public BuildArtifact getArtifact(int buildId, String artifactName) throws AzDException {
+        var q = new HashMap<String, Object>() {{
+            put("artifactName", artifactName);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
+                AREA + "/builds", Integer.toString(buildId), "artifacts", ApiVersion.BUILD_ARTIFACTS, q, null);
+
+        return MAPPER.mapJsonResponse(r, BuildArtifact.class);
+    }
+
+    @Override
+    public InputStream getArtifactAsZip(int buildId, String artifactName) throws AzDException {
+        var q = new HashMap<String, Object>() {{
+            put("artifactName", artifactName);
+        }};
+
+        return send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
+                AREA + "/builds", Integer.toString(buildId), "artifacts", ApiVersion.BUILD_ARTIFACTS, q, "application/zip",
+                null, null, false);
+    }
+
+    @Override
+    public InputStream getArtifactFile(int buildId, String artifactName, String fileId, String fileName) throws AzDException {
+        var q = new HashMap<String, Object>() {{
+            put("artifactName", artifactName);
+            put("fileId", fileId);
+            put("fileName", fileName);
+        }};
+
+        return send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
+                AREA + "/builds", Integer.toString(buildId), "artifacts", ApiVersion.BUILD_ARTIFACTS, q, "application/octet-stream",
+                null, null, false);
+    }
+
+    @Override
+    public BuildArtifacts getArtifacts(int buildId) throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
+                AREA + "/builds", Integer.toString(buildId), "artifacts", ApiVersion.BUILD_ARTIFACTS, null, null);
+
+        return MAPPER.mapJsonResponse(r, BuildArtifacts.class);
+    }
+
+    @Override
+    public Attachments getAttachments(int buildId, String type) throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
+                AREA + "/builds", Integer.toString(buildId), "attachments/" + type, ApiVersion.BUILD_ATTACHMENTS, null, null);
+
+        return MAPPER.mapJsonResponse(r, Attachments.class);
     }
 }
