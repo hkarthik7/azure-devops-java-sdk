@@ -3,11 +3,14 @@ package org.azd.common;
 public abstract class ApiVersion {
     public static final String ACCOUNTS = "7.1-preview.1";
     public static final String BUILD = "7.1-preview.7";
+    public static final String BUILD_ARTIFACTS = "7.1-preview.5";
+    public static final String BUILD_ATTACHMENTS = "7.1-preview.2";
     public static final String BUILD_CHANGES = "7.1-preview.2";
     public static final String BUILD_LOGS = "7.1-preview.2";
     public static final String BUILD_WORK_ITEMS = "7.1-preview.2";
     public static final String BUILD_CONTROLLERS = "7.1-preview.2";
     public static final String BUILD_DEFINITIONS = "7.1-preview.7";
+    public static final String BUILD_FOLDER = "7.1-preview.2";
     public static final String BUILD_DEFINITION_REVISIONS = "7.1-preview.3";
     public static final String BUILD_STAGE = "7.1-preview.1";
     public static final String BUILD_TAGS = "7.1-preview.3";
