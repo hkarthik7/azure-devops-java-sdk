@@ -45,7 +45,7 @@ public abstract class Client extends BaseClient {
             String id,
             String resource,
             String apiVersion,
-            HashMap<String, Object> queryString,
+            Map queryString,
             boolean contentType,
             String body) throws AzDException {
         String requestUrl = buildRequestUrl(connection.getOrganization(), resourceId, project, area, id, resource, apiVersion, queryString);
@@ -63,6 +63,9 @@ public abstract class Client extends BaseClient {
         }
         if (requestMethod.toString().equals("PUT") && !contentType) {
             return put(requestUrl, connection.getPersonalAccessToken(), body, "application/json");
+        }
+        if (requestMethod.toString().equals("PATCH") && !contentType) {
+            return patch(requestUrl, connection.getPersonalAccessToken(), body, "application/json");
         }
         return null;
     }

@@ -189,6 +189,25 @@ public abstract class BaseClient {
     /**
      * Sends a PATCH request to REST API with basic authentication and request body
      *
+     * @param requestUrl pass the request url
+     * @param token      pass the personal access token
+     * @param body       pass the request body to update the request
+     * @param contentType pass the content type
+     * @return response string from the API if any
+     * @throws AzDException throws user friendly error message with error code from API
+     */
+    public static String patch(String requestUrl, String token, String body, String contentType) throws AzDException {
+        return response(
+                request(requestUrl, token)
+                        .method(RequestMethod.PATCH.toString(), HttpRequest.BodyPublishers.ofString(body))
+                        .header("Content-Type", contentType)
+                        .build());
+    }
+
+
+    /**
+     * Sends a PATCH request to REST API with basic authentication and request body
+     *
      * @param requestUrl  pass the request url
      * @param token       pass the personal access token
      * @param body        pass the request body to update the request
