@@ -17,6 +17,7 @@ class ScrapeVsTsDocument(object):
     adding the functionality.
     '''
     __id__ = 'definitions'
+    __comment__ = 'uri-parameters'
 
     def __init__(self, url: str) -> None:
         self._url = url
@@ -60,11 +61,39 @@ class ScrapeVsTsDocument(object):
 
             return result
 
+    def get_comments(self, soup: BeautifulSoup) -> dict:
+        result: dict = {}
+        types_to_create: dict = {}
+
+        # Get main definition
+        root = soup.find(id=self.__comment__)
+        # Get the types to be created
+        definitions = soup.find('table', class_='parameters')
+
+        if definitions is not None:
+
+            for p in itertools.zip_longest(definitions.find_all('div'), definitions.find_all('p')):
+                if p[0] is None:
+                    key = 'None'
+                else:
+                    key = p[0].get_text()
+                if p[1] is None:
+                    value = 'None'
+                else:
+                    value = p[1].get_text()
+
+                types_to_create[key] = value
+
+            result[root.get_text()] = types_to_create
+
+        return result
+
     def get_index(self, value: str):
         return self.get_page_content.find(value)
 
-
-########################################## SCRIPT EXECUTION BLOCK #########################################################
+# #########################################
+#           SCRIPT EXECUTION BLOCK        #
+# #########################################
 
 
 def read(fname):
@@ -105,6 +134,7 @@ import_statements = '''
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 '''
+
 sub_type_collector = []
 d_value = {}
 
@@ -115,6 +145,8 @@ scrape = ScrapeVsTsDocument(_url)
 response = scrape.get_response
 
 value_result = scrape.get_definitions(scrape._soup_object)
+comments = scrape.get_comments(scrape._soup_object)['URI Parameters']
+
 
 if value_result is not None:
 
@@ -125,7 +157,7 @@ if value_result is not None:
         current_val = scrape.get_index(
             str(scrape._soup_object.find(id=definition.lower())))
 
-        if (current_val == last_val):
+        if current_val == last_val:
             sub_type_collector.append(f"{last_val}:")
         if prev != 0:
             sub_type_collector.append(f"{prev}:{current_val}")
@@ -189,3 +221,20 @@ if value_result is not None:
 
 else:
     print("[INFO]: Couldn't find any definitions.")
+
+
+if comments is not None:
+
+    try:
+        f = open(f"types/comments.txt", 'w+')
+        f.write(
+            f"/**\n * {scrape._soup_object.find_all('p')[2].get_text()} \n")
+        for key in comments:
+            if ((key != 'organization') and (key != 'project')):
+                f.write(f"\n * {key} {comments.get(key)}")
+        f.write("\n **/")
+    finally:
+        f.close()
+
+else:
+    print("[INFO]: Couldn't find any comments.")
