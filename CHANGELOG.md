@@ -1,6 +1,21 @@
 # Changelog
 
-- Enable feature management for project services (i.e. Test Plans, Boards, etc)
+## 4.1.0
+
+**Changed to Build and BuildDefinition types**
+- Enable feature management for project services (i.e. Test Plans, Boards, etc).
+- Merged PR: [implement featureManagement to enable / disable project services #33 #34](https://github.com/hkarthik7/azure-devops-java-sdk/pull/34)
+- Expanded support for **BuildApi**.
+  - Bug fix for `cloneBuildDefinition` method
+  - Added `updateBuild` and `updateBuilds`
+  - Manage `Folder` Api
+- Expanded support for **WorkItemTrackingApi**.
+  - Added methods `createAttachment`, `getAttachmentAsZip` and `getAttachmentContent` for better management of
+  Workitem attachments Api.
+  - `createAttachment` and `getAttachment` methods are deprecated. New methods returns an `InputStream` and 
+    `StreamHelper` can be used to download or convert it to string etc.  
+- Updated `downloadPackage` in **MavenApi**.
+- **StreamHelper** class to download contents from Api response.
 
 ## 4.0.0
 
