@@ -1,6 +1,10 @@
 {
   "name": "Setting file for scraping the Azure DevOps API document and create definition files based on that.",
   "version": 1.0,
-  "url": "https://docs.microsoft.com/en-us/rest/api/azure/devops/build/general-settings/get?view=azure-devops-rest-7.1",
+  "properties": {
+    "notes": "\n/**\n----------------------------------------------------------\n\tGENERATED FILE, should be edited to suit the purpose.\n----------------------------------------------------------\n**/",
+    "imports": "\nimport com.fasterxml.jackson.annotation.JsonIgnoreProperties;\nimport com.fasterxml.jackson.annotation.JsonProperty;\n"
+  },
+  "url": "https://docs.microsoft.com/en-us/rest/api/azure/devops/build/builds/update-builds?view=azure-devops-rest-7.1",
   "commentOnly": false
 }
