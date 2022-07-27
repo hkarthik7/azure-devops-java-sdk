@@ -15,7 +15,9 @@ import java.util.Map;
 
 /**
  * Wrapper class to build request url and to call Azure DevOps REST API
+ * @deprecated This is deprecated as of version 4.1.0
  */
+@Deprecated
 public abstract class Client extends BaseClient {
     private static final JsonMapper MAPPER = new JsonMapper();
 

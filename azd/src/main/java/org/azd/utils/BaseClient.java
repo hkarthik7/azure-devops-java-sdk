@@ -17,7 +17,9 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Implements HttpRequest request methods to send GET, POST, PATCH and DELETE request
  * to Azure DevOps REST API.
+ * @deprecated This is deprecated as of version 4.1.0
  */
+@Deprecated
 public abstract class BaseClient {
 
     private static final String AUTHORIZATION = "Authorization";
