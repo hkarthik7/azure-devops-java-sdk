@@ -2,12 +2,19 @@ package org.azd.core.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.enums.ProjectState;
+import org.azd.enums.ProjectVisibility;
 
 /***
  * Represents a Team Project object.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Project {
+    /**
+     * Reference links
+     */
+    @JsonProperty("_links")
+    private Object _links;
     /***
      * Project identifier.
      */
@@ -32,7 +39,7 @@ public class Project {
      * Project state.
      */
     @JsonProperty("state")
-    private String state;
+    private ProjectState state;
     /***
      * Set of capabilities this project has (such as process template & version control).
      */
@@ -47,7 +54,7 @@ public class Project {
      * Project visibility.
      */
     @JsonProperty("visibility")
-    private String visibility;
+    private ProjectVisibility visibility;
     /***
      * The ref to the default team.
      */
@@ -92,11 +99,11 @@ public class Project {
         this.url = url;
     }
 
-    public String getState() {
+    public ProjectState getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(ProjectState state) {
         this.state = state;
     }
 
@@ -116,11 +123,11 @@ public class Project {
         this.revision = revision;
     }
 
-    public String getVisibility() {
+    public ProjectVisibility getVisibility() {
         return visibility;
     }
 
-    public void setVisibility(String visibility) {
+    public void setVisibility(ProjectVisibility visibility) {
         this.visibility = visibility;
     }
 
@@ -140,17 +147,26 @@ public class Project {
         this.lastUpdateTime = lastUpdateTime;
     }
 
+    public Object get_links() {
+        return _links;
+    }
+
+    public void set_links(Object _links) {
+        this._links = _links;
+    }
+
     @Override
     public String toString() {
         return "Project{" +
-                "id='" + id + '\'' +
+                "_links=" + _links +
+                ", id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", url='" + url + '\'' +
-                ", state='" + state + '\'' +
+                ", state=" + state +
                 ", capabilities=" + capabilities +
                 ", revision=" + revision +
-                ", visibility='" + visibility + '\'' +
+                ", visibility=" + visibility +
                 ", defaultTeam=" + defaultTeam +
                 ", lastUpdateTime='" + lastUpdateTime + '\'' +
                 '}';

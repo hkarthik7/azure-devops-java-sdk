@@ -1513,6 +1513,14 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, Timeline.class);
     }
 
+    /**
+     * Associates an artifact with a build.
+     *
+     * @param buildId The ID of the build.
+     * @param artifact Build artifact to associate.
+     * @return BuildArtifact Object {@link BuildArtifact}
+     * @throws AzDException Default Api Exception handler.
+     **/
     @Override
     public BuildArtifact createArtifact(int buildId, BuildArtifact artifact) throws AzDException {
         String r = send(RequestMethod.POST, CONNECTION, BUILD, CONNECTION.getProject(),
@@ -1522,6 +1530,14 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildArtifact.class);
     }
 
+    /**
+     * Gets a specific artifact for a build.
+     *
+     * @param buildId The ID of the build.
+     * @param artifactName The name of the artifact.
+     * @return BuildArtifact Object {@link BuildArtifact}
+     * @throws AzDException Default Api Exception handler.
+     **/
     @Override
     public BuildArtifact getArtifact(int buildId, String artifactName) throws AzDException {
         var q = new HashMap<String, Object>() {{
@@ -1535,6 +1551,14 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildArtifact.class);
     }
 
+    /**
+     * Gets a specific artifact for a build as a zip file.
+     *
+     * @param buildId The ID of the build.
+     * @param artifactName The name of the artifact.
+     * @return Input stream response of artifact
+     * @throws AzDException Default Api Exception handler.
+     **/
     @Override
     public InputStream getArtifactAsZip(int buildId, String artifactName) throws AzDException {
         var q = new HashMap<String, Object>() {{
@@ -1546,6 +1570,15 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
                 q, null, CustomHeader.STREAM_ZIP_ACCEPT, false);
     }
 
+    /**
+     * Gets a file from the build. Returns the file contents as InputStream and {@link org.azd.helpers.StreamHelper}
+     * can be used to download the file.
+     *
+     * @param buildId The ID of the build.
+     * @param artifactName The name of the artifact.
+     * @return Input stream response of artifact
+     * @throws AzDException Default Api Exception handler.
+     **/
     @Override
     public InputStream getArtifactFile(int buildId, String artifactName, String fileId, String fileName) throws AzDException {
         var q = new HashMap<String, Object>() {{
@@ -1559,6 +1592,13 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
                 q, null, CustomHeader.STREAM_ACCEPT, false);
     }
 
+    /**
+     * Gets all artifacts for a build.
+     *
+     * @param buildId The ID of the build.
+     * @return BuildArtifact Object {@link BuildArtifact}
+     * @throws AzDException Default Api Exception handler.
+     **/
     @Override
     public BuildArtifacts getArtifacts(int buildId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
@@ -1568,6 +1608,14 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildArtifacts.class);
     }
 
+    /**
+     * Gets the list of attachments of a specific type that are associated with a build.
+     *
+     * @param buildId The ID of the build.
+     * @param type The type of attachment.
+     * @return Attachment Object {@link Attachment}
+     * @throws AzDException Default Api Exception handler.
+     **/
     @Override
     public Attachments getAttachments(int buildId, String type) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
