@@ -1,6 +1,7 @@
 package org.azd.distributedtask.types;
 
 import org.azd.enums.VariableGroupType;
+import org.azd.enums.VariableValue;
 import org.azd.release.types.ProjectReference;
 
 import java.util.Map;
@@ -24,7 +25,7 @@ public class VariableGroupDefinition {
     /***
      * Sets variables contained in the variable group.
      */
-    private Map variables;
+    private Map<String, VariableValue> variables;
     /***
      * Sets provider data.
      */
@@ -66,11 +67,11 @@ public class VariableGroupDefinition {
         this.type = type;
     }
 
-    public Map getVariables() {
+    public Map<String, VariableValue> getVariables() {
         return variables;
     }
 
-    public void setVariables(Map variables) {
+    public void setVariables(Map<String, VariableValue> variables) {
         this.variables = variables;
     }
 

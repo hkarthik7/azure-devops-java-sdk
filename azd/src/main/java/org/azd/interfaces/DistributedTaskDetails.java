@@ -19,7 +19,7 @@ public interface DistributedTaskDetails {
     TaskAgents getAgents(int poolId, String agentName, String[] demands, boolean includeAssignedRequest, boolean includeCapabilities,
                          boolean includeLastCompletedRequest, String[] propertyFilters) throws AzDException;
 
-    TaskAgent updateAgent(int poolId, int agentId, Map requestBody) throws AzDException;
+    TaskAgent updateAgent(int poolId, int agentId, TaskAgent requestBody) throws AzDException;
 
     DeploymentGroup addDeploymentGroup(String name, String description) throws AzDException;
 
@@ -68,7 +68,7 @@ public interface DistributedTaskDetails {
 
     VariableGroup addVariableGroup(VariableGroupDefinition variableGroupDefinition) throws AzDException;
 
-    VariableGroup addVariableGroup(String name, String description, Map variables) throws AzDException;
+    VariableGroup addVariableGroup(String name, String description, VariableGroupMap variables) throws AzDException;
 
     Void deleteVariableGroup(int variableGroupId, String[] projectIds) throws AzDException;
 
@@ -83,7 +83,7 @@ public interface DistributedTaskDetails {
     VariableGroups getVariableGroups(int top, VariableGroupActionFilter actionFilter, int continuationToken,
                                      String groupName, VariableGroupQueryOrder queryOrder) throws AzDException;
 
-    VariableGroup updateVariableGroup(int groupId, String name, String description, Map variables) throws AzDException;
+    VariableGroup updateVariableGroup(int groupId, String name, String description, VariableGroupMap variables) throws AzDException;
 
     VariableGroup updateVariableGroup(int groupId, VariableGroupDefinition variableGroupDefinition) throws AzDException;
 }

@@ -1,158 +1,108 @@
 package org.azd.distributedtask.types;
+/**
+----------------------------------------------------------
+	GENERATED FILE, should be edited to suit the purpose.
+----------------------------------------------------------
+**/
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonNode;
 
-/***
- * The agent cloud request that's currently associated with this agent.
- */
+/**
+ * Represents the public key portion of an RSA asymmetric key. 
+**/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TaskAgentCloudRequest {
-    /***
-     * A reference to an agent.
-     */
-    @JsonProperty("agent")
-    private TaskAgentReference agent;
-    /***
-     * Agent cloud id
-     */
-    @JsonProperty("agentCloudId")
-    private int agentCloudId;
-    /***
-     * Agent connected time
-     */
-    @JsonProperty("agentConnectedTime")
-    private String agentConnectedTime;
-    /***
-     * Represents a JSON object.
-     */
-    @JsonProperty("agentData")
-    private JsonNode agentData;
-    /***
-     * Represents a JSON object.
-     */
-    @JsonProperty("agentSpecification")
-    private JsonNode agentSpecification;
-    /***
-     * Task Pool reference
-     */
-    @JsonProperty("pool")
-    private TaskAgentPoolReference pool;
-    /***
-     * Provision request time
-     */
-    @JsonProperty("provisionRequestTime")
-    private String provisionRequestTime;
-    /***
-     * Provisioned time
-     */
-    @JsonProperty("provisionedTime")
-    private String provisionedTime;
-    /***
-     * Release request time
-     */
-    @JsonProperty("releaseRequestTime")
-    private String releaseRequestTime;
-    /***
-     * Request id
-     */
-    @JsonProperty("requestId")
-    private String requestId;
+	/**
+ 	* A reference to an agent. 
+	**/
+	@JsonProperty("agent")
+	private TaskAgentReference agent;
 
-    public TaskAgentReference getAgent() {
-        return agent;
-    }
+	@JsonProperty("agentCloudId")
+	private Integer agentCloudId;
 
-    public void setAgent(TaskAgentReference agent) {
-        this.agent = agent;
-    }
+	@JsonProperty("agentConnectedTime")
+	private String agentConnectedTime;
+	/**
+ 	* Represents a JSON object. 
+	**/
+	@JsonProperty("agentData")
+	private Object agentData;
+	/**
+ 	* Represents a JSON object. 
+	**/
+	@JsonProperty("agentSpecification")
+	private Object agentSpecification;
 
-    public int getAgentCloudId() {
-        return agentCloudId;
-    }
+	@JsonProperty("pool")
+	private TaskAgentPoolReference pool;
 
-    public void setAgentCloudId(int agentCloudId) {
-        this.agentCloudId = agentCloudId;
-    }
+	@JsonProperty("provisionRequestTime")
+	private String provisionRequestTime;
 
-    public String getAgentConnectedTime() {
-        return agentConnectedTime;
-    }
+	@JsonProperty("provisionedTime")
+	private String provisionedTime;
 
-    public void setAgentConnectedTime(String agentConnectedTime) {
-        this.agentConnectedTime = agentConnectedTime;
-    }
+	@JsonProperty("releaseRequestTime")
+	private String releaseRequestTime;
 
-    public JsonNode getAgentData() {
-        return agentData;
-    }
+	@JsonProperty("requestId")
+	private String requestId;
 
-    public void setAgentData(JsonNode agentData) {
-        this.agentData = agentData;
-    }
+	public TaskAgentReference getAgent() { return agent; }
 
-    public JsonNode getAgentSpecification() {
-        return agentSpecification;
-    }
+	public void setAgent(TaskAgentReference agent) { this.agent = agent; }
 
-    public void setAgentSpecification(JsonNode agentSpecification) {
-        this.agentSpecification = agentSpecification;
-    }
+	public Integer getAgentCloudId() { return agentCloudId; }
 
-    public TaskAgentPoolReference getPool() {
-        return pool;
-    }
+	public void setAgentCloudId(Integer agentCloudId) { this.agentCloudId = agentCloudId; }
 
-    public void setPool(TaskAgentPoolReference pool) {
-        this.pool = pool;
-    }
+	public String getAgentConnectedTime() { return agentConnectedTime; }
 
-    public String getProvisionRequestTime() {
-        return provisionRequestTime;
-    }
+	public void setAgentConnectedTime(String agentConnectedTime) { this.agentConnectedTime = agentConnectedTime; }
 
-    public void setProvisionRequestTime(String provisionRequestTime) {
-        this.provisionRequestTime = provisionRequestTime;
-    }
+	public Object getAgentData() { return agentData; }
 
-    public String getProvisionedTime() {
-        return provisionedTime;
-    }
+	public void setAgentData(Object agentData) { this.agentData = agentData; }
 
-    public void setProvisionedTime(String provisionedTime) {
-        this.provisionedTime = provisionedTime;
-    }
+	public Object getAgentSpecification() { return agentSpecification; }
 
-    public String getReleaseRequestTime() {
-        return releaseRequestTime;
-    }
+	public void setAgentSpecification(Object agentSpecification) { this.agentSpecification = agentSpecification; }
 
-    public void setReleaseRequestTime(String releaseRequestTime) {
-        this.releaseRequestTime = releaseRequestTime;
-    }
+	public TaskAgentPoolReference getPool() { return pool; }
 
-    public String getRequestId() {
-        return requestId;
-    }
+	public void setPool(TaskAgentPoolReference pool) { this.pool = pool; }
 
-    public void setRequestId(String requestId) {
-        this.requestId = requestId;
-    }
+	public String getProvisionRequestTime() { return provisionRequestTime; }
 
-    @Override
-    public String toString() {
-        return "TaskAgentCloudRequest{" +
-                "agent=" + agent +
-                ", agentCloudId=" + agentCloudId +
-                ", agentConnectedTime='" + agentConnectedTime + '\'' +
-                ", agentData=" + agentData +
-                ", agentSpecification=" + agentSpecification +
-                ", pool=" + pool +
-                ", provisionRequestTime='" + provisionRequestTime + '\'' +
-                ", provisionedTime='" + provisionedTime + '\'' +
-                ", releaseRequestTime='" + releaseRequestTime + '\'' +
-                ", requestId='" + requestId + '\'' +
-                '}';
-    }
+	public void setProvisionRequestTime(String provisionRequestTime) { this.provisionRequestTime = provisionRequestTime; }
+
+	public String getProvisionedTime() { return provisionedTime; }
+
+	public void setProvisionedTime(String provisionedTime) { this.provisionedTime = provisionedTime; }
+
+	public String getReleaseRequestTime() { return releaseRequestTime; }
+
+	public void setReleaseRequestTime(String releaseRequestTime) { this.releaseRequestTime = releaseRequestTime; }
+
+	public String getRequestId() { return requestId; }
+
+	public void setRequestId(String requestId) { this.requestId = requestId; }
+
+	@Override
+	public String toString() {
+		return "TaskAgentCloudRequest{" +
+				"agent=" + agent +
+				", agentCloudId=" + agentCloudId +
+				", agentConnectedTime='" + agentConnectedTime + '\'' +
+				", agentData=" + agentData +
+				", agentSpecification=" + agentSpecification +
+				", pool=" + pool +
+				", provisionRequestTime='" + provisionRequestTime + '\'' +
+				", provisionedTime='" + provisionedTime + '\'' +
+				", releaseRequestTime='" + releaseRequestTime + '\'' +
+				", requestId='" + requestId + '\'' +
+				'}';
+	}
 }

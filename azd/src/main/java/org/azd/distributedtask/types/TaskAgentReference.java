@@ -1,129 +1,113 @@
 package org.azd.distributedtask.types;
+/**
+----------------------------------------------------------
+	GENERATED FILE, should be edited to suit the purpose.
+----------------------------------------------------------
+**/
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.enums.TaskAgentStatus;
 
-/***
- * A reference to an agent.
- */
+/**
+ * None 
+**/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TaskAgentReference {
-    /***
-     * This agent's access point.
-     */
-    @JsonProperty("accessPoint")
-    private String accessPoint;
-    /***
-     * Whether or not this agent should run jobs.
-     */
-    @JsonProperty("enabled")
-    private boolean enabled;
-    /***
-     * Identifier of the agent.
-     */
-    @JsonProperty("id")
-    private int id;
-    /***
-     * Name of the agent.
-     */
-    @JsonProperty("name")
-    private String name;
-    /***
-     * Agent OS.
-     */
-    @JsonProperty("osDescription")
-    private String osDescription;
-    /***
-     * Provisioning state of this agent.
-     */
-    @JsonProperty("provisioningState")
-    private String provisioningState;
-    /***
-     * Whether or not the agent is online.
-     */
-    @JsonProperty("status")
-    private String status;
-    /***
-     * Agent version.
-     */
-    @JsonProperty("version")
-    private String version;
+	/**
+ 	* The class to represent a collection of REST reference links. 
+	**/
+	@JsonProperty("_links")
+	private Object _links;
+	/**
+ 	* This agent's access point. 
+	**/
+	@JsonProperty("accessPoint")
+	private String accessPoint;
+	/**
+ 	* Whether or not this agent should run jobs. 
+	**/
+	@JsonProperty("enabled")
+	private Boolean enabled;
+	/**
+ 	* Identifier of the agent. 
+	**/
+	@JsonProperty("id")
+	private Integer id;
+	/**
+ 	* Name of the agent. 
+	**/
+	@JsonProperty("name")
+	private String name;
+	/**
+ 	* Agent OS. 
+	**/
+	@JsonProperty("osDescription")
+	private String osDescription;
+	/**
+ 	* Provisioning state of this agent. 
+	**/
+	@JsonProperty("provisioningState")
+	private String provisioningState;
+	/**
+ 	* Whether or not the agent is online. 
+	**/
+	@JsonProperty("status")
+	private TaskAgentStatus status;
+	/**
+ 	* Agent version. 
+	**/
+	@JsonProperty("version")
+	private String version;
 
-    public String getAccessPoint() {
-        return accessPoint;
-    }
+	public Object get_links() { return _links; }
 
-    public void setAccessPoint(String accessPoint) {
-        this.accessPoint = accessPoint;
-    }
+	public void set_links(Object _links) { this._links = _links; }
 
-    public boolean isEnabled() {
-        return enabled;
-    }
+	public String getAccessPoint() { return accessPoint; }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
+	public void setAccessPoint(String accessPoint) { this.accessPoint = accessPoint; }
 
-    public int getId() {
-        return id;
-    }
+	public Boolean getEnabled() { return enabled; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setEnabled(Boolean enabled) { this.enabled = enabled; }
 
-    public String getName() {
-        return name;
-    }
+	public Integer getId() { return id; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setId(Integer id) { this.id = id; }
 
-    public String getOsDescription() {
-        return osDescription;
-    }
+	public String getName() { return name; }
 
-    public void setOsDescription(String osDescription) {
-        this.osDescription = osDescription;
-    }
+	public void setName(String name) { this.name = name; }
 
-    public String getProvisioningState() {
-        return provisioningState;
-    }
+	public String getOsDescription() { return osDescription; }
 
-    public void setProvisioningState(String provisioningState) {
-        this.provisioningState = provisioningState;
-    }
+	public void setOsDescription(String osDescription) { this.osDescription = osDescription; }
 
-    public String getStatus() {
-        return status;
-    }
+	public String getProvisioningState() { return provisioningState; }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+	public void setProvisioningState(String provisioningState) { this.provisioningState = provisioningState; }
 
-    public String getVersion() {
-        return version;
-    }
+	public TaskAgentStatus getStatus() { return status; }
 
-    public void setVersion(String version) {
-        this.version = version;
-    }
+	public void setStatus(TaskAgentStatus status) { this.status = status; }
 
-    @Override
-    public String toString() {
-        return "TaskAgentReference{" +
-                "accessPoint='" + accessPoint + '\'' +
-                ", enabled=" + enabled +
-                ", id=" + id +
-                ", name='" + name + '\'' +
-                ", osDescription='" + osDescription + '\'' +
-                ", provisioningState='" + provisioningState + '\'' +
-                ", status='" + status + '\'' +
-                ", version='" + version + '\'' +
-                '}';
-    }
+	public String getVersion() { return version; }
+
+	public void setVersion(String version) { this.version = version; }
+
+	@Override
+	public String toString() {
+		return "TaskAgentReference{" +
+				"_links=" + _links +
+				", accessPoint='" + accessPoint + '\'' +
+				", enabled=" + enabled +
+				", id=" + id +
+				", name='" + name + '\'' +
+				", osDescription='" + osDescription + '\'' +
+				", provisioningState='" + provisioningState + '\'' +
+				", status=" + status +
+				", version='" + version + '\'' +
+				'}';
+	}
 }
