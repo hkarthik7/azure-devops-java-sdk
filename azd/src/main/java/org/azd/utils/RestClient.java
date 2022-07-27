@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  * RestClient to call Azure DevOps REST API.
  */
-public class RestClient extends BaseRestClient {
+public abstract class RestClient extends BaseRestClient {
     private static final JsonMapper MAPPER = new JsonMapper();
     private static final String API_RELATIVE_PATH = "_apis";
     private static final String API_PREVIEW_INDICATOR = "?api-preview=";
@@ -56,15 +56,6 @@ public class RestClient extends BaseRestClient {
         String requestUrl = buildRequestUrl(connection.getOrganization(), resourceId, project, area, id, resource, apiVersion, queryString);
 
         if (contentType == null) contentType = CustomHeader.JSON;
-
-        if (requestMethod == RequestMethod.DELETE) {
-            var r = response(requestMethod, requestUrl, connection.getPersonalAccessToken(),
-                    null, HttpResponse.BodyHandlers.ofString(), contentType, false)
-                    .thenApplyAsync(HttpResponse::body)
-                    .join();
-
-            if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
-        }
 
         return response(requestMethod, requestUrl, connection.getPersonalAccessToken(),
                 HttpRequest.BodyPublishers.ofString(MAPPER.convertToString(requestBody)),
@@ -111,25 +102,9 @@ public class RestClient extends BaseRestClient {
 
         if (contentType == null) contentType = CustomHeader.STREAM;
 
-        if (callback) {
-            if (requestMethod == RequestMethod.GET) {
-                var responseCallback = response(requestMethod, requestUrl, connection.getPersonalAccessToken(),
-                        HttpRequest.BodyPublishers.ofInputStream(() -> contentStream),
-                        HttpResponse.BodyHandlers.ofString(), contentType, false)
-                        .thenApplyAsync(HttpResponse::uri)
-                        .thenApplyAsync(URI::toString)
-                        .join();
-
-                return response(RequestMethod.GET, responseCallback, null, null,
-                        HttpResponse.BodyHandlers.ofInputStream(), CustomHeader.STREAM, true)
-                        .thenApplyAsync(HttpResponse::body)
-                        .join();
-            }
-        }
-
         return response(requestMethod, requestUrl, connection.getPersonalAccessToken(),
                 HttpRequest.BodyPublishers.ofInputStream(() -> contentStream),
-                HttpResponse.BodyHandlers.ofInputStream(), contentType, false)
+                HttpResponse.BodyHandlers.ofInputStream(), contentType, callback)
                 .thenApplyAsync(HttpResponse::body)
                 .join();
     }
