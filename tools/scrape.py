@@ -12,6 +12,7 @@ import os
 
 class DocumentId(Enum):
     DEFINITIONS = 'definitions'
+    EXAMPLES = 'examples'
     COMMENT = 'uri-parameters'
     RESPONSE = 'response'
     ATTRIBUTE = 'table'
@@ -57,6 +58,18 @@ class ScrapeVsTsDocument(object):
         self.url = url
         return requests.get(self.url)
 
+    def strip_content(self, content: str, start_value: str, end_value: str, additional_value = 4) -> BeautifulSoup:
+        self.content = content
+        self.start_value = start_value
+        self.end_value = end_value
+
+        start_index = self.get_index(self.start_value)
+        end_index = self.get_index(self.end_value)
+        result_content = content.replace(content[start_index:end_index-additional_value], '')
+
+        return self.get_soup_object(result_content)
+
+
     def get_attributes(self, soup: BeautifulSoup, id: str, name: str, class_name: str, tags: list) -> dict:
         self.soup = soup
         self.id = id
@@ -91,19 +104,37 @@ class ScrapeVsTsDocument(object):
             return result
 
     def get_definitions(self) -> dict:
-        return self.get_attributes(
-            self._soup_object, DocumentId.DEFINITIONS.value, DocumentId.ATTRIBUTE.value,
-            DocumentId.DEFINITIONS_CLASS.value, [DocumentId.TAG_A.value, DocumentId.TAG_PARA.value])
+        res = self.strip_content(self.get_response.text, f'id="{DocumentId.EXAMPLES.value}"', f'id="{DocumentId.DEFINITIONS.value}"')
+        if res != None:
+            return self.get_attributes(
+                res, DocumentId.DEFINITIONS.value, DocumentId.ATTRIBUTE.value,
+                DocumentId.DEFINITIONS_CLASS.value, [DocumentId.TAG_A.value, DocumentId.TAG_PARA.value])
+        else:
+            return self.get_attributes(
+                self._soup_object, DocumentId.DEFINITIONS.value, DocumentId.ATTRIBUTE.value,
+                DocumentId.DEFINITIONS_CLASS.value, [DocumentId.TAG_A.value, DocumentId.TAG_PARA.value])
 
     def get_comments(self) -> dict:
-        return self.get_attributes(
-            self._soup_object, DocumentId.COMMENT.value, DocumentId.ATTRIBUTE.value,
-            DocumentId.COMMENTS_CLASS.value, [DocumentId.TAG_DIV.value, DocumentId.TAG_PARA.value])
+        res = self.strip_content(self.get_response.text, f'id="{DocumentId.EXAMPLES.value}"', f'id="{DocumentId.DEFINITIONS.value}"')
+        if res != None:
+            return self.get_attributes(
+                res, DocumentId.COMMENT.value, DocumentId.ATTRIBUTE.value,
+                DocumentId.COMMENTS_CLASS.value, [DocumentId.TAG_DIV.value, DocumentId.TAG_PARA.value])
+        else:
+            return self.get_attributes(
+                self._soup_object, DocumentId.COMMENT.value, DocumentId.ATTRIBUTE.value,
+                DocumentId.COMMENTS_CLASS.value, [DocumentId.TAG_DIV.value, DocumentId.TAG_PARA.value])
 
     def get_response_type(self) -> dict:
-        return self.get_attributes(
-            self._soup_object, DocumentId.RESPONSE.value, DocumentId.ATTRIBUTE.value,
-            DocumentId.RESPONSE_TYPE_CLASS.value, [DocumentId.TAG_A.value, DocumentId.TAG_PARA.value])
+        res = self.strip_content(self.get_response.text, f'id="{DocumentId.EXAMPLES.value}"', f'id="{DocumentId.DEFINITIONS.value}"')
+        if res != None:
+            return self.get_attributes(
+                res, DocumentId.RESPONSE.value, DocumentId.ATTRIBUTE.value,
+                DocumentId.RESPONSE_TYPE_CLASS.value, [DocumentId.TAG_A.value, DocumentId.TAG_PARA.value])
+        else:
+            return self.get_attributes(
+                self._soup_object, DocumentId.RESPONSE.value, DocumentId.ATTRIBUTE.value,
+                DocumentId.RESPONSE_TYPE_CLASS.value, [DocumentId.TAG_A.value, DocumentId.TAG_PARA.value])
 
     def get_index(self, value: str) -> int:
         return self.get_page_content.find(value)
@@ -213,12 +244,19 @@ if __name__ == "__main__":
                 f.write(f"\npublic class {key} {{\n")
 
                 for v in value_result['SubDefinitions'].get(key):
+                    if '[]' in str(v['Type']) and str(v['Type']) != 'string[]':
+                        new_type_val = f"List<{capitalize(str(v['Type']).strip('[]'))}>"
+                    else:
+                        if str(v['Type']) != 'boolean':
+                            new_type_val = capitalize(str(v['Type']))
+                        else:
+                            new_type_val = str(v['Type'])
+
                     if v['Description'] != '':
                         f.write(f"\t/**\n \t* {v['Description']} \n\t**/")
 
                     f.write(f'\n\t@JsonProperty("{v["Name"]}")\n')
-                    f.write(
-                        f"\tprivate {capitalize(str(v['Type']))} {v['Name']};\n")
+                    f.write(f"\tprivate {new_type_val} {v['Name']};\n")
 
                 for v in value_result['SubDefinitions'].get(key):
                     f.write(
