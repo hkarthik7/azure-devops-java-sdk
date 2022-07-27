@@ -64,7 +64,7 @@ public class StreamHelper {
      */
     public static void downloadFromUrl(String url, String fileName) throws AzDException {
         var res = BaseRestClient.get(url, null,
-                HttpResponse.BodyHandlers.ofInputStream(), CustomHeader.STREAM, false)
+                HttpResponse.BodyHandlers.ofInputStream(), CustomHeader.STREAM_ACCEPT, false)
                 .thenApplyAsync(HttpResponse::body)
                 .join();
         download(fileName, res);
