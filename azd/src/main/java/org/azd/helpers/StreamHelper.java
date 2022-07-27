@@ -1,11 +1,15 @@
 package org.azd.helpers;
 
 import org.azd.enums.ApiExceptionTypes;
+import org.azd.enums.CustomHeader;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.utils.BaseClient;
+import org.azd.utils.BaseRestClient;
+import org.azd.utils.RestClient;
 
 import java.io.*;
+import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 
 public class StreamHelper {
@@ -59,8 +63,10 @@ public class StreamHelper {
      * @throws AzDException Default Api exception handler.
      */
     public static void downloadFromUrl(String url, String fileName) throws AzDException {
-        var res = BaseClient.StreamBuilder.response(RequestMethod.GET, url, null, "application/octet-stream",
-                null, null, false);
+        var res = BaseRestClient.get(url, null,
+                HttpResponse.BodyHandlers.ofInputStream(), CustomHeader.STREAM, false)
+                .thenApplyAsync(HttpResponse::body)
+                .join();
         download(fileName, res);
     }
 
