@@ -3,6 +3,7 @@ package org.azd.build;
 import org.azd.build.types.*;
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
+import org.azd.enums.CustomHeader;
 import org.azd.enums.RequestMethod;
 import org.azd.enums.SourceProviderResultSet;
 import org.azd.enums.StageUpdateType;
@@ -19,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static org.azd.utils.Client.send;
+import static org.azd.utils.RestClient.send;
 
 /***
  * Build class to manage build API
@@ -50,7 +51,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     public Void deleteBuild(int buildId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, BUILD, CONNECTION.getProject(),
-                    AREA + "/builds", Integer.toString(buildId), null, ApiVersion.BUILD, null, null);
+                    AREA + "/builds", Integer.toString(buildId), null, ApiVersion.BUILD, null, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
             throw e;
@@ -68,7 +69,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     public Build getBuild(int buildId) throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId), null, ApiVersion.BUILD, null, null);
+                AREA + "/builds", Integer.toString(buildId), null, ApiVersion.BUILD, null, null, null);
 
         return MAPPER.mapJsonResponse(r, Build.class);
     }
@@ -82,7 +83,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public BuildChanges getBuildChanges(int buildId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId), "changes", ApiVersion.BUILD_CHANGES, null, null);
+                AREA + "/builds", Integer.toString(buildId), "changes", ApiVersion.BUILD_CHANGES, null, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildChanges.class);
     }
@@ -107,7 +108,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId), "changes", ApiVersion.BUILD_CHANGES, q, null);
+                AREA + "/builds", Integer.toString(buildId), "changes", ApiVersion.BUILD_CHANGES, q, null, null);
         return MAPPER.mapJsonResponse(r, BuildChanges.class);
     }
 
@@ -121,7 +122,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public String getBuildLog(int buildId, int logId) throws AzDException {
         return send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId), "logs/" + logId, ApiVersion.BUILD_LOGS, null, null, "text");
+                AREA + "/builds", Integer.toString(buildId), "logs/" + logId, ApiVersion.BUILD_LOGS,
+                null, null, CustomHeader.TEXT_CONTENT);
     }
 
     /***
@@ -142,7 +144,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         return send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId), "logs/" + logId, ApiVersion.BUILD_LOGS, q, null, "text");
+                AREA + "/builds", Integer.toString(buildId), "logs/" + logId, ApiVersion.BUILD_LOGS, q,
+                null, CustomHeader.TEXT_CONTENT);
     }
 
     /***
@@ -155,7 +158,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     public BuildLogs getBuildLogs(int buildId) throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId), "logs", ApiVersion.BUILD_LOGS, null, null);
+                AREA + "/builds", Integer.toString(buildId), "logs", ApiVersion.BUILD_LOGS, null, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildLogs.class);
     }
@@ -170,7 +173,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     public BuildWorkItems getBuildWorkItems(int buildId) throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId), "workitems", ApiVersion.BUILD_WORK_ITEMS, null, null);
+                AREA + "/builds", Integer.toString(buildId), "workitems", ApiVersion.BUILD_WORK_ITEMS, null, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildWorkItems.class);
     }
@@ -190,7 +193,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId), "workitems", ApiVersion.BUILD_WORK_ITEMS, q, null);
+                AREA + "/builds", Integer.toString(buildId), "workitems", ApiVersion.BUILD_WORK_ITEMS, q, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildWorkItems.class);
     }
@@ -213,7 +216,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA, null, "changes", ApiVersion.BUILD_CHANGES, q, null);
+                AREA, null, "changes", ApiVersion.BUILD_CHANGES, q, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildChanges.class);
     }
@@ -236,7 +239,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA, null, "workitems", ApiVersion.BUILD_WORK_ITEMS, q, null);
+                AREA, null, "workitems", ApiVersion.BUILD_WORK_ITEMS, q, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildWorkItems.class);
     }
@@ -250,7 +253,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     public Builds getBuilds() throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", null, null, ApiVersion.BUILD, null, null);
+                AREA + "/builds", null, null, ApiVersion.BUILD, null, null, null);
 
         return MAPPER.mapJsonResponse(r, Builds.class);
     }
@@ -271,7 +274,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", null, null, ApiVersion.BUILD, q, null);
+                AREA + "/builds", null, null, ApiVersion.BUILD, q, null, null);
 
         return MAPPER.mapJsonResponse(r, Builds.class);
     }
@@ -290,7 +293,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", null, null, ApiVersion.BUILD, q, null);
+                AREA + "/builds", null, null, ApiVersion.BUILD, q, null, null);
 
         return MAPPER.mapJsonResponse(r, Builds.class);
     }
@@ -353,7 +356,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", null, null, ApiVersion.BUILD, q, null);
+                AREA + "/builds", null, null, ApiVersion.BUILD, q, null, null);
 
         return MAPPER.mapJsonResponse(r, Builds.class);
     }
@@ -372,7 +375,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", null, null, ApiVersion.BUILD, q, null);
+                AREA + "/builds", null, null, ApiVersion.BUILD, q, null, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, Build.class);
     }
@@ -384,10 +387,9 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
      * @return a build object {@link Build}
      */
     @Override
-    public Build queueBuild(Map<String, Object> buildParameters) throws AzDException {
-
+    public Build queueBuild(Build buildParameters) throws AzDException {
         String r = send(RequestMethod.POST, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", null, null, ApiVersion.BUILD, null, buildParameters);
+                AREA + "/builds", null, null, ApiVersion.BUILD, null, buildParameters, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, Build.class);
     }
@@ -407,10 +409,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
             put("retry", retry);
         }};
 
-        var b = MAPPER.convertToString(build);
-
         String r = send(RequestMethod.PATCH, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId), null, ApiVersion.BUILD, q, false, b);
+                AREA + "/builds", Integer.toString(buildId), null, ApiVersion.BUILD, q, build, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, Build.class);
     }
@@ -424,10 +424,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
      **/
     @Override
     public Builds updateBuilds(Builds builds) throws AzDException {
-        var b = MAPPER.convertToString(builds.getBuildResults());
-
         String r = send(RequestMethod.PATCH, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", null, null, ApiVersion.BUILD, null, false, b);
+                AREA + "/builds", null, null, ApiVersion.BUILD, null, builds.getBuildResults(), CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, Builds.class);
     }
@@ -439,9 +437,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
      */
     @Override
     public BuildControllers getBuildControllers() throws AzDException {
-
         String r = send(RequestMethod.GET, CONNECTION, BUILD, null,
-                AREA, null, "controllers", ApiVersion.BUILD_CONTROLLERS, null, null);
+                AREA, null, "controllers", ApiVersion.BUILD_CONTROLLERS, null, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildControllers.class);
     }
@@ -460,7 +457,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, null,
-                AREA, null, "controllers", ApiVersion.BUILD_CONTROLLERS, q, null);
+                AREA, null, "controllers", ApiVersion.BUILD_CONTROLLERS, q, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildControllers.class);
     }
@@ -475,7 +472,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     public BuildController getBuildController(int controllerId) throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, null,
-                AREA + "/controllers", Integer.toString(controllerId), null, ApiVersion.BUILD_CONTROLLERS, null, null);
+                AREA + "/controllers", Integer.toString(controllerId), null, ApiVersion.BUILD_CONTROLLERS,
+                null, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildController.class);
     }
@@ -483,6 +481,9 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     /***
      * Creates a new definition.
      * @param buildDefinitionParameters json string of the build pipeline. Export the build definition from existing pipeline and edit it.
+     * Or get the existing build definition using getBuildDefinition(definitionId) method and use JsonMapper object to
+     * convert the value to string and create the definition. Easiest way is to use cloneBuildDefinition() method to create
+     * a clone of build definition and later edit it to suit the needs.
      * @throws AzDException Default Api Exception handler.
      * @return build definition {@link BuildDefinition}
      */
@@ -494,7 +495,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         var requestBody = MAPPER.mapJsonResponse(buildDefinitionParameters, Map.class);
 
         String r = send(RequestMethod.POST, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA, null, "definitions", ApiVersion.BUILD_DEFINITIONS, null, requestBody);
+                AREA, null, "definitions", ApiVersion.BUILD_DEFINITIONS, null, requestBody, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, BuildDefinition.class);
     }
@@ -542,7 +543,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     public Void deleteBuildDefinition(int definitionId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, BUILD, CONNECTION.getProject(),
-                    AREA + "/definitions", Integer.toString(definitionId), null, ApiVersion.BUILD_DEFINITIONS, null, null);
+                    AREA + "/definitions", Integer.toString(definitionId), null, ApiVersion.BUILD_DEFINITIONS, null, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
             throw e;
@@ -560,7 +561,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     public BuildDefinition getBuildDefinition(int definitionId) throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/definitions", Integer.toString(definitionId), null, ApiVersion.BUILD_DEFINITIONS, null, null);
+                AREA + "/definitions", Integer.toString(definitionId), null, ApiVersion.BUILD_DEFINITIONS,
+                null, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildDefinition.class);
     }
@@ -585,7 +587,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/definitions", Integer.toString(definitionId), null, ApiVersion.BUILD_DEFINITIONS, q, null);
+                AREA + "/definitions", Integer.toString(definitionId), null, ApiVersion.BUILD_DEFINITIONS,
+                q, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildDefinition.class);
     }
@@ -600,7 +603,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     public BuildDefinitionRevisions getBuildDefinitionRevisions(int definitionId) throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/definitions", Integer.toString(definitionId), "revisions", ApiVersion.BUILD_DEFINITION_REVISIONS, null, null);
+                AREA + "/definitions", Integer.toString(definitionId), "revisions",
+                ApiVersion.BUILD_DEFINITION_REVISIONS, null, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildDefinitionRevisions.class);
     }
@@ -614,7 +618,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     public BuildDefinitions getBuildDefinitions() throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/definitions", null, null, ApiVersion.BUILD_DEFINITIONS, null, null);
+                AREA + "/definitions", null, null, ApiVersion.BUILD_DEFINITIONS,
+                null, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildDefinitions.class);
     }
@@ -635,7 +640,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/definitions", null, null, ApiVersion.BUILD_DEFINITIONS, q, null);
+                AREA + "/definitions", null, null, ApiVersion.BUILD_DEFINITIONS, q, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildDefinitions.class);
     }
@@ -654,7 +659,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/definitions", null, null, ApiVersion.BUILD_DEFINITIONS, q, null);
+                AREA + "/definitions", null, null, ApiVersion.BUILD_DEFINITIONS, q, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildDefinitions.class);
     }
@@ -673,7 +678,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/definitions", null, null, ApiVersion.BUILD_DEFINITIONS, q, null);
+                AREA + "/definitions", null, null, ApiVersion.BUILD_DEFINITIONS, q, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildDefinitions.class);
     }
@@ -720,7 +725,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/definitions", null, null, ApiVersion.BUILD_DEFINITIONS, q, null);
+                AREA + "/definitions", null, null, ApiVersion.BUILD_DEFINITIONS, q, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildDefinitions.class);
     }
@@ -740,7 +745,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.PATCH, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/definitions", Integer.toString(definitionId), null, ApiVersion.BUILD_DEFINITIONS, q, null);
+                AREA + "/definitions", Integer.toString(definitionId), null, ApiVersion.BUILD_DEFINITIONS,
+                q, null, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, BuildDefinition.class);
     }
@@ -759,7 +765,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     public BuildDefinition updateBuildDefinition(BuildDefinition definition) throws AzDException {
         String r = send(RequestMethod.PUT, CONNECTION, BUILD, CONNECTION.getProject(),
                 AREA + "/definitions", Integer.toString(definition.getId()), null, ApiVersion.BUILD_DEFINITIONS, null,
-                false, MAPPER.convertToString(definition));
+                definition, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, BuildDefinition.class);
     }
@@ -786,7 +792,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
 
         String r = send(RequestMethod.PUT, CONNECTION, BUILD, CONNECTION.getProject(),
                 AREA + "/definitions", Integer.toString(definition.getId()), null, ApiVersion.BUILD_DEFINITIONS, null,
-                false, MAPPER.convertToString(definition));
+                definition, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, BuildDefinition.class);
     }
@@ -806,7 +812,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.PUT, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA, null, "folders", ApiVersion.BUILD_FOLDER, q, false, MAPPER.convertToString(folder));
+                AREA, null, "folders", ApiVersion.BUILD_FOLDER, q, folder, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, Folder.class);
     }
@@ -825,7 +831,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
             }};
 
             String r = send(RequestMethod.DELETE, CONNECTION, BUILD, CONNECTION.getProject(),
-                    AREA, null, "folders", ApiVersion.BUILD_FOLDER, q, null);
+                    AREA, null, "folders", ApiVersion.BUILD_FOLDER, q, null, null);
 
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
@@ -843,7 +849,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public Folders getFolders() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA, null, "folders", ApiVersion.BUILD_FOLDER, null, null);
+                AREA, null, "folders", ApiVersion.BUILD_FOLDER, null, null, null);
 
         return MAPPER.mapJsonResponse(r, Folders.class);
     }
@@ -867,7 +873,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA, null, "folders", ApiVersion.BUILD_FOLDER, q, true, MAPPER.convertToString(folder));
+                AREA, null, "folders", ApiVersion.BUILD_FOLDER, q, folder, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, Folder.class);
     }
@@ -882,7 +888,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public BuildTags addBuildTag(int buildId, String tag) throws AzDException {
         String r = send(RequestMethod.PUT, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId), "tags/" + tag, ApiVersion.BUILD_TAGS, null, null);
+                AREA + "/builds", Integer.toString(buildId), "tags/" + tag, ApiVersion.BUILD_TAGS,
+                null, null, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
@@ -897,7 +904,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public BuildTags addBuildTags(int buildId, String[] tags) throws AzDException {
         String r = send(RequestMethod.POST, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId), "tags", ApiVersion.BUILD_TAGS, null, true, MAPPER.convertToString(tags));
+                AREA + "/builds", Integer.toString(buildId), "tags", ApiVersion.BUILD_TAGS,
+                null, tags, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
@@ -912,7 +920,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public BuildTags addDefinitionTag(int definitionId, String tag) throws AzDException {
         String r = send(RequestMethod.PUT, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/definitions", Integer.toString(definitionId), "tags/" + tag, ApiVersion.BUILD_TAGS, null, null);
+                AREA + "/definitions", Integer.toString(definitionId), "tags/" + tag, ApiVersion.BUILD_TAGS,
+                null, null, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
@@ -927,7 +936,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public BuildTags addDefinitionTags(int definitionId, String[] tags) throws AzDException {
         String r = send(RequestMethod.POST, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/definitions", Integer.toString(definitionId), "tags", ApiVersion.BUILD_TAGS, null, true, MAPPER.convertToString(tags));
+                AREA + "/definitions", Integer.toString(definitionId), "tags", ApiVersion.BUILD_TAGS,
+                null, tags, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
@@ -943,7 +953,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public BuildTags deleteBuildTag(int buildId, String tag) throws AzDException {
         String r = send(RequestMethod.DELETE, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId), "tags/" + tag, ApiVersion.BUILD_TAGS, null, null);
+                AREA + "/builds", Integer.toString(buildId), "tags/" + tag, ApiVersion.BUILD_TAGS,
+                null, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
@@ -959,7 +970,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public BuildTags deleteDefinitionTag(int definitionId, String tag) throws AzDException {
         String r = send(RequestMethod.DELETE, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/definitions", Integer.toString(definitionId), "tags/" + tag, ApiVersion.BUILD_TAGS, null, null);
+                AREA + "/definitions", Integer.toString(definitionId), "tags/" + tag, ApiVersion.BUILD_TAGS,
+                null, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
@@ -973,7 +985,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public BuildTags deleteTag(String tag) throws AzDException {
         String r = send(RequestMethod.DELETE, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA, null, "tags/" + tag, ApiVersion.BUILD_TAGS, null, null);
+                AREA, null, "tags/" + tag, ApiVersion.BUILD_TAGS, null, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
@@ -987,7 +999,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public BuildTags getBuildTags(int buildId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId), "tags", ApiVersion.BUILD_TAGS, null, null);
+                AREA + "/builds", Integer.toString(buildId), "tags", ApiVersion.BUILD_TAGS, null, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
@@ -1001,7 +1013,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public BuildTags getDefinitionTags(int definitionId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/definitions", Integer.toString(definitionId), "tags", ApiVersion.BUILD_TAGS, null, null);
+                AREA + "/definitions", Integer.toString(definitionId), "tags", ApiVersion.BUILD_TAGS,
+                null, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
@@ -1020,7 +1033,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/definitions", Integer.toString(definitionId), "tags", ApiVersion.BUILD_TAGS, q, null);
+                AREA + "/definitions", Integer.toString(definitionId), "tags", ApiVersion.BUILD_TAGS, q, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
@@ -1033,7 +1046,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public BuildTags getTags() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA, null, "tags", ApiVersion.BUILD_TAGS, null, null);
+                AREA, null, "tags", ApiVersion.BUILD_TAGS, null, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
@@ -1056,7 +1069,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.PATCH, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId), "tags", ApiVersion.BUILD_TAGS, null, body);
+                AREA + "/builds", Integer.toString(buildId), "tags", ApiVersion.BUILD_TAGS,
+                null, body, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
@@ -1078,7 +1092,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.PATCH, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/definitions", Integer.toString(definitionId), "tags", ApiVersion.BUILD_TAGS, null, body);
+                AREA + "/definitions", Integer.toString(definitionId), "tags", ApiVersion.BUILD_TAGS,
+                null, body, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
@@ -1092,7 +1107,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public YamlBuild getYaml(int definitionId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/definitions", Integer.toString(definitionId), "yaml", ApiVersion.BUILD_YAML, null, null);
+                AREA + "/definitions", Integer.toString(definitionId), "yaml", ApiVersion.BUILD_YAML,
+                null, null, null);
 
         return MAPPER.mapJsonResponse(r, YamlBuild.class);
     }
@@ -1118,7 +1134,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/definitions", Integer.toString(definitionId), "yaml", ApiVersion.BUILD_YAML, q, null);
+                AREA + "/definitions", Integer.toString(definitionId), "yaml", ApiVersion.BUILD_YAML,
+                q, null, null);
 
         return MAPPER.mapJsonResponse(r, YamlBuild.class);
     }
@@ -1140,7 +1157,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
             }};
 
             String r = send(RequestMethod.PATCH, CONNECTION, BUILD, CONNECTION.getProject(),
-                    AREA + "/builds", buildId + "/stages/" + stageReferenceName, null, ApiVersion.BUILD_STAGE, null, body);
+                    AREA + "/builds", buildId + "/stages/" + stageReferenceName, null, ApiVersion.BUILD_STAGE,
+                    null, body, CustomHeader.JSON_CONTENT_TYPE);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
             throw e;
@@ -1172,7 +1190,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                "sourceProviders", null, providerName + "/filecontents", ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
+                "sourceProviders", null, providerName + "/filecontents", ApiVersion.BUILD_SOURCE_PROVIDERS,
+                q, null, CustomHeader.TEXT_CONTENT);
 
         // Look for all the keys as genuine response can also contain any key in the content.
         if (!r.isEmpty() && r.contains("innerException") && r.contains("$id") && r.contains("eventId") && r.contains("typeName"))
@@ -1205,7 +1224,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                "sourceProviders", null, providerName + "/pathcontents", ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
+                "sourceProviders", null, providerName + "/pathcontents", ApiVersion.BUILD_SOURCE_PROVIDERS,
+                q, null, null);
 
         return MAPPER.mapJsonResponse(r, SourceRepositoryItems.class);
     }
@@ -1230,7 +1250,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                "sourceProviders", null, providerName + "/pullrequests/" + pullRequestId, ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
+                "sourceProviders", null, providerName + "/pullrequests/" + pullRequestId, ApiVersion.BUILD_SOURCE_PROVIDERS,
+                q, null, null);
 
         return MAPPER.mapJsonResponse(r, SourceProviderPullRequest.class);
     }
@@ -1244,7 +1265,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public SourceProviderAttributes getSourceProviders() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                "sourceProviders", null, null, ApiVersion.BUILD_SOURCE_PROVIDERS, null, null);
+                "sourceProviders", null, null, ApiVersion.BUILD_SOURCE_PROVIDERS,
+                null, null, null);
 
         return MAPPER.mapJsonResponse(r, SourceProviderAttributes.class);
     }
@@ -1268,7 +1290,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                "sourceProviders", null, providerName + "/branches", ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
+                "sourceProviders", null, providerName + "/branches", ApiVersion.BUILD_SOURCE_PROVIDERS,
+                q, null, null);
 
         return MAPPER.mapJsonResponse(r, SourceProvideBranches.class);
     }
@@ -1294,7 +1317,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                "sourceProviders", null, providerName + "/branches", ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
+                "sourceProviders", null, providerName + "/branches", ApiVersion.BUILD_SOURCE_PROVIDERS,
+                q, null, null);
 
         return MAPPER.mapJsonResponse(r, SourceProvideBranches.class);
     }
@@ -1315,7 +1339,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                "sourceProviders", null, providerName + "/repositories", ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
+                "sourceProviders", null, providerName + "/repositories", ApiVersion.BUILD_SOURCE_PROVIDERS,
+                q, null, null);
 
         return MAPPER.mapJsonResponse(r, SourceRepositories.class);
     }
@@ -1338,7 +1363,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                "sourceProviders", null, providerName + "/repositories", ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
+                "sourceProviders", null, providerName + "/repositories", ApiVersion.BUILD_SOURCE_PROVIDERS,
+                q, null, null);
 
         return MAPPER.mapJsonResponse(r, SourceRepositories.class);
     }
@@ -1369,7 +1395,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                "sourceProviders", null, providerName + "/repositories", ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
+                "sourceProviders", null, providerName + "/repositories", ApiVersion.BUILD_SOURCE_PROVIDERS,
+                q, null, null);
 
         return MAPPER.mapJsonResponse(r, SourceRepositories.class);
     }
@@ -1393,7 +1420,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                "sourceProviders", null, providerName + "/webhooks", ApiVersion.BUILD_SOURCE_PROVIDERS, q, null);
+                "sourceProviders", null, providerName + "/webhooks", ApiVersion.BUILD_SOURCE_PROVIDERS,
+                q, null, null);
 
         return MAPPER.mapJsonResponse(r, RepositoryWebhooks.class);
     }
@@ -1417,11 +1445,10 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
             put("repository", repositoryName);
         }};
 
-        var reqBody = MAPPER.mapJsonResponse(MAPPER.convertToString(triggerTypes), Map.class);
-
         try {
             String r = send(RequestMethod.POST, CONNECTION, BUILD, CONNECTION.getProject(),
-                    "sourceProviders", null, providerName + "/webhooks", ApiVersion.BUILD_SOURCE_PROVIDERS, q, reqBody);
+                    "sourceProviders", null, providerName + "/webhooks", ApiVersion.BUILD_SOURCE_PROVIDERS,
+                    q, triggerTypes, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
             throw e;
@@ -1439,7 +1466,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public Timeline getTimeline(int buildId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId), "timeline", ApiVersion.BUILD_TIMELINE, null, null);
+                AREA + "/builds", Integer.toString(buildId), "timeline", ApiVersion.BUILD_TIMELINE,
+                null, null, null);
 
         return MAPPER.mapJsonResponse(r, Timeline.class);
     }
@@ -1455,7 +1483,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public Timeline getTimeline(int buildId, String timelineId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId), "timeline/" + timelineId, ApiVersion.BUILD_TIMELINE, null, null);
+                AREA + "/builds", Integer.toString(buildId), "timeline/" + timelineId, ApiVersion.BUILD_TIMELINE,
+                null, null, null);
 
         return MAPPER.mapJsonResponse(r, Timeline.class);
     }
@@ -1478,17 +1507,17 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId), "timeline/" + timelineId, ApiVersion.BUILD_TIMELINE, q, null);
+                AREA + "/builds", Integer.toString(buildId), "timeline/" + timelineId, ApiVersion.BUILD_TIMELINE,
+                q, null, null);
 
         return MAPPER.mapJsonResponse(r, Timeline.class);
     }
 
     @Override
     public BuildArtifact createArtifact(int buildId, BuildArtifact artifact) throws AzDException {
-        var b = MAPPER.convertToString(artifact);
-
         String r = send(RequestMethod.POST, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId), "artifacts", ApiVersion.BUILD_ARTIFACTS, null, true, b);
+                AREA + "/builds", Integer.toString(buildId), "artifacts", ApiVersion.BUILD_ARTIFACTS,
+                null, artifact, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, BuildArtifact.class);
     }
@@ -1500,7 +1529,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId), "artifacts", ApiVersion.BUILD_ARTIFACTS, q, null);
+                AREA + "/builds", Integer.toString(buildId), "artifacts", ApiVersion.BUILD_ARTIFACTS,
+                q, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildArtifact.class);
     }
@@ -1512,8 +1542,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         return send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId), "artifacts", ApiVersion.BUILD_ARTIFACTS, q, "application/zip",
-                null, null, false);
+                AREA + "/builds", Integer.toString(buildId), "artifacts", ApiVersion.BUILD_ARTIFACTS,
+                q, null, CustomHeader.STREAM_ZIP_ACCEPT, false);
     }
 
     @Override
@@ -1525,14 +1555,15 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         return send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId), "artifacts", ApiVersion.BUILD_ARTIFACTS, q, "application/octet-stream",
-                null, null, false);
+                AREA + "/builds", Integer.toString(buildId), "artifacts", ApiVersion.BUILD_ARTIFACTS,
+                q, null, CustomHeader.STREAM_ACCEPT, false);
     }
 
     @Override
     public BuildArtifacts getArtifacts(int buildId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId), "artifacts", ApiVersion.BUILD_ARTIFACTS, null, null);
+                AREA + "/builds", Integer.toString(buildId), "artifacts", ApiVersion.BUILD_ARTIFACTS,
+                null, null, null);
 
         return MAPPER.mapJsonResponse(r, BuildArtifacts.class);
     }
@@ -1540,7 +1571,8 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public Attachments getAttachments(int buildId, String type) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/builds", Integer.toString(buildId), "attachments/" + type, ApiVersion.BUILD_ATTACHMENTS, null, null);
+                AREA + "/builds", Integer.toString(buildId), "attachments/" + type, ApiVersion.BUILD_ATTACHMENTS,
+                null, null, null);
 
         return MAPPER.mapJsonResponse(r, Attachments.class);
     }
