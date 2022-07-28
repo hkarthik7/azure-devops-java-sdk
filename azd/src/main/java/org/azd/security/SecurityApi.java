@@ -3,6 +3,7 @@ package org.azd.security;
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
 import org.azd.enums.ApiExceptionTypes;
+import org.azd.enums.CustomHeader;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
@@ -17,7 +18,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.azd.utils.Client.send;
+import static org.azd.utils.RestClient.send;
 
 public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDetails {
     private final Connection CONNECTION;
@@ -69,7 +70,7 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, SECURITY, null,
-                AREA_NAMESPACE, null, null, ApiVersion.SECURITY, q, null);
+                AREA_NAMESPACE, null, null, ApiVersion.SECURITY, q, null, null);
 
         return MAPPER.mapJsonResponse(r, SecurityNamespaces.class);
     }
@@ -84,7 +85,7 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
     @Override
     public SecurityNamespace getNamespace(String namespaceId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, SECURITY, null,
-                AREA_NAMESPACE, namespaceId, null, ApiVersion.SECURITY, null, null);
+                AREA_NAMESPACE, namespaceId, null, ApiVersion.SECURITY, null, null, null);
 
         SecurityNamespaces securityNamespaces = MAPPER.mapJsonResponse(r, SecurityNamespaces.class);
         return securityNamespaces.getSecurityNamespaces().get(0);
@@ -115,7 +116,8 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public ACLs getAccessControlLists(String namespaceId, String[] descriptors, String token, boolean includeExtendedInfo, boolean recurse) throws AzDException {
+    public ACLs getAccessControlLists(String namespaceId, String[] descriptors, String token,
+                                      boolean includeExtendedInfo, boolean recurse) throws AzDException {
         HashMap<String, Object> q = new HashMap<>() {{
             if (descriptors != null && descriptors.length > 0) {
                 put("descriptors", Arrays.stream(descriptors)
@@ -130,7 +132,7 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
             put("recurse", recurse);
         }};
         String r = send(RequestMethod.GET, CONNECTION, SECURITY, null,
-                AREA_ACL, namespaceId, null, ApiVersion.SECURITY, q, null);
+                AREA_ACL, namespaceId, null, ApiVersion.SECURITY, q, null, null);
 
         return MAPPER.mapJsonResponse(r, ACLs.class);
     }
@@ -148,7 +150,8 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public Identities getIdentities(String[] descriptors, String[] identityIds, String[] subjectDescriptors, String filterValue, String queryMembership, String searchFilter) throws AzDException {
+    public Identities getIdentities(String[] descriptors, String[] identityIds, String[] subjectDescriptors,
+                                    String filterValue, String queryMembership, String searchFilter) throws AzDException {
         LinkedHashMap<String, Object> q = new LinkedHashMap<>() {{
             if (descriptors != null && descriptors.length > 0) {
                 put("descriptors", Arrays.stream(descriptors)
@@ -175,7 +178,7 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
                 put("searchFilter", URLHelper.encodeSpecialWithSpace(searchFilter));
         }};
         String r = send(RequestMethod.GET, CONNECTION, IDENTITY, null,
-                AREA_IDENTITIES, null, null, ApiVersion.IDENTITY, q, null);
+                AREA_IDENTITIES, null, null, ApiVersion.IDENTITY, q, null, null);
         return MAPPER.mapJsonResponse(r, Identities.class);
     }
 
@@ -204,10 +207,9 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
      */
     @Override
     public ACEs setAccessControlEntries(String namespaceId, ACEs payload) throws AzDException {
-        String b = MAPPER.convertToString(payload);
         String r = send(RequestMethod.POST, CONNECTION, SECURITY, null,
-                AREA_ACE, namespaceId, null, ApiVersion.SECURITY, null, true, b);
-        return null;
+                AREA_ACE, namespaceId, null, ApiVersion.SECURITY, null, payload, CustomHeader.JSON_CONTENT_TYPE);
+        return MAPPER.mapJsonResponse(r, ACEs.class);
     }
 
     /**
@@ -237,7 +239,7 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
                     .collect(Collectors.joining(",")));
         }};
         String r = send(RequestMethod.DELETE, CONNECTION, SECURITY, null,
-                AREA_ACE, namespaceId, null, ApiVersion.SECURITY, q, null);
+                AREA_ACE, namespaceId, null, ApiVersion.SECURITY, q, null, null);
         return null;
     }
 
@@ -250,9 +252,8 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
      */
     @Override
     public Void setAccessControlList(String namespaceId, ACLs payload) throws AzDException {
-        String b = MAPPER.convertToString(payload);
         String r = send(RequestMethod.POST, CONNECTION, SECURITY, null,
-                AREA_ACL, namespaceId, null, ApiVersion.SECURITY, null, true, b);
+                AREA_ACL, namespaceId, null, ApiVersion.SECURITY, null, payload, CustomHeader.JSON_CONTENT_TYPE);
         return null;
     }
 
@@ -277,7 +278,7 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
             put("recurse", recurse);
         }};
         String r = send(RequestMethod.DELETE, CONNECTION, SECURITY, null,
-                AREA_ACL, namespaceId, null, ApiVersion.SECURITY, q, null);
+                AREA_ACL, namespaceId, null, ApiVersion.SECURITY, q, null, null);
         return null;
     }
 

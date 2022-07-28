@@ -2,8 +2,8 @@ package org.azd;
 
 import org.azd.distributedtask.types.VariableGroupDefinition;
 import org.azd.distributedtask.types.VariableGroupMap;
-import org.azd.enums.VariableValue;
 import org.azd.enums.VariableGroupType;
+import org.azd.enums.VariableValue;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AzDClient;

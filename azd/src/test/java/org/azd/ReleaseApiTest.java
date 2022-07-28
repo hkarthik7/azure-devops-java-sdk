@@ -7,6 +7,7 @@ import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.BuildDetails;
 import org.azd.interfaces.ReleaseDetails;
+import org.azd.release.types.ConfigurationVariableValue;
 import org.azd.utils.AzDClientApi;
 import org.junit.Before;
 import org.junit.Test;
@@ -116,16 +117,14 @@ public class ReleaseApiTest {
         releaseDef.getEnvironments().stream().findFirst().get().getRetentionPolicy().setReleasesToKeep(4);
 
         // Set the new value to the variables.
-        var variableValue = new HashMap<String, String>() {{
-            put("value", "NewCustomValue");
+        var c = new ConfigurationVariableValue();
+        c.setValue("NewCustomValue");
+
+        var variables = new HashMap<String, ConfigurationVariableValue>(){{
+           put("Name", c);
         }};
 
-        var newValue = new HashMap<String, Object>() {{
-            put("Name", variableValue);
-        }};
-
-        var newVariable = MAPPER.valueToTree(newValue);
-        releaseDef.setVariables(newVariable);
+        releaseDef.setVariables(variables);
 
         r.updateReleaseDefinition(releaseDef);
     }

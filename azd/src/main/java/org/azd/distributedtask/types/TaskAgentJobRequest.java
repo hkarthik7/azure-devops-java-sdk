@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.enums.TaskResult;
 
-import java.util.Arrays;
+import java.util.List;
 
 /**
  * A reference to an agent. 
@@ -40,7 +40,7 @@ public class TaskAgentJobRequest {
  	* A list of demands required to fulfill this request. 
 	**/
 	@JsonProperty("demands")
-	private Demand[] demands;
+	private List<Demand> demands;
 	/**
  	* The date/time this request was finished. 
 	**/
@@ -70,7 +70,7 @@ public class TaskAgentJobRequest {
  	* A reference to an agent. 
 	**/
 	@JsonProperty("matchedAgents")
-	private TaskAgentReference[] matchedAgents;
+	private List<TaskAgentReference> matchedAgents;
 
 	@JsonProperty("matchesAllAgentsInPool")
 	private boolean matchesAllAgentsInPool;
@@ -166,9 +166,9 @@ public class TaskAgentJobRequest {
 
 	public void setDefinition(TaskOrchestrationOwner definition) { this.definition = definition; }
 
-	public Demand[] getDemands() { return demands; }
+	public List<Demand> getDemands() { return demands; }
 
-	public void setDemands(Demand[] demands) { this.demands = demands; }
+	public void setDemands(List<Demand> demands) { this.demands = demands; }
 
 	public String getFinishTime() { return finishTime; }
 
@@ -190,9 +190,9 @@ public class TaskAgentJobRequest {
 
 	public void setLockedUntil(String lockedUntil) { this.lockedUntil = lockedUntil; }
 
-	public TaskAgentReference[] getMatchedAgents() { return matchedAgents; }
+	public List<TaskAgentReference> getMatchedAgents() { return matchedAgents; }
 
-	public void setMatchedAgents(TaskAgentReference[] matchedAgents) { this.matchedAgents = matchedAgents; }
+	public void setMatchedAgents(List<TaskAgentReference> matchedAgents) { this.matchedAgents = matchedAgents; }
 
 	public boolean getMatchesAllAgentsInPool() { return matchesAllAgentsInPool; }
 
@@ -273,13 +273,13 @@ public class TaskAgentJobRequest {
 				", assignTime='" + assignTime + '\'' +
 				", data=" + data +
 				", definition=" + definition +
-				", demands=" + Arrays.toString(demands) +
+				", demands=" + demands +
 				", finishTime='" + finishTime + '\'' +
 				", hostId='" + hostId + '\'' +
 				", jobId='" + jobId + '\'' +
 				", jobName='" + jobName + '\'' +
 				", lockedUntil='" + lockedUntil + '\'' +
-				", matchedAgents=" + Arrays.toString(matchedAgents) +
+				", matchedAgents=" + matchedAgents +
 				", matchesAllAgentsInPool=" + matchesAllAgentsInPool +
 				", orchestrationId='" + orchestrationId + '\'' +
 				", owner=" + owner +

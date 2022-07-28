@@ -1,131 +1,92 @@
 package org.azd.git.types;
+/**
+----------------------------------------------------------
+	GENERATED FILE, should be edited to suit the purpose.
+----------------------------------------------------------
+**/
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.core.types.Project;
-import org.azd.core.types.TeamProjectCollectionReference;
 
-/***
- * Represents the parent repository class if a repo is forked
- */
+/**
+ * Identity information including a vote on a pull request. 
+**/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GitRepositoryRef {
-    /***
-     * Team Project Collection where this Fork resides
-     */
-    @JsonProperty("collection")
-    private TeamProjectCollectionReference collection;
-    /***
-     * Repository id
-     */
-    @JsonProperty("id")
-    private String id;
-    /***
-     * True if the repository was created as a fork
-     */
-    @JsonProperty("isFork")
-    private boolean isFork;
-    /***
-     * Repository name
-     */
-    @JsonProperty("name")
-    private String name;
-    /***
-     * Represents a reference to a TeamProject.
-     */
-    @JsonProperty("project")
-    private Project project;
-    /***
-     * Repo remote url
-     */
-    @JsonProperty("remoteUrl")
-    private String remoteUrl;
-    /***
-     * Repo ssh url
-     */
-    @JsonProperty("sshUrl")
-    private String sshUrl;
-    /***
-     * Repository url
-     */
-    @JsonProperty("url")
-    private String url;
+	/**
+ 	* Team Project Collection where this Fork resides 
+	**/
+	@JsonProperty("collection")
+	private TeamProjectCollectionReference collection;
 
-    public TeamProjectCollectionReference getCollection() {
-        return collection;
-    }
+	@JsonProperty("id")
+	private String id;
+	/**
+ 	* True if the repository was created as a fork 
+	**/
+	@JsonProperty("isFork")
+	private boolean isFork;
 
-    public void setCollection(TeamProjectCollectionReference collection) {
-        this.collection = collection;
-    }
+	@JsonProperty("name")
+	private String name;
+	/**
+ 	* Represents a shallow reference to a TeamProject. 
+	**/
+	@JsonProperty("project")
+	private TeamProjectReference project;
 
-    public String getId() {
-        return id;
-    }
+	@JsonProperty("remoteUrl")
+	private String remoteUrl;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	@JsonProperty("sshUrl")
+	private String sshUrl;
 
-    public boolean isFork() {
-        return isFork;
-    }
+	@JsonProperty("url")
+	private String url;
 
-    public void setFork(boolean fork) {
-        isFork = fork;
-    }
+	public TeamProjectCollectionReference getCollection() { return collection; }
 
-    public String getName() {
-        return name;
-    }
+	public void setCollection(TeamProjectCollectionReference collection) { this.collection = collection; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getId() { return id; }
 
-    public Project getProject() {
-        return project;
-    }
+	public void setId(String id) { this.id = id; }
 
-    public void setProject(Project project) {
-        this.project = project;
-    }
+	public boolean getIsFork() { return isFork; }
 
-    public String getRemoteUrl() {
-        return remoteUrl;
-    }
+	public void setIsFork(boolean isFork) { this.isFork = isFork; }
 
-    public void setRemoteUrl(String remoteUrl) {
-        this.remoteUrl = remoteUrl;
-    }
+	public String getName() { return name; }
 
-    public String getSshUrl() {
-        return sshUrl;
-    }
+	public void setName(String name) { this.name = name; }
 
-    public void setSshUrl(String sshUrl) {
-        this.sshUrl = sshUrl;
-    }
+	public TeamProjectReference getProject() { return project; }
 
-    public String getUrl() {
-        return url;
-    }
+	public void setProject(TeamProjectReference project) { this.project = project; }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
+	public String getRemoteUrl() { return remoteUrl; }
 
-    @Override
-    public String toString() {
-        return "GitRepositoryRef{" +
-                "collection=" + collection +
-                ", id='" + id + '\'' +
-                ", isFork=" + isFork +
-                ", name='" + name + '\'' +
-                ", project=" + project +
-                ", remoteUrl='" + remoteUrl + '\'' +
-                ", sshUrl='" + sshUrl + '\'' +
-                ", url='" + url + '\'' +
-                '}';
-    }
+	public void setRemoteUrl(String remoteUrl) { this.remoteUrl = remoteUrl; }
+
+	public String getSshUrl() { return sshUrl; }
+
+	public void setSshUrl(String sshUrl) { this.sshUrl = sshUrl; }
+
+	public String getUrl() { return url; }
+
+	public void setUrl(String url) { this.url = url; }
+
+	@Override
+	public String toString() {
+		return "GitRepositoryRef{" +
+				"collection=" + collection +
+				", id='" + id + '\'' +
+				", isFork=" + isFork +
+				", name='" + name + '\'' +
+				", project=" + project +
+				", remoteUrl='" + remoteUrl + '\'' +
+				", sshUrl='" + sshUrl + '\'' +
+				", url='" + url + '\'' +
+				'}';
+	}
 }

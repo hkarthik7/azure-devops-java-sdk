@@ -1,100 +1,89 @@
 package org.azd.release.types;
+/**
+----------------------------------------------------------
+	GENERATED FILE, should be edited to suit the purpose.
+----------------------------------------------------------
+**/
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.enums.DeployPhaseTypes;
 
 import java.util.List;
 
-/***
- * Gets definition environment id
- */
+/**
+ * Type of release trigger. 
+**/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DeployPhase {
-    @JsonProperty("deploymentInput")
-    private Object deploymentInput;
-    /***
-     * Gets and sets the name of deploy phase.
-     */
-    @JsonProperty("name")
-    private String name;
-    /***
-     * Indicates the deploy phase type.
-     */
-    @JsonProperty("phaseType")
-    private String phaseType;
-    /***
-     * Gets and sets the rank of deploy phase.
-     */
-    @JsonProperty("rank")
-    private int rank;
-    /***
-     * Gets and sets the reference name of deploy phase.
-     */
-    @JsonProperty("refName")
-    private String refName;
-    /***
-     * Gets and sets the workflow tasks for the deploy phase.
-     */
-    @JsonProperty("workflowTasks")
-    private List<WorkflowTask> workflowTasks;
+	/**
+ 	* Gets and sets the name of deploy phase. 
+	**/
+	@JsonProperty("name")
+	private String name;
+	/**
+ 	* Indicates the deploy phase type. 
+	**/
+	@JsonProperty("phaseType")
+	private DeployPhaseTypes phaseType;
+	/**
+ 	* Gets and sets the rank of deploy phase. 
+	**/
+	@JsonProperty("rank")
+	private Integer rank;
+	/**
+ 	* Gets and sets the reference name of deploy phase. 
+	**/
+	@JsonProperty("refName")
+	private String refName;
+	/**
+ 	* Gets and sets the workflow tasks for the deploy phase. 
+	**/
+	@JsonProperty("workflowTasks")
+	private List<WorkflowTask> workflowTasks;
+	/**
+	 * Species deployment input object
+	 */
+	@JsonProperty("deploymentInput")
+	private Object deploymentInput;
 
-    public String getName() {
-        return name;
-    }
+	public String getName() { return name; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) { this.name = name; }
 
-    public String getPhaseType() {
-        return phaseType;
-    }
+	public DeployPhaseTypes getPhaseType() { return phaseType; }
 
-    public void setPhaseType(String phaseType) {
-        this.phaseType = phaseType;
-    }
+	public void setPhaseType(DeployPhaseTypes phaseType) { this.phaseType = phaseType; }
 
-    public int getRank() {
-        return rank;
-    }
+	public Integer getRank() { return rank; }
 
-    public void setRank(int rank) {
-        this.rank = rank;
-    }
+	public void setRank(Integer rank) { this.rank = rank; }
 
-    public String getRefName() {
-        return refName;
-    }
+	public String getRefName() { return refName; }
 
-    public void setRefName(String refName) {
-        this.refName = refName;
-    }
+	public void setRefName(String refName) { this.refName = refName; }
 
-    public List<WorkflowTask> getWorkflowTasks() {
-        return workflowTasks;
-    }
+	public List<WorkflowTask> getWorkflowTasks() { return workflowTasks; }
 
-    public void setWorkflowTasks(List<WorkflowTask> workflowTasks) {
-        this.workflowTasks = workflowTasks;
-    }
+	public void setWorkflowTasks(List<WorkflowTask> workflowTasks) { this.workflowTasks = workflowTasks; }
 
-    public Object getDeploymentInput() {
-        return deploymentInput;
-    }
+	public Object getDeploymentInput() {
+		return deploymentInput;
+	}
 
-    public void setDeploymentInput(Object deploymentInput) {
-        this.deploymentInput = deploymentInput;
-    }
+	public void setDeploymentInput(Object deploymentInput) {
+		this.deploymentInput = deploymentInput;
+	}
 
-    @Override
-    public String toString() {
-        return "DeployPhase{" +
-                "deploymentInput=" + deploymentInput +
-                ", name='" + name + '\'' +
-                ", phaseType='" + phaseType + '\'' +
-                ", rank=" + rank +
-                ", refName='" + refName + '\'' +
-                ", workflowTasks=" + workflowTasks +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "DeployPhase{" +
+				"name='" + name + '\'' +
+				", phaseType=" + phaseType +
+				", rank=" + rank +
+				", refName='" + refName + '\'' +
+				", workflowTasks=" + workflowTasks +
+				", deploymentInput=" + deploymentInput +
+				'}';
+	}
 }

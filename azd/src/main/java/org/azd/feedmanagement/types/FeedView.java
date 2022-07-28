@@ -1,100 +1,72 @@
 package org.azd.feedmanagement.types;
+/**
+----------------------------------------------------------
+	GENERATED FILE, should be edited to suit the purpose.
+----------------------------------------------------------
+**/
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.enums.FeedViewType;
+import org.azd.enums.FeedVisibility;
 
-/***
- * A view on top of a feed.
- */
+/**
+ * A view on top of a feed. 
+**/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FeedView {
-    /***
-     * Id of the view.
-     */
-    @JsonProperty("id")
-    private String id;
-    /***
-     * Name of the view.
-     */
-    @JsonProperty("name")
-    private String name;
-    /***
-     * Url of the view.
-     */
-    @JsonProperty("url")
-    private String url;
-    /***
-     * Type of view.
-     */
-    @JsonProperty("type")
-    private String type;
-    /***
-     * Related REST links.
-     */
-    @JsonProperty("_links")
-    private FeedReferenceLinks _links;
-    /***
-     * Visibility status of the view.
-     */
-    @JsonProperty("visibility")
-    private String visibility;
+	/**
+ 	* Related REST links. 
+	**/
+	@JsonProperty("_links")
+	private Object _links;
+	/**
+ 	* Id of the view. 
+	**/
+	@JsonProperty("id")
+	private String id;
+	/**
+ 	* Name of the view. 
+	**/
+	@JsonProperty("name")
+	private String name;
+	/**
+ 	* Type of view. 
+	**/
+	@JsonProperty("type")
+	private FeedViewType type;
+	/**
+ 	* Url of the view. 
+	**/
+	@JsonProperty("url")
+	private String url;
+	/**
+ 	* Visibility status of the view. 
+	**/
+	@JsonProperty("visibility")
+	private FeedVisibility visibility;
 
-    public String getId() {
-        return id;
-    }
+	public Object get_links() { return _links; }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public void set_links(Object _links) { this._links = _links; }
 
-    public String getName() {
-        return name;
-    }
+	public String getId() { return id; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setId(String id) { this.id = id; }
 
-    public String getType() {
-        return type;
-    }
+	public String getName() { return name; }
 
-    public void setType(String type) {
-        this.type = type;
-    }
+	public void setName(String name) { this.name = name; }
 
-    public String getUrl() {
-        return url;
-    }
+	public FeedViewType getType() { return type; }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
+	public void setType(FeedViewType type) { this.type = type; }
 
-    public FeedReferenceLinks get_links() {
-        return _links;
-    }
+	public String getUrl() { return url; }
 
-    public void set_links(FeedReferenceLinks _links) {
-        this._links = _links;
-    }
+	public void setUrl(String url) { this.url = url; }
 
-    public String getVisibility() {
-        return visibility;
-    }
+	public FeedVisibility getVisibility() { return visibility; }
 
-    public void setVisibility(String visibility) {
-        this.visibility = visibility;
-    }
-
-    @Override
-    public String toString() {
-        return "FeedView{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", type='" + type + '\'' +
-                ", url='" + url + '\'' +
-                ", visibility='" + visibility + '\'' +
-                '}';
-    }
+	public void setVisibility(FeedVisibility visibility) { this.visibility = visibility; }
 }

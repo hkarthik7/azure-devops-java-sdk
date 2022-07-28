@@ -2,10 +2,7 @@ package org.azd.maven;
 
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
-import org.azd.enums.PackageOperation;
-import org.azd.enums.PackagePromote;
-import org.azd.enums.PackagesBatchOperation;
-import org.azd.enums.RequestMethod;
+import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.MavenDetails;
@@ -15,12 +12,14 @@ import org.azd.maven.types.UpstreamingBehavior;
 import org.azd.utils.AzDAsyncApi;
 
 import java.io.InputStream;
+import java.net.URI;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.azd.utils.Client.send;
+import static org.azd.utils.RestClient.send;
 
 /***
  * MavenApi class to manage maven artifact package api
@@ -59,7 +58,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
         String r = send(RequestMethod.GET, CONNECTION, MAVEN, CONNECTION.getProject(),
                 AREA + "/feeds", feedId,
                 "maven/groups/" + groupId + "/artifacts/" + artifactId + "/versions/" + version,
-                ApiVersion.MAVEN, null, null);
+                ApiVersion.MAVEN, null, null, null);
 
         return MAPPER.mapJsonResponse(r, Package.class);
     }
@@ -86,7 +85,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
         String r = send(RequestMethod.GET, CONNECTION, MAVEN, CONNECTION.getProject(),
                 AREA + "/feeds", feedId,
                 "maven/groups/" + groupId + "/artifacts/" + artifactId + "/versions/" + version,
-                ApiVersion.MAVEN, q, null);
+                ApiVersion.MAVEN, q, null, null);
 
         return MAPPER.mapJsonResponse(r, Package.class);
     }
@@ -108,7 +107,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
         String r = send(RequestMethod.GET, CONNECTION, MAVEN, CONNECTION.getProject(),
                 AREA + "/feeds", feedId,
                 "maven/RecycleBin/groups/" + groupId + "/artifacts/" + artifactId + "/versions/" + version,
-                ApiVersion.MAVEN, null, null);
+                ApiVersion.MAVEN, null, null, null);
 
         return MAPPER.mapJsonResponse(r, MavenPackageVersionDeletionState.class);
     }
@@ -128,7 +127,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
             throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, MAVEN, CONNECTION.getProject(),
                 AREA + "/feeds", feedId, "maven/groups/" + groupId + "/artifacts/" + artifactId + "/upstreaming",
-                ApiVersion.MAVEN, null, null);
+                ApiVersion.MAVEN, null, null, null);
         return MAPPER.mapJsonResponse(r, UpstreamingBehavior.class);
     }
 
@@ -147,9 +146,18 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
      */
     @Override
     public InputStream downloadPackage(String feedId, String groupId, String artifactId, String version, String fileName) throws AzDException {
-        var res = send(RequestMethod.GET, CONNECTION, MAVEN, CONNECTION.getProject(), AREA + "/feeds", feedId,
+        var callbackUri = send(null, RequestMethod.GET, CONNECTION, MAVEN, CONNECTION.getProject(),
+                AREA + "/feeds", feedId,
                 "maven/" + groupId + "/" + artifactId + "/" + version + "/" + fileName + "/content",
-                ApiVersion.MAVEN, null, "application/octet-stream", null, null, true);
+                ApiVersion.MAVEN, null, null, null, true)
+                .thenApplyAsync(HttpResponse::uri)
+                .thenApplyAsync(URI::toString)
+                .join();
+
+        var res = send(callbackUri, RequestMethod.GET, null, null, null,
+                null, null, null, null, null, null, null, true)
+                .thenApplyAsync(HttpResponse::body)
+                .join();
 
         return res;
     }
@@ -170,7 +178,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
             String r = send(RequestMethod.DELETE, CONNECTION, MAVEN, CONNECTION.getProject(),
                     AREA + "/feeds", feedId,
                     "maven/groups/" + groupId + "/artifacts/" + artifactId + "/versions/" + version,
-                    ApiVersion.MAVEN, null, null);
+                    ApiVersion.MAVEN, null, null, null);
             if (!r.isEmpty())
                 MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
@@ -195,7 +203,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
             String r = send(RequestMethod.DELETE, CONNECTION, MAVEN, CONNECTION.getProject(),
                     AREA + "/feeds", feedId,
                     "maven/RecycleBin/groups/" + groupId + "/artifacts/" + artifactId + "/versions/" + version,
-                    ApiVersion.MAVEN, null, null);
+                    ApiVersion.MAVEN, null, null, null);
             if (!r.isEmpty())
                 MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
@@ -234,25 +242,20 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
     public void updatePackageVersion(String feedId, String groupId, String artifactId, String version, String promote)
             throws AzDException {
 
-        var req = new HashMap<String, Object>() {
-            {
-                put("op", PackageOperation.ADD.toString());
-                put("path", "/views/-");
-                put("value", promote.toString()); // "prmote package type"
-            }
-        };
-        var body = new HashMap<String, Object>() {
-            {
-                put("views", req);
-            }
-        };
+        var req = new HashMap<String, Object>() {{
+            put("op", PackageOperation.ADD.toString());
+            put("path", "/views/-");
+            put("value", promote); // "promote package type"
+        }};
+
+        var body = new HashMap<String, Object>() {{ put("views", req); }};
 
         try {
             String r = send(RequestMethod.PATCH, CONNECTION, MAVEN, CONNECTION.getProject(),
                     AREA + "/feeds", feedId,
                     "maven/groups/" + groupId + "/artifacts/" + artifactId + "/versions/" + version, ApiVersion.MAVEN,
                     null,
-                    body, null);
+                    body, CustomHeader.JSON_CONTENT_TYPE);
             if (!r.isEmpty())
                 MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
@@ -291,7 +294,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
             req.put("packages", l);
 
             String r = send(RequestMethod.POST, CONNECTION, MAVEN, CONNECTION.getProject(),
-                    AREA + "/feeds", feedId, "maven/packagesbatch", ApiVersion.MAVEN, null, req, null);
+                    AREA + "/feeds", feedId, "maven/packagesbatch", ApiVersion.MAVEN, null, req, CustomHeader.JSON_CONTENT_TYPE);
             if (!r.isEmpty())
                 MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
@@ -315,7 +318,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
             String r = send(RequestMethod.PATCH, CONNECTION, MAVEN, CONNECTION.getProject(),
                     AREA + "/feeds", feedId,
                     "maven/RecycleBin/groups/" + groupId + "/artifacts/" + artifactId + "/versions/" + version,
-                    ApiVersion.MAVEN, null, Map.of("deleted", "false"));
+                    ApiVersion.MAVEN, null, Map.of("deleted", "false"), CustomHeader.JSON_CONTENT_TYPE);
             if (!r.isEmpty())
                 MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
@@ -356,7 +359,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
             String r = send(RequestMethod.PATCH, CONNECTION, MAVEN, CONNECTION.getProject(),
                     AREA + "/feeds", feedId,
                     "maven/groups/" + groupId + "/artifacts/" + artifactId + "/upstreaming",
-                    ApiVersion.MAVEN, null, req);
+                    ApiVersion.MAVEN, null, req, CustomHeader.JSON_CONTENT_TYPE);
             if (!r.isEmpty())
                 MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
@@ -381,7 +384,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
             String r = send(RequestMethod.PATCH, CONNECTION, MAVEN, CONNECTION.getProject(),
                     AREA + "/feeds", feedId,
                     "maven/groups/" + groupId + "/artifacts/" + artifactId + "/upstreaming",
-                    ApiVersion.MAVEN, null, req);
+                    ApiVersion.MAVEN, null, req, CustomHeader.JSON_CONTENT_TYPE);
             if (!r.isEmpty())
                 MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
@@ -417,7 +420,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
             req.put("packages", l);
 
             String r = send(RequestMethod.POST, CONNECTION, MAVEN, CONNECTION.getProject(),
-                    AREA + "/feeds", feedId, "maven/RecycleBin/packagesbatch", ApiVersion.MAVEN, null, req, null);
+                    AREA + "/feeds", feedId, "maven/RecycleBin/packagesbatch", ApiVersion.MAVEN, null, req, CustomHeader.JSON_CONTENT_TYPE);
             if (!r.isEmpty())
                 MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {

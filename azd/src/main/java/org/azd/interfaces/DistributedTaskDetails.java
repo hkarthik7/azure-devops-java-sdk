@@ -4,8 +4,6 @@ import org.azd.distributedtask.types.*;
 import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
 
-import java.util.Map;
-
 public interface DistributedTaskDetails {
     Void deleteAgent(int poolId, int agentId) throws AzDException;
 

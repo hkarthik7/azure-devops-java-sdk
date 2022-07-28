@@ -14,7 +14,7 @@ public class PullRequestReviewers {
      * List of pull request reviewers.
      */
     @JsonProperty("value")
-    private List<PullRequestReviewer> pullRequestReviewers;
+    private List<IdentityRefWithVote> pullRequestReviewers;
 
     @Override
     public String toString() {
@@ -23,11 +23,11 @@ public class PullRequestReviewers {
                 '}';
     }
 
-    public List<PullRequestReviewer> getPullRequestReviewers() {
+    public List<IdentityRefWithVote> getPullRequestReviewers() {
         return pullRequestReviewers;
     }
 
-    public void setPullRequestReviewers(List<PullRequestReviewer> pullRequestReviewers) {
+    public void setPullRequestReviewers(List<IdentityRefWithVote> pullRequestReviewers) {
         this.pullRequestReviewers = pullRequestReviewers;
     }
 }

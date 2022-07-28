@@ -13,7 +13,7 @@ import org.azd.enums.DefinitionQuality;
 import org.azd.enums.DefinitionQueueStatus;
 import org.azd.enums.DefinitionType;
 
-import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -55,7 +55,7 @@ public class BuildDefinition {
      * Represents a demand used by a definition or build.
      **/
     @JsonProperty("demands")
-    private Demand[] demands;
+    private List<Demand> demands;
     /**
      * The description.
      **/
@@ -70,7 +70,7 @@ public class BuildDefinition {
      * The list of drafts associated with this definition, if this is not a draft definition.
      **/
     @JsonProperty("drafts")
-    private DefinitionReference[] drafts;
+    private List<DefinitionReference> drafts;
     /**
      * The drop location for the definition.
      **/
@@ -110,7 +110,7 @@ public class BuildDefinition {
      * Represents metadata about builds in the system.
      **/
     @JsonProperty("metrics")
-    private BuildMetric[] metrics;
+    private List<BuildMetric> metrics;
     /**
      * The name of the referenced definition.
      **/
@@ -120,7 +120,7 @@ public class BuildDefinition {
      * Represents the application of an optional behavior to a build definition.
      **/
     @JsonProperty("options")
-    private BuildOption[] options;
+    private List<BuildOption> options;
     /**
      * The folder path of the definition.
      **/
@@ -170,7 +170,7 @@ public class BuildDefinition {
      * Represents a retention policy for a build definition.
      **/
     @JsonProperty("retentionRules")
-    private RetentionPolicy[] retentionRules;
+    private List<RetentionPolicy> retentionRules;
     /**
      * The definition revision number.
      **/
@@ -203,7 +203,7 @@ public class BuildDefinition {
      * Represents a variable group.
      **/
     @JsonProperty("variableGroups")
-    private VariableGroup[] variableGroups;
+    private List<VariableGroup> variableGroups;
 
     @JsonProperty("variables")
     private Map<String, BuildDefinitionVariable> variables;
@@ -256,11 +256,11 @@ public class BuildDefinition {
         this.createdDate = createdDate;
     }
 
-    public Demand[] getDemands() {
+    public List<Demand> getDemands() {
         return demands;
     }
 
-    public void setDemands(Demand[] demands) {
+    public void setDemands(List<Demand> demands) {
         this.demands = demands;
     }
 
@@ -280,11 +280,11 @@ public class BuildDefinition {
         this.draftOf = draftOf;
     }
 
-    public DefinitionReference[] getDrafts() {
+    public List<DefinitionReference> getDrafts() {
         return drafts;
     }
 
-    public void setDrafts(DefinitionReference[] drafts) {
+    public void setDrafts(List<DefinitionReference> drafts) {
         this.drafts = drafts;
     }
 
@@ -344,11 +344,11 @@ public class BuildDefinition {
         this.latestCompletedBuild = latestCompletedBuild;
     }
 
-    public BuildMetric[] getMetrics() {
+    public List<BuildMetric> getMetrics() {
         return metrics;
     }
 
-    public void setMetrics(BuildMetric[] metrics) {
+    public void setMetrics(List<BuildMetric> metrics) {
         this.metrics = metrics;
     }
 
@@ -360,11 +360,11 @@ public class BuildDefinition {
         this.name = name;
     }
 
-    public BuildOption[] getOptions() {
+    public List<BuildOption> getOptions() {
         return options;
     }
 
-    public void setOptions(BuildOption[] options) {
+    public void setOptions(List<BuildOption> options) {
         this.options = options;
     }
 
@@ -440,11 +440,11 @@ public class BuildDefinition {
         this.repository = repository;
     }
 
-    public RetentionPolicy[] getRetentionRules() {
+    public List<RetentionPolicy> getRetentionRules() {
         return retentionRules;
     }
 
-    public void setRetentionRules(RetentionPolicy[] retentionRules) {
+    public void setRetentionRules(List<RetentionPolicy> retentionRules) {
         this.retentionRules = retentionRules;
     }
 
@@ -496,11 +496,11 @@ public class BuildDefinition {
         this.url = url;
     }
 
-    public VariableGroup[] getVariableGroups() {
+    public List<VariableGroup> getVariableGroups() {
         return variableGroups;
     }
 
-    public void setVariableGroups(VariableGroup[] variableGroups) {
+    public void setVariableGroups(List<VariableGroup> variableGroups) {
         this.variableGroups = variableGroups;
     }
 
@@ -521,10 +521,10 @@ public class BuildDefinition {
                 ", buildNumberFormat='" + buildNumberFormat + '\'' +
                 ", comment='" + comment + '\'' +
                 ", createdDate='" + createdDate + '\'' +
-                ", demands=" + Arrays.toString(demands) +
+                ", demands=" + demands +
                 ", description='" + description + '\'' +
                 ", draftOf=" + draftOf +
-                ", drafts=" + Arrays.toString(drafts) +
+                ", drafts=" + drafts +
                 ", dropLocation='" + dropLocation + '\'' +
                 ", id=" + id +
                 ", jobAuthorizationScope=" + jobAuthorizationScope +
@@ -532,9 +532,9 @@ public class BuildDefinition {
                 ", jobTimeoutInMinutes=" + jobTimeoutInMinutes +
                 ", latestBuild=" + latestBuild +
                 ", latestCompletedBuild=" + latestCompletedBuild +
-                ", metrics=" + Arrays.toString(metrics) +
+                ", metrics=" + metrics +
                 ", name='" + name + '\'' +
-                ", options=" + Arrays.toString(options) +
+                ", options=" + options +
                 ", path='" + path + '\'' +
                 ", process=" + process +
                 ", processParameters=" + processParameters +
@@ -544,14 +544,14 @@ public class BuildDefinition {
                 ", queue=" + queue +
                 ", queueStatus=" + queueStatus +
                 ", repository=" + repository +
-                ", retentionRules=" + Arrays.toString(retentionRules) +
+                ", retentionRules=" + retentionRules +
                 ", revision=" + revision +
-                ", tags=" + Arrays.toString(tags) +
+                ", tags=" + tags +
                 ", triggers=" + triggers +
                 ", type=" + type +
                 ", uri='" + uri + '\'' +
                 ", url='" + url + '\'' +
-                ", variableGroups=" + Arrays.toString(variableGroups) +
+                ", variableGroups=" + variableGroups +
                 ", variables=" + variables +
                 '}';
     }

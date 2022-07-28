@@ -16,7 +16,7 @@ import java.util.*;
 import java.util.Map.Entry;
 
 import static org.azd.helpers.URLHelper.encodeSpace;
-import static org.azd.utils.Client.send;
+import static org.azd.utils.RestClient.send;
 
 /***
  * WorkItem Tracking class to manage work items API
@@ -60,7 +60,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
 
         String r = send(RequestMethod.POST, CONNECTION, WIT, CONNECTION.getProject(),
                 AREA + "/workitems", null, "$" + encodeSpace(workItemType), ApiVersion.WORK_ITEM_TRACKING,
-                null, null, List.of(req), null);
+                null, List.of(req), CustomHeader.JSON_PATCH);
 
         return MAPPER.mapJsonResponse(r, WorkItem.class);
     }
@@ -107,7 +107,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
 
         String r = send(RequestMethod.POST, CONNECTION, WIT, CONNECTION.getProject(),
                 AREA + "/workitems", null, "$" + encodeSpace(workItemType), ApiVersion.WORK_ITEM_TRACKING,
-                null, null, req, null);
+                null, req, CustomHeader.JSON_PATCH);
 
         return MAPPER.mapJsonResponse(r, WorkItem.class);
     }
@@ -157,7 +157,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
 
         String r = send(RequestMethod.POST, CONNECTION, WIT, CONNECTION.getProject(),
                 AREA + "/workitems", null, "$" + encodeSpace(workItemType), ApiVersion.WORK_ITEM_TRACKING,
-                null, null, req, null);
+                null, req, CustomHeader.JSON_PATCH);
 
         return MAPPER.mapJsonResponse(r, WorkItem.class);
     }
@@ -171,7 +171,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
     @Override
     public WorkItemDelete deleteWorkItem(int id) throws AzDException {
         String r = send(RequestMethod.DELETE, CONNECTION, WIT, CONNECTION.getProject(),
-                AREA + "/workitems", String.valueOf(id), null, ApiVersion.WORK_ITEM_TRACKING, null, null);
+                AREA + "/workitems", String.valueOf(id), null, ApiVersion.WORK_ITEM_TRACKING, null, null, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemDelete.class);
     }
@@ -194,7 +194,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
             }};
 
             String r = send(RequestMethod.DELETE, CONNECTION, WIT, CONNECTION.getProject(),
-                    AREA + "/workitems", String.valueOf(id), null, ApiVersion.WORK_ITEM_TRACKING, q, null);
+                    AREA + "/workitems", String.valueOf(id), null, ApiVersion.WORK_ITEM_TRACKING, q, null, null);
 
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
@@ -212,7 +212,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
     @Override
     public WorkItem getWorkItem(int id) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
-                AREA + "/workitems", Integer.toString(id), null, ApiVersion.WORK_ITEM_TRACKING, null, null);
+                AREA + "/workitems", Integer.toString(id), null, ApiVersion.WORK_ITEM_TRACKING, null, null, null);
 
         return MAPPER.mapJsonResponse(r, WorkItem.class);
     }
@@ -232,7 +232,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
-                AREA + "/workitems", Integer.toString(id), null, ApiVersion.WORK_ITEM_TRACKING, q, null);
+                AREA + "/workitems", Integer.toString(id), null, ApiVersion.WORK_ITEM_TRACKING, q, null, null);
 
         return MAPPER.mapJsonResponse(r, WorkItem.class);
     }
@@ -254,7 +254,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
-                AREA + "/workitems", Integer.toString(id), null, ApiVersion.WORK_ITEM_TRACKING, q, null);
+                AREA + "/workitems", Integer.toString(id), null, ApiVersion.WORK_ITEM_TRACKING, q, null, null);
 
         return MAPPER.mapJsonResponse(r, WorkItem.class);
     }
@@ -276,7 +276,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
-                AREA + "/workitems", Integer.toString(id), null, ApiVersion.WORK_ITEM_TRACKING, q, null);
+                AREA + "/workitems", Integer.toString(id), null, ApiVersion.WORK_ITEM_TRACKING, q, null, null);
 
         return MAPPER.mapJsonResponse(r, WorkItem.class);
     }
@@ -300,7 +300,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
-                AREA + "/workitems", Integer.toString(id), null, ApiVersion.WORK_ITEM_TRACKING, q, null);
+                AREA + "/workitems", Integer.toString(id), null, ApiVersion.WORK_ITEM_TRACKING, q, null, null);
 
         return MAPPER.mapJsonResponse(r, WorkItem.class);
     }
@@ -318,7 +318,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
-                AREA + "/workitems", null, null, ApiVersion.WORK_ITEM_TRACKING, q, null);
+                AREA + "/workitems", null, null, ApiVersion.WORK_ITEM_TRACKING, q, null, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemList.class);
     }
@@ -339,7 +339,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
-                AREA + "/workitems", null, null, ApiVersion.WORK_ITEM_TRACKING, q, null);
+                AREA + "/workitems", null, null, ApiVersion.WORK_ITEM_TRACKING, q, null, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemList.class);
     }
@@ -362,7 +362,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
-                AREA + "/workitems", null, null, ApiVersion.WORK_ITEM_TRACKING, q, null);
+                AREA + "/workitems", null, null, ApiVersion.WORK_ITEM_TRACKING, q, null, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemList.class);
     }
@@ -385,7 +385,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
-                AREA + "/workitems", null, null, ApiVersion.WORK_ITEM_TRACKING, q, null);
+                AREA + "/workitems", null, null, ApiVersion.WORK_ITEM_TRACKING, q, null, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemList.class);
     }
@@ -414,7 +414,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
-                AREA + "/workitems", null, null, ApiVersion.WORK_ITEM_TRACKING, q, null);
+                AREA + "/workitems", null, null, ApiVersion.WORK_ITEM_TRACKING, q, null, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemList.class);
     }
@@ -428,7 +428,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
     @Override
     public WorkItemList getWorkItemRevisions(int workItemId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
-                AREA + "/workitems", Integer.toString(workItemId), "revisions", ApiVersion.WORK_ITEM_TRACKING, null, null);
+                AREA + "/workitems", Integer.toString(workItemId), "revisions", ApiVersion.WORK_ITEM_TRACKING, null, null, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemList.class);
     }
@@ -448,7 +448,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
-                AREA + "/workitems", Integer.toString(workItemId), "revisions", ApiVersion.WORK_ITEM_TRACKING, q, null);
+                AREA + "/workitems", Integer.toString(workItemId), "revisions", ApiVersion.WORK_ITEM_TRACKING, q, null, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemList.class);
     }
@@ -473,7 +473,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
-                AREA + "/workitems", Integer.toString(workItemId), "revisions", ApiVersion.WORK_ITEM_TRACKING, q, null);
+                AREA + "/workitems", Integer.toString(workItemId), "revisions", ApiVersion.WORK_ITEM_TRACKING, q, null, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemList.class);
     }
@@ -489,7 +489,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
     public WorkItem getWorkItemRevision(int workItemId, int revisionNumber) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
                 AREA + "/workitems", Integer.toString(workItemId), "revisions/" + revisionNumber,
-                ApiVersion.WORK_ITEM_TRACKING, null, null);
+                ApiVersion.WORK_ITEM_TRACKING, null, null, null);
 
         return MAPPER.mapJsonResponse(r, WorkItem.class);
     }
@@ -511,7 +511,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
 
         String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
                 AREA + "/workitems", Integer.toString(workItemId), "revisions/" + revisionNumber,
-                ApiVersion.WORK_ITEM_TRACKING, q, null);
+                ApiVersion.WORK_ITEM_TRACKING, q, null, null);
 
         return MAPPER.mapJsonResponse(r, WorkItem.class);
     }
@@ -530,7 +530,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, WIT, CONNECTION.getProject() + "/" + encodeSpace(team),
-                AREA, null, "wiql", ApiVersion.WIT_WIQL, null, body);
+                AREA, null, "wiql", ApiVersion.WIT_WIQL, null, body, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, WorkItemQueryResult.class);
     }
@@ -556,7 +556,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, WIT, CONNECTION.getProject() + "/" + encodeSpace(team),
-                AREA, null, "wiql", ApiVersion.WIT_WIQL, q, body);
+                AREA, null, "wiql", ApiVersion.WIT_WIQL, q, body, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, WorkItemQueryResult.class);
     }
@@ -570,7 +570,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
     public Void removeWorkItemFromRecycleBin(int id) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, WIT, CONNECTION.getProject(),
-                    AREA + "/recyclebin", Integer.toString(id), null, ApiVersion.WIT_RECYCLE_BIN, null, null);
+                    AREA + "/recyclebin", Integer.toString(id), null, ApiVersion.WIT_RECYCLE_BIN, null, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
             throw e;
@@ -587,7 +587,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
     @Override
     public WorkItemDeleteReference getWorkItemFromRecycleBin(int id) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
-                AREA + "/recyclebin", Integer.toString(id), null, ApiVersion.WIT_RECYCLE_BIN, null, null);
+                AREA + "/recyclebin", Integer.toString(id), null, ApiVersion.WIT_RECYCLE_BIN, null, null, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemDeleteReference.class);
     }
@@ -600,7 +600,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
     @Override
     public WorkItemDeleteShallowReferences getDeletedWorkItemsFromRecycleBin() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
-                AREA + "/recyclebin", null, null, ApiVersion.WIT_RECYCLE_BIN, null, null);
+                AREA + "/recyclebin", null, null, ApiVersion.WIT_RECYCLE_BIN, null, null, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemDeleteShallowReferences.class);
     }
@@ -618,7 +618,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(),
-                AREA + "/recyclebin", null, null, ApiVersion.WIT_RECYCLE_BIN, q, null);
+                AREA + "/recyclebin", null, null, ApiVersion.WIT_RECYCLE_BIN, q, null, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemDeleteReferences.class);
     }
@@ -636,7 +636,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         }};
 
         String r = send(RequestMethod.PATCH, CONNECTION, WIT, CONNECTION.getProject(),
-                AREA + "/recyclebin", Integer.toString(id), null, ApiVersion.WIT_RECYCLE_BIN, null, b);
+                AREA + "/recyclebin", Integer.toString(id), null, ApiVersion.WIT_RECYCLE_BIN, null, b, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemDeleteReference.class);
     }
@@ -681,8 +681,8 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         }
 
         String r = send(RequestMethod.PATCH, CONNECTION, WIT, CONNECTION.getProject(), AREA + "/workitems",
-                Integer.toString(workItemId), null, ApiVersion.WORK_ITEM_TRACKING, null, null, req,
-                "application/json-patch+json; charset=utf-8");
+                Integer.toString(workItemId), null, ApiVersion.WORK_ITEM_TRACKING, null, req,
+                CustomHeader.JSON_PATCH);
 
         return MAPPER.mapJsonResponse(r, WorkItem.class);
     }
@@ -746,8 +746,8 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         }};
 
         String r = send(RequestMethod.PATCH, CONNECTION, WIT, CONNECTION.getProject(), AREA + "/workitems",
-                Integer.toString(workItemId), null, ApiVersion.WORK_ITEM_TRACKING, q, null, req,
-                "application/json-patch+json; charset=utf-8");
+                Integer.toString(workItemId), null, ApiVersion.WORK_ITEM_TRACKING, q, req,
+                CustomHeader.JSON_PATCH);
 
         return MAPPER.mapJsonResponse(r, WorkItem.class);
     }
@@ -793,8 +793,8 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         }
 
         String reply = send(RequestMethod.PATCH, CONNECTION, WIT, CONNECTION.getProject(), AREA + "/workitems",
-                Integer.toString(workItemId), null, ApiVersion.WORK_ITEM_TRACKING, null, null, reqBody,
-                "application/json-patch+json; charset=utf-8");
+                Integer.toString(workItemId), null, ApiVersion.WORK_ITEM_TRACKING, null, reqBody,
+                CustomHeader.JSON_PATCH);
 
         return MAPPER.mapJsonResponse(reply, WorkItem.class);
     }
@@ -844,8 +844,8 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         }
 
         String reply = send(RequestMethod.PATCH, CONNECTION, WIT, CONNECTION.getProject(), AREA + "/workitems",
-                Integer.toString(workItemId), null, ApiVersion.WORK_ITEM_TRACKING, null, null, reqBody,
-                "application/json-patch+json; charset=utf-8");
+                Integer.toString(workItemId), null, ApiVersion.WORK_ITEM_TRACKING, null, reqBody,
+                CustomHeader.JSON_PATCH);
 
         return MAPPER.mapJsonResponse(reply, WorkItem.class);
     }
@@ -858,7 +858,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
     @Override
     public WorkItemTypes getWorkItemTypes() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(), AREA, null, "workitemtypes",
-                ApiVersion.WORK_ITEM_TYPES, null, null);
+                ApiVersion.WORK_ITEM_TYPES, null, null, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemTypes.class);
     }
@@ -872,13 +872,13 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
     @Override
     public WorkItemType getWorkItemType(String workItemTypeName) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(), AREA, null,
-                "workitemtypes/" + workItemTypeName, ApiVersion.WORK_ITEM_TYPES, null, null);
+                "workitemtypes/" + workItemTypeName, ApiVersion.WORK_ITEM_TYPES, null, null, null);
 
         return MAPPER.mapJsonResponse(r, WorkItemType.class);
     }
 
     /**
-     * @deprecated This method is deprecated as of version 4.0.1. Please use createAttachment()
+     * @deprecated This method is deprecated as of version 5.0.0. Please use createAttachment()
      * with content stream for working with work item attachment API.
      */
     @Override
@@ -893,7 +893,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, WIT, CONNECTION.getProject(), AREA, null,
-                "attachments", ApiVersion.WORK_ITEM_ATTACHMENT, q, false, contents);
+                "attachments", ApiVersion.WORK_ITEM_ATTACHMENT, q, contents, CustomHeader.STREAM);
 
         return MAPPER.mapJsonResponse(r, AttachmentReference.class);
     }
@@ -919,7 +919,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         }};
 
         var response = send(RequestMethod.POST, CONNECTION, WIT, CONNECTION.getProject(), AREA, null,
-                "attachments", ApiVersion.WORK_ITEM_ATTACHMENT, q, "application/octet-stream", contentStream, null, false);
+                "attachments", ApiVersion.WORK_ITEM_ATTACHMENT, q, contentStream, CustomHeader.STREAM, false);
 
         String r = StreamHelper.convertToString(response);
 
@@ -943,7 +943,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         }};
 
         return send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(), AREA + "/attachments", id,
-                null, ApiVersion.WORK_ITEM_ATTACHMENT, q, "application/octet-stream", null, null, false);
+                null, ApiVersion.WORK_ITEM_ATTACHMENT, q, null, CustomHeader.STREAM, false);
     }
 
     /**
@@ -963,11 +963,11 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         }};
 
         return send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(), AREA + "/attachments", id,
-                null, ApiVersion.WORK_ITEM_ATTACHMENT, q, "application/zip", null, null, false);
+                null, ApiVersion.WORK_ITEM_ATTACHMENT, q, null, CustomHeader.STREAM_ZIP, false);
     }
 
     /**
-     * @deprecated This method is deprecated as of version 4.0.1. Please use getAttachmentContent() or getAttachmentAsZip()
+     * @deprecated This method is deprecated as of version 5.0.0. Please use getAttachmentContent() or getAttachmentAsZip()
      * for working with work item attachment API.
      */
     @Override
@@ -978,7 +978,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(), AREA + "/attachments", id,
-                null, ApiVersion.WORK_ITEM_ATTACHMENT, q, null);
+                null, ApiVersion.WORK_ITEM_ATTACHMENT, q, null, CustomHeader.JSON);
 
         return r;
     }
@@ -1027,8 +1027,8 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         }
 
         String res = send(RequestMethod.PATCH, CONNECTION, WIT, CONNECTION.getProject(), AREA + "/workitems",
-                Integer.toString(workItemId), null, ApiVersion.WORK_ITEM_TRACKING, null, null, reqBody,
-                "application/json-patch+json; charset=utf-8");
+                Integer.toString(workItemId), null, ApiVersion.WORK_ITEM_TRACKING, null, reqBody,
+                CustomHeader.JSON_PATCH);
 
         return MAPPER.mapJsonResponse(res, WorkItem.class);
     }
@@ -1075,8 +1075,8 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
 
 
         String res = send(RequestMethod.PATCH, CONNECTION, WIT, CONNECTION.getProject(), AREA + "/workitems",
-                Integer.toString(workItemId), null, ApiVersion.WORK_ITEM_TRACKING, null, null, reqBody,
-                "application/json-patch+json; charset=utf-8");
+                Integer.toString(workItemId), null, ApiVersion.WORK_ITEM_TRACKING, null, reqBody,
+                CustomHeader.JSON_PATCH);
 
         return MAPPER.mapJsonResponse(res, WorkItem.class);
     }
@@ -1084,7 +1084,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
     @Override
     public AccountRecentActivityWorkItems getMyWorkRecentActivity() throws AzDException {
         String res = send(RequestMethod.GET, CONNECTION, null, null, "work/accountmyworkrecentactivity",
-                null, null, ApiVersion.WORK_ITEM_TYPES, null, null);
+                null, null, ApiVersion.WORK_ITEM_TYPES, null, null, null);
 
         return MAPPER.mapJsonResponse(res, AccountRecentActivityWorkItems.class);
     }

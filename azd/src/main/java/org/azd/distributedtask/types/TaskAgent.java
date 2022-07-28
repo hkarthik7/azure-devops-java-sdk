@@ -48,12 +48,12 @@ public class TaskAgent {
  	* Whether or not this agent should run jobs. 
 	**/
 	@JsonProperty("enabled")
-	private Boolean enabled;
+	private boolean enabled;
 	/**
  	* Identifier of the agent. 
 	**/
 	@JsonProperty("id")
-	private Integer id;
+	private int id;
 	/**
  	* The last request which was completed by this agent. 
 	**/
@@ -63,7 +63,7 @@ public class TaskAgent {
  	* Maximum job parallelism allowed for this agent. 
 	**/
 	@JsonProperty("maxParallelism")
-	private Integer maxParallelism;
+	private int maxParallelism;
 	/**
  	* Name of the agent. 
 	**/
@@ -139,21 +139,21 @@ public class TaskAgent {
 
 	public void setCreatedOn(String createdOn) { this.createdOn = createdOn; }
 
-	public Boolean getEnabled() { return enabled; }
+	public boolean getEnabled() { return enabled; }
 
-	public void setEnabled(Boolean enabled) { this.enabled = enabled; }
+	public void setEnabled(boolean enabled) { this.enabled = enabled; }
 
-	public Integer getId() { return id; }
+	public int getId() { return id; }
 
-	public void setId(Integer id) { this.id = id; }
+	public void setId(int id) { this.id = id; }
 
 	public TaskAgentJobRequest getLastCompletedRequest() { return lastCompletedRequest; }
 
 	public void setLastCompletedRequest(TaskAgentJobRequest lastCompletedRequest) { this.lastCompletedRequest = lastCompletedRequest; }
 
-	public Integer getMaxParallelism() { return maxParallelism; }
+	public int getMaxParallelism() { return maxParallelism; }
 
-	public void setMaxParallelism(Integer maxParallelism) { this.maxParallelism = maxParallelism; }
+	public void setMaxParallelism(int maxParallelism) { this.maxParallelism = maxParallelism; }
 
 	public String getName() { return name; }
 

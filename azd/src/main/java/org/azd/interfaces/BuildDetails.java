@@ -7,7 +7,6 @@ import org.azd.exceptions.AzDException;
 
 import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
 
 public interface BuildDetails {
     Void deleteBuild(int buildId) throws AzDException;

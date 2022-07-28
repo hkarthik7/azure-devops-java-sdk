@@ -92,21 +92,24 @@ public class FeedManagementApiTest {
         f.getFeeds("Administrator", true, true);
     }
 
-    @Test(expected = AzDException.class)
+    @Test
     public void shouldSetFeedPermissions() throws AzDException {
-        f.setFeedPermissions("TestFeed", null, "", false, "reader");
+        var feedPermissions = f.getFeedPermissions("TestFeed");
+        f.setFeedPermissions("TestFeed", feedPermissions);
     }
 
-    @Test(expected = AzDException.class)
+    @Test
     public void shouldUpdateAFeed() throws AzDException {
-        var feedId = "93aaa3a7-a876-4b01-be80-e7a14b595ec2";
-        // feedId = f.getFeed("TestFeed").getId();
-        f.updateFeed(feedId, "TestFeed", true, null, false, true);
+         var feed = f.getFeed("TestFeed");
+        feed.setBadgesEnabled(false);
+        f.updateFeed(feed.getId(), feed);
     }
 
     @Test
     public void shouldUpdateAFeedView() throws AzDException {
-        f.updateFeedView("TestFeed", "myView", FeedViewType.RELEASE, FeedVisibility.ORGANIZATION);
+        var feedView = f.getFeedView("TestFeed", "myView");
+        feedView.setVisibility(FeedVisibility.PRIVATE);
+        f.updateFeedView("TestFeed", feedView.getName(), feedView);
     }
 
     @Test
@@ -121,7 +124,7 @@ public class FeedManagementApiTest {
             // ignore wait interrupt
         }
         Feed feed = f.getFeed(feedName);
-        f.updateFeed(feed.getId(), feedName, true, "my description", true, false);
+//        f.updateFeed(feed.getId(), feedName, true, "my description", true, false);
 
         f.deleteFeed(feed.getId());
     }

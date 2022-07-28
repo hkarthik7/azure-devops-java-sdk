@@ -6,10 +6,12 @@ package org.azd.enums;
 public enum Instance {
     /**
      * Azure DevOps Api base instance
+     * "https://dev.azure.com/"
      */
     BASE_INSTANCE("https://dev.azure.com/"),
     /**
      * Accounts Api instance
+     * "https://app.vssps.visualstudio.com"
      */
     ACCOUNT_INSTANCE("https://app.vssps.visualstudio.com");
 

@@ -2,6 +2,7 @@ package org.azd.graph;
 
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
+import org.azd.enums.CustomHeader;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.graph.types.*;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.azd.utils.Client.send;
+import static org.azd.utils.RestClient.send;
 
 /***
  * GraphApi class to manage graph users and groups
@@ -54,7 +55,7 @@ public class GraphApi extends AzDAsyncApi<GraphApi> implements GraphDetails {
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, GRAPH, null,
-                AREA, null, "users/" + userDescriptor, ApiVersion.GRAPH, null, b);
+                AREA, null, "users/" + userDescriptor, ApiVersion.GRAPH, null, b, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, GraphUser.class);
     }
@@ -78,7 +79,7 @@ public class GraphApi extends AzDAsyncApi<GraphApi> implements GraphDetails {
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, GRAPH, null,
-                AREA, null, "users", ApiVersion.GRAPH, q, b);
+                AREA, null, "users", ApiVersion.GRAPH, q, b, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, GraphUser.class);
     }
@@ -92,7 +93,7 @@ public class GraphApi extends AzDAsyncApi<GraphApi> implements GraphDetails {
     public Void deleteUser(String userDescriptor) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, GRAPH, null,
-                    AREA, null, "users/" + userDescriptor, ApiVersion.GRAPH, null, null);
+                    AREA, null, "users/" + userDescriptor, ApiVersion.GRAPH, null, null, null);
 
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
@@ -110,7 +111,7 @@ public class GraphApi extends AzDAsyncApi<GraphApi> implements GraphDetails {
     @Override
     public GraphUser getUser(String userDescriptor) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, GRAPH, null,
-                AREA, null, "users/" + userDescriptor, ApiVersion.GRAPH, null, null);
+                AREA, null, "users/" + userDescriptor, ApiVersion.GRAPH, null, null, null);
 
         return MAPPER.mapJsonResponse(r, GraphUser.class);
     }
@@ -123,7 +124,7 @@ public class GraphApi extends AzDAsyncApi<GraphApi> implements GraphDetails {
     @Override
     public GraphUsers getUsers() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, GRAPH, null,
-                AREA, null, "users", ApiVersion.GRAPH, null, null);
+                AREA, null, "users", ApiVersion.GRAPH, null, null, null);
 
         return MAPPER.mapJsonResponse(r, GraphUsers.class);
     }
@@ -151,7 +152,7 @@ public class GraphApi extends AzDAsyncApi<GraphApi> implements GraphDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, GRAPH, null,
-                AREA, null, "users", ApiVersion.GRAPH, q, null);
+                AREA, null, "users", ApiVersion.GRAPH, q, null, null);
 
         return MAPPER.mapJsonResponse(r, GraphUsers.class);
     }
@@ -165,7 +166,7 @@ public class GraphApi extends AzDAsyncApi<GraphApi> implements GraphDetails {
     @Override
     public GraphGroup getGroup(String groupDescriptor) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, GRAPH, null,
-                AREA, null, "groups/" + groupDescriptor, ApiVersion.GRAPH, null, null);
+                AREA, null, "groups/" + groupDescriptor, ApiVersion.GRAPH, null, null, null);
 
         return MAPPER.mapJsonResponse(r, GraphGroup.class);
     }
@@ -178,7 +179,7 @@ public class GraphApi extends AzDAsyncApi<GraphApi> implements GraphDetails {
     @Override
     public GraphGroups getGroups() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, GRAPH, null,
-                AREA, null, "groups", ApiVersion.GRAPH, null, null);
+                AREA, null, "groups", ApiVersion.GRAPH, null, null, null);
 
         return MAPPER.mapJsonResponse(r, GraphGroups.class);
     }
@@ -195,7 +196,7 @@ public class GraphApi extends AzDAsyncApi<GraphApi> implements GraphDetails {
             put("direction", "down");
         }};
         String r = send(RequestMethod.GET, CONNECTION, GRAPH, null,
-                AREA, null, "memberships/" + groupDescriptor, ApiVersion.GRAPH, q, null);
+                AREA, null, "memberships/" + groupDescriptor, ApiVersion.GRAPH, q, null, null);
 
         return MAPPER.mapJsonResponse(r, GraphMemberships.class);
     }
@@ -212,7 +213,7 @@ public class GraphApi extends AzDAsyncApi<GraphApi> implements GraphDetails {
             put("direction", "up");
         }};
         String r = send(RequestMethod.GET, CONNECTION, GRAPH, null,
-                AREA, null, "memberships/" + subjectDescriptor, ApiVersion.GRAPH, q, null);
+                AREA, null, "memberships/" + subjectDescriptor, ApiVersion.GRAPH, q, null, null);
 
         return MAPPER.mapJsonResponse(r, GraphMemberships.class);
     }
@@ -229,7 +230,7 @@ public class GraphApi extends AzDAsyncApi<GraphApi> implements GraphDetails {
     @Override
     public GraphMembership addMembership(String subjectDescriptor, String groupDescriptor) throws AzDException {
         String r = send(RequestMethod.PUT, CONNECTION, GRAPH, null,
-                AREA, null, "memberships/" + subjectDescriptor + "/" + groupDescriptor, ApiVersion.GRAPH, null, null);
+                AREA, null, "memberships/" + subjectDescriptor + "/" + groupDescriptor, ApiVersion.GRAPH, null, null, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, GraphMembership.class);
     }
@@ -243,7 +244,7 @@ public class GraphApi extends AzDAsyncApi<GraphApi> implements GraphDetails {
     @Override
     public Void removeMembership(String subjectDescriptor, String groupDescriptor) throws AzDException {
         String r = send(RequestMethod.DELETE, CONNECTION, GRAPH, null,
-                AREA, null, "memberships/" + subjectDescriptor + "/" + groupDescriptor, ApiVersion.GRAPH, null, null);
+                AREA, null, "memberships/" + subjectDescriptor + "/" + groupDescriptor, ApiVersion.GRAPH, null, null, null);
 
         if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         return null;
@@ -278,7 +279,7 @@ public class GraphApi extends AzDAsyncApi<GraphApi> implements GraphDetails {
             put("description", description);
         }};
         String r = send(RequestMethod.POST, CONNECTION, GRAPH, null,
-                AREA, null, "groups", ApiVersion.GRAPH, q, b);
+                AREA, null, "groups", ApiVersion.GRAPH, q, b, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, GraphMembership.class);
     }
@@ -293,7 +294,7 @@ public class GraphApi extends AzDAsyncApi<GraphApi> implements GraphDetails {
     @Override
     public Void deleteGroup(String groupDescriptor) throws AzDException {
         String r = send(RequestMethod.DELETE, CONNECTION, GRAPH, null,
-                AREA, null, "groups/" + groupDescriptor, ApiVersion.GRAPH, null, null);
+                AREA, null, "groups/" + groupDescriptor, ApiVersion.GRAPH, null, null, null);
         if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         return null;
     }
@@ -310,7 +311,7 @@ public class GraphApi extends AzDAsyncApi<GraphApi> implements GraphDetails {
     @Override
     public GraphDescriptor getDescriptor(String storageKey) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, GRAPH, null,
-                AREA, null, "descriptors/" + storageKey, ApiVersion.GRAPH, null, null);
+                AREA, null, "descriptors/" + storageKey, ApiVersion.GRAPH, null, null, null);
 
         return MAPPER.mapJsonResponse(r, GraphDescriptor.class);
     }
@@ -336,7 +337,7 @@ public class GraphApi extends AzDAsyncApi<GraphApi> implements GraphDetails {
             }});
         }};
         String r = send(RequestMethod.POST, CONNECTION, GRAPH, null,
-                AREA, null, "subjectlookup", ApiVersion.GRAPH, null, b);
+                AREA, null, "subjectlookup", ApiVersion.GRAPH, null, b, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, SubjectLookupResponse.class);
     }

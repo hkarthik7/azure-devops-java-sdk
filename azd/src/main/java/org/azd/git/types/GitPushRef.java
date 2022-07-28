@@ -1,71 +1,65 @@
 package org.azd.git.types;
+/**
+----------------------------------------------------------
+	GENERATED FILE, should be edited to suit the purpose.
+----------------------------------------------------------
+**/
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonNode;
 import org.azd.common.types.Author;
 
+/**
+ * User info and date for Git operations. 
+**/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GitPushRef {
-    @JsonProperty("_links")
-    private JsonNode _links;
-    @JsonProperty("date")
-    private String date;
-    @JsonProperty("pushId")
-    private int pushId;
-    @JsonProperty("pushedBy")
-    private Author pushedBy;
-    @JsonProperty("url")
-    private String url;
+	/**
+ 	* The class to represent a collection of REST reference links. 
+	**/
+	@JsonProperty("_links")
+	private Object _links;
 
-    public JsonNode get_links() {
-        return _links;
-    }
+	@JsonProperty("date")
+	private String date;
 
-    public void set_links(JsonNode _links) {
-        this._links = _links;
-    }
+	@JsonProperty("pushId")
+	private int pushId;
 
-    public String getDate() {
-        return date;
-    }
+	@JsonProperty("pushedBy")
+	private Author pushedBy;
 
-    public void setDate(String date) {
-        this.date = date;
-    }
+	@JsonProperty("url")
+	private String url;
 
-    public int getPushId() {
-        return pushId;
-    }
+	public Object get_links() { return _links; }
 
-    public void setPushId(int pushId) {
-        this.pushId = pushId;
-    }
+	public void set_links(Object _links) { this._links = _links; }
 
-    public Author getPushedBy() {
-        return pushedBy;
-    }
+	public String getDate() { return date; }
 
-    public void setPushedBy(Author pushedBy) {
-        this.pushedBy = pushedBy;
-    }
+	public void setDate(String date) { this.date = date; }
 
-    public String getUrl() {
-        return url;
-    }
+	public int getPushId() { return pushId; }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
+	public void setPushId(int pushId) { this.pushId = pushId; }
 
-    @Override
-    public String toString() {
-        return "GitPushRef{" +
-                "_links=" + _links +
-                ", date='" + date + '\'' +
-                ", pushId=" + pushId +
-                ", pushedBy=" + pushedBy +
-                ", url='" + url + '\'' +
-                '}';
-    }
+	public Author getPushedBy() { return pushedBy; }
+
+	public void setPushedBy(Author pushedBy) { this.pushedBy = pushedBy; }
+
+	public String getUrl() { return url; }
+
+	public void setUrl(String url) { this.url = url; }
+
+	@Override
+	public String toString() {
+		return "GitPushRef{" +
+				"_links=" + _links +
+				", date='" + date + '\'' +
+				", pushId=" + pushId +
+				", pushedBy=" + pushedBy +
+				", url='" + url + '\'' +
+				'}';
+	}
 }

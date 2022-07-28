@@ -4,7 +4,7 @@ import org.azd.core.CoreApi;
 import org.azd.core.types.Project;
 import org.azd.exceptions.AzDException;
 import org.azd.git.GitApi;
-import org.azd.git.types.Repository;
+import org.azd.git.types.GitRepository;
 import org.azd.graph.GraphApi;
 import org.azd.graph.types.GraphGroup;
 import org.azd.graph.types.GraphUser;
@@ -339,7 +339,7 @@ public class SecurityApiTest {
         Optional<GraphUser> userOptional = graphApi.getUsers().getUsers().stream().findAny();
         assumeTrue(userOptional.isPresent());
 //        Optional<Repository> repositoryOptional = gitApi.getRepositories().getRepositories().stream().findAny();
-        Optional<Repository> repositoryOptional = gitApi.getRepositories().getRepositories().stream()
+        Optional<GitRepository> repositoryOptional = gitApi.getRepositories().getRepositories().stream()
                 .filter(x -> x.getName().equals("newRepo"))
                 .findFirst();
         assumeTrue(repositoryOptional.isPresent());

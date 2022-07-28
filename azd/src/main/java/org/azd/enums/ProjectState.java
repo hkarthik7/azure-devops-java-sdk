@@ -37,7 +37,7 @@ public enum ProjectState {
      * Project is in the process of being created.
      **/
     @JsonProperty("new")
-    _NEW,
+    NEW,
     /**
      * Project has not been changed.
      **/

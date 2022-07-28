@@ -11,7 +11,7 @@ import org.azd.utils.AzDAsyncApi;
 
 import java.util.*;
 
-import static org.azd.utils.Client.send;
+import static org.azd.utils.RestClient.send;
 
 /***
  * GIT class to manage git API
@@ -39,10 +39,10 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * @param repositoryName Name of the repository
      * @param projectId id of the project
      * @throws AzDException Default Api Exception handler.
-     * @return git repository object {@link Repository}
+     * @return git repository object {@link GitRepository}
      */
     @Override
-    public Repository createRepository(String repositoryName, String projectId) throws AzDException {
+    public GitRepository createRepository(String repositoryName, String projectId) throws AzDException {
         LinkedHashMap<String, Object> h = new LinkedHashMap<>() {{
             put("name", repositoryName);
             put("project", new LinkedHashMap<String, String>() {{
@@ -50,8 +50,8 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
             }});
         }};
         String r = send(RequestMethod.POST, CONNECTION, GIT, projectId, AREA, null, "repositories", ApiVersion.GIT,
-                null, h);
-        return MAPPER.mapJsonResponse(r, Repository.class);
+                null, h, CustomHeader.JSON_CONTENT_TYPE);
+        return MAPPER.mapJsonResponse(r, GitRepository.class);
     }
 
     /***
@@ -63,7 +63,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     public Void deleteRepository(String repositoryId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                    repositoryId, null, ApiVersion.GIT, null, null);
+                    repositoryId, null, ApiVersion.GIT, null, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
             throw e;
@@ -80,7 +80,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     public Void deleteRepositoryFromRecycleBin(String repositoryId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, GIT, CONNECTION.getProject(),
-                    AREA + "/recycleBin/repositories", repositoryId, null, ApiVersion.GIT, null, null);
+                    AREA + "/recycleBin/repositories", repositoryId, null, ApiVersion.GIT, null, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
             throw e;
@@ -96,7 +96,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     @Override
     public GitDeletedRepositories getDeletedRepositories() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA, null, "deletedrepositories",
-                ApiVersion.GIT, null, null);
+                ApiVersion.GIT, null, null, null);
 
         return MAPPER.mapJsonResponse(r, GitDeletedRepositories.class);
     }
@@ -109,7 +109,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     @Override
     public GitDeletedRepositories getRecycleBinRepositories() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA, null,
-                "recycleBin/repositories", ApiVersion.GIT, null, null);
+                "recycleBin/repositories", ApiVersion.GIT, null, null, null);
 
         return MAPPER.mapJsonResponse(r, GitDeletedRepositories.class);
     }
@@ -121,11 +121,11 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * @return git repository object
      */
     @Override
-    public Repository getRepository(String repositoryName) throws AzDException {
+    public GitRepository getRepository(String repositoryName) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, null, ApiVersion.GIT, null, null);
+                repositoryName, null, ApiVersion.GIT, null, null, null);
 
-        return MAPPER.mapJsonResponse(r, Repository.class);
+        return MAPPER.mapJsonResponse(r, GitRepository.class);
     }
 
     /***
@@ -136,7 +136,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     @Override
     public Repositories getRepositories() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA, null, "repositories",
-                ApiVersion.GIT, null, null);
+                ApiVersion.GIT, null, null, null);
 
         return MAPPER.mapJsonResponse(r, Repositories.class);
     }
@@ -148,18 +148,18 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * @param repositoryId pass the repository id
      * @param deleted Setting to false will undo earlier deletion and restore the repository.
      * @throws AzDException Default Api Exception handler.
-     * @return object of git repository {@link Repository}
+     * @return object of git repository {@link GitRepository}
      */
     @Override
-    public Repository restoreRepositoryFromRecycleBin(String repositoryId, boolean deleted) throws AzDException {
+    public GitRepository restoreRepositoryFromRecycleBin(String repositoryId, boolean deleted) throws AzDException {
         HashMap<String, Object> h = new HashMap<>() {{
             put("deleted", deleted);
         }};
 
         String r = send(RequestMethod.PATCH, CONNECTION, GIT, CONNECTION.getProject(),
-                AREA + "/recycleBin/repositories", repositoryId, null, ApiVersion.GIT, null, h);
+                AREA + "/recycleBin/repositories", repositoryId, null, ApiVersion.GIT, null, h, null);
 
-        return MAPPER.mapJsonResponse(r, Repository.class);
+        return MAPPER.mapJsonResponse(r, GitRepository.class);
     }
 
     /***
@@ -171,7 +171,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * @return repository object
      */
     @Override
-    public Repository updateRepository(String repositoryId, String repositoryName, String defaultBranchName)
+    public GitRepository updateRepository(String repositoryId, String repositoryName, String defaultBranchName)
             throws AzDException {
         HashMap<String, Object> h = new HashMap<>() {{
             put("name", repositoryName);
@@ -179,9 +179,9 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.PATCH, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryId, null, ApiVersion.GIT, null, h);
+                repositoryId, null, ApiVersion.GIT, null, h, CustomHeader.JSON_CONTENT_TYPE);
 
-        return MAPPER.mapJsonResponse(r, Repository.class);
+        return MAPPER.mapJsonResponse(r, GitRepository.class);
     }
 
     /***
@@ -193,10 +193,10 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * @param description The description of the pull request.
      * @param reviewers A list of reviewers on the pull request along with the state of their votes.
      * @throws AzDException Default Api Exception handler.
-     * @return an object of git pull request {@link PullRequest}
+     * @return an object of git pull request {@link GitPullRequest}
      */
     @Override
-    public PullRequest createPullRequest(String repositoryId, String sourceRefName, String targetRefName, String title,
+    public GitPullRequest createPullRequest(String repositoryId, String sourceRefName, String targetRefName, String title,
                                          String description, String[] reviewers) throws AzDException {
         List<Object> o = new ArrayList<>();
 
@@ -216,9 +216,9 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryId, "pullrequests", ApiVersion.GIT, null, h);
+                repositoryId, "pullrequests", ApiVersion.GIT, null, h, CustomHeader.JSON_CONTENT_TYPE);
 
-        return MAPPER.mapJsonResponse(r, PullRequest.class);
+        return MAPPER.mapJsonResponse(r, GitPullRequest.class);
     }
 
     /***
@@ -231,11 +231,11 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * @param title The title of the pull request.
      * @param description The description of the pull request.
      * @param isDraft if set to true the pull request will be in draft mode.
-     * @return an object of git pull request {@link PullRequest}
+     * @return an object of git pull request {@link GitPullRequest}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public PullRequest createPullRequest(String repositoryId, String sourceRefName, String targetRefName, String title,
+    public GitPullRequest createPullRequest(String repositoryId, String sourceRefName, String targetRefName, String title,
                                          String description, boolean isDraft) throws AzDException {
         String referenceHead = "refs/heads/";
         var sourceBranch = sourceRefName.contains(referenceHead) ? sourceRefName : referenceHead + sourceRefName;
@@ -250,9 +250,9 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryId, "pullrequests", ApiVersion.GIT, null, b);
+                repositoryId, "pullrequests", ApiVersion.GIT, null, b, CustomHeader.JSON_CONTENT_TYPE);
 
-        return MAPPER.mapJsonResponse(r, PullRequest.class);
+        return MAPPER.mapJsonResponse(r, GitPullRequest.class);
     }
 
     /***
@@ -260,40 +260,40 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * @param repositoryName The repository name of the pull request's target branch.
      * @param pullRequestId The ID of the pull request to retrieve.
      * @throws AzDException Default Api Exception handler.
-     * @return {@link PullRequest} object
+     * @return {@link GitPullRequest} object
      */
     @Override
-    public PullRequest getPullRequest(String repositoryName, int pullRequestId) throws AzDException {
+    public GitPullRequest getPullRequest(String repositoryName, int pullRequestId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "pullrequests/" + pullRequestId, ApiVersion.GIT, null, null);
+                repositoryName, "pullrequests/" + pullRequestId, ApiVersion.GIT, null, null, null);
 
-        return MAPPER.mapJsonResponse(r, PullRequest.class);
+        return MAPPER.mapJsonResponse(r, GitPullRequest.class);
     }
 
     /***
      * Retrieve a pull request.
      * @param pullRequestId The ID of the pull request to retrieve.
      * @throws AzDException Default Api Exception handler.
-     * @return {@link PullRequest} object
+     * @return {@link GitPullRequest} object
      */
     @Override
-    public PullRequest getPullRequestById(int pullRequestId) throws AzDException {
+    public GitPullRequest getPullRequestById(int pullRequestId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/pullrequests",
-                Integer.toString(pullRequestId), null, ApiVersion.GIT, null, null);
+                Integer.toString(pullRequestId), null, ApiVersion.GIT, null, null, null);
 
-        return MAPPER.mapJsonResponse(r, PullRequest.class);
+        return MAPPER.mapJsonResponse(r, GitPullRequest.class);
     }
 
     /***
      * Retrieve all pull requests from a repository
      * @param repositoryName specify the repository name
      * @throws AzDException Default Api Exception handler.
-     * @return {@link PullRequest} object
+     * @return {@link PullRequests} object
      */
     @Override
     public PullRequests getPullRequests(String repositoryName) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "pullrequests", ApiVersion.GIT, null, null);
+                repositoryName, "pullrequests", ApiVersion.GIT, null, null, null);
 
         return MAPPER.mapJsonResponse(r, PullRequests.class);
     }
@@ -302,12 +302,12 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * Gets all pull requests from a project. To get the pull requests from
      * non-default project you have to call setProject method from {@link Connection}.
      * @throws AzDException Default Api Exception handler.
-     * @return {@link PullRequest} object
+     * @return {@link PullRequests} object
      */
     @Override
     public PullRequests getPullRequestsByProject() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA, null, "pullrequests",
-                ApiVersion.GIT, null, null);
+                ApiVersion.GIT, null, null, null);
 
         return MAPPER.mapJsonResponse(r, PullRequests.class);
     }
@@ -317,7 +317,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * non-default project you have to call setProject method from {@link Connection}.
      *
      * @param top The number of pull requests to retrieve.
-     * @return {@link PullRequest} PullRequest
+     * @return {@link PullRequests} PullRequest
      * @throws AzDException Default Api Exception handler.
      */
     @Override
@@ -327,7 +327,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA, null, "pullrequests",
-                ApiVersion.GIT, q, null);
+                ApiVersion.GIT, q, null, null);
 
         return MAPPER.mapJsonResponse(r, PullRequests.class);
     }
@@ -337,7 +337,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * non-default project you have to call setProject method from {@link Connection}.
      *
      * @param status If set, search for pull requests that are in this state. Defaults to Active if unset.
-     * @return {@link PullRequest} PullRequest
+     * @return {@link PullRequests} PullRequest
      * @throws AzDException Default Api Exception handler.
      */
     @Override
@@ -347,7 +347,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA, null, "pullrequests",
-                ApiVersion.GIT, q, null);
+                ApiVersion.GIT, q, null, null);
 
         return MAPPER.mapJsonResponse(r, PullRequests.class);
     }
@@ -366,7 +366,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * @param sourceRepositoryId If set, search for pull requests whose source branch is in this repository.
      * @param status If set, search for pull requests that are in this state. Defaults to Active if unset.
      * @param targetRefName If set, search for pull requests into this branch.
-     * @return {@link PullRequest} PullRequest
+     * @return {@link PullRequests} PullRequest
      * @throws AzDException Default Api Exception handler.
      */
     @Override
@@ -387,7 +387,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA, null, "pullrequests",
-                ApiVersion.GIT, q, null);
+                ApiVersion.GIT, q, null, null);
 
         return MAPPER.mapJsonResponse(r, PullRequests.class);
     }
@@ -406,7 +406,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "refs", ApiVersion.GIT, q, null);
+                repositoryName, "refs", ApiVersion.GIT, q, null, null);
 
         List<GitRef> gitRefs = MAPPER.mapJsonResponse(r, GitRefs.class).getBranches();
 
@@ -427,7 +427,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "refs", ApiVersion.GIT, q, null);
+                repositoryName, "refs", ApiVersion.GIT, q, null, null);
 
         return MAPPER.mapJsonResponse(r, GitRefs.class);
     }
@@ -451,7 +451,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.PATCH, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "refs", ApiVersion.GIT, q, b);
+                repositoryName, "refs", ApiVersion.GIT, q, b, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, GitRef.class);
     }
@@ -466,7 +466,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     @Override
     public ResourceRefs getPullRequestWorkItems(int pullRequestId, String repositoryName) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "pullRequests/" + pullRequestId + "/workitems", ApiVersion.GIT, null, null);
+                repositoryName, "pullRequests/" + pullRequestId + "/workitems", ApiVersion.GIT, null, null, null);
 
         return MAPPER.mapJsonResponse(r, ResourceRefs.class);
     }
@@ -488,7 +488,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "pullrequests/" + pullRequestId + "/labels", ApiVersion.GIT, null, b);
+                repositoryName, "pullrequests/" + pullRequestId + "/labels", ApiVersion.GIT, null, b, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, WebApiTagDefinition.class);
     }
@@ -505,7 +505,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         try {
             String resource = "pullrequests/" + pullRequestId + "/labels/" + labelName;
             String r = send(RequestMethod.DELETE, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                    repositoryName, resource, ApiVersion.GIT, null, null);
+                    repositoryName, resource, ApiVersion.GIT, null, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
             throw e;
@@ -526,7 +526,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
             throws AzDException {
         String resource = "pullrequests/" + pullRequestId + "/labels/" + labelName;
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, resource, ApiVersion.GIT, null, null);
+                repositoryName, resource, ApiVersion.GIT, null, null, null);
 
         return MAPPER.mapJsonResponse(r, WebApiTagDefinition.class);
     }
@@ -542,7 +542,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     public WebApiTagDefinitions getPullRequestLabels(String repositoryName, int pullRequestId) throws AzDException {
         String resource = "pullrequests/" + pullRequestId + "/labels";
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, resource, ApiVersion.GIT, null, null);
+                repositoryName, resource, ApiVersion.GIT, null, null, null);
 
         return MAPPER.mapJsonResponse(r, WebApiTagDefinitions.class);
     }
@@ -555,11 +555,11 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * @param vote Vote on a pull request: 10 - approved 5 - approved with
      * suggestions 0 - no vote -5 - waiting for author -10 - rejected
      * @param isRequired Indicates if this is a required reviewer for this pull request.
-     * @return PullRequestReviewer {@link PullRequestReviewer}
+     * @return PullRequestReviewer {@link IdentityRefWithVote}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public PullRequestReviewer createPullRequestReviewer(int pullRequestId, String repositoryName, String reviewerId,
+    public IdentityRefWithVote createPullRequestReviewer(int pullRequestId, String repositoryName, String reviewerId,
                                                          int vote, boolean isRequired) throws AzDException {
         var b = new HashMap<String, Object>() {{
             put("vote", vote);
@@ -569,9 +569,9 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         String id = repositoryName + "/pullrequests/" + pullRequestId + "/reviewers/" + reviewerId;
 
         String r = send(RequestMethod.PUT, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories", id, null,
-                ApiVersion.GIT, null, b);
+                ApiVersion.GIT, null, b, CustomHeader.JSON_CONTENT_TYPE);
 
-        return MAPPER.mapJsonResponse(r, PullRequestReviewer.class);
+        return MAPPER.mapJsonResponse(r, IdentityRefWithVote.class);
     }
 
     /***
@@ -588,7 +588,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
             String id = repositoryName + "/pullrequests/" + pullRequestId + "/reviewers/" + reviewerId;
 
             String r = send(RequestMethod.DELETE, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories", id,
-                    null, ApiVersion.GIT, null, null);
+                    null, ApiVersion.GIT, null, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
             throw e;
@@ -601,18 +601,18 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * @param pullRequestId ID of the pull request.
      * @param repositoryName The repository name of the pull request's target branch.
      * @param reviewerId ID of the reviewer.
-     * @return PullRequestReviewer {@link PullRequestReviewer}
+     * @return PullRequestReviewer {@link IdentityRefWithVote}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public PullRequestReviewer getPullRequestReviewer(int pullRequestId, String repositoryName, String reviewerId)
+    public IdentityRefWithVote getPullRequestReviewer(int pullRequestId, String repositoryName, String reviewerId)
             throws AzDException {
         String id = repositoryName + "/pullrequests/" + pullRequestId + "/reviewers/" + reviewerId;
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories", id, null,
-                ApiVersion.GIT, null, null);
+                ApiVersion.GIT, null, null, null);
 
-        return MAPPER.mapJsonResponse(r, PullRequestReviewer.class);
+        return MAPPER.mapJsonResponse(r, IdentityRefWithVote.class);
     }
 
     /***
@@ -627,7 +627,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         String id = repositoryName + "/pullrequests/" + pullRequestId + "/reviewers";
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories", id, null,
-                ApiVersion.GIT, null, null);
+                ApiVersion.GIT, null, null, null);
 
         return MAPPER.mapJsonResponse(r, PullRequestReviewers.class);
     }
@@ -639,11 +639,11 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * @param reviewerId ID of the reviewer.
      * @param isFlagged Indicates if this reviewer is flagged for attention on this pull request.
      * @param hasDeclined Indicates if this reviewer has declined to review this pull request.
-     * @return PullRequestReviewer {@link PullRequestReviewer}
+     * @return PullRequestReviewer {@link IdentityRefWithVote}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public PullRequestReviewer updatePullRequestReviewer(int pullRequestId, String repositoryName, String reviewerId,
+    public IdentityRefWithVote updatePullRequestReviewer(int pullRequestId, String repositoryName, String reviewerId,
                                                          boolean isFlagged, boolean hasDeclined) throws AzDException {
         var b = new HashMap<String, Object>() {{
             put("isFlagged", isFlagged);
@@ -653,9 +653,9 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         String id = repositoryName + "/pullrequests/" + pullRequestId + "/reviewers/" + reviewerId;
 
         String r = send(RequestMethod.PATCH, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories", id, null,
-                ApiVersion.GIT, null, b);
+                ApiVersion.GIT, null, b, CustomHeader.JSON_CONTENT_TYPE);
 
-        return MAPPER.mapJsonResponse(r, PullRequestReviewer.class);
+        return MAPPER.mapJsonResponse(r, IdentityRefWithVote.class);
     }
 
     /**
@@ -680,7 +680,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "annotatedtags", ApiVersion.GIT, null, b);
+                repositoryName, "annotatedtags", ApiVersion.GIT, null, b, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, GitAnnotatedTag.class);
     }
@@ -696,7 +696,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     @Override
     public GitAnnotatedTag getAnnotatedTag(String repositoryName, String objectId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "annotatedtags/" + objectId, ApiVersion.GIT, null, null);
+                repositoryName, "annotatedtags/" + objectId, ApiVersion.GIT, null, null, null);
 
         return MAPPER.mapJsonResponse(r, GitAnnotatedTag.class);
     }
@@ -712,7 +712,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     @Override
     public GitCommit getCommit(String repositoryName, String commitId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "commits/" + commitId, ApiVersion.GIT, null, null);
+                repositoryName, "commits/" + commitId, ApiVersion.GIT, null, null, null);
 
         return MAPPER.mapJsonResponse(r, GitCommit.class);
     }
@@ -733,7 +733,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "commits/" + commitId, ApiVersion.GIT, q, null);
+                repositoryName, "commits/" + commitId, ApiVersion.GIT, q, null, null);
 
         return MAPPER.mapJsonResponse(r, GitCommit.class);
     }
@@ -749,7 +749,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     @Override
     public GitCommitChanges getChanges(String repositoryName, String commitId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "commits/" + commitId + "/changes", ApiVersion.GIT, null, null);
+                repositoryName, "commits/" + commitId + "/changes", ApiVersion.GIT, null, null, null);
 
         return MAPPER.mapJsonResponse(r, GitCommitChanges.class);
     }
@@ -772,7 +772,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "commits/" + commitId + "/changes", ApiVersion.GIT, q, null);
+                repositoryName, "commits/" + commitId + "/changes", ApiVersion.GIT, q, null, null);
 
         return MAPPER.mapJsonResponse(r, GitCommitChanges.class);
     }
@@ -787,7 +787,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     @Override
     public GitCommits getCommits(String repositoryName) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "commits", ApiVersion.GIT, null, null);
+                repositoryName, "commits", ApiVersion.GIT, null, null, null);
 
         return MAPPER.mapJsonResponse(r, GitCommits.class);
     }
@@ -807,7 +807,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "commits", ApiVersion.GIT, q, null);
+                repositoryName, "commits", ApiVersion.GIT, q, null, null);
 
         return MAPPER.mapJsonResponse(r, GitCommits.class);
     }
@@ -828,7 +828,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "commits", ApiVersion.GIT, q, null);
+                repositoryName, "commits", ApiVersion.GIT, q, null, null);
 
         return MAPPER.mapJsonResponse(r, GitCommits.class);
     }
@@ -909,7 +909,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "commits", ApiVersion.GIT, q, null);
+                repositoryName, "commits", ApiVersion.GIT, q, null, null);
 
         return MAPPER.mapJsonResponse(r, GitCommits.class);
     }
@@ -929,7 +929,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "commits", ApiVersion.GIT, q, null);
+                repositoryName, "commits", ApiVersion.GIT, q, null, null);
 
         return MAPPER.mapJsonResponse(r, GitCommits.class);
     }
@@ -958,7 +958,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "commits", ApiVersion.GIT, q, null);
+                repositoryName, "commits", ApiVersion.GIT, q, null, null);
 
         return MAPPER.mapJsonResponse(r, GitCommits.class);
     }

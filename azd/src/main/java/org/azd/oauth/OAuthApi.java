@@ -1,12 +1,15 @@
 package org.azd.oauth;
 
+import org.azd.enums.CustomHeader;
+import org.azd.enums.Instance;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.helpers.URLHelper;
 import org.azd.oauth.types.AuthorizedToken;
-import org.azd.utils.BaseClient;
-import org.azd.utils.Client;
+import org.azd.utils.RestClient;
 
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.LinkedHashMap;
 
 /***
@@ -18,17 +21,7 @@ public class OAuthApi {
      * Deserialize JSON response to POJO
      */
     private static final JsonMapper MAPPER = new JsonMapper();
-    private static final String AREA = "accounts";
-
-    private static String VSTS_BASE_URL;
-
-    static {
-        try {
-            VSTS_BASE_URL = Client.getLocationUrl(AREA, null);
-        } catch (AzDException e) {
-
-        }
-    }
+    private static final String VSTS_BASE_URL = Instance.ACCOUNT_INSTANCE.getInstance();
 
     /***
      * Default constructor
@@ -100,7 +93,7 @@ public class OAuthApi {
                 .append(callbackUrl)
                 .toString();
 
-        String r = BaseClient.post(stringBuilder.toString(), body);
+        String r = getResponse(stringBuilder.toString(), body);;
 
         // add current system time to refresh the token automatically.
         var res = MAPPER.mapJsonResponse(r, AuthorizedToken.class);
@@ -132,7 +125,7 @@ public class OAuthApi {
                 .append(callbackUrl)
                 .toString();
 
-        String r = BaseClient.post(stringBuilder.toString(), body);
+        String r = getResponse(stringBuilder.toString(), body);
         var res = MAPPER.mapJsonResponse(r, AuthorizedToken.class);
         res.setReceivedTimestamp(System.currentTimeMillis());
 
@@ -146,5 +139,12 @@ public class OAuthApi {
      */
     public static boolean hasTokenExpired(AuthorizedToken authorizedToken) {
         return authorizedToken.getReceivedTimestamp() < 1629897097271L || (authorizedToken.getReceivedTimestamp() + authorizedToken.getExpiresIn() * 1000) < System.currentTimeMillis();
+    }
+
+    private static String getResponse(String requestUrl, String body) throws AzDException {
+        return RestClient.post(requestUrl, null, HttpRequest.BodyPublishers.ofString(body),
+                HttpResponse.BodyHandlers.ofString(), CustomHeader.URL_ENCODED, false)
+                .thenApplyAsync(HttpResponse::body)
+                .join();
     }
 }

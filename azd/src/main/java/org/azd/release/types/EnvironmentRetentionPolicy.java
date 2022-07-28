@@ -1,59 +1,52 @@
 package org.azd.release.types;
+/**
+----------------------------------------------------------
+	GENERATED FILE, should be edited to suit the purpose.
+----------------------------------------------------------
+**/
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/***
- * Retention policy of the environment
- */
+/**
+ * None 
+**/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EnvironmentRetentionPolicy {
-    /***
-     * Gets and sets the number of days to keep environment.
-     */
-    @JsonProperty("daysToKeep")
-    private int daysToKeep;
-    /***
-     * Gets and sets the number of releases to keep.
-     */
-    @JsonProperty("releasesToKeep")
-    private int releasesToKeep;
-    /***
-     * Gets and sets as the build to be retained or not.
-     */
-    @JsonProperty("retainBuild")
-    private boolean retainBuild;
+	/**
+ 	* Gets and sets the number of days to keep environment. 
+	**/
+	@JsonProperty("daysToKeep")
+	private Integer daysToKeep;
+	/**
+ 	* Gets and sets the number of releases to keep. 
+	**/
+	@JsonProperty("releasesToKeep")
+	private Integer releasesToKeep;
+	/**
+ 	* Gets and sets as the build to be retained or not. 
+	**/
+	@JsonProperty("retainBuild")
+	private boolean retainBuild;
 
-    public int getDaysToKeep() {
-        return daysToKeep;
-    }
+	public Integer getDaysToKeep() { return daysToKeep; }
 
-    public void setDaysToKeep(int daysToKeep) {
-        this.daysToKeep = daysToKeep;
-    }
+	public void setDaysToKeep(Integer daysToKeep) { this.daysToKeep = daysToKeep; }
 
-    public int getReleasesToKeep() {
-        return releasesToKeep;
-    }
+	public Integer getReleasesToKeep() { return releasesToKeep; }
 
-    public void setReleasesToKeep(int releasesToKeep) {
-        this.releasesToKeep = releasesToKeep;
-    }
+	public void setReleasesToKeep(Integer releasesToKeep) { this.releasesToKeep = releasesToKeep; }
 
-    public boolean isRetainBuild() {
-        return retainBuild;
-    }
+	public boolean getRetainBuild() { return retainBuild; }
 
-    public void setRetainBuild(boolean retainBuild) {
-        this.retainBuild = retainBuild;
-    }
+	public void setRetainBuild(boolean retainBuild) { this.retainBuild = retainBuild; }
 
-    @Override
-    public String toString() {
-        return "EnvironmentRetentionPolicy{" +
-                "daysToKeep=" + daysToKeep +
-                ", releasesToKeep=" + releasesToKeep +
-                ", retainBuild=" + retainBuild +
-                '}';
-    }
+	@Override
+	public String toString() { 
+	return 	"EnvironmentRetentionPolicy{" +
+		"daysToKeep='" + daysToKeep + '\'' +
+		",releasesToKeep='" + releasesToKeep + '\'' +
+		",retainBuild='" + retainBuild + '\'' +
+		'}';
+	}
 }

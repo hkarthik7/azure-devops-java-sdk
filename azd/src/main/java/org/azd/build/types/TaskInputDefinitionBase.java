@@ -41,7 +41,7 @@ public class TaskInputDefinitionBase {
     private Object properties;
 
     @JsonProperty("required")
-    private Boolean required;
+    private boolean required;
 
     @JsonProperty("type")
     private String type;
@@ -116,11 +116,11 @@ public class TaskInputDefinitionBase {
         this.properties = properties;
     }
 
-    public Boolean getRequired() {
+    public boolean getRequired() {
         return required;
     }
 
-    public void setRequired(Boolean required) {
+    public void setRequired(boolean required) {
         this.required = required;
     }
 

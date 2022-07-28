@@ -28,22 +28,22 @@ public class RetentionPolicy {
      * The number of days to keep builds.
      **/
     @JsonProperty("daysToKeep")
-    private Integer daysToKeep;
+    private int daysToKeep;
     /**
      * Indicates whether the build record itself should be deleted.
      **/
     @JsonProperty("deleteBuildRecord")
-    private Boolean deleteBuildRecord;
+    private boolean deleteBuildRecord;
     /**
      * Indicates whether to delete test results associated with the build.
      **/
     @JsonProperty("deleteTestResults")
-    private Boolean deleteTestResults;
+    private boolean deleteTestResults;
     /**
      * The minimum number of builds to keep.
      **/
     @JsonProperty("minimumToKeep")
-    private Integer minimumToKeep;
+    private int minimumToKeep;
 
     public String[] getArtifactTypesToDelete() {
         return artifactTypesToDelete;
@@ -69,35 +69,35 @@ public class RetentionPolicy {
         this.branches = branches;
     }
 
-    public Integer getDaysToKeep() {
+    public int getDaysToKeep() {
         return daysToKeep;
     }
 
-    public void setDaysToKeep(Integer daysToKeep) {
+    public void setDaysToKeep(int daysToKeep) {
         this.daysToKeep = daysToKeep;
     }
 
-    public Boolean getDeleteBuildRecord() {
+    public boolean getDeleteBuildRecord() {
         return deleteBuildRecord;
     }
 
-    public void setDeleteBuildRecord(Boolean deleteBuildRecord) {
+    public void setDeleteBuildRecord(boolean deleteBuildRecord) {
         this.deleteBuildRecord = deleteBuildRecord;
     }
 
-    public Boolean getDeleteTestResults() {
+    public boolean getDeleteTestResults() {
         return deleteTestResults;
     }
 
-    public void setDeleteTestResults(Boolean deleteTestResults) {
+    public void setDeleteTestResults(boolean deleteTestResults) {
         this.deleteTestResults = deleteTestResults;
     }
 
-    public Integer getMinimumToKeep() {
+    public int getMinimumToKeep() {
         return minimumToKeep;
     }
 
-    public void setMinimumToKeep(Integer minimumToKeep) {
+    public void setMinimumToKeep(int minimumToKeep) {
         this.minimumToKeep = minimumToKeep;
     }
 

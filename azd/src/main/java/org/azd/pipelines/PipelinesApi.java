@@ -2,6 +2,7 @@ package org.azd.pipelines;
 
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
+import org.azd.enums.CustomHeader;
 import org.azd.enums.PipelinesExpandOptions;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
@@ -14,7 +15,7 @@ import org.azd.utils.AzDAsyncApi;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.azd.utils.Client.send;
+import static org.azd.utils.RestClient.send;
 
 /***
  * PipelinesApi class to manage Pipelines API
@@ -51,7 +52,7 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, PIPELINES, CONNECTION.getProject(),
-                AREA, Integer.toString(pipelineId), "runs/" + runId + "/artifacts", ApiVersion.PIPELINES, q, null);
+                AREA, Integer.toString(pipelineId), "runs/" + runId + "/artifacts", ApiVersion.PIPELINES, q, null, null);
 
         return MAPPER.mapJsonResponse(r, PipelinesArtifact.class);
     }
@@ -74,7 +75,7 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, PIPELINES, CONNECTION.getProject(),
-                AREA, Integer.toString(pipelineId), "runs/" + runId + "/artifacts", ApiVersion.PIPELINES, q, null);
+                AREA, Integer.toString(pipelineId), "runs/" + runId + "/artifacts", ApiVersion.PIPELINES, q, null, null);
 
         return MAPPER.mapJsonResponse(r, PipelinesArtifact.class);
     }
@@ -90,7 +91,7 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
     @Override
     public PipelineLog getPipelineLog(int pipelineId, int runId, int logId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, PIPELINES, CONNECTION.getProject(),
-                AREA, Integer.toString(pipelineId), "runs/" + runId + "/logs/" + logId, ApiVersion.PIPELINES, null, null);
+                AREA, Integer.toString(pipelineId), "runs/" + runId + "/logs/" + logId, ApiVersion.PIPELINES, null, null, null);
 
         return MAPPER.mapJsonResponse(r, PipelineLog.class);
     }
@@ -111,7 +112,7 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, PIPELINES, CONNECTION.getProject(),
-                AREA, Integer.toString(pipelineId), "runs/" + runId + "/logs/" + logId, ApiVersion.PIPELINES, q, null);
+                AREA, Integer.toString(pipelineId), "runs/" + runId + "/logs/" + logId, ApiVersion.PIPELINES, q, null, null);
 
         return MAPPER.mapJsonResponse(r, PipelineLog.class);
     }
@@ -126,7 +127,7 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
     @Override
     public LogCollection getPipelineLogs(int pipelineId, int runId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, PIPELINES, CONNECTION.getProject(),
-                AREA, Integer.toString(pipelineId), "runs/" + runId + "/logs", ApiVersion.PIPELINES, null, null);
+                AREA, Integer.toString(pipelineId), "runs/" + runId + "/logs", ApiVersion.PIPELINES, null, null, null);
 
         return MAPPER.mapJsonResponse(r, LogCollection.class);
     }
@@ -146,7 +147,7 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, PIPELINES, CONNECTION.getProject(),
-                AREA, Integer.toString(pipelineId), "runs/" + runId + "/logs", ApiVersion.PIPELINES, null, null);
+                AREA, Integer.toString(pipelineId), "runs/" + runId + "/logs", ApiVersion.PIPELINES, null, null, null);
 
         return MAPPER.mapJsonResponse(r, LogCollection.class);
     }
@@ -180,7 +181,7 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, PIPELINES, CONNECTION.getProject(),
-                AREA, null, null, ApiVersion.PIPELINES, null, body);
+                AREA, null, null, ApiVersion.PIPELINES, null, body, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, Pipeline.class);
     }
@@ -194,7 +195,7 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
     @Override
     public Pipeline getPipeline(int pipelineId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, PIPELINES, CONNECTION.getProject(),
-                AREA, Integer.toString(pipelineId), null, ApiVersion.PIPELINES, null, null);
+                AREA, Integer.toString(pipelineId), null, ApiVersion.PIPELINES, null, null, null);
 
         return MAPPER.mapJsonResponse(r, Pipeline.class);
     }
@@ -213,7 +214,7 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, PIPELINES, CONNECTION.getProject(),
-                AREA, Integer.toString(pipelineId), null, ApiVersion.PIPELINES, q, null);
+                AREA, Integer.toString(pipelineId), null, ApiVersion.PIPELINES, q, null, null);
 
         return MAPPER.mapJsonResponse(r, Pipeline.class);
     }
@@ -226,7 +227,7 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
     @Override
     public Pipelines getPipelines() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, PIPELINES, CONNECTION.getProject(),
-                AREA, null, null, ApiVersion.PIPELINES, null, null);
+                AREA, null, null, ApiVersion.PIPELINES, null, null, null);
 
         return MAPPER.mapJsonResponse(r, Pipelines.class);
     }
@@ -245,7 +246,7 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, PIPELINES, CONNECTION.getProject(),
-                AREA, Integer.toString(pipelineId), "preview", ApiVersion.PIPELINES, null, body);
+                AREA, Integer.toString(pipelineId), "preview", ApiVersion.PIPELINES, null, body, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, PreviewRun.class);
     }
@@ -267,7 +268,7 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, PIPELINES, CONNECTION.getProject(),
-                AREA, Integer.toString(pipelineId), "preview", ApiVersion.PIPELINES, null, body);
+                AREA, Integer.toString(pipelineId), "preview", ApiVersion.PIPELINES, null, body, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, PreviewRun.class);
     }
@@ -282,7 +283,7 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
     @Override
     public PipelineRun getPipelineRun(int pipelineId, int runId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, PIPELINES, CONNECTION.getProject(),
-                AREA, Integer.toString(pipelineId), "runs/" + runId, ApiVersion.PIPELINES, null, null);
+                AREA, Integer.toString(pipelineId), "runs/" + runId, ApiVersion.PIPELINES, null, null, null);
 
         return MAPPER.mapJsonResponse(r, PipelineRun.class);
     }
@@ -296,7 +297,7 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
     @Override
     public PipelineRuns getPipelineRuns(int pipelineId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, PIPELINES, CONNECTION.getProject(),
-                AREA, Integer.toString(pipelineId), "runs", ApiVersion.PIPELINES, null, null);
+                AREA, Integer.toString(pipelineId), "runs", ApiVersion.PIPELINES, null, null, null);
 
         return MAPPER.mapJsonResponse(r, PipelineRuns.class);
     }
@@ -314,7 +315,7 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, PIPELINES, CONNECTION.getProject(),
-                AREA, Integer.toString(pipelineId), "runs", ApiVersion.PIPELINES, null, body);
+                AREA, Integer.toString(pipelineId), "runs", ApiVersion.PIPELINES, null, body, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, PipelineRun.class);
     }
@@ -329,7 +330,7 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
     @Override
     public PipelineRun runPipeline(int pipelineId, Map pipelineRunParameters) throws AzDException {
         String r = send(RequestMethod.POST, CONNECTION, PIPELINES, CONNECTION.getProject(),
-                AREA, Integer.toString(pipelineId), "runs", ApiVersion.PIPELINES, null, pipelineRunParameters);
+                AREA, Integer.toString(pipelineId), "runs", ApiVersion.PIPELINES, null, pipelineRunParameters, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, PipelineRun.class);
     }

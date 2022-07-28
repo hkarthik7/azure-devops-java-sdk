@@ -13,7 +13,7 @@ import org.azd.enums.BuildResult;
 import org.azd.enums.BuildStatus;
 import org.azd.enums.QueuePriority;
 
-import java.util.Arrays;
+import java.util.List;
 
 /**
  * The job authorization scope for builds queued against this definition. 
@@ -74,7 +74,7 @@ public class Build {
      * A list of demands that represents the agent capabilities required by this build.
      **/
     @JsonProperty("demands")
-    private Demand[] demands;
+    private List<Demand> demands;
     /**
      * The time that the build was completed.
      **/
@@ -114,7 +114,7 @@ public class Build {
      * Orchestration plans associated with the build (build, cleanup)
      **/
     @JsonProperty("plans")
-    private TaskOrchestrationPlanReference[] plans;
+    private List<TaskOrchestrationPlanReference> plans;
     /**
      * The build's priority.
      **/
@@ -237,7 +237,7 @@ public class Build {
      * Represents the result of validating a build request.
      **/
     @JsonProperty("validationResults")
-    private BuildRequestValidationResult[] validationResults;
+    private List<BuildRequestValidationResult> validationResults;
 
     public Object get_links() {
         return _links;
@@ -319,11 +319,11 @@ public class Build {
         this.deletedReason = deletedReason;
     }
 
-    public Demand[] getDemands() {
+    public List<Demand> getDemands() {
         return demands;
     }
 
-    public void setDemands(Demand[] demands) {
+    public void setDemands(List<Demand> demands) {
         this.demands = demands;
     }
 
@@ -383,11 +383,11 @@ public class Build {
         this.parameters = parameters;
     }
 
-    public TaskOrchestrationPlanReference[] getPlans() {
+    public List<TaskOrchestrationPlanReference> getPlans() {
         return plans;
     }
 
-    public void setPlans(TaskOrchestrationPlanReference[] plans) {
+    public void setPlans(List<TaskOrchestrationPlanReference> plans) {
         this.plans = plans;
     }
 
@@ -583,11 +583,11 @@ public class Build {
         this.url = url;
     }
 
-    public BuildRequestValidationResult[] getValidationResults() {
+    public List<BuildRequestValidationResult> getValidationResults() {
         return validationResults;
     }
 
-    public void setValidationResults(BuildRequestValidationResult[] validationResults) {
+    public void setValidationResults(List<BuildRequestValidationResult> validationResults) {
         this.validationResults = validationResults;
     }
 
@@ -604,7 +604,7 @@ public class Build {
                 ", deletedBy=" + deletedBy +
                 ", deletedDate='" + deletedDate + '\'' +
                 ", deletedReason='" + deletedReason + '\'' +
-                ", demands=" + Arrays.toString(demands) +
+                ", demands=" + demands +
                 ", finishTime='" + finishTime + '\'' +
                 ", id=" + id +
                 ", lastChangedBy=" + lastChangedBy +
@@ -612,7 +612,7 @@ public class Build {
                 ", logs=" + logs +
                 ", orchestrationPlan=" + orchestrationPlan +
                 ", parameters='" + parameters + '\'' +
-                ", plans=" + Arrays.toString(plans) +
+                ", plans=" + plans +
                 ", priority=" + priority +
                 ", project=" + project +
                 ", properties=" + properties +
@@ -631,13 +631,13 @@ public class Build {
                 ", sourceVersion='" + sourceVersion + '\'' +
                 ", startTime='" + startTime + '\'' +
                 ", status=" + status +
-                ", tags=" + Arrays.toString(tags) +
+                ", tags=" + tags +
                 ", templateParameters=" + templateParameters +
                 ", triggerInfo=" + triggerInfo +
                 ", triggeredByBuild=" + triggeredByBuild +
                 ", uri='" + uri + '\'' +
                 ", url='" + url + '\'' +
-                ", validationResults=" + Arrays.toString(validationResults) +
+                ", validationResults=" + validationResults +
                 '}';
     }
 }
