@@ -15,11 +15,11 @@ import java.util.Map;
 
 /**
  * Wrapper class to build request url and to call Azure DevOps REST API
- * @deprecated This is deprecated as of version 4.1.0
+ * @deprecated This is deprecated as of version 5.0.0
  */
 @Deprecated
 public abstract class Client extends BaseClient {
-    private static final JsonMapper MAPPER = new JsonMapper();
+    @Deprecated private static final JsonMapper MAPPER = new JsonMapper();
 
     /***
      * Request the Azure DevOps REST API and builds the request url dynamically based on resource id and endpoints passed.
@@ -38,7 +38,7 @@ public abstract class Client extends BaseClient {
      * @return String response from API
      * @throws AzDException throws user understandable error message with error code from API
      */
-    public static String send(
+    @Deprecated public static String send(
             RequestMethod requestMethod,
             Connection connection,
             String resourceId,
@@ -91,7 +91,7 @@ public abstract class Client extends BaseClient {
      * @return InputStream from API
      * @throws AzDException Default Api exception handler
      */
-    public static InputStream send(
+    @Deprecated public static InputStream send(
             RequestMethod requestMethod,
             Connection connection,
             String resourceId,
@@ -138,7 +138,7 @@ public abstract class Client extends BaseClient {
      * @return String response from API
      * @throws AzDException throws user understandable error message with error code from API
      */
-    public static String send(
+    @Deprecated public static String send(
             RequestMethod requestMethod,
             Connection connection,
             String resourceId,
@@ -191,7 +191,7 @@ public abstract class Client extends BaseClient {
      * @return String response from API
      * @throws AzDException throws user understandable error message with error code from API
      */
-    public static String send(
+    @Deprecated public static String send(
             RequestMethod requestMethod,
             Connection connection,
             String resourceId,
@@ -250,7 +250,7 @@ public abstract class Client extends BaseClient {
      * @return String response from API
      * @throws AzDException throws user understandable error message with error code from API
      */
-    public static String send(
+    @Deprecated public static String send(
             RequestMethod requestMethod,
             Connection connection,
             String resourceId,
@@ -312,7 +312,7 @@ public abstract class Client extends BaseClient {
      * @return resource area url
      * @throws AzDException throws user understandable error message with error code from API
      */
-    public static String getLocationUrl(String resourceID, String organizationName) throws AzDException {
+    @Deprecated public static String getLocationUrl(String resourceID, String organizationName) throws AzDException {
 
         String INSTANCE = "https://dev.azure.com/";
 
@@ -351,7 +351,7 @@ public abstract class Client extends BaseClient {
      * @return resource area url
      * @throws AzDException throws user understandable error message with error code from API
      */
-    private static String buildRequestUrl(
+    @Deprecated private static String buildRequestUrl(
             String organizationName,
             String resourceId,
             String project,
@@ -397,7 +397,7 @@ public abstract class Client extends BaseClient {
      * @param value pass the value of the HasMap
      * @return query string
      */
-    private static String getQueryString(String key, Object value) {
+    @Deprecated private static String getQueryString(String key, Object value) {
         return "&" + key + "=" + value;
     }
 }
