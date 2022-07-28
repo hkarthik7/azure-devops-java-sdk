@@ -156,13 +156,25 @@ def capitalize(word: str):
 
 
 def create_getter(name: str, type_value: str):
-    val = f"public {capitalize(type_value)} get{capitalize(name)}() {{ return {name}; }}"
+    if '[]' in type_value and type_value != 'string[]':
+        type_value = f"List<{type_value.strip('[]')}>"
+    if str(v['Type']) != 'boolean':
+        type_value = capitalize(type_value)
+    val = f"public {type_value} get{capitalize(name)}() {{ return {name}; }}"
     return val
 
 
 def create_setter(name: str, type_value: str):
-    val = f"public void set{capitalize(name)}({capitalize(type_value)} {name}) {{ this.{name} = {name}; }}"
+    if '[]' in type_value and type_value != 'string[]':
+        type_value = f"List<{type_value.strip('[]')}>"
+    if str(v['Type']) != 'boolean':
+        type_value = capitalize(type_value)
+    val = f"public void set{capitalize(name)}({type_value} {name}) {{ this.{name} = {name}; }}"
     return val
+
+def to_string(value: str):
+    if value != None:
+        return f'",{value}=\'" + {value} + \'\\''\'\' +'
 
 
 _url: str = json.loads(read('settings.json'))['url']
@@ -235,7 +247,7 @@ if __name__ == "__main__":
                 if not os.path.isdir("types"):
                     os.mkdir("types")
 
-                f = open(f"types/{key}.java", 'w+')
+                f = open(f"types/{key}.java", 'w+', encoding='utf-8')
                 f.write(f"{package_name}")
                 f.write(f"\n{notes.strip()}")
                 f.write(f"\n{import_statements}")
@@ -264,7 +276,21 @@ if __name__ == "__main__":
                     f.write(
                         f"\n\t{create_setter(v['Name'], str(v['Type']))}\n")
 
-                f.write("}")
+                f.write(f"\n\t@Override\n\tpublic String toString()")
+                f.write(" { \n\treturn ")
+                f.write(f'\t"{key}{{" +')
+
+                for v in value_result['SubDefinitions'].get(key):
+                    if str(value_result['SubDefinitions'].get(key)[0]['Name']) == str(v['Name']):
+                        s_value = to_string(str(v['Name'])).replace(",", '')
+                    else:
+                        s_value = to_string(str(v['Name']))
+                    f.write(f"\n\t\t{s_value}")
+
+                f.write("\n\t\t'}';")
+                f.write("\n\t}")
+                f.write("\n}")
+
             finally:
                 f.close()
 
@@ -275,7 +301,7 @@ if __name__ == "__main__":
     if comments is not None:
 
         try:
-            f = open(f"types/comments.txt", 'w+')
+            f = open(f"types/comments.txt", 'w+', encoding='utf-8')
             f.write(
                 f"/**\n * {scrape._soup_object.find_all(DocumentId.TAG_PARA.value)[2].get_text()} \n")
             f.write(f" *")
