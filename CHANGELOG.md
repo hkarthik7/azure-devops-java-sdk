@@ -1,6 +1,8 @@
 # Changelog
 
-## 4.1.0
+## 5.0.0
+
+**Breaking changes**
 
 **Changed to Build and BuildDefinition types**
 - Enable feature management for project services (i.e. Test Plans, Boards, etc).
@@ -16,6 +18,10 @@
     `StreamHelper` can be used to download or convert it to string etc.  
 - Updated `downloadPackage` in **MavenApi**.
 - **StreamHelper** class to download contents from Api response.
+- Type change for `updateReleaseDefinition` in **ReleaseApi** for ease of use.
+
+- `BaseClient` and `Client` classes are deprecated. Instead, introduced `BaseRestClient` and `RestClient` classes for
+ease of use in other concrete Api implementations.
 
 ## 4.0.0
 
