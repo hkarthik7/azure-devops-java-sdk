@@ -469,11 +469,9 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
      */
     @Override
     public ReleaseDefinition updateReleaseDefinition(ReleaseDefinition releaseDefinition) throws AzDException {
-        var reqBody = releaseDefinition;
-
         String r = send(RequestMethod.PUT, CONNECTION, RELEASE, CONNECTION.getProject(),
                 AREA.replace("releases", "definitions"), null,
-                null, ApiVersion.RELEASE_DEFINITION, null, reqBody, CustomHeader.JSON_CONTENT_TYPE);
+                null, ApiVersion.RELEASE_DEFINITION, null, releaseDefinition, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, ReleaseDefinition.class);
     }
