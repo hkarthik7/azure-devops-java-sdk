@@ -53,7 +53,7 @@ public class AccountsApi extends AzDAsyncApi<AccountsApi> implements AccountsDet
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, AREA, null, AREA, null,
-                null, ApiVersion.ACCOUNTS, q, null, CustomHeader.JSON);
+                null, ApiVersion.ACCOUNTS, q, null, null);
 
         return MAPPER.mapJsonResponse(r, Accounts.class);
     }
