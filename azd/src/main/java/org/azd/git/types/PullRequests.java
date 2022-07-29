@@ -14,7 +14,7 @@ public class PullRequests {
      * Represents a list of pull request
      */
     @JsonProperty("value")
-    private List<PullRequest> value;
+    private List<GitPullRequest> value;
 
     @Override
     public String toString() {
@@ -23,11 +23,11 @@ public class PullRequests {
                 '}';
     }
 
-    public List<PullRequest> getPullRequests() {
+    public List<GitPullRequest> getPullRequests() {
         return value;
     }
 
-    public void setPullRequests(List<PullRequest> value) {
+    public void setPullRequests(List<GitPullRequest> value) {
         this.value = value;
     }
 

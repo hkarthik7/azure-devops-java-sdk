@@ -2,6 +2,7 @@ package org.azd.policy;
 
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
+import org.azd.enums.CustomHeader;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
@@ -16,7 +17,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static org.azd.utils.Client.send;
+import static org.azd.utils.RestClient.send;
 
 /***
  * PolicyApi class to manage Policy API
@@ -61,7 +62,7 @@ public class PolicyApi extends AzDAsyncApi<PolicyApi> implements PolicyDetails {
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, POLICY, CONNECTION.getProject(),
-                AREA + "/configurations", null, null, ApiVersion.POLICY, null, h);
+                AREA + "/configurations", null, null, ApiVersion.POLICY, null, h, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, PolicyConfiguration.class);
     }
@@ -75,7 +76,7 @@ public class PolicyApi extends AzDAsyncApi<PolicyApi> implements PolicyDetails {
     public Void deletePolicyConfiguration(int configurationId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, POLICY, CONNECTION.getProject(),
-                    AREA + "/configurations", Integer.toString(configurationId), null, ApiVersion.POLICY, null, null);
+                    AREA + "/configurations", Integer.toString(configurationId), null, ApiVersion.POLICY, null, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
             throw e;
@@ -92,7 +93,7 @@ public class PolicyApi extends AzDAsyncApi<PolicyApi> implements PolicyDetails {
     @Override
     public PolicyConfiguration getPolicyConfiguration(int configurationId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, POLICY, CONNECTION.getProject(),
-                AREA + "/configurations", Integer.toString(configurationId), null, ApiVersion.POLICY, null, null);
+                AREA + "/configurations", Integer.toString(configurationId), null, ApiVersion.POLICY, null, null, null);
 
         return MAPPER.mapJsonResponse(r, PolicyConfiguration.class);
     }
@@ -105,7 +106,7 @@ public class PolicyApi extends AzDAsyncApi<PolicyApi> implements PolicyDetails {
     @Override
     public PolicyConfigurations getPolicyConfigurations() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, POLICY, CONNECTION.getProject(),
-                AREA + "/configurations", null, null, ApiVersion.POLICY, null, null);
+                AREA + "/configurations", null, null, ApiVersion.POLICY, null, null, null);
 
         return MAPPER.mapJsonResponse(r, PolicyConfigurations.class);
     }
@@ -127,7 +128,7 @@ public class PolicyApi extends AzDAsyncApi<PolicyApi> implements PolicyDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, POLICY, CONNECTION.getProject(),
-                AREA + "/configurations", null, null, ApiVersion.POLICY, null, null);
+                AREA + "/configurations", null, null, ApiVersion.POLICY, null, null, null);
 
         return MAPPER.mapJsonResponse(r, PolicyConfigurations.class);
     }
@@ -162,7 +163,7 @@ public class PolicyApi extends AzDAsyncApi<PolicyApi> implements PolicyDetails {
         }};
 
         String r = send(RequestMethod.PUT, CONNECTION, POLICY, CONNECTION.getProject(),
-                AREA + "/configurations", Integer.toString(configurationId), null, ApiVersion.POLICY, null, h);
+                AREA + "/configurations", Integer.toString(configurationId), null, ApiVersion.POLICY, null, h, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, PolicyConfiguration.class);
     }
@@ -176,7 +177,7 @@ public class PolicyApi extends AzDAsyncApi<PolicyApi> implements PolicyDetails {
     @Override
     public PolicyType getPolicyType(String typeId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, POLICY, CONNECTION.getProject(),
-                AREA + "/types", typeId, null, ApiVersion.POLICY, null, null);
+                AREA + "/types", typeId, null, ApiVersion.POLICY, null, null, null);
 
         return MAPPER.mapJsonResponse(r, PolicyType.class);
     }
@@ -189,7 +190,7 @@ public class PolicyApi extends AzDAsyncApi<PolicyApi> implements PolicyDetails {
     @Override
     public PolicyTypes getPolicyTypes() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, POLICY, CONNECTION.getProject(),
-                AREA + "/types", null, null, ApiVersion.POLICY, null, null);
+                AREA + "/types", null, null, ApiVersion.POLICY, null, null, null);
 
         return MAPPER.mapJsonResponse(r, PolicyTypes.class);
     }

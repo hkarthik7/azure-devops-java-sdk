@@ -7,7 +7,6 @@ import org.azd.exceptions.AzDException;
 
 import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
 
 public interface BuildDetails {
     Void deleteBuild(int buildId) throws AzDException;
@@ -48,7 +47,7 @@ public interface BuildDetails {
 
     Build queueBuild(int definitionId) throws AzDException;
 
-    Build queueBuild(Map<String, Object> buildParameters) throws AzDException;
+    Build queueBuild(Build buildParameters) throws AzDException;
 
     Build updateBuild(Build build, int buildId, boolean retry) throws AzDException;
 

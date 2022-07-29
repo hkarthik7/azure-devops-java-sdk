@@ -6,6 +6,7 @@ import org.azd.accounts.types.Organizations;
 import org.azd.accounts.types.Profile;
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
+import org.azd.enums.CustomHeader;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static org.azd.utils.Client.send;
+import static org.azd.utils.RestClient.send;
 
 /***
  * Accounts class to manage Accounts Api
@@ -31,6 +32,7 @@ public class AccountsApi extends AzDAsyncApi<AccountsApi> implements AccountsDet
 
     /***
      * Pass the connection object to work with Accounts Api
+     *
      * @param connection Connection object
      */
     public AccountsApi(Connection connection) {
@@ -39,6 +41,7 @@ public class AccountsApi extends AzDAsyncApi<AccountsApi> implements AccountsDet
 
     /***
      * Get a list of accounts for a specific member.
+     *
      * @param memberId Specify the member Id. This can be obtained by running getUserEntitlements() from MemberEntitlementManagementApi.
      * @return Accounts object {@link Accounts}
      * @throws AzDException Default Api Exception handler.
@@ -49,8 +52,8 @@ public class AccountsApi extends AzDAsyncApi<AccountsApi> implements AccountsDet
             put("memberId", memberId);
         }};
 
-        String r = send(RequestMethod.GET, CONNECTION, AREA, null,
-                AREA, null, null, ApiVersion.ACCOUNTS, q, null);
+        String r = send(RequestMethod.GET, CONNECTION, AREA, null, AREA, null,
+                null, ApiVersion.ACCOUNTS, q, null, null);
 
         return MAPPER.mapJsonResponse(r, Accounts.class);
     }
@@ -58,6 +61,7 @@ public class AccountsApi extends AzDAsyncApi<AccountsApi> implements AccountsDet
     /***
      * Get the list of organizations that you have access to. Note that while creating and granting access to the personal
      * access token select all organizations to apply the access on all available organizations.
+     *
      * @return A list of Organization. {@link Organizations}
      * @throws AzDException Default Api Exception handler.
      */
@@ -73,29 +77,31 @@ public class AccountsApi extends AzDAsyncApi<AccountsApi> implements AccountsDet
             }});
         }};
 
-        String r = send(RequestMethod.POST, CONNECTION, null, null,
-                "Contribution", null, "HierarchyQuery", ApiVersion.ACCOUNTS, null, b);
+        String r = send(RequestMethod.POST, CONNECTION, null, null, "Contribution", null,
+                "HierarchyQuery", ApiVersion.ACCOUNTS, null, b, CustomHeader.JSON_CONTENT_TYPE);
 
         var res = MAPPER.mapJsonResponse(r, Organizations.class);
 
-        return res.getDataProviders().getOrganizationsProvider().getOrganizations();
+        return  res.getDataProviders().getOrganizationsProvider().getOrganizations();
     }
 
     /***
      * Gets the logged in user profile.
+     *
      * @return a profile object. {@link Profile}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public Profile getProfile() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, AREA, null,
-                "/profile/profiles", "me", null, ApiVersion.PROFILE, null, null);
+                "/profile/profiles", "me", null, ApiVersion.PROFILE, null, null, null);
 
         return MAPPER.mapJsonResponse(r, Profile.class);
     }
 
     /***
      * Gets a user profile.
+     *
      * @param id pass the user id
      * @return a profile object. {@link Profile}
      * @throws AzDException Default Api Exception handler.
@@ -103,7 +109,7 @@ public class AccountsApi extends AzDAsyncApi<AccountsApi> implements AccountsDet
     @Override
     public Profile getProfile(String id) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, AREA, null,
-                "/profile/profiles", id, null, ApiVersion.PROFILE, null, null);
+                "/profile/profiles", id, null, ApiVersion.PROFILE, null, null, null);
 
         return MAPPER.mapJsonResponse(r, Profile.class);
     }

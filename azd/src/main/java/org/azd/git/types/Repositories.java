@@ -14,13 +14,13 @@ public class Repositories {
      * List of repositories
      */
     @JsonProperty("value")
-    private List<Repository> value;
+    private List<GitRepository> value;
 
-    public List<Repository> getRepositories() {
+    public List<GitRepository> getRepositories() {
         return value;
     }
 
-    public void setRepositories(List<Repository> value) {
+    public void setRepositories(List<GitRepository> value) {
         this.value = value;
     }
 

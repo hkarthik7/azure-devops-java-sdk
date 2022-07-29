@@ -8,7 +8,7 @@ package org.azd.build.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.Arrays;
+import java.util.List;
 
 /**
  * Additional options for queueing the build. 
@@ -19,44 +19,44 @@ public class ProcessParameters {
      * Represents binding of data source for the service endpoint request.
      **/
     @JsonProperty("dataSourceBindings")
-    private DataSourceBindingBase[] dataSourceBindings;
+    private List<DataSourceBindingBase> dataSourceBindings;
 
     @JsonProperty("inputs")
-    private TaskInputDefinitionBase[] inputs;
+    private List<TaskInputDefinitionBase> inputs;
 
     @JsonProperty("sourceDefinitions")
-    private TaskSourceDefinitionBase[] sourceDefinitions;
+    private List<TaskSourceDefinitionBase> sourceDefinitions;
 
-    public DataSourceBindingBase[] getDataSourceBindings() {
+    public List<DataSourceBindingBase> getDataSourceBindings() {
         return dataSourceBindings;
     }
 
-    public void setDataSourceBindings(DataSourceBindingBase[] dataSourceBindings) {
+    public void setDataSourceBindings(List<DataSourceBindingBase> dataSourceBindings) {
         this.dataSourceBindings = dataSourceBindings;
     }
 
-    public TaskInputDefinitionBase[] getInputs() {
+    public List<TaskInputDefinitionBase> getInputs() {
         return inputs;
     }
 
-    public void setInputs(TaskInputDefinitionBase[] inputs) {
+    public void setInputs(List<TaskInputDefinitionBase> inputs) {
         this.inputs = inputs;
     }
 
-    public TaskSourceDefinitionBase[] getSourceDefinitions() {
+    public List<TaskSourceDefinitionBase> getSourceDefinitions() {
         return sourceDefinitions;
     }
 
-    public void setSourceDefinitions(TaskSourceDefinitionBase[] sourceDefinitions) {
+    public void setSourceDefinitions(List<TaskSourceDefinitionBase> sourceDefinitions) {
         this.sourceDefinitions = sourceDefinitions;
     }
 
     @Override
     public String toString() {
         return "ProcessParameters{" +
-                "dataSourceBindings=" + Arrays.toString(dataSourceBindings) +
-                ", inputs=" + Arrays.toString(inputs) +
-                ", sourceDefinitions=" + Arrays.toString(sourceDefinitions) +
+                "dataSourceBindings=" + dataSourceBindings +
+                ", inputs=" + inputs +
+                ", sourceDefinitions=" + sourceDefinitions +
                 '}';
     }
 }

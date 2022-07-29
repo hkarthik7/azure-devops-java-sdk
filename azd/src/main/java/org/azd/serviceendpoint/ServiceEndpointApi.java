@@ -3,6 +3,7 @@ package org.azd.serviceendpoint;
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
 import org.azd.core.CoreApi;
+import org.azd.enums.CustomHeader;
 import org.azd.enums.RequestMethod;
 import org.azd.enums.ServiceEndpointActionFilter;
 import org.azd.exceptions.AzDException;
@@ -14,7 +15,7 @@ import org.azd.utils.AzDAsyncApi;
 
 import java.util.*;
 
-import static org.azd.utils.Client.send;
+import static org.azd.utils.RestClient.send;
 
 /***
  * Service Endpoint Api to manage service endpoint service
@@ -54,7 +55,7 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
         requestBody.put("type", endpointType);
 
         String r = send(RequestMethod.POST, CONNECTION, SERVICE_ENDPOINT, null,
-                AREA + "/endpoints", null, null, ApiVersion.SERVICE_ENDPOINTS, null, requestBody);
+                AREA + "/endpoints", null, null, ApiVersion.SERVICE_ENDPOINTS, null, requestBody, CustomHeader.JSON_CONTENT_TYPE);
         return MAPPER.mapJsonResponse(r, ServiceEndpoint.class);
     }
 
@@ -120,7 +121,7 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
     @Override
     public ServiceEndpoint getServiceEndpoint(String endpointId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, SERVICE_ENDPOINT, CONNECTION.getProject(),
-                AREA + "/endpoints", endpointId, null, ApiVersion.SERVICE_ENDPOINTS, null, null);
+                AREA + "/endpoints", endpointId, null, ApiVersion.SERVICE_ENDPOINTS, null, null, null);
         return MAPPER.mapJsonResponse(r, ServiceEndpoint.class);
     }
 
@@ -138,7 +139,7 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, SERVICE_ENDPOINT, CONNECTION.getProject(),
-                AREA + "/endpoints", endpointId, null, ApiVersion.SERVICE_ENDPOINTS, q, null);
+                AREA + "/endpoints", endpointId, null, ApiVersion.SERVICE_ENDPOINTS, q, null, null);
         return MAPPER.mapJsonResponse(r, ServiceEndpoint.class);
     }
 
@@ -150,7 +151,7 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
     @Override
     public ServiceEndpoints getServiceEndpoints() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, SERVICE_ENDPOINT, CONNECTION.getProject(),
-                AREA + "/endpoints", null, null, ApiVersion.SERVICE_ENDPOINTS, null, null);
+                AREA + "/endpoints", null, null, ApiVersion.SERVICE_ENDPOINTS, null, null, null);
         return MAPPER.mapJsonResponse(r, ServiceEndpoints.class);
     }
 
@@ -168,7 +169,7 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
             }};
 
             String r = send(RequestMethod.DELETE, CONNECTION, SERVICE_ENDPOINT, CONNECTION.getProject(),
-                    AREA + "/endpoints", endpointId, null, ApiVersion.SERVICE_ENDPOINTS, q, null);
+                    AREA + "/endpoints", endpointId, null, ApiVersion.SERVICE_ENDPOINTS, q, null, null);
 
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
@@ -193,7 +194,7 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
             }};
 
             String r = send(RequestMethod.DELETE, CONNECTION, SERVICE_ENDPOINT, CONNECTION.getProject(),
-                    AREA + "/endpoints", endpointId, null, ApiVersion.SERVICE_ENDPOINTS, q, null);
+                    AREA + "/endpoints", endpointId, null, ApiVersion.SERVICE_ENDPOINTS, q, null, null);
 
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
@@ -215,7 +216,7 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, SERVICE_ENDPOINT, CONNECTION.getProject(),
-                AREA + "/endpoints", null, null, ApiVersion.SERVICE_ENDPOINTS, q, null);
+                AREA + "/endpoints", null, null, ApiVersion.SERVICE_ENDPOINTS, q, null, null);
         return MAPPER.mapJsonResponse(r, ServiceEndpoints.class);
     }
 
@@ -244,7 +245,7 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, SERVICE_ENDPOINT, CONNECTION.getProject(),
-                AREA + "/endpoints", null, null, ApiVersion.SERVICE_ENDPOINTS, q, null);
+                AREA + "/endpoints", null, null, ApiVersion.SERVICE_ENDPOINTS, q, null, null);
         return MAPPER.mapJsonResponse(r, ServiceEndpoints.class);
     }
 
@@ -272,7 +273,7 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
             ref.add(body);
 
             String r = send(RequestMethod.PATCH, CONNECTION, SERVICE_ENDPOINT, CONNECTION.getProject(),
-                    AREA + "/endpoints", endpointId, null, ApiVersion.SERVICE_ENDPOINTS, null, null, ref, null);
+                    AREA + "/endpoints", endpointId, null, ApiVersion.SERVICE_ENDPOINTS, null, ref, CustomHeader.JSON_CONTENT_TYPE);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
             throw e;
@@ -291,7 +292,7 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
     @Override
     public ServiceEndpoint updateServiceEndpoint(String endpointId, Map requestBody) throws AzDException {
         String r = send(RequestMethod.PUT, CONNECTION, SERVICE_ENDPOINT, CONNECTION.getProject(),
-                AREA + "/endpoints", endpointId, null, ApiVersion.SERVICE_ENDPOINTS, null, requestBody);
+                AREA + "/endpoints", endpointId, null, ApiVersion.SERVICE_ENDPOINTS, null, requestBody, CustomHeader.JSON_CONTENT_TYPE);
         return MAPPER.mapJsonResponse(r, ServiceEndpoint.class);
     }
 }

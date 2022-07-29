@@ -1,45 +1,48 @@
 package org.azd.distributedtask.types;
+/**
+----------------------------------------------------------
+	GENERATED FILE, should be edited to suit the purpose.
+----------------------------------------------------------
+**/
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/***
- * The pipeline associated with this request
- */
+/**
+ * None 
+**/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TaskOrchestrationOwner {
-    /***
-     * Id of the pipeline
-     */
-    @JsonProperty("id")
-    private int id;
-    /***
-     * Name of the pipeline
-     */
-    @JsonProperty("name")
-    private String name;
+	/**
+ 	* The class to represent a collection of REST reference links. 
+	**/
+	@JsonProperty("_links")
+	private Object _links;
 
-    public int getId() {
-        return id;
-    }
+	@JsonProperty("id")
+	private Integer id;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	@JsonProperty("name")
+	private String name;
 
-    public String getName() {
-        return name;
-    }
+	public Object get_links() { return _links; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void set_links(Object _links) { this._links = _links; }
 
-    @Override
-    public String toString() {
-        return "TaskOrchestrationOwner{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
+	public Integer getId() { return id; }
+
+	public void setId(Integer id) { this.id = id; }
+
+	public String getName() { return name; }
+
+	public void setName(String name) { this.name = name; }
+
+	@Override
+	public String toString() {
+		return "TaskOrchestrationOwner{" +
+				"_links=" + _links +
+				", id=" + id +
+				", name='" + name + '\'' +
+				'}';
+	}
 }

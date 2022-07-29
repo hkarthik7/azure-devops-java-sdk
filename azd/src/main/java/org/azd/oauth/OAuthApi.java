@@ -1,13 +1,18 @@
 package org.azd.oauth;
 
+import org.azd.enums.CustomHeader;
+import org.azd.enums.Instance;
+import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
+import org.azd.helpers.StreamHelper;
 import org.azd.helpers.URLHelper;
 import org.azd.oauth.types.AuthorizedToken;
-import org.azd.utils.BaseClient;
-import org.azd.utils.Client;
 
+import java.net.http.HttpResponse;
 import java.util.LinkedHashMap;
+
+import static org.azd.utils.RestClient.send;
 
 /***
  * OAuth Api class to authorize access to REST API
@@ -18,17 +23,7 @@ public class OAuthApi {
      * Deserialize JSON response to POJO
      */
     private static final JsonMapper MAPPER = new JsonMapper();
-    private static final String AREA = "accounts";
-
-    private static String VSTS_BASE_URL;
-
-    static {
-        try {
-            VSTS_BASE_URL = Client.getLocationUrl(AREA, null);
-        } catch (AzDException e) {
-
-        }
-    }
+    private static final String VSTS_BASE_URL = Instance.ACCOUNT_INSTANCE.getInstance();
 
     /***
      * Default constructor
@@ -100,7 +95,7 @@ public class OAuthApi {
                 .append(callbackUrl)
                 .toString();
 
-        String r = BaseClient.post(stringBuilder.toString(), body);
+        String r = getResponse(stringBuilder.toString(), body);
 
         // add current system time to refresh the token automatically.
         var res = MAPPER.mapJsonResponse(r, AuthorizedToken.class);
@@ -132,7 +127,7 @@ public class OAuthApi {
                 .append(callbackUrl)
                 .toString();
 
-        String r = BaseClient.post(stringBuilder.toString(), body);
+        String r = getResponse(stringBuilder.toString(), body);
         var res = MAPPER.mapJsonResponse(r, AuthorizedToken.class);
         res.setReceivedTimestamp(System.currentTimeMillis());
 
@@ -146,5 +141,9 @@ public class OAuthApi {
      */
     public static boolean hasTokenExpired(AuthorizedToken authorizedToken) {
         return authorizedToken.getReceivedTimestamp() < 1629897097271L || (authorizedToken.getReceivedTimestamp() + authorizedToken.getExpiresIn() * 1000) < System.currentTimeMillis();
+    }
+
+    private static String getResponse(String requestUrl, String body) throws AzDException {
+        return send(requestUrl, RequestMethod.POST, body, CustomHeader.URL_ENCODED, false);
     }
 }

@@ -1,39 +1,40 @@
 package org.azd.git.types;
+/**
+----------------------------------------------------------
+	GENERATED FILE, should be edited to suit the purpose.
+----------------------------------------------------------
+**/
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.List;
 
+/**
+ * None 
+**/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GitCommitChanges {
-    @JsonProperty("changeCounts")
-    private JsonNode changeCounts;
-    @JsonProperty("changes")
-    private List<GitChange> changes;
 
-    public JsonNode getChangeCounts() {
-        return changeCounts;
-    }
+	@JsonProperty("changeCounts")
+	private Object changeCounts;
 
-    public void setChangeCounts(JsonNode changeCounts) {
-        this.changeCounts = changeCounts;
-    }
+	@JsonProperty("changes")
+	private List<GitChange> changes;
 
-    public List<GitChange> getChanges() {
-        return changes;
-    }
+	public Object getChangeCounts() { return changeCounts; }
 
-    public void setChanges(List<GitChange> changes) {
-        this.changes = changes;
-    }
+	public void setChangeCounts(Object changeCounts) { this.changeCounts = changeCounts; }
 
-    @Override
-    public String toString() {
-        return "GitCommitChanges{" +
-                "changeCounts=" + changeCounts +
-                ", changes=" + changes +
-                '}';
-    }
+	public List<GitChange> getChanges() { return changes; }
+
+	public void setChanges(List<GitChange> changes) { this.changes = changes; }
+
+	@Override
+	public String toString() {
+		return "GitCommitChanges{" +
+				"changeCounts=" + changeCounts +
+				", changes=" + changes +
+				'}';
+	}
 }

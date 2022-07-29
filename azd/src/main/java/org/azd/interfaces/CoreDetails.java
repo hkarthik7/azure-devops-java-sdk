@@ -4,7 +4,6 @@ import org.azd.core.types.*;
 import org.azd.enums.FeatureManagement;
 import org.azd.exceptions.AzDException;
 
-import java.util.Map;
 import java.util.Optional;
 
 public interface CoreDetails {
@@ -28,7 +27,7 @@ public interface CoreDetails {
     Projects getProjects(int skip, int top, String continuationToken,
                          boolean getDefaultTeamImageUrl, String stateFilter) throws AzDException;
 
-    OperationReference updateProject(String projectId, Map<String, Object> projectParameters) throws AzDException;
+    OperationReference updateProject(String projectId, Project projectParameters) throws AzDException;
 
     WebApiTeam createTeam(String projectName, String teamName) throws AzDException;
 

@@ -22,5 +22,7 @@ public enum ProjectVisibility {
      * The project is visible to all.
      **/
     @JsonProperty("public")
-    PUBLIC;
+    PUBLIC,
+    @JsonProperty("unchanged")
+    UNCHANGED;
 }

@@ -17,7 +17,9 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Implements HttpRequest request methods to send GET, POST, PATCH and DELETE request
  * to Azure DevOps REST API.
+ * @deprecated This is deprecated as of version 5.0.0
  */
+@Deprecated
 public abstract class BaseClient {
 
     private static final String AUTHORIZATION = "Authorization";
@@ -30,7 +32,7 @@ public abstract class BaseClient {
      * @param token pass the personal access token
      * @return Encoded string of personal access token for basic authentication
      */
-    private static String encodePersonalAccessToken(String token) {
+    @Deprecated private static String encodePersonalAccessToken(String token) {
         return "Basic " +
                 Base64.getEncoder().encodeToString(("" + ":" + token).getBytes());
     }
@@ -41,7 +43,7 @@ public abstract class BaseClient {
      * @param token personal access token
      * @return HttpRequest object to build
      */
-    private static HttpRequest.Builder request(String requestUrl, String token) {
+    @Deprecated private static HttpRequest.Builder request(String requestUrl, String token) {
         if (token == null) return request(requestUrl);
         return HttpRequest
                 .newBuilder()
@@ -54,7 +56,7 @@ public abstract class BaseClient {
      * @param requestUrl request url
      * @return HttpRequest object to build
      */
-    private static HttpRequest.Builder request(String requestUrl) {
+    @Deprecated private static HttpRequest.Builder request(String requestUrl) {
         return HttpRequest
                 .newBuilder()
                 .uri(URI.create(requestUrl));
@@ -65,7 +67,7 @@ public abstract class BaseClient {
      * @param r pass the Http request object
      * @return String response from API
      */
-    private static String response(HttpRequest r) {
+    @Deprecated private static String response(HttpRequest r) {
         return CLIENT.sendAsync(r, HttpResponse.BodyHandlers.ofString())
                 .thenApply(HttpResponse::body)
                 .join();
@@ -77,7 +79,7 @@ public abstract class BaseClient {
      * @param requestUrl pass the request url
      * @return response string from the API
      */
-    public static String get(String requestUrl) {
+    @Deprecated public static String get(String requestUrl) {
         return response(request(requestUrl).GET().header("Accept", "application/json").build());
     }
 
@@ -88,7 +90,7 @@ public abstract class BaseClient {
      * @param token      pass the personal access token
      * @return response string from the API
      */
-    public static String get(String requestUrl, String token) {
+    @Deprecated public static String get(String requestUrl, String token) {
         return response(request(requestUrl, token).GET().header("Accept", "application/json").build());
     }
 
@@ -100,7 +102,7 @@ public abstract class BaseClient {
      * @param contentType specify the content type
      * @return response string from the API
      */
-    public static String get(String requestUrl, String token, String contentType) {
+    @Deprecated public static String get(String requestUrl, String token, String contentType) {
         return response(request(requestUrl, token).GET().header("Accept", contentType).build());
     }
 
@@ -113,7 +115,7 @@ public abstract class BaseClient {
      * @return response string from the API if any
      * @throws AzDException throws user friendly error message with error code from API
      */
-    public static String post(String requestUrl, String token, Map body) throws AzDException {
+    @Deprecated public static String post(String requestUrl, String token, Map body) throws AzDException {
         return response(
                 request(requestUrl, token)
                         .POST(HttpRequest.BodyPublishers.ofString(MAPPER.convertToString(body)))
@@ -128,7 +130,7 @@ public abstract class BaseClient {
      * @param body       pass the request body to post the request
      * @return response string from the API if any
      */
-    public static String post(String requestUrl, String body) {
+    @Deprecated public static String post(String requestUrl, String body) {
         return response(
                 request(requestUrl)
                         .POST(HttpRequest.BodyPublishers.ofString(body))
@@ -145,7 +147,7 @@ public abstract class BaseClient {
      * @return response string from the API if any
      * @throws AzDException throws user friendly error message with error code from API
      */
-    public static String post(String requestUrl, String token, String body, String contentType) throws AzDException {
+    @Deprecated public static String post(String requestUrl, String token, String body, String contentType) throws AzDException {
         return response(
                 request(requestUrl, token)
                         .POST(HttpRequest.BodyPublishers.ofString(body))
@@ -161,7 +163,7 @@ public abstract class BaseClient {
      * @return response string from the API if any
      * @throws AzDException throws user friendly error message with error code from API
      */
-    public static String post(String requestUrl, String token, List<Object> body) throws AzDException {
+    @Deprecated public static String post(String requestUrl, String token, List<Object> body) throws AzDException {
         return response(
                 request(requestUrl, token)
                         .POST(HttpRequest.BodyPublishers.ofString(MAPPER.convertToString(body)))
@@ -178,7 +180,7 @@ public abstract class BaseClient {
      * @return response string from the API if any
      * @throws AzDException throws user friendly error message with error code from API
      */
-    public static String patch(String requestUrl, String token, Map body) throws AzDException {
+    @Deprecated public static String patch(String requestUrl, String token, Map body) throws AzDException {
         return response(
                 request(requestUrl, token)
                         .method(RequestMethod.PATCH.toString(), HttpRequest.BodyPublishers.ofString(MAPPER.convertToString(body)))
@@ -196,7 +198,7 @@ public abstract class BaseClient {
      * @return response string from the API if any
      * @throws AzDException throws user friendly error message with error code from API
      */
-    public static String patch(String requestUrl, String token, String body, String contentType) throws AzDException {
+    @Deprecated public static String patch(String requestUrl, String token, String body, String contentType) throws AzDException {
         return response(
                 request(requestUrl, token)
                         .method(RequestMethod.PATCH.toString(), HttpRequest.BodyPublishers.ofString(body))
@@ -215,7 +217,7 @@ public abstract class BaseClient {
      * @return response string from the API if any
      * @throws AzDException throws user friendly error message with error code from API
      */
-    public static String patch(String requestUrl, String token, Map body, String contentType) throws AzDException {
+    @Deprecated public static String patch(String requestUrl, String token, Map body, String contentType) throws AzDException {
         return response(
                 request(requestUrl, token)
                         .method(RequestMethod.PATCH.toString(), HttpRequest.BodyPublishers.ofString(MAPPER.convertToString(body)))
@@ -232,7 +234,7 @@ public abstract class BaseClient {
      * @return response string from the API if any
      * @throws AzDException throws user friendly error message with error code from API
      */
-    public static String patch(String requestUrl, String token, List<Object> body) throws AzDException {
+    @Deprecated public static String patch(String requestUrl, String token, List<Object> body) throws AzDException {
         return response(
                 request(requestUrl, token)
                         .method(RequestMethod.PATCH.toString(), HttpRequest.BodyPublishers.ofString(MAPPER.convertToString(body)))
@@ -250,7 +252,7 @@ public abstract class BaseClient {
      * @return response string from the API if any
      * @throws AzDException throws user friendly error message with error code from API
      */
-    public static String patch(String requestUrl, String token, List<Object> body, String contentType) throws AzDException {
+    @Deprecated public static String patch(String requestUrl, String token, List<Object> body, String contentType) throws AzDException {
         return response(
                 request(requestUrl, token)
                         .method(RequestMethod.PATCH.toString(), HttpRequest.BodyPublishers.ofString(MAPPER.convertToString(body)))
@@ -266,7 +268,7 @@ public abstract class BaseClient {
      * @return response string from the API if any
      * @throws AzDException throws user friendly error message with error code from API
      */
-    public static String put(String requestUrl, String token, Map body) throws AzDException {
+    @Deprecated public static String put(String requestUrl, String token, Map body) throws AzDException {
         return response(
                 request(requestUrl, token)
                         .method(RequestMethod.PUT.toString(), HttpRequest.BodyPublishers.ofString(MAPPER.convertToString(body)))
@@ -282,7 +284,7 @@ public abstract class BaseClient {
      * @return response string from the API if any
      * @throws AzDException throws user friendly error message with error code from API
      */
-    public static String put(String requestUrl, String token, String body, String contentType) throws AzDException {
+    @Deprecated public static String put(String requestUrl, String token, String body, String contentType) throws AzDException {
         return response(
                 request(requestUrl, token)
                         .method(RequestMethod.PUT.toString(), HttpRequest.BodyPublishers.ofString(body))
@@ -297,22 +299,22 @@ public abstract class BaseClient {
      * @param token      pass the personal access token
      * @return response string from the API if any
      */
-    public static String delete(String requestUrl, String token) {
+    @Deprecated public static String delete(String requestUrl, String token) {
         return response(request(requestUrl, token).DELETE().build());
     }
 
     /**
      * Helper inner class for managing the response as stream.
      */
-    public abstract static class StreamBuilder {
-        private static HttpClient.Redirect REDIRECT_POLICY = HttpClient.Redirect.NORMAL;
+    @Deprecated public abstract static class StreamBuilder {
+        @Deprecated private static HttpClient.Redirect REDIRECT_POLICY = HttpClient.Redirect.NORMAL;
 
         /**
          * Get the current redirect policy.
          *
          * @return HttpClient.Redirect policy.
          */
-        public static HttpClient.Redirect getRedirectPolicy() {
+        @Deprecated public static HttpClient.Redirect getRedirectPolicy() {
             return REDIRECT_POLICY;
         }
 
@@ -321,7 +323,7 @@ public abstract class BaseClient {
          *
          * @param redirectPolicy HttpClient.Redirect policy.
          */
-        public static void setRedirectPolicy(HttpClient.Redirect redirectPolicy) {
+        @Deprecated public static void setRedirectPolicy(HttpClient.Redirect redirectPolicy) {
             REDIRECT_POLICY = redirectPolicy;
         }
 
@@ -337,7 +339,7 @@ public abstract class BaseClient {
          * @param followRedirects if true follow the redirect URL.
          * @return Input stream response from the API.
          */
-        public static InputStream response(RequestMethod requestMethod, String requestUrl,
+        @Deprecated public static InputStream response(RequestMethod requestMethod, String requestUrl,
                                            String token, String contentType, InputStream contentStream,
                                            Map<String, String> customHeaders, boolean followRedirects) {
             var client = getClient(followRedirects);
@@ -385,7 +387,7 @@ public abstract class BaseClient {
          * @param customHeaders custom headers to send with the post request.
          * @return Input stream response from the API as CompletableFuture object.
          */
-        public static CompletableFuture<HttpResponse<InputStream>> response(RequestMethod requestMethod, String requestUrl,
+        @Deprecated public static CompletableFuture<HttpResponse<InputStream>> response(RequestMethod requestMethod, String requestUrl,
                                                                             String token, String contentType, InputStream contentStream,
                                                                             Map<String, String> customHeaders) {
 
@@ -422,7 +424,7 @@ public abstract class BaseClient {
          * @param redirect If true adds redirect policy
          * @return HttpClient object
          */
-        private static HttpClient getClient(boolean redirect) {
+        @Deprecated private static HttpClient getClient(boolean redirect) {
             var client = HttpClient.newBuilder();
 
             if (redirect) {

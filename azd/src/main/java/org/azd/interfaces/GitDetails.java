@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface GitDetails {
 
-    Repository createRepository(String repositoryName, String projectId) throws AzDException;
+    GitRepository createRepository(String repositoryName, String projectId) throws AzDException;
 
     Void deleteRepository(String repositoryId) throws AzDException;
 
@@ -21,24 +21,24 @@ public interface GitDetails {
 
     GitDeletedRepositories getRecycleBinRepositories() throws AzDException;
 
-    Repository getRepository(String repositoryName) throws AzDException;
+    GitRepository getRepository(String repositoryName) throws AzDException;
 
     Repositories getRepositories() throws AzDException;
 
-    Repository restoreRepositoryFromRecycleBin(String repositoryId, boolean deleted) throws AzDException;
+    GitRepository restoreRepositoryFromRecycleBin(String repositoryId, boolean deleted) throws AzDException;
 
-    Repository updateRepository(String repositoryId, String repositoryName, String defaultBranchName)
+    GitRepository updateRepository(String repositoryId, String repositoryName, String defaultBranchName)
             throws AzDException;
 
-    PullRequest createPullRequest(String repositoryId, String sourceRefName, String targetRefName, String title,
+    GitPullRequest createPullRequest(String repositoryId, String sourceRefName, String targetRefName, String title,
                                   String description, String[] reviewers) throws AzDException;
 
-    PullRequest createPullRequest(String repositoryId, String sourceRefName, String targetRefName, String title,
+    GitPullRequest createPullRequest(String repositoryId, String sourceRefName, String targetRefName, String title,
                                   String description, boolean isDraft) throws AzDException;
 
-    PullRequest getPullRequest(String repositoryName, int pullRequestId) throws AzDException;
+    GitPullRequest getPullRequest(String repositoryName, int pullRequestId) throws AzDException;
 
-    PullRequest getPullRequestById(int pullRequestId) throws AzDException;
+    GitPullRequest getPullRequestById(int pullRequestId) throws AzDException;
 
     PullRequests getPullRequests(String repositoryName) throws AzDException;
 
@@ -70,17 +70,17 @@ public interface GitDetails {
 
     WebApiTagDefinitions getPullRequestLabels(String repositoryName, int pullRequestId) throws AzDException;
 
-    PullRequestReviewer createPullRequestReviewer(int pullRequestId, String repositoryId, String reviewerId, int vote,
+    IdentityRefWithVote createPullRequestReviewer(int pullRequestId, String repositoryId, String reviewerId, int vote,
                                                   boolean isRequired) throws AzDException;
 
     Void deletePullRequestReviewer(int pullRequestId, String repositoryId, String reviewerId) throws AzDException;
 
-    PullRequestReviewer getPullRequestReviewer(int pullRequestId, String repositoryId, String reviewerId)
+    IdentityRefWithVote getPullRequestReviewer(int pullRequestId, String repositoryId, String reviewerId)
             throws AzDException;
 
     PullRequestReviewers getPullRequestReviewers(int pullRequestId, String repositoryId) throws AzDException;
 
-    PullRequestReviewer updatePullRequestReviewer(int pullRequestId, String repositoryId, String reviewerId,
+    IdentityRefWithVote updatePullRequestReviewer(int pullRequestId, String repositoryId, String reviewerId,
                                                   boolean isFlagged, boolean hasDeclined) throws AzDException;
 
     GitAnnotatedTag createAnnotatedTag(String repositoryName, String tagName, String objectId, String message)

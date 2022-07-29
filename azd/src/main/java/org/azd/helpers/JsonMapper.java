@@ -7,6 +7,7 @@ import org.azd.enums.ApiExceptionTypes;
 import org.azd.exceptions.AzDException;
 
 import java.io.File;
+import java.io.InputStream;
 
 /***
  * Helper class to transform json string to POJO and vice versa
@@ -45,6 +46,22 @@ public class JsonMapper extends ObjectMapper {
                 throw new AzDException(ApiExceptionTypes.InvalidPersonalAccessTokenException.toString(), "Personal access token passed is invalid; Pass the valid token and try again.");
             return this.readValue(content, valueType);
         } catch (JsonProcessingException e) {
+            throw new AzDException(ApiExceptionTypes.ApiResponseParsingException.toString(), e.getMessage());
+        }
+    }
+
+    /***
+     * Handles the deserialization of json string to object of given type.
+     * @param content input stream response from API
+     * @param valueType class name to convert to POJO
+     * @param <T> Type name
+     * @return the given type
+     * @throws AzDException Api exception handler
+     */
+    public <T> T mapJsonResponse(InputStream content, Class<T> valueType) throws AzDException {
+        try {
+            return mapJsonResponse(StreamHelper.convertToString(content), valueType);
+        } catch (AzDException e) {
             throw new AzDException(ApiExceptionTypes.ApiResponseParsingException.toString(), e.getMessage());
         }
     }

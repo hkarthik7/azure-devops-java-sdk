@@ -2,6 +2,7 @@ package org.azd.wiki;
 
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
+import org.azd.enums.CustomHeader;
 import org.azd.enums.RequestMethod;
 import org.azd.enums.WikiType;
 import org.azd.exceptions.AzDException;
@@ -13,7 +14,7 @@ import org.azd.wiki.types.WikiV2Pages;
 
 import java.util.HashMap;
 
-import static org.azd.utils.Client.send;
+import static org.azd.utils.RestClient.send;
 
 /***
  * Wiki class to manage Wiki API
@@ -61,7 +62,7 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, WIKI, CONNECTION.getProject(),
-                AREA, null, null, ApiVersion.WIKI, null, b);
+                AREA, null, null, ApiVersion.WIKI, null, b, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, WikiV2.class);
     }
@@ -75,7 +76,7 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
     @Override
     public WikiV2 deleteWiki(String wikiIdentifier) throws AzDException {
         String r = send(RequestMethod.DELETE, CONNECTION, WIKI, CONNECTION.getProject(),
-                AREA, wikiIdentifier, null, ApiVersion.WIKI, null, null);
+                AREA, wikiIdentifier, null, ApiVersion.WIKI, null, null, null);
 
         return MAPPER.mapJsonResponse(r, WikiV2.class);
     }
@@ -89,7 +90,7 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
     @Override
     public WikiV2 getWiki(String wikiIdentifier) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, WIKI, CONNECTION.getProject(),
-                AREA, wikiIdentifier, null, ApiVersion.WIKI, null, null);
+                AREA, wikiIdentifier, null, ApiVersion.WIKI, null, null, null);
 
         return MAPPER.mapJsonResponse(r, WikiV2.class);
     }
@@ -102,7 +103,7 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
     @Override
     public WikiV2Pages getWikis() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, WIKI, CONNECTION.getProject(),
-                AREA, null, null, ApiVersion.WIKI, null, null);
+                AREA, null, null, ApiVersion.WIKI, null, null, null);
 
         return MAPPER.mapJsonResponse(r, WikiV2Pages.class);
     }

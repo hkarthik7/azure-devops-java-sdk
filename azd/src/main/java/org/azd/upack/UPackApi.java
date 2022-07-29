@@ -2,10 +2,7 @@ package org.azd.upack;
 
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
-import org.azd.enums.PackageOperation;
-import org.azd.enums.PackagePromote;
-import org.azd.enums.PackagesBatchOperation;
-import org.azd.enums.RequestMethod;
+import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.UpackDetails;
@@ -18,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.azd.utils.Client.send;
+import static org.azd.utils.RestClient.send;
 
 /***
  * UpackApi class to manage Universal Package artifact package api
@@ -53,7 +50,7 @@ public class UPackApi extends AzDAsyncApi<UPackApi> implements UpackDetails {
     @Override
     public Package getPackageVersion(String feedId, String packageName, String version) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, UPACK, CONNECTION.getProject(), AREA + "/feeds", feedId,
-                "upack/packages/" + packageName + "/versions/" + version, ApiVersion.UPACK, null, null);
+                "upack/packages/" + packageName + "/versions/" + version, ApiVersion.UPACK, null, null, null);
 
         return MAPPER.mapJsonResponse(r, Package.class);
     }
@@ -77,7 +74,7 @@ public class UPackApi extends AzDAsyncApi<UPackApi> implements UpackDetails {
             }
         };
         String r = send(RequestMethod.GET, CONNECTION, UPACK, CONNECTION.getProject(), AREA + "/feeds", feedId,
-                "upack/packages/" + packageName + "/versions/" + version, ApiVersion.UPACK, q, null);
+                "upack/packages/" + packageName + "/versions/" + version, ApiVersion.UPACK, q, null, null);
 
         return MAPPER.mapJsonResponse(r, Package.class);
     }
@@ -96,7 +93,7 @@ public class UPackApi extends AzDAsyncApi<UPackApi> implements UpackDetails {
     public UPackPackageVersionDeletionState getPackageVersionFromRecycleBin(String feedId, String packageName,
                                                                             String version) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, UPACK, CONNECTION.getProject(), AREA + "/feeds", feedId,
-                "upack/RecycleBin/packages/" + packageName + "/versions/" + version, ApiVersion.UPACK, null, null);
+                "upack/RecycleBin/packages/" + packageName + "/versions/" + version, ApiVersion.UPACK, null, null, null);
 
         return MAPPER.mapJsonResponse(r, UPackPackageVersionDeletionState.class);
     }
@@ -115,7 +112,7 @@ public class UPackApi extends AzDAsyncApi<UPackApi> implements UpackDetails {
     public void deletePackageVersion(String feedId, String packageName, String version) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, UPACK, CONNECTION.getProject(), AREA + "/feeds", feedId,
-                    "upack/packages/" + packageName + "/versions/" + version, ApiVersion.UPACK, null, null);
+                    "upack/packages/" + packageName + "/versions/" + version, ApiVersion.UPACK, null, null, null);
             if (!r.isEmpty())
                 MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
@@ -137,7 +134,7 @@ public class UPackApi extends AzDAsyncApi<UPackApi> implements UpackDetails {
             throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, UPACK, CONNECTION.getProject(), AREA + "/feeds", feedId,
-                    "upack/RecycleBin/packages/" + packageName + "/versions/" + version, ApiVersion.UPACK, null, null);
+                    "upack/RecycleBin/packages/" + packageName + "/versions/" + version, ApiVersion.UPACK, null, null, null);
             if (!r.isEmpty())
                 MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
@@ -174,22 +171,17 @@ public class UPackApi extends AzDAsyncApi<UPackApi> implements UpackDetails {
     public void updatePackageVersion(String feedId, String packageName, String version, String promote)
             throws AzDException {
 
-        var req = new HashMap<String, Object>() {
-            {
-                put("op", PackageOperation.ADD.toString());
-                put("path", "/views/-");
-                put("value", promote.toString()); // "prmote package type"
-            }
-        };
-        var body = new HashMap<String, Object>() {
-            {
-                put("views", req);
-            }
-        };
+        var req = new HashMap<String, Object>(){{
+            put("op", PackageOperation.ADD.toString());
+            put("path", "/views/-");
+            put("value", promote.toString()); // "prmote package type"
+        }};
+
+        var body = new HashMap<String, Object>(){{ put("views", req); }};
 
         try {
             String r = send(RequestMethod.PATCH, CONNECTION, UPACK, CONNECTION.getProject(), AREA + "/feeds", feedId,
-                    "upack/packages/" + packageName + "/versions/" + version, ApiVersion.UPACK, null, body, null);
+                    "upack/packages/" + packageName + "/versions/" + version, ApiVersion.UPACK, null, body, CustomHeader.JSON_CONTENT_TYPE);
             if (!r.isEmpty())
                 MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
@@ -226,7 +218,7 @@ public class UPackApi extends AzDAsyncApi<UPackApi> implements UpackDetails {
             req.put("packages", l);
 
             String r = send(RequestMethod.POST, CONNECTION, UPACK, CONNECTION.getProject(), AREA + "/feeds", feedId,
-                    "upack/packagesbatch", ApiVersion.UPACK, null, req, null);
+                    "upack/packagesbatch", ApiVersion.UPACK, null, req, CustomHeader.JSON_CONTENT_TYPE);
             if (!r.isEmpty()) {
                 MAPPER.mapJsonResponse(r, Map.class);
             }
@@ -249,7 +241,7 @@ public class UPackApi extends AzDAsyncApi<UPackApi> implements UpackDetails {
         try {
             String r = send(RequestMethod.PATCH, CONNECTION, UPACK, CONNECTION.getProject(),
                     AREA + "/feeds", feedId, "upack/RecycleBin/packages/" + packageName + "/versions/" + version,
-                    ApiVersion.UPACK, null, Map.of("deleted", "false"));
+                    ApiVersion.UPACK, null, Map.of("deleted", "false"), null);
             if (!r.isEmpty())
                 MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
@@ -282,7 +274,7 @@ public class UPackApi extends AzDAsyncApi<UPackApi> implements UpackDetails {
             req.put("packages", l);
 
             String r = send(RequestMethod.POST, CONNECTION, UPACK, CONNECTION.getProject(), AREA + "/feeds", feedId,
-                    "upack/RecycleBin/packagesbatch", ApiVersion.UPACK, null, req, null);
+                    "upack/RecycleBin/packagesbatch", ApiVersion.UPACK, null, req, CustomHeader.JSON_CONTENT_TYPE);
             if (!r.isEmpty())
                 MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {

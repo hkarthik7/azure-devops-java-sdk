@@ -1,102 +1,101 @@
 package org.azd.git.types;
+/**
+----------------------------------------------------------
+	GENERATED FILE, should be edited to suit the purpose.
+----------------------------------------------------------
+**/
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
 
-/***
- * Represents a git branch reference
- */
+import java.util.List;
+
+/**
+ * This class contains the metadata of a service/extension posting a status. 
+**/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GitRef {
-    /***
-     * Creator of the branch
-     */
-    @JsonProperty("creator")
-    private Author creator;
-    /***
-     * If the branch is locked or not
-     */
-    @JsonProperty("isLocked")
-    private boolean isLocked;
-    /***
-     * Branch is locked by (user reference)
-     */
-    @JsonProperty("isLockedBy")
-    private Author isLockedBy;
-    /***
-     * Name of the branch
-     */
-    @JsonProperty("name")
-    private String name;
-    /***
-     * Object id
-     */
-    @JsonProperty("objectId")
-    private String objectId;
-    /***
-     * Branch url
-     */
-    @JsonProperty("url")
-    private String url;
+	/**
+ 	* The class to represent a collection of REST reference links. 
+	**/
+	@JsonProperty("_links")
+	private Object _links;
 
-    public Author getCreator() {
-        return creator;
-    }
+	@JsonProperty("creator")
+	private Author creator;
 
-    public void setCreator(Author creator) {
-        this.creator = creator;
-    }
+	@JsonProperty("isLocked")
+	private boolean isLocked;
 
-    public boolean isLocked() {
-        return isLocked;
-    }
+	@JsonProperty("isLockedBy")
+	private Author isLockedBy;
 
-    public void setLocked(boolean locked) {
-        isLocked = locked;
-    }
+	@JsonProperty("name")
+	private String name;
 
-    public Author getIsLockedBy() {
-        return isLockedBy;
-    }
+	@JsonProperty("objectId")
+	private String objectId;
 
-    public void setIsLockedBy(Author isLockedBy) {
-        this.isLockedBy = isLockedBy;
-    }
+	@JsonProperty("peeledObjectId")
+	private String peeledObjectId;
+	/**
+ 	* This class contains the metadata of a service/extension posting a status. 
+	**/
+	@JsonProperty("statuses")
+	private List<GitStatus> statuses;
 
-    public String getName() {
-        return name;
-    }
+	@JsonProperty("url")
+	private String url;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public Object get_links() { return _links; }
 
-    public String getObjectId() {
-        return objectId;
-    }
+	public void set_links(Object _links) { this._links = _links; }
 
-    public void setObjectId(String objectId) {
-        this.objectId = objectId;
-    }
+	public Author getCreator() { return creator; }
 
-    public String getUrl() {
-        return url;
-    }
+	public void setCreator(Author creator) { this.creator = creator; }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
+	public boolean getIsLocked() { return isLocked; }
 
-    @Override
-    public String toString() {
-        return "GitRef{" +
-                "creator=" + creator +
-                ", isLocked=" + isLocked +
-                ", isLockedBy=" + isLockedBy +
-                ", name='" + name + '\'' +
-                ", objectId='" + objectId + '\'' +
-                ", url='" + url + '\'' +
-                '}';
-    }
+	public void setIsLocked(boolean isLocked) { this.isLocked = isLocked; }
+
+	public Author getIsLockedBy() { return isLockedBy; }
+
+	public void setIsLockedBy(Author isLockedBy) { this.isLockedBy = isLockedBy; }
+
+	public String getName() { return name; }
+
+	public void setName(String name) { this.name = name; }
+
+	public String getObjectId() { return objectId; }
+
+	public void setObjectId(String objectId) { this.objectId = objectId; }
+
+	public String getPeeledObjectId() { return peeledObjectId; }
+
+	public void setPeeledObjectId(String peeledObjectId) { this.peeledObjectId = peeledObjectId; }
+
+	public List<GitStatus> getStatuses() { return statuses; }
+
+	public void setStatuses(List<GitStatus> statuses) { this.statuses = statuses; }
+
+	public String getUrl() { return url; }
+
+	public void setUrl(String url) { this.url = url; }
+
+	@Override
+	public String toString() {
+		return "GitRef{" +
+				"_links=" + _links +
+				", creator=" + creator +
+				", isLocked=" + isLocked +
+				", isLockedBy=" + isLockedBy +
+				", name='" + name + '\'' +
+				", objectId='" + objectId + '\'' +
+				", peeledObjectId='" + peeledObjectId + '\'' +
+				", statuses=" + statuses +
+				", url='" + url + '\'' +
+				'}';
+	}
 }

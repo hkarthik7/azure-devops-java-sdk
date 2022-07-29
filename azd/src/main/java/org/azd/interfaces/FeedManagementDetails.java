@@ -36,13 +36,9 @@ public interface FeedManagementDetails {
             String feedRole, boolean includeDeletedUpstreams,
             boolean includeUrls) throws AzDException;
 
-    FeedPermissions setFeedPermissions(
-            String feedName, String displayName,
-            String identityDescriptor, boolean isInheritedRole, String role) throws AzDException;
+    FeedPermissions setFeedPermissions(String feedId, FeedPermissions feedPermissions) throws AzDException;
 
-    Feed updateFeed(
-            String id, String feedName, boolean badgesEnabled, String description,
-            boolean hideDeletedPackageVersions, boolean upstreamEnabled) throws AzDException;
+    Feed updateFeed(String feedId, Feed feed) throws AzDException;
 
-    FeedView updateFeedView(String feedName, String feedViewName, FeedViewType feedViewType, FeedVisibility visibility) throws AzDException;
+    FeedView updateFeedView(String feedName, String feedViewName, FeedView feedView) throws AzDException;
 }

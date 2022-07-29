@@ -1,183 +1,173 @@
 package org.azd.git.types;
+/**
+----------------------------------------------------------
+	GENERATED FILE, should be edited to suit the purpose.
+----------------------------------------------------------
+**/
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * State of the status. 
+**/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GitCommit {
-    @JsonProperty("_links")
-    private JsonNode _links;
-    @JsonProperty("author")
-    private GitUserDate author;
-    @JsonProperty("changeCounts")
-    private JsonNode changeCounts;
-    @JsonProperty("changes")
-    private List<GitChange> changes;
-    @JsonProperty("comment")
-    private String comment;
-    @JsonProperty("commentTruncated")
-    private boolean commentTruncated;
-    @JsonProperty("commitId")
-    private String commitId;
-    @JsonProperty("committer")
-    private GitUserDate committer;
-    @JsonProperty("parents")
-    private String[] parents;
-    @JsonProperty("push")
-    private GitPushRef push;
-    @JsonProperty("remoteUrl")
-    private String remoteUrl;
-    @JsonProperty("statuses")
-    private List<GitStatus> statuses;
-    @JsonProperty("treeId")
-    private String treeId;
-    @JsonProperty("url")
-    private String url;
-    @JsonProperty("workItems")
-    private ResourceRefs workItems;
+	/**
+ 	* A collection of related REST reference links. 
+	**/
+	@JsonProperty("_links")
+	private Object _links;
+	/**
+ 	* Author of the commit. 
+	**/
+	@JsonProperty("author")
+	private GitUserDate author;
+	/**
+ 	* Counts of the types of changes (edits, deletes, etc.) included with the commit. 
+	**/
+	@JsonProperty("changeCounts")
+	private Object changeCounts;
+	/**
+ 	* An enumeration of the changes included with the commit. 
+	**/
+	@JsonProperty("changes")
+	private List<GitChange> changes;
+	/**
+ 	* Comment or message of the commit. 
+	**/
+	@JsonProperty("comment")
+	private String comment;
+	/**
+ 	* Indicates if the comment is truncated from the full Git commit comment message. 
+	**/
+	@JsonProperty("commentTruncated")
+	private boolean commentTruncated;
+	/**
+ 	* ID (SHA-1) of the commit. 
+	**/
+	@JsonProperty("commitId")
+	private String commitId;
+	/**
+ 	* Committer of the commit. 
+	**/
+	@JsonProperty("committer")
+	private GitUserDate committer;
+	/**
+ 	* An enumeration of the parent commit IDs for this commit. 
+	**/
+	@JsonProperty("parents")
+	private String[] parents;
+	/**
+ 	* The push associated with this commit. 
+	**/
+	@JsonProperty("push")
+	private GitPushRef push;
+	/**
+ 	* Remote URL path to the commit. 
+	**/
+	@JsonProperty("remoteUrl")
+	private String remoteUrl;
+	/**
+ 	* A list of status metadata from services and extensions that may associate additional information to the commit. 
+	**/
+	@JsonProperty("statuses")
+	private List<GitStatus> statuses;
 
-    public JsonNode get_links() {
-        return _links;
-    }
+	@JsonProperty("treeId")
+	private String treeId;
+	/**
+ 	* REST URL for this resource. 
+	**/
+	@JsonProperty("url")
+	private String url;
+	/**
+ 	* A list of workitems associated with this commit. 
+	**/
+	@JsonProperty("workItems")
+	private List<ResourceRef> workItems;
 
-    public void set_links(JsonNode _links) {
-        this._links = _links;
-    }
+	public Object get_links() { return _links; }
 
-    public GitUserDate getAuthor() {
-        return author;
-    }
+	public void set_links(Object _links) { this._links = _links; }
 
-    public void setAuthor(GitUserDate author) {
-        this.author = author;
-    }
+	public GitUserDate getAuthor() { return author; }
 
-    public JsonNode getChangeCounts() {
-        return changeCounts;
-    }
+	public void setAuthor(GitUserDate author) { this.author = author; }
 
-    public void setChangeCounts(JsonNode changeCounts) {
-        this.changeCounts = changeCounts;
-    }
+	public Object getChangeCounts() { return changeCounts; }
 
-    public List<GitChange> getChanges() {
-        return changes;
-    }
+	public void setChangeCounts(Object changeCounts) { this.changeCounts = changeCounts; }
 
-    public void setChanges(List<GitChange> changes) {
-        this.changes = changes;
-    }
+	public List<GitChange> getChanges() { return changes; }
 
-    public String getComment() {
-        return comment;
-    }
+	public void setChanges(List<GitChange> changes) { this.changes = changes; }
 
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
+	public String getComment() { return comment; }
 
-    public boolean isCommentTruncated() {
-        return commentTruncated;
-    }
+	public void setComment(String comment) { this.comment = comment; }
 
-    public void setCommentTruncated(boolean commentTruncated) {
-        this.commentTruncated = commentTruncated;
-    }
+	public boolean getCommentTruncated() { return commentTruncated; }
 
-    public String getCommitId() {
-        return commitId;
-    }
+	public void setCommentTruncated(boolean commentTruncated) { this.commentTruncated = commentTruncated; }
 
-    public void setCommitId(String commitId) {
-        this.commitId = commitId;
-    }
+	public String getCommitId() { return commitId; }
 
-    public GitUserDate getCommitter() {
-        return committer;
-    }
+	public void setCommitId(String commitId) { this.commitId = commitId; }
 
-    public void setCommitter(GitUserDate committer) {
-        this.committer = committer;
-    }
+	public GitUserDate getCommitter() { return committer; }
 
-    public String[] getParents() {
-        return parents;
-    }
+	public void setCommitter(GitUserDate committer) { this.committer = committer; }
 
-    public void setParents(String[] parents) {
-        this.parents = parents;
-    }
+	public String[] getParents() { return parents; }
 
-    public GitPushRef getPush() {
-        return push;
-    }
+	public void setParents(String[] parents) { this.parents = parents; }
 
-    public void setPush(GitPushRef push) {
-        this.push = push;
-    }
+	public GitPushRef getPush() { return push; }
 
-    public String getRemoteUrl() {
-        return remoteUrl;
-    }
+	public void setPush(GitPushRef push) { this.push = push; }
 
-    public void setRemoteUrl(String remoteUrl) {
-        this.remoteUrl = remoteUrl;
-    }
+	public String getRemoteUrl() { return remoteUrl; }
 
-    public List<GitStatus> getStatuses() {
-        return statuses;
-    }
+	public void setRemoteUrl(String remoteUrl) { this.remoteUrl = remoteUrl; }
 
-    public void setStatuses(List<GitStatus> statuses) {
-        this.statuses = statuses;
-    }
+	public List<GitStatus> getStatuses() { return statuses; }
 
-    public String getTreeId() {
-        return treeId;
-    }
+	public void setStatuses(List<GitStatus> statuses) { this.statuses = statuses; }
 
-    public void setTreeId(String treeId) {
-        this.treeId = treeId;
-    }
+	public String getTreeId() { return treeId; }
 
-    public String getUrl() {
-        return url;
-    }
+	public void setTreeId(String treeId) { this.treeId = treeId; }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
+	public String getUrl() { return url; }
 
-    public ResourceRefs getWorkItems() {
-        return workItems;
-    }
+	public void setUrl(String url) { this.url = url; }
 
-    public void setWorkItems(ResourceRefs workItems) {
-        this.workItems = workItems;
-    }
+	public List<ResourceRef> getWorkItems() { return workItems; }
 
-    @Override
-    public String toString() {
-        return "GitCommit{" +
-                "_links=" + _links +
-                ", author=" + author +
-                ", changeCounts=" + changeCounts +
-                ", changes=" + changes +
-                ", comment='" + comment + '\'' +
-                ", commentTruncated=" + commentTruncated +
-                ", commitId='" + commitId + '\'' +
-                ", committer=" + committer +
-                ", parents=" + Arrays.toString(parents) +
-                ", push=" + push +
-                ", remoteUrl='" + remoteUrl + '\'' +
-                ", statuses=" + statuses +
-                ", treeId='" + treeId + '\'' +
-                ", url='" + url + '\'' +
-                ", workItems=" + workItems +
-                '}';
-    }
+	public void setWorkItems(List<ResourceRef> workItems) { this.workItems = workItems; }
+
+	@Override
+	public String toString() {
+		return "GitCommit{" +
+				"_links=" + _links +
+				", author=" + author +
+				", changeCounts=" + changeCounts +
+				", changes=" + changes +
+				", comment='" + comment + '\'' +
+				", commentTruncated=" + commentTruncated +
+				", commitId='" + commitId + '\'' +
+				", committer=" + committer +
+				", parents=" + Arrays.toString(parents) +
+				", push=" + push +
+				", remoteUrl='" + remoteUrl + '\'' +
+				", statuses=" + statuses +
+				", treeId='" + treeId + '\'' +
+				", url='" + url + '\'' +
+				", workItems=" + workItems +
+				'}';
+	}
 }

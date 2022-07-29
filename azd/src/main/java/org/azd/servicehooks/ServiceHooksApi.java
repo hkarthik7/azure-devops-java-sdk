@@ -2,6 +2,7 @@ package org.azd.servicehooks;
 
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
+import org.azd.enums.CustomHeader;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
@@ -15,7 +16,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static org.azd.utils.Client.send;
+import static org.azd.utils.RestClient.send;
 
 /***
  * Service Hooks Api to manage service hooks service
@@ -46,7 +47,7 @@ public class ServiceHooksApi extends AzDAsyncApi<ServiceHooksApi> implements Ser
     @Override
     public ServiceHooksSubscription getSubscription(String subscriptionId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, null, null,
-                AREA + "/subscriptions", subscriptionId, null, ApiVersion.SERVICE_HOOKS, null, null);
+                AREA + "/subscriptions", subscriptionId, null, ApiVersion.SERVICE_HOOKS, null, null, null);
 
         return MAPPER.mapJsonResponse(r, ServiceHooksSubscription.class);
     }
@@ -59,7 +60,7 @@ public class ServiceHooksApi extends AzDAsyncApi<ServiceHooksApi> implements Ser
     @Override
     public ServiceHooksSubscriptions getSubscriptions() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, null, null,
-                AREA + "/subscriptions", null, null, ApiVersion.SERVICE_HOOKS, null, null);
+                AREA + "/subscriptions", null, null, ApiVersion.SERVICE_HOOKS, null, null, null);
 
         return MAPPER.mapJsonResponse(r, ServiceHooksSubscriptions.class);
     }
@@ -84,7 +85,7 @@ public class ServiceHooksApi extends AzDAsyncApi<ServiceHooksApi> implements Ser
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, null, null,
-                AREA + "/subscriptions", null, null, ApiVersion.SERVICE_HOOKS, q, null);
+                AREA + "/subscriptions", null, null, ApiVersion.SERVICE_HOOKS, q, null, null);
 
         return MAPPER.mapJsonResponse(r, ServiceHooksSubscriptions.class);
     }
@@ -98,7 +99,7 @@ public class ServiceHooksApi extends AzDAsyncApi<ServiceHooksApi> implements Ser
     public Void deleteSubscription(String subscriptionId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, null, null,
-                    AREA + "/subscriptions", subscriptionId, null, ApiVersion.SERVICE_HOOKS, null, null);
+                    AREA + "/subscriptions", subscriptionId, null, ApiVersion.SERVICE_HOOKS, null, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
             throw e;
@@ -128,7 +129,7 @@ public class ServiceHooksApi extends AzDAsyncApi<ServiceHooksApi> implements Ser
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, null, null,
-                AREA + "/subscriptions", null, null, ApiVersion.SERVICE_HOOKS, null, requestBody);
+                AREA + "/subscriptions", null, null, ApiVersion.SERVICE_HOOKS, null, requestBody, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, ServiceHooksSubscription.class);
     }

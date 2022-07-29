@@ -2,6 +2,7 @@ package org.azd.release;
 
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
+import org.azd.distributedtask.types.VariableGroupMap;
 import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
@@ -11,7 +12,7 @@ import org.azd.utils.AzDAsyncApi;
 
 import java.util.*;
 
-import static org.azd.utils.Client.send;
+import static org.azd.utils.RestClient.send;
 
 /***
  * Release Api to manage releases service
@@ -67,7 +68,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA, null, null, ApiVersion.RELEASES, null, h);
+                AREA, null, null, ApiVersion.RELEASES, null, h, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, Release.class);
     }
@@ -81,7 +82,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
     @Override
     public Release getRelease(int releaseId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA, Integer.toString(releaseId), null, ApiVersion.RELEASES, null, null);
+                AREA, Integer.toString(releaseId), null, ApiVersion.RELEASES, null, null, null);
 
         return MAPPER.mapJsonResponse(r, Release.class);
     }
@@ -100,7 +101,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA, Integer.toString(releaseId), null, ApiVersion.RELEASES, q, null);
+                AREA, Integer.toString(releaseId), null, ApiVersion.RELEASES, q, null, null);
 
         return MAPPER.mapJsonResponse(r, Release.class);
     }
@@ -130,7 +131,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA, Integer.toString(releaseId), null, ApiVersion.RELEASES, q, null);
+                AREA, Integer.toString(releaseId), null, ApiVersion.RELEASES, q, null, null);
 
         return MAPPER.mapJsonResponse(r, Release.class);
     }
@@ -146,7 +147,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
     public ReleaseEnvironment getReleaseEnvironment(int releaseId, int environmentId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
                 AREA, Integer.toString(releaseId), "environments/" + environmentId,
-                ApiVersion.RELEASE_ENVIRONMENT, null, null);
+                ApiVersion.RELEASE_ENVIRONMENT, null, null, null);
 
         return MAPPER.mapJsonResponse(r, ReleaseEnvironment.class);
     }
@@ -168,7 +169,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
 
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
                 AREA, Integer.toString(releaseId), "environments/" + environmentId,
-                ApiVersion.RELEASE_ENVIRONMENT, q, null);
+                ApiVersion.RELEASE_ENVIRONMENT, q, null, null);
 
         return MAPPER.mapJsonResponse(r, ReleaseEnvironment.class);
     }
@@ -181,7 +182,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
     @Override
     public Releases getReleases() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA, null, null, ApiVersion.RELEASES, null, null);
+                AREA, null, null, ApiVersion.RELEASES, null, null, null);
 
         return MAPPER.mapJsonResponse(r, Releases.class);
     }
@@ -199,7 +200,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA, null, null, ApiVersion.RELEASES, q, null);
+                AREA, null, null, ApiVersion.RELEASES, q, null, null);
 
         return MAPPER.mapJsonResponse(r, Releases.class);
     }
@@ -217,7 +218,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA, null, null, ApiVersion.RELEASES, q, null);
+                AREA, null, null, ApiVersion.RELEASES, q, null, null);
 
         return MAPPER.mapJsonResponse(r, Releases.class);
     }
@@ -237,7 +238,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA, null, null, ApiVersion.RELEASES, q, null);
+                AREA, null, null, ApiVersion.RELEASES, q, null, null);
 
         return MAPPER.mapJsonResponse(r, Releases.class);
     }
@@ -255,7 +256,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA, null, null, ApiVersion.RELEASES, q, null);
+                AREA, null, null, ApiVersion.RELEASES, q, null, null);
 
         return MAPPER.mapJsonResponse(r, Releases.class);
     }
@@ -275,7 +276,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA, null, null, ApiVersion.RELEASES, q, null);
+                AREA, null, null, ApiVersion.RELEASES, q, null, null);
 
         return MAPPER.mapJsonResponse(r, Releases.class);
     }
@@ -346,7 +347,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA, null, null, ApiVersion.RELEASES, q, null);
+                AREA, null, null, ApiVersion.RELEASES, q, null, null);
 
         return MAPPER.mapJsonResponse(r, Releases.class);
     }
@@ -364,7 +365,8 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         var body = MAPPER.mapJsonResponse(releaseDefinitionParameters, HashMap.class);
 
         String r = send(RequestMethod.POST, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA.replace("releases", "definitions"), null, null, ApiVersion.RELEASE_DEFINITION, null, body);
+                AREA.replace("releases", "definitions"), null, null, ApiVersion.RELEASE_DEFINITION,
+                null, body, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, ReleaseDefinition.class);
     }
@@ -379,7 +381,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, RELEASE, CONNECTION.getProject(),
                     AREA.replace("releases", "definitions"), Integer.toString(definitionId),
-                    null, ApiVersion.RELEASE_DEFINITION, null, null);
+                    null, ApiVersion.RELEASE_DEFINITION, null, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
             throw e;
@@ -405,7 +407,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
 
             String r = send(RequestMethod.DELETE, CONNECTION, RELEASE, CONNECTION.getProject(),
                     AREA.replace("releases", "definitions"), Integer.toString(definitionId),
-                    null, ApiVersion.RELEASE_DEFINITION, q, null);
+                    null, ApiVersion.RELEASE_DEFINITION, q, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
             throw e;
@@ -423,7 +425,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
     public ReleaseDefinition getReleaseDefinition(int definitionId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
                 AREA.replace("releases", "definitions"), Integer.toString(definitionId),
-                null, ApiVersion.RELEASE_DEFINITION, null, null);
+                null, ApiVersion.RELEASE_DEFINITION, null, null, null);
 
         return MAPPER.mapJsonResponse(r, ReleaseDefinition.class);
     }
@@ -438,7 +440,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
     public ReleaseDefinitionRevisions getReleaseDefinitionHistory(int definitionId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
                 AREA.replace("releases", "definitions"), Integer.toString(definitionId),
-                "revisions", ApiVersion.RELEASE_DEFINITION_HISTORY, null, null);
+                "revisions", ApiVersion.RELEASE_DEFINITION_HISTORY, null, null, null);
 
         return MAPPER.mapJsonResponse(r, ReleaseDefinitionRevisions.class);
     }
@@ -452,7 +454,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
     public ReleaseDefinitions getReleaseDefinitions() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
                 AREA.replace("releases", "definitions"), null,
-                null, ApiVersion.RELEASE_DEFINITION, null, null);
+                null, ApiVersion.RELEASE_DEFINITION, null, null, null);
 
         return MAPPER.mapJsonResponse(r, ReleaseDefinitions.class);
     }
@@ -467,11 +469,9 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
      */
     @Override
     public ReleaseDefinition updateReleaseDefinition(ReleaseDefinition releaseDefinition) throws AzDException {
-        var reqBody = MAPPER.convertToString(releaseDefinition);
-
         String r = send(RequestMethod.PUT, CONNECTION, RELEASE, CONNECTION.getProject(),
                 AREA.replace("releases", "definitions"), null,
-                null, ApiVersion.RELEASE_DEFINITION, null, false, reqBody);
+                null, ApiVersion.RELEASE_DEFINITION, null, releaseDefinition, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, ReleaseDefinition.class);
     }
@@ -485,7 +485,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
     public Void deleteRelease(int releaseId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, RELEASE, CONNECTION.getProject(),
-                    AREA, Integer.toString(releaseId), null, ApiVersion.RELEASES, null, null);
+                    AREA, Integer.toString(releaseId), null, ApiVersion.RELEASES, null, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
             throw e;
@@ -505,7 +505,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         var body = MAPPER.mapJsonResponse(releaseDefinitionParameters, Map.class);
 
         String r = send(RequestMethod.PUT, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA, Integer.toString(releaseId), null, ApiVersion.RELEASES, null, body);
+                AREA, Integer.toString(releaseId), null, ApiVersion.RELEASES, null, body, null);
 
         return MAPPER.mapJsonResponse(r, Release.class);
     }
@@ -523,17 +523,18 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
      */
     @Override
     public ReleaseEnvironment updateReleaseEnvironment(int releaseId, int environmentId, String comment,
-                                                       String scheduledDeploymentTime, ReleaseEnvironmentStatus status, Map variables)
+                                                       String scheduledDeploymentTime, ReleaseEnvironmentStatus status, VariableGroupMap variables)
             throws AzDException {
         var b = new HashMap<String, Object>() {{
             put("comment", comment);
             put("scheduledDeploymentTime", scheduledDeploymentTime);
             put("status", status.toString().toLowerCase());
-            put("variables", variables);
+            put("variables", variables.get());
         }};
 
         String r = send(RequestMethod.PATCH, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA, Integer.toString(releaseId), "environments/" + environmentId, ApiVersion.RELEASE_ENVIRONMENT, null, b);
+                AREA, Integer.toString(releaseId), "environments/" + environmentId, ApiVersion.RELEASE_ENVIRONMENT,
+                null, b, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, ReleaseEnvironment.class);
     }
@@ -561,7 +562,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         }};
 
         String r = send(RequestMethod.PATCH, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA, Integer.toString(releaseId), null, ApiVersion.RELEASES, null, b);
+                AREA, Integer.toString(releaseId), null, ApiVersion.RELEASES, null, b, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, Release.class);
     }
@@ -589,7 +590,8 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
                     .get()
                     .getId();
 
-            return updateReleaseEnvironment(releaseId, environmentId, null, null, ReleaseEnvironmentStatus.INPROGRESS, null);
+            return updateReleaseEnvironment(releaseId, environmentId, null, null,
+                    ReleaseEnvironmentStatus.INPROGRESS, null);
         }
 
         throw new AzDException("NoSuchElementException", "Given environment name '" + environmentName + "' doesn't exist.");
@@ -614,7 +616,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
     @Override
     public ReleaseApprovals getReleaseApprovals() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA.replace("releases", "approvals"), null, null, ApiVersion.RELEASE, null, null);
+                AREA.replace("releases", "approvals"), null, null, ApiVersion.RELEASE, null, null, null);
 
         return MAPPER.mapJsonResponse(r, ReleaseApprovals.class);
     }
@@ -632,7 +634,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA.replace("releases", "approvals"), null, null, ApiVersion.RELEASE, q, null);
+                AREA.replace("releases", "approvals"), null, null, ApiVersion.RELEASE, q, null, null);
 
         return MAPPER.mapJsonResponse(r, ReleaseApprovals.class);
     }
@@ -667,7 +669,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA.replace("releases", "approvals"), null, null, ApiVersion.RELEASE, q, null);
+                AREA.replace("releases", "approvals"), null, null, ApiVersion.RELEASE, q, null, null);
 
         return MAPPER.mapJsonResponse(r, ReleaseApprovals.class);
     }
@@ -688,7 +690,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         }};
 
         String r = send(RequestMethod.PATCH, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA.replace("releases", "approvals"), Integer.toString(approvalId), null, ApiVersion.RELEASE, null, body);
+                AREA.replace("releases", "approvals"), Integer.toString(approvalId), null, ApiVersion.RELEASE, null, body, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, ReleaseApproval.class);
     }
@@ -705,7 +707,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         String id = releaseId + "/manualinterventions/" + manualInterventionId;
 
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA, id, null, ApiVersion.RELEASE_MANUAL_INTERVENTION, null, null);
+                AREA, id, null, ApiVersion.RELEASE_MANUAL_INTERVENTION, null, null, null);
 
         return MAPPER.mapJsonResponse(r, ManualIntervention.class);
     }
@@ -719,7 +721,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
     @Override
     public ManualInterventions getManualInterventions(int releaseId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA, Integer.toString(releaseId), null, ApiVersion.RELEASE_MANUAL_INTERVENTION, null, null);
+                AREA, Integer.toString(releaseId), null, ApiVersion.RELEASE_MANUAL_INTERVENTION, null, null, null);
 
         return MAPPER.mapJsonResponse(r, ManualInterventions.class);
     }
@@ -744,7 +746,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         String id = releaseId + "/manualinterventions/" + manualInterventionId;
 
         String r = send(RequestMethod.PATCH, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA, id, null, ApiVersion.RELEASE_MANUAL_INTERVENTION, null, body);
+                AREA, id, null, ApiVersion.RELEASE_MANUAL_INTERVENTION, null, body, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, ManualIntervention.class);
     }

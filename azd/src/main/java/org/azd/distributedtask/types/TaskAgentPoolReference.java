@@ -1,129 +1,97 @@
 package org.azd.distributedtask.types;
+/**
+----------------------------------------------------------
+	GENERATED FILE, should be edited to suit the purpose.
+----------------------------------------------------------
+**/
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.enums.TaskAgentPoolOptions;
+import org.azd.enums.TaskAgentPoolType;
 
-/***
- * Task agent pool reference
- */
+/**
+ * Details about an agent update.
+**/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TaskAgentPoolReference {
-    /***
-     * Id of the pool
-     */
-    @JsonProperty("id")
-    private int id;
-    /***
-     * Gets or sets a value indicating whether or not this pool is managed by the service.
-     */
-    @JsonProperty("isHosted")
-    private boolean isHosted;
-    /***
-     * Determines whether the pool is legacy.
-     */
-    @JsonProperty("isLegacy")
-    private boolean isLegacy;
-    /***
-     * Name of the agent
-     */
-    @JsonProperty("name")
-    private String name;
-    /***
-     * Additional pool settings and details
-     */
-    @JsonProperty("options")
-    private String options;
-    /***
-     * Gets or sets the type of the pool
-     */
-    @JsonProperty("poolType")
-    private String poolType;
-    /***
-     * Scope of the agent pool
-     */
-    @JsonProperty("scope")
-    private String scope;
-    /***
-     * Gets the current size of the pool.
-     */
-    @JsonProperty("size")
-    private int size;
+	@JsonProperty("id")
+	private int id;
+	/**
+ 	* Gets or sets a value indicating whether or not this pool is managed by the service.
+	**/
+	@JsonProperty("isHosted")
+	private boolean isHosted;
+	/**
+ 	* Determines whether the pool is legacy.
+	**/
+	@JsonProperty("isLegacy")
+	private boolean isLegacy;
 
-    public int getId() {
-        return id;
-    }
+	@JsonProperty("name")
+	private String name;
+	/**
+ 	* Additional pool settings and details
+	**/
+	@JsonProperty("options")
+	private TaskAgentPoolOptions options;
+	/**
+ 	* Gets or sets the type of the pool
+	**/
+	@JsonProperty("poolType")
+	private TaskAgentPoolType poolType;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	@JsonProperty("scope")
+	private String scope;
+	/**
+ 	* Gets the current size of the pool.
+	**/
+	@JsonProperty("size")
+	private int size;
 
-    public boolean isHosted() {
-        return isHosted;
-    }
+	public int getId() { return id; }
 
-    public void setHosted(boolean hosted) {
-        isHosted = hosted;
-    }
+	public void setId(int id) { this.id = id; }
 
-    public boolean isLegacy() {
-        return isLegacy;
-    }
+	public boolean getIsHosted() { return isHosted; }
 
-    public void setLegacy(boolean legacy) {
-        isLegacy = legacy;
-    }
+	public void setIsHosted(boolean isHosted) { this.isHosted = isHosted; }
 
-    public String getName() {
-        return name;
-    }
+	public boolean getIsLegacy() { return isLegacy; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setIsLegacy(boolean isLegacy) { this.isLegacy = isLegacy; }
 
-    public String getOptions() {
-        return options;
-    }
+	public String getName() { return name; }
 
-    public void setOptions(String options) {
-        this.options = options;
-    }
+	public void setName(String name) { this.name = name; }
 
-    public String getPoolType() {
-        return poolType;
-    }
+	public TaskAgentPoolOptions getOptions() { return options; }
 
-    public void setPoolType(String poolType) {
-        this.poolType = poolType;
-    }
+	public void setOptions(TaskAgentPoolOptions options) { this.options = options; }
 
-    public String getScope() {
-        return scope;
-    }
+	public TaskAgentPoolType getPoolType() { return poolType; }
 
-    public void setScope(String scope) {
-        this.scope = scope;
-    }
+	public void setPoolType(TaskAgentPoolType poolType) { this.poolType = poolType; }
 
-    public int getSize() {
-        return size;
-    }
+	public String getScope() { return scope; }
 
-    public void setSize(int size) {
-        this.size = size;
-    }
+	public void setScope(String scope) { this.scope = scope; }
 
-    @Override
-    public String toString() {
-        return "TaskAgentPoolReference{" +
-                "id=" + id +
-                ", isHosted=" + isHosted +
-                ", isLegacy=" + isLegacy +
-                ", name='" + name + '\'' +
-                ", options='" + options + '\'' +
-                ", poolType='" + poolType + '\'' +
-                ", scope='" + scope + '\'' +
-                ", size=" + size +
-                '}';
-    }
+	public int getSize() { return size; }
+
+	public void setSize(int size) { this.size = size; }
+
+	@Override
+	public String toString() {
+		return "TaskAgentPoolReference{" +
+				"id=" + id +
+				", isHosted=" + isHosted +
+				", isLegacy=" + isLegacy +
+				", name='" + name + '\'' +
+				", options=" + options +
+				", poolType=" + poolType +
+				", scope='" + scope + '\'' +
+				", size=" + size +
+				'}';
+	}
 }

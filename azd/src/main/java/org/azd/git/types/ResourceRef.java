@@ -1,45 +1,38 @@
 package org.azd.git.types;
+/**
+----------------------------------------------------------
+	GENERATED FILE, should be edited to suit the purpose.
+----------------------------------------------------------
+**/
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/***
- * Represents the workitem associated with the pull request
- */
+/**
+ * None 
+**/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ResourceRef {
-    /***
-     * Id of the workitem
-     */
-    @JsonProperty("id")
-    private String id;
-    /***
-     * Url of the workitem
-     */
-    @JsonProperty("url")
-    private String url;
 
-    public String getId() {
-        return id;
-    }
+	@JsonProperty("id")
+	private String id;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	@JsonProperty("url")
+	private String url;
 
-    public String getUrl() {
-        return url;
-    }
+	public String getId() { return id; }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
+	public void setId(String id) { this.id = id; }
 
-    @Override
-    public String toString() {
-        return "ResourceRef{" +
-                "id='" + id + '\'' +
-                ", url='" + url + '\'' +
-                '}';
-    }
+	public String getUrl() { return url; }
+
+	public void setUrl(String url) { this.url = url; }
+
+	@Override
+	public String toString() {
+		return "ResourceRef{" +
+				"id='" + id + '\'' +
+				", url='" + url + '\'' +
+				'}';
+	}
 }

@@ -8,7 +8,7 @@ package org.azd.build.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.Arrays;
+import java.util.List;
 
 /**
  * A value that indicates whether builds can be queued against this definition. 
@@ -44,7 +44,7 @@ public class DataSourceBindingBase {
      * Gets or sets the authorization headers.
      **/
     @JsonProperty("headers")
-    private AuthorizationHeader[] headers;
+    private List<AuthorizationHeader> headers;
     /**
      * Defines the initial value of the query params
      **/
@@ -121,11 +121,11 @@ public class DataSourceBindingBase {
         this.endpointUrl = endpointUrl;
     }
 
-    public AuthorizationHeader[] getHeaders() {
+    public List<AuthorizationHeader> getHeaders() {
         return headers;
     }
 
-    public void setHeaders(AuthorizationHeader[] headers) {
+    public void setHeaders(List<AuthorizationHeader> headers) {
         this.headers = headers;
     }
 
@@ -193,7 +193,7 @@ public class DataSourceBindingBase {
                 ", dataSourceName='" + dataSourceName + '\'' +
                 ", endpointId='" + endpointId + '\'' +
                 ", endpointUrl='" + endpointUrl + '\'' +
-                ", headers=" + Arrays.toString(headers) +
+                ", headers=" + headers +
                 ", initialContextTemplate='" + initialContextTemplate + '\'' +
                 ", parameters=" + parameters +
                 ", requestContent='" + requestContent + '\'' +

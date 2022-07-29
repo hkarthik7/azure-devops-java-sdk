@@ -154,6 +154,6 @@ public class CoreApiTest {
         Project project = c.getProject("my-awesome-project");
         Assume.assumeNotNull(project);
         ProjectFeature projectFeature = c.featureToggle(project.getId(), FeatureManagement.TEST_PLANS, false);
-        //System.out.println("Feature: " + projectFeature);
+//        System.out.println("Feature: " + projectFeature);
     }
 }

@@ -1,10 +1,9 @@
 package org.azd.interfaces;
 
+import org.azd.distributedtask.types.VariableGroupMap;
 import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
 import org.azd.release.types.*;
-
-import java.util.Map;
 
 public interface ReleaseDetails {
     Release createRelease(int releaseDefinitionId, String description, String artifactAlias,
@@ -63,7 +62,7 @@ public interface ReleaseDetails {
     Release updateRelease(int releaseId, String releaseDefinitionParameters) throws AzDException;
 
     ReleaseEnvironment updateReleaseEnvironment(int releaseId, int environmentId, String comment,
-                                                String scheduledDeploymentTime, ReleaseEnvironmentStatus status, Map variables)
+                                                String scheduledDeploymentTime, ReleaseEnvironmentStatus status, VariableGroupMap variables)
             throws AzDException;
 
     Release updateReleaseResource(int releaseId, String comment, boolean keepForever,
