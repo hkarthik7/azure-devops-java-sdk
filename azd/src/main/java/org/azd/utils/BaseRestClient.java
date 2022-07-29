@@ -53,7 +53,7 @@ public abstract class BaseRestClient {
     /***
      * Response from API for the given request
      * @param r pass the Http request object
-     * @param handler HttpReponse body handler
+     * @param handler HttpResponse body handler
      * @param callback If true client will be built with redirect policy
      * @return String response from API
      */
