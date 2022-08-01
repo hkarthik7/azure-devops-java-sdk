@@ -1,9 +1,6 @@
 package org.azd.interfaces;
 
-import org.azd.enums.AttachmentUploadType;
-import org.azd.enums.WorkItemErrorPolicy;
-import org.azd.enums.WorkItemExpand;
-import org.azd.enums.WorkItemOperation;
+import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
 import org.azd.workitemtracking.types.*;
 
@@ -110,4 +107,30 @@ public interface WorkItemTrackingDetails {
     WorkItem removeWorkItemAttachment(int workItemId, List<String> attachmentUrl) throws AzDException;
 
     AccountRecentActivityWorkItems getMyWorkRecentActivity() throws AzDException;
+
+    WorkItemFieldTypes getWorkItemFields() throws AzDException;
+
+    WorkItemFieldTypes getWorkItemFields(GetFieldsExpand expand) throws AzDException;
+
+    WorkItemField getWorkItemField(String fieldNameOrRefName) throws AzDException;
+
+    WorkItemField createWorkItemField(WorkItemField workItemField) throws AzDException;
+
+    Void deleteWorkItemField(String fieldNameOrRefName) throws AzDException;
+
+    WorkItemField updateWorkItemField(String fieldNameOrRefName, boolean isDeleted) throws AzDException;
+
+    ProcessMigrationResultModel migrateProjectProcess(String processId) throws AzDException;
+
+    QueryHierarchyItem createQuery(String query, QueryHierarchyItem queryHierarchyItem) throws AzDException;
+
+    QueryHierarchyItems getQueries() throws AzDException;
+
+    QueryHierarchyItems getQueries(int depth, QueryExpand expand, boolean includeDeleted) throws AzDException;
+
+    QueryHierarchyItem getQuery(String query) throws AzDException;
+
+    QueryHierarchyItem getQuery(String query, int depth, QueryExpand expand, boolean includeDeleted, boolean useIsoDateFormat) throws AzDException;
+
+    Void deleteQuery(String query) throws AzDException;
 }

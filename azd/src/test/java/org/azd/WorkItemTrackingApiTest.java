@@ -1,14 +1,17 @@
 package org.azd;
 
-import org.azd.enums.AttachmentUploadType;
-import org.azd.enums.WorkItemExpand;
-import org.azd.enums.WorkItemOperation;
+import org.azd.core.types.Process;
+import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.helpers.StreamHelper;
 import org.azd.interfaces.AzDClient;
+import org.azd.interfaces.CoreDetails;
 import org.azd.utils.AzDClientApi;
 import org.azd.workitemtracking.WorkItemTrackingApi;
+import org.azd.workitemtracking.types.QueryHierarchyItem;
+import org.azd.workitemtracking.types.WorkItemField;
+import org.azd.workitemtracking.types.WorkItemFieldOperation;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,6 +31,8 @@ public class WorkItemTrackingApiTest {
 
     private static WorkItemTrackingApi w;
 
+    private static CoreDetails c;
+
     @Before
     public void init() throws AzDException {
         String dir = System.getProperty("user.dir");
@@ -38,6 +43,7 @@ public class WorkItemTrackingApiTest {
         String project = m.getP();
         webApi = new AzDClientApi(organization, project, token);
         w = webApi.getWorkItemTrackingApi();
+        c = webApi.getCoreApi();
     }
 
     @Test
@@ -221,5 +227,113 @@ public class WorkItemTrackingApiTest {
     @Test
     public void shouldGetWorkItemActivities() throws AzDException {
         w.getMyWorkRecentActivity();
+    }
+
+    @Test
+    public void shouldGetWorkItemFields() throws AzDException {
+        w.getWorkItemFields();
+    }
+
+    @Test
+    public void shouldGetWorkItemFieldsWithFieldsExpanded() throws AzDException {
+        w.getWorkItemFields(GetFieldsExpand.EXTENSIONFIELDS);
+    }
+
+    @Test
+    public void shouldGetWorkItemField() throws AzDException {
+        w.getWorkItemField("Acceptance Criteria");
+    }
+
+    @Test
+    public void shouldCreateWorkItemField() throws AzDException {
+        try {
+            var workitemField = new WorkItemField();
+            workitemField.setName("New Work Item Field");
+            workitemField.setReferenceName("SupportedOperations.GreaterThanEquals");
+            workitemField.setDescription(null);
+            workitemField.setType(FieldType.STRING);
+            workitemField.setUsage(FieldUsage.WORKITEM);
+            workitemField.setReadOnly(false);
+            workitemField.setCanSortBy(true);
+            workitemField.setIsQueryable(true);
+            workitemField.setSupportedOperations(List.of(new WorkItemFieldOperation(){{
+                setReferenceName("SupportedOperations.Equals");
+                setReferenceName("=");
+            }}));
+            workitemField.setIsIdentity(true);
+            workitemField.setIsPicklist(false);
+            workitemField.setIsPicklistSuggested(false);
+            workitemField.setUrl(null);
+
+            w.createWorkItemField(workitemField);
+        }
+        catch (AzDException e) {
+            // Ignore ProcessFieldAlreadyExistsInformedException
+        }
+    }
+
+    @Test
+    public void shouldDeleteWorkItemField() throws AzDException {
+        try {
+            w.deleteWorkItemField("New Work Item Field");
+        } catch (AzDException e) {
+            // Ignore ProcessFieldCouldNotBeFoundException
+        }
+    }
+
+    @Test
+    public void shouldUpdateAWorkItemField() throws AzDException {
+        try {
+            w.updateWorkItemField("New Work Item Field", false);
+        } catch (AzDException e) {
+            // Ignore FieldHasNotBeenDeletedException
+        }
+    }
+
+    @Test
+    public void shouldCreateAQueryFolder() throws AzDException {
+        try {
+            var q = new QueryHierarchyItem();
+            var query = w.getQueries().getQueryHierarchyItems().get(1).getId();
+
+            q.setName("Website team");
+            q.setIsFolder(true);
+            w.createQuery(query, q);
+        } catch (AzDException e) {
+            // Ignore LegacyQueryItemException
+        }
+    }
+
+    @Test
+    public void shouldCreateAQuery() throws AzDException {
+        try {
+            var q = new QueryHierarchyItem();
+            q.setName("All Bugs");
+            q.setWiql("Select [System.Id], [System.Title], [System.State] From WorkItems Where [System.WorkItemType] " +
+                    "= 'Bug' order by [Microsoft.VSTS.Common.Priority] asc, [System.CreatedDate] desc");
+
+            w.createQuery("My Queries/Website team", q);
+        } catch (AzDException e) {
+            // Ignore LegacyQueryItemException
+        }
+    }
+
+    @Test
+    public void shouldGetAllQueries() throws AzDException {
+        w.getQueries().getQueryHierarchyItems();
+    }
+
+    @Test
+    public void shouldGetAQueryObject() throws AzDException {
+        w.getQuery("My Queries");
+    }
+
+    @Test
+    public void shouldDeleteAQuery() throws AzDException {
+        try {
+            w.deleteQuery("My Queries/Website team");
+        } catch (AzDException e) {
+            // Ignore QueryItemNotFoundException
+        }
     }
 }

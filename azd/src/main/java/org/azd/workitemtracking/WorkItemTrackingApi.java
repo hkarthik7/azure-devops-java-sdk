@@ -6,6 +6,7 @@ import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.helpers.StreamHelper;
+import org.azd.helpers.URLHelper;
 import org.azd.interfaces.WorkItemTrackingDetails;
 import org.azd.utils.AzDAsyncApi;
 import org.azd.workitemtracking.types.*;
@@ -1087,6 +1088,248 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
                 null, null, ApiVersion.WORK_ITEM_TYPES, null, null, null);
 
         return MAPPER.mapJsonResponse(res, AccountRecentActivityWorkItems.class);
+    }
+
+    /**
+     * Returns information for all fields. The project ID/name parameter is optional.
+     *
+     * @return WorkItemField Object {@link WorkItemFieldTypes}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public WorkItemFieldTypes getWorkItemFields() throws AzDException {
+        String res = send(RequestMethod.GET, CONNECTION, null, null, AREA,
+                null, "fields", ApiVersion.WORK_ITEM_TYPES, null, null, null);
+
+        return MAPPER.mapJsonResponse(res, WorkItemFieldTypes.class);
+    }
+
+    /**
+     * Returns information for all fields. The project ID/name parameter is optional.
+     *
+     * @param expand Use ExtensionFields to include extension fields, otherwise exclude them. Unless the feature flag for this parameter is enabled, extension fields are always included.
+     * @return WorkItemFieldTypes Object {@link WorkItemFieldTypes}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public WorkItemFieldTypes getWorkItemFields(GetFieldsExpand expand) throws AzDException {
+        var q = new HashMap<String, String>(){{ put("$expand", expand.name().toLowerCase()); }};
+
+        String res = send(RequestMethod.GET, CONNECTION, null, null, AREA,
+                null, "fields", ApiVersion.WORK_ITEM_TYPES, q, null, null);
+
+        return MAPPER.mapJsonResponse(res, WorkItemFieldTypes.class);
+    }
+
+    /**
+     * Gets information on a specific field.
+     *
+     * @param fieldNameOrRefName Field simple name or reference name
+     * @return WorkItemField Object {@link WorkItemField}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public WorkItemField getWorkItemField(String fieldNameOrRefName) throws AzDException {
+        String res = send(RequestMethod.GET, CONNECTION, null, null, AREA,
+                null, "fields/" + URLHelper.encodeSpecialWithSpace(fieldNameOrRefName), ApiVersion.WORK_ITEM_TYPES, null, null, null);
+
+        return MAPPER.mapJsonResponse(res, WorkItemField.class);
+    }
+
+    /**
+     * Create a new field.
+     *
+     * @param workItemField WorkItemField object to create a new work item
+     * @return WorkItemField Object {@link WorkItemField}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public WorkItemField createWorkItemField(WorkItemField workItemField) throws AzDException {
+        String res = send(RequestMethod.POST, CONNECTION, null, null, AREA,
+                null, "fields", ApiVersion.WORK_ITEM_TYPES, null, workItemField, CustomHeader.JSON_CONTENT_TYPE);
+
+        return MAPPER.mapJsonResponse(res, WorkItemField.class);
+    }
+
+    /**
+     * Deletes the field. To undelete a filed, see "Update Field" API.
+     *
+     * @param fieldNameOrRefName Field simple name or reference name
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public Void deleteWorkItemField(String fieldNameOrRefName) throws AzDException {
+        try {
+            String res = send(RequestMethod.DELETE, CONNECTION, null, null, AREA,
+                    null, "fields/" + URLHelper.encodeSpecialWithSpace(fieldNameOrRefName), ApiVersion.WORK_ITEM_TYPES,
+                    null, null, null);
+
+            if (!res.isEmpty()) MAPPER.mapJsonResponse(res, Map.class);
+        } catch (AzDException e) {
+            throw e;
+        }
+        return null;
+    }
+
+    /**
+     * Update a field.
+     *
+     * @param fieldNameOrRefName Name/reference name of the field to be updated
+     * @return WorkItemField Object {@link WorkItemField}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public WorkItemField updateWorkItemField(String fieldNameOrRefName, boolean isDeleted) throws AzDException {
+        var b = new UpdateWorkItemField(){{ setDeleted(isDeleted); }};
+
+        String res = send(RequestMethod.PATCH, CONNECTION, null, null, AREA,
+                null, "fields/" + URLHelper.encodeSpecialWithSpace(fieldNameOrRefName), ApiVersion.WORK_ITEM_TYPES, null, b, CustomHeader.JSON_CONTENT_TYPE);
+
+        return MAPPER.mapJsonResponse(res, WorkItemField.class);
+    }
+
+    /**
+     * Migrates a project to a different process within the same OOB type.
+     * For example, you can only migrate a project from agile/custom-agile to agile/custom-agile.
+     *
+     * @return ProcessMigrationResultModel Object {@link ProcessMigrationResultModel}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public ProcessMigrationResultModel migrateProjectProcess(String processId) throws AzDException {
+        var b = new ProcessIdModel(){{ setTypeId(processId); }};
+
+        String res = send(RequestMethod.POST, CONNECTION, WIT, CONNECTION.getProject(), AREA,
+                null, "projectprocessmigration", ApiVersion.WORK_ITEM_MIGRATE, null, b, CustomHeader.JSON_CONTENT_TYPE);
+
+        return MAPPER.mapJsonResponse(res, ProcessMigrationResultModel.class);
+    }
+
+    /**
+     * Creates a query, or moves a query.
+     *
+     * @param queryHierarchyItem Query Hierarchy item object.
+     * @return QueryHierarchyItem Object {@link QueryHierarchyItem}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public QueryHierarchyItem createQuery(String query, QueryHierarchyItem queryHierarchyItem) throws AzDException {
+        var map = MAPPER.mapJsonResponse(MAPPER.convertToString(queryHierarchyItem), Map.class);
+
+        // If we send the QueryHierarchyItem object after setting required params and leaving everything as null,
+        // then Api will throw an exception. Instead we take only params that is set by the user and construct a request
+        // body out of it and send it as the request body.
+        // Refer the examples -> https://docs.microsoft.com/en-us/rest/api/azure/devops/wit/queries/create?view=azure-devops-rest-7.1&tabs=HTTP#examples
+        var body = new HashMap<>();
+        for (var key : map.keySet()) {
+            if (map.get(key) != null) {
+                body.put(key, map.get(key));
+            }
+        }
+
+        String res = send(RequestMethod.POST, CONNECTION, WIT, CONNECTION.getProject(), AREA,
+                null, "queries/" + URLHelper.encodeSpecialWithSpace(query), ApiVersion.WIT_WIQL, null, body, CustomHeader.JSON_CONTENT_TYPE);
+
+        return MAPPER.mapJsonResponse(res, QueryHierarchyItem.class);
+    }
+
+    /**
+     * Gets the root queries and their children
+     *
+     * @return A list of QueryHierarchyItem Object {@link QueryHierarchyItems}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public QueryHierarchyItems getQueries() throws AzDException {
+        String res = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(), AREA,
+                null, "queries", ApiVersion.WIT_WIQL, null, null, null);
+
+        return MAPPER.mapJsonResponse(res, QueryHierarchyItems.class);
+    }
+
+    /**
+     * Gets the root queries and their children
+     *
+     * @param depth In the folder of queries, return child queries and folders to this depth.
+     * @param expand Include the query string (wiql), clauses, query result columns, and sort options in the results.
+     * @param includeDeleted Include deleted queries and folders
+     * @return A list of QueryHierarchyItem Object {@link QueryHierarchyItems}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public QueryHierarchyItems getQueries(int depth, QueryExpand expand, boolean includeDeleted) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("$depth", depth);
+            put("$expand", expand.name().toLowerCase());
+            put("$includeDeleted", includeDeleted);
+        }};
+
+        String res = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(), AREA,
+                null, "queries", ApiVersion.WIT_WIQL, q, null, null);
+
+        return MAPPER.mapJsonResponse(res, QueryHierarchyItems.class);
+    }
+
+    /**
+     * Retrieves an individual query and its children
+     *
+     * @param query ID or path of the query.
+     * @return QueryHierarchyItem Object {@link QueryHierarchyItem}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public QueryHierarchyItem getQuery(String query) throws AzDException {
+        String res = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(), AREA,
+                null, "queries/" + URLHelper.encodeSpecialWithSpace(query), ApiVersion.WIT_WIQL, null, null, null);
+
+        return MAPPER.mapJsonResponse(res, QueryHierarchyItem.class);
+    }
+
+    /**
+     * Retrieves an individual query and its children
+     *
+     * @param query ID or path of the query.
+     * @param depth In the folder of queries, return child queries and folders to this depth.
+     * @param expand Include the query string (wiql), clauses, query result columns, and sort options in the results.
+     * @param includeDeleted Include deleted queries and folders
+     * @param useIsoDateFormat DateTime query clauses will be formatted using a ISO 8601 compliant format
+     * @return QueryHierarchyItem Object {@link QueryHierarchyItem}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public QueryHierarchyItem getQuery(String query, int depth, QueryExpand expand, boolean includeDeleted, boolean useIsoDateFormat) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("$depth", depth);
+            put("$expand", expand.name().toLowerCase());
+            put("$includeDeleted", includeDeleted);
+            put("$useIsoDateFormat", useIsoDateFormat);
+        }};
+
+        String res = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(), AREA,
+                null, "queries/" + URLHelper.encodeSpecialWithSpace(query), ApiVersion.WIT_WIQL, q, null, null);
+
+        return MAPPER.mapJsonResponse(res, QueryHierarchyItem.class);
+    }
+
+    /**
+     * Delete a query or a folder. This deletes any permission change on the deleted query or folder and any of its
+     * descendants if it is a folder. It is important to note that the deleted permission changes cannot be
+     * recovered upon undeleting the query or folder.
+     *
+     * @param query ID or path of the query or folder to delete.
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public Void deleteQuery(String query) throws AzDException {
+        try {
+            String res = send(RequestMethod.DELETE, CONNECTION, WIT, CONNECTION.getProject(), AREA,
+                    null, "queries/" + URLHelper.encodeSpecialWithSpace(query), ApiVersion.WIT_WIQL, null, null, null);
+
+            if (!res.isEmpty()) MAPPER.mapJsonResponse(res, QueryHierarchyItem.class);
+        } catch (AzDException e) {
+            throw e;
+        }
+        return null;
     }
 
     /***
