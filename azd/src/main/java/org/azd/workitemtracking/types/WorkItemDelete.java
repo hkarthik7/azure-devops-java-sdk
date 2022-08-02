@@ -28,6 +28,11 @@ public class WorkItemDelete {
      */
     @JsonProperty("project")
     private String project;
+    /**
+     * The work item object that was deleted.
+     */
+    @JsonProperty("resource")
+    private WorkItem resource;
     /***
      * The work item deletion date.
      */

@@ -133,4 +133,10 @@ public interface WorkItemTrackingDetails {
     QueryHierarchyItem getQuery(String query, int depth, QueryExpand expand, boolean includeDeleted, boolean useIsoDateFormat) throws AzDException;
 
     Void deleteQuery(String query) throws AzDException;
+
+    QueryHierarchyItems getQueryBatches(QueryErrorPolicy errorPolicy, QueryExpand expand, String[] ids) throws AzDException;
+
+    QueryHierarchyItemsResult searchQuery(String filter) throws AzDException;
+
+    QueryHierarchyItemsResult searchQuery(String filter, QueryExpand expand, boolean includeDeleted, int top) throws AzDException;
 }

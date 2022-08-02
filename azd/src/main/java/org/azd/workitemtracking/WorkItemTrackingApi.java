@@ -1218,7 +1218,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
 
         // If we send the QueryHierarchyItem object after setting required params and leaving everything as null,
         // then Api will throw an exception. Instead we take only params that is set by the user and construct a request
-        // body out of it and send it as the request body.
+        // body out of it.
         // Refer the examples -> https://docs.microsoft.com/en-us/rest/api/azure/devops/wit/queries/create?view=azure-devops-rest-7.1&tabs=HTTP#examples
         var body = new HashMap<>();
         for (var key : map.keySet()) {
@@ -1330,6 +1330,55 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
             throw e;
         }
         return null;
+    }
+
+    /**
+     * Gets a list of queries by ids (Maximum 1000)
+     *
+     * @param errorPolicy The flag to control error policy in a query batch request. Possible options are { Fail, Omit }.
+     * @param expand The expand parameters for queries. Possible options are { None, Wiql, Clauses, All, Minimal }
+     * @param ids The requested query ids
+     * @return QueryHierarchyItem Object {@link QueryHierarchyItem}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public QueryHierarchyItems getQueryBatches(QueryErrorPolicy errorPolicy, QueryExpand expand, String[] ids) throws AzDException {
+        var b = new HashMap<String, Object>(){{
+            put("errorPolicy", errorPolicy.name().toLowerCase());
+            put("$expand", expand.name().toLowerCase());
+            put("ids", ids);
+        }};
+
+        String res = send(RequestMethod.POST, CONNECTION, WIT, CONNECTION.getProject(), AREA,
+                null, "queriesbatch", ApiVersion.WIT_QUERY_BATCH, null, b, CustomHeader.JSON_CONTENT_TYPE);
+
+        return MAPPER.mapJsonResponse(res, QueryHierarchyItems.class);
+    }
+
+    @Override
+    public QueryHierarchyItemsResult searchQuery(String filter) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("$filter", filter);
+        }};
+
+        String res = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(), AREA,
+                null, "queries", ApiVersion.WIT_WIQL, q, null, null);
+
+        return MAPPER.mapJsonResponse(res, QueryHierarchyItemsResult.class);
+    }
+
+    @Override
+    public QueryHierarchyItemsResult searchQuery(String filter, QueryExpand expand, boolean includeDeleted, int top) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("$filter", filter);
+            put("$includeDeleted", includeDeleted);
+            put("$top", top);
+        }};
+
+        String res = send(RequestMethod.GET, CONNECTION, WIT, CONNECTION.getProject(), AREA,
+                null, "queries", ApiVersion.WIT_WIQL, q, null, null);
+
+        return MAPPER.mapJsonResponse(res, QueryHierarchyItemsResult.class);
     }
 
     /***

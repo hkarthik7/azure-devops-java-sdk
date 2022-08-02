@@ -336,4 +336,15 @@ public class WorkItemTrackingApiTest {
             // Ignore QueryItemNotFoundException
         }
     }
+
+    @Test
+    public void shouldGetQueriesInBatch() throws AzDException {
+        var id = w.getQueries().getQueryHierarchyItems().stream().findFirst().get().getId();
+        w.getQueryBatches(QueryErrorPolicy.OMIT, QueryExpand.ALL, new String[]{id});
+    }
+
+    @Test
+    public void shouldSearchQueriesBasedOnFilter() throws AzDException {
+        w.searchQuery("Bugs");
+    }
 }

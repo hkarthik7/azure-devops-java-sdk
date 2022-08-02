@@ -19,9 +19,11 @@
 - Updated `downloadPackage` in **MavenApi**.
 - **StreamHelper** class to download contents from Api response.
 - Type change for `updateReleaseDefinition` in **ReleaseApi** for ease of use.
-
+- Added support for `Queries` Api in `Work item tracking`.
+  
 - `BaseClient` and `Client` classes are deprecated. Instead, introduced `BaseRestClient` and `RestClient` classes for
 ease of use in other concrete Api implementations.
+  
 
 ## 4.0.0
 

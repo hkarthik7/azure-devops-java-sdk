@@ -2,7 +2,6 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.ReferenceLinks;
 
 import java.util.List;
 
@@ -35,7 +34,7 @@ public class WorkItem {
      * Link references to related REST resources.
      */
     @JsonProperty("_links")
-    private ReferenceLinks _links;
+    private Object _links;
     /***
      * Url of the work item.
      */
@@ -66,11 +65,11 @@ public class WorkItem {
         this.fields = fields;
     }
 
-    public ReferenceLinks get_links() {
+    public Object get_links() {
         return _links;
     }
 
-    public void set_links(ReferenceLinks _links) {
+    public void set_links(Object _links) {
         this._links = _links;
     }
 
