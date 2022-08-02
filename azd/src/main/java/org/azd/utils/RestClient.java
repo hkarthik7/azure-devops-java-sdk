@@ -71,7 +71,6 @@ public abstract class RestClient {
      * @param resource      resource area endpoint
      * @param apiVersion    api version
      * @param queryString   query string to append the url
-     * @param contentType   true to return the request url
      * @param contentStream API payload as stream
      * @param contentType   Type of content to request and accept as; Default is "Content-Type", "application/octet-stream"
      * @param callback      If true default redirect policy will be applied. The redirect policy can be controlled
@@ -116,7 +115,6 @@ public abstract class RestClient {
      * @param resource      resource area endpoint
      * @param apiVersion    api version
      * @param queryString   query string to append the url
-     * @param contentType   true to return the request url
      * @param contentStream API payload as stream
      * @param contentType   Type of content to request and accept as; Default is "Content-Type", "application/octet-stream"
      * @param callback      If true default redirect policy will be applied. The redirect policy can be controlled

@@ -1,6 +1,8 @@
 package org.azd;
 
+import org.azd.enums.EnvironmentStatus;
 import org.azd.enums.ReleaseApprovalStatus;
+import org.azd.enums.ReleaseStatus;
 import org.azd.enums.SingleReleaseExpands;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
@@ -96,6 +98,14 @@ public class ReleaseApiTest {
     @Test
     public void shouldGetReleaseApprovals() throws AzDException {
         r.getReleaseApprovals();
+    }
+
+    @Test
+    public void shouldUpdateARelease() throws AzDException {
+        var release = r.getRelease(1225);
+        release.getVariables().get("Name").setIsSecret(true);
+
+        r.updateRelease(1225, release);
     }
 
     @Test(expected = AzDException.class)

@@ -59,7 +59,7 @@ public interface ReleaseDetails {
 
     Void deleteRelease(int releaseId) throws AzDException;
 
-    Release updateRelease(int releaseId, String releaseDefinitionParameters) throws AzDException;
+    Release updateRelease(int releaseId, Release release) throws AzDException;
 
     ReleaseEnvironment updateReleaseEnvironment(int releaseId, int environmentId, String comment,
                                                 String scheduledDeploymentTime, ReleaseEnvironmentStatus status, VariableGroupMap variables)

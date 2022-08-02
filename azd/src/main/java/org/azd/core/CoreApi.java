@@ -386,7 +386,7 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
      * @param projectId project identifier
      * @param feature FeatureManagement enum type for which to return state
      * @return Optional wrapped boolean, empty if state is undefined
-     * @throws AzDException
+     * @throws AzDException Default Api Exception handler
      */
     @Override
     public Optional<Boolean> getFeatureState(String projectId, FeatureManagement feature) throws AzDException {
@@ -405,7 +405,7 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
      * @param feature enum value for feature to enable or disable
      * @param state enable or disable feature
      * @return object containing feature id and state
-     * @throws AzDException
+     * @throws AzDException Default Api Exception handler
      */
     @Override
     public ProjectFeature featureToggle(String projectId, FeatureManagement feature, boolean state) throws AzDException {

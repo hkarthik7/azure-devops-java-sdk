@@ -76,10 +76,29 @@ public class Main {
             workitemtracking.addHyperLinks(2, hyperlinks);
             
             // Add an attachment to the work item.
-            var attachment = w.createAttachment("testFile.txt", AttachmentUploadType.SIMPLE, "my-team", "Sample content");
-            var attachmentFields = new HashMap<String, String>(){{ put(attachment.getUrl(), "Test File url."); }};
+            // 1) Add a text file to the work item.
+            var contentStream = StreamHelper.convertToStream("This is sample content");
+
+            var attachment = w.createAttachment("testFile.txt", AttachmentUploadType.SIMPLE,
+                    "my-project-team", contentStream);
             
-            w.addWorkItemAttachment(133, attachmentFields);
+            var attachmentFields = new HashMap<String, String>() {{
+                put(attachment.getUrl(), "Test File url.");
+            }};
+
+            w.addWorkItemAttachment(994, attachmentFields);
+            
+            // 2) Add a jpeg file to the work item
+            var contentStream = StreamHelper.convertToStream(new File("requirement-diagram.jpeg"));
+
+            var attachment = w.createAttachment("requirement-diagram.jpeg", AttachmentUploadType.SIMPLE,
+                    "my-project-team", contentStream);
+
+            var attachmentFields = new HashMap<String, String>() {{
+                put(attachment.getUrl(), "Infrastructure architecture diagram.");
+            }};
+
+            w.addWorkItemAttachment(1784, attachmentFields);
             
             // Remove an attachment from the work item.
             var relations = w.getWorkItem(133, WorkItemExpand.RELATIONS).getRelations();
@@ -92,6 +111,68 @@ public class Main {
                     w.removeWorkItemAttachment(133, attachmentUrl);
                 }
             }
+            
+            // Get the work item activities
+            w.getMyWorkRecentActivity();
+            
+            // Get the work item fields
+            w.getWorkItemFields();
+            
+            // Create a work item field
+            var workitemField = new WorkItemField();
+            workitemField.setName("New Work Item Field");
+            workitemField.setReferenceName("SupportedOperations.GreaterThanEquals");
+            workitemField.setDescription(null);
+            workitemField.setType(FieldType.STRING);
+            workitemField.setUsage(FieldUsage.WORKITEM);
+            workitemField.setReadOnly(false);
+            workitemField.setCanSortBy(true);
+            workitemField.setIsQueryable(true);
+            workitemField.setSupportedOperations(List.of(new WorkItemFieldOperation(){{
+                setReferenceName("SupportedOperations.Equals");
+                setReferenceName("=");
+            }}));
+            workitemField.setIsIdentity(true);
+            workitemField.setIsPicklist(false);
+            workitemField.setIsPicklistSuggested(false);
+            workitemField.setUrl(null);
+
+            w.createWorkItemField(workitemField);
+            
+            // Delete the work item field
+            w.deleteWorkItemField("New Work Item Field");
+            
+            // Update the work item field
+            w.updateWorkItemField("New Work Item Field", false);
+            
+            // Create a query folder
+            var q = new QueryHierarchyItem();
+            var query = w.getQueries().getQueryHierarchyItems().get(1).getId();
+
+            q.setName("Website team");
+            q.setIsFolder(true);
+            w.createQuery(query, q);
+            
+            // Create a query in the previously created folder
+            var q = new QueryHierarchyItem();
+            q.setName("All Bugs");
+            q.setWiql("Select [System.Id], [System.Title], [System.State] From WorkItems Where [System.WorkItemType] " +
+                    "= 'Bug' order by [Microsoft.VSTS.Common.Priority] asc, [System.CreatedDate] desc");
+
+            w.createQuery("My Queries/Website team", q);
+            
+            // Get all queries
+            w.getQueries().getQueryHierarchyItems();
+
+            // Delete a query folder
+            w.deleteQuery("My Queries/Website team");
+
+            // Get queries in batch
+            var id = w.getQueries().getQueryHierarchyItems().stream().findFirst().get().getId();
+            w.getQueryBatches(QueryErrorPolicy.OMIT, QueryExpand.ALL, new String[]{id});
+
+            // Search queries
+            w.searchQuery("Bugs");
 
         } catch (AzDException e) {
             e.printStackTrace();

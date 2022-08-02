@@ -496,16 +496,14 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
     /***
      * Update a complete release object.
      * @param releaseId Id of the release to update.
-     * @param releaseDefinitionParameters Json string of release parameters to update a release
+     * @param release Release object to update
      * @return a release object {@link Release}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public Release updateRelease(int releaseId, String releaseDefinitionParameters) throws AzDException {
-        var body = MAPPER.mapJsonResponse(releaseDefinitionParameters, Map.class);
-
+    public Release updateRelease(int releaseId, Release release) throws AzDException {
         String r = send(RequestMethod.PUT, CONNECTION, RELEASE, CONNECTION.getProject(),
-                AREA, Integer.toString(releaseId), null, ApiVersion.RELEASES, null, body, null);
+                AREA, Integer.toString(releaseId), null, ApiVersion.RELEASES, null, release, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, Release.class);
     }
