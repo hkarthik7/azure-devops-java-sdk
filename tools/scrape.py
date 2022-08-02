@@ -6,6 +6,7 @@ import requests
 import json
 import os
 
+
 # This is an incomplete list of ids
 # TODO: Add specifics if required
 
@@ -58,17 +59,16 @@ class ScrapeVsTsDocument(object):
         self.url = url
         return requests.get(self.url)
 
-    def strip_content(self, content: str, start_value: str, end_value: str, additional_value = 4) -> BeautifulSoup:
+    def strip_content(self, content: str, start_value: str, end_value: str, additional_value=4) -> BeautifulSoup:
         self.content = content
         self.start_value = start_value
         self.end_value = end_value
 
         start_index = self.get_index(self.start_value)
         end_index = self.get_index(self.end_value)
-        result_content = content.replace(content[start_index:end_index-additional_value], '')
+        result_content = content.replace(content[start_index:end_index - additional_value], '')
 
         return self.get_soup_object(result_content)
-
 
     def get_attributes(self, soup: BeautifulSoup, id: str, name: str, class_name: str, tags: list) -> dict:
         self.soup = soup
@@ -104,7 +104,8 @@ class ScrapeVsTsDocument(object):
             return result
 
     def get_definitions(self) -> dict:
-        res = self.strip_content(self.get_response.text, f'id="{DocumentId.EXAMPLES.value}"', f'id="{DocumentId.DEFINITIONS.value}"')
+        res = self.strip_content(self.get_response.text, f'id="{DocumentId.EXAMPLES.value}"',
+                                 f'id="{DocumentId.DEFINITIONS.value}"')
         if res != None:
             return self.get_attributes(
                 res, DocumentId.DEFINITIONS.value, DocumentId.ATTRIBUTE.value,
@@ -115,7 +116,8 @@ class ScrapeVsTsDocument(object):
                 DocumentId.DEFINITIONS_CLASS.value, [DocumentId.TAG_A.value, DocumentId.TAG_PARA.value])
 
     def get_comments(self) -> dict:
-        res = self.strip_content(self.get_response.text, f'id="{DocumentId.EXAMPLES.value}"', f'id="{DocumentId.DEFINITIONS.value}"')
+        res = self.strip_content(self.get_response.text, f'id="{DocumentId.EXAMPLES.value}"',
+                                 f'id="{DocumentId.DEFINITIONS.value}"')
         if res != None:
             return self.get_attributes(
                 res, DocumentId.COMMENT.value, DocumentId.ATTRIBUTE.value,
@@ -126,7 +128,8 @@ class ScrapeVsTsDocument(object):
                 DocumentId.COMMENTS_CLASS.value, [DocumentId.TAG_DIV.value, DocumentId.TAG_PARA.value])
 
     def get_response_type(self) -> dict:
-        res = self.strip_content(self.get_response.text, f'id="{DocumentId.EXAMPLES.value}"', f'id="{DocumentId.DEFINITIONS.value}"')
+        res = self.strip_content(self.get_response.text, f'id="{DocumentId.EXAMPLES.value}"',
+                                 f'id="{DocumentId.DEFINITIONS.value}"')
         if res != None:
             return self.get_attributes(
                 res, DocumentId.RESPONSE.value, DocumentId.ATTRIBUTE.value,
@@ -172,10 +175,6 @@ def create_setter(name: str, type_value: str):
     val = f"public void set{capitalize(name)}({type_value} {name}) {{ this.{name} = {name}; }}"
     return val
 
-def to_string(value: str):
-    if value != None:
-        return f'",{value}=\'" + {value} + \'\\''\'\' +'
-
 
 _url: str = json.loads(read('settings.json'))['url']
 comment_only: bool = json.loads(read('settings.json'))['commentOnly']
@@ -188,7 +187,6 @@ d_value = {}
 
 prev = 0
 last_val = 0
-
 
 if __name__ == "__main__":
 
@@ -253,7 +251,7 @@ if __name__ == "__main__":
                 f.write(f"\n{import_statements}")
                 f.write(f"\n/**\n * {value_result['Definitions'][key]} \n**/")
                 f.write("\n@JsonIgnoreProperties(ignoreUnknown = true)")
-                f.write(f"\npublic class {key} {{\n")
+                f.write(f"\npublic class {key} extends BaseAbstractMethod {{\n")
 
                 for v in value_result['SubDefinitions'].get(key):
                     if '[]' in str(v['Type']) and str(v['Type']) != 'string[]':
@@ -276,19 +274,6 @@ if __name__ == "__main__":
                     f.write(
                         f"\n\t{create_setter(v['Name'], str(v['Type']))}\n")
 
-                f.write(f"\n\t@Override\n\tpublic String toString()")
-                f.write(" { \n\treturn ")
-                f.write(f'\t"{key}{{" +')
-
-                for v in value_result['SubDefinitions'].get(key):
-                    if str(value_result['SubDefinitions'].get(key)[0]['Name']) == str(v['Name']):
-                        s_value = to_string(str(v['Name'])).replace(",", '')
-                    else:
-                        s_value = to_string(str(v['Name']))
-                    f.write(f"\n\t\t{s_value}")
-
-                f.write("\n\t\t'}';")
-                f.write("\n\t}")
                 f.write("\n}")
 
             finally:

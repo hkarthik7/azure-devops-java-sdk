@@ -3,8 +3,8 @@
   "version": 1.0,
   "properties": {
     "notes": "\n/**\n----------------------------------------------------------\n\tGENERATED FILE, should be edited to suit the purpose.\n----------------------------------------------------------\n**/",
-    "imports": "\nimport com.fasterxml.jackson.annotation.JsonIgnoreProperties;\nimport com.fasterxml.jackson.annotation.JsonProperty;\n"
+    "imports": "\nimport com.fasterxml.jackson.annotation.JsonIgnoreProperties;\nimport com.fasterxml.jackson.annotation.JsonProperty;\nimport org.azd.common.types.BaseAbstractMethod;\n"
   },
-  "url": "https://docs.microsoft.com/en-us/rest/api/azure/devops/release/definitions/get?view=azure-devops-rest-7.1&tabs=HTTP",
+  "url": "https://docs.microsoft.com/en-us/rest/api/azure/devops/wit/queries/get-queries-batch?view=azure-devops-rest-7.1&tabs=HTTP",
   "commentOnly": false
 }
