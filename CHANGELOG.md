@@ -4,7 +4,8 @@
 
 **Breaking changes**
 
-**Changed to Build and BuildDefinition types**
+**Changes to Build and BuildDefinition types**
+
 - Enable feature management for project services (i.e. Test Plans, Boards, etc).
 - Merged PR: [implement featureManagement to enable / disable project services #33 #34](https://github.com/hkarthik7/azure-devops-java-sdk/pull/34)
 - Expanded support for **BuildApi**.
@@ -28,6 +29,7 @@ ease of use in other concrete Api implementations.
 ## 4.0.0
 
 **Breaking changes**
+
 - Added GraphEntity as parent of GraphUser and GraphGroup
 - Minor risk if extending from GraphUser or GraphGroup
 - Merged PR: [Refactor GraphEntity as parent of GraphUser and GraphGroup #32](https://github.com/hkarthik7/azure-devops-java-sdk/pull/32)
