@@ -2,12 +2,13 @@ package org.azd.security.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * represents an action in a particular security namespace
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SecurityNamespaceAction {
+public class SecurityNamespaceAction extends BaseAbstractMethod {
     /***
      * bitmask position, power of 2 value
      */
@@ -61,13 +62,4 @@ public class SecurityNamespaceAction {
         this.namespaceId = namespaceId;
     }
 
-    @Override
-    public String toString() {
-        return "SecurityNamespaceAction{" +
-                "bit=" + bit +
-                ", name='" + name + '\'' +
-                ", displayName='" + displayName + '\'' +
-                ", namespaceId='" + namespaceId + '\'' +
-                '}';
-    }
 }

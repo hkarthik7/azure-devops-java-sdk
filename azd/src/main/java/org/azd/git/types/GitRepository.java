@@ -7,14 +7,13 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.Arrays;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * User info and date for Git operations. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitRepository {
+public class GitRepository extends BaseAbstractMethod {
 	/**
  	* The class to represent a collection of REST reference links. 
 	**/
@@ -124,23 +123,4 @@ public class GitRepository {
 
 	public void setWebUrl(String webUrl) { this.webUrl = webUrl; }
 
-	@Override
-	public String toString() {
-		return "GitRepository{" +
-				"_links=" + _links +
-				", defaultBranch='" + defaultBranch + '\'' +
-				", id='" + id + '\'' +
-				", isDisabled=" + isDisabled +
-				", isFork=" + isFork +
-				", name='" + name + '\'' +
-				", parentRepository=" + parentRepository +
-				", project=" + project +
-				", remoteUrl='" + remoteUrl + '\'' +
-				", size=" + size +
-				", sshUrl='" + sshUrl + '\'' +
-				", url='" + url + '\'' +
-				", validRemoteUrls=" + Arrays.toString(validRemoteUrls) +
-				", webUrl='" + webUrl + '\'' +
-				'}';
-	}
 }

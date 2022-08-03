@@ -2,6 +2,7 @@ package org.azd.distributedtask.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * List of task agent
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TaskAgents {
+public class TaskAgents extends BaseAbstractMethod {
     /***
      * List of task agent
      */
@@ -24,10 +25,4 @@ public class TaskAgents {
         this.taskAgents = taskAgents;
     }
 
-    @Override
-    public String toString() {
-        return "TaskAgents{" +
-                "taskAgents=" + taskAgents +
-                '}';
-    }
 }

@@ -7,6 +7,7 @@ package org.azd.feedmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.UpstreamSourceType;
 import org.azd.enums.UpstreamStatus;
 
@@ -16,7 +17,7 @@ import java.util.List;
  * Source type, such as Public or Internal. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UpstreamSource {
+public class UpstreamSource extends BaseAbstractMethod {
 	/**
  	* UTC date that this upstream was deleted. 
 	**/
@@ -153,24 +154,4 @@ public class UpstreamSource {
 
 	public void setUpstreamSourceType(UpstreamSourceType upstreamSourceType) { this.upstreamSourceType = upstreamSourceType; }
 
-	@Override
-	public String toString() {
-		return "UpstreamSource{" +
-				"deletedDate='" + deletedDate + '\'' +
-				", displayLocation='" + displayLocation + '\'' +
-				", id='" + id + '\'' +
-				", internalUpstreamCollectionId='" + internalUpstreamCollectionId + '\'' +
-				", internalUpstreamFeedId='" + internalUpstreamFeedId + '\'' +
-				", internalUpstreamProjectId='" + internalUpstreamProjectId + '\'' +
-				", internalUpstreamViewId='" + internalUpstreamViewId + '\'' +
-				", location='" + location + '\'' +
-				", name='" + name + '\'' +
-				", protocol='" + protocol + '\'' +
-				", serviceEndpointId='" + serviceEndpointId + '\'' +
-				", serviceEndpointProjectId='" + serviceEndpointProjectId + '\'' +
-				", status=" + status +
-				", statusDetails=" + statusDetails +
-				", upstreamSourceType=" + upstreamSourceType +
-				'}';
-	}
 }

@@ -7,12 +7,13 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Identity information including a vote on a pull request. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitRepositoryRef {
+public class GitRepositoryRef extends BaseAbstractMethod {
 	/**
  	* Team Project Collection where this Fork resides 
 	**/
@@ -76,17 +77,4 @@ public class GitRepositoryRef {
 
 	public void setUrl(String url) { this.url = url; }
 
-	@Override
-	public String toString() {
-		return "GitRepositoryRef{" +
-				"collection=" + collection +
-				", id='" + id + '\'' +
-				", isFork=" + isFork +
-				", name='" + name + '\'' +
-				", project=" + project +
-				", remoteUrl='" + remoteUrl + '\'' +
-				", sshUrl='" + sshUrl + '\'' +
-				", url='" + url + '\'' +
-				'}';
-	}
 }

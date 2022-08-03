@@ -7,12 +7,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * The quality of the definition document (draft, etc.) 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ControllerStatus {
+public class ControllerStatus extends BaseAbstractMethod {
     /**
      * Indicates that the build controller is currently available.
      **/
@@ -53,12 +54,4 @@ public class ControllerStatus {
         this.unavailable = unavailable;
     }
 
-    @Override
-    public String toString() {
-        return "ControllerStatus{" +
-                "available='" + available + '\'' +
-                ", offline='" + offline + '\'' +
-                ", unavailable='" + unavailable + '\'' +
-                '}';
-    }
 }

@@ -3,14 +3,13 @@ package org.azd.accounts.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
-
-import java.util.Arrays;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * The class represents a property bag as a collection of key-value pairs. Values of all primitive types
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PropertiesCollection {
+public class PropertiesCollection extends BaseAbstractMethod {
     /***
      * The count of properties in the collection.
      */
@@ -64,13 +63,4 @@ public class PropertiesCollection {
         this.values = values;
     }
 
-    @Override
-    public String toString() {
-        return "PropertiesCollection{" +
-                "count=" + count +
-                ", item=" + item +
-                ", keys=" + Arrays.toString(keys) +
-                ", values=" + Arrays.toString(values) +
-                '}';
-    }
 }

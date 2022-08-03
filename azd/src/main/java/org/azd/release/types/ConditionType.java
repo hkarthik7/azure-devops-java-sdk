@@ -7,12 +7,13 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * The class represents a property bag as a collection of key-value pairs. Values of all primitive types (any type with a TypeCode != TypeCode.Object) except for DBNull are accepted. Values of type Byte[], Int32, Double, DateType and String preserve their type, other primitives are retuned as a String. Byte[] expected as base64 encoded string. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ConditionType {
+public class ConditionType extends BaseAbstractMethod {
 	/**
  	* The condition type is artifact. 
 	**/
@@ -50,13 +51,4 @@ public class ConditionType {
 
 	public void setUndefined(String undefined) { this.undefined = undefined; }
 
-	@Override
-	public String toString() { 
-	return 	"ConditionType{" +
-		"artifact='" + artifact + '\'' +
-		",environmentState='" + environmentState + '\'' +
-		",event='" + event + '\'' +
-		",undefined='" + undefined + '\'' +
-		'}';
-	}
 }

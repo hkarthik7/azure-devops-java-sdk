@@ -2,12 +2,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Represents a queue for running builds.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildQueue {
+public class BuildQueue extends BaseAbstractMethod {
     /***
      * The ID of the queue.
      */
@@ -48,12 +49,4 @@ public class BuildQueue {
         this.pool = pool;
     }
 
-    @Override
-    public String toString() {
-        return "BQueue{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", pool=" + pool +
-                '}';
-    }
 }

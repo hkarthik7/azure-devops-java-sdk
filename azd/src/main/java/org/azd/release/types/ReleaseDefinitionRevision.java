@@ -3,12 +3,13 @@ package org.azd.release.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Release definition revision
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReleaseDefinitionRevision {
+public class ReleaseDefinitionRevision extends BaseAbstractMethod {
     /***
      * Gets api-version for revision object.
      */
@@ -114,17 +115,4 @@ public class ReleaseDefinitionRevision {
         this.revision = revision;
     }
 
-    @Override
-    public String toString() {
-        return "ReleaseDefinitionRevision{" +
-                "apiVersion='" + apiVersion + '\'' +
-                ", changeType='" + changeType + '\'' +
-                ", changedBy=" + changedBy +
-                ", changedDate='" + changedDate + '\'' +
-                ", comment='" + comment + '\'' +
-                ", definitionId=" + definitionId +
-                ", definitionUrl='" + definitionUrl + '\'' +
-                ", revision=" + revision +
-                '}';
-    }
 }

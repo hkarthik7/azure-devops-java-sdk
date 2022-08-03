@@ -7,6 +7,7 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  * A value that indicates whether builds can be queued against this definition. 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DataSourceBindingBase {
+public class DataSourceBindingBase extends BaseAbstractMethod {
     /**
      * Pagination format supported by this data source(ContinuationToken/SkipTop).
      **/
@@ -185,22 +186,4 @@ public class DataSourceBindingBase {
         this.target = target;
     }
 
-    @Override
-    public String toString() {
-        return "DataSourceBindingBase{" +
-                "callbackContextTemplate='" + callbackContextTemplate + '\'' +
-                ", callbackRequiredTemplate='" + callbackRequiredTemplate + '\'' +
-                ", dataSourceName='" + dataSourceName + '\'' +
-                ", endpointId='" + endpointId + '\'' +
-                ", endpointUrl='" + endpointUrl + '\'' +
-                ", headers=" + headers +
-                ", initialContextTemplate='" + initialContextTemplate + '\'' +
-                ", parameters=" + parameters +
-                ", requestContent='" + requestContent + '\'' +
-                ", requestVerb='" + requestVerb + '\'' +
-                ", resultSelector='" + resultSelector + '\'' +
-                ", resultTemplate='" + resultTemplate + '\'' +
-                ", target='" + target + '\'' +
-                '}';
-    }
 }

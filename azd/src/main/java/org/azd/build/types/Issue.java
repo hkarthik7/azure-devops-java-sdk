@@ -2,12 +2,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Represents an issue (error, warning) associated with a build.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Issue {
+public class Issue extends BaseAbstractMethod {
     /**
      * The category.
      */
@@ -61,13 +62,4 @@ public class Issue {
         this.type = type;
     }
 
-    @Override
-    public String toString() {
-        return "Issue{" +
-                "category='" + category + '\'' +
-                ", data=" + data +
-                ", message='" + message + '\'' +
-                ", type='" + type + '\'' +
-                '}';
-    }
 }

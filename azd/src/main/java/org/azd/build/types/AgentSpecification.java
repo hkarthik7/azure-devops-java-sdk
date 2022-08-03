@@ -7,12 +7,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Specification of the agent defined by the pool provider. 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AgentSpecification {
+public class AgentSpecification extends BaseAbstractMethod {
     /**
      * Agent specification unique identifier.
      **/
@@ -27,10 +28,4 @@ public class AgentSpecification {
         this.identifier = identifier;
     }
 
-    @Override
-    public String toString() {
-        return "AgentSpecification{" +
-                "identifier='" + identifier + '\'' +
-                '}';
-    }
 }

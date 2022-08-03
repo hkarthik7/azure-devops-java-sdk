@@ -2,12 +2,13 @@ package org.azd.memberentitlementmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Represents the response after adding a user
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserEntitlementsResponse {
+public class UserEntitlementsResponse extends BaseAbstractMethod {
     /***
      * True if all operations were successful.
      */
@@ -48,12 +49,4 @@ public class UserEntitlementsResponse {
         this.userEntitlement = userEntitlement;
     }
 
-    @Override
-    public String toString() {
-        return "UserEntitlementsPostResponse{" +
-                "isSuccess=" + isSuccess +
-                ", operationResult=" + operationResult +
-                ", userEntitlement=" + userEntitlement +
-                '}';
-    }
 }

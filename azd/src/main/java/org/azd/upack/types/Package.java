@@ -2,12 +2,13 @@ package org.azd.upack.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Package version metadata for a Universal package
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Package {
+public class Package extends BaseAbstractMethod {
     /***
      * Related REST links.
      */
@@ -92,15 +93,4 @@ public class Package {
         this.version = version;
     }
 
-    @Override
-    public String toString() {
-        return "Package{" +
-                "_links='" + _links +
-                ", deletedDate=" + deletedDate + '\'' +
-                ", id=" + id + '\'' +
-                ", name=" + name + '\'' +
-                ", permanentlyDeletedDate=" + permanentlyDeletedDate + '\'' +
-                ", version='" + version + '\'' +
-                '}';
-    }
 }

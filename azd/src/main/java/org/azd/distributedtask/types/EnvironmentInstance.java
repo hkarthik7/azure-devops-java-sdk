@@ -3,6 +3,7 @@ package org.azd.distributedtask.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.release.types.ProjectReference;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  * Represents an environment
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class EnvironmentInstance {
+public class EnvironmentInstance extends BaseAbstractMethod {
     /***
      * Identity reference of the user who created the Environment.
      */
@@ -133,18 +134,4 @@ public class EnvironmentInstance {
         this.resources = resources;
     }
 
-    @Override
-    public String toString() {
-        return "EnvironmentInstance{" +
-                "createdBy=" + createdBy +
-                ", createdOn='" + createdOn + '\'' +
-                ", description='" + description + '\'' +
-                ", id=" + id +
-                ", lastModifiedBy=" + lastModifiedBy +
-                ", lastModifiedOn='" + lastModifiedOn + '\'' +
-                ", name='" + name + '\'' +
-                ", project=" + project +
-                ", resources=" + resources +
-                '}';
-    }
 }

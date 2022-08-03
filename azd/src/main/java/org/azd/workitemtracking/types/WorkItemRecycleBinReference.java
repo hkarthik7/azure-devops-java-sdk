@@ -3,10 +3,11 @@ package org.azd.workitemtracking.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.common.types.ReferenceLinks;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemRecycleBinReference {
+public class WorkItemRecycleBinReference extends BaseAbstractMethod {
     @JsonProperty("_links")
     private ReferenceLinks _links;
     @JsonProperty("commentVersionRef")
@@ -78,16 +79,4 @@ public class WorkItemRecycleBinReference {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "WorkItemRecycleBinReference{" +
-                "_links=" + _links +
-                ", commentVersionRef=" + commentVersionRef +
-                ", fields=" + fields +
-                ", id=" + id +
-                ", relations=" + relations +
-                ", rev=" + rev +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

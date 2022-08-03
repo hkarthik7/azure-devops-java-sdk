@@ -7,12 +7,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Data representation of a build. 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AuthorizationHeader {
+public class AuthorizationHeader extends BaseAbstractMethod {
 
     @JsonProperty("name")
     private String name;
@@ -36,11 +37,4 @@ public class AuthorizationHeader {
         this.value = value;
     }
 
-    @Override
-    public String toString() {
-        return "AuthorizationHeader{" +
-                "name='" + name + '\'' +
-                ", value='" + value + '\'' +
-                '}';
-    }
 }

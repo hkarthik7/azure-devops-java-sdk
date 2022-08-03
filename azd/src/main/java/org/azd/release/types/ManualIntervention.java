@@ -8,13 +8,14 @@ package org.azd.release.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.ManualInterventionStatus;
 
 /**
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ManualIntervention {
+public class ManualIntervention extends BaseAbstractMethod {
 	/**
  	* Gets or sets the identity who should approve. 
 	**/
@@ -133,22 +134,4 @@ public class ManualIntervention {
 
 	public void setUrl(String url) { this.url = url; }
 
-	@Override
-	public String toString() { 
-	return 	"ManualIntervention{" +
-		"approver='" + approver + '\'' +
-		",comments='" + comments + '\'' +
-		",createdOn='" + createdOn + '\'' +
-		",id='" + id + '\'' +
-		",instructions='" + instructions + '\'' +
-		",modifiedOn='" + modifiedOn + '\'' +
-		",name='" + name + '\'' +
-		",release='" + release + '\'' +
-		",releaseDefinition='" + releaseDefinition + '\'' +
-		",releaseEnvironment='" + releaseEnvironment + '\'' +
-		",status='" + status + '\'' +
-		",taskInstanceId='" + taskInstanceId + '\'' +
-		",url='" + url + '\'' +
-		'}';
-	}
 }

@@ -8,6 +8,7 @@ package org.azd.release.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.ReleaseReason;
 
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReleaseReference {
+public class ReleaseReference extends BaseAbstractMethod {
 	/**
  	* Gets links to access the release. 
 	**/
@@ -108,19 +109,4 @@ public class ReleaseReference {
 
 	public void setReleaseDefinition(ReleaseDefinitionShallowReference releaseDefinition) { this.releaseDefinition = releaseDefinition; }
 
-	@Override
-	public String toString() { 
-	return 	"ReleaseReference{" +
-		"_links='" + _links + '\'' +
-		",artifacts='" + artifacts + '\'' +
-		",createdBy='" + createdBy + '\'' +
-		",createdOn='" + createdOn + '\'' +
-		",description='" + description + '\'' +
-		",id='" + id + '\'' +
-		",modifiedBy='" + modifiedBy + '\'' +
-		",name='" + name + '\'' +
-		",reason='" + reason + '\'' +
-		",releaseDefinition='" + releaseDefinition + '\'' +
-		'}';
-	}
 }

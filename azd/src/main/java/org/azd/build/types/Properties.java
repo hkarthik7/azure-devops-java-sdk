@@ -2,12 +2,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Build repository properties
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Properties {
+public class Properties extends BaseAbstractMethod {
     /***
      * Repository clone url
      */
@@ -87,15 +88,4 @@ public class Properties {
         this.reportBuildStatus = reportBuildStatus;
     }
 
-    @Override
-    public String toString() {
-        return "Properties{" +
-                "cloneUrl='" + cloneUrl + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", defaultBranch='" + defaultBranch + '\'' +
-                ", isFork=" + isFork +
-                ", safeRepository='" + safeRepository + '\'' +
-                ", reportBuildStatus=" + reportBuildStatus +
-                '}';
-    }
 }

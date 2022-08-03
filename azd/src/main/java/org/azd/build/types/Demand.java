@@ -7,12 +7,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Project visibility. 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Demand {
+public class Demand extends BaseAbstractMethod {
     /**
      * The name of the capability referenced by the demand.
      **/
@@ -40,11 +41,4 @@ public class Demand {
         this.value = value;
     }
 
-    @Override
-    public String toString() {
-        return "Demand{" +
-                "name='" + name + '\'' +
-                ", value='" + value + '\'' +
-                '}';
-    }
 }

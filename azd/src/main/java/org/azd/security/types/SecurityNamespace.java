@@ -2,6 +2,7 @@ package org.azd.security.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 import java.util.Objects;
@@ -10,7 +11,7 @@ import java.util.Objects;
  * Represents a security namespace.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SecurityNamespace {
+public class SecurityNamespace extends BaseAbstractMethod {
     /***
      * uuid of namespace
      */
@@ -192,26 +193,6 @@ public class SecurityNamespace {
 
     public void setSystemBitMask(int systemBitMask) {
         this.systemBitMask = systemBitMask;
-    }
-
-    @Override
-    public String toString() {
-        return "SecurityNamespace{" +
-                "id='" + namespaceId + '\'' +
-                ", name='" + name + '\'' +
-                ", displayName='" + displayName + '\'' +
-                ", separatorValue='" + separatorValue + '\'' +
-                ", elementLength=" + elementLength +
-                ", writePermission=" + writePermission +
-                ", readPermission=" + readPermission +
-                ", dataspaceCategory='" + dataspaceCategory + '\'' +
-                ", actions=" + actions +
-                ", structureValue=" + structureValue +
-                ", extensionType='" + extensionType + '\'' +
-                ", isRemotable=" + isRemotable +
-                ", useTokenTranslator=" + useTokenTranslator +
-                ", systemBitMask=" + systemBitMask +
-                '}';
     }
 
     @Override

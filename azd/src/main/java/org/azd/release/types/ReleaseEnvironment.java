@@ -8,6 +8,7 @@ package org.azd.release.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.EnvironmentStatus;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.Map;
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReleaseEnvironment {
+public class ReleaseEnvironment extends BaseAbstractMethod {
 	/**
  	* Gets list of conditions. 
 	**/
@@ -289,39 +290,4 @@ public class ReleaseEnvironment {
 
 	public void setVariables(Map<String, ConfigurationVariableValue> variables) { this.variables = variables; }
 
-	@Override
-	public String toString() { 
-	return 	"ReleaseEnvironment{" +
-		"conditions='" + conditions + '\'' +
-		",createdOn='" + createdOn + '\'' +
-		",definitionEnvironmentId='" + definitionEnvironmentId + '\'' +
-		",deployPhasesSnapshot='" + deployPhasesSnapshot + '\'' +
-		",deploySteps='" + deploySteps + '\'' +
-		",environmentOptions='" + environmentOptions + '\'' +
-		",id='" + id + '\'' +
-		",modifiedOn='" + modifiedOn + '\'' +
-		",name='" + name + '\'' +
-		",nextScheduledUtcTime='" + nextScheduledUtcTime + '\'' +
-		",owner='" + owner + '\'' +
-		",postApprovalsSnapshot='" + postApprovalsSnapshot + '\'' +
-		",postDeployApprovals='" + postDeployApprovals + '\'' +
-		",postDeploymentGatesSnapshot='" + postDeploymentGatesSnapshot + '\'' +
-		",preApprovalsSnapshot='" + preApprovalsSnapshot + '\'' +
-		",preDeployApprovals='" + preDeployApprovals + '\'' +
-		",preDeploymentGatesSnapshot='" + preDeploymentGatesSnapshot + '\'' +
-		",processParameters='" + processParameters + '\'' +
-		",rank='" + rank + '\'' +
-		",release='" + release + '\'' +
-		",releaseCreatedBy='" + releaseCreatedBy + '\'' +
-		",releaseDefinition='" + releaseDefinition + '\'' +
-		",releaseId='" + releaseId + '\'' +
-		",scheduledDeploymentTime='" + scheduledDeploymentTime + '\'' +
-		",schedules='" + schedules + '\'' +
-		",status='" + status + '\'' +
-		",timeToDeploy='" + timeToDeploy + '\'' +
-		",triggerReason='" + triggerReason + '\'' +
-		",variableGroups='" + variableGroups + '\'' +
-		",variables='" + variables + '\'' +
-		'}';
-	}
 }

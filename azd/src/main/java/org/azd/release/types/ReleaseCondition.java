@@ -7,12 +7,13 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReleaseCondition {
+public class ReleaseCondition extends BaseAbstractMethod {
 	/**
  	* Gets or sets the condition type. 
 	**/
@@ -50,13 +51,4 @@ public class ReleaseCondition {
 
 	public void setValue(String value) { this.value = value; }
 
-	@Override
-	public String toString() { 
-	return 	"ReleaseCondition{" +
-		"conditionType='" + conditionType + '\'' +
-		",name='" + name + '\'' +
-		",result='" + result + '\'' +
-		",value='" + value + '\'' +
-		'}';
-	}
 }

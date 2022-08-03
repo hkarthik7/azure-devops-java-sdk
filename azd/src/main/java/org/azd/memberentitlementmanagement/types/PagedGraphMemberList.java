@@ -2,6 +2,7 @@ package org.azd.memberentitlementmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * A page of users
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PagedGraphMemberList {
+public class PagedGraphMemberList extends BaseAbstractMethod {
     /***
      * A user entity with additional properties including their license, extensions, and project membership
      */
@@ -24,10 +25,4 @@ public class PagedGraphMemberList {
         this.members = members;
     }
 
-    @Override
-    public String toString() {
-        return "PagedGraphMemberList{" +
-                "members=" + members +
-                '}';
-    }
 }

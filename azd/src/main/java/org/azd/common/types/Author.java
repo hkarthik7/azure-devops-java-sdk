@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Represents the identity of an user object.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Author {
+public class Author extends BaseAbstractMethod {
     /***
      * This is the non-unique display name of the graph subject. To change this field, you must alter its value in the source provider.
      */
@@ -46,18 +46,6 @@ public class Author {
     @JsonProperty("descriptor")
     private String descriptor;
 
-    @Override
-    public String toString() {
-        return "WorkItemUserDetails{" +
-                "displayName='" + displayName + '\'' +
-                ", url='" + url + '\'' +
-                ", _links=" + _links +
-                ", id='" + id + '\'' +
-                ", uniqueName='" + uniqueName + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", descriptor='" + descriptor + '\'' +
-                '}';
-    }
 
     public String getDisplayName() {
         return displayName;

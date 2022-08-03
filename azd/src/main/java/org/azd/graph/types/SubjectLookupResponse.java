@@ -2,6 +2,7 @@ package org.azd.graph.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.Map;
 
@@ -11,7 +12,7 @@ import java.util.Map;
  * Subject descriptor is in both the value-field map-key and descriptor field of the {@link SubjectLookup}
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SubjectLookupResponse {
+public class SubjectLookupResponse extends BaseAbstractMethod {
     @JsonProperty("value")
     Map<String, SubjectLookup> value;
 
@@ -23,10 +24,4 @@ public class SubjectLookupResponse {
         this.value = value;
     }
 
-    @Override
-    public String toString() {
-        return "SubjectLookupResponse{" +
-                "value=" + value +
-                '}';
-    }
 }

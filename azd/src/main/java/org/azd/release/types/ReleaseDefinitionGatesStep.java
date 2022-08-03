@@ -7,6 +7,7 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReleaseDefinitionGatesStep {
+public class ReleaseDefinitionGatesStep extends BaseAbstractMethod {
 	/**
  	* Gets or sets the gates. 
 	**/
@@ -43,12 +44,4 @@ public class ReleaseDefinitionGatesStep {
 
 	public void setId(Integer id) { this.id = id; }
 
-	@Override
-	public String toString() { 
-	return 	"ReleaseDefinitionGatesStep{" +
-		"gates='" + gates + '\'' +
-		",gatesOptions='" + gatesOptions + '\'' +
-		",id='" + id + '\'' +
-		'}';
-	}
 }

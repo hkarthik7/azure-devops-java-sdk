@@ -7,12 +7,13 @@ package org.azd.feedmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * The class to represent a collection of REST reference links. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ProjectReference {
+public class ProjectReference extends BaseAbstractMethod {
 	/**
  	* Gets or sets id of the project. 
 	**/
@@ -41,12 +42,4 @@ public class ProjectReference {
 
 	public void setVisibility(String visibility) { this.visibility = visibility; }
 
-	@Override
-	public String toString() {
-		return "ProjectReference{" +
-				"id='" + id + '\'' +
-				", name='" + name + '\'' +
-				", visibility='" + visibility + '\'' +
-				'}';
-	}
 }

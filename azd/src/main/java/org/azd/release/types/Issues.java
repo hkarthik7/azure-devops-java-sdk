@@ -2,12 +2,13 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * List of issues occurred while execution of task.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Issues {
+public class Issues extends BaseAbstractMethod {
     /***
      * Issue data.
      */
@@ -48,12 +49,4 @@ public class Issues {
         this.message = message;
     }
 
-    @Override
-    public String toString() {
-        return "Issues{" +
-                "data=" + data +
-                ", issueType='" + issueType + '\'' +
-                ", message='" + message + '\'' +
-                '}';
-    }
 }

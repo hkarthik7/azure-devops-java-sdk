@@ -2,6 +2,7 @@ package org.azd.work.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * List of team settings iterations
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TeamSettingsIterations {
+public class TeamSettingsIterations extends BaseAbstractMethod {
     /***
      * List of team settings iterations
      */
@@ -24,10 +25,4 @@ public class TeamSettingsIterations {
         this.iterations = iterations;
     }
 
-    @Override
-    public String toString() {
-        return "TeamSettingsIterations{" +
-                "iterations=" + iterations +
-                '}';
-    }
 }

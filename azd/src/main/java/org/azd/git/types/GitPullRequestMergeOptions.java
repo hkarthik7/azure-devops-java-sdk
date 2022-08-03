@@ -7,12 +7,13 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * This class contains the metadata of a service/extension posting a status. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitPullRequestMergeOptions {
+public class GitPullRequestMergeOptions extends BaseAbstractMethod {
 	/**
  	* If true, conflict resolutions applied during the merge will be put in separate commits to preserve authorship info for git blame, etc. 
 	**/
@@ -39,12 +40,4 @@ public class GitPullRequestMergeOptions {
 
 	public void setDisableRenames(boolean disableRenames) { this.disableRenames = disableRenames; }
 
-	@Override
-	public String toString() {
-		return "GitPullRequestMergeOptions{" +
-				"conflictAuthorshipCommits=" + conflictAuthorshipCommits +
-				", detectRenameFalsePositives=" + detectRenameFalsePositives +
-				", disableRenames=" + disableRenames +
-				'}';
-	}
 }

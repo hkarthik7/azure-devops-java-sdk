@@ -3,12 +3,13 @@ package org.azd.release.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Gets or sets the list of artifacts.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReleaseArtifacts {
+public class ReleaseArtifacts extends BaseAbstractMethod {
     /***
      * Gets or sets alias.
      */
@@ -76,14 +77,4 @@ public class ReleaseArtifacts {
         this.type = type;
     }
 
-    @Override
-    public String toString() {
-        return "ReleaseArtifacts{" +
-                "alias='" + alias + '\'' +
-                ", definitionReference=" + definitionReference +
-                ", isPrimary=" + isPrimary +
-                ", isRetained='" + isRetained + '\'' +
-                ", type='" + type + '\'' +
-                '}';
-    }
 }

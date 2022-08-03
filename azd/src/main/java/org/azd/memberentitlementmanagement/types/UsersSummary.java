@@ -2,6 +2,7 @@ package org.azd.memberentitlementmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * Summary of licenses and extensions assigned to users in the organization
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UsersSummary {
+public class UsersSummary extends BaseAbstractMethod {
     /***
      * Available Access Levels
      */
@@ -76,15 +77,5 @@ public class UsersSummary {
         this.projectRefs = projectRefs;
     }
 
-    @Override
-    public String toString() {
-        return "UsersSummary{" +
-                "availableAccessLevels=" + availableAccessLevels +
-                ", defaultAccessLevel=" + defaultAccessLevel +
-                ", groupOptions=" + groupOptions +
-                ", licenses=" + licenses +
-                ", projectRefs=" + projectRefs +
-                '}';
-    }
 
 }

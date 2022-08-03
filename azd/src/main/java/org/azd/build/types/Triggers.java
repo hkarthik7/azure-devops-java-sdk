@@ -2,6 +2,7 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * Represents a trigger for a build definition.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Triggers {
+public class Triggers extends BaseAbstractMethod {
     /***
      * Branch filters
      */
@@ -76,14 +77,4 @@ public class Triggers {
         this.triggerType = triggerType;
     }
 
-    @Override
-    public String toString() {
-        return "Triggers{" +
-                "branchFilters=" + branchFilters +
-                ", batchChanges=" + batchChanges +
-                ", maxConcurrentBuildsPerBranch=" + maxConcurrentBuildsPerBranch +
-                ", pollingInterval=" + pollingInterval +
-                ", triggerType='" + triggerType + '\'' +
-                '}';
-    }
 }

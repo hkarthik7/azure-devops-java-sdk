@@ -7,13 +7,14 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.GitObjectType;
 
 /**
  * Git object identifier and type information. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitObject {
+public class GitObject extends BaseAbstractMethod {
 	/**
  	* Object Id (Sha1Id). 
 	**/
@@ -33,11 +34,4 @@ public class GitObject {
 
 	public void setObjectType(GitObjectType objectType) { this.objectType = objectType; }
 
-	@Override
-	public String toString() {
-		return "GitObject{" +
-				"objectId='" + objectId + '\'' +
-				", objectType=" + objectType +
-				'}';
-	}
 }

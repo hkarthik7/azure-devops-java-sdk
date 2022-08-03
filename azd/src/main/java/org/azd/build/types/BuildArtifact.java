@@ -8,12 +8,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * The class to represent a collection of REST reference links. 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildArtifact {
+public class BuildArtifact extends BaseAbstractMethod {
     /**
      * The artifact ID.
      **/
@@ -67,13 +68,4 @@ public class BuildArtifact {
         this.source = source;
     }
 
-    @Override
-    public String toString() {
-        return "BuildArtifact{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", resource=" + resource +
-                ", source='" + source + '\'' +
-                '}';
-    }
 }

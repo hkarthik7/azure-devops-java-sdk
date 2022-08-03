@@ -2,14 +2,13 @@ package org.azd.distributedtask.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.Arrays;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * EnvironmentResourceReference.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class EnvironmentResourceReference {
+public class EnvironmentResourceReference extends BaseAbstractMethod {
     /***
      * Id of the resource.
      */
@@ -63,13 +62,4 @@ public class EnvironmentResourceReference {
         this.type = type;
     }
 
-    @Override
-    public String toString() {
-        return "EnvironmentResourceReference{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", tags=" + Arrays.toString(tags) +
-                ", type='" + type + '\'' +
-                '}';
-    }
 }

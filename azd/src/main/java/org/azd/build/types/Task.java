@@ -2,12 +2,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Represents a task in a step
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Task {
+public class Task extends BaseAbstractMethod {
     /***
      * Task id
      */
@@ -48,12 +49,4 @@ public class Task {
         this.definitionType = definitionType;
     }
 
-    @Override
-    public String toString() {
-        return "Task{" +
-                "id='" + id + '\'' +
-                ", versionSpec='" + versionSpec + '\'' +
-                ", definitionType='" + definitionType + '\'' +
-                '}';
-    }
 }

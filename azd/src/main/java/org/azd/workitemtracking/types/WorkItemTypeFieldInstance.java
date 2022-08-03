@@ -2,15 +2,15 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
-import java.util.Arrays;
 import java.util.List;
 
 /***
  * Field instance of a work item type.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemTypeFieldInstance {
+public class WorkItemTypeFieldInstance extends BaseAbstractMethod {
     /***
      * The list of field allowed values.
      */
@@ -116,17 +116,4 @@ public class WorkItemTypeFieldInstance {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "WorkItemTypeFieldInstance{" +
-                "allowedValues=" + Arrays.toString(allowedValues) +
-                ", alwaysRequired=" + alwaysRequired +
-                ", defaultValue='" + defaultValue + '\'' +
-                ", dependentFields=" + dependentFields +
-                ", helpText='" + helpText + '\'' +
-                ", name='" + name + '\'' +
-                ", referenceName='" + referenceName + '\'' +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

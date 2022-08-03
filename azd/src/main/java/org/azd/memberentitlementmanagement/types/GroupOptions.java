@@ -2,12 +2,13 @@ package org.azd.memberentitlementmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Group option to add a user to
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GroupOptions {
+public class GroupOptions extends BaseAbstractMethod {
     /***
      * Access Level
      */
@@ -35,11 +36,4 @@ public class GroupOptions {
         this.group = group;
     }
 
-    @Override
-    public String toString() {
-        return "GroupOptions{" +
-                "accessLevel=" + accessLevel +
-                ", group=" + group +
-                '}';
-    }
 }

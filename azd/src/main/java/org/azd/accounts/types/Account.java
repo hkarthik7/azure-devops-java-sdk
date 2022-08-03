@@ -2,12 +2,13 @@ package org.azd.accounts.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Represents Azure DevOps Account
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Account {
+public class Account extends BaseAbstractMethod {
     /***
      * Identifier for an Account
      */
@@ -204,24 +205,4 @@ public class Account {
         this.statusReason = statusReason;
     }
 
-    @Override
-    public String toString() {
-        return "Account{" +
-                "accountId='" + accountId + '\'' +
-                ", accountName='" + accountName + '\'' +
-                ", accountOwner='" + accountOwner + '\'' +
-                ", accountStatus='" + accountStatus + '\'' +
-                ", accountType='" + accountType + '\'' +
-                ", accountUri='" + accountUri + '\'' +
-                ", createdBy='" + createdBy + '\'' +
-                ", hasMoved=" + hasMoved +
-                ", lastUpdatedBy='" + lastUpdatedBy + '\'' +
-                ", lastUpdatedDate='" + lastUpdatedDate + '\'' +
-                ", namespaceId='" + namespaceId + '\'' +
-                ", newCollectionId='" + newCollectionId + '\'' +
-                ", organizationName='" + organizationName + '\'' +
-                ", properties=" + properties +
-                ", statusReason='" + statusReason + '\'' +
-                '}';
-    }
 }

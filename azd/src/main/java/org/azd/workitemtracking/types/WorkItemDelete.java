@@ -2,12 +2,13 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Full deleted work item object
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemDelete {
+public class WorkItemDelete extends BaseAbstractMethod {
     /***
      * Work item ID.
      */
@@ -118,17 +119,4 @@ public class WorkItemDelete {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "WorkItemDelete{" +
-                "id=" + id +
-                ", type='" + type + '\'' +
-                ", name='" + name + '\'' +
-                ", project='" + project + '\'' +
-                ", deletedDate='" + deletedDate + '\'' +
-                ", deletedBy='" + deletedBy + '\'' +
-                ", code=" + code +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

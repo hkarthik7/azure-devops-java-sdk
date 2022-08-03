@@ -2,6 +2,7 @@ package org.azd.maven.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * Package version metadata for a Maven package
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Package {
+public class Package extends BaseAbstractMethod {
     /***
      * Related REST links.
      */
@@ -103,16 +104,4 @@ public class Package {
         this.version = version;
     }
 
-    @Override
-    public String toString() {
-        return "Package{" +
-                "_links='" + _links +
-                ", deletedDate=" + deletedDate + '\'' +
-                ", id=" + id + '\'' +
-                ", name=" + name + '\'' +
-                ", permanentlyDeletedDate=" + permanentlyDeletedDate + '\'' +
-                ", sourceChain=" + sourceChain +
-                ", version='" + version + '\'' +
-                '}';
-    }
 }

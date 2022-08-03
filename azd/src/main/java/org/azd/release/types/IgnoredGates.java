@@ -2,12 +2,13 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Ignored gates.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class IgnoredGates {
+public class IgnoredGates extends BaseAbstractMethod {
     /***
      * Gets the date on which gate is last ignored.
      */
@@ -35,11 +36,4 @@ public class IgnoredGates {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "IgnoredGates{" +
-                "lastModifiedOn='" + lastModifiedOn + '\'' +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }

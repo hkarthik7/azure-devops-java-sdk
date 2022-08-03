@@ -8,12 +8,13 @@ package org.azd.build.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Represents a folder that contains build definitions. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Folder {
+public class Folder extends BaseAbstractMethod {
 	/**
  	* The process or person who created the folder. 
 	**/
@@ -78,16 +79,4 @@ public class Folder {
 
 	public void setProject(TeamProjectReference project) { this.project = project; }
 
-	@Override
-	public String toString() {
-		return "Folder{" +
-				"createdBy=" + createdBy +
-				", createdOn='" + createdOn + '\'' +
-				", description='" + description + '\'' +
-				", lastChangedBy=" + lastChangedBy +
-				", lastChangedDate='" + lastChangedDate + '\'' +
-				", path='" + path + '\'' +
-				", project=" + project +
-				'}';
-	}
 }

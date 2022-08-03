@@ -2,12 +2,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Represents the application of an optional behavior to a build definition.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Options {
+public class Options extends BaseAbstractMethod {
     /***
      * Indicates whether the behavior is enabled.
      */
@@ -48,12 +49,4 @@ public class Options {
         this.inputs = inputs;
     }
 
-    @Override
-    public String toString() {
-        return "Options{" +
-                "enabled=" + enabled +
-                ", definition=" + definition +
-                ", inputs=" + inputs +
-                '}';
-    }
 }

@@ -7,13 +7,14 @@ package org.azd.distributedtask.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.TaskAgentStatus;
 
 /**
  * Additional pool settings and details 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TaskAgent {
+public class TaskAgent extends BaseAbstractMethod {
 	/**
  	* The class to represent a collection of REST reference links. 
 	**/
@@ -195,29 +196,4 @@ public class TaskAgent {
 
 	public void setVersion(String version) { this.version = version; }
 
-	@Override
-	public String toString() {
-		return "TaskAgent{" +
-				"_links=" + _links +
-				", accessPoint='" + accessPoint + '\'' +
-				", assignedAgentCloudRequest=" + assignedAgentCloudRequest +
-				", assignedRequest=" + assignedRequest +
-				", authorization=" + authorization +
-				", createdOn='" + createdOn + '\'' +
-				", enabled=" + enabled +
-				", id=" + id +
-				", lastCompletedRequest=" + lastCompletedRequest +
-				", maxParallelism=" + maxParallelism +
-				", name='" + name + '\'' +
-				", osDescription='" + osDescription + '\'' +
-				", pendingUpdate=" + pendingUpdate +
-				", properties=" + properties +
-				", provisioningState='" + provisioningState + '\'' +
-				", status=" + status +
-				", statusChangedOn='" + statusChangedOn + '\'' +
-				", systemCapabilities=" + systemCapabilities +
-				", userCapabilities=" + userCapabilities +
-				", version='" + version + '\'' +
-				'}';
-	}
 }

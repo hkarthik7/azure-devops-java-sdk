@@ -2,6 +2,7 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * Represents the timeline of a build.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Timeline {
+public class Timeline extends BaseAbstractMethod {
     /**
      * The change ID.
      */
@@ -89,15 +90,4 @@ public class Timeline {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "Timeline{" +
-                "changeId=" + changeId +
-                ", id='" + id + '\'' +
-                ", lastChangedBy='" + lastChangedBy + '\'' +
-                ", lastChangedOn='" + lastChangedOn + '\'' +
-                ", records=" + records +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

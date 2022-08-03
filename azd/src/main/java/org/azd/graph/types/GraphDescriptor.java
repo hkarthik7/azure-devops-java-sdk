@@ -2,12 +2,13 @@ package org.azd.graph.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Graph descriptor type
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GraphDescriptor {
+public class GraphDescriptor extends BaseAbstractMethod {
     /***
      * This field contains zero or more interesting links about the graph subject.
      * These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
@@ -37,11 +38,4 @@ public class GraphDescriptor {
         this.value = value;
     }
 
-    @Override
-    public String toString() {
-        return "GraphDescriptor{" +
-                "_links=" + _links +
-                ", value='" + value + '\'' +
-                '}';
-    }
 }

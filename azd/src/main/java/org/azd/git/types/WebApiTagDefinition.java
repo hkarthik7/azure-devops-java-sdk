@@ -7,12 +7,13 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * The representation of a tag definition which is sent across the wire. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WebApiTagDefinition {
+public class WebApiTagDefinition extends BaseAbstractMethod {
 	/**
  	* Whether or not the tag definition is active. 
 	**/
@@ -50,13 +51,4 @@ public class WebApiTagDefinition {
 
 	public void setUrl(String url) { this.url = url; }
 
-	@Override
-	public String toString() {
-		return "WebApiTagDefinition{" +
-				"active=" + active +
-				", id='" + id + '\'' +
-				", name='" + name + '\'' +
-				", url='" + url + '\'' +
-				'}';
-	}
 }

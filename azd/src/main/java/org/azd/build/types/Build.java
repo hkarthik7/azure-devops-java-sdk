@@ -8,6 +8,7 @@ package org.azd.build.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.BuildReason;
 import org.azd.enums.BuildResult;
 import org.azd.enums.BuildStatus;
@@ -19,7 +20,7 @@ import java.util.List;
  * The job authorization scope for builds queued against this definition. 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Build {
+public class Build extends BaseAbstractMethod {
     /**
      * The class to represent a collection of REST reference links.
      **/
@@ -591,53 +592,4 @@ public class Build {
         this.validationResults = validationResults;
     }
 
-    @Override
-    public String toString() {
-        return "Build{" +
-                "_links=" + _links +
-                ", agentSpecification=" + agentSpecification +
-                ", buildNumber='" + buildNumber + '\'' +
-                ", buildNumberRevision=" + buildNumberRevision +
-                ", controller=" + controller +
-                ", definition=" + definition +
-                ", deleted=" + deleted +
-                ", deletedBy=" + deletedBy +
-                ", deletedDate='" + deletedDate + '\'' +
-                ", deletedReason='" + deletedReason + '\'' +
-                ", demands=" + demands +
-                ", finishTime='" + finishTime + '\'' +
-                ", id=" + id +
-                ", lastChangedBy=" + lastChangedBy +
-                ", lastChangedDate='" + lastChangedDate + '\'' +
-                ", logs=" + logs +
-                ", orchestrationPlan=" + orchestrationPlan +
-                ", parameters='" + parameters + '\'' +
-                ", plans=" + plans +
-                ", priority=" + priority +
-                ", project=" + project +
-                ", properties=" + properties +
-                ", quality='" + quality + '\'' +
-                ", queue=" + queue +
-                ", queueOptions=" + queueOptions +
-                ", queuePosition=" + queuePosition +
-                ", queueTime='" + queueTime + '\'' +
-                ", reason=" + reason +
-                ", repository=" + repository +
-                ", requestedBy=" + requestedBy +
-                ", requestedFor=" + requestedFor +
-                ", result=" + result +
-                ", retainedByRelease=" + retainedByRelease +
-                ", sourceBranch='" + sourceBranch + '\'' +
-                ", sourceVersion='" + sourceVersion + '\'' +
-                ", startTime='" + startTime + '\'' +
-                ", status=" + status +
-                ", tags=" + tags +
-                ", templateParameters=" + templateParameters +
-                ", triggerInfo=" + triggerInfo +
-                ", triggeredByBuild=" + triggeredByBuild +
-                ", uri='" + uri + '\'' +
-                ", url='" + url + '\'' +
-                ", validationResults=" + validationResults +
-                '}';
-    }
 }

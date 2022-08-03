@@ -2,12 +2,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Represents an user object
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class RequestedFor {
+public class RequestedFor extends BaseAbstractMethod {
     /***
      * This is the non-unique display name of the graph subject. To change this field, you must alter its value in the source provider.
      */
@@ -75,14 +76,4 @@ public class RequestedFor {
         this.descriptor = descriptor;
     }
 
-    @Override
-    public String toString() {
-        return "RequestedFor{" +
-                "displayName='" + displayName + '\'' +
-                ", url='" + url + '\'' +
-                ", id='" + id + '\'' +
-                ", uniqueName='" + uniqueName + '\'' +
-                ", descriptor='" + descriptor + '\'' +
-                '}';
-    }
 }

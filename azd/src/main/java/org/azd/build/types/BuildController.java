@@ -7,12 +7,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Represents a variable used by a build definition. 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildController {
+public class BuildController extends BaseAbstractMethod {
     /**
      * The class to represent a collection of REST reference links.
      **/
@@ -144,19 +145,4 @@ public class BuildController {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "BuildController{" +
-                "_links=" + _links +
-                ", createdDate='" + createdDate + '\'' +
-                ", description='" + description + '\'' +
-                ", enabled=" + enabled +
-                ", id=" + id +
-                ", name='" + name + '\'' +
-                ", status=" + status +
-                ", updatedDate='" + updatedDate + '\'' +
-                ", uri='" + uri + '\'' +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

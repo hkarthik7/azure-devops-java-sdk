@@ -7,12 +7,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Represents a queue for running builds. 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AgentPoolQueue {
+public class AgentPoolQueue extends BaseAbstractMethod {
     /**
      * The class to represent a collection of REST reference links.
      **/
@@ -79,14 +80,4 @@ public class AgentPoolQueue {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "AgentPoolQueue{" +
-                "_links=" + _links +
-                ", id=" + id +
-                ", name='" + name + '\'' +
-                ", pool=" + pool +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

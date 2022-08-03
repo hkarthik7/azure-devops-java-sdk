@@ -7,14 +7,13 @@ package org.azd.distributedtask.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.Arrays;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Provides data necessary for authorizing the agent using OAuth 2.0 authentication flows. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PropertiesCollection {
+public class PropertiesCollection extends BaseAbstractMethod {
 	/**
  	* The count of properties in the collection. 
 	**/
@@ -50,13 +49,4 @@ public class PropertiesCollection {
 
 	public void setValues(String[] values) { this.values = values; }
 
-	@Override
-	public String toString() {
-		return "PropertiesCollection{" +
-				"count=" + count +
-				", item=" + item +
-				", keys=" + Arrays.toString(keys) +
-				", values=" + Arrays.toString(values) +
-				'}';
-	}
 }

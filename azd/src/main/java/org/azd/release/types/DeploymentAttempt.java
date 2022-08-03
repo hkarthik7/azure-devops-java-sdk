@@ -5,9 +5,11 @@ package org.azd.release.types;
 ----------------------------------------------------------
 **/
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.DeploymentOperationStatus;
 import org.azd.enums.DeploymentReason;
 import org.azd.enums.DeploymentStatus;
@@ -18,7 +20,7 @@ import java.util.List;
  * Gets environment status. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DeploymentAttempt {
+public class DeploymentAttempt extends BaseAbstractMethod {
 	/**
  	* Deployment attempt. 
 	**/
@@ -58,6 +60,7 @@ public class DeploymentAttempt {
  	* Deployment operation status. 
 	**/
 	@JsonProperty("operationStatus")
+	@JsonFormat(with = JsonFormat.Feature.ACCEPT_CASE_INSENSITIVE_PROPERTIES)
 	private DeploymentOperationStatus operationStatus;
 	/**
  	* Post deployment gates that executed in this deployment. 
@@ -164,25 +167,4 @@ public class DeploymentAttempt {
 
 	public void setStatus(DeploymentStatus status) { this.status = status; }
 
-	@Override
-	public String toString() { 
-	return 	"DeploymentAttempt{" +
-		"attempt='" + attempt + '\'' +
-		",deploymentId='" + deploymentId + '\'' +
-		",hasStarted='" + hasStarted + '\'' +
-		",id='" + id + '\'' +
-		",issues='" + issues + '\'' +
-		",lastModifiedBy='" + lastModifiedBy + '\'' +
-		",lastModifiedOn='" + lastModifiedOn + '\'' +
-		",operationStatus='" + operationStatus + '\'' +
-		",postDeploymentGates='" + postDeploymentGates + '\'' +
-		",preDeploymentGates='" + preDeploymentGates + '\'' +
-		",queuedOn='" + queuedOn + '\'' +
-		",reason='" + reason + '\'' +
-		",releaseDeployPhases='" + releaseDeployPhases + '\'' +
-		",requestedBy='" + requestedBy + '\'' +
-		",requestedFor='" + requestedFor + '\'' +
-		",status='" + status + '\'' +
-		'}';
-	}
 }

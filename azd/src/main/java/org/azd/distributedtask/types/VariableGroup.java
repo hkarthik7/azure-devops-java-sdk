@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.azd.common.types.Author;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * A variable group is a collection of related variables.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class VariableGroup {
+public class VariableGroup extends BaseAbstractMethod {
     /***
      * Gets or sets the identity who created the variable group.
      */
@@ -169,21 +170,4 @@ public class VariableGroup {
         this.variables = variables;
     }
 
-    @Override
-    public String toString() {
-        return "VariableGroup{" +
-                "createdBy=" + createdBy +
-                ", createdOn='" + createdOn + '\'' +
-                ", description='" + description + '\'' +
-                ", id=" + id +
-                ", isShared=" + isShared +
-                ", modifiedBy=" + modifiedBy +
-                ", modifiedOn='" + modifiedOn + '\'' +
-                ", name='" + name + '\'' +
-                ", providerData=" + providerData +
-                ", type='" + type + '\'' +
-                ", variableGroupProjectReferences=" + variableGroupProjectReferences +
-                ", variables=" + variables +
-                '}';
-    }
 }

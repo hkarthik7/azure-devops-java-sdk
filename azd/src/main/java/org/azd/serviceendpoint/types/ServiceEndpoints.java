@@ -2,6 +2,7 @@ package org.azd.serviceendpoint.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * A list of service endpoints
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ServiceEndpoints {
+public class ServiceEndpoints extends BaseAbstractMethod {
     /***
      * A list of service endpoints
      */
@@ -24,10 +25,4 @@ public class ServiceEndpoints {
         this.serviceEndpoints = serviceEndpoints;
     }
 
-    @Override
-    public String toString() {
-        return "ServiceEndpoints{" +
-                "serviceEndpoints=" + serviceEndpoints +
-                '}';
-    }
 }

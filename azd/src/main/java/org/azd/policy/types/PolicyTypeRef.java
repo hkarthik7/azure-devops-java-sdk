@@ -2,12 +2,13 @@ package org.azd.policy.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Policy type reference.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PolicyTypeRef {
+public class PolicyTypeRef extends BaseAbstractMethod {
     /***
      * Display name of the policy type.
      */
@@ -48,12 +49,4 @@ public class PolicyTypeRef {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "PolicyTypeRef{" +
-                "displayName='" + displayName + '\'' +
-                ", id='" + id + '\'' +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

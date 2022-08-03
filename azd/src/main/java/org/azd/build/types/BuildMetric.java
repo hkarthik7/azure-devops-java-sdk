@@ -7,12 +7,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Represents a reference to a build option definition. 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildMetric {
+public class BuildMetric extends BaseAbstractMethod {
     /**
      * The date for the scope.
      **/
@@ -66,13 +67,4 @@ public class BuildMetric {
         this.scope = scope;
     }
 
-    @Override
-    public String toString() {
-        return "BuildMetric{" +
-                "date='" + date + '\'' +
-                ", intValue=" + intValue +
-                ", name='" + name + '\'' +
-                ", scope='" + scope + '\'' +
-                '}';
-    }
 }

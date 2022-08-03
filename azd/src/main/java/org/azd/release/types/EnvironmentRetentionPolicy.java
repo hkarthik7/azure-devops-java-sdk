@@ -7,12 +7,13 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class EnvironmentRetentionPolicy {
+public class EnvironmentRetentionPolicy extends BaseAbstractMethod {
 	/**
  	* Gets and sets the number of days to keep environment. 
 	**/
@@ -41,12 +42,4 @@ public class EnvironmentRetentionPolicy {
 
 	public void setRetainBuild(boolean retainBuild) { this.retainBuild = retainBuild; }
 
-	@Override
-	public String toString() { 
-	return 	"EnvironmentRetentionPolicy{" +
-		"daysToKeep='" + daysToKeep + '\'' +
-		",releasesToKeep='" + releasesToKeep + '\'' +
-		",retainBuild='" + retainBuild + '\'' +
-		'}';
-	}
 }

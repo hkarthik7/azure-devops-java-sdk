@@ -7,6 +7,7 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.DeployPhaseStatus;
 import org.azd.enums.DeployPhaseTypes;
 
@@ -16,7 +17,7 @@ import java.util.List;
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReleaseDeployPhase {
+public class ReleaseDeployPhase extends BaseAbstractMethod {
 	/**
  	* Deployment jobs of the phase. 
 	**/
@@ -108,19 +109,4 @@ public class ReleaseDeployPhase {
 
 	public void setStatus(DeployPhaseStatus status) { this.status = status; }
 
-	@Override
-	public String toString() { 
-	return 	"ReleaseDeployPhase{" +
-		"deploymentJobs='" + deploymentJobs + '\'' +
-		",errorLog='" + errorLog + '\'' +
-		",manualInterventions='" + manualInterventions + '\'' +
-		",name='" + name + '\'' +
-		",phaseId='" + phaseId + '\'' +
-		",phaseType='" + phaseType + '\'' +
-		",rank='" + rank + '\'' +
-		",runPlanId='" + runPlanId + '\'' +
-		",startedOn='" + startedOn + '\'' +
-		",status='" + status + '\'' +
-		'}';
-	}
 }

@@ -7,12 +7,13 @@ package org.azd.distributedtask.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TaskOrchestrationOwner {
+public class TaskOrchestrationOwner extends BaseAbstractMethod {
 	/**
  	* The class to represent a collection of REST reference links. 
 	**/
@@ -37,12 +38,4 @@ public class TaskOrchestrationOwner {
 
 	public void setName(String name) { this.name = name; }
 
-	@Override
-	public String toString() {
-		return "TaskOrchestrationOwner{" +
-				"_links=" + _links +
-				", id=" + id +
-				", name='" + name + '\'' +
-				'}';
-	}
 }

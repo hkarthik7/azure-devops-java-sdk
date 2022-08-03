@@ -7,12 +7,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * None 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TaskOrchestrationPlanReference {
+public class TaskOrchestrationPlanReference extends BaseAbstractMethod {
     /**
      * The type of the plan.
      **/
@@ -40,11 +41,4 @@ public class TaskOrchestrationPlanReference {
         this.planId = planId;
     }
 
-    @Override
-    public String toString() {
-        return "TaskOrchestrationPlanReference{" +
-                "orchestrationType=" + orchestrationType +
-                ", planId='" + planId + '\'' +
-                '}';
-    }
 }

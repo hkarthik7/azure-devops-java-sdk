@@ -7,6 +7,7 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.FieldType;
 import org.azd.enums.FieldUsage;
 
@@ -16,7 +17,7 @@ import java.util.List;
  * Describes a field on a work item and it's properties specific to that work item type. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemField {
+public class WorkItemField extends BaseAbstractMethod {
 	/**
  	* Link references to related REST resources. 
 	**/
@@ -160,25 +161,4 @@ public class WorkItemField {
 
 	public void setUsage(FieldUsage usage) { this.usage = usage; }
 
-	@Override
-	public String toString() { 
-	return 	"WorkItemField{" +
-		"_links='" + _links + '\'' +
-		",canSortBy='" + canSortBy + '\'' +
-		",description='" + description + '\'' +
-		",isDeleted='" + isDeleted + '\'' +
-		",isIdentity='" + isIdentity + '\'' +
-		",isPicklist='" + isPicklist + '\'' +
-		",isPicklistSuggested='" + isPicklistSuggested + '\'' +
-		",isQueryable='" + isQueryable + '\'' +
-		",name='" + name + '\'' +
-		",picklistId='" + picklistId + '\'' +
-		",readOnly='" + readOnly + '\'' +
-		",referenceName='" + referenceName + '\'' +
-		",supportedOperations='" + supportedOperations + '\'' +
-		",type='" + type + '\'' +
-		",url='" + url + '\'' +
-		",usage='" + usage + '\'' +
-		'}';
-	}
 }

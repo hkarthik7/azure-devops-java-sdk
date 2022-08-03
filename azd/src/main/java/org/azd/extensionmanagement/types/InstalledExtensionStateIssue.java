@@ -2,12 +2,13 @@ package org.azd.extensionmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Represents an installation issue
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class InstalledExtensionStateIssue {
+public class InstalledExtensionStateIssue extends BaseAbstractMethod {
     /***
      * The error message
      */
@@ -48,12 +49,4 @@ public class InstalledExtensionStateIssue {
         this.type = type;
     }
 
-    @Override
-    public String toString() {
-        return "InstalledExtensionStateIssue{" +
-                "message='" + message + '\'' +
-                ", source='" + source + '\'' +
-                ", type='" + type + '\'' +
-                '}';
-    }
 }

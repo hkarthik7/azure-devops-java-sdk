@@ -2,12 +2,13 @@ package org.azd.pipelines.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Log for a pipeline.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PipelineLog {
+public class PipelineLog extends BaseAbstractMethod {
     /***
      * The date and time the log was created.
      */
@@ -87,15 +88,4 @@ public class PipelineLog {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "PipelinesLog{" +
-                "createdOn='" + createdOn + '\'' +
-                ", id='" + id + '\'' +
-                ", lastChangedOn='" + lastChangedOn + '\'' +
-                ", lineCount=" + lineCount +
-                ", signedContent=" + signedContent +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

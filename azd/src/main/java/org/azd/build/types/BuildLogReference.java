@@ -7,12 +7,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Represents the application of an optional behavior to a build definition. 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildLogReference {
+public class BuildLogReference extends BaseAbstractMethod {
     /**
      * The ID of the log.
      **/
@@ -53,12 +54,4 @@ public class BuildLogReference {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "BuildLogReference{" +
-                "id=" + id +
-                ", type='" + type + '\'' +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

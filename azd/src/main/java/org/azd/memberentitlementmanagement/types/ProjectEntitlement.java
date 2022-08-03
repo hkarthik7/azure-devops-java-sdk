@@ -2,6 +2,7 @@ package org.azd.memberentitlementmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * Relation between a project and the user's effective permissions in that project.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ProjectEntitlement {
+public class ProjectEntitlement extends BaseAbstractMethod {
     /***
      * Assignment Source (e.g. Group or Unknown).
      */
@@ -76,14 +77,4 @@ public class ProjectEntitlement {
         this.teamRefs = teamRefs;
     }
 
-    @Override
-    public String toString() {
-        return "ProjectEntitlement{" +
-                "assignmentSource='" + assignmentSource + '\'' +
-                ", group=" + group +
-                ", projectPermissionInherited='" + projectPermissionInherited + '\'' +
-                ", projectRef=" + projectRef +
-                ", teamRefs=" + teamRefs +
-                '}';
-    }
 }

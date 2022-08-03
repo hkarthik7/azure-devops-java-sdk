@@ -7,12 +7,13 @@ package org.azd.distributedtask.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Gets or sets the type of the pool 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TaskAgentAuthorization {
+public class TaskAgentAuthorization extends BaseAbstractMethod {
 	/**
  	* Endpoint used to obtain access tokens from the configured token service. 
 	**/
@@ -41,12 +42,4 @@ public class TaskAgentAuthorization {
 
 	public void setPublicKey(TaskAgentPublicKey publicKey) { this.publicKey = publicKey; }
 
-	@Override
-	public String toString() {
-		return "TaskAgentAuthorization{" +
-				"authorizationUrl='" + authorizationUrl + '\'' +
-				", clientId='" + clientId + '\'' +
-				", publicKey=" + publicKey +
-				'}';
-	}
 }

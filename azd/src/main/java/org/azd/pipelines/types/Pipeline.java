@@ -2,12 +2,13 @@ package org.azd.pipelines.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Definition of a pipeline.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Pipeline {
+public class Pipeline extends BaseAbstractMethod {
     /***
      * Pipeline configuration object
      */
@@ -87,15 +88,4 @@ public class Pipeline {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "Pipeline{" +
-                "configuration=" + configuration +
-                ", folder='" + folder + '\'' +
-                ", id=" + id +
-                ", name='" + name + '\'' +
-                ", revision='" + revision + '\'' +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

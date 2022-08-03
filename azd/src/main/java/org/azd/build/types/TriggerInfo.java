@@ -2,12 +2,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Sourceprovider-specific information about what triggered the build
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TriggerInfo {
+public class TriggerInfo extends BaseAbstractMethod {
     /***
      * Represents the commit id
      */
@@ -48,12 +49,4 @@ public class TriggerInfo {
         this.triggerRepository = triggerRepository;
     }
 
-    @Override
-    public String toString() {
-        return "TriggerInfo{" +
-                "sourceSha='" + sourceSha + '\'' +
-                ", message='" + message + '\'' +
-                ", triggerRepository='" + triggerRepository + '\'' +
-                '}';
-    }
 }

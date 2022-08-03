@@ -8,6 +8,7 @@ package org.azd.git.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
  * Preferences about how the pull request should be completed. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitForkRef {
+public class GitForkRef extends BaseAbstractMethod {
 	/**
  	* The class to represent a collection of REST reference links. 
 	**/
@@ -93,19 +94,4 @@ public class GitForkRef {
 
 	public void setUrl(String url) { this.url = url; }
 
-	@Override
-	public String toString() {
-		return "GitForkRef{" +
-				"_links=" + _links +
-				", creator=" + creator +
-				", isLocked=" + isLocked +
-				", isLockedBy=" + isLockedBy +
-				", name='" + name + '\'' +
-				", objectId='" + objectId + '\'' +
-				", peeledObjectId='" + peeledObjectId + '\'' +
-				", repository=" + repository +
-				", statuses=" + statuses +
-				", url='" + url + '\'' +
-				'}';
-	}
 }

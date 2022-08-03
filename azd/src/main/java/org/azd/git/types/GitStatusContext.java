@@ -7,12 +7,13 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * The type of change that was made to the item. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitStatusContext {
+public class GitStatusContext extends BaseAbstractMethod {
 	/**
  	* Genre of the status. Typically name of the service/tool generating the status, can be empty. 
 	**/
@@ -32,11 +33,4 @@ public class GitStatusContext {
 
 	public void setName(String name) { this.name = name; }
 
-	@Override
-	public String toString() {
-		return "GitStatusContext{" +
-				"genre='" + genre + '\'' +
-				", name='" + name + '\'' +
-				'}';
-	}
 }

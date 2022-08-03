@@ -2,12 +2,13 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Identity information including a vote on a pull request.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Reviewers {
+public class Reviewers extends BaseAbstractMethod {
     /***
      * URL to retrieve information about this identity
      */
@@ -51,19 +52,6 @@ public class Reviewers {
     @JsonProperty("uniqueName")
     private String uniqueName;
 
-    @Override
-    public String toString() {
-        return "Reviewers{" +
-                "reviewerUrl='" + reviewerUrl + '\'' +
-                ", vote=" + vote +
-                ", hasDeclined=" + hasDeclined +
-                ", isFlagged=" + isFlagged +
-                ", displayName='" + displayName + '\'' +
-                ", url='" + url + '\'' +
-                ", id='" + id + '\'' +
-                ", uniqueName='" + uniqueName + '\'' +
-                '}';
-    }
 
     public String getReviewerUrl() {
         return reviewerUrl;

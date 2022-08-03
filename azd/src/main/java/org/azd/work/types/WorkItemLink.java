@@ -2,12 +2,13 @@ package org.azd.work.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * A link between two work items.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemLink {
+public class WorkItemLink extends BaseAbstractMethod {
     /***
      * The type of link.
      */
@@ -24,14 +25,6 @@ public class WorkItemLink {
     @JsonProperty("target")
     private WorkItemReference target;
 
-    @Override
-    public String toString() {
-        return "WorkItemLink{" +
-                "rel='" + rel + '\'' +
-                ", source=" + source +
-                ", target=" + target +
-                '}';
-    }
 
     public String getRel() {
         return rel;

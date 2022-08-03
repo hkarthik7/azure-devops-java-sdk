@@ -7,13 +7,14 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.ApprovalExecutionOrder;
 
 /**
  * Gets or sets the condition type. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ApprovalOptions {
+public class ApprovalOptions extends BaseAbstractMethod {
 	/**
  	* Specify whether the approval can be skipped if the same approver approved the previous stage. 
 	**/
@@ -69,15 +70,4 @@ public class ApprovalOptions {
 
 	public void setTimeoutInMinutes(Integer timeoutInMinutes) { this.timeoutInMinutes = timeoutInMinutes; }
 
-	@Override
-	public String toString() { 
-	return 	"ApprovalOptions{" +
-		"autoTriggeredAndPreviousEnvironmentApprovedCanBeSkipped='" + autoTriggeredAndPreviousEnvironmentApprovedCanBeSkipped + '\'' +
-		",enforceIdentityRevalidation='" + enforceIdentityRevalidation + '\'' +
-		",executionOrder='" + executionOrder + '\'' +
-		",releaseCreatorCanBeApprover='" + releaseCreatorCanBeApprover + '\'' +
-		",requiredApproverCount='" + requiredApproverCount + '\'' +
-		",timeoutInMinutes='" + timeoutInMinutes + '\'' +
-		'}';
-	}
 }

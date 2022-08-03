@@ -2,12 +2,13 @@ package org.azd.wiki.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Versions of the wiki.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitVersionDescriptor {
+public class GitVersionDescriptor extends BaseAbstractMethod {
     /***
      * Version string identifier (name of tag/branch, SHA1 of commit)
      */
@@ -48,12 +49,4 @@ public class GitVersionDescriptor {
         this.versionType = versionType;
     }
 
-    @Override
-    public String toString() {
-        return "GitVersionDescriptor{" +
-                "version='" + version + '\'' +
-                ", versionOptions='" + versionOptions + '\'' +
-                ", versionType='" + versionType + '\'' +
-                '}';
-    }
 }

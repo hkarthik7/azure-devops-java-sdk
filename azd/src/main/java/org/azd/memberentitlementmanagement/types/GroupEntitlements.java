@@ -2,6 +2,7 @@ package org.azd.memberentitlementmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * List of group entitlement
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GroupEntitlements {
+public class GroupEntitlements extends BaseAbstractMethod {
     /***
      * List of group entitlement
      */
@@ -24,10 +25,4 @@ public class GroupEntitlements {
         GroupEntitlements = groupEntitlements;
     }
 
-    @Override
-    public String toString() {
-        return "GroupEntitlements{" +
-                "GroupEntitlements=" + GroupEntitlements +
-                '}';
-    }
 }

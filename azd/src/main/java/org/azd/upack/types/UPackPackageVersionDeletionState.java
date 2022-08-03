@@ -2,12 +2,13 @@ package org.azd.upack.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Deletion state of a Universal package.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UPackPackageVersionDeletionState {
+public class UPackPackageVersionDeletionState extends BaseAbstractMethod {
     /***
      * UTC date the package was deleted.
      */
@@ -50,12 +51,4 @@ public class UPackPackageVersionDeletionState {
         this.version = version;
     }
 
-    @Override
-    public String toString() {
-        return "UPackPackageVersionDeletionState{" +
-                "deletedDate=" + deletedDate + '\'' +
-                ", name=" + name + '\'' +
-                ", version='" + version + '\'' +
-                '}';
-    }
 }

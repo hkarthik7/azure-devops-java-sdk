@@ -8,12 +8,13 @@ package org.azd.distributedtask.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TaskAgentUpdate {
+public class TaskAgentUpdate extends BaseAbstractMethod {
 	/**
  	* Current state of this agent update. 
 	**/
@@ -69,15 +70,4 @@ public class TaskAgentUpdate {
 
 	public void setTargetVersion(int targetVersion) { this.targetVersion = targetVersion; }
 
-	@Override
-	public String toString() {
-		return "TaskAgentUpdate{" +
-				"currentState='" + currentState + '\'' +
-				", reason=" + reason +
-				", requestTime='" + requestTime + '\'' +
-				", requestedBy=" + requestedBy +
-				", sourceVersion=" + sourceVersion +
-				", targetVersion=" + targetVersion +
-				'}';
-	}
 }

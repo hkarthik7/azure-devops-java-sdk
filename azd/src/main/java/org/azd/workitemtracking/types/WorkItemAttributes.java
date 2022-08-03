@@ -2,12 +2,13 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Collection of link attributes.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemAttributes {
+public class WorkItemAttributes extends BaseAbstractMethod {
     /***
      * Is locked
      */
@@ -46,19 +47,6 @@ public class WorkItemAttributes {
     @JsonProperty("resourceModifiedDate")
     private String resourceModifiedDate;
 
-    @Override
-    public String toString() {
-        return "WorkItemAttributes{" +
-                "isLocked=" + isLocked +
-                ", comment='" + comment + '\'' +
-                ", name='" + name + '\'' +
-                ", authorizedDate='" + authorizedDate + '\'' +
-                ", id=" + id +
-                ", resourceCreatedDate='" + resourceCreatedDate + '\'' +
-                ", resourceModifiedDate='" + resourceModifiedDate + '\'' +
-                ", revisedDate='" + revisedDate + '\'' +
-                '}';
-    }
 
     public boolean isLocked() {
         return isLocked;

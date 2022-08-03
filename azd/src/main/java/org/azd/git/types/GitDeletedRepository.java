@@ -8,12 +8,13 @@ package org.azd.git.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Project state. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitDeletedRepository {
+public class GitDeletedRepository extends BaseAbstractMethod {
 
 	@JsonProperty("createdDate")
 	private String createdDate;
@@ -59,15 +60,4 @@ public class GitDeletedRepository {
 
 	public void setProject(TeamProjectReference project) { this.project = project; }
 
-	@Override
-	public String toString() {
-		return "GitDeletedRepository{" +
-				"createdDate='" + createdDate + '\'' +
-				", deletedBy=" + deletedBy +
-				", deletedDate='" + deletedDate + '\'' +
-				", id='" + id + '\'' +
-				", name='" + name + '\'' +
-				", project=" + project +
-				'}';
-	}
 }

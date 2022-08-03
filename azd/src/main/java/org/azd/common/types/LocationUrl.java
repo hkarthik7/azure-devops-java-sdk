@@ -9,7 +9,7 @@ package org.azd.common.types;
  *
  * @author Harish Karthic
  */
-public class LocationUrl {
+public class LocationUrl extends BaseAbstractMethod {
     private String id;
     private String name;
     private String locationUrl;
@@ -70,10 +70,4 @@ public class LocationUrl {
      * Convert the resource object to string
      * @return location url
      */
-    @Override
-    public String toString() {
-        return "LocationUrl{" +
-                "locationUrl='" + locationUrl + '\'' +
-                '}';
-    }
 }

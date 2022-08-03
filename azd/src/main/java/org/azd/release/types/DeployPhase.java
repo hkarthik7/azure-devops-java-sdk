@@ -7,6 +7,7 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.DeployPhaseTypes;
 
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
  * Type of release trigger. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DeployPhase {
+public class DeployPhase extends BaseAbstractMethod {
 	/**
  	* Gets and sets the name of deploy phase. 
 	**/
@@ -75,15 +76,4 @@ public class DeployPhase {
 		this.deploymentInput = deploymentInput;
 	}
 
-	@Override
-	public String toString() {
-		return "DeployPhase{" +
-				"name='" + name + '\'' +
-				", phaseType=" + phaseType +
-				", rank=" + rank +
-				", refName='" + refName + '\'' +
-				", workflowTasks=" + workflowTasks +
-				", deploymentInput=" + deploymentInput +
-				'}';
-	}
 }

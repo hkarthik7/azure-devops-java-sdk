@@ -7,6 +7,7 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ProcessParameters {
+public class ProcessParameters extends BaseAbstractMethod {
 	/**
  	* Represents binding of data source for the service endpoint request. 
 	**/
@@ -39,12 +40,4 @@ public class ProcessParameters {
 
 	public void setSourceDefinitions(List<TaskSourceDefinitionBase> sourceDefinitions) { this.sourceDefinitions = sourceDefinitions; }
 
-	@Override
-	public String toString() { 
-	return 	"ProcessParameters{" +
-		"dataSourceBindings='" + dataSourceBindings + '\'' +
-		",inputs='" + inputs + '\'' +
-		",sourceDefinitions='" + sourceDefinitions + '\'' +
-		'}';
-	}
 }

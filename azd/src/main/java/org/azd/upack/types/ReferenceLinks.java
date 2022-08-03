@@ -2,12 +2,13 @@ package org.azd.upack.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * The class to represent a collection of REST reference links.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReferenceLinks {
+public class ReferenceLinks extends BaseAbstractMethod {
     /***
      * Related REST links.
      */
@@ -22,10 +23,4 @@ public class ReferenceLinks {
         this.links = links;
     }
 
-    @Override
-    public String toString() {
-        return "Object{" +
-                "links='" + links.toString() +
-                '}';
-    }
 }

@@ -7,12 +7,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Represents a build process. 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildOption {
+public class BuildOption extends BaseAbstractMethod {
     /**
      * A reference to the build option.
      **/
@@ -51,12 +52,4 @@ public class BuildOption {
         this.inputs = inputs;
     }
 
-    @Override
-    public String toString() {
-        return "BuildOption{" +
-                "definition=" + definition +
-                ", enabled=" + enabled +
-                ", inputs=" + inputs +
-                '}';
-    }
 }

@@ -2,6 +2,7 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * A set of repositories returned from the source provider.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SourceRepositories {
+public class SourceRepositories extends BaseAbstractMethod {
     /**
      * A token used to continue this paged request; 'null' if the request is complete
      */
@@ -63,13 +64,4 @@ public class SourceRepositories {
         this.totalPageCount = totalPageCount;
     }
 
-    @Override
-    public String toString() {
-        return "SourceRepositories{" +
-                "continuationToken='" + continuationToken + '\'' +
-                ", pageLength=" + pageLength +
-                ", repositories=" + repositories +
-                ", totalPageCount=" + totalPageCount +
-                '}';
-    }
 }

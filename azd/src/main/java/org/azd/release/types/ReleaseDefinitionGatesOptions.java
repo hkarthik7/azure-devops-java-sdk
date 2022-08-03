@@ -7,12 +7,13 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReleaseDefinitionGatesOptions {
+public class ReleaseDefinitionGatesOptions extends BaseAbstractMethod {
 	/**
  	* Gets or sets as the gates enabled or not. 
 	**/
@@ -59,14 +60,4 @@ public class ReleaseDefinitionGatesOptions {
 
 	public void setTimeout(Integer timeout) { this.timeout = timeout; }
 
-	@Override
-	public String toString() { 
-	return 	"ReleaseDefinitionGatesOptions{" +
-		"isEnabled='" + isEnabled + '\'' +
-		",minimumSuccessDuration='" + minimumSuccessDuration + '\'' +
-		",samplingInterval='" + samplingInterval + '\'' +
-		",stabilizationTime='" + stabilizationTime + '\'' +
-		",timeout='" + timeout + '\'' +
-		'}';
-	}
 }

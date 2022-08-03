@@ -2,12 +2,13 @@ package org.azd.pipelines.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Pipeline configuration object
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PipelineConfiguration {
+public class PipelineConfiguration extends BaseAbstractMethod {
     /***
      * Configuration type
      */
@@ -22,10 +23,4 @@ public class PipelineConfiguration {
         this.type = type;
     }
 
-    @Override
-    public String toString() {
-        return "PipelineConfiguration{" +
-                "type='" + type + '\'' +
-                '}';
-    }
 }

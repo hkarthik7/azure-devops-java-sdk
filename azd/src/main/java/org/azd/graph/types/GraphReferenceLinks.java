@@ -2,6 +2,7 @@ package org.azd.graph.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.common.types.Reference;
 
 /***
@@ -10,7 +11,7 @@ import org.azd.common.types.Reference;
  * information about this graph subject.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GraphReferenceLinks {
+public class GraphReferenceLinks extends BaseAbstractMethod {
     /***
      * self reference url
      */
@@ -64,13 +65,4 @@ public class GraphReferenceLinks {
         this.storageKey = storageKey;
     }
 
-    @Override
-    public String toString() {
-        return "GraphReferenceLinks{" +
-                "self=" + self +
-                ", memberships=" + memberships +
-                ", membershipState=" + membershipState +
-                ", storageKey=" + storageKey +
-                '}';
-    }
 }

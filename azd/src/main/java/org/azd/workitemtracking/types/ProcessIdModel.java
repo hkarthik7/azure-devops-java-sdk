@@ -7,12 +7,13 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Stores process ID. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ProcessIdModel {
+public class ProcessIdModel extends BaseAbstractMethod {
 	/**
  	* The ID of the process. 
 	**/
@@ -23,10 +24,4 @@ public class ProcessIdModel {
 
 	public void setTypeId(String typeId) { this.typeId = typeId; }
 
-	@Override
-	public String toString() { 
-	return 	"ProcessIdModel{" +
-		"typeId='" + typeId + '\'' +
-		'}';
-	}
 }

@@ -2,12 +2,13 @@ package org.azd.core.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Represents a shallow reference to a TeamProject.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TeamProjectReference {
+public class TeamProjectReference extends BaseAbstractMethod {
     /***
      * Project abbreviation.
      */
@@ -139,19 +140,4 @@ public class TeamProjectReference {
         this.visibility = visibility;
     }
 
-    @Override
-    public String toString() {
-        return "TeamProjectReference{" +
-                "abbreviation='" + abbreviation + '\'' +
-                ", defaultTeamImageUrl='" + defaultTeamImageUrl + '\'' +
-                ", description='" + description + '\'' +
-                ", id='" + id + '\'' +
-                ", lastUpdateTime='" + lastUpdateTime + '\'' +
-                ", name='" + name + '\'' +
-                ", revision='" + revision + '\'' +
-                ", state='" + state + '\'' +
-                ", url='" + url + '\'' +
-                ", visibility='" + visibility + '\'' +
-                '}';
-    }
 }

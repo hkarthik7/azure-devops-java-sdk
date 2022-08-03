@@ -7,12 +7,13 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * The class to represent a collection of REST reference links. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ConfigurationVariableValue {
+public class ConfigurationVariableValue extends BaseAbstractMethod {
 	/**
  	* Gets and sets if a variable can be overridden at deployment time or not. 
 	**/
@@ -40,13 +41,4 @@ public class ConfigurationVariableValue {
 	public String getValue() { return value; }
 
 	public void setValue(String value) { this.value = value; }
-
-	@Override
-	public String toString() { 
-	return 	"ConfigurationVariableValue{" +
-		"allowOverride='" + allowOverride + '\'' +
-		",isSecret='" + isSecret + '\'' +
-		",value='" + value + '\'' +
-		'}';
-	}
 }

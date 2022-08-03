@@ -1,6 +1,7 @@
 package org.azd.security.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 import java.util.Map;
@@ -81,7 +82,7 @@ import java.util.Map;
  * }
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Identity {
+public class Identity extends BaseAbstractMethod {
     private String id;
     private String descriptor;
     private String subjectDescriptor;
@@ -182,20 +183,4 @@ public class Identity {
         this.metaTypeId = metaTypeId;
     }
 
-    @Override
-    public String toString() {
-        return "Identity{" +
-                "id='" + id + '\'' +
-                ", descriptor='" + descriptor + '\'' +
-                ", subjectDescriptor='" + subjectDescriptor + '\'' +
-                ", providerDisplayName='" + providerDisplayName + '\'' +
-                ", isActive=" + isActive +
-                ", members=" + members +
-                ", memberOf=" + memberOf +
-                ", memberIds=" + memberIds +
-                ", properties=" + properties +
-                ", resourceVersion=" + resourceVersion +
-                ", metaTypeId=" + metaTypeId +
-                '}';
-    }
 }

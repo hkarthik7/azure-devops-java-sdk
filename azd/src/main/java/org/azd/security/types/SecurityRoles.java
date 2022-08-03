@@ -2,6 +2,7 @@ package org.azd.security.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * return security roles
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SecurityRoles {
+public class SecurityRoles extends BaseAbstractMethod {
     /***
      * list of security role definitions
      */
@@ -24,10 +25,4 @@ public class SecurityRoles {
         this.securityRoles = securityRoles;
     }
 
-    @Override
-    public String toString() {
-        return "SecurityRoles{" +
-                "securityRoles=" + securityRoles +
-                '}';
-    }
 }

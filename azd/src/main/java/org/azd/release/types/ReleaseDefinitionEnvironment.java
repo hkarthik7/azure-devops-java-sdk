@@ -8,6 +8,7 @@ package org.azd.release.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 import java.util.Map;
@@ -16,7 +17,7 @@ import java.util.Map;
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReleaseDefinitionEnvironment {
+public class ReleaseDefinitionEnvironment extends BaseAbstractMethod {
 	/**
  	* Gets or sets the BadgeUrl. BadgeUrl will be used when Badge will be enabled in Release Definition Environment. 
 	**/
@@ -234,33 +235,4 @@ public class ReleaseDefinitionEnvironment {
 
 	public void setVariables(Map<String, ConfigurationVariableValue> variables) { this.variables = variables; }
 
-	@Override
-	public String toString() { 
-	return 	"ReleaseDefinitionEnvironment{" +
-		"badgeUrl='" + badgeUrl + '\'' +
-		",conditions='" + conditions + '\'' +
-		",currentRelease='" + currentRelease + '\'' +
-		",demands='" + demands + '\'' +
-		",deployPhases='" + deployPhases + '\'' +
-		",deployStep='" + deployStep + '\'' +
-		",environmentOptions='" + environmentOptions + '\'' +
-		",environmentTriggers='" + environmentTriggers + '\'' +
-		",executionPolicy='" + executionPolicy + '\'' +
-		",id='" + id + '\'' +
-		",name='" + name + '\'' +
-		",owner='" + owner + '\'' +
-		",postDeployApprovals='" + postDeployApprovals + '\'' +
-		",postDeploymentGates='" + postDeploymentGates + '\'' +
-		",preDeployApprovals='" + preDeployApprovals + '\'' +
-		",preDeploymentGates='" + preDeploymentGates + '\'' +
-		",processParameters='" + processParameters + '\'' +
-		",properties='" + properties + '\'' +
-		",queueId='" + queueId + '\'' +
-		",rank='" + rank + '\'' +
-		",retentionPolicy='" + retentionPolicy + '\'' +
-		",schedules='" + schedules + '\'' +
-		",variableGroups='" + variableGroups + '\'' +
-		",variables='" + variables + '\'' +
-		'}';
-	}
 }

@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Represents a common hyper reference link
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Reference {
+public class Reference extends BaseAbstractMethod {
     /***
      * Represents a common hyper reference link
      */
@@ -22,10 +22,4 @@ public class Reference {
         this.href = href;
     }
 
-    @Override
-    public String toString() {
-        return "References{" +
-                "href='" + href + '\'' +
-                '}';
-    }
 }

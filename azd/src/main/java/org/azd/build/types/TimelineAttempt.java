@@ -2,9 +2,10 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TimelineAttempt {
+public class TimelineAttempt extends BaseAbstractMethod {
     /**
      * Gets or sets the attempt of the record.
      */
@@ -45,12 +46,4 @@ public class TimelineAttempt {
         this.timelineId = timelineId;
     }
 
-    @Override
-    public String toString() {
-        return "TimelineAttempt{" +
-                "attempt=" + attempt +
-                ", recordId='" + recordId + '\'' +
-                ", timelineId='" + timelineId + '\'' +
-                '}';
-    }
 }

@@ -2,6 +2,7 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * Get a list of release approvals
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReleaseApprovals {
+public class ReleaseApprovals extends BaseAbstractMethod {
     /***
      * Get a list of release approvals
      */
@@ -24,10 +25,4 @@ public class ReleaseApprovals {
         this.releaseApprovals = releaseApprovals;
     }
 
-    @Override
-    public String toString() {
-        return "ReleaseApprovals{" +
-                "releaseApprovals=" + releaseApprovals +
-                '}';
-    }
 }

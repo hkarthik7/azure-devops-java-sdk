@@ -2,12 +2,13 @@ package org.azd.pipelines.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Signed url for downloading this artifact
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SignedUrl {
+public class SignedUrl extends BaseAbstractMethod {
     /***
      * Timestamp when access expires.
      */
@@ -35,11 +36,4 @@ public class SignedUrl {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "SignedUrl{" +
-                "signatureExpires='" + signatureExpires + '\'' +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

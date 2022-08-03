@@ -48,12 +48,4 @@ public final class WorkItemRelations {
         this.attributes = attributes;
     }
 
-    @Override
-    public String toString() {
-        return "Relations{" +
-                "rel='" + rel + '\'' +
-                ", url='" + url + '\'' +
-                ", attributes=" + attributes +
-                '}';
-    }
 }

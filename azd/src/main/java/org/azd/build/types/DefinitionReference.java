@@ -7,6 +7,7 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.DefinitionQueueStatus;
 import org.azd.enums.DefinitionType;
 
@@ -14,7 +15,7 @@ import org.azd.enums.DefinitionType;
  * The type of the definition. 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DefinitionReference {
+public class DefinitionReference extends BaseAbstractMethod {
     /**
      * The date this version of the definition was created.
      **/
@@ -146,19 +147,4 @@ public class DefinitionReference {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "DefinitionReference{" +
-                "createdDate='" + createdDate + '\'' +
-                ", id=" + id +
-                ", name='" + name + '\'' +
-                ", path='" + path + '\'' +
-                ", project=" + project +
-                ", queueStatus=" + queueStatus +
-                ", revision=" + revision +
-                ", type=" + type +
-                ", uri='" + uri + '\'' +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

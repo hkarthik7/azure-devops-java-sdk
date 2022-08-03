@@ -2,6 +2,8 @@ package org.azd.graph.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.exceptions.AzDException;
+import org.azd.helpers.JsonMapper;
 
 /***
  * Response object from a subject lookup via descriptor
@@ -28,18 +30,13 @@ public class SubjectLookup extends GraphEntity {
 
     @Override
     public String toString() {
-        return "SubjectLookup{" +
-                "description='" + description + '\'' +
-                ", _links=" + _links +
-                ", descriptor='" + descriptor + '\'' +
-                ", displayName='" + displayName + '\'' +
-                ", domain='" + domain + '\'' +
-                ", mailAddress='" + mailAddress + '\'' +
-                ", origin='" + origin + '\'' +
-                ", originId='" + originId + '\'' +
-                ", principalName='" + principalName + '\'' +
-                ", subjectKind='" + subjectKind + '\'' +
-                ", url='" + url + '\'' +
-                '}';
+        String res = null;
+        var mapper = new JsonMapper();
+
+        try {
+            res = mapper.convertToString(this);
+        } catch (AzDException ignored) { }
+
+        return res;
     }
 }

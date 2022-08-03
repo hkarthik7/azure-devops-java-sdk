@@ -2,14 +2,14 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.common.types.Reference;
-import org.azd.common.types.ReferenceLink;
 
 /***
  * The class to represent a collection of REST reference links.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildReferenceLinks extends ReferenceLink {
+public class BuildReferenceLinks extends BaseAbstractMethod {
     /***
      * REST url of web service
      */
@@ -63,13 +63,4 @@ public class BuildReferenceLinks extends ReferenceLink {
         this.badge = badge;
     }
 
-    @Override
-    public String toString() {
-        return "BuildReferenceLinks{" +
-                "web=" + web +
-                ", sourceVersionDisplayUri=" + sourceVersionDisplayUri +
-                ", timeline=" + timeline +
-                ", badge=" + badge +
-                '}';
-    }
 }

@@ -7,12 +7,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * None 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ValidationResult {
+public class ValidationResult extends BaseAbstractMethod {
 
     @JsonProperty("error")
     private String error;
@@ -47,12 +48,4 @@ public class ValidationResult {
         this.warning = warning;
     }
 
-    @Override
-    public String toString() {
-        return "ValidationResult{" +
-                "error='" + error + '\'' +
-                ", ok='" + ok + '\'' +
-                ", warning='" + warning + '\'' +
-                '}';
-    }
 }

@@ -2,11 +2,12 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Folders {
+public class Folders extends BaseAbstractMethod {
     @JsonProperty("value")
     private List<Folder> folders;
 
@@ -18,10 +19,4 @@ public class Folders {
         this.folders = folders;
     }
 
-    @Override
-    public String toString() {
-        return "Folders{" +
-                "folders=" + folders +
-                '}';
-    }
 }

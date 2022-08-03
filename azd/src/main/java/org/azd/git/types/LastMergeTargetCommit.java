@@ -2,12 +2,13 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Provides properties that describe a Git commit and associated metadata.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class LastMergeTargetCommit {
+public class LastMergeTargetCommit extends BaseAbstractMethod {
     /***
      * ID (SHA-1) of the commit.
      */
@@ -35,11 +36,4 @@ public class LastMergeTargetCommit {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "LastMergeSourceCommit{" +
-                "commitId='" + commitId + '\'' +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

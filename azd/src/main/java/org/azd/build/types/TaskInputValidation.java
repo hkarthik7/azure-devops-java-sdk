@@ -7,12 +7,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * None 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TaskInputValidation {
+public class TaskInputValidation extends BaseAbstractMethod {
     /**
      * Conditional expression
      **/
@@ -40,11 +41,4 @@ public class TaskInputValidation {
         this.message = message;
     }
 
-    @Override
-    public String toString() {
-        return "TaskInputValidation{" +
-                "expression='" + expression + '\'' +
-                ", message='" + message + '\'' +
-                '}';
-    }
 }

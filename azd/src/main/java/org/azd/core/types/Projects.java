@@ -2,6 +2,7 @@ package org.azd.core.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * List of project
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Projects {
+public class Projects extends BaseAbstractMethod {
     /***
      * List of project
      */
@@ -24,10 +25,4 @@ public class Projects {
         this.projects = value;
     }
 
-    @Override
-    public String toString() {
-        return "Projects{" +
-                "value=" + projects +
-                '}';
-    }
 }

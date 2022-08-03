@@ -2,12 +2,13 @@ package org.azd.oauth.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Represents an Authorized token object
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AuthorizedToken {
+public class AuthorizedToken extends BaseAbstractMethod {
     /***
      * Access token
      */
@@ -34,16 +35,6 @@ public class AuthorizedToken {
     @JsonProperty("receivedTimestamp")
     private long receivedTimestamp;
 
-    @Override
-    public String toString() {
-        return "AuthorizedToken{" +
-                "accessToken='" + accessToken + '\'' +
-                ", tokenType='" + tokenType + '\'' +
-                ", expiresIn='" + expiresIn + '\'' +
-                ", refreshToken='" + refreshToken + '\'' +
-                ", receivedTimestamp='" + receivedTimestamp + '\'' +
-                '}';
-    }
 
     public String getAccessToken() {
         return accessToken;

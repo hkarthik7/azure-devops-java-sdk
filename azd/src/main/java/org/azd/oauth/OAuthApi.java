@@ -5,11 +5,9 @@ import org.azd.enums.Instance;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
-import org.azd.helpers.StreamHelper;
 import org.azd.helpers.URLHelper;
 import org.azd.oauth.types.AuthorizedToken;
 
-import java.net.http.HttpResponse;
 import java.util.LinkedHashMap;
 
 import static org.azd.utils.RestClient.send;

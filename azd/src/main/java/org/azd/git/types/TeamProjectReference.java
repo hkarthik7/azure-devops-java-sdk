@@ -7,6 +7,7 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.ProjectState;
 import org.azd.enums.ProjectVisibility;
 
@@ -14,7 +15,7 @@ import org.azd.enums.ProjectVisibility;
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TeamProjectReference {
+public class TeamProjectReference extends BaseAbstractMethod {
 	/**
  	* Project abbreviation. 
 	**/
@@ -106,19 +107,4 @@ public class TeamProjectReference {
 
 	public void setVisibility(ProjectVisibility visibility) { this.visibility = visibility; }
 
-	@Override
-	public String toString() {
-		return "TeamProjectReference{" +
-				"abbreviation='" + abbreviation + '\'' +
-				", defaultTeamImageUrl='" + defaultTeamImageUrl + '\'' +
-				", description='" + description + '\'' +
-				", id='" + id + '\'' +
-				", lastUpdateTime='" + lastUpdateTime + '\'' +
-				", name='" + name + '\'' +
-				", revision=" + revision +
-				", state=" + state +
-				", url='" + url + '\'' +
-				", visibility=" + visibility +
-				'}';
-	}
 }

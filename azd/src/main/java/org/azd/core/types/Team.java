@@ -2,12 +2,13 @@ package org.azd.core.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Represents a project team
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Team {
+public class Team extends BaseAbstractMethod {
     /***
      * Team (Identity) Guid. A Team Foundation ID.
      */
@@ -100,16 +101,4 @@ public class Team {
         this.projectId = projectId;
     }
 
-    @Override
-    public String toString() {
-        return "Team{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", url='" + url + '\'' +
-                ", description='" + description + '\'' +
-                ", identityUrl='" + identityUrl + '\'' +
-                ", projectName='" + projectName + '\'' +
-                ", projectId='" + projectId + '\'' +
-                '}';
-    }
 }

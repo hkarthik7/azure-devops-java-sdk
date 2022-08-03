@@ -4,12 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.azd.common.types.Author;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Represents a pull request object. These are retrieved from Source Providers.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SourceProviderPullRequest {
+public class SourceProviderPullRequest extends BaseAbstractMethod {
     /**
      * The links to other objects related to this object.
      */
@@ -167,21 +168,4 @@ public class SourceProviderPullRequest {
         this.title = title;
     }
 
-    @Override
-    public String toString() {
-        return "SourceProviderPullRequest{" +
-                "_links=" + _links +
-                ", author=" + author +
-                ", currentState='" + currentState + '\'' +
-                ", description='" + description + '\'' +
-                ", draft=" + draft +
-                ", id='" + id + '\'' +
-                ", providerName='" + providerName + '\'' +
-                ", sourceBranchRef='" + sourceBranchRef + '\'' +
-                ", sourceRepositoryOwner='" + sourceRepositoryOwner + '\'' +
-                ", targetBranchRef='" + targetBranchRef + '\'' +
-                ", targetRepositoryOwner='" + targetRepositoryOwner + '\'' +
-                ", title='" + title + '\'' +
-                '}';
-    }
 }

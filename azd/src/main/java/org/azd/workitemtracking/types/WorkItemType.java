@@ -3,6 +3,7 @@ package org.azd.workitemtracking.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * Describes a work item type.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemType {
+public class WorkItemType extends BaseAbstractMethod {
     /***
      * The color.
      */
@@ -168,21 +169,4 @@ public class WorkItemType {
         this.xmlForm = xmlForm;
     }
 
-    @Override
-    public String toString() {
-        return "WorkItemType{" +
-                "color='" + color + '\'' +
-                ", description='" + description + '\'' +
-                ", fieldInstances=" + fieldInstances +
-                ", fields=" + fields +
-                ", icon=" + icon +
-                ", isDisabled=" + isDisabled +
-                ", name='" + name + '\'' +
-                ", referenceName='" + referenceName + '\'' +
-                ", states=" + states +
-                ", transitions=" + transitions +
-                ", url='" + url + '\'' +
-                ", xmlForm='" + xmlForm + '\'' +
-                '}';
-    }
 }

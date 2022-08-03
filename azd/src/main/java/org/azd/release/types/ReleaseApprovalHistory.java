@@ -8,12 +8,13 @@ package org.azd.release.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReleaseApprovalHistory {
+public class ReleaseApprovalHistory extends BaseAbstractMethod {
 	/**
  	* Identity of the approver. 
 	**/
@@ -69,15 +70,4 @@ public class ReleaseApprovalHistory {
 
 	public void setRevision(int revision) { this.revision = revision; }
 
-	@Override
-	public String toString() { 
-	return 	"ReleaseApprovalHistory{" +
-		"approver='" + approver + '\'' +
-		",changedBy='" + changedBy + '\'' +
-		",comments='" + comments + '\'' +
-		",createdOn='" + createdOn + '\'' +
-		",modifiedOn='" + modifiedOn + '\'' +
-		",revision='" + revision + '\'' +
-		'}';
-	}
 }

@@ -3,6 +3,7 @@ package org.azd.build.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * Represents an entry in a build's timeline.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TimelineRecord {
+public class TimelineRecord extends BaseAbstractMethod {
     /**
      * The class to represent a collection of REST reference links.
      */
@@ -363,36 +364,4 @@ public class TimelineRecord {
         this.workerName = workerName;
     }
 
-    @Override
-    public String toString() {
-        return "TimelineRecord{" +
-                "_links=" + _links +
-                ", attempt=" + attempt +
-                ", changeId=" + changeId +
-                ", currentOperation='" + currentOperation + '\'' +
-                ", details=" + details +
-                ", errorCount=" + errorCount +
-                ", finishTime='" + finishTime + '\'' +
-                ", id='" + id + '\'' +
-                ", identifier='" + identifier + '\'' +
-                ", issues=" + issues +
-                ", lastModified='" + lastModified + '\'' +
-                ", log=" + log +
-                ", name='" + name + '\'' +
-                ", order=" + order +
-                ", parentId='" + parentId + '\'' +
-                ", percentComplete=" + percentComplete +
-                ", previousAttempts=" + previousAttempts +
-                ", queueId=" + queueId +
-                ", result='" + result + '\'' +
-                ", resultCode='" + resultCode + '\'' +
-                ", startTime='" + startTime + '\'' +
-                ", state='" + state + '\'' +
-                ", task=" + task +
-                ", type='" + type + '\'' +
-                ", url='" + url + '\'' +
-                ", warningCount=" + warningCount +
-                ", workerName='" + workerName + '\'' +
-                '}';
-    }
 }

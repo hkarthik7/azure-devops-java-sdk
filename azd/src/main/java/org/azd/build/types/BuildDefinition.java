@@ -8,6 +8,7 @@ package org.azd.build.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.BuildAuthorizationScope;
 import org.azd.enums.DefinitionQuality;
 import org.azd.enums.DefinitionQueueStatus;
@@ -20,7 +21,7 @@ import java.util.Map;
  * Represents a reference to a build log. 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildDefinition {
+public class BuildDefinition extends BaseAbstractMethod {
     /**
      * The class to represent a collection of REST reference links.
      **/
@@ -512,47 +513,4 @@ public class BuildDefinition {
         this.variables = variables;
     }
 
-    @Override
-    public String toString() {
-        return "BuildDefinition{" +
-                "_links=" + _links +
-                ", authoredBy=" + authoredBy +
-                ", badgeEnabled=" + badgeEnabled +
-                ", buildNumberFormat='" + buildNumberFormat + '\'' +
-                ", comment='" + comment + '\'' +
-                ", createdDate='" + createdDate + '\'' +
-                ", demands=" + demands +
-                ", description='" + description + '\'' +
-                ", draftOf=" + draftOf +
-                ", drafts=" + drafts +
-                ", dropLocation='" + dropLocation + '\'' +
-                ", id=" + id +
-                ", jobAuthorizationScope=" + jobAuthorizationScope +
-                ", jobCancelTimeoutInMinutes=" + jobCancelTimeoutInMinutes +
-                ", jobTimeoutInMinutes=" + jobTimeoutInMinutes +
-                ", latestBuild=" + latestBuild +
-                ", latestCompletedBuild=" + latestCompletedBuild +
-                ", metrics=" + metrics +
-                ", name='" + name + '\'' +
-                ", options=" + options +
-                ", path='" + path + '\'' +
-                ", process=" + process +
-                ", processParameters=" + processParameters +
-                ", project=" + project +
-                ", properties=" + properties +
-                ", quality=" + quality +
-                ", queue=" + queue +
-                ", queueStatus=" + queueStatus +
-                ", repository=" + repository +
-                ", retentionRules=" + retentionRules +
-                ", revision=" + revision +
-                ", tags=" + tags +
-                ", triggers=" + triggers +
-                ", type=" + type +
-                ", uri='" + uri + '\'' +
-                ", url='" + url + '\'' +
-                ", variableGroups=" + variableGroups +
-                ", variables=" + variables +
-                '}';
-    }
 }

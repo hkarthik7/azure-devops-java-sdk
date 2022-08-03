@@ -2,12 +2,13 @@ package org.azd.extensionmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * This is the set of files available from the extension.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ExtensionFile {
+public class ExtensionFile extends BaseAbstractMethod {
     @JsonProperty("assetType")
     private String assetType;
     @JsonProperty("language")
@@ -39,12 +40,4 @@ public class ExtensionFile {
         this.source = source;
     }
 
-    @Override
-    public String toString() {
-        return "ExtensionFile{" +
-                "assetType='" + assetType + '\'' +
-                ", language='" + language + '\'' +
-                ", source='" + source + '\'' +
-                '}';
-    }
 }

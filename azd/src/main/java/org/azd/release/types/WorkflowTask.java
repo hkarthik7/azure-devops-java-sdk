@@ -7,12 +7,15 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
+import org.azd.exceptions.AzDException;
+import org.azd.helpers.JsonMapper;
 
 /**
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkflowTask {
+public class WorkflowTask extends BaseAbstractMethod {
 	/**
  	* Gets or sets as the task always run or not. 
 	**/
@@ -141,22 +144,14 @@ public class WorkflowTask {
 	public void setVersion(String version) { this.version = version; }
 
 	@Override
-	public String toString() { 
-	return 	"WorkflowTask{" +
-		"alwaysRun='" + alwaysRun + '\'' +
-		",condition='" + condition + '\'' +
-		",continueOnError='" + continueOnError + '\'' +
-		",definitionType='" + definitionType + '\'' +
-		",enabled='" + enabled + '\'' +
-		",environment='" + environment + '\'' +
-		",inputs='" + inputs + '\'' +
-		",name='" + name + '\'' +
-		",overrideInputs='" + overrideInputs + '\'' +
-		",refName='" + refName + '\'' +
-		",retryCountOnTaskFailure='" + retryCountOnTaskFailure + '\'' +
-		",taskId='" + taskId + '\'' +
-		",timeoutInMinutes='" + timeoutInMinutes + '\'' +
-		",version='" + version + '\'' +
-		'}';
+	public String toString() {
+		String res = null;
+		var mapper = new JsonMapper();
+
+		try {
+			res = mapper.convertToString(this);
+		} catch (AzDException ignored) { }
+
+		return res;
 	}
 }

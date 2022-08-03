@@ -2,14 +2,13 @@ package org.azd.memberentitlementmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.Arrays;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Represents the result after adding a user
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserEntitlementOperationResult {
+public class UserEntitlementOperationResult extends BaseAbstractMethod {
     /***
      * Array of errors if any
      */
@@ -63,13 +62,4 @@ public class UserEntitlementOperationResult {
         this.userId = userId;
     }
 
-    @Override
-    public String toString() {
-        return "UserEntitlementOperationResult{" +
-                "errors=" + Arrays.toString(errors) +
-                ", isSuccess=" + isSuccess +
-                ", result=" + result +
-                ", userId='" + userId + '\'' +
-                '}';
-    }
 }

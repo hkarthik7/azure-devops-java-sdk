@@ -7,6 +7,7 @@ package org.azd.distributedtask.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.TaskResult;
 
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
  * A reference to an agent. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TaskAgentJobRequest {
+public class TaskAgentJobRequest extends BaseAbstractMethod {
 	/**
  	* Represents a JSON object. 
 	**/
@@ -266,38 +267,4 @@ public class TaskAgentJobRequest {
 
 	public void setUserDelayed(boolean userDelayed) { this.userDelayed = userDelayed; }
 
-	@Override
-	public String toString() {
-		return "TaskAgentJobRequest{" +
-				"agentSpecification=" + agentSpecification +
-				", assignTime='" + assignTime + '\'' +
-				", data=" + data +
-				", definition=" + definition +
-				", demands=" + demands +
-				", finishTime='" + finishTime + '\'' +
-				", hostId='" + hostId + '\'' +
-				", jobId='" + jobId + '\'' +
-				", jobName='" + jobName + '\'' +
-				", lockedUntil='" + lockedUntil + '\'' +
-				", matchedAgents=" + matchedAgents +
-				", matchesAllAgentsInPool=" + matchesAllAgentsInPool +
-				", orchestrationId='" + orchestrationId + '\'' +
-				", owner=" + owner +
-				", planGroup='" + planGroup + '\'' +
-				", planId='" + planId + '\'' +
-				", planType='" + planType + '\'' +
-				", poolId=" + poolId +
-				", priority=" + priority +
-				", queueId=" + queueId +
-				", queueTime='" + queueTime + '\'' +
-				", receiveTime='" + receiveTime + '\'' +
-				", requestId=" + requestId +
-				", reservedAgent=" + reservedAgent +
-				", result=" + result +
-				", scopeId='" + scopeId + '\'' +
-				", serviceOwner='" + serviceOwner + '\'' +
-				", statusMessage='" + statusMessage + '\'' +
-				", userDelayed=" + userDelayed +
-				'}';
-	}
 }

@@ -7,12 +7,13 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Defines policy on environment queuing at Release Management side queue. We will send to Environment Runner [creating pre-deploy and other steps] only when the policies mentioned are satisfied. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AuthorizationHeader {
+public class AuthorizationHeader extends BaseAbstractMethod {
 
 	@JsonProperty("name")
 	private String name;
@@ -28,11 +29,4 @@ public class AuthorizationHeader {
 
 	public void setValue(String value) { this.value = value; }
 
-	@Override
-	public String toString() { 
-	return 	"AuthorizationHeader{" +
-		"name='" + name + '\'' +
-		",value='" + value + '\'' +
-		'}';
-	}
 }

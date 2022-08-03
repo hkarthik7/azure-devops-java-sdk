@@ -2,12 +2,13 @@ package org.azd.pipelines.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Artifacts are collections of files produced by a pipeline. Use artifacts to share files between stages in a pipeline or between different pipelines.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PipelinesArtifact {
+public class PipelinesArtifact extends BaseAbstractMethod {
     /***
      * The name of the artifact.
      */
@@ -48,12 +49,4 @@ public class PipelinesArtifact {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "PipelinesArtifact{" +
-                "name='" + name + '\'' +
-                ", signedContent=" + signedContent +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

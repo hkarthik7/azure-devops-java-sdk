@@ -2,6 +2,7 @@ package org.azd.core.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.ProjectState;
 import org.azd.enums.ProjectVisibility;
 
@@ -9,7 +10,7 @@ import org.azd.enums.ProjectVisibility;
  * Represents a Team Project object.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Project {
+public class Project extends BaseAbstractMethod {
     /**
      * Reference links
      */
@@ -155,20 +156,4 @@ public class Project {
         this._links = _links;
     }
 
-    @Override
-    public String toString() {
-        return "Project{" +
-                "_links=" + _links +
-                ", id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", url='" + url + '\'' +
-                ", state=" + state +
-                ", capabilities=" + capabilities +
-                ", revision=" + revision +
-                ", visibility=" + visibility +
-                ", defaultTeam=" + defaultTeam +
-                ", lastUpdateTime='" + lastUpdateTime + '\'' +
-                '}';
-    }
 }

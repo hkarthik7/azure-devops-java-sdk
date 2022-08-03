@@ -2,6 +2,7 @@ package org.azd.feedmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * Permissions for a feed.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class FeedPermissions {
+public class FeedPermissions extends BaseAbstractMethod {
     /***
      * Array of feed permissions.
      */
@@ -24,10 +25,4 @@ public class FeedPermissions {
         feedPermissions = feedPermissions;
     }
 
-    @Override
-    public String toString() {
-        return "FeedPermissions{" +
-                "FeedPermission=" + feedPermissions +
-                '}';
-    }
 }

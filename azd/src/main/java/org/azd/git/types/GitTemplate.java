@@ -7,12 +7,13 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitTemplate {
+public class GitTemplate extends BaseAbstractMethod {
 	/**
  	* Name of the Template 
 	**/
@@ -32,11 +33,4 @@ public class GitTemplate {
 
 	public void setType(String type) { this.type = type; }
 
-	@Override
-	public String toString() {
-		return "GitTemplate{" +
-				"name='" + name + '\'' +
-				", type='" + type + '\'' +
-				'}';
-	}
 }

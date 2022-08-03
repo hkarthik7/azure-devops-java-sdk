@@ -2,9 +2,10 @@ package org.azd.extensionmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ExtensionEventCallbackCollection {
+public class ExtensionEventCallbackCollection extends BaseAbstractMethod {
     /***
      * Defines an endpoint that gets called via a POST request to notify that an extension disable has occurred.
      */
@@ -99,16 +100,4 @@ public class ExtensionEventCallbackCollection {
         this.versionCheck = versionCheck;
     }
 
-    @Override
-    public String toString() {
-        return "ExtensionEventCallbackCollection{" +
-                "postDisable=" + postDisable +
-                ", postEnable=" + postEnable +
-                ", postInstall=" + postInstall +
-                ", postUninstall=" + postUninstall +
-                ", postUpdate=" + postUpdate +
-                ", preInstall=" + preInstall +
-                ", versionCheck=" + versionCheck +
-                '}';
-    }
 }

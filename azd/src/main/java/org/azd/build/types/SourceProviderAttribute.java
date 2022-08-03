@@ -3,6 +3,7 @@ package org.azd.build.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * Represents a SourceProviderAttribute
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SourceProviderAttribute {
+public class SourceProviderAttribute extends BaseAbstractMethod {
     /**
      * The name of the source provider.
      */
@@ -51,12 +52,4 @@ public class SourceProviderAttribute {
         this.supportedTriggers = supportedTriggers;
     }
 
-    @Override
-    public String toString() {
-        return "SourceProviderAttribute{" +
-                "name='" + name + '\'' +
-                ", supportedCapabilities=" + supportedCapabilities +
-                ", supportedTriggers=" + supportedTriggers +
-                '}';
-    }
 }

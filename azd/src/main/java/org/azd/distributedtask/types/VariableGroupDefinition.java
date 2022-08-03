@@ -1,5 +1,6 @@
 package org.azd.distributedtask.types;
 
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.VariableGroupType;
 import org.azd.enums.VariableValue;
 import org.azd.release.types.ProjectReference;
@@ -9,7 +10,7 @@ import java.util.Map;
 /***
  * Represents the request body for adding and updating a variable group.
  */
-public class VariableGroupDefinition {
+public class VariableGroupDefinition extends BaseAbstractMethod {
     /***
      * Sets name of the variable group.
      */
@@ -83,15 +84,4 @@ public class VariableGroupDefinition {
         this.providerData = providerData;
     }
 
-    @Override
-    public String toString() {
-        return "VariableGroupDefinition{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", type=" + type +
-                ", variables=" + variables +
-                ", providerData=" + providerData +
-                ", projectReference=" + projectReference +
-                '}';
-    }
 }

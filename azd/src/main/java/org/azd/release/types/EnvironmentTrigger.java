@@ -7,13 +7,14 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.EnvironmentTriggerType;
 
 /**
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class EnvironmentTrigger {
+public class EnvironmentTrigger extends BaseAbstractMethod {
 	/**
  	* Definition environment ID on which this trigger applicable. 
 	**/
@@ -51,13 +52,4 @@ public class EnvironmentTrigger {
 
 	public void setTriggerType(EnvironmentTriggerType triggerType) { this.triggerType = triggerType; }
 
-	@Override
-	public String toString() { 
-	return 	"EnvironmentTrigger{" +
-		"definitionEnvironmentId='" + definitionEnvironmentId + '\'' +
-		",releaseDefinitionId='" + releaseDefinitionId + '\'' +
-		",triggerContent='" + triggerContent + '\'' +
-		",triggerType='" + triggerType + '\'' +
-		'}';
-	}
 }

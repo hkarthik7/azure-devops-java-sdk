@@ -3,12 +3,13 @@ package org.azd.extensionmanagement.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Description about a property of a contribution type
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ContributionPropertyDescription {
+public class ContributionPropertyDescription extends BaseAbstractMethod {
     /***
      * Description of the property
      */
@@ -63,13 +64,4 @@ public class ContributionPropertyDescription {
         this.type = type;
     }
 
-    @Override
-    public String toString() {
-        return "ContributionPropertyDescription{" +
-                "description='" + description + '\'' +
-                ", name='" + name + '\'' +
-                ", required='" + required + '\'' +
-                ", type=" + type +
-                '}';
-    }
 }

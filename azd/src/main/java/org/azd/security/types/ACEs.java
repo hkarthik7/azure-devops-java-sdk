@@ -2,6 +2,7 @@ package org.azd.security.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * this is a list of access control entries, for posting to replace or merge ACEs
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ACEs {
+public class ACEs extends BaseAbstractMethod {
     @JsonProperty
     private String token;
     @JsonProperty
@@ -41,12 +42,4 @@ public class ACEs {
         this.accessControlEntries = accessControlEntries;
     }
 
-    @Override
-    public String toString() {
-        return "ACEs{" +
-                "token='" + token + '\'' +
-                ", merge=" + merge +
-                ", accessControlEntries=" + accessControlEntries +
-                '}';
-    }
 }

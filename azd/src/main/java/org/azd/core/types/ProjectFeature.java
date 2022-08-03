@@ -2,6 +2,7 @@ package org.azd.core.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.Optional;
 
@@ -9,7 +10,7 @@ import java.util.Optional;
  * data object representing project feature
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ProjectFeature {
+public class ProjectFeature extends BaseAbstractMethod {
     /***
      * string identifier for feature. See {@link org.azd.enums.FeatureManagement} for in-library usage
      */
@@ -63,17 +64,8 @@ public class ProjectFeature {
         this.scope = scope;
     }
 
-    @Override
-    public String toString() {
-        return "FeatureManagement{" +
-                "featureId='" + featureId + '\'' +
-                ", state=" + state +
-                ", scope=" + scope +
-                '}';
-    }
-
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public class Scope {
+    public class Scope extends BaseAbstractMethod {
         /***
          * scope value. Undocumented in Azdo api
          */
@@ -99,14 +91,6 @@ public class ProjectFeature {
 
         public void setSettingScope(String settingScope) {
             this.settingScope = settingScope;
-        }
-
-        @Override
-        public String toString() {
-            return "Scope{" +
-                    "userScoped=" + userScoped +
-                    ", settingScope='" + settingScope + '\'' +
-                    '}';
         }
     }
 }

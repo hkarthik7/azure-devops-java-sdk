@@ -8,12 +8,13 @@ package org.azd.release.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReleaseDefinitionApprovalStep {
+public class ReleaseDefinitionApprovalStep extends BaseAbstractMethod {
 	/**
  	* Gets and sets the approver. 
 	**/
@@ -60,14 +61,4 @@ public class ReleaseDefinitionApprovalStep {
 
 	public void setRank(Integer rank) { this.rank = rank; }
 
-	@Override
-	public String toString() { 
-	return 	"ReleaseDefinitionApprovalStep{" +
-		"approver='" + approver + '\'' +
-		",id='" + id + '\'' +
-		",isAutomated='" + isAutomated + '\'' +
-		",isNotificationOn='" + isNotificationOn + '\'' +
-		",rank='" + rank + '\'' +
-		'}';
-	}
 }

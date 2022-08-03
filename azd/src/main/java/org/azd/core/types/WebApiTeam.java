@@ -2,12 +2,13 @@ package org.azd.core.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Represents a team
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WebApiTeam {
+public class WebApiTeam extends BaseAbstractMethod {
     /***
      * Team description
      */
@@ -74,14 +75,4 @@ public class WebApiTeam {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "WebApiTeam{" +
-                "description='" + description + '\'' +
-                ", id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", identityUrl='" + identityUrl + '\'' +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

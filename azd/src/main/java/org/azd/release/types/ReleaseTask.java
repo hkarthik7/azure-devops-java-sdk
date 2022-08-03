@@ -7,6 +7,7 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.TaskStatus;
 
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReleaseTask {
+public class ReleaseTask extends BaseAbstractMethod {
 	/**
  	* Agent name on which task executed. 
 	**/
@@ -143,23 +144,4 @@ public class ReleaseTask {
 
 	public void setTimelineRecordId(String timelineRecordId) { this.timelineRecordId = timelineRecordId; }
 
-	@Override
-	public String toString() { 
-	return 	"ReleaseTask{" +
-		"agentName='" + agentName + '\'' +
-		",finishTime='" + finishTime + '\'' +
-		",id='" + id + '\'' +
-		",issues='" + issues + '\'' +
-		",lineCount='" + lineCount + '\'' +
-		",logUrl='" + logUrl + '\'' +
-		",name='" + name + '\'' +
-		",percentComplete='" + percentComplete + '\'' +
-		",rank='" + rank + '\'' +
-		",resultCode='" + resultCode + '\'' +
-		",startTime='" + startTime + '\'' +
-		",status='" + status + '\'' +
-		",task='" + task + '\'' +
-		",timelineRecordId='" + timelineRecordId + '\'' +
-		'}';
-	}
 }

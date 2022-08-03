@@ -2,12 +2,13 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Represents the reference to a specific version of a comment on a Work Item.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemCommentVersionRef {
+public class WorkItemCommentVersionRef extends BaseAbstractMethod {
     /***
      * The id assigned to the comment.
      */
@@ -87,15 +88,4 @@ public class WorkItemCommentVersionRef {
         this.version = version;
     }
 
-    @Override
-    public String toString() {
-        return "WorkItemCommentVersionRef{" +
-                "commentId=" + commentId +
-                ", createdInRevision=" + createdInRevision +
-                ", isDeleted=" + isDeleted +
-                ", text='" + text + '\'' +
-                ", url='" + url + '\'' +
-                ", version=" + version +
-                '}';
-    }
 }

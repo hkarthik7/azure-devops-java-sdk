@@ -7,12 +7,13 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class EnvironmentExecutionPolicy {
+public class EnvironmentExecutionPolicy extends BaseAbstractMethod {
 	/**
  	* This policy decides, how many environments would be with Environment Runner. 
 	**/
@@ -32,11 +33,4 @@ public class EnvironmentExecutionPolicy {
 
 	public void setQueueDepthCount(Integer queueDepthCount) { this.queueDepthCount = queueDepthCount; }
 
-	@Override
-	public String toString() { 
-	return 	"EnvironmentExecutionPolicy{" +
-		"concurrencyCount='" + concurrencyCount + '\'' +
-		",queueDepthCount='" + queueDepthCount + '\'' +
-		'}';
-	}
 }

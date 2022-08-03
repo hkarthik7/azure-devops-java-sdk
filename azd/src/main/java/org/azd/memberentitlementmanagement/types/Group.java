@@ -2,12 +2,13 @@ package org.azd.memberentitlementmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Project Group (e.g. Contributor, Reader etc.)
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Group {
+public class Group extends BaseAbstractMethod {
     /***
      * Display Name of the Group
      */
@@ -35,11 +36,4 @@ public class Group {
         this.groupType = groupType;
     }
 
-    @Override
-    public String toString() {
-        return "Group{" +
-                "displayName='" + displayName + '\'' +
-                ", groupType='" + groupType + '\'' +
-                '}';
-    }
 }

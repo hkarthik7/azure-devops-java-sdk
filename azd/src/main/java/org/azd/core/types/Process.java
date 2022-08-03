@@ -2,12 +2,13 @@ package org.azd.core.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Represents process
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Process {
+public class Process extends BaseAbstractMethod {
     /***
      * Process id
      */
@@ -87,16 +88,5 @@ public class Process {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "Process{" +
-                "id='" + id + '\'' +
-                ", description='" + description + '\'' +
-                ", isDefault=" + isDefault +
-                ", type='" + type + '\'' +
-                ", url='" + url + '\'' +
-                ", name='" + name + '\'' +
-                '}';
-    }
 
 }

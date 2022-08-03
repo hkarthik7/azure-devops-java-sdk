@@ -2,12 +2,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Represents a yaml build.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class YamlBuild {
+public class YamlBuild extends BaseAbstractMethod {
     /***
      * Represents a yaml build.
      */
@@ -22,10 +23,4 @@ public class YamlBuild {
         this.yaml = yaml;
     }
 
-    @Override
-    public String toString() {
-        return "YamlBuild{" +
-                "yaml='" + yaml + '\'' +
-                '}';
-    }
 }

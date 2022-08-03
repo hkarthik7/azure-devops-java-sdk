@@ -2,6 +2,7 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * Represents a phase
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Phases {
+public class Phases extends BaseAbstractMethod {
     /***
      * List of steps
      */
@@ -89,15 +90,4 @@ public class Phases {
         this.target = target;
     }
 
-    @Override
-    public String toString() {
-        return "Phases{" +
-                "steps=" + steps +
-                ", name='" + name + '\'' +
-                ", refName='" + refName + '\'' +
-                ", jobAuthorizationScope='" + jobAuthorizationScope + '\'' +
-                ", condition='" + condition + '\'' +
-                ", target=" + target +
-                '}';
-    }
 }

@@ -2,6 +2,7 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * List of the resource references
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ResourceRefs {
+public class ResourceRefs extends BaseAbstractMethod {
     /***
      * List of the resource references
      */
@@ -24,10 +25,4 @@ public class ResourceRefs {
         this.resourceRefs = resourceRefs;
     }
 
-    @Override
-    public String toString() {
-        return "ResourceRefs{" +
-                "resourceRefs=" + resourceRefs +
-                '}';
-    }
 }

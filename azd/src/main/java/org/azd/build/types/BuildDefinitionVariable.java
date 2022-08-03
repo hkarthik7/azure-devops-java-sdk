@@ -7,12 +7,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Represents metadata about builds in the system. 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildDefinitionVariable {
+public class BuildDefinitionVariable extends BaseAbstractMethod {
     /**
      * Indicates whether the value can be set at queue time.
      **/
@@ -35,30 +36,5 @@ public class BuildDefinitionVariable {
 
     public void setAllowOverride(Boolean allowOverride) {
         this.allowOverride = allowOverride;
-    }
-
-    public Boolean getIsSecret() {
-        return isSecret;
-    }
-
-    public void setIsSecret(Boolean isSecret) {
-        this.isSecret = isSecret;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    @Override
-    public String toString() {
-        return "BuildDefinitionVariable{" +
-                "allowOverride=" + allowOverride +
-                ", isSecret=" + isSecret +
-                ", value='" + value + '\'' +
-                '}';
     }
 }

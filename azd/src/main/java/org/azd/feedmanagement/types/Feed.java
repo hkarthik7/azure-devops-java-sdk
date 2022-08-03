@@ -7,6 +7,7 @@ package org.azd.feedmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.FeedCapabilities;
 
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
  * A container for artifacts. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Feed {
+public class Feed extends BaseAbstractMethod {
 	/**
  	* Related REST links. 
 	**/
@@ -223,33 +224,4 @@ public class Feed {
 	public String getViewName() { return viewName; }
 
 	public void setViewName(String viewName) { this.viewName = viewName; }
-
-	@Override
-	public String toString() {
-		return "Feed{" +
-				"_links=" + _links +
-				", badgesEnabled=" + badgesEnabled +
-				", capabilities=" + capabilities +
-				", defaultViewId='" + defaultViewId + '\'' +
-				", deletedDate='" + deletedDate + '\'' +
-				", description='" + description + '\'' +
-				", fullyQualifiedId='" + fullyQualifiedId + '\'' +
-				", fullyQualifiedName='" + fullyQualifiedName + '\'' +
-				", hideDeletedPackageVersions=" + hideDeletedPackageVersions +
-				", id='" + id + '\'' +
-				", isReadOnly=" + isReadOnly +
-				", name='" + name + '\'' +
-				", permanentDeletedDate='" + permanentDeletedDate + '\'' +
-				", permissions=" + permissions +
-				", project=" + project +
-				", scheduledPermanentDeleteDate='" + scheduledPermanentDeleteDate + '\'' +
-				", upstreamEnabled=" + upstreamEnabled +
-				", upstreamEnabledChangedDate='" + upstreamEnabledChangedDate + '\'' +
-				", upstreamSources=" + upstreamSources +
-				", url='" + url + '\'' +
-				", view=" + view +
-				", viewId='" + viewId + '\'' +
-				", viewName='" + viewName + '\'' +
-				'}';
-	}
 }

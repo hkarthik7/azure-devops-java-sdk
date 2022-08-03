@@ -2,6 +2,7 @@ package org.azd.memberentitlementmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.graph.types.GraphGroup;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  * A group entity with additional properties including its license, extensions, and project membership
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GroupEntitlement {
+public class GroupEntitlement extends BaseAbstractMethod {
     /***
      * Member reference.
      */
@@ -103,16 +104,4 @@ public class GroupEntitlement {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "GroupEntitlement{" +
-                "group=" + group +
-                ", id='" + id + '\'' +
-                ", lastExecuted='" + lastExecuted + '\'' +
-                ", licenseRule=" + licenseRule +
-                ", members=" + members +
-                ", projectEntitlements=" + projectEntitlements +
-                ", status='" + status + '\'' +
-                '}';
-    }
 }

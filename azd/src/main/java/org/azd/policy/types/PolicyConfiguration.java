@@ -4,12 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.azd.common.types.Author;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * The full policy configuration with settings.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PolicyConfiguration {
+public class PolicyConfiguration extends BaseAbstractMethod {
     /***
      * A reference to the identity that created the policy.
      */
@@ -154,20 +155,4 @@ public class PolicyConfiguration {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "PolicyConfiguration{" +
-                "createdBy=" + createdBy +
-                ", createdDate='" + createdDate + '\'' +
-                ", id=" + id +
-                ", isBlocking=" + isBlocking +
-                ", isDeleted=" + isDeleted +
-                ", isEnabled=" + isEnabled +
-                ", isEnterpriseManaged=" + isEnterpriseManaged +
-                ", revision=" + revision +
-                ", settings=" + settings +
-                ", type=" + type +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

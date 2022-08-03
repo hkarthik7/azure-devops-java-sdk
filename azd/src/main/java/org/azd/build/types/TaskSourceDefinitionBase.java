@@ -7,12 +7,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * None 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TaskSourceDefinitionBase {
+public class TaskSourceDefinitionBase extends BaseAbstractMethod {
 
     @JsonProperty("authKey")
     private String authKey;
@@ -69,14 +70,4 @@ public class TaskSourceDefinitionBase {
         this.target = target;
     }
 
-    @Override
-    public String toString() {
-        return "TaskSourceDefinitionBase{" +
-                "authKey='" + authKey + '\'' +
-                ", endpoint='" + endpoint + '\'' +
-                ", keySelector='" + keySelector + '\'' +
-                ", selector='" + selector + '\'' +
-                ", target='" + target + '\'' +
-                '}';
-    }
 }

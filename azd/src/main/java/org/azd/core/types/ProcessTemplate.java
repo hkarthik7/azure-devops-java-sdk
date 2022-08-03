@@ -2,9 +2,10 @@ package org.azd.core.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ProcessTemplate {
+public class ProcessTemplate extends BaseAbstractMethod {
     @JsonProperty("templateName")
     private String templateName;
     @JsonProperty("templateTypeId")
@@ -26,11 +27,4 @@ public class ProcessTemplate {
         this.templateTypeId = templateTypeId;
     }
 
-    @Override
-    public String toString() {
-        return "ProcessTemplate{" +
-                "templateName='" + templateName + '\'' +
-                ", templateTypeId='" + templateTypeId + '\'' +
-                '}';
-    }
 }

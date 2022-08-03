@@ -7,13 +7,14 @@ package org.azd.distributedtask.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.TaskAgentStatus;
 
 /**
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TaskAgentReference {
+public class TaskAgentReference extends BaseAbstractMethod {
 	/**
  	* The class to represent a collection of REST reference links. 
 	**/
@@ -96,18 +97,4 @@ public class TaskAgentReference {
 
 	public void setVersion(String version) { this.version = version; }
 
-	@Override
-	public String toString() {
-		return "TaskAgentReference{" +
-				"_links=" + _links +
-				", accessPoint='" + accessPoint + '\'' +
-				", enabled=" + enabled +
-				", id=" + id +
-				", name='" + name + '\'' +
-				", osDescription='" + osDescription + '\'' +
-				", provisioningState='" + provisioningState + '\'' +
-				", status=" + status +
-				", version='" + version + '\'' +
-				'}';
-	}
 }

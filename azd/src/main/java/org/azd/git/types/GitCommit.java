@@ -7,15 +7,15 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
  * State of the status. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitCommit {
+public class GitCommit extends BaseAbstractMethod {
 	/**
  	* A collection of related REST reference links. 
 	**/
@@ -150,24 +150,4 @@ public class GitCommit {
 
 	public void setWorkItems(List<ResourceRef> workItems) { this.workItems = workItems; }
 
-	@Override
-	public String toString() {
-		return "GitCommit{" +
-				"_links=" + _links +
-				", author=" + author +
-				", changeCounts=" + changeCounts +
-				", changes=" + changes +
-				", comment='" + comment + '\'' +
-				", commentTruncated=" + commentTruncated +
-				", commitId='" + commitId + '\'' +
-				", committer=" + committer +
-				", parents=" + Arrays.toString(parents) +
-				", push=" + push +
-				", remoteUrl='" + remoteUrl + '\'' +
-				", statuses=" + statuses +
-				", treeId='" + treeId + '\'' +
-				", url='" + url + '\'' +
-				", workItems=" + workItems +
-				'}';
-	}
 }

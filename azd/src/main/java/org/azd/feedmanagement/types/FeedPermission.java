@@ -7,13 +7,14 @@ package org.azd.feedmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.FeedRole;
 
 /**
  * Permissions for a feed. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class FeedPermission {
+public class FeedPermission extends BaseAbstractMethod {
 	/**
  	* Display name for the identity. 
 	**/
@@ -60,14 +61,4 @@ public class FeedPermission {
 
 	public void setRole(FeedRole role) { this.role = role; }
 
-	@Override
-	public String toString() {
-		return "FeedPermission{" +
-				"displayName='" + displayName + '\'' +
-				", identityDescriptor=" + identityDescriptor +
-				", identityId='" + identityId + '\'' +
-				", isInheritedRole=" + isInheritedRole +
-				", role=" + role +
-				'}';
-	}
 }

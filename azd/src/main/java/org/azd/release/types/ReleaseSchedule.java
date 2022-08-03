@@ -7,13 +7,14 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.ScheduleDays;
 
 /**
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReleaseSchedule {
+public class ReleaseSchedule extends BaseAbstractMethod {
 	/**
  	* Days of the week to release. 
 	**/
@@ -69,15 +70,4 @@ public class ReleaseSchedule {
 
 	public void setTimeZoneId(String timeZoneId) { this.timeZoneId = timeZoneId; }
 
-	@Override
-	public String toString() { 
-	return 	"ReleaseSchedule{" +
-		"daysToRelease='" + daysToRelease + '\'' +
-		",jobId='" + jobId + '\'' +
-		",scheduleOnlyWithChanges='" + scheduleOnlyWithChanges + '\'' +
-		",startHours='" + startHours + '\'' +
-		",startMinutes='" + startMinutes + '\'' +
-		",timeZoneId='" + timeZoneId + '\'' +
-		'}';
-	}
 }

@@ -2,12 +2,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Represents a repository returned from a source provider.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SourceRepository {
+public class SourceRepository extends BaseAbstractMethod {
     /**
      * The name of the default branch.
      */
@@ -100,16 +101,4 @@ public class SourceRepository {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "SourceRepository{" +
-                "defaultBranch='" + defaultBranch + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", properties=" + properties +
-                ", sourceProviderName='" + sourceProviderName + '\'' +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

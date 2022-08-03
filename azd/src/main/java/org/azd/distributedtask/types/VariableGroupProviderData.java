@@ -1,9 +1,11 @@
 package org.azd.distributedtask.types;
 
+import org.azd.common.types.BaseAbstractMethod;
+
 /***
  * Sets provider data.
  */
-public class VariableGroupProviderData {
+public class VariableGroupProviderData extends BaseAbstractMethod {
     /***
      * Azure resource manager service endpoint id.
      */
@@ -29,11 +31,4 @@ public class VariableGroupProviderData {
         this.vault = vault;
     }
 
-    @Override
-    public String toString() {
-        return "VariableGroupProviderData{" +
-                "serviceEndpointId='" + serviceEndpointId + '\'' +
-                ", vault='" + vault + '\'' +
-                '}';
-    }
 }

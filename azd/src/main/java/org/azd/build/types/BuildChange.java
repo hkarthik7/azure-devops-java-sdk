@@ -3,12 +3,13 @@ package org.azd.build.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Represents a change associated with a build.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildChange {
+public class BuildChange extends BaseAbstractMethod {
     /***
      * The identifier for the change. For a commit, this would be the SHA1. For a TFVC changeset, this would be the changeset ID.
      */
@@ -45,18 +46,6 @@ public class BuildChange {
     @JsonProperty("pusher")
     private String pusher;
 
-    @Override
-    public String toString() {
-        return "Change{" +
-                "id='" + id + '\'' +
-                ", message='" + message + '\'' +
-                ", type='" + type + '\'' +
-                ", author=" + author +
-                ", timestamp='" + timestamp + '\'' +
-                ", location='" + location + '\'' +
-                ", pusher='" + pusher + '\'' +
-                '}';
-    }
 
     public String getId() {
         return id;

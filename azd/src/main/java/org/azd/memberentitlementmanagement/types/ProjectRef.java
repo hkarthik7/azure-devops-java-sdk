@@ -2,12 +2,13 @@ package org.azd.memberentitlementmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * A reference to a project
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ProjectRef {
+public class ProjectRef extends BaseAbstractMethod {
     /***
      * Project ID.
      */
@@ -35,11 +36,4 @@ public class ProjectRef {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "ProjectRef{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }

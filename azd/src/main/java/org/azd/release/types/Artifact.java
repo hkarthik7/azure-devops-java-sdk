@@ -7,6 +7,7 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.Map;
 
@@ -14,7 +15,7 @@ import java.util.Map;
  * Represents binding of data source for the service endpoint request. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Artifact {
+public class Artifact extends BaseAbstractMethod {
 	/**
  	* Gets or sets alias. 
 	**/
@@ -61,14 +62,4 @@ public class Artifact {
 
 	public void setType(String type) { this.type = type; }
 
-	@Override
-	public String toString() { 
-	return 	"Artifact{" +
-		"alias='" + alias + '\'' +
-		",definitionReference='" + definitionReference + '\'' +
-		",isPrimary='" + isPrimary + '\'' +
-		",isRetained='" + isRetained + '\'' +
-		",type='" + type + '\'' +
-		'}';
-	}
 }

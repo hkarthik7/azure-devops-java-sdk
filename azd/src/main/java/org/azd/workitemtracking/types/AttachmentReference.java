@@ -2,9 +2,10 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AttachmentReference {
+public class AttachmentReference extends BaseAbstractMethod {
     @JsonProperty("id")
     private String id;
 
@@ -27,11 +28,4 @@ public class AttachmentReference {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "AttachmentReference{" +
-                "id='" + id + '\'' +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

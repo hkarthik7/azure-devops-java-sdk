@@ -7,12 +7,13 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Project visibility. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitRepositoryCreateOptions {
+public class GitRepositoryCreateOptions extends BaseAbstractMethod {
 
 	@JsonProperty("name")
 	private String name;
@@ -37,12 +38,4 @@ public class GitRepositoryCreateOptions {
 
 	public void setProject(TeamProjectReference project) { this.project = project; }
 
-	@Override
-	public String toString() {
-		return "GitRepositoryCreateOptions{" +
-				"name='" + name + '\'' +
-				", parentRepository=" + parentRepository +
-				", project=" + project +
-				'}';
-	}
 }

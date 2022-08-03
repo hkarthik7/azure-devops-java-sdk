@@ -7,12 +7,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Represents a reference to an agent pool. 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class QueueOptions {
+public class QueueOptions extends BaseAbstractMethod {
     /**
      * Create a plan Id for the build, do not run it
      **/
@@ -40,11 +41,4 @@ public class QueueOptions {
         this.none = none;
     }
 
-    @Override
-    public String toString() {
-        return "QueueOptions{" +
-                "doNotRun='" + doNotRun + '\'' +
-                ", none='" + none + '\'' +
-                '}';
-    }
 }

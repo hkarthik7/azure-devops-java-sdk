@@ -2,6 +2,7 @@ package org.azd.accounts.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * List of organization
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class OrganizationsProvider {
+public class OrganizationsProvider extends BaseAbstractMethod {
     /***
      * List of organization
      */
@@ -24,10 +25,4 @@ public class OrganizationsProvider {
         this.organizations = organizations;
     }
 
-    @Override
-    public String toString() {
-        return "OrganizationsProvider{" +
-                "organizations=" + organizations +
-                '}';
-    }
 }

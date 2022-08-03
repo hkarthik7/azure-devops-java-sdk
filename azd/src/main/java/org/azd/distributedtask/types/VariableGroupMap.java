@@ -1,5 +1,6 @@
 package org.azd.distributedtask.types;
 
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.VariableValue;
 
 import java.util.HashMap;
@@ -9,7 +10,7 @@ import java.util.Map;
  * Variable group map to create variable groups easily.
  * This helper class comes handy when creating variable groups and updating it.
  */
-public class VariableGroupMap {
+public class VariableGroupMap extends BaseAbstractMethod {
     private Map<String, Object> map = new HashMap<>();
 
     public VariableGroupMap() {

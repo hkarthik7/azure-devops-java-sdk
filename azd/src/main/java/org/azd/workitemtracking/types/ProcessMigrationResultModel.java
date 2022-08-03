@@ -7,12 +7,13 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Stores project ID and its process ID. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ProcessMigrationResultModel {
+public class ProcessMigrationResultModel extends BaseAbstractMethod {
 	/**
  	* The ID of the process. 
 	**/
@@ -32,11 +33,4 @@ public class ProcessMigrationResultModel {
 
 	public void setProjectId(String projectId) { this.projectId = projectId; }
 
-	@Override
-	public String toString() { 
-	return 	"ProcessMigrationResultModel{" +
-		"processId='" + processId + '\'' +
-		",projectId='" + projectId + '\'' +
-		'}';
-	}
 }

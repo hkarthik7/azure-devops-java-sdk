@@ -4,12 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.azd.common.types.Author;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Encapsulates an event subscription.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ServiceHooksSubscription {
+public class ServiceHooksSubscription extends BaseAbstractMethod {
     /***
      * action description
      */
@@ -245,27 +246,4 @@ public class ServiceHooksSubscription {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "ServiceHooksSubscription{" +
-                "actionDescription='" + actionDescription + '\'' +
-                ", consumerActionId='" + consumerActionId + '\'' +
-                ", consumerId='" + consumerId + '\'' +
-                ", consumerInputs=" + consumerInputs +
-                ", createdBy=" + createdBy +
-                ", createdDate='" + createdDate + '\'' +
-                ", eventDescription='" + eventDescription + '\'' +
-                ", eventType='" + eventType + '\'' +
-                ", id='" + id + '\'' +
-                ", modifiedBy=" + modifiedBy +
-                ", modifiedDate='" + modifiedDate + '\'' +
-                ", probationRetries='" + probationRetries + '\'' +
-                ", publisherId='" + publisherId + '\'' +
-                ", publisherInputs=" + publisherInputs +
-                ", resourceVersion='" + resourceVersion + '\'' +
-                ", status='" + status + '\'' +
-                ", subscriber=" + subscriber +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

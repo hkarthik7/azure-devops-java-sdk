@@ -8,6 +8,7 @@ package org.azd.git.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.PullRequestAsyncStatus;
 import org.azd.enums.PullRequestMergeFailureType;
 import org.azd.enums.PullRequestStatus;
@@ -18,7 +19,7 @@ import java.util.List;
  * The options which are used when a pull request merge is created. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitPullRequest {
+public class GitPullRequest extends BaseAbstractMethod {
 	/**
  	* Links to other related objects. 
 	**/
@@ -335,44 +336,4 @@ public class GitPullRequest {
 
 	public void setWorkItemRefs(List<ResourceRef> workItemRefs) { this.workItemRefs = workItemRefs; }
 
-	@Override
-	public String toString() {
-		return "GitPullRequest{" +
-				"_links=" + _links +
-				", artifactId='" + artifactId + '\'' +
-				", autoCompleteSetBy=" + autoCompleteSetBy +
-				", closedBy=" + closedBy +
-				", closedDate='" + closedDate + '\'' +
-				", codeReviewId=" + codeReviewId +
-				", commits=" + commits +
-				", completionOptions=" + completionOptions +
-				", completionQueueTime='" + completionQueueTime + '\'' +
-				", createdBy=" + createdBy +
-				", creationDate='" + creationDate + '\'' +
-				", description='" + description + '\'' +
-				", forkSource=" + forkSource +
-				", hasMultipleMergeBases=" + hasMultipleMergeBases +
-				", isDraft=" + isDraft +
-				", labels=" + labels +
-				", lastMergeCommit=" + lastMergeCommit +
-				", lastMergeSourceCommit=" + lastMergeSourceCommit +
-				", lastMergeTargetCommit=" + lastMergeTargetCommit +
-				", mergeFailureMessage='" + mergeFailureMessage + '\'' +
-				", mergeFailureType=" + mergeFailureType +
-				", mergeId='" + mergeId + '\'' +
-				", mergeOptions=" + mergeOptions +
-				", mergeStatus=" + mergeStatus +
-				", pullRequestId=" + pullRequestId +
-				", remoteUrl='" + remoteUrl + '\'' +
-				", repository=" + repository +
-				", reviewers=" + reviewers +
-				", sourceRefName='" + sourceRefName + '\'' +
-				", status=" + status +
-				", supportsIterations=" + supportsIterations +
-				", targetRefName='" + targetRefName + '\'' +
-				", title='" + title + '\'' +
-				", url='" + url + '\'' +
-				", workItemRefs=" + workItemRefs +
-				'}';
-	}
 }

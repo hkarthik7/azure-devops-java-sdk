@@ -2,15 +2,15 @@ package org.azd.extensionmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
-import java.util.Arrays;
 import java.util.List;
 
 /***
  * Represents a VSTS extension along with its installation state
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class InstalledExtension {
+public class InstalledExtension extends BaseAbstractMethod {
     /***
      * Uri used as base for other relative uri's defined in extension
      */
@@ -313,32 +313,4 @@ public class InstalledExtension {
         this.version = version;
     }
 
-    @Override
-    public String toString() {
-        return "InstalledExtension{" +
-                "baseUri='" + baseUri + '\'' +
-                ", constraints=" + constraints +
-                ", contributionTypes=" + contributionTypes +
-                ", contributions=" + contributions +
-                ", demands=" + Arrays.toString(demands) +
-                ", eventCallbacks=" + eventCallbacks +
-                ", extensionId='" + extensionId + '\'' +
-                ", extensionName='" + extensionName + '\'' +
-                ", fallbackBaseUri='" + fallbackBaseUri + '\'' +
-                ", files=" + files +
-                ", flags=" + flags +
-                ", installState=" + installState +
-                ", language='" + language + '\'' +
-                ", lastPublished='" + lastPublished + '\'' +
-                ", licensing=" + licensing +
-                ", manifestVersion=" + manifestVersion +
-                ", publisherId='" + publisherId + '\'' +
-                ", publisherName='" + publisherName + '\'' +
-                ", registrationId='" + registrationId + '\'' +
-                ", restrictedTo=" + Arrays.toString(restrictedTo) +
-                ", scopes=" + Arrays.toString(scopes) +
-                ", serviceInstanceType='" + serviceInstanceType + '\'' +
-                ", version='" + version + '\'' +
-                '}';
-    }
 }

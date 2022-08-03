@@ -2,6 +2,7 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * The result of a work item query.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemQueryResult {
+public class WorkItemQueryResult extends BaseAbstractMethod {
     /***
      * The date the query was run in the context of.
      */
@@ -102,16 +103,4 @@ public class WorkItemQueryResult {
         this.workItems = workItems;
     }
 
-    @Override
-    public String toString() {
-        return "WorkItemQueryResult{" +
-                "asOf='" + asOf + '\'' +
-                ", columns=" + columns +
-                ", queryResultType='" + queryResultType + '\'' +
-                ", queryType='" + queryType + '\'' +
-                ", sortColumns=" + sortColumns +
-                ", workItemRelations=" + workItemRelations +
-                ", workItems=" + workItems +
-                '}';
-    }
 }

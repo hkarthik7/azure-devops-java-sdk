@@ -7,6 +7,7 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  * Identity information including a vote on a pull request.
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class IdentityRefWithVote {
+public class IdentityRefWithVote extends BaseAbstractMethod {
 	/**
 	 * This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
 	 **/
@@ -183,28 +184,4 @@ public class IdentityRefWithVote {
 
 	public void setVotedFor(List<IdentityRefWithVote> votedFor) { this.votedFor = votedFor; }
 
-	@Override
-	public String toString() {
-		return "IdentityRefWithVote{" +
-				"_links=" + _links +
-				", descriptor='" + descriptor + '\'' +
-				", directoryAlias='" + directoryAlias + '\'' +
-				", displayName='" + displayName + '\'' +
-				", hasDeclined=" + hasDeclined +
-				", id='" + id + '\'' +
-				", imageUrl='" + imageUrl + '\'' +
-				", inactive=" + inactive +
-				", isAadIdentity=" + isAadIdentity +
-				", isContainer=" + isContainer +
-				", isDeletedInOrigin=" + isDeletedInOrigin +
-				", isFlagged=" + isFlagged +
-				", isRequired=" + isRequired +
-				", profileUrl='" + profileUrl + '\'' +
-				", reviewerUrl='" + reviewerUrl + '\'' +
-				", uniqueName='" + uniqueName + '\'' +
-				", url='" + url + '\'' +
-				", vote=" + vote +
-				", votedFor=" + votedFor +
-				'}';
-	}
 }

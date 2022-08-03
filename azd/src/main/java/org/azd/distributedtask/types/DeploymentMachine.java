@@ -3,14 +3,13 @@ package org.azd.distributedtask.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
-
-import java.util.Arrays;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Deployment target.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DeploymentMachine {
+public class DeploymentMachine extends BaseAbstractMethod {
     /***
      *
      * Deployment agent.
@@ -65,13 +64,4 @@ public class DeploymentMachine {
         this.tags = tags;
     }
 
-    @Override
-    public String toString() {
-        return "DeploymentMachine{" +
-                "agent=" + agent +
-                ", id=" + id +
-                ", properties=" + properties +
-                ", tags=" + Arrays.toString(tags) +
-                '}';
-    }
 }

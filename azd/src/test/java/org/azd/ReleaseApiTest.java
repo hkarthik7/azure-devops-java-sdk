@@ -1,8 +1,6 @@
 package org.azd;
 
-import org.azd.enums.EnvironmentStatus;
 import org.azd.enums.ReleaseApprovalStatus;
-import org.azd.enums.ReleaseStatus;
 import org.azd.enums.SingleReleaseExpands;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;

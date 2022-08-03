@@ -2,6 +2,7 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * List of work item types
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemTypes {
+public class WorkItemTypes extends BaseAbstractMethod {
     /***
      * List of work item types
      */
@@ -24,10 +25,4 @@ public class WorkItemTypes {
         this.workItemTypes = workItemTypes;
     }
 
-    @Override
-    public String toString() {
-        return "WorkItemTypes{" +
-                "workItemTypes=" + workItemTypes +
-                '}';
-    }
 }

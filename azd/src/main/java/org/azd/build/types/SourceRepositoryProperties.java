@@ -2,9 +2,10 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SourceRepositoryProperties {
+public class SourceRepositoryProperties extends BaseAbstractMethod {
     @JsonProperty("apiUrl")
     private String apiUrl;
     @JsonProperty("branchesUrl")
@@ -216,30 +217,4 @@ public class SourceRepositoryProperties {
         this.ownerIsAUser = ownerIsAUser;
     }
 
-    @Override
-    public String toString() {
-        return "SourceRepositoryProperties{" +
-                "apiUrl='" + apiUrl + '\'' +
-                ", branchesUrl='" + branchesUrl + '\'' +
-                ", cloneUrl='" + cloneUrl + '\'' +
-                ", connectedServiceId='" + connectedServiceId + '\'' +
-                ", defaultBranch='" + defaultBranch + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", hasAdminPermissions=" + hasAdminPermissions +
-                ", isFork=" + isFork +
-                ", isPrivate=" + isPrivate +
-                ", lastUpdated='" + lastUpdated + '\'' +
-                ", manageUrl='" + manageUrl + '\'' +
-                ", nodeId='" + nodeId + '\'' +
-                ", ownerId='" + ownerId + '\'' +
-                ", orgName='" + orgName + '\'' +
-                ", refsUrl='" + refsUrl + '\'' +
-                ", safeRepository='" + safeRepository + '\'' +
-                ", shortName='" + shortName + '\'' +
-                ", ownerAvatarUrl='" + ownerAvatarUrl + '\'' +
-                ", archived=" + archived +
-                ", externalId='" + externalId + '\'' +
-                ", ownerIsAUser=" + ownerIsAUser +
-                '}';
-    }
 }

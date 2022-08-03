@@ -2,6 +2,7 @@ package org.azd.feedmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * Array of feed views
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class FeedViews {
+public class FeedViews extends BaseAbstractMethod {
     /***
      * Array of feed views
      */
@@ -24,10 +25,4 @@ public class FeedViews {
         this.value = feedView;
     }
 
-    @Override
-    public String toString() {
-        return "FeedViews{" +
-                "FeedView=" + value +
-                '}';
-    }
 }

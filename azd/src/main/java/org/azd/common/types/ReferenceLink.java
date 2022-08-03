@@ -7,19 +7,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Common class to represent self reference link
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReferenceLink {
+public class ReferenceLink extends BaseAbstractMethod {
     /***
      * Common class to represent self reference link
      */
     @JsonProperty("self")
     private Reference self;
 
-    @Override
-    public String toString() {
-        return "ReferenceLink{" +
-                "self=" + self +
-                '}';
-    }
 
     public Reference getSelf() {
         return self;

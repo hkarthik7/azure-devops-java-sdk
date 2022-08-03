@@ -2,12 +2,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Represents a build log.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildLog {
+public class BuildLog extends BaseAbstractMethod {
     /***
      * The number of lines in the log.
      */
@@ -88,17 +89,6 @@ public class BuildLog {
     }
 
 
-    @Override
-    public String toString() {
-        return "BuildLog{" +
-                "lineCount=" + lineCount +
-                ", createdOn='" + createdOn + '\'' +
-                ", lastChangedOn='" + lastChangedOn + '\'' +
-                ", id=" + id +
-                ", type='" + type + '\'' +
-                ", url='" + url + '\'' +
-                '}';
-    }
 
 
 }

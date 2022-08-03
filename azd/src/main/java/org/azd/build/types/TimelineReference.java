@@ -2,12 +2,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Represents a reference to a timeline.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TimelineReference {
+public class TimelineReference extends BaseAbstractMethod {
     /**
      * The change ID.
      */
@@ -48,12 +49,4 @@ public class TimelineReference {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "TimelineReference{" +
-                "changeId=" + changeId +
-                ", id='" + id + '\'' +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

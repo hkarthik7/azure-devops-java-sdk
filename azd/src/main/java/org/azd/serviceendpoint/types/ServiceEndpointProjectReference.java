@@ -2,13 +2,14 @@ package org.azd.serviceendpoint.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.release.types.ProjectReference;
 
 /***
  * Reference to a project
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ServiceEndpointProjectReference {
+public class ServiceEndpointProjectReference extends BaseAbstractMethod {
     /***
      * Gets or sets description of the service endpoint.
      */
@@ -49,12 +50,4 @@ public class ServiceEndpointProjectReference {
         this.projectReference = projectReference;
     }
 
-    @Override
-    public String toString() {
-        return "ServiceEndpointProjectReferences{" +
-                "description='" + description + '\'' +
-                ", name='" + name + '\'' +
-                ", projectReference=" + projectReference +
-                '}';
-    }
 }

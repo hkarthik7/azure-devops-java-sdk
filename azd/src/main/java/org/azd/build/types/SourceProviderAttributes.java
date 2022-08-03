@@ -2,6 +2,7 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * Represents an array of SourceProviderAttribute
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SourceProviderAttributes {
+public class SourceProviderAttributes extends BaseAbstractMethod {
     /**
      * Represents an array of SourceProviderAttribute
      */
@@ -24,10 +25,4 @@ public class SourceProviderAttributes {
         this.sourceProviderAttributes = sourceProviderAttributes;
     }
 
-    @Override
-    public String toString() {
-        return "SourceProviderAttributes{" +
-                "sourceProviderAttributes=" + sourceProviderAttributes +
-                '}';
-    }
 }

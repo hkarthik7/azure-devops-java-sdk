@@ -7,6 +7,7 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  * Represents a repository used by a build definition. 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildProcess {
+public class BuildProcess extends BaseAbstractMethod {
     /**
      * An array of phases which included the steps/tasks of a definition.
      */
@@ -55,12 +56,4 @@ public class BuildProcess {
         this.target = target;
     }
 
-    @Override
-    public String toString() {
-        return "BuildProcess{" +
-                "phases=" + phases +
-                ", target=" + target +
-                ", type=" + type +
-                '}';
-    }
 }

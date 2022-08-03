@@ -7,12 +7,13 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ResourceRef {
+public class ResourceRef extends BaseAbstractMethod {
 
 	@JsonProperty("id")
 	private String id;
@@ -28,11 +29,4 @@ public class ResourceRef {
 
 	public void setUrl(String url) { this.url = url; }
 
-	@Override
-	public String toString() {
-		return "ResourceRef{" +
-				"id='" + id + '\'' +
-				", url='" + url + '\'' +
-				'}';
-	}
 }

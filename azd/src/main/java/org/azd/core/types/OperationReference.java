@@ -2,12 +2,13 @@ package org.azd.core.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Reference for an async operation.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class OperationReference {
+public class OperationReference extends BaseAbstractMethod {
     /***
      * Unique identifier for the operation.
      */
@@ -48,12 +49,4 @@ public class OperationReference {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "OperationReference{" +
-                "id='" + id + '\'' +
-                ", status='" + status + '\'' +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

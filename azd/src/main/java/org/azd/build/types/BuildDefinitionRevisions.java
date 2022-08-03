@@ -2,6 +2,7 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * List of build definition revisions
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildDefinitionRevisions {
+public class BuildDefinitionRevisions extends BaseAbstractMethod {
     /***
      * List of build revisions
      */
@@ -24,10 +25,4 @@ public class BuildDefinitionRevisions {
         this.buildDefinitionRevisions = value;
     }
 
-    @Override
-    public String toString() {
-        return "BuildDefinitionRevisions{" +
-                "value=" + buildDefinitionRevisions +
-                '}';
-    }
 }

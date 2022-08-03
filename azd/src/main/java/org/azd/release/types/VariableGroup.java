@@ -8,6 +8,7 @@ package org.azd.release.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.distributedtask.types.VariableGroupProviderData;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.Map;
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class VariableGroup {
+public class VariableGroup extends BaseAbstractMethod {
 	/**
  	* Gets or sets the identity who created. 
 	**/
@@ -127,21 +128,4 @@ public class VariableGroup {
 
 	public void setVariables(Map<String, VariableValue> variables) { this.variables = variables; }
 
-	@Override
-	public String toString() { 
-	return 	"VariableGroup{" +
-		"createdBy='" + createdBy + '\'' +
-		",createdOn='" + createdOn + '\'' +
-		",description='" + description + '\'' +
-		",id='" + id + '\'' +
-		",isShared='" + isShared + '\'' +
-		",modifiedBy='" + modifiedBy + '\'' +
-		",modifiedOn='" + modifiedOn + '\'' +
-		",name='" + name + '\'' +
-		",providerData='" + providerData + '\'' +
-		",type='" + type + '\'' +
-		",variableGroupProjectReferences='" + variableGroupProjectReferences + '\'' +
-		",variables='" + variables + '\'' +
-		'}';
-	}
 }

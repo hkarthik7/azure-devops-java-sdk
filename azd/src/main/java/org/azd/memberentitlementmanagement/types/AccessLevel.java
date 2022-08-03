@@ -2,12 +2,13 @@ package org.azd.memberentitlementmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * License assigned to a user
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AccessLevel {
+public class AccessLevel extends BaseAbstractMethod {
     /***
      * Type of Account License (e.g. Express, Stakeholder etc.)
      */
@@ -100,16 +101,4 @@ public class AccessLevel {
         this.statusMessage = statusMessage;
     }
 
-    @Override
-    public String toString() {
-        return "AccessLevel{" +
-                "accountLicenseType='" + accountLicenseType + '\'' +
-                ", assignmentSource='" + assignmentSource + '\'' +
-                ", licenseDisplayName='" + licenseDisplayName + '\'' +
-                ", licensingSource='" + licensingSource + '\'' +
-                ", msdnLicenseType='" + msdnLicenseType + '\'' +
-                ", status='" + status + '\'' +
-                ", statusMessage='" + statusMessage + '\'' +
-                '}';
-    }
 }

@@ -7,12 +7,13 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ProjectReference {
+public class ProjectReference extends BaseAbstractMethod {
 	/**
  	* Gets the unique identifier of this field. 
 	**/
@@ -32,11 +33,4 @@ public class ProjectReference {
 
 	public void setName(String name) { this.name = name; }
 
-	@Override
-	public String toString() { 
-	return 	"ProjectReference{" +
-		"id='" + id + '\'' +
-		",name='" + name + '\'' +
-		'}';
-	}
 }

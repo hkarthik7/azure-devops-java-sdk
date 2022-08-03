@@ -2,12 +2,13 @@ package org.azd.core.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * A named value associated with a project.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ProjectProperty {
+public class ProjectProperty extends BaseAbstractMethod {
     /***
      * The name of the property.
      */
@@ -19,13 +20,6 @@ public class ProjectProperty {
     @JsonProperty("value")
     private Object value;
 
-    @Override
-    public String toString() {
-        return "ProjectProperty{" +
-                "name='" + name + '\'' +
-                ", value='" + value + '\'' +
-                '}';
-    }
 
     public String getName() {
         return name;

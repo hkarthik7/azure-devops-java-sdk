@@ -3,6 +3,7 @@ package org.azd.wiki.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * Defines a wiki resource.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WikiV2 {
+public class WikiV2 extends BaseAbstractMethod {
     /***
      * ID of the wiki.
      */
@@ -142,19 +143,4 @@ public class WikiV2 {
         this.versions = versions;
     }
 
-    @Override
-    public String toString() {
-        return "WikiV2{" +
-                "id='" + id + '\'' +
-                ", mappedPath='" + mappedPath + '\'' +
-                ", name='" + name + '\'' +
-                ", projectId='" + projectId + '\'' +
-                ", properties=" + properties +
-                ", remoteUrl='" + remoteUrl + '\'' +
-                ", repositoryId='" + repositoryId + '\'' +
-                ", type='" + type + '\'' +
-                ", url='" + url + '\'' +
-                ", versions=" + versions +
-                '}';
-    }
 }

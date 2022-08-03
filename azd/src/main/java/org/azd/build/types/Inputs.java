@@ -2,12 +2,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Represents build options input
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Inputs {
+public class Inputs extends BaseAbstractMethod {
     /***
      * Branch filters
      */
@@ -48,12 +49,4 @@ public class Inputs {
         this.assignToRequestor = assignToRequestor;
     }
 
-    @Override
-    public String toString() {
-        return "Inputs{" +
-                "branchFilters='" + branchFilters + '\'' +
-                ", workItemType='" + workItemType + '\'' +
-                ", assignToRequestor='" + assignToRequestor + '\'' +
-                '}';
-    }
 }

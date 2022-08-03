@@ -7,6 +7,7 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  * Status of release gates. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DeploymentJob {
+public class DeploymentJob extends BaseAbstractMethod {
 	/**
  	* Parent task of all executed tasks. 
 	**/
@@ -34,11 +35,4 @@ public class DeploymentJob {
 
 	public void setTasks(List<ReleaseTask> tasks) { this.tasks = tasks; }
 
-	@Override
-	public String toString() { 
-	return 	"DeploymentJob{" +
-		"job='" + job + '\'' +
-		",tasks='" + tasks + '\'' +
-		'}';
-	}
 }

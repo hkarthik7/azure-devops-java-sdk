@@ -8,12 +8,13 @@ package org.azd.workitemtracking.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Represents Work Item Recent Activity 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AccountRecentActivityWorkItemModel2 {
+public class AccountRecentActivityWorkItemModel2 extends BaseAbstractMethod {
     /**
      * Date of the last Activity by the user
      **/
@@ -145,19 +146,4 @@ public class AccountRecentActivityWorkItemModel2 {
         this.workItemType = workItemType;
     }
 
-    @Override
-    public String toString() {
-        return "AccountRecentActivityWorkItemModel2{" +
-                "activityDate='" + activityDate + '\'' +
-                ", activityType='" + activityType + '\'' +
-                ", assignedTo=" + assignedTo +
-                ", changedDate='" + changedDate + '\'' +
-                ", id=" + id +
-                ", identityId='" + identityId + '\'' +
-                ", state='" + state + '\'' +
-                ", teamProject='" + teamProject + '\'' +
-                ", title='" + title + '\'' +
-                ", workItemType='" + workItemType + '\'' +
-                '}';
-    }
 }

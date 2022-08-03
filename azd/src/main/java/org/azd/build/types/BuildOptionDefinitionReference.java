@@ -7,12 +7,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * The reason that the build was created. 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildOptionDefinitionReference {
+public class BuildOptionDefinitionReference extends BaseAbstractMethod {
     /**
      * The ID of the referenced build option.
      **/
@@ -27,10 +28,4 @@ public class BuildOptionDefinitionReference {
         this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "BuildOptionDefinitionReference{" +
-                "id='" + id + '\'' +
-                '}';
-    }
 }

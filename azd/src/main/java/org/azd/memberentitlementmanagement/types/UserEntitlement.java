@@ -2,6 +2,7 @@ package org.azd.memberentitlementmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.graph.types.GraphUser;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  * A user entity with additional properties including their license, extensions, and project membership
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserEntitlement {
+public class UserEntitlement extends BaseAbstractMethod {
     /***
      * User's access level denoted by a license.
      */
@@ -103,16 +104,4 @@ public class UserEntitlement {
         this.user = user;
     }
 
-    @Override
-    public String toString() {
-        return "UserEntitlement{" +
-                "accessLevel=" + accessLevel +
-                ", dateCreated='" + dateCreated + '\'' +
-                ", groupAssignments=" + groupAssignments +
-                ", id='" + id + '\'' +
-                ", lastAccessedDate='" + lastAccessedDate + '\'' +
-                ", projectEntitlements=" + projectEntitlements +
-                ", user=" + user +
-                '}';
-    }
 }

@@ -2,6 +2,7 @@ package org.azd.pipelines.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * A collection of logs.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class LogCollection {
+public class LogCollection extends BaseAbstractMethod {
     /***
      * The list of logs.
      */
@@ -50,12 +51,4 @@ public class LogCollection {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "LogCollection{" +
-                "logs=" + logs +
-                ", signedContent=" + signedContent +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

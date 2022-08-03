@@ -2,12 +2,13 @@ package org.azd.work.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Represents a shallow ref for a single iteration.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TeamSettingsIteration {
+public class TeamSettingsIteration extends BaseAbstractMethod {
     /***
      * Id of the iteration.
      */
@@ -34,16 +35,6 @@ public class TeamSettingsIteration {
     @JsonProperty("url")
     private String url;
 
-    @Override
-    public String toString() {
-        return "TeamSettingsIteration{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", path='" + path + '\'' +
-                ", attributes=" + attributes +
-                ", url='" + url + '\'' +
-                '}';
-    }
 
     public TeamIterationAttributes getAttributes() {
         return attributes;

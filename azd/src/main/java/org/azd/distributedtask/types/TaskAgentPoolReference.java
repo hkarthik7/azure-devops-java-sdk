@@ -7,6 +7,7 @@ package org.azd.distributedtask.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.TaskAgentPoolOptions;
 import org.azd.enums.TaskAgentPoolType;
 
@@ -14,7 +15,7 @@ import org.azd.enums.TaskAgentPoolType;
  * Details about an agent update.
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TaskAgentPoolReference {
+public class TaskAgentPoolReference extends BaseAbstractMethod {
 	@JsonProperty("id")
 	private int id;
 	/**
@@ -81,17 +82,4 @@ public class TaskAgentPoolReference {
 
 	public void setSize(int size) { this.size = size; }
 
-	@Override
-	public String toString() {
-		return "TaskAgentPoolReference{" +
-				"id=" + id +
-				", isHosted=" + isHosted +
-				", isLegacy=" + isLegacy +
-				", name='" + name + '\'' +
-				", options=" + options +
-				", poolType=" + poolType +
-				", scope='" + scope + '\'' +
-				", size=" + size +
-				'}';
-	}
 }

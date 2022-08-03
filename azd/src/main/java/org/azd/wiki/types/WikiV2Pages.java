@@ -2,6 +2,7 @@ package org.azd.wiki.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * List of wiki pages
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WikiV2Pages {
+public class WikiV2Pages extends BaseAbstractMethod {
     /***
      * List of wiki pages
      */
@@ -24,10 +25,4 @@ public class WikiV2Pages {
         this.wikiPages = wikiPages;
     }
 
-    @Override
-    public String toString() {
-        return "WikiV2s{" +
-                "wikiPages=" + wikiPages +
-                '}';
-    }
 }

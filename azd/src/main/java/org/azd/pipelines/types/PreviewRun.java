@@ -2,12 +2,13 @@ package org.azd.pipelines.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Preview run result. Final YAML result
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PreviewRun {
+public class PreviewRun extends BaseAbstractMethod {
     /***
      * Final YAML string
      */
@@ -22,10 +23,4 @@ public class PreviewRun {
         this.finalYaml = finalYaml;
     }
 
-    @Override
-    public String toString() {
-        return "PreviewRun{" +
-                "finalYaml='" + finalYaml + '\'' +
-                '}';
-    }
 }

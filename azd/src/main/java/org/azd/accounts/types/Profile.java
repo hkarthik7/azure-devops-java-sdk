@@ -2,12 +2,13 @@ package org.azd.accounts.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * A user profile.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Profile {
+public class Profile extends BaseAbstractMethod {
     /***
      * User display name
      */
@@ -100,16 +101,4 @@ public class Profile {
         this.revision = revision;
     }
 
-    @Override
-    public String toString() {
-        return "Profile{" +
-                "displayName='" + displayName + '\'' +
-                ", publicAlias='" + publicAlias + '\'' +
-                ", emailAddress='" + emailAddress + '\'' +
-                ", coreRevision=" + coreRevision +
-                ", timeStamp='" + timeStamp + '\'' +
-                ", id='" + id + '\'' +
-                ", revision=" + revision +
-                '}';
-    }
 }

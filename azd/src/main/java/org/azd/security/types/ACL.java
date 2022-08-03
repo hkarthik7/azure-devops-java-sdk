@@ -2,6 +2,7 @@ package org.azd.security.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.Map;
 
@@ -9,7 +10,7 @@ import java.util.Map;
  * Access Control List entry
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ACL {
+public class ACL extends BaseAbstractMethod {
     /***
      * inherits permissions
      */
@@ -51,12 +52,4 @@ public class ACL {
         this.acesDictionary = acesDictionary;
     }
 
-    @Override
-    public String toString() {
-        return "ACL{" +
-                "inheritPermissions=" + inheritPermissions +
-                ", token='" + token + '\'' +
-                ", acesDictionary=" + acesDictionary +
-                '}';
-    }
 }

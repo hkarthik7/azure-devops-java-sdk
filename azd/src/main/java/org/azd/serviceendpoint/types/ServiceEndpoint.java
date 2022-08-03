@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.azd.common.types.Author;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * Represents an endpoint which may be used by an orchestration job.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ServiceEndpoint {
+public class ServiceEndpoint extends BaseAbstractMethod {
     /***
      * Gets or sets the authorization data for talking to the endpoint.
      */
@@ -192,24 +193,5 @@ public class ServiceEndpoint {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "ServiceEndpoint{" +
-                ", authorization=" + authorization +
-                ", createdBy=" + createdBy +
-                ", data=" + data +
-                ", description='" + description + '\'' +
-                ", id='" + id + '\'' +
-                ", isReady=" + isReady +
-                ", isShared=" + isShared +
-                ", name='" + name + '\'' +
-                ", operationStatus=" + operationStatus +
-                ", owner='" + owner + '\'' +
-                ", readersGroup=" + readersGroup +
-                ", serviceEndpointProjectReferences=" + serviceEndpointProjectReferences +
-                ", type='" + type + '\'' +
-                ", url='" + url + '\'' +
-                '}';
-    }
 
 }

@@ -2,12 +2,13 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Reference to a work item icon.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemIcon {
+public class WorkItemIcon extends BaseAbstractMethod {
     /***
      * The identifier of the icon.
      */
@@ -35,11 +36,4 @@ public class WorkItemIcon {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "WorkItemIcon{" +
-                "id='" + id + '\'' +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

@@ -1,8 +1,10 @@
 package org.azd.servicehooks.types;
 
+import org.azd.common.types.BaseAbstractMethod;
+
 import java.util.Map;
 
-public class ServiceHooks {
+public class ServiceHooks extends BaseAbstractMethod {
     private String publisherId;
     private String eventType;
     private String resourceVersion;

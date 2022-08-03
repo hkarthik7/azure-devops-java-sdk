@@ -3,15 +3,15 @@ package org.azd.extensionmanagement.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.azd.common.types.BaseAbstractMethod;
 
-import java.util.Arrays;
 import java.util.List;
 
 /***
  * An individual contribution made by an extension
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Contribution {
+public class Contribution extends BaseAbstractMethod {
     /***
      * List of constraints (filters) that should be applied to the availability of this contribution
      */
@@ -133,18 +133,4 @@ public class Contribution {
         this.visibleTo = visibleTo;
     }
 
-    @Override
-    public String toString() {
-        return "Contribution{" +
-                "constraints=" + constraints +
-                ", description='" + description + '\'' +
-                ", id='" + id + '\'' +
-                ", includes=" + Arrays.toString(includes) +
-                ", properties=" + properties +
-                ", restrictedTo=" + Arrays.toString(restrictedTo) +
-                ", targets=" + Arrays.toString(targets) +
-                ", type='" + type + '\'' +
-                ", visibleTo=" + Arrays.toString(visibleTo) +
-                '}';
-    }
 }

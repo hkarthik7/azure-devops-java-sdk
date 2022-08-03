@@ -7,12 +7,13 @@ package org.azd.distributedtask.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Represents the public key portion of an RSA asymmetric key. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TaskAgentCloudRequest {
+public class TaskAgentCloudRequest extends BaseAbstractMethod {
 	/**
  	* A reference to an agent. 
 	**/
@@ -90,19 +91,4 @@ public class TaskAgentCloudRequest {
 
 	public void setRequestId(String requestId) { this.requestId = requestId; }
 
-	@Override
-	public String toString() {
-		return "TaskAgentCloudRequest{" +
-				"agent=" + agent +
-				", agentCloudId=" + agentCloudId +
-				", agentConnectedTime='" + agentConnectedTime + '\'' +
-				", agentData=" + agentData +
-				", agentSpecification=" + agentSpecification +
-				", pool=" + pool +
-				", provisionRequestTime='" + provisionRequestTime + '\'' +
-				", provisionedTime='" + provisionedTime + '\'' +
-				", releaseRequestTime='" + releaseRequestTime + '\'' +
-				", requestId='" + requestId + '\'' +
-				'}';
-	}
 }

@@ -7,12 +7,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * The build status. 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildRequestValidationResult {
+public class BuildRequestValidationResult extends BaseAbstractMethod {
     /**
      * The message associated with the result.
      **/
@@ -40,11 +41,4 @@ public class BuildRequestValidationResult {
         this.result = result;
     }
 
-    @Override
-    public String toString() {
-        return "BuildRequestValidationResult{" +
-                "message='" + message + '\'' +
-                ", result=" + result +
-                '}';
-    }
 }

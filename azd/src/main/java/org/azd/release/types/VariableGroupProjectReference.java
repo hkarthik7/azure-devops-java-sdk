@@ -7,12 +7,13 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class VariableGroupProjectReference {
+public class VariableGroupProjectReference extends BaseAbstractMethod {
 	/**
  	* Gets or sets description of the variable group. 
 	**/
@@ -41,12 +42,4 @@ public class VariableGroupProjectReference {
 
 	public void setProjectReference(ProjectReference projectReference) { this.projectReference = projectReference; }
 
-	@Override
-	public String toString() { 
-	return 	"VariableGroupProjectReference{" +
-		"description='" + description + '\'' +
-		",name='" + name + '\'' +
-		",projectReference='" + projectReference + '\'' +
-		'}';
-	}
 }

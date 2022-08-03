@@ -2,12 +2,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Represents a definition steps
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Steps {
+public class Steps extends BaseAbstractMethod {
     /**
      * Represents an environment
      */
@@ -132,19 +133,4 @@ public class Steps {
         this.inputs = inputs;
     }
 
-    @Override
-    public String toString() {
-        return "Steps{" +
-                "environment=" + environment +
-                ", inputs=" + inputs +
-                ", enabled=" + enabled +
-                ", continueOnError=" + continueOnError +
-                ", alwaysRun=" + alwaysRun +
-                ", displayName='" + displayName + '\'' +
-                ", timeoutInMinutes=" + timeoutInMinutes +
-                ", retryCountOnTaskFailure=" + retryCountOnTaskFailure +
-                ", condition='" + condition + '\'' +
-                ", task=" + task +
-                '}';
-    }
 }

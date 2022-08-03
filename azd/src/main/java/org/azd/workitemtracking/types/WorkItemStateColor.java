@@ -2,12 +2,13 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Work item type state name, color and state category
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemStateColor {
+public class WorkItemStateColor extends BaseAbstractMethod {
     /***
      * Category of state
      */
@@ -48,12 +49,4 @@ public class WorkItemStateColor {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "WorkItemStateColor{" +
-                "category='" + category + '\'' +
-                ", color='" + color + '\'' +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }

@@ -7,12 +7,13 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TaskInputDefinitionBase {
+public class TaskInputDefinitionBase extends BaseAbstractMethod {
 
 	@JsonProperty("aliases")
 	private String[] aliases;
@@ -98,21 +99,4 @@ public class TaskInputDefinitionBase {
 
 	public void setVisibleRule(String visibleRule) { this.visibleRule = visibleRule; }
 
-	@Override
-	public String toString() { 
-	return 	"TaskInputDefinitionBase{" +
-		"aliases='" + aliases + '\'' +
-		",defaultValue='" + defaultValue + '\'' +
-		",groupName='" + groupName + '\'' +
-		",helpMarkDown='" + helpMarkDown + '\'' +
-		",label='" + label + '\'' +
-		",name='" + name + '\'' +
-		",options='" + options + '\'' +
-		",properties='" + properties + '\'' +
-		",required='" + required + '\'' +
-		",type='" + type + '\'' +
-		",validation='" + validation + '\'' +
-		",visibleRule='" + visibleRule + '\'' +
-		'}';
-	}
 }

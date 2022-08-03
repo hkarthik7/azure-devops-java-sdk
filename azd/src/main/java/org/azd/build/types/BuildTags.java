@@ -2,11 +2,10 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.Arrays;
+import org.azd.common.types.BaseAbstractMethod;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildTags {
+public class BuildTags extends BaseAbstractMethod {
     @JsonProperty("value")
     private String[] tags;
 
@@ -18,10 +17,4 @@ public class BuildTags {
         this.tags = tags;
     }
 
-    @Override
-    public String toString() {
-        return "BuildTags{" +
-                "tags=" + Arrays.toString(tags) +
-                '}';
-    }
 }

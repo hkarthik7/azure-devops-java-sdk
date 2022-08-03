@@ -3,12 +3,13 @@ package org.azd.build.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Represents a repository's webhook returned from a source provider.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class RepositoryWebhook {
+public class RepositoryWebhook extends BaseAbstractMethod {
     /**
      * The friendly name of the repository.
      */
@@ -49,12 +50,4 @@ public class RepositoryWebhook {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "RepositoryWebhook{" +
-                "name='" + name + '\'' +
-                ", types=" + types +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

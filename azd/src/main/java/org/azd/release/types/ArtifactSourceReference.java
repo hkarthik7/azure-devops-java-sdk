@@ -7,12 +7,13 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Indicates the deploy phase type. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ArtifactSourceReference {
+public class ArtifactSourceReference extends BaseAbstractMethod {
 	/**
  	* ID of the artifact source. 
 	**/
@@ -32,11 +33,4 @@ public class ArtifactSourceReference {
 
 	public void setName(String name) { this.name = name; }
 
-	@Override
-	public String toString() { 
-	return 	"ArtifactSourceReference{" +
-		"id='" + id + '\'' +
-		",name='" + name + '\'' +
-		'}';
-	}
 }

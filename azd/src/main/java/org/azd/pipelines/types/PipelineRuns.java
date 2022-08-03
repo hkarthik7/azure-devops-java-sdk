@@ -2,6 +2,7 @@ package org.azd.pipelines.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * List of Run object
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PipelineRuns {
+public class PipelineRuns extends BaseAbstractMethod {
     /***
      * List of Run object
      */
@@ -24,10 +25,4 @@ public class PipelineRuns {
         this.pipelineRuns = pipelineRuns;
     }
 
-    @Override
-    public String toString() {
-        return "PipelineRuns{" +
-                "pipelineRuns='" + pipelineRuns + '\'' +
-                '}';
-    }
 }

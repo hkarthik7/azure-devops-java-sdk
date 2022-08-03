@@ -7,12 +7,13 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class EnvironmentOptions {
+public class EnvironmentOptions extends BaseAbstractMethod {
 	/**
  	* Gets and sets as the auto link workitems or not. 
 	**/
@@ -65,13 +66,4 @@ public class EnvironmentOptions {
 
 	public void setPullRequestDeploymentEnabled(boolean pullRequestDeploymentEnabled) { this.pullRequestDeploymentEnabled = pullRequestDeploymentEnabled; }
 
-	@Override
-	public String toString() { 
-	return 	"EnvironmentOptions{" +
-		"autoLinkWorkItems='" + autoLinkWorkItems + '\'' +
-		",badgeEnabled='" + badgeEnabled + '\'' +
-		",publishDeploymentStatus='" + publishDeploymentStatus + '\'' +
-		",pullRequestDeploymentEnabled='" + pullRequestDeploymentEnabled + '\'' +
-		'}';
-	}
 }

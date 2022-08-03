@@ -2,12 +2,13 @@ package org.azd.extensionmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Maps a contribution to a licensing behavior
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class LicensingOverride {
+public class LicensingOverride extends BaseAbstractMethod {
     /***
      * How the inclusion of this contribution should change based on licensing
      */
@@ -33,13 +34,5 @@ public class LicensingOverride {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    @Override
-    public String toString() {
-        return "LicensingOverride{" +
-                "behavior=" + behavior +
-                ", id='" + id + '\'' +
-                '}';
     }
 }

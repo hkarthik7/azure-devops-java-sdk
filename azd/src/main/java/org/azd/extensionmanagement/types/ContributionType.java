@@ -3,14 +3,13 @@ package org.azd.extensionmanagement.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
-
-import java.util.Arrays;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * A contribution type, given by a json schema
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ContributionType {
+public class ContributionType extends BaseAbstractMethod {
     /***
      * Description of the contribution/type
      */
@@ -93,15 +92,4 @@ public class ContributionType {
         this.visibleTo = visibleTo;
     }
 
-    @Override
-    public String toString() {
-        return "ContributionType{" +
-                "description='" + description + '\'' +
-                ", id='" + id + '\'' +
-                ", indexed=" + indexed +
-                ", name='" + name + '\'' +
-                ", properties=" + properties +
-                ", visibleTo=" + Arrays.toString(visibleTo) +
-                '}';
-    }
 }

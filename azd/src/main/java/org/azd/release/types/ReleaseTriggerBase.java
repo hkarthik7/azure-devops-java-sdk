@@ -7,13 +7,14 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.ReleaseTriggerType;
 
 /**
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReleaseTriggerBase {
+public class ReleaseTriggerBase extends BaseAbstractMethod {
 	/**
  	* Type of release trigger. 
 	**/
@@ -24,10 +25,4 @@ public class ReleaseTriggerBase {
 
 	public void setTriggerType(ReleaseTriggerType triggerType) { this.triggerType = triggerType; }
 
-	@Override
-	public String toString() { 
-	return 	"ReleaseTriggerBase{" +
-		"triggerType='" + triggerType + '\'' +
-		'}';
-	}
 }

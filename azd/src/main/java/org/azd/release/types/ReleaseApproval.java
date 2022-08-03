@@ -8,6 +8,7 @@ package org.azd.release.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.ApprovalStatus;
 import org.azd.enums.ApprovalType;
 
@@ -17,7 +18,7 @@ import java.util.List;
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReleaseApproval {
+public class ReleaseApproval extends BaseAbstractMethod {
 	/**
  	* Gets or sets the type of approval. 
 	**/
@@ -172,26 +173,4 @@ public class ReleaseApproval {
 
 	public void setUrl(String url) { this.url = url; }
 
-	@Override
-	public String toString() { 
-	return 	"ReleaseApproval{" +
-		"approvalType='" + approvalType + '\'' +
-		",approvedBy='" + approvedBy + '\'' +
-		",approver='" + approver + '\'' +
-		",attempt='" + attempt + '\'' +
-		",comments='" + comments + '\'' +
-		",createdOn='" + createdOn + '\'' +
-		",history='" + history + '\'' +
-		",id='" + id + '\'' +
-		",isAutomated='" + isAutomated + '\'' +
-		",modifiedOn='" + modifiedOn + '\'' +
-		",rank='" + rank + '\'' +
-		",release='" + release + '\'' +
-		",releaseDefinition='" + releaseDefinition + '\'' +
-		",releaseEnvironment='" + releaseEnvironment + '\'' +
-		",revision='" + revision + '\'' +
-		",status='" + status + '\'' +
-		",url='" + url + '\'' +
-		'}';
-	}
 }

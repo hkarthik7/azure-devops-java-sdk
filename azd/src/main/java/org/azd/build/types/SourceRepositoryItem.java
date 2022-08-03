@@ -2,12 +2,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Represents an item in a repository from a source provider.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SourceRepositoryItem {
+public class SourceRepositoryItem extends BaseAbstractMethod {
     /**
      * Whether the item is able to have sub-items (e.g., is a folder).
      */
@@ -61,13 +62,4 @@ public class SourceRepositoryItem {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "SourceRepositoryItem{" +
-                "isContainer=" + isContainer +
-                ", path='" + path + '\'' +
-                ", type='" + type + '\'' +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

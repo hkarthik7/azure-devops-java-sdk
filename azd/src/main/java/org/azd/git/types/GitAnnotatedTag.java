@@ -7,12 +7,13 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * A Git annotated tag. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitAnnotatedTag {
+public class GitAnnotatedTag extends BaseAbstractMethod {
 	/**
  	* The tagging Message 
 	**/
@@ -66,15 +67,4 @@ public class GitAnnotatedTag {
 
 	public void setUrl(String url) { this.url = url; }
 
-	@Override
-	public String toString() {
-		return "GitAnnotatedTag{" +
-				"message='" + message + '\'' +
-				", name='" + name + '\'' +
-				", objectId='" + objectId + '\'' +
-				", taggedBy=" + taggedBy +
-				", taggedObject=" + taggedObject +
-				", url='" + url + '\'' +
-				'}';
-	}
 }

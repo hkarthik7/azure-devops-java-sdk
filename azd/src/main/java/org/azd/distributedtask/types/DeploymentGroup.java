@@ -2,16 +2,16 @@ package org.azd.distributedtask.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.release.types.ProjectReference;
 
-import java.util.Arrays;
 import java.util.List;
 
 /***
  * Deployment group.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DeploymentGroup {
+public class DeploymentGroup extends BaseAbstractMethod {
     /***
      * Description of the deployment group.
      */
@@ -117,17 +117,4 @@ public class DeploymentGroup {
         this.project = project;
     }
 
-    @Override
-    public String toString() {
-        return "DeploymentGroup{" +
-                "description='" + description + '\'' +
-                ", id=" + id +
-                ", machineCount=" + machineCount +
-                ", machineTags=" + Arrays.toString(machineTags) +
-                ", machines=" + machines +
-                ", name='" + name + '\'' +
-                ", pool=" + pool +
-                ", project=" + project +
-                '}';
-    }
 }

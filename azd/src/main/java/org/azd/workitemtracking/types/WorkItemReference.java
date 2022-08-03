@@ -2,12 +2,13 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Contains reference to a work item.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemReference {
+public class WorkItemReference extends BaseAbstractMethod {
     /***
      * Work item ID.
      */
@@ -19,13 +20,6 @@ public class WorkItemReference {
     @JsonProperty("url")
     private String url;
 
-    @Override
-    public String toString() {
-        return "WorkItemReference{" +
-                "id=" + id +
-                ", url='" + url + '\'' +
-                '}';
-    }
 
     public int getId() {
         return id;

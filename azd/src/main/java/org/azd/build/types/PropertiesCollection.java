@@ -7,14 +7,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.Arrays;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Represents a retention policy for a build definition. 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PropertiesCollection {
+public class PropertiesCollection extends BaseAbstractMethod {
     /**
      * The count of properties in the collection.
      **/
@@ -66,13 +65,4 @@ public class PropertiesCollection {
         this.values = values;
     }
 
-    @Override
-    public String toString() {
-        return "PropertiesCollection{" +
-                "count=" + count +
-                ", item=" + item +
-                ", keys=" + Arrays.toString(keys) +
-                ", values=" + Arrays.toString(values) +
-                '}';
-    }
 }

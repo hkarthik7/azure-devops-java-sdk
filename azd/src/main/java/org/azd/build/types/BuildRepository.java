@@ -7,12 +7,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * The build result. 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildRepository {
+public class BuildRepository extends BaseAbstractMethod {
     /**
      * Indicates whether to checkout submodules.
      **/
@@ -129,18 +130,4 @@ public class BuildRepository {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "BuildRepository{" +
-                "checkoutSubmodules=" + checkoutSubmodules +
-                ", clean='" + clean + '\'' +
-                ", defaultBranch='" + defaultBranch + '\'' +
-                ", id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", properties=" + properties +
-                ", rootFolder='" + rootFolder + '\'' +
-                ", type='" + type + '\'' +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

@@ -2,12 +2,13 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Represents the committer to the repository
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Committer {
+public class Committer extends BaseAbstractMethod {
     /***
      * Name of the committer
      */
@@ -24,14 +25,6 @@ public class Committer {
     @JsonProperty("date")
     private String date;
 
-    @Override
-    public String toString() {
-        return "Author{" +
-                "name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", date='" + date + '\'' +
-                '}';
-    }
 
     public String getName() {
         return name;

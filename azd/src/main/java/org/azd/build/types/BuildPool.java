@@ -2,12 +2,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Represents a reference to an agent pool.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildPool {
+public class BuildPool extends BaseAbstractMethod {
     /***
      * The pool ID.
      */
@@ -48,12 +49,4 @@ public class BuildPool {
         isHosted = hosted;
     }
 
-    @Override
-    public String toString() {
-        return "Pool{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", isHosted=" + isHosted +
-                '}';
-    }
 }

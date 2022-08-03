@@ -2,12 +2,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Represents any workitems associated with a build
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildWorkItem {
+public class BuildWorkItem extends BaseAbstractMethod {
     /***
      * Workitem Id
      */
@@ -19,13 +20,6 @@ public class BuildWorkItem {
     @JsonProperty("url")
     private String url;
 
-    @Override
-    public String toString() {
-        return "BuildWorkItem{" +
-                "id='" + id + '\'' +
-                ", url='" + url + '\'' +
-                '}';
-    }
 
     public String getId() {
         return id;

@@ -7,12 +7,13 @@ package org.azd.distributedtask.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Represents a JSON object. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Demand {
+public class Demand extends BaseAbstractMethod {
 
 	@JsonProperty("name")
 	private String name;
@@ -28,11 +29,4 @@ public class Demand {
 
 	public void setValue(String value) { this.value = value; }
 
-	@Override
-	public String toString() {
-		return "Demand{" +
-				"name='" + name + '\'' +
-				", value='" + value + '\'' +
-				'}';
-	}
 }

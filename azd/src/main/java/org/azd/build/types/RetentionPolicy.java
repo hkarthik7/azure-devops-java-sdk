@@ -7,14 +7,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.Arrays;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * The result. 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class RetentionPolicy {
+public class RetentionPolicy extends BaseAbstractMethod {
 
     @JsonProperty("artifactTypesToDelete")
     private String[] artifactTypesToDelete;
@@ -101,16 +100,4 @@ public class RetentionPolicy {
         this.minimumToKeep = minimumToKeep;
     }
 
-    @Override
-    public String toString() {
-        return "RetentionPolicy{" +
-                "artifactTypesToDelete=" + Arrays.toString(artifactTypesToDelete) +
-                ", artifacts=" + Arrays.toString(artifacts) +
-                ", branches=" + Arrays.toString(branches) +
-                ", daysToKeep=" + daysToKeep +
-                ", deleteBuildRecord=" + deleteBuildRecord +
-                ", deleteTestResults=" + deleteTestResults +
-                ", minimumToKeep=" + minimumToKeep +
-                '}';
-    }
 }

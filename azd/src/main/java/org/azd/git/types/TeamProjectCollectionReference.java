@@ -7,12 +7,13 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TeamProjectCollectionReference {
+public class TeamProjectCollectionReference extends BaseAbstractMethod {
 	/**
  	* Collection Id. 
 	**/
@@ -41,12 +42,4 @@ public class TeamProjectCollectionReference {
 
 	public void setUrl(String url) { this.url = url; }
 
-	@Override
-	public String toString() {
-		return "TeamProjectCollectionReference{" +
-				"id='" + id + '\'' +
-				", name='" + name + '\'' +
-				", url='" + url + '\'' +
-				'}';
-	}
 }

@@ -2,12 +2,13 @@ package org.azd.work.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Represents the team iteration attributes
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TeamIterationAttributes {
+public class TeamIterationAttributes extends BaseAbstractMethod {
     /***
      * Start date of the iteration. Date-only, correct unadjusted at midnight in UTC.
      */
@@ -24,14 +25,6 @@ public class TeamIterationAttributes {
     @JsonProperty("timeFrame")
     private String timeFrame;
 
-    @Override
-    public String toString() {
-        return "TeamIterationAttributes{" +
-                "startDate='" + startDate + '\'' +
-                ", finishDate='" + finishDate + '\'' +
-                ", timeFrame='" + timeFrame + '\'' +
-                '}';
-    }
 
     public String getStartDate() {
         return startDate;

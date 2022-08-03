@@ -2,6 +2,7 @@ package org.azd.work.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.common.types.ReferenceLinks;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  * Represents work items in an iteration backlog
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class IterationWorkItems {
+public class IterationWorkItems extends BaseAbstractMethod {
     /***
      * Work item relations
      */
@@ -51,12 +52,4 @@ public class IterationWorkItems {
         this._links = _links;
     }
 
-    @Override
-    public String toString() {
-        return "IterationWorkItems{" +
-                "workItemRelations=" + workItemRelations +
-                ", url='" + url + '\'' +
-                ", _links=" + _links +
-                '}';
-    }
 }

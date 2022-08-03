@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Represents all reference links commonly used across the services
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReferenceLinks {
+public class ReferenceLinks extends BaseAbstractMethod {
     /***
      * Service link
      */
@@ -104,30 +104,6 @@ public class ReferenceLinks {
     @JsonProperty("editor")
     private Reference editor;
 
-    @Override
-    public String toString() {
-        return "Object{" +
-                "self=" + self +
-                ", workItemUpdates=" + workItemUpdates +
-                ", workItemRevisions=" + workItemRevisions +
-                ", workItemComments=" + workItemComments +
-                ", html=" + html +
-                ", workItemType=" + workItemType +
-                ", fields=" + fields +
-                ", avatar=" + avatar +
-                ", project=" + project +
-                ", team=" + team +
-                ", teamIteration=" + teamIteration +
-                ", packages=" + packages +
-                ", permissions=" + permissions +
-                ", feed=" + feed +
-                ", sourceVersionDisplayUri=" + sourceVersionDisplayUri +
-                ", timeline=" + timeline +
-                ", badge=" + badge +
-                ", web=" + web +
-                ", editor=" + editor +
-                '}';
-    }
 
     public Reference getSourceVersionDisplayUri() {
         return sourceVersionDisplayUri;

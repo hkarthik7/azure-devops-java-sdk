@@ -2,9 +2,10 @@ package org.azd.core.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Capabilities {
+public class Capabilities extends BaseAbstractMethod {
     @JsonProperty("processTemplate")
     private ProcessTemplate processTemplate;
     @JsonProperty("versioncontrol")
@@ -26,11 +27,4 @@ public class Capabilities {
         this.versioncontrol = versioncontrol;
     }
 
-    @Override
-    public String toString() {
-        return "Capabilities{" +
-                "processTemplate=" + processTemplate +
-                ", versioncontrol=" + versioncontrol +
-                '}';
-    }
 }

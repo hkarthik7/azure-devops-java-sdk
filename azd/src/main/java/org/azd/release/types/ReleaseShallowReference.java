@@ -7,12 +7,13 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReleaseShallowReference {
+public class ReleaseShallowReference extends BaseAbstractMethod {
 	/**
  	* Gets the links to related resources, APIs, and views for the release. 
 	**/
@@ -50,13 +51,4 @@ public class ReleaseShallowReference {
 
 	public void setUrl(String url) { this.url = url; }
 
-	@Override
-	public String toString() { 
-	return 	"ReleaseShallowReference{" +
-		"_links='" + _links + '\'' +
-		",id='" + id + '\'' +
-		",name='" + name + '\'' +
-		",url='" + url + '\'' +
-		'}';
-	}
 }

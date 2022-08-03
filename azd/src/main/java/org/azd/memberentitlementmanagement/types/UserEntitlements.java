@@ -2,6 +2,7 @@ package org.azd.memberentitlementmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * List of user entitlement
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserEntitlements {
+public class UserEntitlements extends BaseAbstractMethod {
     /***
      * List of user entitlement
      */
@@ -24,10 +25,4 @@ public class UserEntitlements {
         this.userEntitlements = userEntitlements;
     }
 
-    @Override
-    public String toString() {
-        return "UserEntitlements{" +
-                "userEntitlements=" + userEntitlements +
-                '}';
-    }
 }

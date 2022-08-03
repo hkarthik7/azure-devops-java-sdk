@@ -2,12 +2,13 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * The sort columns of the query.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemQuerySortColumn {
+public class WorkItemQuerySortColumn extends BaseAbstractMethod {
     /***
      * The direction to sort by.
      */
@@ -35,11 +36,4 @@ public class WorkItemQuerySortColumn {
         this.field = field;
     }
 
-    @Override
-    public String toString() {
-        return "WorkItemQuerySortColumn{" +
-                "descending=" + descending +
-                ", field=" + field +
-                '}';
-    }
 }

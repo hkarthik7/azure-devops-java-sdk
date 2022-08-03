@@ -8,12 +8,13 @@ package org.azd.git.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * User info and date for Git operations. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitPushRef {
+public class GitPushRef extends BaseAbstractMethod {
 	/**
  	* The class to represent a collection of REST reference links. 
 	**/
@@ -52,14 +53,4 @@ public class GitPushRef {
 
 	public void setUrl(String url) { this.url = url; }
 
-	@Override
-	public String toString() {
-		return "GitPushRef{" +
-				"_links=" + _links +
-				", date='" + date + '\'' +
-				", pushId=" + pushId +
-				", pushedBy=" + pushedBy +
-				", url='" + url + '\'' +
-				'}';
-	}
 }

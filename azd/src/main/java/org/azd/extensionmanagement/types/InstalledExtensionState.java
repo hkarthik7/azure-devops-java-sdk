@@ -2,6 +2,7 @@ package org.azd.extensionmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * Information about this particular installation of the extension
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class InstalledExtensionState {
+public class InstalledExtensionState extends BaseAbstractMethod {
     /***
      * States of an installed extension
      */
@@ -50,12 +51,4 @@ public class InstalledExtensionState {
         this.lastUpdated = lastUpdated;
     }
 
-    @Override
-    public String toString() {
-        return "InstalledExtensionState{" +
-                "flags='" + flags + '\'' +
-                ", installationIssues=" + installationIssues +
-                ", lastUpdated='" + lastUpdated + '\'' +
-                '}';
-    }
 }

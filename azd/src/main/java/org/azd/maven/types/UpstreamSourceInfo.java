@@ -2,13 +2,14 @@ package org.azd.maven.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Upstream source definition, including its Identity, package type, and other
  * associated information.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UpstreamSourceInfo {
+public class UpstreamSourceInfo extends BaseAbstractMethod {
 
     /***
      * Locator for connecting to the upstream source in a user friendly format, that
@@ -81,15 +82,5 @@ public class UpstreamSourceInfo {
         this.sourceType = sourceType;
     }
 
-    @Override
-    public String toString() {
-        return "UpstreamSourceInfo{" +
-                "displayLocation='" + displayLocation + '\'' +
-                ", id=" + id + '\'' +
-                ", location=" + location + '\'' +
-                ", name=" + name + '\'' +
-                ", sourceType=" + sourceType +
-                '}';
-    }
 
 }

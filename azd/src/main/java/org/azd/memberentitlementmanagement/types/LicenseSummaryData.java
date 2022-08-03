@@ -2,12 +2,13 @@ package org.azd.memberentitlementmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Summary of Licenses in the organization.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class LicenseSummaryData {
+public class LicenseSummaryData extends BaseAbstractMethod {
     /***
      * Type of Account License.
      */
@@ -165,21 +166,4 @@ public class LicenseSummaryData {
         this.totalAfterNextBillingDate = totalAfterNextBillingDate;
     }
 
-    @Override
-    public String toString() {
-        return "LicenseSummaryData{" +
-                "accountLicenseType='" + accountLicenseType + '\'' +
-                ", assigned=" + assigned +
-                ", available=" + available +
-                ", disabled=" + disabled +
-                ", includedQuantity=" + includedQuantity +
-                ", isPurchasable=" + isPurchasable +
-                ", licenseName='" + licenseName + '\'' +
-                ", msdnLicenseType='" + msdnLicenseType + '\'' +
-                ", nextBillingDate='" + nextBillingDate + '\'' +
-                ", source='" + source + '\'' +
-                ", total=" + total +
-                ", totalAfterNextBillingDate=" + totalAfterNextBillingDate +
-                '}';
-    }
 }

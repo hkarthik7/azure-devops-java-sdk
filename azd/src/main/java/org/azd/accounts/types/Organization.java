@@ -2,12 +2,13 @@ package org.azd.accounts.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Represents an organization
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Organization {
+public class Organization extends BaseAbstractMethod {
     /***
      * Id of the organization
      */
@@ -48,12 +49,4 @@ public class Organization {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "Organization{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

@@ -3,14 +3,13 @@ package org.azd.extensionmanagement.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
-
-import java.util.Arrays;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Specifies a constraint that can be used to dynamically include/exclude a given contribution
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ContributionConstraint {
+public class ContributionConstraint extends BaseAbstractMethod {
     /***
      * An optional property that can be specified to group constraints together.
      */
@@ -92,15 +91,4 @@ public class ContributionConstraint {
         this.relationships = relationships;
     }
 
-    @Override
-    public String toString() {
-        return "ContributionConstraint{" +
-                "group=" + group +
-                ", id='" + id + '\'' +
-                ", inverse=" + inverse +
-                ", name='" + name + '\'' +
-                ", properties=" + properties +
-                ", relationships=" + Arrays.toString(relationships) +
-                '}';
-    }
 }

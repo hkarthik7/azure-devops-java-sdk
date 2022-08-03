@@ -3,12 +3,13 @@ package org.azd.build.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * The types of triggers supported by this source provider.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SupportedTrigger {
+public class SupportedTrigger extends BaseAbstractMethod {
     /**
      * The default interval to wait between polls (only relevant when NotificationType is Polling).
      */
@@ -62,13 +63,4 @@ public class SupportedTrigger {
         this.type = type;
     }
 
-    @Override
-    public String toString() {
-        return "SupportedTrigger{" +
-                "defaultPollingInterval=" + defaultPollingInterval +
-                ", notificationType='" + notificationType + '\'' +
-                ", supportedCapabilities=" + supportedCapabilities +
-                ", type=" + type +
-                '}';
-    }
 }

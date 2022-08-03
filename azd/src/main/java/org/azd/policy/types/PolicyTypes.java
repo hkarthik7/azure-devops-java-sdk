@@ -2,6 +2,7 @@ package org.azd.policy.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * List of User-friendly policy type with description (used for querying policy types).
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PolicyTypes {
+public class PolicyTypes extends BaseAbstractMethod {
     /***
      * List of User-friendly policy type with description (used for querying policy types).
      */
@@ -24,10 +25,4 @@ public class PolicyTypes {
         this.policyTypes = policyTypes;
     }
 
-    @Override
-    public String toString() {
-        return "PolicyTypes{" +
-                "policyTypes=" + policyTypes +
-                '}';
-    }
 }

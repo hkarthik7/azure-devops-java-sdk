@@ -16,7 +16,7 @@ public enum DeploymentOperationStatus {
 	/**
  	* The deployment operation status is all. 
 	**/
-	@JsonProperty("ALL")
+	@JsonProperty("all")
 	ALL,
 	/**
  	* The deployment operation status is approved. 

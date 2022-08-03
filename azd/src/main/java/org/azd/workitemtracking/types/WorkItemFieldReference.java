@@ -2,12 +2,13 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Reference to a field in a work item
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemFieldReference {
+public class WorkItemFieldReference extends BaseAbstractMethod {
     /***
      * The friendly name of the field.
      */
@@ -48,12 +49,4 @@ public class WorkItemFieldReference {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "WorkItemFieldReference{" +
-                "name='" + name + '\'' +
-                ", referenceName='" + referenceName + '\'' +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

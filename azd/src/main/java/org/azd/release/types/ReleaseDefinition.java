@@ -8,6 +8,7 @@ package org.azd.release.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.ReleaseDefinitionSource;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.Map;
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReleaseDefinition {
+public class ReleaseDefinition extends BaseAbstractMethod {
 	/**
  	* Gets the links to related resources, APIs, and views for the release definition. 
 	**/
@@ -235,33 +236,4 @@ public class ReleaseDefinition {
 
 	public void setVariables(Map<String, ConfigurationVariableValue> variables) { this.variables = variables; }
 
-	@Override
-	public String toString() { 
-	return 	"ReleaseDefinition{" +
-		"_links='" + _links + '\'' +
-		",artifacts='" + artifacts + '\'' +
-		",comment='" + comment + '\'' +
-		",createdBy='" + createdBy + '\'' +
-		",createdOn='" + createdOn + '\'' +
-		",description='" + description + '\'' +
-		",environments='" + environments + '\'' +
-		",id='" + id + '\'' +
-		",isDeleted='" + isDeleted + '\'' +
-		",lastRelease='" + lastRelease + '\'' +
-		",modifiedBy='" + modifiedBy + '\'' +
-		",modifiedOn='" + modifiedOn + '\'' +
-		",name='" + name + '\'' +
-		",path='" + path + '\'' +
-		",projectReference='" + projectReference + '\'' +
-		",properties='" + properties + '\'' +
-		",releaseNameFormat='" + releaseNameFormat + '\'' +
-		",revision='" + revision + '\'' +
-		",source='" + source + '\'' +
-		",tags='" + tags + '\'' +
-		",triggers='" + triggers + '\'' +
-		",url='" + url + '\'' +
-		",variableGroups='" + variableGroups + '\'' +
-		",variables='" + variables + '\'' +
-		'}';
-	}
 }

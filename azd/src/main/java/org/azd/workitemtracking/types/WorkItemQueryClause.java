@@ -7,6 +7,7 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.LogicalOperation;
 
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
  * Represents a clause in a work item query. This shows the structure of a work item query. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemQueryClause {
+public class WorkItemQueryClause extends BaseAbstractMethod {
 	/**
  	* Child clauses if the current clause is a logical operator 
 	**/
@@ -80,16 +81,4 @@ public class WorkItemQueryClause {
 
 	public void setValue(String value) { this.value = value; }
 
-	@Override
-	public String toString() { 
-	return 	"WorkItemQueryClause{" +
-		"clauses='" + clauses + '\'' +
-		",field='" + field + '\'' +
-		",fieldValue='" + fieldValue + '\'' +
-		",isFieldValue='" + isFieldValue + '\'' +
-		",logicalOperator='" + logicalOperator + '\'' +
-		",operator='" + operator + '\'' +
-		",value='" + value + '\'' +
-		'}';
-	}
 }

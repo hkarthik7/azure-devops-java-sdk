@@ -2,12 +2,13 @@ package org.azd.accounts.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * List of data provider
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Organizations {
+public class Organizations extends BaseAbstractMethod {
     /***
      * List of data provider
      */
@@ -22,10 +23,4 @@ public class Organizations {
         this.dataProviders = dataProviders;
     }
 
-    @Override
-    public String toString() {
-        return "Organizations{" +
-                "dataProviders=" + dataProviders +
-                '}';
-    }
 }

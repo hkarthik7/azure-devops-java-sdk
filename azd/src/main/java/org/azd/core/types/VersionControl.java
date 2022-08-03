@@ -2,9 +2,10 @@ package org.azd.core.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class VersionControl {
+public class VersionControl extends BaseAbstractMethod {
     @JsonProperty("sourceControlType")
     private String sourceControlType;
     @JsonProperty("gitEnabled")
@@ -36,12 +37,4 @@ public class VersionControl {
         this.tfvcEnabled = tfvcEnabled;
     }
 
-    @Override
-    public String toString() {
-        return "VersionControl{" +
-                "sourceControlType='" + sourceControlType + '\'' +
-                ", gitEnabled=" + gitEnabled +
-                ", tfvcEnabled=" + tfvcEnabled +
-                '}';
-    }
 }

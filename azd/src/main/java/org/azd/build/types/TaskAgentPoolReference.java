@@ -7,12 +7,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Represents a variable group. 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TaskAgentPoolReference {
+public class TaskAgentPoolReference extends BaseAbstractMethod {
     /**
      * The pool ID.
      **/
@@ -53,12 +54,4 @@ public class TaskAgentPoolReference {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "TaskAgentPoolReference{" +
-                "id=" + id +
-                ", isHosted=" + isHosted +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }

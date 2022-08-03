@@ -2,11 +2,12 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildArtifacts {
+public class BuildArtifacts extends BaseAbstractMethod {
     @JsonProperty("value")
     private List<BuildArtifact> buildArtifacts;
 
@@ -18,10 +19,4 @@ public class BuildArtifacts {
         this.buildArtifacts = buildArtifacts;
     }
 
-    @Override
-    public String toString() {
-        return "BuildArtifacts{" +
-                "buildArtifacts=" + buildArtifacts +
-                '}';
-    }
 }

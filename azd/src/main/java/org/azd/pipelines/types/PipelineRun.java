@@ -3,12 +3,13 @@ package org.azd.pipelines.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Pipeline Run object
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PipelineRun {
+public class PipelineRun extends BaseAbstractMethod {
     /***
      * Pipeline created date
      */
@@ -153,20 +154,4 @@ public class PipelineRun {
         this.variables = variables;
     }
 
-    @Override
-    public String toString() {
-        return "PipelineRun{" +
-                "createdDate='" + createdDate + '\'' +
-                ", finalYaml='" + finalYaml + '\'' +
-                ", finishedDate='" + finishedDate + '\'' +
-                ", id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", pipeline=" + pipeline +
-                ", resources=" + resources +
-                ", result='" + result + '\'' +
-                ", state='" + state + '\'' +
-                ", url='" + url + '\'' +
-                ", variables=" + variables +
-                '}';
-    }
 }

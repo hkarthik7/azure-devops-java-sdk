@@ -8,6 +8,7 @@ package org.azd.git.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
  * This class contains the metadata of a service/extension posting a status. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitRef {
+public class GitRef extends BaseAbstractMethod {
 	/**
  	* The class to represent a collection of REST reference links. 
 	**/
@@ -84,18 +85,4 @@ public class GitRef {
 
 	public void setUrl(String url) { this.url = url; }
 
-	@Override
-	public String toString() {
-		return "GitRef{" +
-				"_links=" + _links +
-				", creator=" + creator +
-				", isLocked=" + isLocked +
-				", isLockedBy=" + isLockedBy +
-				", name='" + name + '\'' +
-				", objectId='" + objectId + '\'' +
-				", peeledObjectId='" + peeledObjectId + '\'' +
-				", statuses=" + statuses +
-				", url='" + url + '\'' +
-				'}';
-	}
 }

@@ -2,12 +2,13 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Shallow Reference to a deleted work item.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemDeleteShallowReference {
+public class WorkItemDeleteShallowReference extends BaseAbstractMethod {
     /***
      * Work item ID.
      */
@@ -35,11 +36,4 @@ public class WorkItemDeleteShallowReference {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "WorkItemDeleteShallowReference{" +
-                "id=" + id +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

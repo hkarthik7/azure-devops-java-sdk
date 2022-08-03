@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +14,7 @@ import java.util.Map;
  * Represents a Work item internal field elements
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemFields {
+public class WorkItemFields extends BaseAbstractMethod {
     // for non-system (custom) fields
     Map<String, Object> otherFields = new HashMap<>();
     @JsonProperty("System.Id")
@@ -385,47 +386,6 @@ public class WorkItemFields {
         this.systemTags = systemTags;
     }
 
-    @Override
-    public String toString() {
-        return "WorkItemFields{" +
-                "systemId=" + systemId +
-                ", systemAreaId=" + systemAreaId +
-                ", systemAreaPath='" + systemAreaPath + '\'' +
-                ", systemTeamProject='" + systemTeamProject + '\'' +
-                ", systemNodeName='" + systemNodeName + '\'' +
-                ", systemAreaLevel1='" + systemAreaLevel1 + '\'' +
-                ", systemRev=" + systemRev +
-                ", systemAuthorizedDate='" + systemAuthorizedDate + '\'' +
-                ", systemRevisedDate='" + systemRevisedDate + '\'' +
-                ", systemIterationId=" + systemIterationId +
-                ", systemIterationPath='" + systemIterationPath + '\'' +
-                ", systemIterationLevel1='" + systemIterationLevel1 + '\'' +
-                ", systemWorkItemType='" + systemWorkItemType + '\'' +
-                ", systemState='" + systemState + '\'' +
-                ", systemReason='" + systemReason + '\'' +
-                ", systemAssignedTo=" + systemAssignedTo +
-                ", SystemCreatedDate='" + SystemCreatedDate + '\'' +
-                ", systemCreatedBy=" + systemCreatedBy +
-                ", systemChangedDate='" + systemChangedDate + '\'' +
-                ", systemChangedBy=" + systemChangedBy +
-                ", systemAuthorizedAs=" + systemAuthorizedAs +
-                ", systemPersonId=" + systemPersonId +
-                ", systemWatermark=" + systemWatermark +
-                ", systemCommentCount=" + systemCommentCount +
-                ", systemTitle='" + systemTitle + '\'' +
-                ", systemBoardColumn='" + systemBoardColumn + '\'' +
-                ", systemBoardColumnDone=" + systemBoardColumnDone +
-                ", storyPoints=" + storyPoints +
-                ", stateChangeDate='" + stateChangeDate + '\'' +
-                ", activatedDate='" + activatedDate + '\'' +
-                ", activatedBy=" + activatedBy +
-                ", priority=" + priority +
-                ", risk='" + risk + '\'' +
-                ", systemDescription='" + systemDescription + '\'' +
-                ", acceptanceCriteria='" + acceptanceCriteria + '\'' +
-                ", systemTags='" + systemTags + '\'' +
-                '}';
-    }
 
     public int getSystemId() {
         return systemId;

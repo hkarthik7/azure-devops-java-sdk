@@ -7,6 +7,7 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitCommitChanges {
+public class GitCommitChanges extends BaseAbstractMethod {
 
 	@JsonProperty("changeCounts")
 	private Object changeCounts;
@@ -30,11 +31,4 @@ public class GitCommitChanges {
 
 	public void setChanges(List<GitChange> changes) { this.changes = changes; }
 
-	@Override
-	public String toString() {
-		return "GitCommitChanges{" +
-				"changeCounts=" + changeCounts +
-				", changes=" + changes +
-				'}';
-	}
 }

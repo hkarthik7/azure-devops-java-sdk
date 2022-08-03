@@ -7,12 +7,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Represents an attachment to a build. 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Attachment {
+public class Attachment extends BaseAbstractMethod {
     /**
      * The class to represent a collection of REST reference links.
      **/
@@ -40,11 +41,4 @@ public class Attachment {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "Attachment{" +
-                "_links=" + _links +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }

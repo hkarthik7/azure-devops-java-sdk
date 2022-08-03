@@ -3,12 +3,13 @@ package org.azd.build.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
+import org.azd.common.types.BaseAbstractMethod;
 
 /***
  * Represents a revision of a build definition.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildDefinitionRevision {
+public class BuildDefinitionRevision extends BaseAbstractMethod {
     /***
      * The revision number.
      */
@@ -88,15 +89,4 @@ public class BuildDefinitionRevision {
         this.changedBy = changedBy;
     }
 
-    @Override
-    public String toString() {
-        return "BuildDefinitionRevision{" +
-                "revision=" + revision +
-                ", name='" + name + '\'' +
-                ", changedDate='" + changedDate + '\'' +
-                ", changeType='" + changeType + '\'' +
-                ", definitionUrl='" + definitionUrl + '\'' +
-                ", changedBy=" + changedBy +
-                '}';
-    }
 }

@@ -2,6 +2,7 @@ package org.azd.servicehooks.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * List of service hook subscription
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ServiceHooksSubscriptions {
+public class ServiceHooksSubscriptions extends BaseAbstractMethod {
     /***
      * List of service hook subscription
      */
@@ -24,10 +25,4 @@ public class ServiceHooksSubscriptions {
         this.subscriptions = subscriptions;
     }
 
-    @Override
-    public String toString() {
-        return "ServiceHooksSubscriptions{" +
-                "subscriptions=" + subscriptions +
-                '}';
-    }
 }

@@ -1,6 +1,8 @@
 package org.azd.graph.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.azd.exceptions.AzDException;
+import org.azd.helpers.JsonMapper;
 
 /***
  * This field contains zero or more interesting links about the graph subject.
@@ -12,11 +14,13 @@ public class GroupReferenceLinks extends GraphReferenceLinks {
 
     @Override
     public String toString() {
-        return "GroupReferenceLinks{" +
-                "self=" + self +
-                ", memberships=" + memberships +
-                ", membershipState=" + membershipState +
-                ", storageKey=" + storageKey +
-                '}';
+        String res = null;
+        var mapper = new JsonMapper();
+
+        try {
+            res = mapper.convertToString(this);
+        } catch (AzDException ignored) { }
+
+        return res;
     }
 }

@@ -24,10 +24,4 @@ public class ReleaseReferenceLinks extends ReferenceLink {
         this.web = web;
     }
 
-    @Override
-    public String toString() {
-        return "ReleaseReferenceLinks{" +
-                "web=" + web +
-                '}';
-    }
 }

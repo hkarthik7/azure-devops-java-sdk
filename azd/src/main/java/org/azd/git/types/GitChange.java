@@ -7,13 +7,14 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.VersionControlChangeType;
 
 /**
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitChange {
+public class GitChange extends BaseAbstractMethod {
 	/**
  	* ID of the change within the group of changes. 
 	**/
@@ -87,17 +88,4 @@ public class GitChange {
 
 	public void setUrl(String url) { this.url = url; }
 
-	@Override
-	public String toString() {
-		return "GitChange{" +
-				"changeId=" + changeId +
-				", changeType=" + changeType +
-				", item='" + item + '\'' +
-				", newContent=" + newContent +
-				", newContentTemplate=" + newContentTemplate +
-				", originalPath='" + originalPath + '\'' +
-				", sourceServerItem='" + sourceServerItem + '\'' +
-				", url='" + url + '\'' +
-				'}';
-	}
 }
