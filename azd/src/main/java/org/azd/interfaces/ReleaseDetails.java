@@ -55,6 +55,20 @@ public interface ReleaseDetails {
 
     ReleaseDefinitions getReleaseDefinitions() throws AzDException;
 
+    ReleaseDefinitions getReleaseDefinitions(ReleaseDefinitionExpands expands) throws AzDException;
+
+    ReleaseDefinitions getReleaseDefinitions(int top) throws AzDException;
+
+    ReleaseDefinitions getReleaseDefinitions(String artifactSourceId) throws AzDException;
+
+    ReleaseDefinitions getReleaseDefinitions(int[] definitionIdFilter) throws AzDException;
+
+    ReleaseDefinitions getReleaseDefinitions(ReleaseDefinitionExpands expands, int top, String artifactSourceId,
+                                             String artifactType, String continuationToken, int[] definitionIdFilter,
+                                             boolean isDeleted, boolean isExactNameMatch, String path,
+                                             String[] propertyFilters, ReleaseDefinitionQueryOrder queryOrder,
+                                             String searchText, boolean searchTextContainsFolderName, String[] tagFilter) throws AzDException;
+
     ReleaseDefinition updateReleaseDefinition(ReleaseDefinition releaseDefinition) throws AzDException;
 
     Void deleteRelease(int releaseId) throws AzDException;
