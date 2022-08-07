@@ -23,6 +23,13 @@ public enum ProjectVisibility {
      **/
     @JsonProperty("public")
     PUBLIC,
+    /**
+     * Enterprise level project visibility
+     */
+    @JsonProperty("organization")
+    ORGANIZATION,
+    @JsonProperty("systemPrivate")
+    SYSTEM_PRIVATE,
     @JsonProperty("unchanged")
     UNCHANGED;
 }
