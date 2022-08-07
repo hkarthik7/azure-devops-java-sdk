@@ -87,6 +87,10 @@ public class AzDClientApi implements AzDClient {
         }
     }
 
+    public Connection getConnection() {
+        return this.CONNECTION;
+    }
+
     /***
      * Returns an instance of AccountsApi
      * @return an instance of AccountsApi {@link AccountsApi}
