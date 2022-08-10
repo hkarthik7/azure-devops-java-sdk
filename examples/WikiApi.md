@@ -42,7 +42,76 @@ public class Main {
             wiki.getWikis();
             
             // delete a wiki page
-            wiki.deleteWiki("MyProjectWiki");   
+            wiki.deleteWiki("MyProjectWiki"); 
+            
+            // Create a Wiki page
+            var wiki = w.getWikis().getWikiPages();
+            var wikiId = wiki.get(0).getId();
+            var page = "DevOps Ways of Working";
+            String contents = "# DevOps Ways of Working \n This is the first line \n This is the second line.";
+
+            // Note that you can get the contents of Markdown from a file and create the wiki page. This Api
+            // supports Code wiki which means it commits the file to Azure repo.  
+            w.createOrUpdateWikiPage(wikiId, page, "Page initial commit", null, "develop", GitVersionType.BRANCH,
+                    GitVersionOptions.NONE, contents);
+            
+            // Delete a wiki page
+            var wiki = w.getWikis().getWikiPages();
+            var wikiId = wiki.get(0).getId();
+            var page = "DevOps Ways of Working";
+
+            w.deleteWikiPage(wikiId, page, "Page deleted", "develop", GitVersionType.BRANCH,
+                    GitVersionOptions.NONE);
+            
+            // Get a Wiki page
+            var wiki = w.getWikis().getWikiPages();
+            var wikiId = wiki.get(0).getId();
+            var page = "DevOps Ways of Working";
+            
+            w.getWikiPage(wikiId, false, page, VersionControlRecursionType.FULL,
+                    "Get wiki page", "develop", GitVersionType.BRANCH, GitVersionOptions.NONE);
+            
+            // Get a Wiki page by id
+            var wiki = w.getWikis().getWikiPages();
+            var wikiId = wiki.get(0).getId();
+            var page = "DevOps Ways of Working";
+
+            var wikiPage = w.getWikiPage(wikiId, false, page, VersionControlRecursionType.FULL,
+                    "Get wiki page", "develop", GitVersionType.BRANCH, GitVersionOptions.NONE);
+            
+            w.getWikiPageById(wikiPage.getId().toString(), wikiId, true, VersionControlRecursionType.FULL);
+            
+            // Get the contents of the Wiki page
+            var wiki = w.getWikis().getWikiPages();
+            var wikiId = wiki.get(0).getId();
+            var page = "DevOps Ways of Working";
+
+            var wikiPage = w.getWikiPage(wikiId, false, page, VersionControlRecursionType.FULL,
+                    "Get wiki page", "develop", GitVersionType.BRANCH, GitVersionOptions.NONE);
+            
+            w.getWikiPageContent(wikiPage.getId().toString(), wikiId);
+            
+            // Download the Wiki page as a Zip file
+            var wiki = w.getWikis().getWikiPages();
+            var wikiId = wiki.get(0).getId();
+            var page = "DevOps Ways of Working";
+
+            var wikiPage = w.getWikiPage(wikiId, false, page, VersionControlRecursionType.FULL,
+                    "Get wiki page", "develop", GitVersionType.BRANCH, GitVersionOptions.NONE);
+            
+            var res = w.getWikiPageAsZip(wikiPage.getId().toString(), wikiId);
+            StreamHelper.download(page + ".zip", res);
+            
+            // Update a wiki page
+            var wiki = w.getWikis().getWikiPages();
+            var wikiId = wiki.get(0).getId();
+            var page = "DevOps Ways of Working";
+
+            var wikiPage = w.getWikiPage(wikiId, false, page, VersionControlRecursionType.FULL,
+                    "Get wiki page", "develop", GitVersionType.BRANCH, GitVersionOptions.NONE);
+            
+            w.updateWikiPage(wikiPage.getId().toString(), wikiId, "Updated page content", wikiPage.geteTag(), "# Heading\n" +
+                    "This is updated content. \n ## Second Heading \n Place holder for safe landing project.");
         } catch (AzDException e) {
             e.printStackTrace();
         }
