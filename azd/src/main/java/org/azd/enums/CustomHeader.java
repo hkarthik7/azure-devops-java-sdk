@@ -44,6 +44,11 @@ public enum CustomHeader {
      */
     STREAM_ZIP_ACCEPT(CustomHeader.JSON.name, CustomHeader.STREAM_ZIP.getValue()),
     /**
+     * Empty custom header to set the desired values
+     * Call setCustomHeaders() method and set the values.
+     */
+    CUSTOM_HEADER("", ""),
+    /**
      * Should be set to accept the stream content from Api
      */
     STREAM_ACCEPT(CustomHeader.JSON.name, CustomHeader.STREAM.getValue());
@@ -68,5 +73,10 @@ public enum CustomHeader {
 
     public String getValue() {
         return value;
+    }
+
+    public void setCustomHeaders(String name, String value) {
+        CUSTOM_HEADER.name = name;
+        CUSTOM_HEADER.value = value;
     }
 }
