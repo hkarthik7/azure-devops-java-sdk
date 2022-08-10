@@ -2,12 +2,14 @@ package org.azd.helpers;
 
 import org.azd.enums.ApiExceptionTypes;
 import org.azd.enums.CustomHeader;
+import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
-import org.azd.utils.BaseRestClient;
+import org.azd.utils.RestClient;
 
 import java.io.*;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 public class StreamHelper {
     /**
@@ -60,11 +62,16 @@ public class StreamHelper {
      * @throws AzDException Default Api exception handler.
      */
     public static void downloadFromUrl(String url, String fileName) throws AzDException {
-        var res = BaseRestClient.get(url, null,
-                HttpResponse.BodyHandlers.ofInputStream(), CustomHeader.STREAM_ACCEPT, false)
-                .thenApplyAsync(HttpResponse::body)
-                .join();
-        download(fileName, res);
+        if (!url.isEmpty()) {
+            var res = RestClient.send(url, RequestMethod.GET, null, null, null, null,
+                    null, null, null, null, null, CustomHeader.STREAM_ACCEPT, false)
+                    .thenApplyAsync(HttpResponse::body)
+                    .join();
+            download(fileName, res);
+        }
+        else {
+            throw new AzDException(ApiExceptionTypes.InvalidArgumentException.name(), "Url cannot be null or empty.");
+        }
     }
 
     /**
@@ -108,6 +115,21 @@ public class StreamHelper {
         try {
             if (content.isEmpty()) throw new AzDException("Content cannot be empty.");
             return new ByteArrayInputStream(content.getBytes());
+        } catch (Exception e) {
+            throw new AzDException(ApiExceptionTypes.InvalidArgumentException.name(), e.getMessage());
+        }
+    }
+
+    /**
+     * Converts the Input stream to base64 encoded string value.
+     *
+     * @param content InputStream of contents.
+     * @return Base64 encoded String contents.
+     * @throws AzDException Default Api exception handler.
+     */
+    public static String convertStreamToBase64(InputStream content) throws AzDException {
+        try {
+            return Base64.getEncoder().encodeToString(content.readAllBytes());
         } catch (Exception e) {
             throw new AzDException(ApiExceptionTypes.InvalidArgumentException.name(), e.getMessage());
         }
