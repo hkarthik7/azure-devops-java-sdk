@@ -212,4 +212,30 @@ public abstract class BaseRestClient {
         return null;
     }
 
+    /**
+     * Helper method to create the request with request url and access token.
+     *
+     * @param requestUrl Pass the request url.
+     * @param token Pass the access token. Base64 encoding will be taken care when building the request.
+     * @return HttpRequest builder object.
+     */
+    protected static HttpRequest.Builder getBuilder(String requestUrl, String token) {
+        return build(requestUrl, token);
+    }
+
+    /**
+     * Helper method to get the response based on built http request.
+     *
+     * @param r Http request object.
+     * @param handler Handlers for accepting the response content as. Example string or input stream etc.
+     * @param callback If true follows redirects.
+     * @param <T> Generic response type object.
+     * @return generic type of future of http response.
+     */
+    protected static <T> CompletableFuture<HttpResponse<T>> getResponse(HttpRequest r, HttpResponse.BodyHandler<T> handler,
+                                                                 boolean callback) {
+        if (callback)  return CLIENT.sendAsync(r, handler);
+        return HTTP_CLIENT.sendAsync(r, handler);
+    }
+
 }
