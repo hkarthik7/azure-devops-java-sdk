@@ -37,7 +37,7 @@ public class ReleaseApiTest {
     @Test
     public void shouldCreateARelease() throws AzDException {
         var build = b.getBuild(176);
-        r.createRelease(2, "Sample Release", "_Demo-CI", build.getBuildNumber(),
+        r.createRelease(2, "Sample Release", "_Demo-Pipeline-CI", build.getBuildNumber(),
                 "Demo-CI", false);
     }
 
@@ -77,7 +77,7 @@ public class ReleaseApiTest {
     @Test
     public void shouldDeleteARelease() throws AzDException {
         var build = b.getBuild(176);
-        var release = r.createRelease(2, "Sample Release", "_Demo-CI", build.getBuildNumber(),
+        var release = r.createRelease(2, "Sample Release", "_Demo-Pipeline-CI", build.getBuildNumber(),
                 "Demo-CI", false);
         r.deleteRelease(release.getId());
     }
