@@ -1,5 +1,14 @@
 # Changelog
 
+## 5.0.1
+
+- Expanded support for **ReleaseApi**.
+- Bug fix for **updateReleaseEnvironment** in **ReleaseApi**.
+- Added **ResourceId** class that contains the resource ids of all services.
+- Bug fix for issue [MIssing visibility enum value #38](https://github.com/hkarthik7/azure-devops-java-sdk/issues/38).
+- Extended support for **WikiApi**
+
+
 ## 5.0.0
 
 **Breaking changes**
