@@ -3,6 +3,8 @@ package org.azd.wiki.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.BaseAbstractMethod;
+import org.azd.enums.GitVersionOptions;
+import org.azd.enums.GitVersionType;
 
 /***
  * Versions of the wiki.
@@ -18,12 +20,12 @@ public class GitVersionDescriptor extends BaseAbstractMethod {
      * Version options - Specify additional modifiers to version (e.g Previous)
      */
     @JsonProperty("versionOptions")
-    private String versionOptions;
+    private GitVersionOptions versionOptions;
     /***
      * Version type (branch, tag, or commit). Determines how Id is interpreted
      */
     @JsonProperty("versionType")
-    private String versionType;
+    private GitVersionType versionType;
 
     public String getVersion() {
         return version;
@@ -33,19 +35,19 @@ public class GitVersionDescriptor extends BaseAbstractMethod {
         this.version = version;
     }
 
-    public String getVersionOptions() {
+    public GitVersionOptions getVersionOptions() {
         return versionOptions;
     }
 
-    public void setVersionOptions(String versionOptions) {
+    public void setVersionOptions(GitVersionOptions versionOptions) {
         this.versionOptions = versionOptions;
     }
 
-    public String getVersionType() {
+    public GitVersionType getVersionType() {
         return versionType;
     }
 
-    public void setVersionType(String versionType) {
+    public void setVersionType(GitVersionType versionType) {
         this.versionType = versionType;
     }
 
