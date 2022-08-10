@@ -100,10 +100,10 @@ public class ReleaseApiTest {
 
     @Test
     public void shouldUpdateARelease() throws AzDException {
-        var release = r.getRelease(1225);
+        var release = r.getRelease(1261);
         release.getVariables().get("Name").setIsSecret(true);
 
-        r.updateRelease(1225, release);
+        r.updateRelease(release.getId(), release);
     }
 
     @Test(expected = AzDException.class)
