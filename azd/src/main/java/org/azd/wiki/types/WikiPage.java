@@ -70,7 +70,7 @@ public class WikiPage extends BaseAbstractMethod {
 	/**
 	 * Specified the version string of the attachment.
 	 */
-	@JacksonInject("etag")
+	@JsonProperty("etag")
 	private String eTag;
 
 	public String getContent() { return content; }

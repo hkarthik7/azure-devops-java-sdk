@@ -38,7 +38,7 @@ public class WikiPageMove extends BaseAbstractMethod {
 	/**
 	 * Specified the version string of the attachment.
 	 */
-	@JacksonInject("etag")
+	@JsonProperty("etag")
 	private String eTag;
 
 	public Integer getNewOrder() { return newOrder; }

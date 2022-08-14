@@ -29,7 +29,7 @@ public class WikiAttachment extends BaseAbstractMethod {
 	/**
 	 * Specified the version string of the attachment.
 	 */
-	@JacksonInject("etag")
+	@JsonProperty("etag")
 	private String eTag;
 
 	public String getName() { return name; }

@@ -4,11 +4,12 @@ import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.helpers.StreamHelper;
-import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.CoreDetails;
 import org.azd.interfaces.GitDetails;
 import org.azd.interfaces.WikiDetails;
 import org.azd.utils.AzDClientApi;
+import org.azd.wiki.types.GitVersionDescriptor;
+import org.azd.wiki.types.WikiCreateParameters;
 import org.azd.wiki.types.WikiPageMoveParameters;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +18,7 @@ import java.io.File;
 
 public class WikiApiTest {
     private static final JsonMapper MAPPER = new JsonMapper();
-    private static AzDClient webApi;
+    private static AzDClientApi webApi;
     private static WikiDetails w;
     private static CoreDetails c;
     private static GitDetails g;
@@ -40,18 +41,34 @@ public class WikiApiTest {
     public void shouldCreateWiki() throws AzDException {
         var projectId = c.getProject("azure-devops-java-sdk").getId();
         var repoId = g.getRepository("testRepository").getId();
-        var wikiPage = w.getWiki("NewWiki").getName();
+        String wikiPage = null;
+        try {
+            wikiPage = w.getWiki("NewWiki").getName();
+        } catch (AzDException e) { }
 
-//        w.createWiki("develop", WikiType.CODEWIKI, "MyProjectWiki", projectId, repoId, "/");
+        if (wikiPage == null) {
+            var vD = new GitVersionDescriptor();
+            vD.setVersion("develop");
 
-        // without this check I'm receiving error while running tests.
-        if (wikiPage.isEmpty())
-            w.createWiki("develop", WikiType.CODEWIKI, "NewWiki", projectId, repoId, "/docs");
+            var wikiCreateParameters = new WikiCreateParameters("/docs", "NewWiki", projectId, repoId, WikiType.CODEWIKI, vD);
+            w.createWiki(wikiCreateParameters);
+        }
+    }
+
+    @Test
+    public void shouldCreateNewProjectWiki() {
+        try {
+            var projectId = c.getProject("azure-devops-java-sdk").getId();
+            var wikiCreateParameters = new WikiCreateParameters("Azure DevOps java sdk documentation", projectId, WikiType.PROJECTWIKI);
+            w.createWiki(wikiCreateParameters);
+        } catch (AzDException e) {
+            // ignore WikiAlreadyExistsException
+        }
     }
 
     @Test
     public void shouldGetAWiki() throws AzDException {
-        System.out.println(w.getWiki("NewWiki"));
+        w.getWiki("NewWiki");
     }
 
     @Test
@@ -60,7 +77,7 @@ public class WikiApiTest {
     }
 
     @Test
-    public void shouldDeleteAWiki() throws AzDException {
+    public void shouldDeleteAWiki() {
         try {
             w.deleteWiki("MyProjectWiki");
         } catch (AzDException e) {
@@ -68,16 +85,16 @@ public class WikiApiTest {
     }
 
     @Test
-    public void shouldCreateAWikiAttachment() throws AzDException {
+    public void shouldCreateAWikiAttachment() {
         try {
-        var wiki = w.getWikis().getWikiPages();
-        var wikiId = wiki.get(0).getId();
-        var wikiName = "azure-architecture.png";
-        StreamHelper.downloadFromUrl("https://support.content.office.net/en-us/media/714fa128-65fa-4ab5-b1f7-15bed1065500.png",
-                "azure-architecture.png");
-        var content = StreamHelper.convertToStream(new File("azure-architecture.png"));
+            var wiki = w.getWikis().getWikiPages();
+            var wikiId = wiki.get(0).getId();
+            var wikiName = "azure-architecture.png";
+            StreamHelper.downloadFromUrl("https://support.content.office.net/en-us/media/714fa128-65fa-4ab5-b1f7-15bed1065500.png",
+                    "azure-architecture.png");
+            var content = StreamHelper.convertToStream(new File("azure-architecture.png"));
 
-        w.createWikiAttachment(wikiId, wikiName, "develop", GitVersionType.BRANCH, GitVersionOptions.NONE, content);
+            w.createWikiAttachment(wikiId, wikiName, "develop", GitVersionType.BRANCH, GitVersionOptions.NONE, content);
         } catch (AzDException e) {
             // Ignore WikiCreateAttachmentFailedException
         }
@@ -95,15 +112,15 @@ public class WikiApiTest {
         w.createPageMove(wikiId, null, "develop", GitVersionType.BRANCH, GitVersionOptions.NONE, pageMoveParams);
     }
 
-    @Test(expected = AzDException.class)
+    @Test
     public void shouldGetThePageStats() throws AzDException {
         var wiki = w.getWikis().getWikiPages();
         var wikiId = wiki.get(0).getId();
-        w.getPageStats(wikiId, 0);
+        w.getPageStats(wikiId, 1, 0);
     }
 
     @Test
-    public void shouldCreateAWikiPage() throws AzDException {
+    public void shouldCreateAWikiPage() {
         try {
         var wiki = w.getWikis().getWikiPages();
         var wikiId = wiki.get(0).getId();
@@ -117,7 +134,7 @@ public class WikiApiTest {
     }
 
     @Test
-    public void shouldDeleteAWikiPage() throws AzDException {
+    public void shouldDeleteAWikiPage() {
         try {
             var wiki = w.getWikis().getWikiPages();
             var wikiId = wiki.get(0).getId();
@@ -131,7 +148,7 @@ public class WikiApiTest {
     }
 
     @Test
-    public void shouldGetAWikiPage() throws AzDException {
+    public void shouldGetAWikiPage() {
         try {
             var wiki = w.getWikis().getWikiPages();
             var wikiId = wiki.get(0).getId();
@@ -145,7 +162,7 @@ public class WikiApiTest {
     }
 
     @Test
-    public void shouldGetWikiPageById() throws AzDException {
+    public void shouldGetWikiPageById() {
         try {
             var wiki = w.getWikis().getWikiPages();
             var wikiId = wiki.get(0).getId();
@@ -161,7 +178,7 @@ public class WikiApiTest {
     }
 
     @Test
-    public void shouldGetWikiPageContent() throws AzDException {
+    public void shouldGetWikiPageContent() {
         try {
             var wiki = w.getWikis().getWikiPages();
             var wikiId = wiki.get(0).getId();
@@ -192,7 +209,7 @@ public class WikiApiTest {
     }
 
     @Test
-    public void shouldUpdateWikiPage() throws AzDException {
+    public void shouldUpdateWikiPage() {
         try {
             var wiki = w.getWikis().getWikiPages();
             var wikiId = wiki.get(0).getId();

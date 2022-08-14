@@ -35,7 +35,7 @@ public class WikiPageDetail extends BaseAbstractMethod {
 	/**
 	 * Specified the version string of the attachment.
 	 */
-	@JacksonInject("etag")
+	@JsonProperty("etag")
 	private String eTag;
 
 	public Integer getId() { return id; }

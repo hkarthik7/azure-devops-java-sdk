@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.azd.common.types.BaseAbstractMethod;
+import org.azd.enums.WikiType;
 
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class WikiV2 extends BaseAbstractMethod {
      * Type of the wiki.
      */
     @JsonProperty("type")
-    private String type;
+    private WikiType type;
     /***
      * REST url for this wiki.
      */
@@ -119,11 +120,11 @@ public class WikiV2 extends BaseAbstractMethod {
         this.repositoryId = repositoryId;
     }
 
-    public String getType() {
+    public WikiType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(WikiType type) {
         this.type = type;
     }
 

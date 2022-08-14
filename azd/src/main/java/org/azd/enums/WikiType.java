@@ -1,5 +1,12 @@
 package org.azd.enums;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public enum WikiType {
-    CODEWIKI, PROJECTWIKI
+    @JsonProperty("codeWiki")
+    CODEWIKI,
+    @JsonProperty("projectWiki")
+    PROJECTWIKI;
 }

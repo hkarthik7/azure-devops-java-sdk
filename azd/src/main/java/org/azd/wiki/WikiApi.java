@@ -46,31 +46,17 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
 
     /***
      * Creates the wiki resource.
-     * @param branchName Branch name of the repository from which you need to create Wiki. Not required for ProjectWiki type.
-     * @param type Type of the wiki. {@link WikiType}
-     * @param wikiName Wiki name.
-     * @param projectId ID of the project in which the wiki is to be created.
-     * @param repositoryId ID of the git repository that backs up the wiki. Not required for ProjectWiki type.
-     * @param mappedPath Folder path inside repository which is shown as Wiki. Not required for ProjectWiki type.
-     * @return WikiV2 {@link WikiV2}
+     * @param wikiCreateParameters {@link WikiCreateParameters} helps to create code wiki and project wiki. Use the constructor
+     * parameter to create respective wikis.
+     * @return WikiV2 object {@link WikiV2}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public WikiV2 createWiki(String branchName, WikiType type, String wikiName, String projectId,
-                             String repositoryId, String mappedPath) throws AzDException {
-        var b = new HashMap<String, Object>() {{
-            put("version", new HashMap<String, Object>() {{
-                put("version", branchName);
-            }});
-            put("type", WikiType.CODEWIKI.toString().toLowerCase());
-            put("name", wikiName);
-            put("projectId", projectId);
-            put("repositoryId", repositoryId);
-            put("mappedPath", mappedPath);
-        }};
+    public WikiV2 createWiki(WikiCreateParameters wikiCreateParameters) throws AzDException {
+        if (wikiCreateParameters.getProjectId() == null) throw new AzDException("Project id cannot be empty.");
 
-        String r = send(RequestMethod.POST, CONNECTION, WIKI, CONNECTION.getProject(),
-                AREA, null, null, ApiVersion.WIKI, null, b, CustomHeader.JSON_CONTENT_TYPE);
+        String r = send(RequestMethod.POST, CONNECTION, WIKI, wikiCreateParameters.getProjectId(),
+                AREA, null, null, ApiVersion.WIKI, null, wikiCreateParameters, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, WikiV2.class);
     }
@@ -121,6 +107,34 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
      *
      * @param wikiIdentifier Wiki ID or wiki name.
      * @param name Wiki attachment name.
+     * @return WikiAttachment Object {@link WikiAttachment}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public WikiAttachment createWikiAttachment(String wikiIdentifier, String name, InputStream content) throws AzDException {
+        var q = new HashMap<String, Object>(){{ put("name", name != null ? URLHelper.encodeSpecialWithSpace(name) :  null); }};
+
+        // Wiki attachment Api accepts only encoded String values.
+        var body = StreamHelper.convertStreamToBase64(content);
+
+        var r = send(null, RequestMethod.PUT, CONNECTION, WIKI, CONNECTION.getProject(),
+                AREA, wikiIdentifier, "attachments", ApiVersion.WIKI_ATTACHMENTS,
+                q, HttpRequest.BodyPublishers.ofString(body), HttpResponse.BodyHandlers.ofString(), Map.of("Stream", CustomHeader.STREAM), false);
+
+        var result = MAPPER.mapJsonResponse(r.thenApplyAsync(HttpResponse::body).join(), WikiAttachment.class);
+
+        // Version tag of the attachment is set in headers and this is required for editing wiki pages.
+        var eTag = getValueFromHeader(r.thenApplyAsync(HttpResponse::headers).join(), "etag");
+        if (eTag != null) result.seteTag(eTag);
+
+        return result;
+    }
+
+    /**
+     * Creates an attachment in the wiki.
+     *
+     * @param wikiIdentifier Wiki ID or wiki name.
+     * @param name Wiki attachment name.
      * @param version Version string identifier (name of tag/branch, SHA1 of commit)
      * @param versionOptions Version options - Specify additional modifiers to version (e.g Previous)
      * @param versionType Version type (branch, tag, or commit). Determines how Id is interpreted
@@ -131,7 +145,7 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
     public WikiAttachment createWikiAttachment(String wikiIdentifier, String name, String version,
                                                GitVersionType versionType, GitVersionOptions versionOptions, InputStream content) throws AzDException {
         var q = new HashMap<String, Object>(){{
-            put("name", name);
+            put("name", name != null ? URLHelper.encodeSpecialWithSpace(name) :  null);
             put("version", version);
             put("versionType", versionType.name());
             put("versionOptions", versionOptions.name());
@@ -144,10 +158,39 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
                 AREA, wikiIdentifier, "attachments", ApiVersion.WIKI_ATTACHMENTS,
                 q, HttpRequest.BodyPublishers.ofString(body), HttpResponse.BodyHandlers.ofString(), Map.of("Stream", CustomHeader.STREAM), false);
 
-        // Version tag of the attachment is set in headers and this is required for editing wiki pages.
-        injectHeader(r.thenApplyAsync(HttpResponse::headers).join(), "etag");
+        var result = MAPPER.mapJsonResponse(r.thenApplyAsync(HttpResponse::body).join(), WikiAttachment.class);
 
-        return MAPPER.mapJsonResponse(r.thenApplyAsync(HttpResponse::body).join(), WikiAttachment.class);
+        // Version tag of the attachment is set in headers and this is required for editing wiki pages.
+        var eTag = getValueFromHeader(r.thenApplyAsync(HttpResponse::headers).join(), "etag");
+        if (eTag != null) result.seteTag(eTag);
+
+        return result;
+    }
+
+    /**
+     * Creates a page move operation that updates the path and order of the page as provided in the parameters.
+     *
+     * @param wikiIdentifier Wiki ID or wiki name.
+     * @param comment Comment that is to be associated with this page move.
+     * @return WikiPageMove Object {@link WikiPageMove}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public WikiPageMove createPageMove(String wikiIdentifier, String comment, WikiPageMoveParameters pageMoveParameters) throws AzDException {
+        var q = new HashMap<String, Object>(){{ put("comment", comment != null ? URLHelper.encodeSpecialWithSpace(comment) :  null); }};
+
+        var r = send(null, RequestMethod.POST, CONNECTION, WIKI, CONNECTION.getProject(),
+                AREA, wikiIdentifier, "pagemoves", ApiVersion.WIKI_ATTACHMENTS,
+                q, HttpRequest.BodyPublishers.ofString(MAPPER.convertToString(pageMoveParameters)),
+                HttpResponse.BodyHandlers.ofString(), Map.of("Content-Type", CustomHeader.JSON_CONTENT_TYPE), false);
+
+        var result = MAPPER.mapJsonResponse(r.thenApplyAsync(HttpResponse::body).join(), WikiPageMove.class);
+
+        // Version tag of the attachment is set in headers and this is required for editing wiki pages.
+        var eTag = getValueFromHeader(r.thenApplyAsync(HttpResponse::headers).join(), "etag");
+        if (eTag != null) result.seteTag(eTag);
+
+        return result;
     }
 
     /**
@@ -177,10 +220,13 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
                 q, HttpRequest.BodyPublishers.ofString(MAPPER.convertToString(pageMoveParameters)),
                 HttpResponse.BodyHandlers.ofString(), Map.of("Content-Type", CustomHeader.JSON_CONTENT_TYPE), false);
 
-        // Version tag of the attachment is set in headers and this is required for editing wiki pages.
-        injectHeader(r.thenApplyAsync(HttpResponse::headers).join(), "etag");
+        var result = MAPPER.mapJsonResponse(r.thenApplyAsync(HttpResponse::body).join(), WikiPageMove.class);
 
-        return MAPPER.mapJsonResponse(r.thenApplyAsync(HttpResponse::body).join(), WikiPageMove.class);
+        // Version tag of the attachment is set in headers and this is required for editing wiki pages.
+        var eTag = getValueFromHeader(r.thenApplyAsync(HttpResponse::headers).join(), "etag");
+        if (eTag != null) result.seteTag(eTag);
+
+        return result;
     }
 
     /**
@@ -192,12 +238,54 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
-    public WikiPageDetail getPageStats(String wikiIdentifier, int pageId) throws AzDException {
+    public WikiPageDetail getPageStats(String wikiIdentifier, int pageId, int pageViewsForDays) throws AzDException {
+        var q = new HashMap<String, Integer>(){{ put("pageViewsForDays", pageViewsForDays); }};
+
         var r = send(RequestMethod.POST, CONNECTION, WIKI, CONNECTION.getProject(),
-                AREA, wikiIdentifier, "pages" + pageId + "/stats", ApiVersion.WIKI_ATTACHMENTS,
-                null, null, CustomHeader.JSON);
+                AREA, wikiIdentifier, "pages/" + pageId + "/stats", ApiVersion.WIKI_ATTACHMENTS,
+                q, null, CustomHeader.JSON);
 
         return MAPPER.mapJsonResponse(r, WikiPageDetail.class);
+    }
+
+    /**
+     * Creates or edits a wiki page.
+     *
+     * @param wikiIdentifier Wiki ID or wiki name.
+     * @param path Wiki page path.
+     * @param comment Comment to be associated with the page operation.
+     * @return WikiPage Object {@link WikiPage}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public WikiPage createOrUpdateWikiPage(String wikiIdentifier, String path, String comment, String eTagVersion, String content) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("path", path);
+            put("comment", comment != null ? URLHelper.encodeSpecialWithSpace(comment) : null);
+        }};
+
+        var headers = new HashMap<String, CustomHeader>(){{
+            put("Content-Type", CustomHeader.JSON_CONTENT_TYPE);
+        }};
+
+        if (eTagVersion != null) {
+            CustomHeader.CUSTOM_HEADER.setCustomHeaders("If-Match", eTagVersion);
+            headers.put("If-Match", CustomHeader.CUSTOM_HEADER);
+        }
+
+        var r = send(null, RequestMethod.PUT, CONNECTION, WIKI, CONNECTION.getProject(),
+                AREA, wikiIdentifier, "pages", ApiVersion.WIKI_ATTACHMENTS,
+                q, HttpRequest.BodyPublishers.ofString(MAPPER.convertToString(Map.of("content", content))),
+                HttpResponse.BodyHandlers.ofString(), headers, false);
+
+        var result = MAPPER.mapJsonResponse(r.thenApplyAsync(HttpResponse::body).join(), WikiPage.class);
+
+        // Version tag of the attachment is set in headers and this is required for editing wiki pages.
+        // etag value is returned in both create and update operations.
+        var eTag = getValueFromHeader(r.thenApplyAsync(HttpResponse::headers).join(), "etag");
+        if (eTag != null) result.seteTag(eTag);
+
+        return result;
     }
 
     /**
@@ -238,11 +326,44 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
                 q, HttpRequest.BodyPublishers.ofString(MAPPER.convertToString(Map.of("content", content))),
                 HttpResponse.BodyHandlers.ofString(), headers, false);
 
+        var result = MAPPER.mapJsonResponse(r.thenApplyAsync(HttpResponse::body).join(), WikiPage.class);
+
         // Version tag of the attachment is set in headers and this is required for editing wiki pages.
         // etag value is returned in both create and update operations.
-        injectHeader(r.thenApplyAsync(HttpResponse::headers).join(), "etag");
+        var eTag = getValueFromHeader(r.thenApplyAsync(HttpResponse::headers).join(), "etag");
+        if (eTag != null) result.seteTag(eTag);
 
-        return MAPPER.mapJsonResponse(r.thenApplyAsync(HttpResponse::body).join(), WikiPage.class);
+        return result;
+    }
+
+    /**
+     * Deletes a wiki page.
+     *
+     * @param wikiIdentifier Wiki ID or wiki name.
+     * @param path Wiki page path.
+     * @param comment Comment to be associated with this page delete.
+     * @return WikiPage Object {@link WikiPage}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public WikiPage deleteWikiPage(String wikiIdentifier, String path, String comment) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("path", path);
+            put("comment", comment != null ? URLHelper.encodeSpecialWithSpace(comment) : null);
+        }};
+
+        var r = send(null, RequestMethod.DELETE, CONNECTION, WIKI, CONNECTION.getProject(),
+                AREA, wikiIdentifier, "pages", ApiVersion.WIKI_ATTACHMENTS, q, null,
+                HttpResponse.BodyHandlers.ofString(), Map.of("Content-Type", CustomHeader.JSON_CONTENT_TYPE), false);
+
+        var result = MAPPER.mapJsonResponse(r.thenApplyAsync(HttpResponse::body).join(), WikiPage.class);
+
+        // Version tag of the attachment is set in headers and this is required for editing wiki pages.
+        // etag value is returned in both create and update operations.
+        var eTag = getValueFromHeader(r.thenApplyAsync(HttpResponse::headers).join(), "etag");
+        if (eTag != null) result.seteTag(eTag);
+
+        return result;
     }
 
     /**
@@ -272,11 +393,14 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
                 AREA, wikiIdentifier, "pages", ApiVersion.WIKI_ATTACHMENTS, q, null,
                 HttpResponse.BodyHandlers.ofString(), Map.of("Content-Type", CustomHeader.JSON_CONTENT_TYPE), false);
 
+        var result = MAPPER.mapJsonResponse(r.thenApplyAsync(HttpResponse::body).join(), WikiPage.class);
+
         // Version tag of the attachment is set in headers and this is required for editing wiki pages.
         // etag value is returned in both create and update operations.
-        injectHeader(r.thenApplyAsync(HttpResponse::headers).join(), "etag");
+        var eTag = getValueFromHeader(r.thenApplyAsync(HttpResponse::headers).join(), "etag");
+        if (eTag != null) result.seteTag(eTag);
 
-        return MAPPER.mapJsonResponse(r.thenApplyAsync(HttpResponse::body).join(), WikiPage.class);
+        return result;
     }
 
     /**
@@ -294,20 +418,44 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
         var q = new HashMap<String, Object>(){{
             put("path", path);
             put("comment", comment != null ? URLHelper.encodeSpecialWithSpace(comment) : null);
-            put("version", version);
-            put("versionType", versionType.name());
-            put("versionOptions", versionOptions.name());
         }};
 
         var r = send(null, RequestMethod.DELETE, CONNECTION, WIKI, CONNECTION.getProject(),
                 AREA, wikiIdentifier, "pages/" + id, ApiVersion.WIKI_ATTACHMENTS, q, null,
                 HttpResponse.BodyHandlers.ofString(), Map.of("Content-Type", CustomHeader.JSON_CONTENT_TYPE), false);
 
+        var result = MAPPER.mapJsonResponse(r.thenApplyAsync(HttpResponse::body).join(), WikiPage.class);
+
         // Version tag of the attachment is set in headers and this is required for editing wiki pages.
         // etag value is returned in both create and update operations.
-        injectHeader(r.thenApplyAsync(HttpResponse::headers).join(), "etag");
+        var eTag = getValueFromHeader(r.thenApplyAsync(HttpResponse::headers).join(), "etag");
+        if (eTag != null) result.seteTag(eTag);
 
-        return MAPPER.mapJsonResponse(r.thenApplyAsync(HttpResponse::body).join(), WikiPage.class);
+        return result;
+    }
+
+    /**
+     * Gets metadata of the wiki page for the provided path.
+     *
+     * @param wikiIdentifier Wiki ID or wiki name.
+     * @return WikiPage Object {@link WikiPage}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public WikiPage getWikiPage(String wikiIdentifier) throws AzDException {
+
+        var r = send(null, RequestMethod.GET, CONNECTION, WIKI, CONNECTION.getProject(),
+                AREA, wikiIdentifier, "pages", ApiVersion.WIKI_ATTACHMENTS, null, null,
+                HttpResponse.BodyHandlers.ofString(), null, false);
+
+        var result = MAPPER.mapJsonResponse(r.thenApplyAsync(HttpResponse::body).join(), WikiPage.class);
+
+        // Version tag of the attachment is set in headers and this is required for editing wiki pages.
+        // etag value is returned in both create and update operations.
+        var eTag = getValueFromHeader(r.thenApplyAsync(HttpResponse::headers).join(), "etag");
+        if (eTag != null) result.seteTag(eTag);
+
+        return result;
     }
 
     /**
@@ -341,11 +489,38 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
                 AREA, wikiIdentifier, "pages", ApiVersion.WIKI_ATTACHMENTS, q, null,
                 HttpResponse.BodyHandlers.ofString(), null, false);
 
+        var result = MAPPER.mapJsonResponse(r.thenApplyAsync(HttpResponse::body).join(), WikiPage.class);
+
         // Version tag of the attachment is set in headers and this is required for editing wiki pages.
         // etag value is returned in both create and update operations.
-        injectHeader(r.thenApplyAsync(HttpResponse::headers).join(), "etag");
+        var eTag = getValueFromHeader(r.thenApplyAsync(HttpResponse::headers).join(), "etag");
+        if (eTag != null) result.seteTag(eTag);
 
-        return MAPPER.mapJsonResponse(r.thenApplyAsync(HttpResponse::body).join(), WikiPage.class);
+        return result;
+    }
+
+    /**
+     * Gets metadata of the wiki page for the provided page id.
+     *
+     * @param id Wiki page ID.
+     * @param wikiIdentifier Wiki ID or wiki name..
+     * @return WikiPage Object {@link WikiPage}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public WikiPage getWikiPageById(String id, String wikiIdentifier) throws AzDException {
+        var r = send(null, RequestMethod.GET, CONNECTION, WIKI, CONNECTION.getProject(),
+                AREA, wikiIdentifier, "pages/" + id, ApiVersion.WIKI_ATTACHMENTS, null, null,
+                HttpResponse.BodyHandlers.ofString(), null, false);
+
+        var result = MAPPER.mapJsonResponse(r.thenApplyAsync(HttpResponse::body).join(), WikiPage.class);
+
+        // Version tag of the attachment is set in headers and this is required for editing wiki pages.
+        // etag value is returned in both create and update operations.
+        var eTag = getValueFromHeader(r.thenApplyAsync(HttpResponse::headers).join(), "etag");
+        if (eTag != null) result.seteTag(eTag);
+
+        return result;
     }
 
     /**
@@ -370,11 +545,14 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
                 AREA, wikiIdentifier, "pages/" + id, ApiVersion.WIKI_ATTACHMENTS, q, null,
                 HttpResponse.BodyHandlers.ofString(), null, false);
 
+        var result = MAPPER.mapJsonResponse(r.thenApplyAsync(HttpResponse::body).join(), WikiPage.class);
+
         // Version tag of the attachment is set in headers and this is required for editing wiki pages.
         // etag value is returned in both create and update operations.
-        injectHeader(r.thenApplyAsync(HttpResponse::headers).join(), "etag");
+        var eTag = getValueFromHeader(r.thenApplyAsync(HttpResponse::headers).join(), "etag");
+        if (eTag != null) result.seteTag(eTag);
 
-        return MAPPER.mapJsonResponse(r.thenApplyAsync(HttpResponse::body).join(), WikiPage.class);
+        return result;
     }
 
     /**
@@ -439,11 +617,14 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
                 HttpRequest.BodyPublishers.ofString(MAPPER.convertToString(Map.of("content", content))),
                 HttpResponse.BodyHandlers.ofString(), headers, false);
 
+        var result = MAPPER.mapJsonResponse(r.thenApplyAsync(HttpResponse::body).join(), WikiPage.class);
+
         // Version tag of the attachment is set in headers and this is required for editing wiki pages.
         // etag value is returned in both create and update operations.
-        injectHeader(r.thenApplyAsync(HttpResponse::headers).join(), "etag");
+        var eTag = getValueFromHeader(r.thenApplyAsync(HttpResponse::headers).join(), "etag");
+        if (eTag != null) result.seteTag(eTag);
 
-        return MAPPER.mapJsonResponse(r.thenApplyAsync(HttpResponse::body).join(), WikiPage.class);
+        return result;
     }
 
     /**
@@ -452,11 +633,9 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
      * @param headers HttpHeaders object
      * @param keyName Name of the header value to inject
      */
-    private void injectHeader(HttpHeaders headers, String keyName) {
-        if (headers.firstValue(keyName).isPresent()) {
-            var value = new InjectableValues.Std().addValue(keyName,
-                    headers.firstValue(keyName).get().replaceAll("\"", ""));
-            MAPPER.setInjectableValues(value);
-        }
+    private String getValueFromHeader(HttpHeaders headers, String keyName) {
+        if(headers.firstValue(keyName).isPresent())
+            return headers.firstValue(keyName).get().replaceAll("\"", "");
+        return null;
     }
 }
