@@ -1,5 +1,14 @@
 # Changelog
 
+## 5.1.1
+
+- Changes in **WikiApi**
+  - Bug fix for **getPageStats()** method.
+  - Change the type parameters for **createWiki()** method. Now **createWiki()** allows creating project and code wiki.
+  - Support for managing project wiki in all methods.
+  
+
+
 ## 5.0.1
 
 - Expanded support for **ReleaseApi**.
