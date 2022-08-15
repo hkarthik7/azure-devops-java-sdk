@@ -481,7 +481,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     /***
      * Creates a new definition.
      * @param buildDefinitionParameters json string of the build pipeline. Export the build definition from existing pipeline and edit it.
-     * Or get the existing build definition using getBuildDefinition(definitionId) method and use JsonMapper object to
+     * Or get the existing build definition using getBuildDefinition(definitionId) method and call toString() method on it to
      * convert the value to string and create the definition. Easiest way is to use cloneBuildDefinition() method to create
      * a clone of build definition and later edit it to suit the needs.
      * @throws AzDException Default Api Exception handler.
@@ -791,7 +791,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         }};
 
         String r = send(RequestMethod.PUT, CONNECTION, BUILD, CONNECTION.getProject(),
-                AREA + "/definitions", Integer.toString(definition.getId()), null, ApiVersion.BUILD_DEFINITIONS, null,
+                AREA + "/definitions", Integer.toString(definition.getId()), null, ApiVersion.BUILD_DEFINITIONS, q,
                 definition, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, BuildDefinition.class);
