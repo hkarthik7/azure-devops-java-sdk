@@ -47,10 +47,8 @@ public class WikiApiTest {
         } catch (AzDException e) { }
 
         if (wikiPage == null) {
-            var vD = new GitVersionDescriptor();
-            vD.setVersion("develop");
-
-            var wikiCreateParameters = new WikiCreateParameters("/docs", "NewWiki", projectId, repoId, WikiType.CODEWIKI, vD);
+            var wikiCreateParameters = new WikiCreateParameters("/docs", "NewWiki", projectId, repoId, WikiType.CODEWIKI,
+                    new GitVersionDescriptor("develop"));
             w.createWiki(wikiCreateParameters);
         }
     }
