@@ -27,6 +27,19 @@ public class GitVersionDescriptor extends BaseAbstractMethod {
     @JsonProperty("versionType")
     private GitVersionType versionType;
 
+    public GitVersionDescriptor() {
+    }
+
+    public GitVersionDescriptor(String version) {
+        this.version = version;
+    }
+
+    public GitVersionDescriptor(String version, GitVersionOptions versionOptions, GitVersionType versionType) {
+        this.version = version;
+        this.versionOptions = versionOptions;
+        this.versionType = versionType;
+    }
+
     public String getVersion() {
         return version;
     }
