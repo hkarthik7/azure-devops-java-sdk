@@ -45,33 +45,80 @@ public class Main {
             git.updateRepository("repositoryId", "repositoryName", "defaultBranchName");
             
             // lock a branch
-            g.updateBranchLock("my-repo", "master", true);
+            git.updateBranchLock("my-repo", "master", true);
             
             // unlock a branch
-            g.updateBranchLock("my-repo", "master", false);
+            git.updateBranchLock("my-repo", "master", false);
             
             // create a pull request and optionally make it as draft.
-            var repoId = g.getRepository("my-repository").getId();
+            var repoId = git.getRepository("my-repository").getId();
             // pass the repository id, source reference branch, target reference branch, title, description and set the isDraft to true to create
             // the pull request in draft state. If it is set to false the pull request will be published.
-            g.createPullRequest(repoId,"develop", "master", "New feature", "Adding new feature", true);
+            git.createPullRequest(repoId,"develop", "master", "New feature", "Adding new feature", true);
             
             // Add a reviewer to the pull request and optionally make them as required
-            g.createPullRequestReviewer("pull-request-id", "repository-name", "reviewer-id", 0, true);
+            git.createPullRequestReviewer("pull-request-id", "repository-name", "reviewer-id", 0, true);
             
             // Update a pull request
             // The editable fields are isFlagged and hasDeclined. This means you can either flag a pull request or decline it.
             // Please note that you cannot decline your own pull request.
-            g.updatePullRequestReviewer("pull-request-id", "repository-name", "reviewer-id", true, false);
+            git.updatePullRequestReviewer("pull-request-id", "repository-name", "reviewer-id", true, false);
             
             // get a pull request reviewer by id
-            g.getPullRequestReviewer("pull-request-id", "repository-name", "reviewer-id");
+            git.getPullRequestReviewer("pull-request-id", "repository-name", "reviewer-id");
             
             // get all reviewers in a pull request
-            g.getPullRequestReviewers("pull-request-id", "repository-name");
+            git.getPullRequestReviewers("pull-request-id", "repository-name");
             
             // delete a pull request reviewer
-            g.deletePullRequestReviewer("pull-request-id", "repository-name", "reviewer-id");
+            git.deletePullRequestReviewer("pull-request-id", "repository-name", "reviewer-id");
+            
+            // Get all items from the repository
+            git.getItems("repository-name").getItems();
+                    
+            git.getItems("repository-name", VersionControlRecursionType.FULL).getItems();
+            
+            // Get all items with optional parameters
+            //
+            // Include content metadata: true
+            // include links: true
+            // latest processed change: false
+            // Version control recursion type to navigate through the path
+            // Path of the files in git repository
+            git.getItems("repository-name", true, true, false,
+                    VersionControlRecursionType.ONE_LEVEL_PLUS_NESTED_EMPTY_FOLDERS, "/docs").getItems();
+            
+            // Get a blob with sha1 of the blob object id
+            // Get the sha1 of blob object id from getItems() methods. You should only pass the object id of blob type.
+            var repoId = git.getRepository("testRepository").getId();
+            var items = git.getItems(repoId, VersionControlRecursionType.FULL).getItems();
+            var sha1 = items.stream()
+                    .filter(x -> x.getGitObjectType() == GitObjectType.BLOB && x.getPath().equals("/Test.txt"))
+                    .map(GitItem::getObjectId)
+                    .findFirst()
+                    .get();
+
+            git.getBlob(repoId, sha1, "test.txt", false);
+            
+            // Get blob content
+            git.getBlobContent(repoId, sha1, true, "test.txt", false);
+            
+            // Download blob in a zip file
+            var res = git.getBlobContentAsZip(repoId, sha1, true, "test.txt", false);
+            StreamHelper.download("blob.zip", res);
+            
+            // Download a list of blobs in as a zip file
+            var repoId = g.getRepository("testRepository").getId();
+            var items = g.getItems(repoId, VersionControlRecursionType.FULL).getItems();
+            var sha1 = items.stream()
+                    .filter(x -> x.getGitObjectType() == GitObjectType.BLOB)
+                    .map(GitItem::getObjectId)
+                    .collect(Collectors.toList());
+            
+            var res = git.getBlobsZip(repoId, sha1);
+            
+            StreamHelper.download("blobs.zip", res);
+            
         } catch (AzDException e) {
             e.printStackTrace();
         }
