@@ -1,9 +1,14 @@
 package org.azd;
 
+import org.azd.enums.GitBlobRefFormat;
+import org.azd.enums.GitObjectType;
 import org.azd.enums.PullRequestStatus;
+import org.azd.enums.VersionControlRecursionType;
 import org.azd.exceptions.AzDException;
+import org.azd.git.types.GitItem;
 import org.azd.git.types.WebApiTagDefinition;
 import org.azd.helpers.JsonMapper;
+import org.azd.helpers.StreamHelper;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.GitDetails;
 import org.azd.utils.AzDClientApi;
@@ -11,6 +16,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class GitApiTest {
 
@@ -227,5 +236,83 @@ public class GitApiTest {
     public void shouldGetACommitsFromTheRepository() throws AzDException {
         var commitId = g.getCommits("testRepository").getCommits().stream().findFirst().get().getCommitId();
         g.getCommit("testRepository", commitId);
+    }
+
+    @Test
+    public void shouldGetABlob() throws AzDException {
+        var repoId = g.getRepository("testRepository").getId();
+        var items = g.getItems(repoId, VersionControlRecursionType.FULL).getItems();
+        var sha1 = items.stream()
+                .filter(x -> x.getGitObjectType() == GitObjectType.BLOB && x.getPath().equals("/Test.txt"))
+                .map(GitItem::getObjectId)
+                .findFirst()
+                .get();
+
+        g.getBlob(repoId, sha1, "test.txt", false);
+    }
+
+    @Test
+    public void shouldGetABlobContent() throws AzDException {
+        var repoId = g.getRepository("testRepository").getId();
+        var items = g.getItems(repoId, VersionControlRecursionType.FULL).getItems();
+        var sha1 = items.stream()
+                .filter(x -> x.getGitObjectType() == GitObjectType.BLOB && x.getPath().equals("/Test.txt"))
+                .map(GitItem::getObjectId)
+                .findFirst()
+                .get();
+
+        g.getBlobContent(repoId, sha1, true, "test.txt", false);
+    }
+
+    @Test
+    public void shouldGetABlobContentAsZip() throws AzDException {
+        var repoId = g.getRepository("testRepository").getId();
+        var items = g.getItems(repoId, VersionControlRecursionType.FULL).getItems();
+        var sha1 = items.stream()
+                .filter(x -> x.getGitObjectType() == GitObjectType.BLOB && x.getPath().equals("/Test.txt"))
+                .map(GitItem::getObjectId)
+                .findFirst()
+                .get();
+
+        var res = g.getBlobContentAsZip(repoId, sha1, true, "test.txt", false);
+        StreamHelper.download("blob.zip", res);
+    }
+
+    @Test
+    public void shouldGetABlobContentAsStream() throws AzDException {
+        var repoId = g.getRepository("testRepository").getId();
+        var items = g.getItems(repoId, VersionControlRecursionType.FULL).getItems();
+        var sha1 = items.stream()
+                .filter(x -> x.getGitObjectType() == GitObjectType.BLOB && x.getPath().equals("/Test.txt"))
+                .map(GitItem::getObjectId)
+                .findFirst()
+                .get();
+
+        var res = g.getBlobContentAsStream(repoId, sha1, true, "test.txt", false);
+        StreamHelper.convertToString(res);
+//        StreamHelper.download("test.txt", res);
+    }
+
+    @Test
+    public void shouldGetBlobsAsZip() throws AzDException {
+        var repoId = g.getRepository("testRepository").getId();
+        var items = g.getItems(repoId, VersionControlRecursionType.FULL).getItems();
+        var sha1 = items.stream()
+                .filter(x -> x.getGitObjectType() == GitObjectType.BLOB)
+                .map(GitItem::getObjectId)
+                .collect(Collectors.toList());
+        var res = g.getBlobsZip(repoId, sha1);
+        StreamHelper.download("blobs.zip", res);
+    }
+
+    @Test
+    public void shouldGetAllItems() throws AzDException {
+        g.getItems("testRepository", VersionControlRecursionType.FULL).getItems();
+    }
+
+    @Test
+    public void shouldGetAllItemsWithQueryParameters() throws AzDException {
+        g.getItems("testRepository", true, true, false,
+                VersionControlRecursionType.ONE_LEVEL_PLUS_NESTED_EMPTY_FOLDERS, "/docs").getItems();
     }
 }

@@ -9,6 +9,9 @@ import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.GitDetails;
 import org.azd.utils.AzDAsyncApi;
 
+import java.io.InputStream;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.*;
 
 import static org.azd.utils.RestClient.send;
@@ -961,5 +964,256 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
                 repositoryName, "commits", ApiVersion.GIT, q, null, null);
 
         return MAPPER.mapJsonResponse(r, GitCommits.class);
+    }
+
+    /**
+     * Get a single blob.
+     *
+     * @param repositoryId The name or ID of the repository.
+     * @param sha1 SHA1 hash of the file. You can get the SHA1 of a file using the "Git/Items/Get Item" endpoint.
+     * @return GitBlobRef Object {@link GitBlobRef}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public GitBlobRef getBlob(String repositoryId, String sha1) throws AzDException {
+
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryId, "blobs/" + sha1, ApiVersion.GIT, null, null, null);
+
+        return MAPPER.mapJsonResponse(r, GitBlobRef.class);
+    }
+
+    /**
+     * Get a single blob.
+     *
+     * @param repositoryId The name or ID of the repository.
+     * @param sha1 SHA1 hash of the file. You can get the SHA1 of a file using the "Git/Items/Get Item" endpoint.
+     * @param fileName Provide a fileName to use for a download.
+     * @param resolveLfs If true, try to resolve a blob to its LFS contents, if it's an LFS pointer file. Only compatible with octet-stream Accept headers or $format types
+     * @return GitBlobRef Object {@link GitBlobRef}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public GitBlobRef getBlob(String repositoryId, String sha1, String fileName, boolean resolveLfs) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("$format", GitBlobRefFormat.JSON.name());
+            put("fileName", fileName);
+            put("resolveLfs", resolveLfs);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryId, "blobs/" + sha1, ApiVersion.GIT, q, null, null);
+
+        return MAPPER.mapJsonResponse(r, GitBlobRef.class);
+    }
+
+    /**
+     * Get a single blob content.
+     *
+     * @param repositoryId The name or ID of the repository.
+     * @param sha1 SHA1 hash of the file. You can get the SHA1 of a file using the getItems() method.
+     * @param download If true, download the text. You can use {@link org.azd.helpers.StreamHelper} to download the file.
+     * @param fileName Provide a fileName to use for a download.
+     * @param resolveLfs If true, try to resolve a blob to its LFS contents, if it's an LFS pointer file. Only compatible with octet-stream Accept headers or $format types
+     * @return String contents of the file.
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public String getBlobContent(String repositoryId, String sha1, boolean download, String fileName, boolean resolveLfs) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("$format", GitBlobRefFormat.TEXT.name());
+            put("download", download);
+            put("fileName", fileName);
+            put("resolveLfs", resolveLfs);
+        }};
+
+        return send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryId, "blobs/" + sha1, ApiVersion.GIT, q, null, null);
+    }
+
+    /**
+     * Get a single blob as zip of input stream. Use {@link org.azd.helpers.StreamHelper} to download the file.
+     *
+     * @param repositoryId The name or ID of the repository.
+     * @param sha1 SHA1 hash of the file. You can get the SHA1 of a file using the getItems() method.
+     * @param download If true, download the text. You can use {@link org.azd.helpers.StreamHelper} to download the file.
+     * @param fileName Provide a fileName to use for a download.
+     * @param resolveLfs If true, try to resolve a blob to its LFS contents, if it's an LFS pointer file. Only compatible with octet-stream Accept headers or $format types
+     * @return Input stream for zip download. This gets the stream of a single file.
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public InputStream getBlobContentAsZip(String repositoryId, String sha1, boolean download, String fileName, boolean resolveLfs) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("$format", GitBlobRefFormat.ZIP.name());
+            put("download", download);
+            put("fileName", fileName);
+            put("resolveLfs", resolveLfs);
+        }};
+
+        return send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryId, "blobs/" + sha1, ApiVersion.GIT, q, null, null, false);
+    }
+
+    /**
+     * Get a single blob content as input stream. Use {@link org.azd.helpers.StreamHelper} to download the file.
+     *
+     * @param repositoryId The name or ID of the repository.
+     * @param sha1 SHA1 hash of the file. You can get the SHA1 of a file using the getItems() method.
+     * @param download If true, download the text. You can use {@link org.azd.helpers.StreamHelper} to download the file.
+     * @param fileName Provide a fileName to use for a download.
+     * @param resolveLfs If true, try to resolve a blob to its LFS contents, if it's an LFS pointer file. Only compatible with octet-stream Accept headers or $format types
+     * @return Input stream for zip download. This gets the stream of a single file.
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public InputStream getBlobContentAsStream(String repositoryId, String sha1, boolean download, String fileName, boolean resolveLfs) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("$format", GitBlobRefFormat.OCTETSTREAM.name());
+            put("download", download);
+            put("fileName", fileName);
+            put("resolveLfs", resolveLfs);
+        }};
+
+        return send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryId, "blobs/" + sha1, ApiVersion.GIT, q, null, null, false);
+    }
+
+    /**
+     * Gets one or more blobs in a zip file download.
+     *
+     * @param repositoryId The name or ID of the repository.
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public InputStream getBlobsZip(String repositoryId, List<String> sha1) throws AzDException {
+        return send(null, RequestMethod.POST, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryId, "blobs", ApiVersion.GIT, null,
+                HttpRequest.BodyPublishers.ofString(MAPPER.convertToString(sha1)),
+                HttpResponse.BodyHandlers.ofInputStream(),
+                Map.of("Stream_Zip", CustomHeader.STREAM_ZIP_ACCEPT, "Content_Type", CustomHeader.JSON_CONTENT_TYPE),
+                false)
+                .thenApplyAsync(HttpResponse::body)
+                .join();
+    }
+
+    /**
+     * Gets one or more blobs in a zip file download.
+     *
+     * @param repositoryId The name or ID of the repository.
+     * @param fileName Name of the file.
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public InputStream getBlobsZip(String repositoryId, String fileName, List<String> sha1) throws AzDException {
+        return send(null, RequestMethod.POST, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryId, "blobs", ApiVersion.GIT, Map.of("filename", fileName),
+                HttpRequest.BodyPublishers.ofString(MAPPER.convertToString(sha1)),
+                HttpResponse.BodyHandlers.ofInputStream(),
+                Map.of("Stream_Zip", CustomHeader.STREAM_ZIP_ACCEPT, "Content_Type", CustomHeader.JSON_CONTENT_TYPE),
+                false)
+                .thenApplyAsync(HttpResponse::body)
+                .join();
+    }
+
+    /**
+     * Get Item Metadata and/or Content for a collection of items.
+     *
+     * @param repositoryName The name or ID of the repository.
+     * @return GitItem Object {@link GitItem}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public GitItems getItems(String repositoryName) throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryName, "items", ApiVersion.GIT, null, null, null);
+
+        return MAPPER.mapJsonResponse(r, GitItems.class);
+    }
+
+    /**
+     * Get Item Metadata and/or Content for a collection of items.
+     *
+     * @param repositoryName The name or ID of the repository.
+     * @param recursionType The recursion level of this request. The default is 'none', no recursion.
+     * @return GitItem Object {@link GitItem}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public GitItems getItems(String repositoryName, VersionControlRecursionType recursionType) throws AzDException {
+        var q = new HashMap<String, Object>(){{ put("recursionLevel", recursionType.name()); }};
+
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryName, "items", ApiVersion.GIT, q, null, null);
+
+        return MAPPER.mapJsonResponse(r, GitItems.class);
+    }
+
+    /**
+     * Get Item Metadata and/or Content for a collection of items.
+     *
+     * @param repositoryName The name or ID of the repository.
+     * @param includeContentMetadata Set to true to include content metadata.  Default is false.
+     * @param includeLinks Set to true to include links to items.  Default is false.
+     * @param latestProcessedChange Set to true to include the latest changes.  Default is false.
+     * @param recursionType The recursion level of this request. The default is 'none', no recursion.
+     * @param scopePath The path scope.  The default is null.
+     * @return GitItem Object {@link GitItem}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public GitItems getItems(String repositoryName, boolean includeContentMetadata, boolean includeLinks,
+                             boolean latestProcessedChange, VersionControlRecursionType recursionType,
+                             String scopePath) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("recursionLevel", recursionType.getValue());
+            put("includeContentMetadata", includeContentMetadata);
+            put("includeLinks", includeLinks);
+            put("latestProcessedChange", latestProcessedChange);
+        }};
+
+        if (scopePath != null) q.put("scopePath", scopePath);
+
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryName, "items", ApiVersion.GIT, q, null, null);
+
+        return MAPPER.mapJsonResponse(r, GitItems.class);
+    }
+
+    /**
+     * Get Item Metadata and/or Content for a collection of items.
+     *
+     * @param repositoryName The name or ID of the repository.
+     * @param includeContentMetadata Set to true to include content metadata.  Default is false.
+     * @param includeLinks Set to true to include links to items.  Default is false.
+     * @param latestProcessedChange Set to true to include the latest changes.  Default is false.
+     * @param recursionType The recursion level of this request. The default is 'none', no recursion.
+     * @param scopePath The path scope.  The default is null.
+     * @param version Version string identifier (name of tag/branch, SHA1 of commit)
+     * @param versionOptions Version options - Specify additional modifiers to version (e.g Previous)
+     * @param versionType Version type (branch, tag, or commit). Determines how Id is interpreted
+     * @return GitItem Object {@link GitItem}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public GitItems getItems(String repositoryName, boolean includeContentMetadata, boolean includeLinks,
+                             boolean latestProcessedChange, VersionControlRecursionType recursionType,
+                             String scopePath, String version, GitVersionOptions versionOptions,
+                             GitVersionType versionType) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("recursionLevel", recursionType.getValue());
+            put("includeContentMetadata", includeContentMetadata);
+            put("includeLinks", includeLinks);
+            put("latestProcessedChange", latestProcessedChange);
+            put("versionOptions", versionOptions);
+            put("versionType", versionType);
+        }};
+
+        if (scopePath != null) q.put("scopePath", scopePath);
+
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryName, "items", ApiVersion.GIT, q, null, null);
+
+        return MAPPER.mapJsonResponse(r, GitItems.class);
     }
 }

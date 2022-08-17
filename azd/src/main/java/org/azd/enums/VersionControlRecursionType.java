@@ -29,4 +29,8 @@ public enum VersionControlRecursionType {
      */
     @JsonProperty("oneLevelPlusNestedEmptyFolders")
     ONE_LEVEL_PLUS_NESTED_EMPTY_FOLDERS;
+
+    public String getValue() {
+        return this.name().replaceAll("_", "").toLowerCase();
+    }
 }

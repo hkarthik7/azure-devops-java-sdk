@@ -1,12 +1,10 @@
 package org.azd.interfaces;
 
-import org.azd.enums.GitHistoryMode;
-import org.azd.enums.GitVersionOptions;
-import org.azd.enums.GitVersionType;
-import org.azd.enums.PullRequestStatus;
+import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
 import org.azd.git.types.*;
 
+import java.io.InputStream;
 import java.util.List;
 
 public interface GitDetails {
@@ -113,4 +111,29 @@ public interface GitDetails {
 
     GitCommits getPushCommits(String repositoryName, int pushId, boolean includeLinks, int top, int skip)
             throws AzDException;
+
+    GitBlobRef getBlob(String repositoryId, String sha1) throws AzDException;
+
+    GitBlobRef getBlob(String repositoryId, String sha1, String fileName, boolean resolveLfs) throws AzDException;
+
+    String getBlobContent(String repositoryId, String sha1, boolean download, String fileName, boolean resolveLfs) throws AzDException;
+
+    InputStream getBlobContentAsZip(String repositoryId, String sha1, boolean download, String fileName, boolean resolveLfs) throws AzDException;
+
+    InputStream getBlobContentAsStream(String repositoryId, String sha1, boolean download, String fileName, boolean resolveLfs) throws AzDException;
+
+    InputStream getBlobsZip(String repositoryId, List<String> sha1) throws AzDException;
+
+    InputStream getBlobsZip(String repositoryId, String fileName, List<String> sha1) throws AzDException;
+
+    GitItems getItems(String repositoryName) throws AzDException;
+
+    GitItems getItems(String repositoryName, VersionControlRecursionType recursionType) throws AzDException;
+
+    GitItems getItems(String repositoryName, boolean includeContentMetadata, boolean includeLinks, boolean latestProcessedChange,
+                      VersionControlRecursionType recursionType, String scopePath) throws AzDException;
+
+    GitItems getItems(String repositoryName, boolean includeContentMetadata, boolean includeLinks, boolean latestProcessedChange,
+                      VersionControlRecursionType recursionType, String scopePath, String version,
+                      GitVersionOptions versionOptions, GitVersionType versionType) throws AzDException;
 }
