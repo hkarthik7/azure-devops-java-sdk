@@ -978,7 +978,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     @Override
     public GitRefs getRefs(String repositoryName) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
-            AREA + "/repositories", repositoryName, "refs", ApiVersion.GIT, null, null);
+            AREA + "/repositories", repositoryName, "refs", ApiVersion.GIT, null, null, null);
 
         return MAPPER.mapJsonResponse(r, GitRefs.class);
     }
@@ -998,7 +998,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
-            AREA + "/repositories", repositoryName, "refs", ApiVersion.GIT, q, null);
+            AREA + "/repositories", repositoryName, "refs", ApiVersion.GIT, q, null, null);
             
         return MAPPER.mapJsonResponse(r, GitRefs.class);
     }
@@ -1015,18 +1015,18 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      */
     @Override
     public GitRefUpdateResult updateRef(String repositoryName, String refName, String oldObjectId, String newObjectId) throws AzDException {
-        List requestBody = new ArrayList<Map>();
+        var b = new ArrayList<Map>();
         var h = new HashMap<String, Object>(){{
             put("name", refName);
             put("oldObjectId", oldObjectId);
             put("newObjectId", newObjectId);
         }}; 
 
-        requestBody.add(h);
+        b.add(h);
 
         String r = send(RequestMethod.POST, CONNECTION, GIT, CONNECTION.getProject(),
-            AREA + "/repositories", repositoryName, "refs", ApiVersion.GIT, null, true, MAPPER.convertToString(requestBody));    
-
+            AREA + "/repositories", repositoryName, "refs", ApiVersion.GIT, null, b, CustomHeader.JSON_CONTENT_TYPE);    
+            
         return MAPPER.mapJsonResponse(r, GitRefUpdateResults.class).getGitRefUpdateResults().get(0);
     }
 
