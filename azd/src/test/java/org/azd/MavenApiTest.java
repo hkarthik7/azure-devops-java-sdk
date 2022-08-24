@@ -34,7 +34,7 @@ public class MavenApiTest {
     private static final String TEST1_VERSION = "1.5.0";
     private static final String TEST2_GROUP = "org.tester.maven";
     private static final String TEST2_ARTIFACT = "MavenTester";
-    private static final String TEST2_VERSION = "1.1.0";
+    private static final String TEST2_VERSION = "1.0.0";
     // Recycle bin Package
     private static final String TEST3_GROUP = "org.HelloWorld";
     private static final String TEST3_ARTIFACT = "HelloWorld";
