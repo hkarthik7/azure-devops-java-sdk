@@ -71,6 +71,25 @@ public class Main {
             git.getPullRequestReviewers("pull-request-id", "repository-name");
             
             // delete a pull request reviewer
+            g.deletePullRequestReviewer("pull-request-id", "repository-name", "reviewer-id");
+
+            // get refs in a repository
+            g.getRefs("testRepository");
+
+            // get a ref with filter
+            g.getRef("testRepository", "heads/main");
+
+            // create test2 branch in testRepository based on oldObjectID(SHA1) 
+            g.updateRefs("testRepository","refs/heads/test2", "oldObjectID", "newObjectID");
+
+            // create Tag in testRepository based on main branch
+            g.createTag("testRepository", "createTestTag", "main");
+            
+            // create Tag in testRepository based on Commit SHA1
+            g.createTag("testRepository", "createTestTag", "86e74e806a3d4b35580563782292e6ab87edee1a");
+
+            // delete a tag
+            g.deleteTag("testRepository", "createTestTag");
             git.deletePullRequestReviewer("pull-request-id", "repository-name", "reviewer-id");
             
             // Get all items from the repository
