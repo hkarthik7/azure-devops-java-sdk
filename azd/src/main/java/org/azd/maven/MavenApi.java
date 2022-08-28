@@ -13,6 +13,7 @@ import org.azd.utils.AzDAsyncApi;
 
 import java.io.InputStream;
 import java.net.URI;
+import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.azd.utils.RestClient.send;
+import static org.azd.utils.RestClientProvider.getLocationUrl;
 
 /***
  * MavenApi class to manage maven artifact package api
@@ -32,6 +34,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
     private final JsonMapper MAPPER = new JsonMapper();
     private final String AREA = "packaging";
     private final String MAVEN = "6f7f8c07-ff36-473c-bcf3-bd6cc9b6c066";
+    private final String PACKAGES_RELATIVE_PATH = "_packaging";
 
     /***
      * Pass the connection object to work with Maven Package Api
@@ -424,6 +427,58 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
             if (!r.isEmpty())
                 MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
+            throw e;
+        }
+    }
+
+    /***
+     * Fulfills Maven package file upload requests by either returning the URL
+     of
+     * the requested package file or, in the case of Azure DevOps Server (OnPrem),
+     *
+     * @param feedId Name or ID of the feed. Example: "mavenfeed".
+     * @param groupId Group ID of the package. Example: "com.example".
+     * @param artifactId Artifact ID of the package. Example: "app".
+     * @param version Version of the package. Example: "1.0.0".
+     * @param fileName File name to upoad. Must include artifactId Example: "app-1.0.0.jar".
+     * @param content Inputstream for the package file.
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public void uploadPackage(String feedId, String groupId, String artifactId, String version, String fileName, InputStream content)
+            throws AzDException {
+        try {
+            StringBuilder stringBuilder = new StringBuilder();
+            String pathSeparator = "/";
+            String resource="maven" + pathSeparator + "v1" + pathSeparator + groupId + pathSeparator + artifactId + pathSeparator + version; // e.g  pkgs.dev.azure.com/{account}/{org}/_packaging/{feed}/maven/v1/{artifactid}/{groupid}/{version}/{filename}
+            stringBuilder.append((getLocationUrl(MAVEN, CONNECTION.getOrganization())));
+
+            if (CONNECTION.getProject() != null) {
+                stringBuilder.append(pathSeparator).append(CONNECTION.getProject());
+            }
+
+            stringBuilder.append(pathSeparator + PACKAGES_RELATIVE_PATH);
+
+            if (feedId != null) {
+                stringBuilder.append(pathSeparator).append(feedId);
+            }
+            if (resource != null) {
+                stringBuilder.append(pathSeparator).append(resource);
+            }
+            if (fileName != null) {
+                stringBuilder.append(pathSeparator).append(fileName);
+            }
+            
+            String requestUrl=stringBuilder.toString();
+
+            var t = send(requestUrl, RequestMethod.PUT, CONNECTION, null, null,
+                            null, null, null, ApiVersion.MAVEN,null, HttpRequest.BodyPublishers.ofInputStream(() -> content),
+                            HttpResponse.BodyHandlers.ofString(), null, false);
+
+            String r= t.thenApplyAsync(HttpResponse::body).join();
+            if(!r.isEmpty()) // if the response is not empty, then the upload was not successful
+                MAPPER.mapJsonResponse(r, Map.class);      
+        } catch(AzDException e){
             throw e;
         }
     }
