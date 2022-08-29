@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Map;
 
 import static org.azd.utils.RestClient.send;
-import static org.azd.utils.RestClientProvider.getLocationUrl;
 
 /***
  * MavenApi class to manage maven artifact package api
@@ -448,11 +447,12 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
     public void uploadPackage(String feedId, String groupId, String artifactId, String version, String fileName, InputStream content)
             throws AzDException {
         try {
-            StringBuilder stringBuilder = new StringBuilder();
             String pathSeparator = "/";
-            String resource="maven" + pathSeparator + "v1" + pathSeparator + groupId + pathSeparator + artifactId + pathSeparator + version; // e.g  pkgs.dev.azure.com/{account}/{org}/_packaging/{feed}/maven/v1/{artifactid}/{groupid}/{version}/{filename}
-            stringBuilder.append((getLocationUrl(MAVEN, CONNECTION.getOrganization())));
 
+            String baseInstance = Instance.BASE_INSTANCE.setSubdomain("pkgs"); // This returns https://pkgs.dev.azure.com
+            StringBuilder stringBuilder = new StringBuilder(baseInstance);
+            
+            stringBuilder.append(CONNECTION.getOrganization());
             if (CONNECTION.getProject() != null) {
                 stringBuilder.append(pathSeparator).append(CONNECTION.getProject());
             }
@@ -462,11 +462,13 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
             if (feedId != null) {
                 stringBuilder.append(pathSeparator).append(feedId);
             }
+            
+            String area="maven" + pathSeparator + "v1";
+            stringBuilder.append(pathSeparator).append(area);
+
+            String resource=groupId + pathSeparator + artifactId + pathSeparator + version+ pathSeparator + fileName; 
             if (resource != null) {
                 stringBuilder.append(pathSeparator).append(resource);
-            }
-            if (fileName != null) {
-                stringBuilder.append(pathSeparator).append(fileName);
             }
             
             String requestUrl=stringBuilder.toString();

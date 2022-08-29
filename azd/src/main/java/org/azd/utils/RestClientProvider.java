@@ -24,7 +24,7 @@ public final class RestClientProvider extends BaseRestClient {
      * @return resource area url
      * @throws AzDException throws user understandable error message with error code from API
      */
-    public static String getLocationUrl(String resourceID, String organizationName) throws AzDException {
+    private static String getLocationUrl(String resourceID, String organizationName) throws AzDException {
 
         String INSTANCE = Instance.BASE_INSTANCE.getInstance();
 
