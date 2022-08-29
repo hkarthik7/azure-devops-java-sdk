@@ -17,7 +17,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,10 +28,10 @@ import static org.junit.Assert.*;
 public class MavenApiTest {
 
     private static final JsonMapper MAPPER = new JsonMapper();
-    private static final String FEED = "test2";
-    private static final String TEST1_GROUP = "com.acme";
-    private static final String TEST1_ARTIFACT = "app";
-    private static final String TEST1_VERSION = "2.0.15";
+    private static final String FEED = "maven-feed";
+    private static final String TEST1_GROUP = "org.jack.click";
+    private static final String TEST1_ARTIFACT = "ClickJack";
+    private static final String TEST1_VERSION = "1.5.0";
     private static final String TEST2_GROUP = "org.tester.maven";
     private static final String TEST2_ARTIFACT = "MavenTester";
     private static final String TEST2_VERSION = "1.0.0";
@@ -156,7 +155,7 @@ public class MavenApiTest {
     }
 
     @Test
-    public void shouldUploadPackage() throws AzDException, FileNotFoundException {
+    public void shouldUploadPackage() throws AzDException {
         var feedId = feed.getFeed(FEED).getId();
         var uploadVersion = TEST1_VERSION.substring(0, TEST1_VERSION.lastIndexOf(".")) + "." + (Integer.parseInt(TEST1_VERSION.substring(TEST1_VERSION.lastIndexOf(".") + 1)) + 1);
         String uploadFileName = TEST1_ARTIFACT+"-"+uploadVersion+".jar";
@@ -166,7 +165,7 @@ public class MavenApiTest {
 
         var content = StreamHelper.convertToStream(new File(uploadFileName));
         try{
-            Package testPackage = mvn.getPackageVersion(FEED, TEST1_GROUP, TEST1_ARTIFACT, TEST1_VERSION);
+            Package testPackage = mvn.getPackageVersion(FEED, TEST1_GROUP, TEST1_ARTIFACT, uploadVersion);
         } catch(AzDException e){ // package not found
             System.out.println("Maven API TEST : shouldUploadPackage");
             mvn.uploadPackage(FEED, TEST1_GROUP, TEST1_ARTIFACT, uploadVersion, uploadFileName, content);
