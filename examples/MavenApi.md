@@ -34,8 +34,11 @@ public class Main {
             // Get information about a package
             Maven.getPackageVersion("myFeed", "myGroupId", "myArtifactId", "1.0.0");
 
-            // Download a package (to be implemented)
-            //Maven.downloadPackage("myFeed", "myGroupId", "myArtifactId", "1.0.0");
+            // Download a package
+            var responseStream= Maven.downloadPackage("myFeed", "myGroupId", "myArtifactId", "1.0.0");
+
+            // Upload a package
+            Maven.uploadPackage("myFeed", "myGroupId", "myArtifactId", "1.0.0", "myArtifact.jar");
 
             // Get information about a deleted package.
             Maven.getPackageVersion("myFeed", "myGroupId", "myArtifactId", "1.0.0", true);

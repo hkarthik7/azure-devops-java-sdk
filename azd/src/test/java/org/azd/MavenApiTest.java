@@ -155,6 +155,25 @@ public class MavenApiTest {
     }
 
     @Test
+    public void shouldUploadPackage() throws AzDException {
+        var feedId = feed.getFeed(FEED).getId();
+        var uploadVersion = TEST1_VERSION.substring(0, TEST1_VERSION.lastIndexOf(".")) + "." + (Integer.parseInt(TEST1_VERSION.substring(TEST1_VERSION.lastIndexOf(".") + 1)) + 1);
+        String uploadFileName = TEST1_ARTIFACT+"-"+uploadVersion+".jar";
+
+        var responseStream = mvn.downloadPackage(feedId, TEST1_GROUP, TEST1_ARTIFACT, TEST1_VERSION, "ClickJack-1.5.0.jar");
+        StreamHelper.download(uploadFileName, responseStream);
+
+        var content = StreamHelper.convertToStream(new File(uploadFileName));
+        try{
+            Package testPackage = mvn.getPackageVersion(FEED, TEST1_GROUP, TEST1_ARTIFACT, uploadVersion);
+        } catch(AzDException e){ // package not found
+            System.out.println("Maven API TEST : shouldUploadPackage");
+            mvn.uploadPackage(FEED, TEST1_GROUP, TEST1_ARTIFACT, uploadVersion, uploadFileName, content);
+            System.out.println("Maven API TEST : shouldUploadPackage - OK");
+        }
+    }
+
+    @Test
     public void shouldUpdatePackageVersions() throws AzDException, InterruptedException {
         System.out.println("Maven API TEST : updatePackageVersions");
         List packages = new ArrayList<>();

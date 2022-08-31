@@ -3,6 +3,7 @@
 
 - Added support for GitRefs, GitTag in **GitApi**.
 - Merged PR: [Can I implement deleteTag or deleteBranch method? #27](https://github.com/hkarthik7/azure-devops-java-sdk/issues/27)
+- Added uploadPackage method in **MavenApi**.
 
 ## 5.0.2
 
