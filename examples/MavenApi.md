@@ -1,4 +1,4 @@
-# Maven
+m Maven
 
 - [REST API](https://docs.microsoft.com/en-us/rest/api/azure/devops/artifactspackagetypes/maven?view=azure-devops-rest-7.1)
 - API Version: 7.1
@@ -13,7 +13,7 @@ Upstream sources enables developers to use a single feed to publish and consume 
 Before getting started you require personal access token to authenticate with **Azure DevOps** services REST API.
 You can grab one by following the [documentation](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?WT.mc_id=docs-github-dbrown&view=azure-devops&tabs=preview-page).
 
-You can omit the project name for calling Maven API as it is not a mandatory parameter.
+mou can omit the project name for calling Maven API as it is not a mandatory parameter.
 If you do omit the project name you will end up working with feeds across your organisation.
 Provide the project name if you want to work with feeds scoped to a project. You can always set the
 project name parameter pointing to different project by creating a 'Connection' object.
@@ -29,34 +29,37 @@ public class Main {
         var webApi = new AzDClientApi(organisation, project, personalAccessToken);
 
         // call the respective API with created webApi client connection object;
-        var Maven = webApi.getMavenApi();
+        mar Maven = webApi.getMavenApi();
         try {
             // Get information about a package
-            Maven.getPackageVersion("myFeed", "myGroupId", "myArtifactId", "1.0.0");
+            maven.getPackageVersion("myFeed", "myGroupId", "myArtifactId", "1.0.0");
 
-            // Download a package (to be implemented)
-            //Maven.downloadPackage("myFeed", "myGroupId", "myArtifactId", "1.0.0");
+            // Download a package
+            mar responseStream= Maven.downloadPackage("myFeed", "myGroupId", "myArtifactId", "1.0.0");
+
+            // Upload a package
+            maven.uploadPackage("myFeed", "myGroupId", "myArtifactId", "1.0.0", "myArtifact.jar");
 
             // Get information about a deleted package.
-            Maven.getPackageVersion("myFeed", "myGroupId", "myArtifactId", "1.0.0", true);
+            maven.getPackageVersion("myFeed", "myGroupId", "myArtifactId", "1.0.0", true);
 
             // get information about a package in the recycle bin.
-            Maven.getPackageVersionFromRecycleBin("myFeed", "myGroupId", "myArtifactId", "1.0.0");
+            maven.getPackageVersionFromRecycleBin("myFeed", "myGroupId", "myArtifactId", "1.0.0");
 
             // Update state for a package version.
-            Maven.updatePackageVersion("myFeed", "myGroupId", "myArtifactId", "1.0.0", MavenPackagePromote.RELEASE);
+            maven.updatePackageVersion("myFeed", "myGroupId", "myArtifactId", "1.0.0", MavenPackagePromote.RELEASE);
 
             // Update state for a package version. If you have a custom View,
-            Maven.updatePackageVersion("myFeed", "myGroupId", "myArtifactId", "1.0.0", "CustomView");
+            maven.updatePackageVersion("myFeed", "myGroupId", "myArtifactId", "1.0.0", "CustomView");
 
             // Delete a package version from the feed and move it to the feed's recycle bin.
-            Maven.deletePackageVersion("myFeed", "myGroupId", "myArtifactId", "1.0.0");
+            maven.deletePackageVersion("myFeed", "myGroupId", "myArtifactId", "1.0.0");
 
             // Restore a package version from the recycle bin to its associated feed.
-            Maven.restorePackageVersionFromRecycleBin("myFeed", "myGroupId", "myArtifactId", "1.0.0");
+            maven.restorePackageVersionFromRecycleBin("myFeed", "myGroupId", "myArtifactId", "1.0.0");
 
             // Permanently delete a package from a feed's recycle bin.
-            Maven.deletePackageVersionFromRecycleBin("myFeed", "myGroupId", "myArtifactId", "1.0.0")
+            maven.deletePackageVersionFromRecycleBin("myFeed", "myGroupId", "myArtifactId", "1.0.0");
 
 
             /*
@@ -64,17 +67,17 @@ public class Main {
              */
 
             // Get the upstreaming behavior of a package within the context of a feed.
-            Maven.getUpstreamingBehavior("myFeed", "myGroupId", "myArtifactId");
+            maven.getUpstreamingBehavior("myFeed", "myGroupId", "myArtifactId");
 
             // allow externally sourced versions for your package.
-            Maven.setUpstreamingBehavior("myFeed", "myGroupId", "myArtifactId");
+            maven.setUpstreamingBehavior("myFeed", "myGroupId", "myArtifactId");
 
             // allow externally sourced versions for your package or clear the upstreaming behavior.
-            Maven.setUpstreamingBehavior("myFeed", "myGroupId", "myArtifactId", "AllowExternalVersions"); // allow externally sourced versions.
-            Maven.setUpstreamingBehavior("myFeed", "myGroupId", "myArtifactId", "auto"); // to clear the upstreaming.
+            maven.setUpstreamingBehavior("myFeed", "myGroupId", "myArtifactId", "AllowExternalVersions"); // allow externally sourced versions.
+            maven.setUpstreamingBehavior("myFeed", "myGroupId", "myArtifactId", "auto"); // to clear the upstreaming.
              
             // To clear the upstream behavior for your package
-            Maven.clearUpstreamingBehavior("myFeed", "myGroupId", "myArtifactId");
+            maven.clearUpstreamingBehavior("myFeed", "myGroupId", "myArtifactId");
 
 
             /*
@@ -95,16 +98,16 @@ public class Main {
             packages.add(p2);
 
             // Promote packages to Release from the feed.
-            Maven.updatePackageVersions("myFeed", "Release", PackagesBatchOperation.PROMOTE, packages)
+            maven.updatePackageVersions("myFeed", "Release", PackagesBatchOperation.PROMOTE, packages);
 
             // Delete packages from the feed and move it to the feed's recycle bin. (ViewId will be ignored))
-            Maven.updatePackageVersions("myFeed", "Release", PackagesBatchOperation.DELETE, packages)
+            maven.updatePackageVersions("myFeed", "Release", PackagesBatchOperation.DELETE, packages);
 
             // Permanently delete packages from a feed's recycle bin.
-            Maven.updateRecycleBinPackages("myFeed", PackagesBatchOperation.PERMANENTDELETE, packages)
+            maven.updateRecycleBinPackages("myFeed", PackagesBatchOperation.PERMANENTDELETE, packages);
 
             // Restore packages from the recycle bin to its associated feed.
-            Maven.updateRecycleBinPackages("myFeed", PackagesBatchOperation.RESTORETOFEED, packages)
+            maven.updateRecycleBinPackages("myFeed", PackagesBatchOperation.RESTORETOFEED, packages);
         }
 
         catch (AzDException e1) {

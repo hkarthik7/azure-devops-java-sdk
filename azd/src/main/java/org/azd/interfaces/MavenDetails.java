@@ -7,6 +7,7 @@ import org.azd.maven.types.MavenPackageVersionDeletionState;
 import org.azd.maven.types.Package;
 import org.azd.maven.types.UpstreamingBehavior;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
@@ -55,5 +56,7 @@ public interface MavenDetails {
             throws AzDException;
 
     void clearUpstreamingBehavior(String feedId, String groupId, String artifactId) throws AzDException;
+
+    void uploadPackage(String feedId, String groupId, String artifactId, String version, String fileName, InputStream content) throws AzDException;
 
 }
