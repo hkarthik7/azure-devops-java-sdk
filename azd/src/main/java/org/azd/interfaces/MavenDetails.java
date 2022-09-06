@@ -7,7 +7,6 @@ import org.azd.maven.types.MavenPackageVersionDeletionState;
 import org.azd.maven.types.Package;
 import org.azd.maven.types.UpstreamingBehavior;
 
-import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
