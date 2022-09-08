@@ -15,6 +15,8 @@ public class VariableGroupProviderData extends BaseAbstractMethod {
      */
     private String vault;
 
+    private String lastRefreshedOn;
+
     public String getServiceEndpointId() {
         return serviceEndpointId;
     }
@@ -31,4 +33,11 @@ public class VariableGroupProviderData extends BaseAbstractMethod {
         this.vault = vault;
     }
 
+    public String getLastRefreshedOn() {
+        return lastRefreshedOn;
+    }
+
+    public void setLastRefreshedOn(String lastRefreshedOn) {
+        this.lastRefreshedOn = lastRefreshedOn;
+    }
 }
