@@ -12,13 +12,6 @@ import org.azd.oauth.types.AuthorizedToken;
  * </p>
  */
 public class Connection {
-    private static TokenRefreshedHandler defaultTokenRefreshedHandler = new TokenRefreshedHandler() {
-
-        @Override
-        public void tokenRefreshed(AuthorizedToken newToken) {
-            // nothing is done
-        }
-    };
     private String organization;
     private String project;
     private String personalAccessToken;
@@ -26,6 +19,13 @@ public class Connection {
     private String appCallBackURL;
     private AuthorizedToken oauthToken = null;
     private TokenRefreshedHandler tokenRefreshedHandler = defaultTokenRefreshedHandler;
+    private static TokenRefreshedHandler defaultTokenRefreshedHandler = new TokenRefreshedHandler() {
+
+        @Override
+        public void tokenRefreshed(AuthorizedToken newToken) {
+            // nothing is done
+        }
+    };
 
     /***
      * default with no parameters
