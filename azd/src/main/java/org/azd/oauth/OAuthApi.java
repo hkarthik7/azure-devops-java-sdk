@@ -7,7 +7,10 @@ import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.helpers.URLHelper;
 import org.azd.oauth.types.AuthorizedToken;
+import org.azd.utils.RestClientProvider;
 
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.LinkedHashMap;
 
 import static org.azd.utils.RestClient.send;
@@ -142,6 +145,9 @@ public class OAuthApi {
     }
 
     private static String getResponse(String requestUrl, String body) throws AzDException {
-        return send(requestUrl, RequestMethod.POST, body, CustomHeader.URL_ENCODED, false);
+        return RestClientProvider.post(requestUrl, null, HttpRequest.BodyPublishers.ofString(body),
+                HttpResponse.BodyHandlers.ofString(), CustomHeader.URL_ENCODED, false)
+                .thenApplyAsync(HttpResponse::body)
+                .join();
     }
 }
