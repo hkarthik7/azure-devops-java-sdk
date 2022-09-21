@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.0.4
+- Add support git forks
+
 ## 5.0.3
 
 - Added support for GitRefs, GitTag in **GitApi**.

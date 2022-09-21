@@ -14,6 +14,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.text.MessageFormat;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import static org.azd.utils.RestClient.send;
 
@@ -1331,4 +1332,248 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
 
         return MAPPER.mapJsonResponse(r, GitItems.class);
     }
+
+    /**
+     * Request that another repository's refs be fetched into this one. It syncs two existing forks.
+     *
+     * @param repositoryName The name or ID of the repository.
+     * @param sourceCollectionId Team Project Collection ID of the collection for the repository.
+     * @param sourceProjectId Team Project ID of the project for the repository.
+     * @param sourceRepositoryId ID of the repository.
+     * @param includeLinks Set to true to include links to items.  Default is false.
+     * @return GitForkSyncRequest Object {@link GitForkSyncRequest}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public GitForkSyncRequest createForkSyncRequest(String repositoryName, String sourceCollectionId, String sourceProjectId,
+                                                    String sourceRepositoryId, Boolean includeLinks) throws AzDException {
+
+        var q = new HashMap<String, Object>() {{
+            put("includeLinks", includeLinks);
+        }};
+        var b = new HashMap<String, Object>() {{
+            put("source", new HashMap<String, String>() {{
+                put("collectionId", sourceCollectionId);
+                put("projectId", sourceProjectId);
+                put("repositoryId", sourceRepositoryId);
+            }});
+        }};
+
+        String r = send(RequestMethod.POST, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryName, "forkSyncRequests", ApiVersion.GIT, null, b, CustomHeader.JSON_CONTENT_TYPE);
+        
+        return MAPPER.mapJsonResponse(r, GitForkSyncRequest.class);
+    }
+
+
+    /**
+     * Request that another repository's refs be fetched into this one. It syncs two existing forks.
+     *
+     * @param repositoryName The name or ID of the repository.
+     * @param collectionId Team Project Collection ID of the collection for the repository.
+     * @param projectId Team Project ID of the project for the repository.
+     * @param repositoryId ID of the repository.
+     * @param sourceRef The source ref to copy. For example, refs/heads/main.
+     * @param targetRef The target ref to update. For example, refs/heads/main.
+     * @param includeLinks Set to true to include links to items.  Default is false.
+     * @return GitForkSyncRequest Object {@link GitForkSyncRequest}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public GitForkSyncRequest createForkSyncRequest(String repositoryName, String collectionId, String projectId,
+                                                    String repositoryId, String sourceRef, String targetRef, 
+                                                    Boolean includeLinks) throws AzDException {
+
+        var q = new HashMap<String, Object>() {{
+            put("includeLinks", includeLinks);
+        }};
+
+        var b = new HashMap<String, Object>() {{
+            put("source", new HashMap<String, String>() {{
+                put("collectionId", collectionId);
+                put("projectId", projectId);
+                put("repositoryId", repositoryId);
+            }});
+            put("sourceToTargetRefs", new HashMap<String, String>() {{
+                put("sourceRef", sourceRef);
+                put("targetRef", targetRef);
+            }});
+        }};
+
+        String r = send(RequestMethod.POST, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryName, "forkSyncRequests", ApiVersion.GIT, q, b, CustomHeader.JSON_CONTENT_TYPE);
+        
+        return MAPPER.mapJsonResponse(r, GitForkSyncRequest.class);
+    }
+
+    /**
+     * Get a specific fork sync operation's details.
+     *
+     * @param repositoryName The name or ID of the repository.
+     * @param OperationId OperationId of the sync request.
+     * @param includeLinks Set to true to include links to items.  Default is false.
+     * @return GitForkSyncRequest Object {@link GitForkSyncRequest}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public GitForkSyncRequest getForkSyncRequest(String repositoryName, int OperationId, boolean includeLinks)
+                                                throws AzDException {
+        
+        var q = new HashMap<String, Object>() {{
+            put("includeLinks", includeLinks);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryName, "forkSyncRequests/"+OperationId, ApiVersion.GIT, q, CustomHeader.JSON_CONTENT_TYPE, null);
+
+        return MAPPER.mapJsonResponse(r, GitForkSyncRequest.class);
+    }
+
+    /**
+     * Retrieve all requested fork sync operations on this repository.
+     *
+     * @param repositoryName The name or ID of the repository.
+     * @param includeLinks Set to true to include links to items.  Default is false.
+     * @param includeAbandoned Set to true to include abandoned requests.  Default is false.
+     * @return GitForkSyncRequests Object {@link GitForkSyncRequests}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public GitForkSyncRequests getForkSyncRequests(String repositoryName, boolean includeLinks, boolean includeAbandoned)
+                                                    throws AzDException {
+        var q = new HashMap<String, Object>() {{
+            put("includeLinks", includeLinks);
+            put("includeAbandoned", includeAbandoned);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryName, "forkSyncRequests", ApiVersion.GIT, q, null, CustomHeader.JSON_CONTENT_TYPE);
+
+        return MAPPER.mapJsonResponse(r, GitForkSyncRequests.class);
+    }
+
+    /**
+     * Retrieve all forks of a repository in the collection.
+     *
+     * @param repositoryName The name or ID of the repository.
+     * @param collectionId Team project collection ID.
+     * @param includeLinks Set to true to include links to items.  Default is false.
+     * @return GitRepositoryRefs Object {@link GitRepositoryRefs}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public GitRepositoryRefs getForks(String repositoryName, String collectionId, boolean includeLinks) throws AzDException {
+
+        var q = new HashMap<String, Object>() {{
+            put("includeLinks", includeLinks);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                    repositoryName, "forks/"+collectionId, ApiVersion.GIT, q, null, CustomHeader.JSON_CONTENT_TYPE);
+        
+        return MAPPER.mapJsonResponse(r, GitRepositoryRefs.class);
+    }
+
+    /**
+     * Create a fork of a parent repository
+     *
+     * @param repositoryName The name or ID of the repository.
+     * @param projectId 
+     * @param parentProjectId 
+     * @param parentRepositoryId
+     * @return GitRepository Object {@link GitRepository}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public GitRepository createForkRepository(String repositoryName, String projectId, String parentProjectId,
+                                                   String parentRepositoryId) throws AzDException {
+        Map<String, Object> b = new HashMap<>() {{
+            put("name", repositoryName);
+            put("project", new HashMap<String, String>() {{
+                put("id", projectId);
+            }});
+            put("parentRepository", new HashMap<String, Object>() {{
+                put("id", parentRepositoryId);
+                put("project", new HashMap<String, String>() {{
+                    put("id", parentProjectId);
+                }});
+            }});
+        }};
+        String r = send(RequestMethod.POST, CONNECTION, GIT, projectId, AREA, null, "repositories", ApiVersion.GIT,
+                null, b, CustomHeader.JSON_CONTENT_TYPE);
+
+        return MAPPER.mapJsonResponse(r, GitRepository.class);
+    }
+
+    /**
+     * Create a fork of a parent repository syncing only the provided refs
+     *
+     * @param repositoryName The name or ID of the repository.
+     * @param projectId 
+     * @param parentProjectId 
+     * @param parentRepositoryId
+     * @param sourceBranch
+     * @return GitRepository Object {@link GitRepository}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public GitRepository createForkRepository(String repositoryName, String projectId, String parentProjectId,
+                                                   String parentRepositoryId, String sourceBranch) throws AzDException {
+
+        var q = new HashMap<String, Object>() {{
+            put("sourceRef", "refs/heads/"+sourceBranch);
+        }};                                                    
+                                                    
+        Map<String, Object> b = new HashMap<>() {{
+            put("name", repositoryName);
+            put("project", new HashMap<String, String>() {{
+                put("id", projectId);
+            }});
+            put("parentRepository", new HashMap<String, Object>() {{
+                put("id", parentRepositoryId);
+                put("project", new HashMap<String, String>() {{
+                    put("id", parentProjectId);
+                }});
+            }});
+        }};
+        String r = send(RequestMethod.POST, CONNECTION, GIT, projectId, AREA, null, "repositories", ApiVersion.GIT,
+                        q, b, CustomHeader.JSON_CONTENT_TYPE);
+                
+        return MAPPER.mapJsonResponse(r, GitRepository.class);
+    }
+
+    /**
+     * Create a fork of a parent repository syncing only the provided refs with wait for operation completion
+     *
+     * @param repositoryName The name or ID of the repository.
+     * @param projectId 
+     * @param parentProjectId 
+     * @param parentRepositoryId
+     * @param sourceBranch
+     * @param checkTimes
+     * @return GitRepository Object {@link GitRepository}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public GitRepository createForkRepositoryWithComplete(String repositoryName, String projectId, String parentProjectId, String parentRepositoryId, 
+                                                          String sourceBranch, int checkTimes) throws AzDException {
+        GitRepository gitRepository = createForkRepository(repositoryName, projectId, parentProjectId, parentRepositoryId, sourceBranch);
+        GitForkSyncRequest gitForkSyncRequest = getForkSyncRequests(repositoryName, true, true).getForkSyncRequest().get(0);
+        int operationId = gitForkSyncRequest.getOperationId();
+
+        for (int i = 0; i < checkTimes; i++) {
+            gitForkSyncRequest = getForkSyncRequest(repositoryName, operationId, true);
+            if (gitForkSyncRequest.getStatus() == GitAsyncOperationStatus.COMPLETED) {
+                return gitRepository;
+            }
+            try {
+                TimeUnit.MILLISECONDS.sleep(500);
+            } catch (InterruptedException e) {
+                throw new AzDException("Error while waiting for fork sync request to complete");
+            }
+        }
+
+        throw new AzDException("Fork sync request did not complete in time : " + gitForkSyncRequest.getStatus());
+    }
+
 }
