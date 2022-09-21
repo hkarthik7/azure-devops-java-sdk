@@ -375,7 +375,7 @@ public class GitApiTest {
         g.getForkSyncRequests("testRepository", true, true);
     }
 
-    @Test(expected = AzDException.class)
+    @Test
     public void shouldGetForks() throws AzDException {
         g.getForks("testRepository", "00000000-0000-0000-0000-000000000000", true);
     }
