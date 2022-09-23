@@ -2,6 +2,10 @@
 
 ## 5.0.4
 - Add support git forks
+- Merged PR: [Add support git forks, #47](https://github.com/hkarthik7/azure-devops-java-sdk/pull/47)
+- Merged PR: [Issue #42 Add lasteRefreshedOn variable #45](https://github.com/hkarthik7/azure-devops-java-sdk/pull/45)
+- Merged PR: [fix downloadPackage exception handling #44](https://github.com/hkarthik7/azure-devops-java-sdk/pull/44)
+- Bug fix for OAuthApi methods `getAccessToken` and `getRefreshToken`.
 
 ## 5.0.3
 
