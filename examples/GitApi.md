@@ -137,6 +137,30 @@ public class Main {
             var res = git.getBlobsZip(repoId, sha1);
             
             StreamHelper.download("blobs.zip", res);
+
+            // Create Fork of a repository
+            // 1 Create empty repository with ForkRequest
+            var repoId = git.createRepository("testRepository").getId(); // Create empty repository
+            GitForkSyncRequest gitforksyncRequest = git.createForkSyncRequest(repoId, "sourceCollectionId", "sourceProjectId", "sourceRepositoryId"); Create Fork SyncRequest
+            //Check Fork SyncRequest Status(Optional)
+            if(git.getForkSyncRequest(repoId, gitforksyncRequest.getOperationId(), true).getStatus() == GitAsyncOperationStatus.COMPLETED){ 
+                return true;
+            }
+
+            // 2 Using createForkRepository method
+            var repoId = git.createForkRepository("testRepository", "projectId", "parentProjectId", "parentRepositoryId").getId();
+            //Check Fork SyncRequest Status(Optional)
+            var operationId = git.getForkSyncRequests("testRepository",true,false).getForkSyncRequest().get(0).getOperationId();
+            if(git.getForkSyncRequest(repoId, operationId, true).getStatus() == GitAsyncOperationStatus.COMPLETED){ 
+                return true;
+            }
+
+            // 3 Using createForkRepositoryWithComplete method
+            var repoId = git.createForkRepositoryWithComplete("testRepository", "projectId", "parentProjectId", "parentRepositoryId","main", checkTimes);
+
+            // Get All Fork Repositories
+            var GitRepositoryRefs = git.getForks("testRepository","collectionId", true);
+
             
         } catch (AzDException e) {
             e.printStackTrace();

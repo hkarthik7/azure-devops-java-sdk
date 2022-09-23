@@ -147,4 +147,23 @@ public interface GitDetails {
     GitItems getItems(String repositoryName, boolean includeContentMetadata, boolean includeLinks, boolean latestProcessedChange,
                       VersionControlRecursionType recursionType, String scopePath, String version,
                       GitVersionOptions versionOptions, GitVersionType versionType) throws AzDException;
+
+    GitForkSyncRequest createForkSyncRequest(String repositoryName, String sourceCollectionId, String sourceProjectId, String sourceRepositoryId, 
+                                             Boolean includeLinks) throws AzDException;
+
+    GitForkSyncRequest createForkSyncRequest(String repositoryName, String collectionId, String projectId, String repositoryId, 
+                                             String sourceRef, String targetRef, Boolean includeLinks) throws AzDException;
+
+    GitRepository createForkRepository(String repositoryName, String projectId, String parentProjectId, String parentRepositoryId) throws AzDException;
+
+    GitRepository createForkRepository(String repositoryName, String projectId, String parentProjectId, String parentRepositoryId, String sourceBranch) throws AzDException;
+
+    GitRepository createForkRepositoryWithComplete(String repositoryName, String projectId, String parentProjectId, String parentRepositoryId, String sourceBranch, int checkTimes) throws AzDException;
+
+    GitForkSyncRequest getForkSyncRequest(String repositoryName, int OperationId, boolean includeLinks) throws AzDException;
+
+    GitForkSyncRequests getForkSyncRequests(String repositoryName, boolean includeLinks, boolean includeAbandoned) throws AzDException;
+
+    GitRepositoryRefs getForks(String repositoryName, String collectionId, boolean includeLinks) throws AzDException;
+
 }
