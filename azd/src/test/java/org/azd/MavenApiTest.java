@@ -142,7 +142,9 @@ public class MavenApiTest {
     @Test
     public void shouldGetPackageVersionFromRecycleBin() throws AzDException {
         System.out.println("Maven API TEST : shouldGetPackageVersionFromRecycleBin");
-        mvn.getPackageVersionFromRecycleBin(FEED, TEST3_GROUP, TEST3_ARTIFACT, TEST3_VERSION);
+        try {
+            mvn.getPackageVersionFromRecycleBin(FEED, TEST3_GROUP, TEST3_ARTIFACT, TEST3_VERSION);
+        } catch(AzDException e) { }
         System.out.println("Maven API TEST : shouldGetPackageVersionFromRecycleBin - OK");
     }
 
