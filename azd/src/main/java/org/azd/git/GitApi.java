@@ -1478,9 +1478,9 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * Create a fork of a parent repository
      *
      * @param repositoryName The name or ID of the repository.
-     * @param projectId 
-     * @param parentProjectId 
-     * @param parentRepositoryId
+     * @param projectId The project id of the target repository
+     * @param parentProjectId Project id of the parent repository from which the fork operation has to initiate.
+     * @param parentRepositoryId Id of the parent repository
      * @return GitRepository Object {@link GitRepository}
      * @throws AzDException Default Api Exception handler.
      **/
@@ -1509,10 +1509,10 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * Create a fork of a parent repository syncing only the provided refs
      *
      * @param repositoryName The name or ID of the repository.
-     * @param projectId 
-     * @param parentProjectId 
-     * @param parentRepositoryId
-     * @param sourceBranch
+     * @param projectId The project id of the target repository
+     * @param parentProjectId Project id of the parent repository from which the fork operation has to initiate.
+     * @param parentRepositoryId Id of the parent repository
+     * @param sourceBranch Provide the name of branch to create a fork request.
      * @return GitRepository Object {@link GitRepository}
      * @throws AzDException Default Api Exception handler.
      **/
@@ -1546,11 +1546,11 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * Create a fork of a parent repository syncing only the provided refs with wait for operation completion
      *
      * @param repositoryName The name or ID of the repository.
-     * @param projectId 
-     * @param parentProjectId 
-     * @param parentRepositoryId
-     * @param sourceBranch
-     * @param checkTimes
+     * @param projectId The project id of the target repository
+     * @param parentProjectId Project id of the parent repository from which the fork operation has to initiate.
+     * @param parentRepositoryId Id of the parent repository
+     * @param sourceBranch Provide the name of branch to create a fork request.
+     * @param checkTimes Polling interval to wait for operation to complete.
      * @return GitRepository Object {@link GitRepository}
      * @throws AzDException Default Api Exception handler.
      **/
