@@ -5,6 +5,7 @@ import org.azd.connection.Connection;
 import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
+import org.azd.helpers.StreamHelper;
 import org.azd.interfaces.MavenDetails;
 import org.azd.maven.types.MavenPackageVersionDeletionState;
 import org.azd.maven.types.Package;
@@ -156,10 +157,18 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
                 .thenApplyAsync(URI::toString)
                 .join();
 
+        int statusCode = send(callbackUri, RequestMethod.GET, null, null, null,
+                null, null, null, null, null, null, null, true)
+                .thenApplyAsync(HttpResponse::statusCode)
+                .join();
+
         var res = send(callbackUri, RequestMethod.GET, null, null, null,
                 null, null, null, null, null, null, null, true)
                 .thenApplyAsync(HttpResponse::body)
-                .join();
+                .join();         
+                
+        if(statusCode != 200)
+            MAPPER.mapJsonResponse(StreamHelper.convertToString(res), Map.class);
 
         return res;
     }

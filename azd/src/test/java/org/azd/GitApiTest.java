@@ -1,5 +1,6 @@
 package org.azd;
 
+import org.azd.enums.GitAsyncOperationStatus;
 import org.azd.enums.GitBlobRefFormat;
 import org.azd.enums.GitObjectType;
 import org.azd.enums.PullRequestStatus;
@@ -14,6 +15,9 @@ import org.azd.interfaces.GitDetails;
 import org.azd.utils.AzDClientApi;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeThat;
 
 import java.io.File;
 import java.sql.Array;
@@ -339,5 +343,40 @@ public class GitApiTest {
     public void shouldGetAllItemsWithQueryParameters() throws AzDException {
         g.getItems("testRepository", true, true, false,
                 VersionControlRecursionType.ONE_LEVEL_PLUS_NESTED_EMPTY_FOLDERS, "/docs").getItems();
+    }
+
+    @Test(expected = AzDException.class)
+    public void shouldCreateForkSyncRequest() throws AzDException {
+        g.createForkSyncRequest("testRepository", "00000000-0000-0000-0000-000000000000", "00000000-0000-0000-0000-000000000000", "00000000-0000-0000-0000-000000000000", true);
+    }
+
+    @Test(expected = AzDException.class)
+    public void shouldCreateForkRepository() throws AzDException {
+        g.createForkRepository("testRepository", "00000000-0000-0000-0000-000000000000", "00000000-0000-0000-0000-000000000000", "00000000-0000-0000-0000-000000000000");
+    }
+
+    @Test(expected = AzDException.class)
+    public void shouldCreateForkRepositoryWithComplete() throws AzDException {
+        g.createForkRepositoryWithComplete("testRepository", "00000000-0000-0000-0000-000000000000", "00000000-0000-0000-0000-000000000000", "00000000-0000-0000-0000-000000000000","main", 5);
+    }
+
+    @Test
+    public void shoulGetForkSyncRequest() throws AzDException {
+        var r = g.getForkSyncRequests("testRepository",true,false);
+        if(r.getForkSyncRequest().size() > 0) {
+            var operationId = r.getForkSyncRequest().get(0).getOperationId();
+            var res = g.getForkSyncRequest("testRepository", operationId, false);
+            assertTrue(res.getStatus() == GitAsyncOperationStatus.COMPLETED);
+        }
+    }
+    
+    @Test
+    public void shoulGetForkSyncRequests() throws AzDException {
+        g.getForkSyncRequests("testRepository", true, true);
+    }
+
+    @Test
+    public void shouldGetForks() throws AzDException {
+        g.getForks("testRepository", "00000000-0000-0000-0000-000000000000", true);
     }
 }
