@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.0.5
+**Minor Incremental Release**
+- Updated jackson-databind dependency version.
+- Update to **GitApi**, create pull request from pull request object.
+
 ## 5.0.4
 - Add support git forks
 - Merged PR: [Add support git forks, #47](https://github.com/hkarthik7/azure-devops-java-sdk/pull/47)
