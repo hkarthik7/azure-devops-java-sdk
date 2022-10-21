@@ -1,7 +1,6 @@
 package org.azd;
 
 import org.azd.enums.GitAsyncOperationStatus;
-import org.azd.enums.GitBlobRefFormat;
 import org.azd.enums.GitObjectType;
 import org.azd.enums.PullRequestStatus;
 import org.azd.enums.VersionControlRecursionType;
@@ -16,14 +15,10 @@ import org.azd.utils.AzDClientApi;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeThat;
-
 import java.io.File;
-import java.sql.Array;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.junit.Assert.assertTrue;
 
 public class GitApiTest {
 

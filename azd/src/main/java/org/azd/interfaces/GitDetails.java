@@ -34,6 +34,8 @@ public interface GitDetails {
     GitPullRequest createPullRequest(String repositoryId, String sourceRefName, String targetRefName, String title,
                                   String description, boolean isDraft) throws AzDException;
 
+    GitPullRequest createPullRequest(GitPullRequest gitPullRequest) throws AzDException;
+
     GitPullRequest getPullRequest(String repositoryName, int pullRequestId) throws AzDException;
 
     GitPullRequest getPullRequestById(int pullRequestId) throws AzDException;

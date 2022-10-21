@@ -260,6 +260,30 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, GitPullRequest.class);
     }
 
+    /**
+     * Create a pull request.
+     * @param gitPullRequest a {@link GitPullRequest} object.
+     * @return an object of git pull request {@link GitPullRequest}
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public GitPullRequest createPullRequest(GitPullRequest gitPullRequest) throws AzDException {
+        if (gitPullRequest == null) throw new AzDException("Request body cannot be null or empty");
+
+        if (!gitPullRequest.getSourceRefName().isEmpty() && !gitPullRequest.getTargetRefName().isEmpty()) {
+            String referenceHead = "refs/heads/";
+            if (!gitPullRequest.getSourceRefName().contains(referenceHead))
+                gitPullRequest.setSourceRefName(referenceHead + gitPullRequest.getSourceRefName());
+            if (!gitPullRequest.getTargetRefName().contains(referenceHead))
+                gitPullRequest.setTargetRefName(referenceHead + gitPullRequest.getTargetRefName());
+        }
+
+        String r = send(RequestMethod.POST, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                gitPullRequest.getRepository().getId(), "pullrequests", ApiVersion.GIT, null, gitPullRequest, CustomHeader.JSON_CONTENT_TYPE);
+
+        return MAPPER.mapJsonResponse(r, GitPullRequest.class);
+    }
+
     /***
      * Retrieve a pull request.
      * @param repositoryName The repository name of the pull request's target branch.

@@ -56,6 +56,29 @@ public class Main {
             // the pull request in draft state. If it is set to false the pull request will be published.
             git.createPullRequest(repoId,"develop", "master", "New feature", "Adding new feature", true);
             
+            // Create a pull request from pull request object.
+            var gitPullRequest = new GitPullRequest();
+
+            var tag = new WebApiTagDefinition();
+            tag.setName("Production");
+
+            var wit = webApi.getWorkItemTrackingApi();
+            var workItem = wit.getWorkItem(1649);
+            var witRefs = new ResourceRef();
+            witRefs.setId(String.valueOf(workItem.getId()));
+            witRefs.setUrl(workItem.getUrl());
+
+            gitPullRequest.setTitle("This is a test PR created to merge the edited text file.");
+            gitPullRequest.setDescription("This is a test PR created to merge the edited text file.");
+            gitPullRequest.setIsDraft(true);
+            gitPullRequest.setLabels(List.of(tag));
+            gitPullRequest.setTargetRefName("develop");
+            gitPullRequest.setSourceRefName("test");
+            gitPullRequest.setWorkItemRefs(List.of(witRefs));
+            gitPullRequest.setRepository(g.getRepository("testRepository"));
+
+            git.createPullRequest(gitPullRequest);
+            
             // Add a reviewer to the pull request and optionally make them as required
             git.createPullRequestReviewer("pull-request-id", "repository-name", "reviewer-id", 0, true);
             
