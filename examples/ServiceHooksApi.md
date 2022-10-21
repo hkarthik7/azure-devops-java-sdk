@@ -36,9 +36,16 @@ public class Main {
             var consumerInputs = new LinkedHashMap<String, Object>(){{
                 put("url", "https://mywebsite/api/users");
             }};
-            
-            var res = hooks.createSubscription("tfs", "build.complete", "1.0-preview.1", "webHooks",
-                    "httpRequest", publisherInputs, consumerInputs);
+
+            serviceHooks.setPublisherId("tfs");
+            serviceHooks.setEventType("build.complete");
+            serviceHooks.setResourceVersion("1.0-preview.1");
+            serviceHooks.setConsumerId("webHooks");
+            serviceHooks.setConsumerActionId("httpRequest");
+            serviceHooks.setPublisherInputs(publisherInputs);
+            serviceHooks.setConsumerInputs(consumerInputs);
+
+            var res = s.createSubscription(serviceHooks);
 
             // delete a subscription
             hooks.deleteSubscription("subscription id");
