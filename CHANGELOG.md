@@ -4,6 +4,7 @@
 **Minor Incremental Release**
 - Updated jackson-databind dependency version.
 - Update to **GitApi**, create pull request from pull request object.
+- Bug fix for issue [Json mapping issue when trying to read builds that couldn't run #48](https://github.com/hkarthik7/azure-devops-java-sdk/issues/48)
 
 ## 5.0.4
 - Add support git forks
