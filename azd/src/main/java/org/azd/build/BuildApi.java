@@ -683,6 +683,26 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildDefinitions.class);
     }
 
+    /**
+     * Gets a list of definitions.
+     * @param includeAllProperties Indicates whether the full definitions should be returned. By default, shallow representations of the definitions are returned.
+     * @param includeLatestBuilds Indicates whether to return the latest and latest completed builds for this definition.
+     * @return build definitions {@link BuildDefinitions}
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public BuildDefinitions getBuildDefinitions(boolean includeAllProperties, boolean includeLatestBuilds) throws AzDException {
+        HashMap<String, Object> q = new HashMap<>() {{
+            put("includeAllProperties", includeAllProperties);
+            put("includeLatestBuilds", includeLatestBuilds);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, BUILD, CONNECTION.getProject(),
+                AREA + "/definitions", null, null, ApiVersion.BUILD_DEFINITIONS, q, null, null);
+
+        return MAPPER.mapJsonResponse(r, BuildDefinitions.class);
+    }
+
     /***
      * Gets a list of definitions.
      * @param builtAfter If specified, filters to definitions that have builds after this date.

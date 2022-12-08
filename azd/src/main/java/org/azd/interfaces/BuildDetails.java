@@ -80,6 +80,8 @@ public interface BuildDetails {
 
     BuildDefinitions getBuildDefinitions(String name) throws AzDException;
 
+    BuildDefinitions getBuildDefinitions(boolean includeAllProperties, boolean includeLatestBuilds) throws AzDException;
+
     BuildDefinitions getBuildDefinitions(
             String builtAfter, String continuationToken, boolean includeAllProperties,
             boolean includeLatestBuilds, String minMetricsTime, String notBuiltAfter,
