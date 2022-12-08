@@ -48,6 +48,8 @@ public interface GitDetails {
 
     PullRequests getPullRequestsByProject(PullRequestStatus status) throws AzDException;
 
+    GitPullRequest updatePullRequest(String repositoryId, int pullRequestId, Object body) throws AzDException;
+
     PullRequests getPullRequestsByProject(int skip, int top, String creatorId, boolean includeLinks,
                                           String repositoryId, String reviewerId, String sourceRefName, String sourceRepositoryId,
                                           PullRequestStatus status, String targetRefName) throws AzDException;
@@ -113,6 +115,8 @@ public interface GitDetails {
 
     GitCommits getPushCommits(String repositoryName, int pushId, boolean includeLinks, int top, int skip)
             throws AzDException;
+
+    GitCommitRefs getCommitsBatch(String repositoryId, GitCommitsBatch gitCommitsBatch) throws AzDException;
 
     GitRefs getRefs(String repositoryName) throws AzDException;
 

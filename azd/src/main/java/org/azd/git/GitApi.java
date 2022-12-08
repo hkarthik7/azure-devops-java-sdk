@@ -1,6 +1,7 @@
 package org.azd.git;
 
 import org.azd.common.ApiVersion;
+import org.azd.common.ResourceId;
 import org.azd.connection.Connection;
 import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
@@ -379,6 +380,33 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
                 ApiVersion.GIT, q, null, null);
 
         return MAPPER.mapJsonResponse(r, PullRequests.class);
+    }
+
+    /**
+     * Update a pull request
+     * <p>
+     *      These are the properties that can be updated with the API:
+     *      Status
+     *      Title
+     *      Description (up to 4000 characters)
+     *      CompletionOptions
+     *      MergeOptions
+     *      AutoCompleteSetBy.Id
+     *      TargetRefName (when the PR retargeting feature is enabled)
+     *      Attempting to update other properties outside of this list will either cause the server
+     *      to throw an InvalidArgumentValueException, or to silently ignore the update.
+     * </p>
+     * @param pullRequestId ID of the pull request to update.
+     * @param repositoryId The repository ID of the pull request's target branch.
+     * @return GitPullRequest Object {@link GitPullRequest}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public GitPullRequest updatePullRequest(String repositoryId, int pullRequestId, Object body) throws AzDException {
+        String r = send(RequestMethod.PATCH, CONNECTION, GIT, CONNECTION.getProject(),
+                "git/repositories", repositoryId + "/pullrequests/" + pullRequestId, null, ApiVersion.GIT,
+                null, body, CustomHeader.JSON_CONTENT_TYPE);
+        return MAPPER.mapJsonResponse(r, GitPullRequest.class);
     }
 
     /***
@@ -992,6 +1020,21 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, GitCommits.class);
     }
 
+    /**
+     * Retrieve git commits for a project matching the search criteria.
+     * @param repositoryId The name or ID of the repository.
+     * @param gitCommitsBatch request body {@link GitCommitsBatch}.
+     * @return GitCommitRefs object {@link GitCommitRefs}.
+     * @throws AzDException Default Api exception handler.
+     */
+    @Override
+    public GitCommitRefs getCommitsBatch(String repositoryId, GitCommitsBatch gitCommitsBatch) throws AzDException {
+        var b = GitCommitsBatch.build(gitCommitsBatch);
+        String r = send(RequestMethod.POST, CONNECTION, GIT, CONNECTION.getProject(),
+                "git/repositories", repositoryId, "commitsbatch", ApiVersion.GIT, null,
+                b, CustomHeader.JSON_CONTENT_TYPE);
+        return MAPPER.mapJsonResponse(r, GitCommitRefs.class);
+    }
 
     /**
      * Queries the provided repository for its refs and returns them.

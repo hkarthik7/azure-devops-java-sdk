@@ -1,10 +1,8 @@
 package org.azd;
 
-import org.azd.enums.GitAsyncOperationStatus;
-import org.azd.enums.GitObjectType;
-import org.azd.enums.PullRequestStatus;
-import org.azd.enums.VersionControlRecursionType;
+import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
+import org.azd.git.types.GitCommitsBatch;
 import org.azd.git.types.GitItem;
 import org.azd.git.types.WebApiTagDefinition;
 import org.azd.helpers.JsonMapper;
@@ -12,6 +10,7 @@ import org.azd.helpers.StreamHelper;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.GitDetails;
 import org.azd.utils.AzDClientApi;
+import org.azd.wiki.types.GitVersionDescriptor;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -235,6 +234,28 @@ public class GitApiTest {
     public void shouldGetACommitsFromTheRepository() throws AzDException {
         var commitId = g.getCommits("testRepository").getCommits().stream().findFirst().get().getCommitId();
         g.getCommit("testRepository", commitId);
+    }
+
+    @Test
+    public void shouldGetCommitsBatch() throws AzDException {
+        var repoId = g.getRepository("testRepository").getId();
+
+        var itemVersion = new GitVersionDescriptor();
+        itemVersion.setVersion("test");
+        itemVersion.setVersionType(GitVersionType.BRANCH);
+        itemVersion.setVersionOptions(GitVersionOptions.NONE);
+
+        var compareVersion = new GitVersionDescriptor();
+        compareVersion.setVersionType(GitVersionType.BRANCH);
+        compareVersion.setVersion("main");
+        compareVersion.setVersionOptions(GitVersionOptions.NONE);
+
+        var gitCommitsBatch = new GitCommitsBatch();
+        gitCommitsBatch.setItemVersion(itemVersion);
+        gitCommitsBatch.setCompareVersion(compareVersion);
+        gitCommitsBatch.setIncludeWorkItems(true);
+
+        g.getCommitsBatch(repoId, gitCommitsBatch);
     }
 
     @Test
