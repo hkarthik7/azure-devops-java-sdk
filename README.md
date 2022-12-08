@@ -131,8 +131,8 @@ public class Main {
 ## Dependencies
 
 | NAME | VERSION |
-|---|---|
-| com.fasterxml.jackson.core | v2.13.3 |
+|---|---------|
+| com.fasterxml.jackson.core | v2.14.0 |
 
 ## Build Locally
 
