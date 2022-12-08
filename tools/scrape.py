@@ -66,7 +66,8 @@ class ScrapeVsTsDocument(object):
 
         start_index = self.get_index(self.start_value)
         end_index = self.get_index(self.end_value)
-        result_content = content.replace(content[start_index:end_index - additional_value], '')
+        result_content = content.replace(
+            content[start_index:end_index - additional_value], '')
 
         return self.get_soup_object(result_content)
 
@@ -180,7 +181,8 @@ _url: str = json.loads(read('settings.json'))['url']
 comment_only: bool = json.loads(read('settings.json'))['commentOnly']
 package_name = f'package org.azd.{_url.split("/")[-3]}.types;'
 notes: str = json.loads(read('settings.json'))['properties']['notes']
-import_statements: str = json.loads(read('settings.json'))['properties']['imports']
+import_statements: str = json.loads(read('settings.json'))[
+    'properties']['imports']
 
 sub_type_collector = []
 d_value = {}
@@ -189,6 +191,9 @@ prev = 0
 last_val = 0
 
 if __name__ == "__main__":
+
+    if not os.path.isdir("types"):
+        os.mkdir("types")
 
     scrape = ScrapeVsTsDocument(_url)
     response = scrape.get_response
@@ -221,7 +226,8 @@ if __name__ == "__main__":
                 def_value = response.text[int(sub_type[0]):int(sub_type[1])]
             s = scrape.get_soup_object(def_value)
 
-            table = s.find_all(DocumentId.ATTRIBUTE.value, {'class': DocumentId.RESPONSE_TYPE_CLASS.value})
+            table = s.find_all(DocumentId.ATTRIBUTE.value, {
+                               'class': DocumentId.RESPONSE_TYPE_CLASS.value})
             type_name = s.find('h3').get_text()
 
             sub_types_array = []
@@ -242,16 +248,14 @@ if __name__ == "__main__":
 
         for key in value_result['SubDefinitions'].keys():
             try:
-                if not os.path.isdir("types"):
-                    os.mkdir("types")
-
                 f = open(f"types/{key}.java", 'w+', encoding='utf-8')
                 f.write(f"{package_name}")
                 f.write(f"\n{notes.strip()}")
                 f.write(f"\n{import_statements}")
                 f.write(f"\n/**\n * {value_result['Definitions'][key]} \n**/")
                 f.write("\n@JsonIgnoreProperties(ignoreUnknown = true)")
-                f.write(f"\npublic class {key} extends BaseAbstractMethod {{\n")
+                f.write(
+                    f"\npublic class {key} extends BaseAbstractMethod {{\n")
 
                 for v in value_result['SubDefinitions'].get(key):
                     if '[]' in str(v['Type']) and str(v['Type']) != 'string[]':
