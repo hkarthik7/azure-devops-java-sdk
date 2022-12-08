@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.InjectableValues;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import org.azd.common.ApiVersion;
+import org.azd.common.ResourceId;
 import org.azd.connection.Connection;
 import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
@@ -493,6 +494,36 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
 
         // Version tag of the attachment is set in headers and this is required for editing wiki pages.
         // etag value is returned in both create and update operations.
+        var eTag = getValueFromHeader(r.thenApplyAsync(HttpResponse::headers).join(), "etag");
+        if (eTag != null) result.seteTag(eTag);
+
+        return result;
+    }
+
+    /**
+     * Gets metadata of the wiki page for the provided path.
+     *
+     * @param wikiIdentifier Wiki ID or wiki name.
+     * @param includeContent True to include the content of the page in the response for Json content type. Defaults to false (Optional)
+     * @param path Wiki page path.
+     * @param recursionLevel Recursion level for subpages retrieval. Defaults to None (Optional).
+     * @return WikiPage Object {@link WikiPage}
+     * @throws AzDException Default Api Exception handler.
+     */
+    @Override
+    public WikiPage getWikiPage(String wikiIdentifier, boolean includeContent, String path,
+                                VersionControlRecursionType recursionLevel) throws AzDException {
+        var q = new HashMap<String, Object>();
+        if (includeContent) q.put("includeContent", true);
+        if (path != null) q.put("path", URLHelper.encodeSpecialWithSpace(path));
+        if (recursionLevel != null) q.put("recursionLevel", recursionLevel.name());
+
+        var r = send(null, RequestMethod.GET, CONNECTION, ResourceId.WIKI, CONNECTION.getProject(),
+                "wiki/wikis", wikiIdentifier, "pages", ApiVersion.WIKI_ATTACHMENTS, q, null,
+                HttpResponse.BodyHandlers.ofString(), null, false);
+
+        var result = MAPPER.mapJsonResponse(r.thenApplyAsync(HttpResponse::body).join(), WikiPage.class);
+
         var eTag = getValueFromHeader(r.thenApplyAsync(HttpResponse::headers).join(), "etag");
         if (eTag != null) result.seteTag(eTag);
 
