@@ -178,6 +178,34 @@ public abstract class RestClient {
     }
 
     /**
+     * Mediator for BaseRestClient and other Api implementations.
+     *
+     * @param requestUrl    Pass the request url if any. Note that if the url is passed only this will be considered for Api call.
+     * @param connection    Connection object to determine the mandatory details for calling the Api.
+     * @param requestMethod type of request GET, POST, PATCH, DELETE {@link RequestMethod}
+     * @param requestBody   API payload
+     * @param contentType   Type of content to request and accept as; Default is "Accept", "application/json"
+     * @param callback      If true default redirect policy will be applied. The redirect policy can be controlled
+     * @return String response from Api
+     * @throws AzDException Default Api exception handler
+     */
+    public static String send(
+            String requestUrl,
+            Connection connection,
+            RequestMethod requestMethod,
+            Object requestBody,
+            CustomHeader contentType,
+            boolean callback) throws AzDException {
+        if (contentType == null) contentType = CustomHeader.JSON;
+
+        return RestClientProvider.response(requestMethod, requestUrl, connection.getPersonalAccessToken(),
+                        HttpRequest.BodyPublishers.ofString(RestClientProvider.MAPPER.convertToString(requestBody)),
+                        HttpResponse.BodyHandlers.ofString(), contentType, callback)
+                .thenApplyAsync(HttpResponse::body)
+                .join();
+    }
+
+    /**
      * Helper method and a mediator for calling Azure DevOps REST Api.
      *
      * @param requestUrl    Pass the request url if any. Note that if the url is passed only this will be considered for Api call.
