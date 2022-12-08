@@ -50,6 +50,9 @@ public interface WikiDetails {
                          String comment, String version,
                          GitVersionType versionType, GitVersionOptions versionOptions) throws AzDException;
 
+    WikiPage getWikiPage(String wikiIdentifier, boolean includeContent, String path, VersionControlRecursionType recursionLevel)
+            throws AzDException;
+
     WikiPage getWikiPageById(String id, String wikiIdentifier) throws AzDException;
 
     WikiPage getWikiPageById(String id, String wikiIdentifier, boolean includeContent,
