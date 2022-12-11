@@ -9,6 +9,7 @@ import org.azd.helpers.StreamHelper;
 import org.azd.helpers.URLHelper;
 import org.azd.interfaces.WorkItemTrackingDetails;
 import org.azd.utils.AzDAsyncApi;
+import org.azd.utils.ModelBuilder;
 import org.azd.workitemtracking.types.*;
 
 import java.io.InputStream;
@@ -1214,18 +1215,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      **/
     @Override
     public QueryHierarchyItem createQuery(String query, QueryHierarchyItem queryHierarchyItem) throws AzDException {
-        var map = MAPPER.mapJsonResponse(MAPPER.convertToString(queryHierarchyItem), Map.class);
-
-        // If we send the QueryHierarchyItem object after setting required params and leaving everything as null,
-        // then Api will throw an exception. Instead we take only params that is set by the user and construct a request
-        // body out of it.
-        // Refer the examples -> https://docs.microsoft.com/en-us/rest/api/azure/devops/wit/queries/create?view=azure-devops-rest-7.1&tabs=HTTP#examples
-        var body = new HashMap<>();
-        for (var key : map.keySet()) {
-            if (map.get(key) != null) {
-                body.put(key, map.get(key));
-            }
-        }
+        var body = ModelBuilder.build(queryHierarchyItem, null);
 
         String res = send(RequestMethod.POST, CONNECTION, WIT, CONNECTION.getProject(), AREA,
                 null, "queries/" + URLHelper.encodeSpecialWithSpace(query), ApiVersion.WIT_WIQL, null, body, CustomHeader.JSON_CONTENT_TYPE);

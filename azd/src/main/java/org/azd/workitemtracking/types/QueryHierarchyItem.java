@@ -1,11 +1,12 @@
 package org.azd.workitemtracking.types;
-/**
+/*
 ----------------------------------------------------------
 	GENERATED FILE, should be edited to suit the purpose.
 ----------------------------------------------------------
-**/
+*/
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.common.types.Author;
 import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.LinkQueryMode;
 import org.azd.enums.QueryRecursionOption;
@@ -42,7 +43,7 @@ public class QueryHierarchyItem extends BaseAbstractMethod {
  	* The identity who created the query item. 
 	**/
 	@JsonProperty("createdBy")
-	private Object createdBy;
+	private Author createdBy;
 	/**
  	* When the query item was created. 
 	**/
@@ -87,7 +88,7 @@ public class QueryHierarchyItem extends BaseAbstractMethod {
  	* The identity who last ran the query. 
 	**/
 	@JsonProperty("lastExecutedBy")
-	private Object lastExecutedBy;
+	private Author lastExecutedBy;
 	/**
  	* When the query was last run. 
 	**/
@@ -97,7 +98,7 @@ public class QueryHierarchyItem extends BaseAbstractMethod {
  	* The identity who last modified the query item. 
 	**/
 	@JsonProperty("lastModifiedBy")
-	private Object lastModifiedBy;
+	private Author lastModifiedBy;
 	/**
  	* When the query item was last modified. 
 	**/
@@ -168,9 +169,9 @@ public class QueryHierarchyItem extends BaseAbstractMethod {
 
 	public void setColumns(List<WorkItemFieldReference> columns) { this.columns = columns; }
 
-	public Object getCreatedBy() { return createdBy; }
+	public Author getCreatedBy() { return createdBy; }
 
-	public void setCreatedBy(Object createdBy) { this.createdBy = createdBy; }
+	public void setCreatedBy(Author createdBy) { this.createdBy = createdBy; }
 
 	public String getCreatedDate() { return createdDate; }
 
@@ -204,17 +205,17 @@ public class QueryHierarchyItem extends BaseAbstractMethod {
 
 	public void setIsPublic(boolean isPublic) { this.isPublic = isPublic; }
 
-	public Object getLastExecutedBy() { return lastExecutedBy; }
+	public Author getLastExecutedBy() { return lastExecutedBy; }
 
-	public void setLastExecutedBy(Object lastExecutedBy) { this.lastExecutedBy = lastExecutedBy; }
+	public void setLastExecutedBy(Author lastExecutedBy) { this.lastExecutedBy = lastExecutedBy; }
 
 	public String getLastExecutedDate() { return lastExecutedDate; }
 
 	public void setLastExecutedDate(String lastExecutedDate) { this.lastExecutedDate = lastExecutedDate; }
 
-	public Object getLastModifiedBy() { return lastModifiedBy; }
+	public Author getLastModifiedBy() { return lastModifiedBy; }
 
-	public void setLastModifiedBy(Object lastModifiedBy) { this.lastModifiedBy = lastModifiedBy; }
+	public void setLastModifiedBy(Author lastModifiedBy) { this.lastModifiedBy = lastModifiedBy; }
 
 	public String getLastModifiedDate() { return lastModifiedDate; }
 

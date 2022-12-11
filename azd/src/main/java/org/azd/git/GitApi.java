@@ -9,6 +9,7 @@ import org.azd.git.types.*;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.GitDetails;
 import org.azd.utils.AzDAsyncApi;
+import org.azd.utils.ModelBuilder;
 
 import java.io.InputStream;
 import java.net.http.HttpRequest;
@@ -1029,7 +1030,12 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      */
     @Override
     public GitCommitRefs getCommitsBatch(String repositoryId, GitCommitsBatch gitCommitsBatch) throws AzDException {
-        var b = GitCommitsBatch.build(gitCommitsBatch);
+        var valuesToRemove = new ArrayList<String>();
+        if (gitCommitsBatch.getSkip() == 0) valuesToRemove.add("$skip");
+        if (gitCommitsBatch.getTop() == 0) valuesToRemove.add("$top");
+
+        var b = ModelBuilder.build(gitCommitsBatch, valuesToRemove);
+
         String r = send(RequestMethod.POST, CONNECTION, GIT, CONNECTION.getProject(),
                 "git/repositories", repositoryId, "commitsbatch", ApiVersion.GIT, null,
                 b, CustomHeader.JSON_CONTENT_TYPE);
