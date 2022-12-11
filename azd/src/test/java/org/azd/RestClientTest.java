@@ -15,6 +15,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.text.MessageFormat;
+import java.util.HashMap;
 import java.util.Map;
 
 public class RestClientTest {
@@ -70,5 +71,23 @@ public class RestClientTest {
         var jsonNode = mapper.convertToJson(response);
         // Test - Runs returns an array of results in {"count": <int>, "value": []} format
         jsonNode.get("value").get(0);
+    }
+
+    @Test
+    public void shouldUpdateBuildGeneralSettings() throws AzDException {
+        // https://learn.microsoft.com/en-us/rest/api/azure/devops/build/general-settings/update?view=azure-devops-rest-7.1
+        // PATCH https://dev.azure.com/{organization}/{project}/_apis/build/generalsettings?api-version=7.1-preview.1
+
+        var requestBody = new HashMap<String, Boolean>(){{
+            put("publishPipelineMetadata", false);
+            put("enforceReferencedRepoScopedToken", true);
+            put("statusBadgesArePrivate", false);
+        }};
+
+        var response = RestClient.send(RequestMethod.PATCH, webApi.getConnection(), ResourceId.BUILD, webApi.getConnection().getProject(),
+                "build/generalsettings", null, null, "7.1-preview.1", null, requestBody,
+                CustomHeader.JSON_CONTENT_TYPE);
+
+        System.out.println(response);
     }
 }
