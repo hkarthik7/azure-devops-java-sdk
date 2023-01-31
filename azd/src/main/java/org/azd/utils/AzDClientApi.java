@@ -20,6 +20,7 @@ import org.azd.release.ReleaseApi;
 import org.azd.security.SecurityApi;
 import org.azd.serviceendpoint.ServiceEndpointApi;
 import org.azd.servicehooks.ServiceHooksApi;
+import org.azd.test.TestApi;
 import org.azd.upack.UPackApi;
 import org.azd.wiki.WikiApi;
 import org.azd.work.WorkApi;
@@ -279,5 +280,14 @@ public class AzDClientApi implements AzDClient {
     @Override
     public SecurityApi getSecurityApi() {
         return new SecurityApi(CONNECTION);
+    }
+
+    /**
+     * Returns an instance of Test api
+     * @return instance of TestApi {@link TestApi}
+     */
+    @Override
+    public TestApi getTestApi() {
+        return new TestApi(CONNECTION);
     }
 }

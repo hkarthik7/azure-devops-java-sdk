@@ -17,6 +17,7 @@ import org.azd.release.ReleaseApi;
 import org.azd.security.SecurityApi;
 import org.azd.serviceendpoint.ServiceEndpointApi;
 import org.azd.servicehooks.ServiceHooksApi;
+import org.azd.test.TestApi;
 import org.azd.upack.UPackApi;
 import org.azd.wiki.WikiApi;
 import org.azd.work.WorkApi;
@@ -64,4 +65,6 @@ public interface AzDClient {
     UPackApi getUPackApi();
 
     SecurityApi getSecurityApi();
+
+    TestApi getTestApi();
 }
