@@ -379,7 +379,7 @@ public class GitApiTest {
     }
 
     @Test
-    public void shoulGetForkSyncRequest() throws AzDException {
+    public void shouldGetForkSyncRequest() throws AzDException {
         var r = g.getForkSyncRequests("testRepository",true,false);
         if(r.getForkSyncRequest().size() > 0) {
             var operationId = r.getForkSyncRequest().get(0).getOperationId();
@@ -389,12 +389,18 @@ public class GitApiTest {
     }
     
     @Test
-    public void shoulGetForkSyncRequests() throws AzDException {
+    public void shouldGetForkSyncRequests() throws AzDException {
         g.getForkSyncRequests("testRepository", true, true);
     }
 
     @Test
     public void shouldGetForks() throws AzDException {
         g.getForks("testRepository", "00000000-0000-0000-0000-000000000000", true);
+    }
+
+    @Test
+    public void shouldGetGitPushes() throws AzDException {
+        var repo = g.getRepository("testRepository");
+        g.getPushes(repo.getId());
     }
 }

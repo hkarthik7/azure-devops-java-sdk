@@ -1548,6 +1548,109 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     }
 
     /**
+     * Push changes to the repository.
+     *
+     * @param repositoryId The name or ID of the repository.
+     * @return GitPush Object {@link GitPush}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public GitPush createPush(String repositoryId, GitPush gitPush) throws AzDException {
+        String r = send(RequestMethod.POST, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryId, "pushes", ApiVersion.GIT_PUSH, null, gitPush, CustomHeader.JSON_CONTENT_TYPE);
+
+        return MAPPER.mapJsonResponse(r, GitPush.class);
+    }
+
+    /**
+     * Retrieves a particular push.
+     *
+     * @param pushId ID of the push.
+     * @param repositoryId The name or ID of the repository.
+     * @return GitPush Object {@link GitPush}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public GitPush getPush(String repositoryId, int pushId) throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryId, "pushes/" + pushId, ApiVersion.GIT_PUSH, null, null, null);
+
+        return MAPPER.mapJsonResponse(r, GitPush.class);
+    }
+
+    /**
+     * Retrieves a particular push.
+     *
+     * @param pushId ID of the push.
+     * @param repositoryId The name or ID of the repository.
+     * @param includeCommits The number of commits to include in the result.
+     * @return GitPush Object {@link GitPush}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public GitPush getPush(String repositoryId, int pushId, int includeCommits) throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryId, "pushes/" + pushId, ApiVersion.GIT_PUSH, Map.of("includeCommits", includeCommits), null, null);
+
+        return MAPPER.mapJsonResponse(r, GitPush.class);
+    }
+
+    /**
+     * Retrieves a particular push.
+     *
+     * @param pushId ID of the push.
+     * @param repositoryId The name or ID of the repository.
+     * @param includeRefUpdates If true, include the list of refs that were updated by the push.
+     * @return GitPush Object {@link GitPush}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public GitPush getPush(String repositoryId, int pushId, boolean includeRefUpdates) throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryId, "pushes/" + pushId, ApiVersion.GIT_PUSH, Map.of("includeRefUpdates", includeRefUpdates), null, null);
+
+        return MAPPER.mapJsonResponse(r, GitPush.class);
+    }
+
+    /**
+     * Retrieves a particular push.
+     *
+     * @param pushId ID of the push.
+     * @param repositoryId The name or ID of the repository.
+     * @param includeCommits The number of commits to include in the result.
+     * @param includeRefUpdates If true, include the list of refs that were updated by the push.
+     * @return GitPush Object {@link GitPush}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public GitPush getPush(String repositoryId, int pushId, int includeCommits, boolean includeRefUpdates) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("includeCommits", includeCommits);
+            put("includeRefUpdates", includeRefUpdates);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryId, "pushes/" + pushId, ApiVersion.GIT_PUSH, q, null, null);
+
+        return MAPPER.mapJsonResponse(r, GitPush.class);
+    }
+
+    /**
+     * Retrieves pushes associated with the specified repository.
+     *
+     * @param repositoryId The name or ID of the repository.
+     * @return GitPush Object {@link GitPush}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public GitPushes getPushes(String repositoryId) throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryId, "pushes", ApiVersion.GIT_PUSH, null, null, null);
+
+        return MAPPER.mapJsonResponse(r, GitPushes.class);
+    }
+
+    /**
      * Create a fork of a parent repository
      *
      * @param repositoryName The name or ID of the repository.

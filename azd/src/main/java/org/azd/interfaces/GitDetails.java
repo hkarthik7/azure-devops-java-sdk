@@ -172,4 +172,15 @@ public interface GitDetails {
 
     GitRepositoryRefs getForks(String repositoryName, String collectionId, boolean includeLinks) throws AzDException;
 
+    GitPush createPush(String repositoryId, GitPush gitPush) throws AzDException;
+
+    GitPush getPush(String repositoryId, int pushId) throws AzDException;
+
+    GitPush getPush(String repositoryId, int pushId, int includeCommits) throws AzDException;
+
+    GitPush getPush(String repositoryId, int pushId, boolean includeRefUpdates) throws AzDException;
+
+    GitPush getPush(String repositoryId, int pushId, int includeCommits, boolean includeRefUpdates) throws AzDException;
+
+    GitPushes getPushes(String repositoryId) throws AzDException;
 }
