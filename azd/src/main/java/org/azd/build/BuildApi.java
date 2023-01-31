@@ -1468,7 +1468,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         try {
             String r = send(RequestMethod.POST, CONNECTION, BUILD, CONNECTION.getProject(),
                     "sourceProviders", null, providerName + "/webhooks", ApiVersion.BUILD_SOURCE_PROVIDERS,
-                    q, triggerTypes, null);
+                    q, triggerTypes, CustomHeader.JSON_CONTENT_TYPE);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
             throw e;
