@@ -1,4 +1,4 @@
-package org.azd.build.types;
+package org.azd.test.types;
 /*
 ----------------------------------------------------------
 	GENERATED FILE, should be edited to suit the purpose.
@@ -10,25 +10,25 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.BaseAbstractMethod;
 
 /**
- * Represents a reference to a task. 
+ * Stage in pipeline 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TaskReference extends BaseAbstractMethod {
+public class ShallowReference extends BaseAbstractMethod {
 	/**
- 	* The ID of the task definition. 
+ 	* ID of the resource 
 	**/
 	@JsonProperty("id")
 	private String id;
 	/**
- 	* The name of the task definition. 
+ 	* Name of the linked resource (definition name, controller name, etc.) 
 	**/
 	@JsonProperty("name")
 	private String name;
 	/**
- 	* The version of the task definition. 
+ 	* Full http link to the resource 
 	**/
-	@JsonProperty("version")
-	private String version;
+	@JsonProperty("url")
+	private String url;
 
 	public String getId() { return id; }
 
@@ -38,8 +38,8 @@ public class TaskReference extends BaseAbstractMethod {
 
 	public void setName(String name) { this.name = name; }
 
-	public String getVersion() { return version; }
+	public String getUrl() { return url; }
 
-	public void setVersion(String version) { this.version = version; }
+	public void setUrl(String url) { this.url = url; }
 
 }

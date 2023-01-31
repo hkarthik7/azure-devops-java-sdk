@@ -1,367 +1,264 @@
 package org.azd.build.types;
+/*
+----------------------------------------------------------
+	GENERATED FILE, should be edited to suit the purpose.
+----------------------------------------------------------
+*/
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.azd.common.types.BaseAbstractMethod;
+import org.azd.enums.TaskResult;
+import org.azd.enums.TimelineRecordState;
 
 import java.util.List;
 
 /**
- * Represents an entry in a build's timeline.
- */
+ * The state of the record. 
+**/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TimelineRecord extends BaseAbstractMethod {
-    /**
-     * The class to represent a collection of REST reference links.
-     */
-    @JsonProperty("_links")
-    private JsonNode _links;
-    /**
-     * Attempt number of record.
-     */
-    @JsonProperty("attempt")
-    private int attempt;
-    /**
-     * The change ID.
-     */
-    @JsonProperty("changeId")
-    private int changeId;
-    /**
-     * A string that indicates the current operation.
-     */
-    @JsonProperty("currentOperation")
-    private String currentOperation;
-    /**
-     * A reference to a sub-timeline.
-     */
-    @JsonProperty("details")
-    private TimelineReference details;
-    /**
-     * The number of errors produced by this operation.
-     */
-    @JsonProperty("errorCount")
-    private int errorCount;
-    /**
-     * The finish time.
-     */
-    @JsonProperty("finishTime")
-    private String finishTime;
-    /**
-     * The ID of the record.
-     */
-    @JsonProperty("id")
-    private String id;
-    /**
-     * String identifier that is consistent across attempts.
-     */
-    @JsonProperty("identifier")
-    private String identifier;
-    /**
-     * Represents an issue (error, warning) associated with a build.
-     */
-    @JsonProperty("issues")
-    private List<Issue> issues;
-    /**
-     * The time the record was last modified.
-     */
-    @JsonProperty("lastModified")
-    private String lastModified;
-    /**
-     * A reference to the log produced by this operation.
-     */
-    @JsonProperty("log")
-    private BuildLogReference log;
-    /**
-     * The name
-     */
-    @JsonProperty("name")
-    private String name;
-    /**
-     * An ordinal value relative to other records.
-     */
-    @JsonProperty("order")
-    private int order;
-    /**
-     * The ID of the record's parent.
-     */
-    @JsonProperty("parentId")
-    private String parentId;
-    /**
-     * The current completion percentage.
-     */
-    @JsonProperty("percentComplete")
-    private int percentComplete;
-    /**
-     * Collection of attempt tried
-     */
-    @JsonProperty("previousAttempts")
-    private List<TimelineAttempt> previousAttempts;
-    /**
-     * The queue ID of the queue that the operation ran on.
-     */
-    @JsonProperty("queueId")
-    private int queueId;
-    /**
-     * Result
-     */
-    @JsonProperty("result")
-    private String result;
-    /**
-     * The result code.
-     */
-    @JsonProperty("resultCode")
-    private String resultCode;
-    /**
-     * The start time.
-     */
-    @JsonProperty("startTime")
-    private String startTime;
-    /**
-     * state of the record
-     */
-    @JsonProperty("state")
-    private String state;
-    /**
-     * A reference to the task represented by this timeline record.
-     */
-    @JsonProperty("task")
-    private TaskReference task;
-    /**
-     * The type of the record.
-     */
-    @JsonProperty("type")
-    private String type;
-    /**
-     * The REST URL of the timeline record.
-     */
-    @JsonProperty("url")
-    private String url;
-    /**
-     * The number of warnings produced by this operation.
-     */
-    @JsonProperty("warningCount")
-    private int warningCount;
-    /**
-     * The name of the agent running the operation.
-     */
-    @JsonProperty("workerName")
-    private String workerName;
+	/**
+ 	* The class to represent a collection of REST reference links. 
+	**/
+	@JsonProperty("_links")
+	private JsonNode _links;
+	/**
+ 	* Attempt number of record. 
+	**/
+	@JsonProperty("attempt")
+	private Integer attempt;
+	/**
+ 	* The change ID. 
+	**/
+	@JsonProperty("changeId")
+	private Integer changeId;
+	/**
+ 	* A string that indicates the current operation. 
+	**/
+	@JsonProperty("currentOperation")
+	private String currentOperation;
+	/**
+ 	* A reference to a sub-timeline. 
+	**/
+	@JsonProperty("details")
+	private TimelineReference details;
+	/**
+ 	* The number of errors produced by this operation. 
+	**/
+	@JsonProperty("errorCount")
+	private Integer errorCount;
+	/**
+ 	* The finish time. 
+	**/
+	@JsonProperty("finishTime")
+	private String finishTime;
+	/**
+ 	* The ID of the record. 
+	**/
+	@JsonProperty("id")
+	private String id;
+	/**
+ 	* String identifier that is consistent across attempts. 
+	**/
+	@JsonProperty("identifier")
+	private String identifier;
+	/**
+ 	* Represents an issue (error, warning) associated with a build. 
+	**/
+	@JsonProperty("issues")
+	private List<Issue> issues;
+	/**
+ 	* The time the record was last modified. 
+	**/
+	@JsonProperty("lastModified")
+	private String lastModified;
+	/**
+ 	* A reference to the log produced by this operation. 
+	**/
+	@JsonProperty("log")
+	private BuildLogReference log;
+	/**
+ 	* The name. 
+	**/
+	@JsonProperty("name")
+	private String name;
+	/**
+ 	* An ordinal value relative to other records. 
+	**/
+	@JsonProperty("order")
+	private Integer order;
+	/**
+ 	* The ID of the record's parent. 
+	**/
+	@JsonProperty("parentId")
+	private String parentId;
+	/**
+ 	* The current completion percentage. 
+	**/
+	@JsonProperty("percentComplete")
+	private Integer percentComplete;
 
-    public JsonNode get_links() {
-        return _links;
-    }
+	@JsonProperty("previousAttempts")
+	private List<TimelineAttempt> previousAttempts;
+	/**
+ 	* The queue ID of the queue that the operation ran on. 
+	**/
+	@JsonProperty("queueId")
+	private Integer queueId;
+	/**
+ 	* The result. 
+	**/
+	@JsonProperty("result")
+	private TaskResult result;
+	/**
+ 	* The result code. 
+	**/
+	@JsonProperty("resultCode")
+	private String resultCode;
+	/**
+ 	* The start time. 
+	**/
+	@JsonProperty("startTime")
+	private String startTime;
+	/**
+ 	* The state of the record. 
+	**/
+	@JsonProperty("state")
+	private TimelineRecordState state;
+	/**
+ 	* A reference to the task represented by this timeline record. 
+	**/
+	@JsonProperty("task")
+	private TaskReference task;
+	/**
+ 	* The type of the record. 
+	**/
+	@JsonProperty("type")
+	private String type;
+	/**
+ 	* The REST URL of the timeline record. 
+	**/
+	@JsonProperty("url")
+	private String url;
+	/**
+ 	* The number of warnings produced by this operation. 
+	**/
+	@JsonProperty("warningCount")
+	private Integer warningCount;
+	/**
+ 	* The name of the agent running the operation. 
+	**/
+	@JsonProperty("workerName")
+	private String workerName;
 
-    public void set_links(JsonNode _links) {
-        this._links = _links;
-    }
+	public JsonNode get_links() { return _links; }
 
-    public int getAttempt() {
-        return attempt;
-    }
+	public void set_links(JsonNode _links) { this._links = _links; }
 
-    public void setAttempt(int attempt) {
-        this.attempt = attempt;
-    }
+	public Integer getAttempt() { return attempt; }
 
-    public int getChangeId() {
-        return changeId;
-    }
+	public void setAttempt(Integer attempt) { this.attempt = attempt; }
 
-    public void setChangeId(int changeId) {
-        this.changeId = changeId;
-    }
+	public Integer getChangeId() { return changeId; }
 
-    public String getCurrentOperation() {
-        return currentOperation;
-    }
+	public void setChangeId(Integer changeId) { this.changeId = changeId; }
 
-    public void setCurrentOperation(String currentOperation) {
-        this.currentOperation = currentOperation;
-    }
+	public String getCurrentOperation() { return currentOperation; }
 
-    public TimelineReference getDetails() {
-        return details;
-    }
+	public void setCurrentOperation(String currentOperation) { this.currentOperation = currentOperation; }
 
-    public void setDetails(TimelineReference details) {
-        this.details = details;
-    }
+	public TimelineReference getDetails() { return details; }
 
-    public int getErrorCount() {
-        return errorCount;
-    }
+	public void setDetails(TimelineReference details) { this.details = details; }
 
-    public void setErrorCount(int errorCount) {
-        this.errorCount = errorCount;
-    }
+	public Integer getErrorCount() { return errorCount; }
 
-    public String getFinishTime() {
-        return finishTime;
-    }
+	public void setErrorCount(Integer errorCount) { this.errorCount = errorCount; }
 
-    public void setFinishTime(String finishTime) {
-        this.finishTime = finishTime;
-    }
+	public String getFinishTime() { return finishTime; }
 
-    public String getId() {
-        return id;
-    }
+	public void setFinishTime(String finishTime) { this.finishTime = finishTime; }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public String getId() { return id; }
 
-    public String getIdentifier() {
-        return identifier;
-    }
+	public void setId(String id) { this.id = id; }
 
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
-    }
+	public String getIdentifier() { return identifier; }
 
-    public List<Issue> getIssues() {
-        return issues;
-    }
+	public void setIdentifier(String identifier) { this.identifier = identifier; }
 
-    public void setIssues(List<Issue> issues) {
-        this.issues = issues;
-    }
+	public List<Issue> getIssues() { return issues; }
 
-    public String getLastModified() {
-        return lastModified;
-    }
+	public void setIssues(List<Issue> issues) { this.issues = issues; }
 
-    public void setLastModified(String lastModified) {
-        this.lastModified = lastModified;
-    }
+	public String getLastModified() { return lastModified; }
 
-    public BuildLogReference getLog() {
-        return log;
-    }
+	public void setLastModified(String lastModified) { this.lastModified = lastModified; }
 
-    public void setLog(BuildLogReference log) {
-        this.log = log;
-    }
+	public BuildLogReference getLog() { return log; }
 
-    public String getName() {
-        return name;
-    }
+	public void setLog(BuildLogReference log) { this.log = log; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() { return name; }
 
-    public int getOrder() {
-        return order;
-    }
+	public void setName(String name) { this.name = name; }
 
-    public void setOrder(int order) {
-        this.order = order;
-    }
+	public Integer getOrder() { return order; }
 
-    public String getParentId() {
-        return parentId;
-    }
+	public void setOrder(Integer order) { this.order = order; }
 
-    public void setParentId(String parentId) {
-        this.parentId = parentId;
-    }
+	public String getParentId() { return parentId; }
 
-    public int getPercentComplete() {
-        return percentComplete;
-    }
+	public void setParentId(String parentId) { this.parentId = parentId; }
 
-    public void setPercentComplete(int percentComplete) {
-        this.percentComplete = percentComplete;
-    }
+	public Integer getPercentComplete() { return percentComplete; }
 
-    public List<TimelineAttempt> getPreviousAttempts() {
-        return previousAttempts;
-    }
+	public void setPercentComplete(Integer percentComplete) { this.percentComplete = percentComplete; }
 
-    public void setPreviousAttempts(List<TimelineAttempt> previousAttempts) {
-        this.previousAttempts = previousAttempts;
-    }
+	public List<TimelineAttempt> getPreviousAttempts() { return previousAttempts; }
 
-    public int getQueueId() {
-        return queueId;
-    }
+	public void setPreviousAttempts(List<TimelineAttempt> previousAttempts) { this.previousAttempts = previousAttempts; }
 
-    public void setQueueId(int queueId) {
-        this.queueId = queueId;
-    }
+	public Integer getQueueId() { return queueId; }
 
-    public String getResult() {
-        return result;
-    }
+	public void setQueueId(Integer queueId) { this.queueId = queueId; }
 
-    public void setResult(String result) {
-        this.result = result;
-    }
+	public TaskResult getResult() { return result; }
 
-    public String getResultCode() {
-        return resultCode;
-    }
+	public void setResult(TaskResult result) { this.result = result; }
 
-    public void setResultCode(String resultCode) {
-        this.resultCode = resultCode;
-    }
+	public String getResultCode() { return resultCode; }
 
-    public String getStartTime() {
-        return startTime;
-    }
+	public void setResultCode(String resultCode) { this.resultCode = resultCode; }
 
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
-    }
+	public String getStartTime() { return startTime; }
 
-    public String getState() {
-        return state;
-    }
+	public void setStartTime(String startTime) { this.startTime = startTime; }
 
-    public void setState(String state) {
-        this.state = state;
-    }
+	public TimelineRecordState getState() { return state; }
 
-    public TaskReference getTask() {
-        return task;
-    }
+	public void setState(TimelineRecordState state) { this.state = state; }
 
-    public void setTask(TaskReference task) {
-        this.task = task;
-    }
+	public TaskReference getTask() { return task; }
 
-    public String getType() {
-        return type;
-    }
+	public void setTask(TaskReference task) { this.task = task; }
 
-    public void setType(String type) {
-        this.type = type;
-    }
+	public String getType() { return type; }
 
-    public String getUrl() {
-        return url;
-    }
+	public void setType(String type) { this.type = type; }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
+	public String getUrl() { return url; }
 
-    public int getWarningCount() {
-        return warningCount;
-    }
+	public void setUrl(String url) { this.url = url; }
 
-    public void setWarningCount(int warningCount) {
-        this.warningCount = warningCount;
-    }
+	public Integer getWarningCount() { return warningCount; }
 
-    public String getWorkerName() {
-        return workerName;
-    }
+	public void setWarningCount(Integer warningCount) { this.warningCount = warningCount; }
 
-    public void setWorkerName(String workerName) {
-        this.workerName = workerName;
-    }
+	public String getWorkerName() { return workerName; }
+
+	public void setWorkerName(String workerName) { this.workerName = workerName; }
 
 }
