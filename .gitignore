@@ -36,6 +36,7 @@ target/
 # python virtual environment files
 /env
 /venv
+__pycache__/
 
 # Don't upload the types folder under tools/
 tools/types/
