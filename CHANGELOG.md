@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.0.6
+
+- Support to **TestApi**. This introduces support to Test runs in the TestApi.
+- Addresses issue [Json mapping issue when trying to read builds that couldn't run #48](https://github.com/hkarthik7/azure-devops-java-sdk/issues/48)
+- Addresses issue [Documentation of RestClient or Unit tests of RestClient needed #49](https://github.com/hkarthik7/azure-devops-java-sdk/issues/49)
+  - Documentation: https://azure-devops-java-sdk-docs.readthedocs.io/en/latest/docs/tutorial/
+  - Tests: https://github.com/hkarthik7/azure-devops-java-sdk/blob/main/azd/src/test/java/org/azd/RestClientTest.java
+- Added support to **Pushes** in **GitApi.**
+- Address issue [Push Changes Feature #50](https://github.com/hkarthik7/azure-devops-java-sdk/issues/50).
+
 ## 5.0.5
 **Minor Incremental Release**
 - Updated jackson-databind dependency version.
