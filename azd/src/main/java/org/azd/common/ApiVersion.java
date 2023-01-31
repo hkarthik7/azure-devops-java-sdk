@@ -28,6 +28,7 @@ public abstract class ApiVersion {
     public static final String PIPELINES = "7.1-preview.1";
     public static final String FEEDS = "7.1-preview.1";
     public static final String GIT = "7.1-preview.1";
+    public static final String GIT_PUSH = "7.1-preview.2";
     public static final String GRAPH = "7.1-preview.1";
     public static final String MEMBERSHIP_ENTITLEMENT_MANAGEMENT = "7.1-preview.1";
     public static final String PROFILE = "7.1-preview.3";
