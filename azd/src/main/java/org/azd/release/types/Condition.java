@@ -8,6 +8,7 @@ package org.azd.release.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.BaseAbstractMethod;
+import org.azd.enums.ConditionType;
 
 /**
  * Gets or sets the trigger type. 
