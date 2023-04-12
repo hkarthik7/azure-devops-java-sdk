@@ -7,9 +7,11 @@ import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 
 import java.io.InputStream;
+import java.net.http.HttpHeaders;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Map;
+import java.util.OptionalLong;
 import java.util.concurrent.CompletableFuture;
 
 import static org.azd.utils.RestClientProvider.buildRequestUrl;
@@ -18,6 +20,27 @@ import static org.azd.utils.RestClientProvider.buildRequestUrl;
  * RestClient to call Azure DevOps REST API.
  */
 public abstract class RestClient {
+
+    /**
+     * Http Headers of last request.   We want to make these accessible everywhere (i.e) something that
+     * can be checked after every request, but we don't want to have to modify all the existing API methods
+     * to return the data.
+     *
+     * We need this to bw able to check if we are near any API rate limits - as creating 20+ releases in
+     * a short time can cause one to go over the limit and even have requests fail.
+     */
+    static HttpHeaders headersFromLastRequest = null;
+
+    /**
+     * Method to get retryAfterInterval value from response header
+     * @return Value in seconds (if it exists in header) of how long we should wait to send next request.
+     */
+    static OptionalLong retryAfterInterval() {
+        if (headersFromLastRequest != null) {
+            return headersFromLastRequest.firstValueAsLong("Retry-After");
+        }
+        return OptionalLong.empty();
+    }
 
     /**
      * Request the Azure DevOps REST API and builds the request url dynamically based on resource id and endpoints passed
@@ -52,12 +75,15 @@ public abstract class RestClient {
 
         if (contentType == null) contentType = CustomHeader.JSON;
 
-        return RestClientProvider.response(requestMethod, requestUrl, connection.getPersonalAccessToken(),
-                HttpRequest.BodyPublishers.ofString(RestClientProvider.MAPPER.convertToString(requestBody)),
-                HttpResponse.BodyHandlers.ofString(),
-                contentType, false)
-                .thenApplyAsync(HttpResponse::body)
+        HttpResponse<String> response = RestClientProvider.response(requestMethod, requestUrl, connection.getPersonalAccessToken(),
+                        HttpRequest.BodyPublishers.ofString(RestClientProvider.MAPPER.convertToString(requestBody)),
+                        HttpResponse.BodyHandlers.ofString(),
+                        contentType, false)
                 .join();
+
+        headersFromLastRequest = response.headers();
+
+        return response.body();
     }
 
     /**
@@ -170,11 +196,14 @@ public abstract class RestClient {
             boolean callback) throws AzDException {
         if (contentType == null) contentType = CustomHeader.JSON;
 
-        return RestClientProvider.response(requestMethod, requestUrl, null,
-                HttpRequest.BodyPublishers.ofString(RestClientProvider.MAPPER.convertToString(requestBody)),
-                HttpResponse.BodyHandlers.ofString(), contentType, callback)
-                .thenApplyAsync(HttpResponse::body)
+        var response = RestClientProvider.response(requestMethod, requestUrl, null,
+                        HttpRequest.BodyPublishers.ofString(RestClientProvider.MAPPER.convertToString(requestBody)),
+                        HttpResponse.BodyHandlers.ofString(), contentType, callback)
                 .join();
+
+        headersFromLastRequest = response.headers();
+
+        return response.body();
     }
 
     /**
@@ -198,11 +227,14 @@ public abstract class RestClient {
             boolean callback) throws AzDException {
         if (contentType == null) contentType = CustomHeader.JSON;
 
-        return RestClientProvider.response(requestMethod, requestUrl, connection.getPersonalAccessToken(),
+        var response = RestClientProvider.response(requestMethod, requestUrl, connection.getPersonalAccessToken(),
                         HttpRequest.BodyPublishers.ofString(RestClientProvider.MAPPER.convertToString(requestBody)),
                         HttpResponse.BodyHandlers.ofString(), contentType, callback)
-                .thenApplyAsync(HttpResponse::body)
                 .join();
+
+        headersFromLastRequest = response.headers();
+
+        return response.body();
     }
 
     /**
