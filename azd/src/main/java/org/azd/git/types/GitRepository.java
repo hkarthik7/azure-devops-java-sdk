@@ -53,7 +53,7 @@ public class GitRepository extends BaseAbstractMethod {
  	* Compressed size (bytes) of the repository. 
 	**/
 	@JsonProperty("size")
-	private Integer size;
+	private Long size;
 
 	@JsonProperty("sshUrl")
 	private String sshUrl;
@@ -103,9 +103,9 @@ public class GitRepository extends BaseAbstractMethod {
 
 	public void setRemoteUrl(String remoteUrl) { this.remoteUrl = remoteUrl; }
 
-	public Integer getSize() { return size; }
+	public Long getSize() { return size; }
 
-	public void setSize(Integer size) { this.size = size; }
+	public void setSize(Long size) { this.size = size; }
 
 	public String getSshUrl() { return sshUrl; }
 
