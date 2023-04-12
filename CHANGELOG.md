@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.0.7
+
+**Minor Incremental Release**
+- Fix issue: [GitRepository does not support repositories with size greater than 2147483647 bytes](https://github.com/hkarthik7/azure-devops-java-sdk/issues/52)
+- Fix issue: [Add ability to get Retry-After value in response header](https://github.com/hkarthik7/azure-devops-java-sdk/issues/54)
+- Merged PR: [Fix issue 52, change size field from Integer to Long](https://github.com/hkarthik7/azure-devops-java-sdk/pull/53)
+- Merged PR: [Fix parsing exception](https://github.com/hkarthik7/azure-devops-java-sdk/pull/57)
+- Fix issue: [Parsing exception for ReleaseDefinition that has an an Environment that has Conditions.](https://github.com/hkarthik7/azure-devops-java-sdk/issues/56)
+- Merged PR: [Add mechanism to get Retry-After value in response header](https://github.com/hkarthik7/azure-devops-java-sdk/pull/55)
+
 ## 5.0.6
 
 - Support to **TestApi**. This introduces support to Test runs in the TestApi.
