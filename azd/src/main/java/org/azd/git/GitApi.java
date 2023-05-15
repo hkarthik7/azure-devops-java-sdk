@@ -1396,6 +1396,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
             put("latestProcessedChange", latestProcessedChange);
             put("versionOptions", versionOptions);
             put("versionType", versionType);
+            put("version", version);
         }};
 
         if (scopePath != null) q.put("scopePath", scopePath);
