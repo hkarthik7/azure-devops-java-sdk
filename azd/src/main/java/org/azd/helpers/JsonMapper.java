@@ -9,10 +9,19 @@ import org.azd.exceptions.AzDException;
 import java.io.File;
 import java.io.InputStream;
 
+import static com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /***
  * Helper class to transform json string to POJO and vice versa
  */
 public class JsonMapper extends ObjectMapper {
+
+    public JsonMapper() {
+        super();
+
+        // Do not include NULL values in serialized JSON messages
+        this.setSerializationInclusion(Include.NON_NULL);
+    }
 
     /***
      * Converts the object to string
