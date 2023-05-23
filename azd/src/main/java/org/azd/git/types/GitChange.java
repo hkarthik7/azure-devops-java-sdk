@@ -29,7 +29,7 @@ public class GitChange extends BaseAbstractMethod {
  	* Current version. 
 	**/
 	@JsonProperty("item")
-	private String item;
+	private GitItem item;
 	/**
  	* Content of the item after the change. 
 	**/
@@ -64,9 +64,9 @@ public class GitChange extends BaseAbstractMethod {
 
 	public void setChangeType(VersionControlChangeType changeType) { this.changeType = changeType; }
 
-	public String getItem() { return item; }
+	public GitItem getItem() { return item; }
 
-	public void setItem(String item) { this.item = item; }
+	public void setItem(GitItem item) { this.item = item; }
 
 	public ItemContent getNewContent() { return newContent; }
 
