@@ -54,6 +54,42 @@ public class GitRefUpdateResult {
     @JsonProperty("updateStatus")
     private String GitRefUpdateStatus;
 
+    public String getCustomMessage() {
+        return customMessage;
+    }
+
+    public boolean isLocked() {
+        return isLocked;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getNewObjectId() {
+        return newObjectId;
+    }
+
+    public String getOldObjectId() {
+        return oldObjectId;
+    }
+
+    public String getRejectedBy() {
+        return rejectedBy;
+    }
+
+    public String getRepositoryId() {
+        return repositoryId;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public String getGitRefUpdateStatus() {
+        return GitRefUpdateStatus;
+    }
+
     @Override
     public String toString() {
         return "GitRefUpdateResult{" +
@@ -68,5 +104,4 @@ public class GitRefUpdateResult {
                 ", updateStatus='" + GitRefUpdateStatus + '\'' +
                 '}';
     }
-
 }
