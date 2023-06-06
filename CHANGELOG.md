@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.0.8
+
+**Minor Incremental Release**
+- Fix issue: [Git push does not work because JSON output does not match examples #61](https://github.com/hkarthik7/azure-devops-java-sdk/issues/61)
+- Merged PR: [Add version to the query #60](https://github.com/hkarthik7/azure-devops-java-sdk/pull/60)
+- Merged PR: [Fix git change item and ignore null values #62](https://github.com/hkarthik7/azure-devops-java-sdk/pull/62)
+
 ## 5.0.7
 
 **Minor Incremental Release**
