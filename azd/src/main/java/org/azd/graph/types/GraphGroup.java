@@ -10,12 +10,12 @@ import org.azd.helpers.JsonMapper;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GraphGroup extends GraphEntity {
-    /***A short phrase to help human readers disambiguate groups with similar names
-     *
+    /**
+     * A short phrase to help human readers disambiguate groups with similar names
      */
     @JsonProperty("description")
     private String description;
-    /***
+    /**
      * The legacy descriptor is here in case you need to access old version IMS using identity descriptor.
      */
     @JsonProperty("legacyDescriptor")

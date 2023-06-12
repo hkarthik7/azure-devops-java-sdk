@@ -4,6 +4,8 @@ import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
 import org.azd.enums.CustomHeader;
 import org.azd.enums.RequestMethod;
+import org.azd.enums.TestRunPublishContext;
+import org.azd.enums.TestRunState;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.TestDetails;
@@ -12,6 +14,7 @@ import org.azd.test.types.TestRun;
 import org.azd.test.types.TestRunStatistic;
 import org.azd.test.types.TestRuns;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -173,5 +176,162 @@ public class TestApi implements TestDetails {
             throw e;
         }
         return null;
+    }
+
+    /**
+     * Query Test Runs based on filters. Mandatory fields are minLastUpdatedDate and maxLastUpdatedDate.
+     *
+     * @param maxLastUpdatedDate Maximum Last Modified Date of run to be queried (Mandatory, difference between min and max date can be atmost 7 days).
+     * @param minLastUpdatedDate Minimum Last Modified Date of run to be queried (Mandatory).
+     * @return TestRuns Object {@link TestRuns}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public TestRuns queryTestRuns(String maxLastUpdatedDate, String minLastUpdatedDate) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("maxLastUpdatedDate", maxLastUpdatedDate);
+            put("minLastUpdatedDate", minLastUpdatedDate);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, TEST, CONNECTION.getProject(),
+                AREA + "/runs", null, null, ApiVersion.TEST_RUNS, q, null, null);
+
+        return MAPPER.mapJsonResponse(r, TestRuns.class);
+    }
+
+    /**
+     * Query Test Runs based on filters. Mandatory fields are minLastUpdatedDate and maxLastUpdatedDate.
+     *
+     * @param maxLastUpdatedDate Maximum Last Modified Date of run to be queried (Mandatory, difference between min and max date can be atmost 7 days).
+     * @param minLastUpdatedDate Minimum Last Modified Date of run to be queried (Mandatory).
+     * @param top Number of runs to be queried. Limit is 100.
+     * @return TestRuns Object {@link TestRuns}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public TestRuns queryTestRuns(String maxLastUpdatedDate, String minLastUpdatedDate, int top) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("maxLastUpdatedDate", maxLastUpdatedDate);
+            put("minLastUpdatedDate", minLastUpdatedDate);
+            put("$top", top);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, TEST, CONNECTION.getProject(),
+                AREA + "/runs", null, null, ApiVersion.TEST_RUNS, q, null, null);
+
+        return MAPPER.mapJsonResponse(r, TestRuns.class);
+    }
+
+    /**
+     * Query Test Runs based on filters. Mandatory fields are minLastUpdatedDate and maxLastUpdatedDate.
+     *
+     * @param maxLastUpdatedDate Maximum Last Modified Date of run to be queried (Mandatory, difference between min and max date can be atmost 7 days).
+     * @param minLastUpdatedDate Minimum Last Modified Date of run to be queried (Mandatory).
+     * @param buildIds Build Ids of the Runs to be queried, comma separated list of valid ids (limit no. of ids 10).
+     * @return TestRuns Object {@link TestRuns}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public TestRuns queryTestRuns(String maxLastUpdatedDate, String minLastUpdatedDate, String[] buildIds) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("maxLastUpdatedDate", maxLastUpdatedDate);
+            put("minLastUpdatedDate", minLastUpdatedDate);
+        }};
+
+        if (buildIds.length > 0) q.put("buildIds", String.join(",", buildIds));
+
+        String r = send(RequestMethod.GET, CONNECTION, TEST, CONNECTION.getProject(),
+                AREA + "/runs", null, null, ApiVersion.TEST_RUNS, q, null, null);
+
+        return MAPPER.mapJsonResponse(r, TestRuns.class);
+    }
+
+    /**
+     * Query Test Runs based on filters. Mandatory fields are minLastUpdatedDate and maxLastUpdatedDate.
+     *
+     * @param maxLastUpdatedDate Maximum Last Modified Date of run to be queried (Mandatory, difference between min and max date can be atmost 7 days).
+     * @param minLastUpdatedDate Minimum Last Modified Date of run to be queried (Mandatory).
+     * @param testRunState Current state of the Runs to be queried.
+     * @return TestRuns Object {@link TestRuns}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public TestRuns queryTestRuns(String maxLastUpdatedDate, String minLastUpdatedDate, TestRunState testRunState) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("maxLastUpdatedDate", maxLastUpdatedDate);
+            put("minLastUpdatedDate", minLastUpdatedDate);
+            put("state", testRunState);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, TEST, CONNECTION.getProject(),
+                AREA + "/runs", null, null, ApiVersion.TEST_RUNS, q, null, null);
+
+        return MAPPER.mapJsonResponse(r, TestRuns.class);
+    }
+
+    /**
+     * Query Test Runs based on filters. Mandatory fields are minLastUpdatedDate and maxLastUpdatedDate.
+     *
+     * @param maxLastUpdatedDate Maximum Last Modified Date of run to be queried (Mandatory, difference between min and max date can be atmost 7 days).
+     * @param minLastUpdatedDate Minimum Last Modified Date of run to be queried (Mandatory).
+     * @param branchName Source Branch name of the Runs to be queried.
+     * @param buildDefIds Build Definition Ids of the Runs to be queried, comma separated list of valid ids (limit no. of ids 10).
+     * @param continuationToken continuationToken received from previous batch or null for first batch.
+     *                          It is not supposed to be created (or altered, if received from last batch) by user.
+     * @param isAutomated Automation type of the Runs to be queried.
+     * @param planIds Plan Ids of the Runs to be queried, comma separated list of valid ids (limit no. of ids 10).
+     * @param publishContext PublishContext of the Runs to be queried.
+     * @param releaseDefIds Release Definition Ids of the Runs to be queried, comma separated list of valid ids (limit no. of ids 10).
+     * @param releaseEnvDefIds Release Environment Definition Ids of the Runs to be queried, comma separated list of valid ids (limit no. of ids 10).
+     * @param releaseEnvIds Release Environment Ids of the Runs to be queried, comma separated list of valid ids (limit no. of ids 10).
+     * @param releaseIds Release Ids of the Runs to be queried, comma separated list of valid ids (limit no. of ids 10).
+     * @param runTitle Run Title of the Runs to be queried.
+     * @return TestRuns Object {@link TestRuns}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public TestRuns queryTestRuns(String maxLastUpdatedDate, String minLastUpdatedDate, String branchName,
+                                  String[] buildDefIds, String continuationToken, boolean isAutomated,
+                                  String[] planIds, TestRunPublishContext publishContext, String[] releaseDefIds,
+                                  String[] releaseEnvDefIds, String[] releaseEnvIds, String[] releaseIds,
+                                  String runTitle) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("maxLastUpdatedDate", maxLastUpdatedDate);
+            put("minLastUpdatedDate", minLastUpdatedDate);
+            put("isAutomated", isAutomated);
+            put("publishContext", publishContext);
+        }};
+
+        if (branchName != null) q.put("branchName", branchName);
+        if (buildDefIds.length > 0) q.put("buildDefIds", buildDefIds);
+        if (continuationToken != null) q.put("continuationToken", continuationToken);
+        if (planIds.length > 0) q.put("branchName", branchName);
+        if (releaseEnvDefIds.length > 0) q.put("releaseEnvDefIds", String.join(",", releaseEnvDefIds));
+        if (releaseEnvIds.length > 0) q.put("releaseEnvIds", String.join(",", releaseEnvIds));
+        if (releaseDefIds.length > 0) q.put("releaseDefIds", releaseDefIds);
+        if (releaseIds.length > 0) q.put("releaseIds", releaseIds);
+        if (runTitle != null) q.put("runTitle", runTitle);
+
+
+        String r = send(RequestMethod.GET, CONNECTION, TEST, CONNECTION.getProject(),
+                AREA + "/runs", null, null, ApiVersion.TEST_RUNS, q, null, null);
+
+        return MAPPER.mapJsonResponse(r, TestRuns.class);
+    }
+
+    /**
+     * Update test run by its ID.
+     * @param runId ID of the run to update.
+     * @param testRun {@link TestRun} object.
+     * @return TestRun Object {@link TestRun}
+     * @throws AzDException Default Api exception handler.
+     */
+    @Override
+    public TestRun updateTestRun(int runId, TestRun testRun) throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, TEST, CONNECTION.getProject(),
+                AREA + "/runs", String.valueOf(runId), null, ApiVersion.TEST_RUNS, null, testRun,
+                CustomHeader.JSON_CONTENT_TYPE);
+
+        return MAPPER.mapJsonResponse(r, TestRun.class);
     }
 }
