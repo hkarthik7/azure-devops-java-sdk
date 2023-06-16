@@ -25,6 +25,10 @@ public enum Instance {
         return instance;
     }
 
+    public void setInstance(String baseInstance) {
+        instance = baseInstance;
+    }
+
     public String setSubdomain(String subdomainName) {
         return instance.replaceFirst("https://", "https://" + subdomainName + ".");
     }
