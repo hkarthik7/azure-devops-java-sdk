@@ -1,5 +1,6 @@
 package org.azd.utils;
 
+import org.azd.common.types.BaseAbstractMethod;
 import org.azd.connection.Connection;
 import org.azd.enums.ApiExceptionTypes;
 import org.azd.enums.CustomHeader;
@@ -11,6 +12,7 @@ import java.net.http.HttpHeaders;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Map;
+import java.util.Optional;
 import java.util.OptionalLong;
 import java.util.concurrent.CompletableFuture;
 
@@ -26,7 +28,7 @@ public abstract class RestClient {
      * can be checked after every request, but we don't want to have to modify all the existing API methods
      * to return the data.
      *
-     * We need this to bw able to check if we are near any API rate limits - as creating 20+ releases in
+     * We need this to be able to check if we are near any API rate limits - as creating 20+ releases in
      * a short time can cause one to go over the limit and even have requests fail.
      */
     static HttpHeaders headersFromLastRequest = null;
@@ -40,6 +42,16 @@ public abstract class RestClient {
             return headersFromLastRequest.firstValueAsLong("Retry-After");
         }
         return OptionalLong.empty();
+    }
+
+    /**
+     * Metadata class to retrieve the response headers. This separates the implementation and
+     * retrieval from the RestClient adapter class.
+     */
+    public static final class Metadata {
+        public static String getResponseHeader(String value) {
+            return RestClient.headersFromLastRequest.firstValue(value).orElse("");
+        }
     }
 
     /**
