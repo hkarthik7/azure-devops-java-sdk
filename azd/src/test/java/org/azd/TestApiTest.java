@@ -3,8 +3,6 @@ package org.azd;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AzDClient;
-import org.azd.interfaces.CoreDetails;
-import org.azd.interfaces.ServiceHooksDetails;
 import org.azd.test.TestApi;
 import org.azd.utils.AzDClientApi;
 import org.junit.Before;

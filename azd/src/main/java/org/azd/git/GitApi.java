@@ -1,7 +1,6 @@
 package org.azd.git;
 
 import org.azd.common.ApiVersion;
-import org.azd.common.ResourceId;
 import org.azd.connection.Connection;
 import org.azd.enums.*;
 import org.azd.exceptions.AzDException;

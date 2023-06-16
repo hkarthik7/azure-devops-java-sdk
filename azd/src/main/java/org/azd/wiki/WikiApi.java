@@ -1,8 +1,5 @@
 package org.azd.wiki;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.InjectableValues;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import org.azd.common.ApiVersion;
 import org.azd.common.ResourceId;
 import org.azd.connection.Connection;
@@ -13,7 +10,6 @@ import org.azd.helpers.StreamHelper;
 import org.azd.helpers.URLHelper;
 import org.azd.interfaces.WikiDetails;
 import org.azd.utils.AzDAsyncApi;
-import org.azd.utils.RestClient;
 import org.azd.wiki.types.*;
 
 import java.io.InputStream;
@@ -23,7 +19,7 @@ import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.azd.utils.RestClient.*;
+import static org.azd.utils.RestClient.send;
 
 /***
  * Wiki class to manage Wiki API

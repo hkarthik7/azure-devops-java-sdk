@@ -1,9 +1,9 @@
 package org.azd.git.types;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.List;
 
 /***
  * Result of a git reference update list.

@@ -1,6 +1,5 @@
 package org.azd.utils;
 
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.connection.Connection;
 import org.azd.enums.ApiExceptionTypes;
 import org.azd.enums.CustomHeader;
@@ -12,7 +11,6 @@ import java.net.http.HttpHeaders;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Map;
-import java.util.Optional;
 import java.util.OptionalLong;
 import java.util.concurrent.CompletableFuture;
 

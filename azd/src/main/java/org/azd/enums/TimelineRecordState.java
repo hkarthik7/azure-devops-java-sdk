@@ -7,7 +7,6 @@ package org.azd.enums;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
 
 /**
  * Represents a reference to a timeline. 

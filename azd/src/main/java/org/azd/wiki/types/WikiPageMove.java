@@ -5,7 +5,6 @@ package org.azd.wiki.types;
 ----------------------------------------------------------
 **/
 
-import com.fasterxml.jackson.annotation.JacksonInject;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.BaseAbstractMethod;

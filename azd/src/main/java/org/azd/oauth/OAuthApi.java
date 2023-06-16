@@ -2,7 +2,6 @@ package org.azd.oauth;
 
 import org.azd.enums.CustomHeader;
 import org.azd.enums.Instance;
-import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.helpers.URLHelper;
@@ -12,8 +11,6 @@ import org.azd.utils.RestClientProvider;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.LinkedHashMap;
-
-import static org.azd.utils.RestClient.send;
 
 /***
  * OAuth Api class to authorize access to REST API

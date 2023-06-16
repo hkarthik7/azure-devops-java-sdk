@@ -14,7 +14,6 @@ import org.azd.test.types.TestRun;
 import org.azd.test.types.TestRunStatistic;
 import org.azd.test.types.TestRuns;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 

@@ -3,7 +3,6 @@ package org.azd.interfaces;
 import org.azd.enums.GitVersionOptions;
 import org.azd.enums.GitVersionType;
 import org.azd.enums.VersionControlRecursionType;
-import org.azd.enums.WikiType;
 import org.azd.exceptions.AzDException;
 import org.azd.wiki.types.*;
 
