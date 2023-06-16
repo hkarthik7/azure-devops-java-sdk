@@ -2,17 +2,22 @@ package org.azd;
 
 import org.azd.build.types.BuildDefinition;
 import org.azd.build.types.Folder;
+import org.azd.common.ApiVersion;
 import org.azd.enums.QueuePriority;
+import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.helpers.StreamHelper;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.BuildDetails;
 import org.azd.utils.AzDClientApi;
+import org.azd.utils.RestClient;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+
+import static org.azd.utils.RestClient.send;
 
 public class BuildApiTest {
     private static final JsonMapper MAPPER = new JsonMapper();
@@ -91,6 +96,11 @@ public class BuildApiTest {
     @Test
     public void shouldReturnBuilds() throws AzDException {
         b.getBuilds();
+    }
+
+    @Test
+    public void shouldReturnBuildsContinuationToken() throws AzDException {
+        b.getBuilds().getContinuationToken();
     }
 
     @Test
