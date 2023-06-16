@@ -27,6 +27,7 @@ public final class RestClientProvider extends BaseRestClient {
     private static String getLocationUrl(String resourceID, String organizationName) throws AzDException {
 
         String INSTANCE = Instance.BASE_INSTANCE.getInstance();
+        INSTANCE = INSTANCE.replaceAll("/$", "") + "/";
 
         if (resourceID == null) return (INSTANCE + organizationName);
 
@@ -50,7 +51,8 @@ public final class RestClientProvider extends BaseRestClient {
             String r = MAPPER.mapJsonResponse(response, LocationUrl.class).getLocationUrl();
             return r.replaceAll("/$", "");
         } catch (Exception e) {
-            throw new AzDException(ApiExceptionTypes.InvalidOrganizationNameException.name(), "Couldn't find the organization name '" + organizationName + "'.");
+            throw new AzDException(ApiExceptionTypes.InvalidOrganizationNameException.name(),
+                    "Couldn't find the organization name '" + organizationName + "' in instance '" + INSTANCE + "'.");
         }
     }
 
