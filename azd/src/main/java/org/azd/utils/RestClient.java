@@ -50,7 +50,15 @@ public abstract class RestClient {
      */
     public static final class Metadata {
         public static String getResponseHeader(String value) {
-            return RestClient.headersFromLastRequest.firstValue(value).orElse("");
+            return RestClient.headersFromLastRequest.firstValue(value).orElse(null);
+        }
+
+        public static HttpHeaders getResponseHeaders() {
+            return RestClient.headersFromLastRequest;
+        }
+
+        public OptionalLong getRetryAfterInterval() {
+            return RestClient.retryAfterInterval();
         }
     }
 
