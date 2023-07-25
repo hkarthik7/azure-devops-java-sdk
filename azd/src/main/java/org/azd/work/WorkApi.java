@@ -1,21 +1,23 @@
 package org.azd.work;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
+import org.azd.enums.CustomHeader;
 import org.azd.enums.IterationsTimeFrame;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.WorkDetails;
 import org.azd.utils.AzDAsyncApi;
-import org.azd.work.types.IterationWorkItems;
-import org.azd.work.types.TeamSettingsIteration;
-import org.azd.work.types.TeamSettingsIterations;
+import org.azd.work.types.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.azd.helpers.URLHelper.encodeSpace;
+import static org.azd.helpers.URLHelper.encodeSpecialWithSpace;
 import static org.azd.utils.RestClient.send;
 
 /***
@@ -124,6 +126,85 @@ public class WorkApi extends AzDAsyncApi<WorkApi> implements WorkDetails {
             throw e;
         }
         return null;
+    }
+
+    /**
+     * Get a team's capacity including total capacity and days off
+     * @param iterationId Pass the iteration id.
+     * @param teamName The name of the Azure DevOps organization.
+     * @return TeamCapacity Object {@link TeamCapacity}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public TeamCapacity getTotalTeamCapacity(String iterationId, String teamName) throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, WORK,
+                (CONNECTION.getProject() + "/" + encodeSpecialWithSpace(teamName)),
+                AREA + "/teamsettings/iterations", iterationId, "capacities", ApiVersion.WORK_CAPACITY,
+                null, null, null);
+
+        return MAPPER.mapJsonResponse(r, TeamCapacity.class);
+    }
+
+    /**
+     * Get a team member's capacity
+     * @param iterationId Pass the team iteration id.
+     * @param teamMemberId Id of the team member.
+     * @param teamName Name of Azure DevOps team.
+     * @return TeamMemberCapacityIdentityRef Object {@link TeamMemberCapacityIdentityRef}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public TeamMemberCapacityIdentityRef getTeamMemberCapacity(String iterationId, String teamName,
+                                                               String teamMemberId) throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, WORK,
+                (CONNECTION.getProject() + "/" + encodeSpecialWithSpace(teamName)),
+                AREA + "/teamsettings/iterations", iterationId, "capacities/" + teamMemberId, ApiVersion.WORK_CAPACITY,
+                null, null, null);
+
+        return MAPPER.mapJsonResponse(r, TeamMemberCapacityIdentityRef.class);
+    }
+
+    /**
+     * Replace a team's capacity
+     * @param iterationId Pass the team iteration id.
+     * @param teamName Name or id of the Azure DevOps team.
+     * @param teamMembersCapacity A list of team members capacity to update.
+     * @return TeamMemberCapacityIdentityRef Object {@link TeamMemberCapacityIdentityRef}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public List<TeamMemberCapacityIdentityRef> updateTeamMembersCapacity(String iterationId, String teamName,
+        List<TeamMemberCapacityIdentityRef> teamMembersCapacity) throws AzDException {
+        String r = send(RequestMethod.PUT, CONNECTION, WORK,
+                (CONNECTION.getProject() + "/" + encodeSpecialWithSpace(teamName)),
+                AREA + "/teamsettings/iterations", iterationId, "capacities", ApiVersion.WORK_CAPACITY,
+                null, teamMembersCapacity, CustomHeader.JSON_CONTENT_TYPE);
+        return MAPPER.mapJsonResponse(r, new TypeReference<List<TeamMemberCapacityIdentityRef>>() {});
+    }
+
+    /**
+     * Update a team member's capacity
+     *
+     * @param iterationId Pass the team iteration id.
+     * @param teamMemberId Id of the team member.
+     * @param teamName Name of id of the Azure DevOps team.
+     * @param teamMemberCapacity Team member capacity object to update. You can only pass the list of activities and optionally days off.
+     * @return TeamMemberCapacityIdentityRef Object {@link TeamMemberCapacityIdentityRef}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public TeamMemberCapacityIdentityRef updateTeamMemberCapacity(String iterationId, String teamName, String teamMemberId,
+        TeamMemberCapacityIdentityRef teamMemberCapacity) throws AzDException {
+        var body = new HashMap<String, Object>(){{
+           put("activities", teamMemberCapacity.getActivities());
+           put("daysOff", teamMemberCapacity.getDaysOff());
+        }};
+
+        String r = send(RequestMethod.PATCH, CONNECTION, WORK,
+                (CONNECTION.getProject() + "/" + encodeSpecialWithSpace(teamName)),
+                AREA + "/teamsettings/iterations", iterationId, "capacities/" + teamMemberId, ApiVersion.WORK_CAPACITY,
+                null, body, CustomHeader.JSON_CONTENT_TYPE);
+        return MAPPER.mapJsonResponse(r, TeamMemberCapacityIdentityRef.class);
     }
 
 }

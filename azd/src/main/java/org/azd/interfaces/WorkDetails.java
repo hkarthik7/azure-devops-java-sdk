@@ -2,9 +2,9 @@ package org.azd.interfaces;
 
 import org.azd.enums.IterationsTimeFrame;
 import org.azd.exceptions.AzDException;
-import org.azd.work.types.IterationWorkItems;
-import org.azd.work.types.TeamSettingsIteration;
-import org.azd.work.types.TeamSettingsIterations;
+import org.azd.work.types.*;
+
+import java.util.List;
 
 
 public interface WorkDetails {
@@ -17,4 +17,11 @@ public interface WorkDetails {
     TeamSettingsIteration getTeamSettingsIteration(String teamName, String iterationId) throws AzDException;
 
     Void deleteTeamSettingsIteration(String teamName, String iterationId) throws AzDException;
+    TeamCapacity getTotalTeamCapacity(String iterationId, String teamName) throws AzDException;
+    TeamMemberCapacityIdentityRef getTeamMemberCapacity(String iterationId, String teamName, String teamMemberId)
+            throws AzDException;
+    List<TeamMemberCapacityIdentityRef> updateTeamMembersCapacity(String iterationId, String teamName,
+        List<TeamMemberCapacityIdentityRef> teamMembersCapacity) throws AzDException;
+    TeamMemberCapacityIdentityRef updateTeamMemberCapacity(String iterationId, String teamName, String teamMemberId,
+        TeamMemberCapacityIdentityRef teamMemberCapacity) throws AzDException;
 }
