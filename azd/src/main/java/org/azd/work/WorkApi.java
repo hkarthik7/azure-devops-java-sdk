@@ -173,13 +173,13 @@ public class WorkApi extends AzDAsyncApi<WorkApi> implements WorkDetails {
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
-    public List<TeamMemberCapacityIdentityRef> updateTeamMembersCapacity(String iterationId, String teamName,
+    public TeamMemberCapacityIdentityRefs updateTeamMembersCapacity(String iterationId, String teamName,
         List<TeamMemberCapacityIdentityRef> teamMembersCapacity) throws AzDException {
         String r = send(RequestMethod.PUT, CONNECTION, WORK,
                 (CONNECTION.getProject() + "/" + encodeSpecialWithSpace(teamName)),
                 AREA + "/teamsettings/iterations", iterationId, "capacities", ApiVersion.WORK_CAPACITY,
                 null, teamMembersCapacity, CustomHeader.JSON_CONTENT_TYPE);
-        return MAPPER.mapJsonResponse(r, new TypeReference<List<TeamMemberCapacityIdentityRef>>() {});
+        return MAPPER.mapJsonResponse(r, TeamMemberCapacityIdentityRefs.class);
     }
 
     /**

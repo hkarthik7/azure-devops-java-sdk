@@ -20,7 +20,7 @@ public interface WorkDetails {
     TeamCapacity getTotalTeamCapacity(String iterationId, String teamName) throws AzDException;
     TeamMemberCapacityIdentityRef getTeamMemberCapacity(String iterationId, String teamName, String teamMemberId)
             throws AzDException;
-    List<TeamMemberCapacityIdentityRef> updateTeamMembersCapacity(String iterationId, String teamName,
+    TeamMemberCapacityIdentityRefs updateTeamMembersCapacity(String iterationId, String teamName,
         List<TeamMemberCapacityIdentityRef> teamMembersCapacity) throws AzDException;
     TeamMemberCapacityIdentityRef updateTeamMemberCapacity(String iterationId, String teamName, String teamMemberId,
         TeamMemberCapacityIdentityRef teamMemberCapacity) throws AzDException;

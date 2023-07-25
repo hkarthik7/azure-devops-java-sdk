@@ -6,10 +6,14 @@ import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AzDClient;
 import org.azd.utils.AzDClientApi;
 import org.azd.work.WorkApi;
+import org.azd.work.types.Activity;
+import org.azd.work.types.TeamMemberCapacityIdentityRef;
+import org.azd.work.types.TeamSettingsIteration;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -58,5 +62,57 @@ public class WorkApiTest {
     @Test(expected = AzDException.class)
     public void shouldDeleteATeamIteration() throws AzDException {
         w.deleteTeamSettingsIteration("azure-devops-java-sdk Team", "0000-00000-00000-00000-00000");
+    }
+
+    @Test
+    public void shouldGetTotalTeamCapacity() throws AzDException {
+        var iterationId = w.getTeamSettingsIterations("azure-devops-java-sdk Team").getIterations().get(0).getId();
+        w.getTotalTeamCapacity(iterationId, "azure-devops-java-sdk Team");
+    }
+
+    @Test
+    public void shouldGetTeamMemberCapacity() throws AzDException {
+        var iterationId = w.getTeamSettingsIterations("azure-devops-java-sdk Team").getIterations().get(0).getId();
+        var teamMemberId = w.getTotalTeamCapacity(iterationId, "azure-devops-java-sdk Team").getTeamMembers().get(0).getTeamMember().getId();
+        System.out.println(w.getTeamMemberCapacity(iterationId, "azure-devops-java-sdk Team", teamMemberId));
+    }
+
+    @Test
+    public void shouldUpdateTeamMemberCapacity() throws AzDException {
+        var iterationId = w.getTeamSettingsIterations("azure-devops-java-sdk Team").getIterations().get(0).getId();
+        var teamMemberId = w.getTotalTeamCapacity(iterationId, "azure-devops-java-sdk Team").getTeamMembers().get(0).getTeamMember().getId();
+
+        var teamMemberIdentityRef = new TeamMemberCapacityIdentityRef();
+
+        var activity = new Activity();
+        activity.setName("Development");
+        activity.setCapacityPerDay(5);
+
+        var activities = List.of(activity);
+
+        teamMemberIdentityRef.setActivities(activities);
+
+        w.updateTeamMemberCapacity(iterationId, "azure-devops-java-sdk Team", teamMemberId, teamMemberIdentityRef);
+    }
+
+    @Test
+    public void shouldUpdateTeamMembersCapacity() throws AzDException {
+        var iterationId = w.getTeamSettingsIterations("azure-devops-java-sdk Team").getIterations().get(0).getId();
+        var teamMember = w.getTotalTeamCapacity(iterationId, "azure-devops-java-sdk Team").getTeamMembers().get(0).getTeamMember();
+
+        var teamMemberIdentityRef = new TeamMemberCapacityIdentityRef();
+        teamMemberIdentityRef.setTeamMember(teamMember);
+
+        var teamMemberIdentityRefs = List.of(teamMemberIdentityRef);
+
+        var activity = new Activity();
+        activity.setName("Development");
+        activity.setCapacityPerDay(3);
+
+        var activities = List.of(activity);
+
+        teamMemberIdentityRef.setActivities(activities);
+
+        w.updateTeamMembersCapacity(iterationId, "azure-devops-java-sdk Team", teamMemberIdentityRefs);
     }
 }
