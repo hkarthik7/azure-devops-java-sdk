@@ -1,6 +1,7 @@
 package org.azd.helpers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.azd.enums.ApiExceptionTypes;
@@ -46,6 +47,28 @@ public class JsonMapper extends ObjectMapper {
      * @throws AzDException Api exception handler
      */
     public <T> T mapJsonResponse(String content, Class<T> valueType) throws AzDException {
+        try {
+            if (content.contains("innerException"))
+                throw new AzDException(this.readValue(content, ApiException.class).getTypeKey(), this.readValue(content, ApiException.class).getMessage());
+            if (content.contains("The request is invalid."))
+                throw new AzDException();
+            if (content.contains("Object moved"))
+                throw new AzDException(ApiExceptionTypes.InvalidPersonalAccessTokenException.toString(), "Personal access token passed is invalid; Pass the valid token and try again.");
+            return this.readValue(content, valueType);
+        } catch (JsonProcessingException e) {
+            throw new AzDException(ApiExceptionTypes.ApiResponseParsingException.toString(), e.getMessage());
+        }
+    }
+
+    /***
+     * Handles the deserialization of json string to object of given type.
+     * @param content json response from API
+     * @param valueType class name to convert to POJO
+     * @param <T> Type name
+     * @return the given type
+     * @throws AzDException Api exception handler
+     */
+    public <T> T mapJsonResponse(String content, TypeReference<T> valueType) throws AzDException {
         try {
             if (content.contains("innerException"))
                 throw new AzDException(this.readValue(content, ApiException.class).getTypeKey(), this.readValue(content, ApiException.class).getMessage());
