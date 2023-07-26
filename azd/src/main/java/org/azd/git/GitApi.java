@@ -1,6 +1,7 @@
 package org.azd.git;
 
 import org.azd.common.ApiVersion;
+import org.azd.common.types.JsonPatchDocument;
 import org.azd.connection.Connection;
 import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
@@ -1648,6 +1649,122 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
                 repositoryId, "pushes", ApiVersion.GIT_PUSH, null, null, null);
 
         return MAPPER.mapJsonResponse(r, GitPushes.class);
+    }
+
+    /**
+     * Create a pull request status.
+     * The only required field for the status is Context.Name that uniquely identifies the status.
+     * Note that you can specify iterationId in the request body to post the status on the iteration.
+     *
+     * @param pullRequestId ID of the pull request.
+     * @param repositoryId The repository ID of the pull request’s target branch.
+     * @param gitPullRequestStatus Request body to create a new pull request status.
+     * @return GitStatus Object {@link GitStatus}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public GitStatus createPullRequestStatus(int pullRequestId, String repositoryId, GitStatus gitPullRequestStatus) throws AzDException {
+        var resource = "pullRequests/" + pullRequestId + "/statuses";
+        String r = send(RequestMethod.POST, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryId, resource, ApiVersion.GIT, null, gitPullRequestStatus, CustomHeader.JSON_CONTENT_TYPE);
+
+        return MAPPER.mapJsonResponse(r, GitStatus.class);
+    }
+
+    /**
+     * Delete pull request status. You can remove multiple statuses in one call by using Update operation.
+     *
+     * @param pullRequestId ID of the pull request.
+     * @param repositoryId The repository ID of the pull request’s target branch.
+     * @param statusId ID of the pull request status.
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public Void deletePullRequestStatus(int pullRequestId, String repositoryId, int statusId) throws AzDException {
+        try {
+        var resource = "pullRequests/" + pullRequestId + "/statuses/" + statusId;
+        String r = send(RequestMethod.DELETE, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryId, resource, ApiVersion.GIT, null, null, null);
+        if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
+        } catch (AzDException e) {
+            throw e;
+        }
+        return null;
+    }
+
+    /**
+     * Get the specific pull request status by ID. The status ID is unique within the pull request across all iterations.
+     *
+     * @param pullRequestId ID of the pull request.
+     * @param repositoryId The repository ID of the pull request’s target branch.
+     * @param statusId ID of the pull request status.
+     * @return GitStatus Object {@link GitStatus}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public GitStatus getPullRequestStatus(int pullRequestId, String repositoryId, int statusId) throws AzDException {
+        var resource = "pullRequests/" + pullRequestId + "/statuses/" + statusId;
+
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryId, resource, ApiVersion.GIT, null, null, null);
+
+        return MAPPER.mapJsonResponse(r, GitStatus.class);
+    }
+
+    /**
+     * Get all the statuses associated with a pull request.
+     *
+     * @param pullRequestId ID of the pull request.
+     * @param repositoryId The repository ID of the pull request’s target branch.
+     * @return GitStatuses Object {@link GitStatuses}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public GitStatuses getPullRequestStatuses(int pullRequestId, String repositoryId) throws AzDException {
+        var resource = "pullRequests/" + pullRequestId + "/statuses";
+
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryId, resource, ApiVersion.GIT, null, null, null);
+
+        return MAPPER.mapJsonResponse(r, GitStatuses.class);
+    }
+
+    /**
+     * Update pull request statuses collection. The only supported operation type is remove.
+     * This operation allows to delete multiple statuses in one call.
+     * The path of the remove operation should refer to the ID of the pull request status.
+     * For example path="/1" refers to the pull request status with ID 1.
+     *
+     * @param pullRequestId ID of the pull request.
+     * @param repositoryId The repository ID of the pull request’s target branch.
+     * @param propertiesToUpdate Collection of properties to update.
+     * E.g., [
+     *   {
+     *     "op": "remove",
+     *     "path": "/1",
+     *     "from": null,
+     *     "value": null
+     *   },
+     *   {
+     *     "op": "remove",
+     *     "path": "/2",
+     *     "from": null,
+     *     "value": null
+     *   }
+     * ]
+     * @throws AzDException Default Api Exception handler.
+     **/
+    @Override
+    public Void updatePullRequestStatuses(int pullRequestId, String repositoryId, List<JsonPatchDocument> propertiesToUpdate) throws AzDException {
+        try {
+            var resource = "pullRequests/" + pullRequestId + "/statuses";
+            String r = send(RequestMethod.PATCH, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                    repositoryId, resource, ApiVersion.GIT, null, propertiesToUpdate, CustomHeader.JSON_PATCH);
+            if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
+        } catch (AzDException e) {
+            throw e;
+        }
+        return null;
     }
 
     /**

@@ -1,5 +1,6 @@
 package org.azd.interfaces;
 
+import org.azd.common.types.JsonPatchDocument;
 import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
 import org.azd.git.types.*;
@@ -183,4 +184,10 @@ public interface GitDetails {
     GitPush getPush(String repositoryId, int pushId, int includeCommits, boolean includeRefUpdates) throws AzDException;
 
     GitPushes getPushes(String repositoryId) throws AzDException;
+
+    GitStatus createPullRequestStatus(int pullRequestId, String repositoryId, GitStatus gitPullRequestStatus) throws AzDException;
+    Void deletePullRequestStatus(int pullRequestId, String repositoryId, int statusId) throws AzDException;
+    GitStatus getPullRequestStatus(int pullRequestId, String repositoryId, int statusId) throws AzDException;
+    GitStatuses getPullRequestStatuses(int pullRequestId, String repositoryId) throws AzDException;
+    Void updatePullRequestStatuses(int pullRequestId, String repositoryId, List<JsonPatchDocument> propertiesToUpdate) throws AzDException;
 }
