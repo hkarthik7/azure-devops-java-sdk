@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.enums.PatchOperation;
 
 /**
- * Source: https://learn.microsoft.com/en-us/rest/api/azure/devops/git/pull-request-statuses/update?view=azure-devops-rest-7.1&tabs=HTTP#jsonpatchdocument.
  * Model for path operation.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)

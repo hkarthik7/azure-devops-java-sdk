@@ -52,7 +52,7 @@ public abstract class Client extends BaseClient {
             String body) throws AzDException {
         String requestUrl = buildRequestUrl(connection.getOrganization(), resourceId, project, area, id, resource, apiVersion, queryString);
 
-        // TODO: Remove un-scalable method declarations.
+        // TODO: Remove non-scalable method declarations.
 
         // I need to maintain consistency across the library. Since this send method is not used in any of the classes to call
         // the API I've modified it to suit Build Tags API call. Check BuildApi and addBuildTags for implementation.

@@ -281,6 +281,7 @@ public abstract class BaseClient {
      * @param requestUrl pass the request url
      * @param token pass the personal access token
      * @param body pass the request body to update the request
+     * @param contentType pass the content type for the request
      * @return response string from the API if any
      * @throws AzDException throws user friendly error message with error code from API
      */
