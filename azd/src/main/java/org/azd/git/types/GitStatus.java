@@ -46,6 +46,11 @@ public class GitStatus extends BaseAbstractMethod {
 	@JsonProperty("id")
 	private int id;
 	/**
+	 * Custom properties of the status.
+	 */
+	@JsonProperty("properties")
+	private PropertiesCollection properties;
+	/**
  	* State of the status. 
 	**/
 	@JsonProperty("state")
@@ -96,4 +101,12 @@ public class GitStatus extends BaseAbstractMethod {
 	public String getUpdatedDate() { return updatedDate; }
 
 	public void setUpdatedDate(String updatedDate) { this.updatedDate = updatedDate; }
+
+	public PropertiesCollection getProperties() {
+		return properties;
+	}
+
+	public void setProperties(PropertiesCollection properties) {
+		this.properties = properties;
+	}
 }
