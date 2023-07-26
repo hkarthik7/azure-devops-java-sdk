@@ -1,22 +1,26 @@
 package org.azd;
 
+import org.azd.common.ApiVersion;
+import org.azd.common.ResourceId;
+import org.azd.common.types.JsonPatchDocument;
 import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
-import org.azd.git.types.GitCommitsBatch;
-import org.azd.git.types.GitItem;
-import org.azd.git.types.WebApiTagDefinition;
+import org.azd.git.types.*;
 import org.azd.helpers.JsonMapper;
 import org.azd.helpers.StreamHelper;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.GitDetails;
 import org.azd.utils.AzDClientApi;
+import org.azd.utils.RestClient;
 import org.azd.wiki.types.GitVersionDescriptor;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.azd.utils.RestClient.send;
 import static org.junit.Assert.assertTrue;
 
 public class GitApiTest {
@@ -400,5 +404,72 @@ public class GitApiTest {
     public void shouldGetGitPushes() throws AzDException {
         var repo = g.getRepository("testRepository");
         g.getPushes(repo.getId());
+    }
+
+    @Test
+    public void shouldGetGitPullRequestStatuses() throws AzDException {
+        var repo = g.getRepository("testRepository");
+        var pullRequestId = 8;
+        g.getPullRequestStatuses(pullRequestId, repo.getId());
+    }
+
+    @Test(expected = AzDException.class)
+    public void shouldCreateAGitPullRequestStatus() throws AzDException {
+        var repo = g.getRepository("testRepository");
+        var pullRequestId = 0;
+        var gitPullRequestStatus = new GitStatus();
+        gitPullRequestStatus.setContext(new GitStatusContext()
+        {{
+            setName("testStatus");
+        }});
+        g.createPullRequestStatus(pullRequestId, repo.getId(), gitPullRequestStatus);
+    }
+
+    @Test
+    public void shouldGetGitPullRequestStatus() throws AzDException {
+        var repo = g.getRepository("testRepository");
+        var pullRequestId = 8;
+        var status = g.getPullRequestStatuses(pullRequestId, repo.getId()).getStatuses().get(0);
+        g.getPullRequestStatus(pullRequestId, repo.getId(), status.getId());
+    }
+
+    @Test
+    public void shouldDeleteGitPullRequestStatus() throws AzDException {
+        var repo = g.getRepository("testRepository");
+        var pullRequestId = 8;
+        // Create a new status
+        var gitPullRequestStatus = new GitStatus();
+        gitPullRequestStatus.setContext(new GitStatusContext()
+        {{
+            setName("testStatus");
+        }});
+        var newStatus = g.createPullRequestStatus(pullRequestId, repo.getId(), gitPullRequestStatus);
+
+        // remove
+        g.deletePullRequestStatus(pullRequestId, repo.getId(), newStatus.getId());
+    }
+
+    @Test
+    public void shouldUpdateGitPullRequestStatus() throws AzDException {
+        var repo = g.getRepository("testRepository");
+        var pullRequestId = 8;
+        // Create a new status
+        var gitPullRequestStatus = new GitStatus();
+        gitPullRequestStatus.setContext(new GitStatusContext()
+        {{
+            setName("testStatus");
+        }});
+        var newStatus = g.createPullRequestStatus(pullRequestId, repo.getId(), gitPullRequestStatus);
+
+        // update (Update operation only supports removal of the pull request statuses)
+        var propertiesToUpdate = new JsonPatchDocument()
+        {{
+            setFrom(null);
+            setValue(null);
+            setOperation(PatchOperation.REMOVE);
+            setPath("/" + newStatus.getId());
+        }};
+
+        g.updatePullRequestStatuses(pullRequestId, repo.getId(), List.of(propertiesToUpdate));
     }
 }
