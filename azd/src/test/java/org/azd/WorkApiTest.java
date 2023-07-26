@@ -74,7 +74,7 @@ public class WorkApiTest {
     public void shouldGetTeamMemberCapacity() throws AzDException {
         var iterationId = w.getTeamSettingsIterations("azure-devops-java-sdk Team").getIterations().get(0).getId();
         var teamMemberId = w.getTotalTeamCapacity(iterationId, "azure-devops-java-sdk Team").getTeamMembers().get(0).getTeamMember().getId();
-        System.out.println(w.getTeamMemberCapacity(iterationId, "azure-devops-java-sdk Team", teamMemberId));
+        w.getTeamMemberCapacity(iterationId, "azure-devops-java-sdk Team", teamMemberId);
     }
 
     @Test
