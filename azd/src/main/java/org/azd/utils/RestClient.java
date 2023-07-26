@@ -43,8 +43,7 @@ public abstract class RestClient {
     }
 
     /**
-     * Metadata class to retrieve the response headers. This separates the implementation and
-     * retrieval from the RestClient adapter class.
+     * Metadata class to retrieve the response headers.
      */
     public static final class Metadata {
         public static String getResponseHeader(String value) {
