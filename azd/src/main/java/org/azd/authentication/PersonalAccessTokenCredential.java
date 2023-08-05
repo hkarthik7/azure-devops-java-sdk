@@ -6,9 +6,6 @@ import java.util.Base64;
 import java.util.Objects;
 
 public class PersonalAccessTokenCredential implements AccessTokenCredential {
-    private String organization;
-    private String projectName;
-    private String personalAccessToken;
     public PersonalAccessTokenCredential(String organization, String projectName, String personalAccessToken) {
         Objects.requireNonNull(organization, "Organization cannot be null.");
         Objects.requireNonNull(personalAccessToken, "Access token cannot be null.");
@@ -17,9 +14,11 @@ public class PersonalAccessTokenCredential implements AccessTokenCredential {
         this.projectName = projectName;
         this.personalAccessToken = encodePersonalAccessToken(personalAccessToken);
     }
+
     public PersonalAccessTokenCredential(String organization, String personalAccessToken) {
         this(organization, null, personalAccessToken);
     }
+
     @Override
     public String getAccessToken() {
         return personalAccessToken;
@@ -49,8 +48,13 @@ public class PersonalAccessTokenCredential implements AccessTokenCredential {
     public void setProjectName(String projectName) {
         this.projectName = projectName;
     }
+
     private static String encodePersonalAccessToken(String token) {
         return "Basic " +
                 Base64.getEncoder().encodeToString(("" + ":" + token).getBytes());
     }
+
+    private String organization;
+    private String projectName;
+    private String personalAccessToken;
 }
