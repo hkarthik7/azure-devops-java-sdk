@@ -2,13 +2,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Represents a reference to an agent pool.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildPool extends BaseAbstractMethod {
+public class BuildPool extends SerializableEntity {
     /***
      * The pool ID.
      */

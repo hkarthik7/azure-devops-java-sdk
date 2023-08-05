@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.azd.common.types.Author;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * Represents a pull request object. These are retrieved from Source Providers.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SourceProviderPullRequest extends BaseAbstractMethod {
+public class SourceProviderPullRequest extends SerializableEntity {
     /**
      * The links to other objects related to this object.
      */

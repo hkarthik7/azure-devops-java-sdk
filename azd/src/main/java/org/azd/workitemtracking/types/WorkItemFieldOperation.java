@@ -7,13 +7,13 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * Describes a work item field operation. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemFieldOperation extends BaseAbstractMethod {
+public class WorkItemFieldOperation extends SerializableEntity {
 	/**
  	* Friendly name of the operation. 
 	**/

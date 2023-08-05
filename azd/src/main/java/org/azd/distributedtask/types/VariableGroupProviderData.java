@@ -1,11 +1,11 @@
 package org.azd.distributedtask.types;
 
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Sets provider data.
  */
-public class VariableGroupProviderData extends BaseAbstractMethod {
+public class VariableGroupProviderData extends SerializableEntity {
     /***
      * Azure resource manager service endpoint id.
      */

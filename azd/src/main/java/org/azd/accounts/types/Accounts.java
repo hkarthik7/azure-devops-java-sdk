@@ -2,7 +2,7 @@ package org.azd.accounts.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  * List of account
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Accounts extends BaseAbstractMethod {
+public class Accounts extends SerializableEntity {
     /***
      * List of account
      */

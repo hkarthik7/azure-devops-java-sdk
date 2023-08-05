@@ -7,13 +7,13 @@ package org.azd.feedmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * The class to represent a collection of REST reference links. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ProjectReference extends BaseAbstractMethod {
+public class ProjectReference extends SerializableEntity {
 	/**
  	* Gets or sets id of the project. 
 	**/

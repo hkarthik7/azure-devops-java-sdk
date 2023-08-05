@@ -7,9 +7,9 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.FieldType;
 import org.azd.enums.FieldUsage;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import java.util.List;
  * Describes a field on a work item and it's properties specific to that work item type. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemField extends BaseAbstractMethod {
+public class WorkItemField extends SerializableEntity {
 	/**
  	* Link references to related REST resources. 
 	**/

@@ -7,13 +7,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * Represents a variable used by a build definition. 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildController extends BaseAbstractMethod {
+public class BuildController extends SerializableEntity {
     /**
      * The class to represent a collection of REST reference links.
      **/

@@ -7,13 +7,13 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * Project visibility. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitRepositoryCreateOptions extends BaseAbstractMethod {
+public class GitRepositoryCreateOptions extends SerializableEntity {
 
 	@JsonProperty("name")
 	private String name;

@@ -3,7 +3,7 @@ package org.azd.workitemtracking.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
  * Describes a work item type.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemType extends BaseAbstractMethod {
+public class WorkItemType extends SerializableEntity {
     /***
      * The color.
      */

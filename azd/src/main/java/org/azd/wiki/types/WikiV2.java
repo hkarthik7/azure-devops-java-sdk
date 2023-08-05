@@ -3,8 +3,8 @@ package org.azd.wiki.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.WikiType;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * Defines a wiki resource.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WikiV2 extends BaseAbstractMethod {
+public class WikiV2 extends SerializableEntity {
     /***
      * ID of the wiki.
      */

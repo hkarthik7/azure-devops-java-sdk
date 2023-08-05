@@ -8,8 +8,8 @@ package org.azd.release.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.ReleaseDefinitionSource;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -18,7 +18,7 @@ import java.util.Map;
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReleaseDefinition extends BaseAbstractMethod {
+public class ReleaseDefinition extends SerializableEntity {
 	/**
  	* Gets the links to related resources, APIs, and views for the release definition. 
 	**/

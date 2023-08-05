@@ -7,14 +7,14 @@ package org.azd.test.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.TestOutcome;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * An abstracted reference to some other resource. This class is used to provide the build data contracts with a uniform way to reference other resources in a way that provides easy traversal through links. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class RunSummaryModel extends BaseAbstractMethod {
+public class RunSummaryModel extends SerializableEntity {
 	/**
  	* Total time taken in milliseconds. 
 	**/

@@ -7,7 +7,7 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import java.util.List;
  * Represents all the data associated with a pull request. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitCommitRef extends BaseAbstractMethod {
+public class GitCommitRef extends SerializableEntity {
 	/**
  	* A collection of related REST reference links. 
 	**/

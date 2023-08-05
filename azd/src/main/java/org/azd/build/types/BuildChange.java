@@ -3,13 +3,13 @@ package org.azd.build.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Represents a change associated with a build.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildChange extends BaseAbstractMethod {
+public class BuildChange extends SerializableEntity {
     /***
      * The identifier for the change. For a commit, this would be the SHA1. For a TFVC changeset, this would be the changeset ID.
      */

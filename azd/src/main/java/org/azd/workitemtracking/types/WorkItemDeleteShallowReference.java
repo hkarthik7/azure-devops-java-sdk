@@ -2,13 +2,13 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Shallow Reference to a deleted work item.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemDeleteShallowReference extends BaseAbstractMethod {
+public class WorkItemDeleteShallowReference extends SerializableEntity {
     /***
      * Work item ID.
      */

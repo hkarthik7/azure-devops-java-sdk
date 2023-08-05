@@ -1,5 +1,7 @@
 package org.azd.common.types;
 
+import org.azd.serializer.SerializableEntity;
+
 /**
  * Response class for getting the resource area url.
  * <p>
@@ -9,7 +11,7 @@ package org.azd.common.types;
  *
  * @author Harish Karthic
  */
-public class LocationUrl extends BaseAbstractMethod {
+public class LocationUrl extends SerializableEntity {
     private String id;
     private String name;
     private String locationUrl;

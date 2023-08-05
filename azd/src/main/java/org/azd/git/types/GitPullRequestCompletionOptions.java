@@ -7,14 +7,14 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.GitPullRequestMergeStrategy;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * Specify the strategy used to merge the pull request during completion. If MergeStrategy is not set to any value, a no-FF merge will be created if SquashMerge == false. If MergeStrategy is not set to any value, the pull request commits will be squashed if SquashMerge == true. The SquashMerge property is deprecated. It is recommended that you explicitly set MergeStrategy in all cases. If an explicit value is provided for MergeStrategy, the SquashMerge property will be ignored. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitPullRequestCompletionOptions extends BaseAbstractMethod {
+public class GitPullRequestCompletionOptions extends SerializableEntity {
 	/**
  	* List of any policy configuration Id's which auto-complete should not wait for. Only applies to optional policies (isBlocking == false). Auto-complete always waits for required policies (isBlocking == true). 
 	**/

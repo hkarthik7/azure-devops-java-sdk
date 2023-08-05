@@ -2,10 +2,10 @@ package org.azd.core.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Capabilities extends BaseAbstractMethod {
+public class Capabilities extends SerializableEntity {
     @JsonProperty("processTemplate")
     private ProcessTemplate processTemplate;
     @JsonProperty("versioncontrol")

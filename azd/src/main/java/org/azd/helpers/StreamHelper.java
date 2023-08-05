@@ -4,18 +4,24 @@ import org.azd.enums.ApiExceptionTypes;
 import org.azd.enums.CustomHeader;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
+import org.azd.http.DefaultRequestAdapter;
+import org.azd.http.RequestInformation;
+import org.azd.interfaces.RequestAdapter;
+import org.azd.utils.AzDDefaultRegisterFactory;
 import org.azd.utils.RestClient;
 
 import java.io.*;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.Objects;
 
 public class StreamHelper {
     /**
      * Default size of byte array
      */
     private static int DEFAULT_BYTE_ARRAY_SIZE = 8192;
+    private static final RequestAdapter requestAdapter = AzDDefaultRegisterFactory.createDefaultRequestAdapter();
 
     /**
      * Returns the default byte array size
@@ -43,6 +49,8 @@ public class StreamHelper {
      * @throws AzDException Default exception handler
      */
     public static void download(String fileName, InputStream responseStream) throws AzDException {
+        Objects.requireNonNull(fileName, "Filename cannot be empty");
+
         try (FileOutputStream outputStream = new FileOutputStream(fileName, false)) {
             int read;
             byte[] bytes = new byte[DEFAULT_BYTE_ARRAY_SIZE];
@@ -62,16 +70,13 @@ public class StreamHelper {
      * @throws AzDException Default Api exception handler.
      */
     public static void downloadFromUrl(String url, String fileName) throws AzDException {
-        if (!url.isEmpty()) {
-            var res = RestClient.send(url, RequestMethod.GET, null, null, null, null,
-                    null, null, null, null, null, CustomHeader.STREAM_ACCEPT, false)
-                    .thenApplyAsync(HttpResponse::body)
-                    .join();
-            download(fileName, res);
-        }
-        else {
-            throw new AzDException(ApiExceptionTypes.InvalidArgumentException.name(), "Url cannot be null or empty.");
-        }
+        Objects.requireNonNull(url, "Url cannot be null or empty.");
+
+        var reqInfo = new RequestInformation();
+        reqInfo.setRequestUrl(url);
+        reqInfo.requestHeaders.add(CustomHeader.STREAM_ACCEPT);
+        var res = requestAdapter.sendStreamAsync(reqInfo).join();
+        download(fileName, res);
     }
 
     /**

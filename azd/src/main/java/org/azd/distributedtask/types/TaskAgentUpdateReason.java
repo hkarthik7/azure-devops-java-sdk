@@ -7,14 +7,14 @@ package org.azd.distributedtask.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.TaskAgentUpdateReasonType;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TaskAgentUpdateReason extends BaseAbstractMethod {
+public class TaskAgentUpdateReason extends SerializableEntity {
 
 	@JsonProperty("code")
 	private TaskAgentUpdateReasonType code;

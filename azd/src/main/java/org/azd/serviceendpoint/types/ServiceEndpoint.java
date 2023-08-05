@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.azd.common.types.Author;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * Represents an endpoint which may be used by an orchestration job.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ServiceEndpoint extends BaseAbstractMethod {
+public class ServiceEndpoint extends SerializableEntity {
     /***
      * Gets or sets the authorization data for talking to the endpoint.
      */

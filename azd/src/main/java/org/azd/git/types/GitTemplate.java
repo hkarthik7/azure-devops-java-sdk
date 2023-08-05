@@ -7,13 +7,13 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitTemplate extends BaseAbstractMethod {
+public class GitTemplate extends SerializableEntity {
 	/**
  	* Name of the Template 
 	**/

@@ -1,6 +1,5 @@
 package org.azd.work;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
 import org.azd.enums.CustomHeader;

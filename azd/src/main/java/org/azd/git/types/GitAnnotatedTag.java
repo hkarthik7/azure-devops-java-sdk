@@ -7,13 +7,13 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * A Git annotated tag. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitAnnotatedTag extends BaseAbstractMethod {
+public class GitAnnotatedTag extends SerializableEntity {
 	/**
  	* The tagging Message 
 	**/

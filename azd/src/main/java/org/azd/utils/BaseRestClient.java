@@ -39,15 +39,14 @@ public abstract class BaseRestClient {
      * @return HttpRequest object to build
      */
     private static HttpRequest.Builder build(String requestUrl, String token) {
-        if (token == null)
-            return HttpRequest
-                    .newBuilder()
-                    .uri(URI.create(requestUrl));
-
-        return HttpRequest
+        var req = HttpRequest
                 .newBuilder()
-                .uri(URI.create(requestUrl))
-                .setHeader(AUTHORIZATION, encodePersonalAccessToken(token));
+                .uri(URI.create(requestUrl));
+
+        if (token == null)
+            return req;
+
+        return req.setHeader(AUTHORIZATION, encodePersonalAccessToken(token));
     }
 
     /***
@@ -192,24 +191,22 @@ public abstract class BaseRestClient {
                                                                   HttpResponse.BodyHandler<T> handler,
                                                                   CustomHeader contentType,
                                                                    boolean callback) throws AzDException {
-        if (contentType == null) contentType = CustomHeader.JSON;
+        contentType = contentType == null ? CustomHeader.JSON : contentType;
 
-        if (requestMethod == RequestMethod.GET)
-            return get(requestUrl, token, handler, contentType, callback);
-
-        if (requestMethod == RequestMethod.POST)
-            return post(requestUrl, token, publisher, handler, contentType, callback);
-
-        if (requestMethod == RequestMethod.PATCH)
-            return patch(requestUrl, token, publisher, handler, contentType, callback);
-
-        if (requestMethod == RequestMethod.PUT)
-            return put(requestUrl, token, publisher, handler, contentType, callback);
-
-        if (requestMethod == RequestMethod.DELETE)
-            return delete(requestUrl, token, handler);
-
-        return null;
+        switch (requestMethod) {
+            case GET:
+                return get(requestUrl, token, handler, contentType, callback);
+            case POST:
+                return post(requestUrl, token, publisher, handler, contentType, callback);
+            case PATCH:
+                return patch(requestUrl, token, publisher, handler, contentType, callback);
+            case PUT:
+                return put(requestUrl, token, publisher, handler, contentType, callback);
+            case DELETE:
+                return delete(requestUrl, token, handler);
+            default:
+                return null;
+        }
     }
 
     /**

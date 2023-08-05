@@ -7,13 +7,13 @@ package org.azd.distributedtask.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * Provides data necessary for authorizing the agent using OAuth 2.0 authentication flows. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PropertiesCollection extends BaseAbstractMethod {
+public class PropertiesCollection extends SerializableEntity {
 	/**
  	* The count of properties in the collection. 
 	**/

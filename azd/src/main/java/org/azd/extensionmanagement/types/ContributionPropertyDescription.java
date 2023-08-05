@@ -3,13 +3,13 @@ package org.azd.extensionmanagement.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Description about a property of a contribution type
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ContributionPropertyDescription extends BaseAbstractMethod {
+public class ContributionPropertyDescription extends SerializableEntity {
     /***
      * Description of the property
      */

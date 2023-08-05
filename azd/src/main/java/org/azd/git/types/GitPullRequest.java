@@ -8,10 +8,10 @@ package org.azd.git.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.PullRequestAsyncStatus;
 import org.azd.enums.PullRequestMergeFailureType;
 import org.azd.enums.PullRequestStatus;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ import java.util.List;
  * The options which are used when a pull request merge is created. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitPullRequest extends BaseAbstractMethod {
+public class GitPullRequest extends SerializableEntity {
 	/**
  	* Links to other related objects. 
 	**/

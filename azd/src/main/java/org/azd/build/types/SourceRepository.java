@@ -2,13 +2,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * Represents a repository returned from a source provider.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SourceRepository extends BaseAbstractMethod {
+public class SourceRepository extends SerializableEntity {
     /**
      * The name of the default branch.
      */

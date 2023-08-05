@@ -8,9 +8,9 @@ package org.azd.build.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.TaskResult;
 import org.azd.enums.TimelineRecordState;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import java.util.List;
  * The state of the record. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TimelineRecord extends BaseAbstractMethod {
+public class TimelineRecord extends SerializableEntity {
 	/**
  	* The class to represent a collection of REST reference links. 
 	**/

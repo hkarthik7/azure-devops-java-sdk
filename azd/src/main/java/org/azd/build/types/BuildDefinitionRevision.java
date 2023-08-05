@@ -3,13 +3,13 @@ package org.azd.build.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Represents a revision of a build definition.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildDefinitionRevision extends BaseAbstractMethod {
+public class BuildDefinitionRevision extends SerializableEntity {
     /***
      * The revision number.
      */

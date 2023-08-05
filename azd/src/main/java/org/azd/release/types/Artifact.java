@@ -7,7 +7,7 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.Map;
 
@@ -15,7 +15,7 @@ import java.util.Map;
  * Represents binding of data source for the service endpoint request. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Artifact extends BaseAbstractMethod {
+public class Artifact extends SerializableEntity {
 	/**
  	* Gets or sets alias. 
 	**/

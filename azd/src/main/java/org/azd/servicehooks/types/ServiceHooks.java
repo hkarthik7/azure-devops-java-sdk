@@ -1,10 +1,10 @@
 package org.azd.servicehooks.types;
 
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.Map;
 
-public class ServiceHooks extends BaseAbstractMethod {
+public class ServiceHooks extends SerializableEntity {
     private String publisherId;
     private String eventType;
     private String resourceVersion;

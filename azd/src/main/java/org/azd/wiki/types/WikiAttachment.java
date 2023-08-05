@@ -7,13 +7,13 @@ package org.azd.wiki.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * Defines properties for wiki attachment file. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WikiAttachment extends BaseAbstractMethod {
+public class WikiAttachment extends SerializableEntity {
 	/**
  	* Name of the wiki attachment file. 
 	**/

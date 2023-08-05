@@ -2,13 +2,13 @@ package org.azd.upack.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Package version metadata for a Universal package
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Package extends BaseAbstractMethod {
+public class Package extends SerializableEntity {
     /***
      * Related REST links.
      */

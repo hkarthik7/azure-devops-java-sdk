@@ -7,13 +7,13 @@ package org.azd.test.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * Stage in pipeline 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ShallowReference extends BaseAbstractMethod {
+public class ShallowReference extends SerializableEntity {
 	/**
  	* ID of the resource 
 	**/

@@ -7,13 +7,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * Represents an entry in a build's timeline. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TimelineAttempt extends BaseAbstractMethod {
+public class TimelineAttempt extends SerializableEntity {
 	/**
  	* Gets or sets the attempt of the record. 
 	**/

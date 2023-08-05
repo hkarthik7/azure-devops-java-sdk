@@ -2,12 +2,13 @@ package org.azd.common.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Represents all reference links commonly used across the services
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReferenceLinks extends BaseAbstractMethod {
+public class ReferenceLinks extends SerializableEntity {
     /***
      * Service link
      */

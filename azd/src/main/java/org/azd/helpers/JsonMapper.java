@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.azd.enums.ApiExceptionTypes;
+import org.azd.exceptions.ApiException;
 import org.azd.exceptions.AzDException;
 
 import java.io.File;

@@ -7,13 +7,13 @@ package org.azd.test.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * Reference to a release. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReferenceLinks extends BaseAbstractMethod {
+public class ReferenceLinks extends SerializableEntity {
 	/**
  	* The readonly view of the links.  Because Reference links are readonly, we only want to expose them as read only. 
 	**/

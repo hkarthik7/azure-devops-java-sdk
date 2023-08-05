@@ -2,7 +2,7 @@ package org.azd.maven.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  * Package version metadata for a Maven package
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Package extends BaseAbstractMethod {
+public class Package extends SerializableEntity {
     /***
      * Related REST links.
      */

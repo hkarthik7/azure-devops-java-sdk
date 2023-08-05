@@ -32,7 +32,7 @@ public class OAuthApi {
     /***
      * Generate the authorization endpoint with client id, state, scope and redirection url.
      * @param clientId The ID assigned to your app when it was registered
-     * @param state Can be any value. Typically a generated string value that correlates the callback with its associated authorization request.
+     * @param state Can be any value. Typically, a generated string value that correlates the callback with its associated authorization request.
      * @param scope Scopes registered with the app. Space separated. See https://docs.microsoft.com/en-us/azure/devops/integrate/get-started/authentication/oauth?view=azure-devops#scopes
      * @param redirectUrl Callback URL for your app. Must exactly match the URL registered with the app.
      * @return The authorization endpoint to authorize your app
@@ -142,6 +142,7 @@ public class OAuthApi {
     }
 
     private static String getResponse(String requestUrl, String body) throws AzDException {
+
         return RestClientProvider.post(requestUrl, null, HttpRequest.BodyPublishers.ofString(body),
                 HttpResponse.BodyHandlers.ofString(), CustomHeader.URL_ENCODED, false)
                 .thenApplyAsync(HttpResponse::body)

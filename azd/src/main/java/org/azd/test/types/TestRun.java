@@ -8,9 +8,9 @@ package org.azd.test.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.RunFilter;
 import org.azd.enums.TestRunSubstate;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import java.util.List;
  * The types of sub states for test run. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TestRun extends BaseAbstractMethod {
+public class TestRun extends SerializableEntity {
 	/**
  	* Build associated with this test run. 
 	**/

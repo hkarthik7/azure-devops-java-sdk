@@ -2,14 +2,14 @@ package org.azd.graph.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Graph membership entity.
  * This captures the relationship between a container (group) and member (user)
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GraphMembership extends BaseAbstractMethod {
+public class GraphMembership extends SerializableEntity {
     /***
      * This field contains zero or more interesting links about the graph subject.
      * These links may be invoked to obtain additional relationships or more detailed information about this graph subject.

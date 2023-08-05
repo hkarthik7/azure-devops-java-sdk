@@ -8,14 +8,14 @@ package org.azd.release.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.ManualInterventionStatus;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ManualIntervention extends BaseAbstractMethod {
+public class ManualIntervention extends SerializableEntity {
 	/**
  	* Gets or sets the identity who should approve. 
 	**/

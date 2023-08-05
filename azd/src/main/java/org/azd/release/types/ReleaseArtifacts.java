@@ -3,13 +3,13 @@ package org.azd.release.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Gets or sets the list of artifacts.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReleaseArtifacts extends BaseAbstractMethod {
+public class ReleaseArtifacts extends SerializableEntity {
     /***
      * Gets or sets alias.
      */

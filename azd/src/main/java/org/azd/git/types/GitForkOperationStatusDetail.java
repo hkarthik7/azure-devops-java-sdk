@@ -7,13 +7,13 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * Status information about a requested fork operation.
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitForkOperationStatusDetail extends BaseAbstractMethod {
+public class GitForkOperationStatusDetail extends SerializableEntity {
 	/**
  	* All valid steps for the forking process
 	**/

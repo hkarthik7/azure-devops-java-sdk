@@ -7,15 +7,15 @@ package org.azd.distributedtask.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.TaskAgentPoolOptions;
 import org.azd.enums.TaskAgentPoolType;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * Details about an agent update.
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TaskAgentPoolReference extends BaseAbstractMethod {
+public class TaskAgentPoolReference extends SerializableEntity {
 	@JsonProperty("id")
 	private int id;
 	/**

@@ -3,13 +3,13 @@ package org.azd.security.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * ACL acesDictionary entry
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ACE extends BaseAbstractMethod {
+public class ACE extends SerializableEntity {
     /***
      * descriptor identifier
      */
@@ -70,7 +70,7 @@ public class ACE extends BaseAbstractMethod {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public class ExtendedInfo extends BaseAbstractMethod {
+    public class ExtendedInfo extends SerializableEntity {
         @JsonProperty("inheritedAllow")
         private Long inheritedAllow;
         @JsonProperty("effectiveAllow")

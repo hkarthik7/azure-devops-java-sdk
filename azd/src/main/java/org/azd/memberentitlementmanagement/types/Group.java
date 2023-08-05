@@ -2,13 +2,13 @@ package org.azd.memberentitlementmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Project Group (e.g. Contributor, Reader etc.)
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Group extends BaseAbstractMethod {
+public class Group extends SerializableEntity {
     /***
      * Display Name of the Group
      */

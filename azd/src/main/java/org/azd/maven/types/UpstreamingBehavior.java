@@ -2,13 +2,13 @@ package org.azd.maven.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Describes upstreaming behavior for a given feed/protocol/package
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UpstreamingBehavior extends BaseAbstractMethod {
+public class UpstreamingBehavior extends SerializableEntity {
 
     /***
      * Indicates whether external upstream versions should be considered for this

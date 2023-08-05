@@ -2,13 +2,13 @@ package org.azd.pipelines.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Log for a pipeline.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PipelineLog extends BaseAbstractMethod {
+public class PipelineLog extends SerializableEntity {
     /***
      * The date and time the log was created.
      */

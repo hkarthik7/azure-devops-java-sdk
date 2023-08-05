@@ -7,13 +7,13 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * The type of change that was made to the item. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitStatusContext extends BaseAbstractMethod {
+public class GitStatusContext extends SerializableEntity {
 	/**
  	* Genre of the status. Typically name of the service/tool generating the status, can be empty. 
 	**/

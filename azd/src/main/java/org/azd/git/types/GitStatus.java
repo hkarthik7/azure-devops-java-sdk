@@ -4,17 +4,18 @@ package org.azd.git.types;
 	GENERATED FILE, should be edited to suit the purpose.
 ----------------------------------------------------------
 **/
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.GitStatusState;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * The class to represent a collection of REST reference links. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitStatus extends BaseAbstractMethod {
+public class GitStatus extends SerializableEntity {
 	/**
  	* Reference links. 
 	**/

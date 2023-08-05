@@ -2,13 +2,13 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Collection of link attributes.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemAttributes extends BaseAbstractMethod {
+public class WorkItemAttributes extends SerializableEntity {
     /***
      * Is locked
      */

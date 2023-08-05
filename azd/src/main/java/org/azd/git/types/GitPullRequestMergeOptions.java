@@ -7,13 +7,13 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * This class contains the metadata of a service/extension posting a status. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitPullRequestMergeOptions extends BaseAbstractMethod {
+public class GitPullRequestMergeOptions extends SerializableEntity {
 	/**
  	* If true, conflict resolutions applied during the merge will be put in separate commits to preserve authorship info for git blame, etc. 
 	**/

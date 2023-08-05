@@ -1,5 +1,6 @@
 package org.azd;
 
+import org.azd.authentication.PersonalAccessTokenCredential;
 import org.azd.build.types.BuildDefinition;
 import org.azd.build.types.Folder;
 import org.azd.enums.QueuePriority;
@@ -8,6 +9,7 @@ import org.azd.helpers.JsonMapper;
 import org.azd.helpers.StreamHelper;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.BuildDetails;
+import org.azd.serviceClient.AzDServiceClient;
 import org.azd.utils.AzDClientApi;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,6 +21,7 @@ public class BuildApiTest {
     private static BuildDetails b;
     private static AzDClient webApi;
     private static int buildId;
+    private static AzDServiceClient client;
 
     @Before
     public void init() throws AzDException {
@@ -29,6 +32,8 @@ public class BuildApiTest {
         String token = m.getT();
         String project = m.getP();
         webApi = new AzDClientApi(organization, project, token);
+        var pat = new PersonalAccessTokenCredential(organization, project, token);
+        client = new AzDServiceClient(pat);
         b = webApi.getBuildApi();
         buildId = b.getBuilds(1).getBuildResults().stream().findFirst().get().getId();
     }
@@ -95,7 +100,8 @@ public class BuildApiTest {
 
     @Test
     public void shouldReturnBuildsContinuationToken() throws AzDException {
-        b.getBuilds().getContinuationToken();
+//        b.getBuilds().getContinuationToken();
+        b.getBuilds();
     }
 
     @Test

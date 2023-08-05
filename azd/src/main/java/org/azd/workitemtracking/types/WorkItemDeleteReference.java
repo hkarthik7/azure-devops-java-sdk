@@ -2,13 +2,13 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Full deleted work item object.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemDeleteReference extends BaseAbstractMethod {
+public class WorkItemDeleteReference extends SerializableEntity {
     /***
      * The HTTP status code for work item operation in a batch request.
      */

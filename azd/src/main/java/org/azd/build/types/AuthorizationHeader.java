@@ -7,13 +7,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * Data representation of a build. 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AuthorizationHeader extends BaseAbstractMethod {
+public class AuthorizationHeader extends SerializableEntity {
 
     @JsonProperty("name")
     private String name;
