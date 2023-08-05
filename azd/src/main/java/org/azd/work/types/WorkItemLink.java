@@ -2,13 +2,13 @@ package org.azd.work.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * A link between two work items.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemLink extends BaseAbstractMethod {
+public class WorkItemLink extends SerializableEntity {
     /***
      * The type of link.
      */

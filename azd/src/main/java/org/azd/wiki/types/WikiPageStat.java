@@ -7,13 +7,13 @@ package org.azd.wiki.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * Defines properties for wiki page stat. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WikiPageStat extends BaseAbstractMethod {
+public class WikiPageStat extends SerializableEntity {
 	/**
  	* the count of the stat for the Day 
 	**/

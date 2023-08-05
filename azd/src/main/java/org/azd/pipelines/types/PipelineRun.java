@@ -3,13 +3,13 @@ package org.azd.pipelines.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Pipeline Run object
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PipelineRun extends BaseAbstractMethod {
+public class PipelineRun extends SerializableEntity {
     /***
      * Pipeline created date
      */

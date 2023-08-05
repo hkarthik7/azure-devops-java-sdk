@@ -1,16 +1,16 @@
 package org.azd.distributedtask.types;
 
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.VariableGroupType;
 import org.azd.enums.VariableValue;
 import org.azd.release.types.ProjectReference;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.Map;
 
 /***
  * Represents the request body for adding and updating a variable group.
  */
-public class VariableGroupDefinition extends BaseAbstractMethod {
+public class VariableGroupDefinition extends SerializableEntity {
     /***
      * Sets name of the variable group.
      */

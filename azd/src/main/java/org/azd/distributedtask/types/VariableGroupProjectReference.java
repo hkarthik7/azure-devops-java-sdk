@@ -2,14 +2,14 @@ package org.azd.distributedtask.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.release.types.ProjectReference;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * A variable group reference is a shallow reference to variable group.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class VariableGroupProjectReference extends BaseAbstractMethod {
+public class VariableGroupProjectReference extends SerializableEntity {
     /***
      * Gets or sets description of the variable group.
      */

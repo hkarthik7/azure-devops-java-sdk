@@ -7,13 +7,13 @@ package org.azd.distributedtask.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * Represents a JSON object. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Demand extends BaseAbstractMethod {
+public class Demand extends SerializableEntity {
 
 	@JsonProperty("name")
 	private String name;

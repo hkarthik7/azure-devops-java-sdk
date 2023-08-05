@@ -2,13 +2,13 @@ package org.azd.accounts.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Represents Azure DevOps Account
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Account extends BaseAbstractMethod {
+public class Account extends SerializableEntity {
     /***
      * Identifier for an Account
      */

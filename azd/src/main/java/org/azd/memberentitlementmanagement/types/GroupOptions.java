@@ -2,13 +2,13 @@ package org.azd.memberentitlementmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Group option to add a user to
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GroupOptions extends BaseAbstractMethod {
+public class GroupOptions extends SerializableEntity {
     /***
      * Access Level
      */

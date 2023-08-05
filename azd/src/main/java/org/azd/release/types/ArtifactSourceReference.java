@@ -7,13 +7,13 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * Indicates the deploy phase type. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ArtifactSourceReference extends BaseAbstractMethod {
+public class ArtifactSourceReference extends SerializableEntity {
 	/**
  	* ID of the artifact source. 
 	**/

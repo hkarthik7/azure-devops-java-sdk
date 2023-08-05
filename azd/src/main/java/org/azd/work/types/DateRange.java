@@ -7,13 +7,13 @@ package org.azd.work.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * Represents team member capacity with totals aggregated 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DateRange extends BaseAbstractMethod {
+public class DateRange extends SerializableEntity {
 	/**
  	* End of the date range. 
 	**/

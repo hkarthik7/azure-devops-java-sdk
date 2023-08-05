@@ -2,12 +2,13 @@ package org.azd.common.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Represents the identity of an user object.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Author extends BaseAbstractMethod {
+public class Author extends SerializableEntity {
     /***
      * This is the non-unique display name of the graph subject. To change this field, you must alter its value in the source provider.
      */

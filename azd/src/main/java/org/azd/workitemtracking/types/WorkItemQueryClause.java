@@ -7,8 +7,8 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.LogicalOperation;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import java.util.List;
  * Represents a clause in a work item query. This shows the structure of a work item query. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemQueryClause extends BaseAbstractMethod {
+public class WorkItemQueryClause extends SerializableEntity {
 	/**
  	* Child clauses if the current clause is a logical operator 
 	**/

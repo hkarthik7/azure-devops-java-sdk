@@ -7,13 +7,13 @@ package org.azd.test.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * Phase in pipeline 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class JobReference extends BaseAbstractMethod {
+public class JobReference extends SerializableEntity {
 	/**
  	* Attempt number of the job 
 	**/

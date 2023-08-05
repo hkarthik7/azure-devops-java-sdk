@@ -2,8 +2,8 @@ package org.azd.memberentitlementmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.graph.types.GraphGroup;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
  * A group entity with additional properties including its license, extensions, and project membership
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GroupEntitlement extends BaseAbstractMethod {
+public class GroupEntitlement extends SerializableEntity {
     /***
      * Member reference.
      */

@@ -8,7 +8,6 @@ import org.azd.utils.AzDClientApi;
 import org.azd.work.WorkApi;
 import org.azd.work.types.Activity;
 import org.azd.work.types.TeamMemberCapacityIdentityRef;
-import org.azd.work.types.TeamSettingsIteration;
 import org.junit.Before;
 import org.junit.Test;
 

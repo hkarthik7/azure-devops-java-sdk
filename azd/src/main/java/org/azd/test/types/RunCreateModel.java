@@ -8,8 +8,8 @@ package org.azd.test.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.RunFilter;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import java.util.List;
  * This class is used to provide the filters used for discovery 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class RunCreateModel extends BaseAbstractMethod {
+public class RunCreateModel extends SerializableEntity {
 	/**
  	* true if test run is automated, false otherwise. By default it will be false. 
 	**/

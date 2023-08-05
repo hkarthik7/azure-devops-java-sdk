@@ -9,10 +9,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.DeploymentOperationStatus;
 import org.azd.enums.DeploymentReason;
 import org.azd.enums.DeploymentStatus;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ import java.util.List;
  * Gets environment status. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DeploymentAttempt extends BaseAbstractMethod {
+public class DeploymentAttempt extends SerializableEntity {
 	/**
  	* Deployment attempt. 
 	**/

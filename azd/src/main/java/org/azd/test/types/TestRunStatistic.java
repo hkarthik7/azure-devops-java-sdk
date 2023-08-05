@@ -7,7 +7,7 @@ package org.azd.test.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import java.util.List;
  * Test run statistics. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TestRunStatistic extends BaseAbstractMethod {
+public class TestRunStatistic extends SerializableEntity {
 	/**
  	* An abstracted reference to some other resource. This class is used to provide the build data contracts with a uniform way to reference other resources in a way that provides easy traversal through links. 
 	**/

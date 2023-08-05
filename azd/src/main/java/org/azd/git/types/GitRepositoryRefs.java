@@ -7,7 +7,7 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import java.util.List;
  * A list of git repositories.
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitRepositoryRefs extends BaseAbstractMethod {
+public class GitRepositoryRefs extends SerializableEntity {
 	/***
      * List of git repositories
      */

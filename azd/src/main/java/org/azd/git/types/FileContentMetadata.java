@@ -7,13 +7,13 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * Type of object (Commit, Tree, Blob, Tag) 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class FileContentMetadata extends BaseAbstractMethod {
+public class FileContentMetadata extends SerializableEntity {
 
 	@JsonProperty("contentType")
 	private String contentType;

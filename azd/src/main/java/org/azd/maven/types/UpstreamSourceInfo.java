@@ -2,14 +2,14 @@ package org.azd.maven.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Upstream source definition, including its Identity, package type, and other
  * associated information.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UpstreamSourceInfo extends BaseAbstractMethod {
+public class UpstreamSourceInfo extends SerializableEntity {
 
     /***
      * Locator for connecting to the upstream source in a user friendly format, that

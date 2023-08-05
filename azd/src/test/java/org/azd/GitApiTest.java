@@ -1,7 +1,5 @@
 package org.azd;
 
-import org.azd.common.ApiVersion;
-import org.azd.common.ResourceId;
 import org.azd.common.types.JsonPatchDocument;
 import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
@@ -11,7 +9,6 @@ import org.azd.helpers.StreamHelper;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.GitDetails;
 import org.azd.utils.AzDClientApi;
-import org.azd.utils.RestClient;
 import org.azd.wiki.types.GitVersionDescriptor;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +17,6 @@ import java.io.File;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.azd.utils.RestClient.send;
 import static org.junit.Assert.assertTrue;
 
 public class GitApiTest {

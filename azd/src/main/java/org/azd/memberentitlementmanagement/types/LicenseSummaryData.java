@@ -2,13 +2,13 @@ package org.azd.memberentitlementmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Summary of Licenses in the organization.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class LicenseSummaryData extends BaseAbstractMethod {
+public class LicenseSummaryData extends SerializableEntity {
     /***
      * Type of Account License.
      */

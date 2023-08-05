@@ -2,13 +2,13 @@ package org.azd.upack.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Deletion state of a Universal package.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UPackPackageVersionDeletionState extends BaseAbstractMethod {
+public class UPackPackageVersionDeletionState extends SerializableEntity {
     /***
      * UTC date the package was deleted.
      */

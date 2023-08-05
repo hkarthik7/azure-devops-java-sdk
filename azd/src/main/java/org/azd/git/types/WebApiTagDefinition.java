@@ -7,13 +7,13 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * The representation of a tag definition which is sent across the wire. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WebApiTagDefinition extends BaseAbstractMethod {
+public class WebApiTagDefinition extends SerializableEntity {
 	/**
  	* Whether or not the tag definition is active. 
 	**/

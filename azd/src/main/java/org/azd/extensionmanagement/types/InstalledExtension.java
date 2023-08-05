@@ -2,7 +2,7 @@ package org.azd.extensionmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  * Represents a VSTS extension along with its installation state
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class InstalledExtension extends BaseAbstractMethod {
+public class InstalledExtension extends SerializableEntity {
     /***
      * Uri used as base for other relative uri's defined in extension
      */

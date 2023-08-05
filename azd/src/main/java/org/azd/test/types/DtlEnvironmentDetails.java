@@ -7,13 +7,13 @@ package org.azd.test.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * This is a temporary class to provide the details for the test run environment. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DtlEnvironmentDetails extends BaseAbstractMethod {
+public class DtlEnvironmentDetails extends SerializableEntity {
 
 	@JsonProperty("csmContent")
 	private String csmContent;

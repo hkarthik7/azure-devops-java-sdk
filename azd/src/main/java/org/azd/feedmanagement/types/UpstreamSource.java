@@ -7,9 +7,9 @@ package org.azd.feedmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.UpstreamSourceType;
 import org.azd.enums.UpstreamStatus;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import java.util.List;
  * Source type, such as Public or Internal. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UpstreamSource extends BaseAbstractMethod {
+public class UpstreamSource extends SerializableEntity {
 	/**
  	* UTC date that this upstream was deleted. 
 	**/

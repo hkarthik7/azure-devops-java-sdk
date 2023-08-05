@@ -7,14 +7,14 @@ package org.azd.feedmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.FeedRole;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * Permissions for a feed. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class FeedPermission extends BaseAbstractMethod {
+public class FeedPermission extends SerializableEntity {
 	/**
  	* Display name for the identity. 
 	**/

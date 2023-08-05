@@ -2,15 +2,15 @@ package org.azd.wiki.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.GitVersionOptions;
 import org.azd.enums.GitVersionType;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Versions of the wiki.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitVersionDescriptor extends BaseAbstractMethod {
+public class GitVersionDescriptor extends SerializableEntity {
     /***
      * Version string identifier (name of tag/branch, SHA1 of commit)
      */

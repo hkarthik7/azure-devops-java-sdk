@@ -7,14 +7,14 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.VersionControlChangeType;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitChange extends BaseAbstractMethod {
+public class GitChange extends SerializableEntity {
 	/**
  	* ID of the change within the group of changes. 
 	**/

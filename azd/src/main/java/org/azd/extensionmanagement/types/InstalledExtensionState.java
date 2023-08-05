@@ -2,7 +2,7 @@ package org.azd.extensionmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  * Information about this particular installation of the extension
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class InstalledExtensionState extends BaseAbstractMethod {
+public class InstalledExtensionState extends SerializableEntity {
     /***
      * States of an installed extension
      */

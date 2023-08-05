@@ -7,14 +7,14 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.ScheduleDays;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReleaseSchedule extends BaseAbstractMethod {
+public class ReleaseSchedule extends SerializableEntity {
 	/**
  	* Days of the week to release. 
 	**/

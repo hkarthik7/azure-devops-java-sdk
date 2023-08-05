@@ -2,13 +2,13 @@ package org.azd.core.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Reference for an async operation.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class OperationReference extends BaseAbstractMethod {
+public class OperationReference extends SerializableEntity {
     /***
      * Unique identifier for the operation.
      */

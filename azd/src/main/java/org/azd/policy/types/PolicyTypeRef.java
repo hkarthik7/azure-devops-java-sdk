@@ -2,13 +2,13 @@ package org.azd.policy.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Policy type reference.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PolicyTypeRef extends BaseAbstractMethod {
+public class PolicyTypeRef extends SerializableEntity {
     /***
      * Display name of the policy type.
      */

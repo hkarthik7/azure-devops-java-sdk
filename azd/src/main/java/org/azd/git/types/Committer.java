@@ -2,13 +2,13 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Represents the committer to the repository
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Committer extends BaseAbstractMethod {
+public class Committer extends SerializableEntity {
     /***
      * Name of the committer
      */

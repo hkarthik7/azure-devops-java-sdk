@@ -1,7 +1,7 @@
 package org.azd.security.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -82,7 +82,7 @@ import java.util.Map;
  * }
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Identity extends BaseAbstractMethod {
+public class Identity extends SerializableEntity {
     private String id;
     private String descriptor;
     private String subjectDescriptor;

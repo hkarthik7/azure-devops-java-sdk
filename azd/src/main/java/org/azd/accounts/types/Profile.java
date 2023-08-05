@@ -2,13 +2,13 @@ package org.azd.accounts.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * A user profile.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Profile extends BaseAbstractMethod {
+public class Profile extends SerializableEntity {
     /***
      * User display name
      */

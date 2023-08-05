@@ -2,7 +2,7 @@ package org.azd.core.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.Optional;
 
@@ -10,7 +10,7 @@ import java.util.Optional;
  * data object representing project feature
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ProjectFeature extends BaseAbstractMethod {
+public class ProjectFeature extends SerializableEntity {
     /***
      * string identifier for feature. See {@link org.azd.enums.FeatureManagement} for in-library usage
      */
@@ -65,7 +65,7 @@ public class ProjectFeature extends BaseAbstractMethod {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public class Scope extends BaseAbstractMethod {
+    public class Scope extends SerializableEntity {
         /***
          * scope value. Undocumented in Azdo api
          */

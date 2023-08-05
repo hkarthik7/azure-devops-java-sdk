@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.azd.common.types.Author;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * The full policy configuration with settings.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PolicyConfiguration extends BaseAbstractMethod {
+public class PolicyConfiguration extends SerializableEntity {
     /***
      * A reference to the identity that created the policy.
      */

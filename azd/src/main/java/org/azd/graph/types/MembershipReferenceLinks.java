@@ -2,8 +2,8 @@ package org.azd.graph.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.common.types.Reference;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * This field contains zero or more interesting links about the graph subject.
@@ -11,7 +11,7 @@ import org.azd.common.types.Reference;
  * information about this graph subject.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class MembershipReferenceLinks extends BaseAbstractMethod {
+public class MembershipReferenceLinks extends SerializableEntity {
     /***
      * self reference url
      */

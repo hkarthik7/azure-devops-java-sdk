@@ -3,13 +3,13 @@ package org.azd.release.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Release definition revision
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReleaseDefinitionRevision extends BaseAbstractMethod {
+public class ReleaseDefinitionRevision extends SerializableEntity {
     /***
      * Gets api-version for revision object.
      */

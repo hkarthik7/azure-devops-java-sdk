@@ -3,13 +3,13 @@ package org.azd.extensionmanagement.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Specifies a constraint that can be used to dynamically include/exclude a given contribution
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ContributionConstraint extends BaseAbstractMethod {
+public class ContributionConstraint extends SerializableEntity {
     /***
      * An optional property that can be specified to group constraints together.
      */

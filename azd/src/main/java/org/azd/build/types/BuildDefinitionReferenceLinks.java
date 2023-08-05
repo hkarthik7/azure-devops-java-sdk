@@ -2,14 +2,14 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.common.types.Reference;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * The class to represent a collection of REST reference links.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildDefinitionReferenceLinks extends BaseAbstractMethod {
+public class BuildDefinitionReferenceLinks extends SerializableEntity {
     /***
      *
      * web url

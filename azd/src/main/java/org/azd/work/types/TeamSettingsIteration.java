@@ -2,13 +2,13 @@ package org.azd.work.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Represents a shallow ref for a single iteration.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TeamSettingsIteration extends BaseAbstractMethod {
+public class TeamSettingsIteration extends SerializableEntity {
     /***
      * Id of the iteration.
      */

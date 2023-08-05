@@ -7,13 +7,13 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * Gets reason for release. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Demand extends BaseAbstractMethod {
+public class Demand extends SerializableEntity {
 	/**
  	* Gets and sets the name of demand. 
 	**/

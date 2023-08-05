@@ -7,13 +7,13 @@ package org.azd.test.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * A custom field information. Allowed Key : Value pairs - ( AttemptId: int value, IsTestResultFlaky: bool) 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CustomTestField extends BaseAbstractMethod {
+public class CustomTestField extends SerializableEntity {
 	/**
  	* Field Name. 
 	**/

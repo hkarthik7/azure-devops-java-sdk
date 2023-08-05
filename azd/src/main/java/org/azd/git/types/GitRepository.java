@@ -7,13 +7,13 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * User info and date for Git operations. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitRepository extends BaseAbstractMethod {
+public class GitRepository extends SerializableEntity {
 	/**
  	* The class to represent a collection of REST reference links. 
 	**/

@@ -7,14 +7,14 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.ConditionType;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * Gets or sets the trigger type. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Condition extends BaseAbstractMethod {
+public class Condition extends SerializableEntity {
 	/**
  	* Gets or sets the condition type. 
 	**/

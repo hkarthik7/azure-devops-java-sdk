@@ -6,13 +6,13 @@ package org.azd.feedmanagement.types;
 **/
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UpstreamStatusDetail extends BaseAbstractMethod {
+public class UpstreamStatusDetail extends SerializableEntity {
 	/**
  	* Provides a human-readable reason for the status of the upstream. 
 	**/

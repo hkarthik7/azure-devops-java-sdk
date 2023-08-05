@@ -8,13 +8,13 @@ package org.azd.build.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * Represents a folder that contains build definitions. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Folder extends BaseAbstractMethod {
+public class Folder extends SerializableEntity {
 	/**
  	* The process or person who created the folder. 
 	**/

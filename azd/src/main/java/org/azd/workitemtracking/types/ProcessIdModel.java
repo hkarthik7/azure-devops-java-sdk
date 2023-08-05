@@ -7,13 +7,13 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * Stores process ID. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ProcessIdModel extends BaseAbstractMethod {
+public class ProcessIdModel extends SerializableEntity {
 	/**
  	* The ID of the process. 
 	**/

@@ -7,14 +7,14 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.ApprovalExecutionOrder;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * Gets or sets the condition type. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ApprovalOptions extends BaseAbstractMethod {
+public class ApprovalOptions extends SerializableEntity {
 	/**
  	* Specify whether the approval can be skipped if the same approver approved the previous stage. 
 	**/

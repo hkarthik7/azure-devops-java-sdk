@@ -2,13 +2,13 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Reference to a work item icon.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemIcon extends BaseAbstractMethod {
+public class WorkItemIcon extends SerializableEntity {
     /***
      * The identifier of the icon.
      */

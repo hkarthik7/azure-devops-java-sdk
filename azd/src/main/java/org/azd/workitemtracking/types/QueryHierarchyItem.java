@@ -4,13 +4,14 @@ package org.azd.workitemtracking.types;
 	GENERATED FILE, should be edited to suit the purpose.
 ----------------------------------------------------------
 */
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.LinkQueryMode;
 import org.azd.enums.QueryRecursionOption;
 import org.azd.enums.QueryType;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ import java.util.List;
  * Represents an item in the work item query hierarchy. This can be either a query or a folder. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class QueryHierarchyItem extends BaseAbstractMethod {
+public class QueryHierarchyItem extends SerializableEntity {
 	/**
  	* Link references to related REST resources. 
 	**/

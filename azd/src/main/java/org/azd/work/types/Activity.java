@@ -7,13 +7,13 @@ package org.azd.work.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * The class to represent a collection of REST reference links. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Activity extends BaseAbstractMethod {
+public class Activity extends SerializableEntity {
 
 	@JsonProperty("capacityPerDay")
 	private int capacityPerDay;

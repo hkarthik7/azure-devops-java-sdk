@@ -2,13 +2,13 @@ package org.azd.work.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Represents the team iteration attributes
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TeamIterationAttributes extends BaseAbstractMethod {
+public class TeamIterationAttributes extends SerializableEntity {
     /***
      * Start date of the iteration. Date-only, correct unadjusted at midnight in UTC.
      */

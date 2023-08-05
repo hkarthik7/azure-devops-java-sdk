@@ -2,15 +2,15 @@ package org.azd.core.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.ProjectState;
 import org.azd.enums.ProjectVisibility;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Represents a Team Project object.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Project extends BaseAbstractMethod {
+public class Project extends SerializableEntity {
     /**
      * Reference links
      */

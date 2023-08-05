@@ -7,13 +7,13 @@ package org.azd.test.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * ResultMetadata for the given outcome/count. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReleaseReference extends BaseAbstractMethod {
+public class ReleaseReference extends SerializableEntity {
 	/**
  	* Number of Release Attempt. 
 	**/

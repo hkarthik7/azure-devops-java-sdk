@@ -3,7 +3,7 @@ package org.azd.extensionmanagement.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
  * An individual contribution made by an extension
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Contribution extends BaseAbstractMethod {
+public class Contribution extends SerializableEntity {
     /***
      * List of constraints (filters) that should be applied to the availability of this contribution
      */

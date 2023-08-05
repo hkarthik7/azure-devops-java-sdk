@@ -6,7 +6,7 @@ package org.azd.build.types;
  **/
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.Map;
 
@@ -14,7 +14,7 @@ import java.util.Map;
  * None 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class VariableGroup extends BaseAbstractMethod {
+public class VariableGroup extends SerializableEntity {
     /**
      * The Name of the variable group.
      **/

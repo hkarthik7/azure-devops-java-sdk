@@ -7,7 +7,7 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import java.util.List;
  * None 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReleaseDefinitionApprovals extends BaseAbstractMethod {
+public class ReleaseDefinitionApprovals extends SerializableEntity {
 	/**
  	* Gets or sets the approval options. 
 	**/

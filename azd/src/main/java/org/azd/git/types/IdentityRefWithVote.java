@@ -7,7 +7,7 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import java.util.List;
  * Identity information including a vote on a pull request.
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class IdentityRefWithVote extends BaseAbstractMethod {
+public class IdentityRefWithVote extends SerializableEntity {
 	/**
 	 * This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
 	 **/

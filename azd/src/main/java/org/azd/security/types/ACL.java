@@ -2,7 +2,7 @@ package org.azd.security.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.Map;
 
@@ -10,7 +10,7 @@ import java.util.Map;
  * Access Control List entry
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ACL extends BaseAbstractMethod {
+public class ACL extends SerializableEntity {
     /***
      * inherits permissions
      */

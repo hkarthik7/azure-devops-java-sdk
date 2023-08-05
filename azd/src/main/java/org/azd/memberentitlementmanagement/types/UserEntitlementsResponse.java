@@ -2,13 +2,13 @@ package org.azd.memberentitlementmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Represents the response after adding a user
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserEntitlementsResponse extends BaseAbstractMethod {
+public class UserEntitlementsResponse extends SerializableEntity {
     /***
      * True if all operations were successful.
      */

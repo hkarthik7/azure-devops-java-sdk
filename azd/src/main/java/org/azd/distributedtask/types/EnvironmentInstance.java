@@ -3,8 +3,8 @@ package org.azd.distributedtask.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.common.types.Author;
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.release.types.ProjectReference;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * Represents an environment
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class EnvironmentInstance extends BaseAbstractMethod {
+public class EnvironmentInstance extends SerializableEntity {
     /***
      * Identity reference of the user who created the Environment.
      */

@@ -7,7 +7,7 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import java.util.List;
  * Represents the timeline of a build. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Timeline extends BaseAbstractMethod {
+public class Timeline extends SerializableEntity {
 	/**
  	* The change ID. 
 	**/

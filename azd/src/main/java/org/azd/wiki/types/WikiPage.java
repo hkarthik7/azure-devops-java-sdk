@@ -7,7 +7,7 @@ package org.azd.wiki.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import java.util.List;
  * Defines a page in a wiki. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WikiPage extends BaseAbstractMethod {
+public class WikiPage extends SerializableEntity {
 	/**
  	* Content of the wiki page. 
 	**/

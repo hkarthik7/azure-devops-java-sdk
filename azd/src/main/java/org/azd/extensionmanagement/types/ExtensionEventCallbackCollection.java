@@ -2,10 +2,10 @@ package org.azd.extensionmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ExtensionEventCallbackCollection extends BaseAbstractMethod {
+public class ExtensionEventCallbackCollection extends SerializableEntity {
     /***
      * Defines an endpoint that gets called via a POST request to notify that an extension disable has occurred.
      */

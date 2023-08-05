@@ -7,13 +7,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * The result. 
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class RetentionPolicy extends BaseAbstractMethod {
+public class RetentionPolicy extends SerializableEntity {
 
     @JsonProperty("artifactTypesToDelete")
     private String[] artifactTypesToDelete;

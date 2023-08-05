@@ -7,14 +7,14 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.GitObjectType;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * State of the status. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitItem extends BaseAbstractMethod {
+public class GitItem extends SerializableEntity {
 	/**
  	* The class to represent a collection of REST reference links. 
 	**/

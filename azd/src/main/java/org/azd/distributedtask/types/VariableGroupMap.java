@@ -1,8 +1,8 @@
 package org.azd.distributedtask.types;
 
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.VariableValue;
 import org.azd.release.types.ConfigurationVariableValue;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +11,7 @@ import java.util.Map;
  * Variable group map to create variable groups easily.
  * This helper class comes handy when creating variable groups and updating it.
  */
-public class VariableGroupMap extends BaseAbstractMethod {
+public class VariableGroupMap extends SerializableEntity {
     private final Map<String, ConfigurationVariableValue> map = new HashMap<>();
     private final ConfigurationVariableValue variableValue = new ConfigurationVariableValue();
 

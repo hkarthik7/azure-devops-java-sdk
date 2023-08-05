@@ -2,13 +2,13 @@ package org.azd.extensionmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Maps a contribution to a licensing behavior
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class LicensingOverride extends BaseAbstractMethod {
+public class LicensingOverride extends SerializableEntity {
     /***
      * How the inclusion of this contribution should change based on licensing
      */

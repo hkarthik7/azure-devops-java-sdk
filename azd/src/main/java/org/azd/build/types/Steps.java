@@ -2,13 +2,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * Represents a definition steps
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Steps extends BaseAbstractMethod {
+public class Steps extends SerializableEntity {
     /**
      * Represents an environment
      */

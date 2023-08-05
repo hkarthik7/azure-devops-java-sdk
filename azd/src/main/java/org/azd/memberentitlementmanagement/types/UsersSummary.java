@@ -2,7 +2,7 @@ package org.azd.memberentitlementmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  * Summary of licenses and extensions assigned to users in the organization
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UsersSummary extends BaseAbstractMethod {
+public class UsersSummary extends SerializableEntity {
     /***
      * Available Access Levels
      */

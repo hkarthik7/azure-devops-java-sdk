@@ -2,13 +2,13 @@ package org.azd.pipelines.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /***
  * A reference to a Pipeline.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PipelineReference extends BaseAbstractMethod {
+public class PipelineReference extends SerializableEntity {
     /***
      * Pipeline folder
      */

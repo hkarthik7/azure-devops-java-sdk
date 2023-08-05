@@ -7,8 +7,8 @@ package org.azd.distributedtask.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.TaskResult;
+import org.azd.serializer.SerializableEntity;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import java.util.List;
  * A reference to an agent. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TaskAgentJobRequest extends BaseAbstractMethod {
+public class TaskAgentJobRequest extends SerializableEntity {
 	/**
  	* Represents a JSON object. 
 	**/

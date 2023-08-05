@@ -7,13 +7,13 @@ package org.azd.distributedtask.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.serializer.SerializableEntity;
 
 /**
  * Represents the public key portion of an RSA asymmetric key. 
 **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TaskAgentCloudRequest extends BaseAbstractMethod {
+public class TaskAgentCloudRequest extends SerializableEntity {
 	/**
  	* A reference to an agent. 
 	**/
