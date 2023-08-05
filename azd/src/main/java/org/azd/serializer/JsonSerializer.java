@@ -30,6 +30,7 @@ public final class JsonSerializer extends ObjectMapper implements SerializerCont
      * @return a String
      * @throws AzDException Api exception handler
      */
+    @Override
     public String serialize(Object value) throws AzDException {
         try {
             return this.writeValueAsString(value);
@@ -45,6 +46,7 @@ public final class JsonSerializer extends ObjectMapper implements SerializerCont
      * @return JsonNode {@link JsonNode}
      * @throws AzDException Api exception handler.
      */
+    @Override
     public JsonNode serialize(String jsonString) throws AzDException {
         try {
             return this.readTree(jsonString);
@@ -62,6 +64,7 @@ public final class JsonSerializer extends ObjectMapper implements SerializerCont
      * @return the given type
      * @throws AzDException Api exception handler
      */
+    @Override
     public <T> T deserialize(final String content, Class<T> valueType) throws AzDException {
         try {
             if (content.contains("innerException"))
@@ -85,6 +88,7 @@ public final class JsonSerializer extends ObjectMapper implements SerializerCont
      * @return the given type
      * @throws AzDException Api exception handler
      */
+    @Override
     public <T> T deserialize(final String content, TypeReference<T> valueType) throws AzDException {
         try {
             if (content.contains("innerException"))
@@ -108,6 +112,7 @@ public final class JsonSerializer extends ObjectMapper implements SerializerCont
      * @return the given type
      * @throws AzDException Api exception handler
      */
+    @Override
     public <T> T deserialize(InputStream content, Class<T> valueType) throws AzDException {
         try {
             return deserialize(StreamHelper.convertToString(content), valueType);
@@ -125,6 +130,7 @@ public final class JsonSerializer extends ObjectMapper implements SerializerCont
      * @return the given type
      * @throws AzDException Api exception handler
      */
+    @Override
     public <T> T deserialize(File src, Class<T> valueType) throws AzDException {
         try {
             return this.readValue(src, valueType);
