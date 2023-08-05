@@ -1,6 +1,8 @@
 package org.azd.build.builds;
 
 import org.azd.build.types.Build;
+import org.azd.build.types.Builds;
+import org.azd.build.types.RetentionLeases;
 import org.azd.common.ApiVersion;
 import org.azd.common.types.QueryParameter;
 import org.azd.enums.RequestMethod;
@@ -94,13 +96,35 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * Gets all retention leases that apply to a specific build.
      * @param buildId pass the build id
      * @throws AzDException Default Api Exception handler.
-     * @return Future build object {@link Build}
+     * @return Future Retention leases object {@link RetentionLeases}
      */
-    public CompletableFuture<Build> getRetentionLeases(int buildId) throws AzDException {
+    public CompletableFuture<RetentionLeases> getRetentionLeases(int buildId) throws AzDException {
         var reqInfo = toGetInformation(buildId, null);
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/leases";
         reqInfo.apiVersion = ApiVersion.BUILD_RETENTION_LEASES;
-        return requestAdapter.sendAsync(reqInfo, Build.class);
+        return requestAdapter.sendAsync(reqInfo, RetentionLeases.class);
+    }
+
+    /***
+     * Gets a list of builds.
+     * @throws AzDException Default Api Exception handler.
+     * @return Future Builds object {@link org.azd.build.types.Builds}
+     */
+    public CompletableFuture<Builds> list() throws AzDException {
+        var reqInfo = toGetInformation(0, null);
+        reqInfo.serviceEndpoint = service;
+        return requestAdapter.sendAsync(reqInfo, Builds.class);
+    }
+
+    /***
+     * Gets a list of builds.
+     * @throws AzDException Default Api Exception handler.
+     * @return Future Builds object {@link org.azd.build.types.Builds}
+     */
+    public CompletableFuture<Builds> list(Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
+        var reqInfo = toGetInformation(0, requestConfiguration);
+        reqInfo.serviceEndpoint = service;
+        return requestAdapter.sendAsync(reqInfo, Builds.class);
     }
 
     /**
