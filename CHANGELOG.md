@@ -1,5 +1,12 @@
 # Changelog
 
+# 5.0.9
+
+**Minor Incremental Release**
+- Fix issue: [How to get the get the team capacity? #66](https://github.com/hkarthik7/azure-devops-java-sdk/issues/66)
+- Fix issue: [[Feature] Missing Pull Request Statuses object #64](https://github.com/hkarthik7/azure-devops-java-sdk/issues/64)
+- Fix issue: [Do you support pagination with the continuationToken #63](https://github.com/hkarthik7/azure-devops-java-sdk/issues/63)
+
 ## 5.0.8
 
 **Minor Incremental Release**
