@@ -41,6 +41,7 @@ public class AzDResponse {
         }
         return OptionalLong.empty();
     }
+
     public AzDResponse(int statusCode, HttpHeaders responseHeaders, Object responseBody) {
         this.statusCode = statusCode;
         this.responseHeaders = responseHeaders;

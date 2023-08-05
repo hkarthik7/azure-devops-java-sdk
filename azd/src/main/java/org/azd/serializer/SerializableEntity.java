@@ -35,6 +35,7 @@ public abstract class SerializableEntity {
 
         return res;
     }
+
     @JsonIgnore
     private final SerializerContext SERIALIZER = AzDDefaultRegisterFactory.createSerializerContext();
 }

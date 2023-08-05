@@ -38,11 +38,6 @@ public class OAuthAccessTokenBuilder extends BaseRequestBuilder {
      * @return The authorization endpoint to authorize your app
      */
     public String getAuthorizationEndpoint(final String clientId, final String state, final List<VsoScope> scope, final String redirectUrl) {
-        Objects.requireNonNull(clientId);
-        Objects.requireNonNull(state);
-        Objects.requireNonNull(scope);
-        Objects.requireNonNull(redirectUrl);
-
         var allScopes = new StringBuilder();
 
         for (var vsoScope : scope) {
