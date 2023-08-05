@@ -4,8 +4,6 @@ import org.azd.interfaces.AccessTokenCredential;
 import org.azd.interfaces.RequestAdapter;
 import org.azd.interfaces.SerializerContext;
 
-import java.util.Objects;
-
 public abstract class BaseRequestBuilder {
     protected AccessTokenCredential accessTokenCredential;
     protected RequestAdapter requestAdapter;
@@ -13,16 +11,17 @@ public abstract class BaseRequestBuilder {
     protected String service;
     protected String project;
     protected String apiVersion;
-    protected BaseRequestBuilder(AccessTokenCredential accessTokenCredential, RequestAdapter requestAdapter,
-                                 String service, String apiVersion) {
-        this.accessTokenCredential = Objects.requireNonNull(accessTokenCredential);
-        this.requestAdapter = Objects.requireNonNull(requestAdapter);
-        this.service = service;
+
+    protected BaseRequestBuilder(final AccessTokenCredential accessTokenCredential, final RequestAdapter requestAdapter,
+                                 final String service, final String apiVersion) {
+        this.accessTokenCredential = accessTokenCredential;
+        this.requestAdapter = requestAdapter;
         this.project = accessTokenCredential.getProjectName();
+        this.service = service;
         this.apiVersion = apiVersion;
     }
 
-    protected BaseRequestBuilder(AccessTokenCredential accessTokenCredential, RequestAdapter requestAdapter) {
+    protected BaseRequestBuilder(final AccessTokenCredential accessTokenCredential, final RequestAdapter requestAdapter) {
         this(accessTokenCredential, requestAdapter, null, null);
     }
 }
