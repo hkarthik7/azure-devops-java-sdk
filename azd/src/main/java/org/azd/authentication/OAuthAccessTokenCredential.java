@@ -49,7 +49,7 @@ public class OAuthAccessTokenCredential implements AccessTokenCredential {
 
     @Override
     public void setAccessToken(String accessToken) {
-        this.oauthAccessToken = accessToken;
+        this.oauthAccessToken = "Bearer " + accessToken;
     }
 
     private String authenticate() {
@@ -62,7 +62,7 @@ public class OAuthAccessTokenCredential implements AccessTokenCredential {
             } else {
                 authorizedToken = oauthBuilder.getAccessToken(appSecret, authCode, callbackUrl);
             }
-            oauthAccessToken = authorizedToken.getAccessToken();
+            setAccessToken(authorizedToken.getAccessToken());
             return oauthAccessToken;
         } catch (AzDException e) {
             throw new RuntimeException(e);
