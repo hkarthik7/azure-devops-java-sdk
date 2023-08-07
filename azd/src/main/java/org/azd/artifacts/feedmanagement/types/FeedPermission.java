@@ -1,4 +1,4 @@
-package org.azd.feedmanagement.types;
+package org.azd.artifacts.feedmanagement.types;
 /**
 ----------------------------------------------------------
 	GENERATED FILE, should be edited to suit the purpose.

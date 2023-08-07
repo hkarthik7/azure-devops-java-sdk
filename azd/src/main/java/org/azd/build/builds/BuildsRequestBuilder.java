@@ -59,7 +59,10 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Void> delete(int buildId) throws AzDException {
-        return requestAdapter.sendStringAsync(toDeleteInformation(buildId))
+        var reqInfo = toDeleteRequestInformation();
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId;
+
+        return requestAdapter.sendStringAsync(reqInfo)
                 .thenApplyAsync(r -> {
                     try {
                         if (!r.isEmpty()) serializer.deserialize(r, Map.class);
@@ -77,7 +80,9 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @return Future build object {@link Build}
      */
     public CompletableFuture<Build> get(int buildId) throws AzDException {
-        return requestAdapter.sendAsync(toGetInformation(buildId, null), Build.class);
+        var reqInfo = toGetInformation(null);
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId;
+        return requestAdapter.sendAsync(reqInfo, Build.class);
     }
 
     /***
@@ -87,9 +92,11 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      * @return Future build object {@link Build}
      */
-    public CompletableFuture<Build> get(int buildId,
-                                             Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
-        return requestAdapter.sendAsync(toGetInformation(buildId, requestConfiguration), Build.class);
+    public CompletableFuture<Build> get(int buildId, Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
+        var reqInfo = toGetInformation(requestConfiguration);
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId;
+
+        return requestAdapter.sendAsync(reqInfo, Build.class);
     }
 
     /***
@@ -99,9 +106,10 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @return Future Retention leases object {@link RetentionLeases}
      */
     public CompletableFuture<RetentionLeases> getRetentionLeases(int buildId) throws AzDException {
-        var reqInfo = toGetInformation(buildId, null);
+        var reqInfo = toGetInformation(null);
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/leases";
         reqInfo.apiVersion = ApiVersion.BUILD_RETENTION_LEASES;
+
         return requestAdapter.sendAsync(reqInfo, RetentionLeases.class);
     }
 
@@ -111,8 +119,8 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @return Future Builds object {@link org.azd.build.types.Builds}
      */
     public CompletableFuture<Builds> list() throws AzDException {
-        var reqInfo = toGetInformation(0, null);
-        reqInfo.serviceEndpoint = service;
+        var reqInfo = toGetInformation(null);
+
         return requestAdapter.sendAsync(reqInfo, Builds.class);
     }
 
@@ -122,8 +130,8 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @return Future Builds object {@link org.azd.build.types.Builds}
      */
     public CompletableFuture<Builds> list(Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetInformation(0, requestConfiguration);
-        reqInfo.serviceEndpoint = service;
+        var reqInfo = toGetInformation(requestConfiguration);
+
         return requestAdapter.sendAsync(reqInfo, Builds.class);
     }
 
@@ -145,29 +153,11 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
 
     /**
      * Constructs the request information for Build Api.
-     * @param buildId ID of the build
-     * @return RequestInformation object {@link RequestInformation}
-     */
-    private RequestInformation toDeleteInformation(int buildId) {
-        var reqInfo = new RequestInformation();
-        reqInfo.requestMethod = RequestMethod.DELETE;
-        reqInfo.project = accessTokenCredential.getProjectName();
-        reqInfo.serviceEndpoint = service + "/" + buildId;
-        reqInfo.apiVersion = apiVersion;
-        return reqInfo;
-    }
-
-    /**
-     * Constructs the request information for Build Api.
-     * @param buildId ID of the build
      * @param requestConfig Consumer of query parameters.
      * @return RequestInformation object {@link RequestInformation}
      */
-    private RequestInformation toGetInformation(int buildId, Consumer<RequestConfiguration> requestConfig) {
-        var reqInfo = new RequestInformation();
-        reqInfo.project = project;
-        reqInfo.serviceEndpoint = service + "/" + buildId;
-        reqInfo.apiVersion = apiVersion;
+    private RequestInformation toGetInformation(Consumer<RequestConfiguration> requestConfig) {
+        var reqInfo = toGetRequestInformation();
         if (requestConfig != null) {
             final var config = new RequestConfiguration();
             requestConfig.accept(config);

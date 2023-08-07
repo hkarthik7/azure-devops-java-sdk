@@ -18,6 +18,9 @@ public class RequestHeaders {
     public void replace(CustomHeader customHeader) {
         headers.replace(customHeader.getName(), customHeader.getValue());
     }
+    public void clear() {
+        headers.clear();
+    }
 
     public void add(String name, String value) {
         headers.put(name, value);

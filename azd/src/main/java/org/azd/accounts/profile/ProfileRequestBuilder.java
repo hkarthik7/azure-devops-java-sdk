@@ -52,7 +52,7 @@ public class ProfileRequestBuilder extends BaseRequestBuilder {
      * @return RequestInformation Object {@link RequestInformation}
      */
     private RequestInformation toGetRequestInfo(String id) {
-        var requestInfo = new RequestInformation();
+        var requestInfo = toGetRequestInformation();
         requestInfo.setRequestUrl(MessageFormat.format("{0}/_apis/{1}/{2}?api-version={3}",
                 Instance.ACCOUNT_INSTANCE.getInstance(), service, id, apiVersion));
         return requestInfo;

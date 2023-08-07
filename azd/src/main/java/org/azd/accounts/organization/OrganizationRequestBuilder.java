@@ -43,7 +43,6 @@ public class OrganizationRequestBuilder extends BaseRequestBuilder {
      * @return RequestInformation object {@link RequestInformation}.
      */
     private RequestInformation toPostRequestInfo() {
-        var requestInfo = new RequestInformation();
         var reqBody = new HashMap<String, Object>() {{
             put("contributionIds", List.of("ms.vss-features.my-organizations-data-provider"));
             put("dataProviderContext", new HashMap<String, Object>() {{
@@ -51,11 +50,9 @@ public class OrganizationRequestBuilder extends BaseRequestBuilder {
             }});
         }};
 
-        requestInfo.requestMethod = RequestMethod.POST;
+        var requestInfo = toPostRequestInformation(reqBody);
         requestInfo.setRequestUrl(MessageFormat.format("{0}/_apis/{1}?api-version={2}",
                 Instance.ACCOUNT_INSTANCE.getInstance(), service, apiVersion));
-        requestInfo.requestBody = reqBody;
-        requestInfo.requestHeaders.add(CustomHeader.JSON_CONTENT_TYPE);
 
         return requestInfo;
     }

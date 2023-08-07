@@ -102,13 +102,11 @@ public class ArtifactsRequestBuilder extends BaseRequestBuilder {
      * @return RequestInformation object {@link RequestInformation}
      */
     private RequestInformation toGetInformation(int buildId, String artifactName) {
-        var requestInfo = new RequestInformation();
-        requestInfo.project = project;
+        var requestInfo = toGetRequestInformation();
         requestInfo.serviceEndpoint = service + buildId + "/artifacts";
         if (artifactName != null) {
             requestInfo.setQueryParameter("artifactName", artifactName);
         }
-        requestInfo.apiVersion = apiVersion;
         return requestInfo;
     }
 
@@ -119,13 +117,8 @@ public class ArtifactsRequestBuilder extends BaseRequestBuilder {
      * @return RequestInformation object {@link RequestInformation}
      */
     private RequestInformation toPostInformation(int buildId, BuildArtifact buildArtifact) {
-        var requestInfo = new RequestInformation();
-        requestInfo.requestMethod = RequestMethod.POST;
-        requestInfo.project = project;
+        var requestInfo = toPostRequestInformation(buildArtifact);
         requestInfo.serviceEndpoint = service + buildId + "/artifacts";
-        requestInfo.apiVersion = apiVersion;
-        requestInfo.requestHeaders.add(CustomHeader.JSON_CONTENT_TYPE);
-        requestInfo.requestBody = buildArtifact;
         return requestInfo;
     }
 }

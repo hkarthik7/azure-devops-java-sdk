@@ -103,10 +103,8 @@ public class BuildWorkItemsRequestBuilder extends BaseRequestBuilder {
      * @return RequestInformation object {@link RequestInformation}
      */
     private RequestInformation toGetInformation(int buildId, Consumer<RequestConfiguration> requestConfig) {
-        var reqInfo = new RequestInformation();
-        reqInfo.project = project;
-        reqInfo.serviceEndpoint = MessageFormat.format("{0}/{1}/workitems", service, Integer.toString(buildId));
-        reqInfo.apiVersion = apiVersion;
+        var reqInfo = toGetRequestInformation();
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId + "/workitems";
         if (requestConfig != null) {
             final var config = new RequestConfiguration();
             requestConfig.accept(config);
@@ -121,12 +119,8 @@ public class BuildWorkItemsRequestBuilder extends BaseRequestBuilder {
      * @return RequestInformation object {@link RequestInformation}
      */
     private RequestInformation toPostInformation(int buildId, Object body, Consumer<RequestConfiguration> requestConfig) {
-        var reqInfo = new RequestInformation();
-        reqInfo.requestMethod = RequestMethod.POST;
-        reqInfo.project = project;
-        reqInfo.serviceEndpoint = MessageFormat.format("{0}/{1}/workitems", service, Integer.toString(buildId));
-        reqInfo.requestBody = body;
-        reqInfo.apiVersion = apiVersion;
+        var reqInfo = toPostRequestInformation(body);
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId + "/workitems";
         if (requestConfig != null) {
             final var config = new RequestConfiguration();
             requestConfig.accept(config);

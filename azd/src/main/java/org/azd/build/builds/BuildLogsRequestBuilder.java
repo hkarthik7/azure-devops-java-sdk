@@ -117,10 +117,8 @@ public class BuildLogsRequestBuilder extends BaseRequestBuilder {
      * @return RequestInformation object {@link RequestInformation}
      */
     private RequestInformation toGetInformation(int buildId, Consumer<RequestConfiguration> requestConfig) {
-        var reqInfo = new RequestInformation();
-        reqInfo.project = project;
-        reqInfo.serviceEndpoint = MessageFormat.format("{0}/{1}/logs", service, Integer.toString(buildId));
-        reqInfo.apiVersion = apiVersion;
+        var reqInfo = toGetRequestInformation();
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId + "/logs";
         if (requestConfig != null) {
             final var config = new RequestConfiguration();
             requestConfig.accept(config);

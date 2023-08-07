@@ -1,6 +1,7 @@
 package org.azd.serviceClient;
 
 import org.azd.accounts.AccountsBaseRequestBuilder;
+import org.azd.artifacts.ArtifactsRequestBuilder;
 import org.azd.build.BuildBaseRequestBuilder;
 import org.azd.enums.Instance;
 import org.azd.http.DefaultRequestAdapter;
@@ -10,6 +11,8 @@ import org.azd.utils.AzDDefaultRegisterFactory;
 
 public class BaseAzDServiceClient {
     public AccountsBaseRequestBuilder accounts() { return new AccountsBaseRequestBuilder(accessTokenCredential, requestAdapter); }
+
+    public ArtifactsRequestBuilder artifacts() { return new ArtifactsRequestBuilder(accessTokenCredential, requestAdapter); }
 
     public BuildBaseRequestBuilder build() { return new BuildBaseRequestBuilder(accessTokenCredential, requestAdapter); }
 

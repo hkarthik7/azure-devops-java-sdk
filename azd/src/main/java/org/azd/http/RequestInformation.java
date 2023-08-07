@@ -14,6 +14,7 @@ public class RequestInformation {
     public RequestMethod requestMethod = RequestMethod.GET;
     public String project;
     public String serviceEndpoint;
+    public String subdomain;
     public String apiVersion;
     public RequestHeaders requestHeaders = new RequestHeaders();
     public Object requestBody;
@@ -50,18 +51,15 @@ public class RequestInformation {
 
     public String getRequestUrl() {
         if (requestUrl != null) return requestUrl;
+        if (subdomain != null) baseInstance = baseInstance.replaceAll("https://", "https://" + subdomain + ".");
         var url = new StringBuilder(baseInstance.replaceAll("/$", ""));
         if (project != null) url.append("/").append(project);
         url.append("/_apis");
-        if (serviceEndpoint != null) {
-            serviceEndpoint = serviceEndpoint.replaceFirst("/$", "").replaceAll("/$", "");
-        }
+        if (serviceEndpoint != null) serviceEndpoint = serviceEndpoint.replaceFirst("/$", "").replaceAll("/$", "");
         url.append("/").append(serviceEndpoint).append("?api-version=").append(apiVersion);
-        if (!queryParameters.isEmpty()) {
-            for (var key : queryParameters.keySet()) {
+        if (!queryParameters.isEmpty())
+            for (var key : queryParameters.keySet())
                 url.append(getQueryString(key, queryParameters.get(key)));
-            }
-        }
         return url.toString();
     }
 
@@ -82,7 +80,7 @@ public class RequestInformation {
     private static String getQueryString(String key, Object value) {
         return "&" + key + "=" + value;
     }
-    private final String baseInstance = AzDDefaultRegisterFactory.getBaseInstance();
+    private String baseInstance = AzDDefaultRegisterFactory.getBaseInstance();
     private String requestUrl;
     private final Map<String, Object> queryParameters = new HashMap<>();
 }

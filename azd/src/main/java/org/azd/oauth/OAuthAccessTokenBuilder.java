@@ -8,6 +8,7 @@ import org.azd.exceptions.AzDException;
 import org.azd.helpers.URLHelper;
 import org.azd.http.RequestInformation;
 import org.azd.interfaces.RequestAdapter;
+import org.azd.oauth.types.AuthorizationEndpoint;
 import org.azd.oauth.types.AuthorizedToken;
 import org.azd.utils.BaseRequestBuilder;
 
@@ -30,32 +31,29 @@ public class OAuthAccessTokenBuilder extends BaseRequestBuilder {
 
     /***
      * Generate the authorization endpoint with client id, state, scope and redirection url.
-     * @param clientId The ID assigned to your app when it was registered
-     * @param state Can be any value. Typically, a generated string value that correlates the callback with its associated authorization request.
-     * @param scope Scopes registered with the app. Space separated.
-     * See https://docs.microsoft.com/en-us/azure/devops/integrate/get-started/authentication/oauth?view=azure-devops#scopes
-     * @param redirectUrl Callback URL for your app. Must exactly match the URL registered with the app.
+     * @param authorizationEndpoint Provide the parameters to build authorization endpoint.
      * @return The authorization endpoint to authorize your app
      */
-    public String getAuthorizationEndpoint(final String clientId, final String state, final List<VsoScope> scope, final String redirectUrl) {
+    public static String buildAuthorizationEndpoint(AuthorizationEndpoint authorizationEndpoint) {
+        Objects.requireNonNull(authorizationEndpoint);
         var allScopes = new StringBuilder();
 
-        for (var vsoScope : scope) {
+        for (var vsoScope : authorizationEndpoint.scope) {
             allScopes.append(vsoScope.name());
             allScopes.append("%20");
         }
 
         StringBuilder stringBuilder = new StringBuilder()
-            .append(service)
+            .append(Instance.ACCOUNT_INSTANCE.getInstance())
             .append("/oauth2/authorize?client_id=")
-            .append(clientId)
+            .append(authorizationEndpoint.clientId)
             .append("&response_type=Assertion")
             .append("&state=")
-            .append(state)
+            .append(authorizationEndpoint.state)
             .append("&scope=")
             .append(allScopes.toString().replaceAll("%20$", ""))
             .append("&redirect_uri=")
-            .append(URLHelper.encodeSpecialChars(redirectUrl));
+            .append(URLHelper.encodeSpecialChars(authorizationEndpoint.redirectUrl));
 
         return stringBuilder.toString();
     }
@@ -85,10 +83,11 @@ public class OAuthAccessTokenBuilder extends BaseRequestBuilder {
                 .toString();
 
         // add current system time to refresh the token automatically.
-        var res = getResponse(stringBuilder.toString(), body);
-        res.setReceivedTimestamp(System.currentTimeMillis());
+        var reqInfo = toGetRequestInformation(stringBuilder.toString(), body);
+        var authorizedToken = requestAdapter.send(reqInfo, AuthorizedToken.class);
+        authorizedToken.setReceivedTimestamp(System.currentTimeMillis());
 
-        return res;
+        return authorizedToken;
     }
 
     /***
@@ -114,10 +113,11 @@ public class OAuthAccessTokenBuilder extends BaseRequestBuilder {
                 .append(callbackUrl)
                 .toString();
 
-        var res = getResponse(stringBuilder.toString(), body);
-        res.setReceivedTimestamp(System.currentTimeMillis());
+        var reqInfo = toGetRequestInformation(stringBuilder.toString(), body);
+        var authorizedToken = requestAdapter.send(reqInfo, AuthorizedToken.class);
+        authorizedToken.setReceivedTimestamp(System.currentTimeMillis());
 
-        return res;
+        return authorizedToken;
     }
 
     /***
@@ -130,14 +130,13 @@ public class OAuthAccessTokenBuilder extends BaseRequestBuilder {
                 + authorizedToken.getExpiresIn() * 1000) < System.currentTimeMillis();
     }
 
-    private AuthorizedToken getResponse(String requestUrl, String body) throws AzDException {
+    private RequestInformation toGetRequestInformation(String requestUrl, String body) {
         var reqInfo = new RequestInformation();
         reqInfo.requestMethod = RequestMethod.POST;
         reqInfo.setRequestUrl(requestUrl);
         reqInfo.requestHeaders.add(CustomHeader.URL_ENCODED);
         reqInfo.requestBody = body;
 
-        // Overriding the requestAdapter as we don't want to send the access token yet to call the Api.
-        return requestAdapter.send(reqInfo, AuthorizedToken.class);
+        return reqInfo;
     }
 }

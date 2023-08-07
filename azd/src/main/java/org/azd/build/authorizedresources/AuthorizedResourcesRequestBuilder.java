@@ -35,7 +35,7 @@ public class AuthorizedResourcesRequestBuilder extends BaseRequestBuilder {
      */
     public CompletableFuture<DefinitionResourceReferences> authorize(
             List<DefinitionResourceReference> definitionResourceReferences) throws AzDException {
-        return requestAdapter.sendAsync(toPatchInformation(definitionResourceReferences), DefinitionResourceReferences.class);
+        return requestAdapter.sendAsync(toPatchRequestInformation(definitionResourceReferences), DefinitionResourceReferences.class);
     }
 
     /**
@@ -44,17 +44,7 @@ public class AuthorizedResourcesRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api exception handler.
      */
     public CompletableFuture<DefinitionResourceReferences> list() throws AzDException {
-        return requestAdapter.sendAsync(toGetInformation(null, null), DefinitionResourceReferences.class);
-    }
-
-    /**
-     * Get a collection of Authorize Project Resources.
-     * @return Collection of DefinitionResourceReference {@link DefinitionResourceReferences}
-     * @throws AzDException Default Api exception handler.
-     */
-    public DefinitionResourceReferences get() throws AzDException {
-        var result = requestAdapter.sendStringAsync(toGetInformation(null, null)).join();
-        return serializer.deserialize(result, DefinitionResourceReferences.class);
+        return requestAdapter.sendAsync(toGetRequestInformation(), DefinitionResourceReferences.class);
     }
 
     /**
@@ -64,42 +54,11 @@ public class AuthorizedResourcesRequestBuilder extends BaseRequestBuilder {
      * @return Collection of DefinitionResourceReference {@link DefinitionResourceReferences}
      * @throws AzDException Default Api exception handler.
      */
-    public DefinitionResourceReferences get(String type, String id) throws AzDException {
-        var result = requestAdapter.sendStringAsync(toGetInformation(type, id)).join();
-        return serializer.deserialize(result, DefinitionResourceReferences.class);
-    }
+    public CompletableFuture<DefinitionResourceReferences> list(String type, String id) throws AzDException {
+        var reqInfo = toGetRequestInformation();
+        reqInfo.setQueryParameter("type", type);
+        reqInfo.setQueryParameter("id", id);
 
-    /**
-     * Constructs the request information for Build Authorized Resources Api.
-     * @param definitionResourceReferences Definition references object
-     * @return Request information object {@link RequestInformation}
-     */
-    private RequestInformation toPatchInformation(List<DefinitionResourceReference> definitionResourceReferences) {
-        var reqInfo = new RequestInformation();
-        reqInfo.requestMethod = RequestMethod.PATCH;
-        reqInfo.project = project;
-        reqInfo.serviceEndpoint = service;
-        reqInfo.apiVersion = apiVersion;
-        reqInfo.requestBody = definitionResourceReferences;
-        reqInfo.requestHeaders.add(CustomHeader.JSON_PATCH);
-        return reqInfo;
-    }
-
-    /**
-     * Constructs the request information for Build Authorized Resources Api.
-     * @param type Type of the authorized resource.
-     * @param id ID of the authorized resource.
-     * @return Request information object {@link RequestInformation}
-     */
-    private RequestInformation toGetInformation(String type, String id) {
-        var reqInfo = new RequestInformation();
-        reqInfo.project = project;
-        reqInfo.serviceEndpoint = service;
-        if (type != null && id != null) {
-            reqInfo.setQueryParameter("type", type);
-            reqInfo.setQueryParameter("id", id);
-        }
-        reqInfo.apiVersion = apiVersion;
-        return reqInfo;
+        return requestAdapter.sendAsync(reqInfo, DefinitionResourceReferences.class);
     }
 }

@@ -44,7 +44,7 @@ public class AccountsRequestBuilder extends BaseRequestBuilder {
      * @return RequestInformation object {@link RequestInformation}.
      */
     private RequestInformation toGetRequestInfo(String memberId) {
-        var requestInfo = new RequestInformation();
+        var requestInfo = toGetRequestInformation();
         requestInfo.setRequestUrl(MessageFormat.format("{0}/_apis/{1}?api-version={2}&memberId={3}",
                 Instance.ACCOUNT_INSTANCE.getInstance(), service, apiVersion, memberId));
         return requestInfo;
