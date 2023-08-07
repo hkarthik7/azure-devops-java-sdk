@@ -38,9 +38,9 @@ public class AttachmentsRequestBuilder extends BaseRequestBuilder {
      */
     public CompletableFuture<InputStream> get(int buildId, String timelineId, String recordId,
                                                          String type, String attachmentName) throws AzDException {
-        var reqInfo = toGetInformation(buildId, type);
-        reqInfo.serviceEndpoint = MessageFormat.format("{0}/{1}/{2}/{3}/attachments/{4}/{5}",
-                service, Integer.toString(buildId), timelineId, recordId, type, attachmentName);
+        var reqInfo = toGetInformation(buildId);
+        reqInfo.serviceEndpoint = MessageFormat.format("{0}/{1}/{2}/attachments/{3}/{4}",
+                reqInfo.serviceEndpoint, timelineId, recordId, type, attachmentName);
         reqInfo.requestHeaders.add(CustomHeader.STREAM_ACCEPT);
         return requestAdapter.sendStreamAsync(reqInfo);
     }
@@ -54,21 +54,19 @@ public class AttachmentsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      **/
     public CompletableFuture<Attachments> list(int buildId, String type) throws AzDException {
-        var reqInfo = toGetInformation(buildId, type);
+        var reqInfo = toGetInformation(buildId);
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/attachments/" + type;
         return requestAdapter.sendAsync(reqInfo, Attachments.class);
     }
 
     /**
      * Constructs the request information for Build Attachments Api.
      * @param buildId ID of the build.
-     * @param type The type of attachment.
      * @return Request information object {@link RequestInformation}
      */
-    private RequestInformation toGetInformation(int buildId, String type) {
-        var reqInfo = new RequestInformation();
-        reqInfo.project = project;
-        reqInfo.serviceEndpoint = MessageFormat.format("{0}/{1}/attachments/{2}", service, Integer.toString(buildId), type);
-        reqInfo.apiVersion = apiVersion;
+    private RequestInformation toGetInformation(int buildId) {
+        var reqInfo = toGetRequestInformation();
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId;
         return reqInfo;
     }
 }

@@ -9,7 +9,7 @@ import java.util.Objects;
 
 public class OAuthAccessTokenCredential implements AccessTokenCredential {
     public OAuthAccessTokenCredential(String organization, String projectName,
-                                      String appSecret, String authCode, String callbackUrl) {
+                                      String appSecret, String authCode, String callbackUrl, AuthorizedToken authorizedToken) {
         Objects.requireNonNull(organization, "Organization cannot be null.");
         Objects.requireNonNull(appSecret, "App secret cannot be null.");
         Objects.requireNonNull(callbackUrl, "Callback url cannot be null.");
@@ -20,6 +20,15 @@ public class OAuthAccessTokenCredential implements AccessTokenCredential {
         this.appSecret = appSecret;
         this.authCode = authCode;
         this.callbackUrl = callbackUrl;
+        this.authorizedToken = authorizedToken;
+
+        authenticate();
+    }
+
+    public OAuthAccessTokenCredential(String organization, String projectName,
+                                      String appSecret, String authCode, String callbackUrl) {
+        this(organization, projectName, appSecret, authCode, callbackUrl, null);
+
     }
 
     @Override
@@ -44,7 +53,7 @@ public class OAuthAccessTokenCredential implements AccessTokenCredential {
 
     @Override
     public String getAccessToken() {
-        return authenticate();
+        return oauthAccessToken;
     }
 
     @Override
@@ -52,7 +61,7 @@ public class OAuthAccessTokenCredential implements AccessTokenCredential {
         this.oauthAccessToken = "Bearer " + accessToken;
     }
 
-    private String authenticate() {
+    private void authenticate() {
         var oauthBuilder = AzDDefaultRegisterFactory.createOAuthAccessTokenBuilder();
         try {
             if (authorizedToken != null) {
@@ -63,7 +72,6 @@ public class OAuthAccessTokenCredential implements AccessTokenCredential {
                 authorizedToken = oauthBuilder.getAccessToken(appSecret, authCode, callbackUrl);
             }
             setAccessToken(authorizedToken.getAccessToken());
-            return oauthAccessToken;
         } catch (AzDException e) {
             throw new RuntimeException(e);
         }

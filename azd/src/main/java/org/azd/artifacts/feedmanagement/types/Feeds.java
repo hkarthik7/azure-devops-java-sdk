@@ -1,4 +1,4 @@
-package org.azd.feedmanagement.types;
+package org.azd.artifacts.feedmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -17,11 +17,11 @@ public class Feeds extends SerializableEntity {
     @JsonProperty("value")
     private List<Feed> feeds;
 
-    public List<Feed> getFeed() {
+    public List<Feed> getFeeds() {
         return feeds;
     }
 
-    public void setFeed(List<Feed> feeds) {
+    public void setFeeds(List<Feed> feeds) {
         this.feeds = feeds;
     }
 
