@@ -5,7 +5,7 @@ import org.azd.build.types.Builds;
 import org.azd.build.types.RetentionLeases;
 import org.azd.common.ApiVersion;
 import org.azd.common.types.QueryParameter;
-import org.azd.enums.RequestMethod;
+import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
 import org.azd.http.RequestInformation;
 import org.azd.interfaces.AccessTokenCredential;
@@ -88,13 +88,14 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
     /***
      * Gets a build
      * @param buildId pass the build id
-     * @param requestConfiguration Consumer of request configuration for query parameters.
+     * @param propertyFilters Property filters.
      * @throws AzDException Default Api Exception handler.
      * @return Future build object {@link Build}
      */
-    public CompletableFuture<Build> get(int buildId, Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetInformation(requestConfiguration);
+    public CompletableFuture<Build> get(int buildId, String propertyFilters) throws AzDException {
+        var reqInfo = toGetRequestInformation();
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId;
+        reqInfo.setQueryParameter("propertyFilters", propertyFilters);
 
         return requestAdapter.sendAsync(reqInfo, Build.class);
     }
@@ -135,12 +136,171 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
         return requestAdapter.sendAsync(reqInfo, Builds.class);
     }
 
+    /***
+     * Queues a build
+     * @param definitionId pass the pipeline id to queue the build
+     * @throws AzDException Default Api Exception handler.
+     * @return a build object {@link Build}
+     */
+    public CompletableFuture<Build> queue(int definitionId) throws AzDException {
+        var reqInfo = toPostRequestInformation(null);
+        reqInfo.setQueryParameter("definitionId", definitionId);
+
+        return requestAdapter.sendAsync(reqInfo, Build.class);
+    }
+
+    /***
+     * Queues a build
+     * @param build Build object to queue the build.
+     * @throws AzDException Default Api Exception handler.
+     * @return a build object {@link Build}
+     */
+    public CompletableFuture<Build> queue(Build build) throws AzDException {
+        var reqInfo = toPostRequestInformation(build);
+
+        return requestAdapter.sendAsync(reqInfo, Build.class);
+    }
+
+    /**
+     * Updates a build.
+     *
+     * @param build pass the Build object to update. {@link Build}
+     * @param buildId The ID of the build.
+     * @param retry None
+     * @return Build Object {@link Build}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    public CompletableFuture<Build> update(int buildId, boolean retry, Build build) throws AzDException {
+        var reqInfo = toPatchRequestInformation(build);
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId;
+        reqInfo.setQueryParameter("retry", retry);
+
+        reqInfo.requestHeaders.clear();
+        reqInfo.requestHeaders.add(CustomHeader.JSON_CONTENT_TYPE);
+
+        return requestAdapter.sendAsync(reqInfo, Build.class);
+    }
+
+    /**
+     * Updates multiple builds.
+     *
+     * @param builds List of build to update. {@link Builds}
+     * @return Build Object {@link Builds}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    public CompletableFuture<Builds> update(Builds builds) throws AzDException {
+        var reqInfo = toPatchRequestInformation(builds);
+        reqInfo.requestHeaders.clear();
+        reqInfo.requestHeaders.add(CustomHeader.JSON_CONTENT_TYPE);
+
+        return requestAdapter.sendAsync(reqInfo, Builds.class);
+    }
+
     /**
      * Represents the query parameters.
      */
     public static class GetQueryParameters {
-        @QueryParameter(name = "propertyFilters")
-        public String propertyFilters;
+        /**
+         * The maximum number of builds to return.
+         */
+        @QueryParameter(name = "$top")
+        public int top;
+        /**
+         * If specified, filters to builds that built branches that built this branch.
+         */
+        @QueryParameter(name = "branchName")
+        public String branchName;
+        /**
+         * A comma-delimited list that specifies the IDs of builds to retrieve.
+         */
+        @QueryParameter(name = "buildIds")
+        public String[] buildIds;
+        /**
+         * If specified, filters to builds that match this build number. Append * to do a prefix search.
+         */
+        @QueryParameter(name = "buildNumber")
+        public String buildNumber;
+        /**
+         * The maximum number of builds to return.
+         */
+        @QueryParameter(name = "continuationToken")
+        public String continuationToken;
+        /**
+         * A comma-delimited list of definition IDs. If specified, filters to builds for these definitions.
+         */
+        @QueryParameter(name = "definitions")
+        public String[] definitions;
+        /**
+         * Indicates whether to exclude, include, or only return deleted builds.
+         */
+        @QueryParameter(name = "deletedFilter")
+        public QueryDeletedOption deletedFilter;
+        /**
+         * The maximum number of builds to return per definition.
+         */
+        @QueryParameter(name = "maxBuildsPerDefinition")
+        public int maxBuildsPerDefinition;
+        /**
+         * If specified, filters to builds that finished/started/queued before this date based on the queryOrder specified.
+         */
+        @QueryParameter(name = "maxTime")
+        public String maxTime;
+        /**
+         * If specified, filters to builds that finished/started/queued after this date based on the queryOrder specified.
+         */
+        @QueryParameter(name = "minTime")
+        public String minTime;
+        /**
+         * A comma-delimited list of properties to retrieve.
+         */
+        @QueryParameter(name = "properties")
+        public String[] properties;
+        /**
+         * A comma-delimited list of properties to retrieve.
+         */
+        @QueryParameter(name = "queryOrder")
+        public BuildQueryOrder queryOrder;
+        /**
+         * A comma-delimited list of queue IDs. If specified, filters to builds that ran against these queues.
+         */
+        @QueryParameter(name = "queues")
+        public String[] queues;
+        /**
+         * If specified, filters to builds that match this reason.
+         */
+        @QueryParameter(name = "reasonFilter")
+        public BuildReason reasonFilter;
+        /**
+         *
+         * If specified, filters to builds that built from this repository.
+         */
+        @QueryParameter(name = "repositoryId")
+        public String repositoryId;
+        /**
+         * If specified, filters to builds that built from repositories of this type.
+         */
+        @QueryParameter(name = "repositoryType")
+        public String repositoryType;
+        /**
+         * If specified, filters to builds requested for the specified user.
+         */
+        @QueryParameter(name = "requestedFor")
+        public String requestedFor;
+        /**
+         * If specified, filters to builds that match this result.
+         */
+        @QueryParameter(name = "resultFilter")
+        public BuildResult resultFilter;
+        /**
+         * If specified, filters to builds that match this status.
+         */
+        @QueryParameter(name = "statusFilter")
+        public BuildStatus statusFilter;
+        /**
+         * A comma-delimited list of tags. If specified, filters to builds that have the specified tags.
+         */
+        @QueryParameter(name = "tagFilters")
+        public String[] tagFilters;
     }
 
     /**
