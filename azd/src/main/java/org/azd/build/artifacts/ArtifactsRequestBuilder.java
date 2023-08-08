@@ -4,7 +4,6 @@ import org.azd.build.types.BuildArtifact;
 import org.azd.build.types.BuildArtifacts;
 import org.azd.common.ApiVersion;
 import org.azd.enums.CustomHeader;
-import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.http.RequestInformation;
 import org.azd.interfaces.AccessTokenCredential;
