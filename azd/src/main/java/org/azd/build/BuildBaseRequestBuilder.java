@@ -4,6 +4,8 @@ import org.azd.build.artifacts.ArtifactsRequestBuilder;
 import org.azd.build.attachments.AttachmentsRequestBuilder;
 import org.azd.build.authorizedresources.AuthorizedResourcesRequestBuilder;
 import org.azd.build.builds.BuildsRequestBuilder;
+import org.azd.build.controllers.ControllersRequestBuilder;
+import org.azd.build.definitions.DefinitionsRequestBuilder;
 import org.azd.interfaces.AccessTokenCredential;
 import org.azd.interfaces.RequestAdapter;
 import org.azd.utils.BaseRequestBuilder;
@@ -51,5 +53,21 @@ public class BuildBaseRequestBuilder extends BaseRequestBuilder {
      */
     public BuildsRequestBuilder builds() {
         return new BuildsRequestBuilder(accessTokenCredential, requestAdapter);
+    }
+
+    /**
+     * Provides functionality to manage Build Controllers Api.
+     * @return ControllersRequestBuilder {@link ControllersRequestBuilder}
+     */
+    public ControllersRequestBuilder controllers() {
+        return new ControllersRequestBuilder(accessTokenCredential, requestAdapter);
+    }
+
+    /**
+     * Provides functionality to manage Build Definitions Api.
+     * @return DefinitionsRequestBuilder {@link DefinitionsRequestBuilder}
+     */
+    public DefinitionsRequestBuilder definitions() {
+        return new DefinitionsRequestBuilder(accessTokenCredential, requestAdapter);
     }
 }
