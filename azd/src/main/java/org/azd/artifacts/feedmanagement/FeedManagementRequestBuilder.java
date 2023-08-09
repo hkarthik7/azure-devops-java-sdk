@@ -4,7 +4,6 @@ import org.azd.artifacts.feedmanagement.types.Feed;
 import org.azd.artifacts.feedmanagement.types.Feeds;
 import org.azd.common.ApiVersion;
 import org.azd.common.types.QueryParameter;
-import org.azd.enums.CustomHeader;
 import org.azd.enums.FeedRole;
 import org.azd.exceptions.AzDException;
 import org.azd.http.RequestInformation;
@@ -138,8 +137,6 @@ public class FeedManagementRequestBuilder extends BaseRequestBuilder {
     public CompletableFuture<Feed> update(String feedId, Feed feed) throws AzDException {
         var reqInfo = toPatchRequestInformation(feed);
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + feedId;
-        reqInfo.requestHeaders.clear();
-        reqInfo.requestHeaders.add(CustomHeader.JSON_CONTENT_TYPE);
 
         return requestAdapter.sendAsync(reqInfo, Feed.class);
     }
