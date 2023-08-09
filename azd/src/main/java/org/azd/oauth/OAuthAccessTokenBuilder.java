@@ -3,7 +3,6 @@ package org.azd.oauth;
 import org.azd.enums.CustomHeader;
 import org.azd.enums.Instance;
 import org.azd.enums.RequestMethod;
-import org.azd.enums.VsoScope;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.URLHelper;
 import org.azd.http.RequestInformation;
@@ -12,8 +11,6 @@ import org.azd.oauth.types.AuthorizationEndpoint;
 import org.azd.oauth.types.AuthorizedToken;
 import org.azd.utils.BaseRequestBuilder;
 
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Objects;
 
 /**
