@@ -36,27 +36,27 @@ public abstract class BaseRequestBuilder {
     }
 
     /**
-     * Constructs the request information for Build Api.
+     * Constructs the GET request information.
      * @return RequestInformation object {@link RequestInformation}
      */
     protected RequestInformation toGetRequestInformation() {
         var reqInfo = new RequestInformation();
         reqInfo.subdomain = subdomain;
-        reqInfo.project = accessTokenCredential.getProjectName();
+        reqInfo.project = project;
         reqInfo.serviceEndpoint = service;
         reqInfo.apiVersion = apiVersion;
         return reqInfo;
     }
 
     /**
-     * Constructs the request information for Artifacts feed management Api.
+     * Constructs the POST request information.
      * @return RequestInformation object {@link RequestInformation}
      */
     protected RequestInformation toPostRequestInformation(Object requestBody) {
         var reqInfo = new RequestInformation();
         reqInfo.requestMethod = RequestMethod.POST;
         reqInfo.subdomain = subdomain;
-        reqInfo.project = accessTokenCredential.getProjectName();
+        reqInfo.project = project;
         reqInfo.serviceEndpoint = service;
         reqInfo.apiVersion = apiVersion;
         reqInfo.requestBody = requestBody;
@@ -65,32 +65,48 @@ public abstract class BaseRequestBuilder {
     }
 
     /**
-     * Constructs the request information for Artifacts feed management Api.
+     * Constructs the DELETE request information.
      * @return RequestInformation object {@link RequestInformation}
      */
     protected RequestInformation toDeleteRequestInformation() {
         var reqInfo = new RequestInformation();
         reqInfo.requestMethod = RequestMethod.DELETE;
         reqInfo.subdomain = subdomain;
-        reqInfo.project = accessTokenCredential.getProjectName();
+        reqInfo.project = project;
         reqInfo.serviceEndpoint = service;
         reqInfo.apiVersion = apiVersion;
         return reqInfo;
     }
 
     /**
-     * Constructs the request information for Build Authorized Resources Api.
-     * @return Request information object {@link RequestInformation}
+     * Constructs the PATCH request information.
+     * @return RequestInformation object {@link RequestInformation}
      */
     protected RequestInformation toPatchRequestInformation(Object requestBody) {
         var reqInfo = new RequestInformation();
         reqInfo.requestMethod = RequestMethod.PATCH;
         reqInfo.subdomain = subdomain;
-        reqInfo.project = accessTokenCredential.getProjectName();
+        reqInfo.project = project;
         reqInfo.serviceEndpoint = service;
         reqInfo.apiVersion = apiVersion;
         reqInfo.requestBody = requestBody;
-        reqInfo.requestHeaders.add(CustomHeader.JSON_PATCH);
+        reqInfo.requestHeaders.add(CustomHeader.JSON_CONTENT_TYPE);
+        return reqInfo;
+    }
+
+    /**
+     * Constructs the PUT request information.
+     * @return RequestInformation object {@link RequestInformation}
+     */
+    protected RequestInformation toPutRequestInformation(Object requestBody) {
+        var reqInfo = new RequestInformation();
+        reqInfo.requestMethod = RequestMethod.PUT;
+        reqInfo.subdomain = subdomain;
+        reqInfo.project = project;
+        reqInfo.serviceEndpoint = service;
+        reqInfo.apiVersion = apiVersion;
+        reqInfo.requestBody = requestBody;
+        reqInfo.requestHeaders.add(CustomHeader.JSON_CONTENT_TYPE);
         return reqInfo;
     }
 }
