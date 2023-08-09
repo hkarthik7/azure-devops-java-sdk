@@ -21,8 +21,6 @@ public class OAuthAccessTokenCredential implements AccessTokenCredential {
         this.authCode = authCode;
         this.callbackUrl = callbackUrl;
         this.authorizedToken = authorizedToken;
-
-        authenticate();
     }
 
     public OAuthAccessTokenCredential(String organization, String projectName,
@@ -53,6 +51,7 @@ public class OAuthAccessTokenCredential implements AccessTokenCredential {
 
     @Override
     public String getAccessToken() {
+        authenticate();
         return oauthAccessToken;
     }
 
