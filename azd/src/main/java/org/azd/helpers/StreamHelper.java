@@ -2,16 +2,12 @@ package org.azd.helpers;
 
 import org.azd.enums.ApiExceptionTypes;
 import org.azd.enums.CustomHeader;
-import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
-import org.azd.http.DefaultRequestAdapter;
 import org.azd.http.RequestInformation;
 import org.azd.interfaces.RequestAdapter;
 import org.azd.utils.AzDDefaultRegisterFactory;
-import org.azd.utils.RestClient;
 
 import java.io.*;
-import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Objects;

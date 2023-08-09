@@ -11,7 +11,6 @@ import org.azd.interfaces.RequestAdapter;
 import org.azd.utils.BaseRequestBuilder;
 
 import java.io.InputStream;
-import java.text.MessageFormat;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
