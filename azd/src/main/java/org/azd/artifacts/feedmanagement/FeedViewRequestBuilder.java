@@ -2,7 +2,6 @@ package org.azd.artifacts.feedmanagement;
 
 import org.azd.artifacts.feedmanagement.types.FeedView;
 import org.azd.common.ApiVersion;
-import org.azd.enums.CustomHeader;
 import org.azd.exceptions.AzDException;
 import org.azd.interfaces.AccessTokenCredential;
 import org.azd.interfaces.RequestAdapter;

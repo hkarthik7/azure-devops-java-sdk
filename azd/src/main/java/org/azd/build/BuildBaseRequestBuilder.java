@@ -6,6 +6,8 @@ import org.azd.build.authorizedresources.AuthorizedResourcesRequestBuilder;
 import org.azd.build.builds.BuildsRequestBuilder;
 import org.azd.build.controllers.ControllersRequestBuilder;
 import org.azd.build.definitions.DefinitionsRequestBuilder;
+import org.azd.build.folders.FoldersRequestBuilder;
+import org.azd.build.sourceproviders.SourceProvidersRequestBuilder;
 import org.azd.interfaces.AccessTokenCredential;
 import org.azd.interfaces.RequestAdapter;
 import org.azd.utils.BaseRequestBuilder;
@@ -69,5 +71,21 @@ public class BuildBaseRequestBuilder extends BaseRequestBuilder {
      */
     public DefinitionsRequestBuilder definitions() {
         return new DefinitionsRequestBuilder(accessTokenCredential, requestAdapter);
+    }
+
+    /**
+     * Provides functionality to manage Folder for build definitions Api.
+     * @return FoldersRequestBuilder {@link FoldersRequestBuilder}
+     */
+    public FoldersRequestBuilder folders() {
+        return new FoldersRequestBuilder(accessTokenCredential, requestAdapter);
+    }
+
+    /**
+     * Provides functionality to manage source providers Api.
+     * @return SourceProvidersRequestBuilder {@link SourceProvidersRequestBuilder}
+     */
+    public SourceProvidersRequestBuilder sourceproviders() {
+        return new SourceProvidersRequestBuilder(accessTokenCredential, requestAdapter);
     }
 }

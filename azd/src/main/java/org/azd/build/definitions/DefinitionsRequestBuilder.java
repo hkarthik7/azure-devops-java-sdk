@@ -5,8 +5,6 @@ import org.azd.build.types.BuildDefinitionRevisions;
 import org.azd.build.types.BuildDefinitions;
 import org.azd.common.ApiVersion;
 import org.azd.common.types.QueryParameter;
-import org.azd.enums.BuildQueryOrder;
-import org.azd.enums.CustomHeader;
 import org.azd.enums.DefinitionQueryOrder;
 import org.azd.exceptions.AzDException;
 import org.azd.interfaces.AccessTokenCredential;
@@ -17,7 +15,15 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
+/**
+ * Provides functionality to work with Build Definitions Api.
+ */
 public class DefinitionsRequestBuilder extends BaseRequestBuilder {
+    /**
+     * Instantiates a new request builder instance and sets the default values.
+     * @param accessTokenCredential Authentication provider {@link AccessTokenCredential}.
+     * @param requestAdapter The request adapter to execute the requests.
+     */
     public DefinitionsRequestBuilder(AccessTokenCredential accessTokenCredential, RequestAdapter requestAdapter) {
         super(accessTokenCredential, requestAdapter, "build/definitions", ApiVersion.BUILD_DEFINITIONS);
     }

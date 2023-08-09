@@ -3,14 +3,12 @@ package org.azd.build.builds;
 import org.azd.build.types.BuildWorkItems;
 import org.azd.common.ApiVersion;
 import org.azd.common.types.QueryParameter;
-import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.http.RequestInformation;
 import org.azd.interfaces.AccessTokenCredential;
 import org.azd.interfaces.RequestAdapter;
 import org.azd.utils.BaseRequestBuilder;
 
-import java.text.MessageFormat;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
