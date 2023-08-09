@@ -89,8 +89,6 @@ public class FeedViewRequestBuilder extends BaseRequestBuilder {
     public CompletableFuture<FeedView> update(String feedId, String viewId, FeedView feedView) throws AzDException {
         var reqInfo = toPatchRequestInformation(feedView);
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + feedId + "/views/" + viewId;
-        reqInfo.requestHeaders.clear();
-        reqInfo.requestHeaders.add(CustomHeader.JSON_CONTENT_TYPE);
 
         return requestAdapter.sendAsync(reqInfo, FeedView.class);
     }

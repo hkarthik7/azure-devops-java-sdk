@@ -175,9 +175,6 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId;
         reqInfo.setQueryParameter("retry", retry);
 
-        reqInfo.requestHeaders.clear();
-        reqInfo.requestHeaders.add(CustomHeader.JSON_CONTENT_TYPE);
-
         return requestAdapter.sendAsync(reqInfo, Build.class);
     }
 
@@ -190,8 +187,6 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      **/
     public CompletableFuture<Builds> update(Builds builds) throws AzDException {
         var reqInfo = toPatchRequestInformation(builds);
-        reqInfo.requestHeaders.clear();
-        reqInfo.requestHeaders.add(CustomHeader.JSON_CONTENT_TYPE);
 
         return requestAdapter.sendAsync(reqInfo, Builds.class);
     }
