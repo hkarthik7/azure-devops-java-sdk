@@ -45,6 +45,7 @@ public abstract class BaseRequestBuilder {
         reqInfo.project = project;
         reqInfo.serviceEndpoint = service;
         reqInfo.apiVersion = apiVersion;
+        reqInfo.requestHeaders.add(CustomHeader.JSON);
         return reqInfo;
     }
 
