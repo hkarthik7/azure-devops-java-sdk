@@ -69,11 +69,11 @@ public class BuildChangesRequestBuilder extends BaseRequestBuilder {
         @QueryParameter(name = "toBuildId")
         public int toBuildId;
         @QueryParameter(name = "$top")
-        public int top;
+        public Number top;
         @QueryParameter(name = "continuationToken")
         public String continuationToken;
         @QueryParameter(name = "includeSourceChange")
-        public boolean includeSourceChange;
+        public Boolean includeSourceChange;
     }
 
     /**

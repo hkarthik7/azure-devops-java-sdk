@@ -165,9 +165,9 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
      */
     public static class DefinitionQueryParameters {
         @QueryParameter(name = "definitionToCloneId")
-        public int definitionToCloneId;
+        public Number definitionToCloneId;
         @QueryParameter(name = "definitionToCloneRevision")
-        public int definitionToCloneRevision;
+        public Number definitionToCloneRevision;
     }
 
     public static class DefinitionRequestConfiguration {
@@ -179,7 +179,7 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
          * If true includes latest builds.
          */
         @QueryParameter(name = "includeLatestBuilds")
-        public boolean includeLatestBuilds;
+        public Boolean includeLatestBuilds;
         /**
          * If specified, indicates the date from which metrics should be included.
          */
@@ -194,7 +194,7 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
          * The revision number to retrieve. If this is not specified, the latest version will be returned.
          */
         @QueryParameter(name = "revision")
-        public int revision;
+        public Number revision;
     }
 
     public static class GetRequestConfiguration {
@@ -206,7 +206,7 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
          * The maximum number of definitions to return.
          */
         @QueryParameter(name = "$top")
-        public int $top;
+        public Number $top;
         /**
          * If specified, filters to definitions that have builds after this date.
          */
@@ -226,12 +226,12 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
          * Indicates whether the full definitions should be returned. By default, shallow representations of the definitions are returned.
          */
         @QueryParameter(name = "includeAllProperties")
-        public boolean includeAllProperties;
+        public Boolean includeAllProperties;
         /**
          * Indicates whether to return the latest and latest completed builds for this definition.
          */
         @QueryParameter(name = "includeLatestBuilds")
-        public boolean includeLatestBuilds;
+        public Boolean includeLatestBuilds;
         /**
          * If specified, indicates the date from which metrics should be included.
          */
@@ -256,7 +256,7 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
          * If specified, filters to definitions with the given process type.
          */
         @QueryParameter(name = "processType")
-        public int processType;
+        public Number processType;
         /**
          * Indicates the order in which definitions should be returned.
          */

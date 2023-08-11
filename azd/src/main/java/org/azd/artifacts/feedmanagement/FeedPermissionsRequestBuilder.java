@@ -67,12 +67,12 @@ public class FeedPermissionsRequestBuilder extends BaseRequestBuilder {
          * True to include user Ids in the response. Default is false.
          */
         @QueryParameter(name = "includeIds")
-        public boolean includeIds;
+        public Boolean includeIds;
         /**
          * True to only return explicitly set permissions on the feed. Default is false.
          */
         @QueryParameter(name = "excludeInheritedPermissions")
-        public boolean excludeInheritedPermissions;
+        public Boolean excludeInheritedPermissions;
         /**
          * Filter permissions to the provided identity.
          */
@@ -82,7 +82,7 @@ public class FeedPermissionsRequestBuilder extends BaseRequestBuilder {
          * If includeDeletedFeeds is true, then feedId must be specified by name and not by Guid.
          */
         @QueryParameter(name = "includeDeletedFeeds")
-        public boolean includeDeletedFeeds;
+        public Boolean includeDeletedFeeds;
     }
 
     /**

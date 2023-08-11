@@ -261,7 +261,7 @@ public class SourceProvidersRequestBuilder extends BaseRequestBuilder {
          * If set to true, this will limit the set of results and will return a continuation token to continue the query.
          */
         @QueryParameter(name = "pageResults")
-        public boolean pageResults;
+        public Boolean pageResults;
         /**
          * If specified, the vendor-specific identifier or the name of a single repository to get.
          */
