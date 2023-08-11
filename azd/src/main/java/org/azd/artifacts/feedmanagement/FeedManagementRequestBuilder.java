@@ -155,12 +155,12 @@ public class FeedManagementRequestBuilder extends BaseRequestBuilder {
          * Include upstreams that have been deleted in the response.
          */
         @QueryParameter(name = "includeDeletedUpstreams")
-        public boolean includeDeletedUpstreams;
+        public Boolean includeDeletedUpstreams;
         /**
          * Resolve names if true.
          */
         @QueryParameter(name = "includeUrls")
-        public boolean includeUrls;
+        public Boolean includeUrls;
     }
 
     /**

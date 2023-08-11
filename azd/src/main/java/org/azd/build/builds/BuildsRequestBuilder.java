@@ -3,6 +3,7 @@ package org.azd.build.builds;
 import org.azd.build.types.Build;
 import org.azd.build.types.Builds;
 import org.azd.build.types.RetentionLeases;
+import org.azd.cache.BuildCache;
 import org.azd.common.ApiVersion;
 import org.azd.common.types.QueryParameter;
 import org.azd.enums.*;
@@ -82,7 +83,9 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
     public CompletableFuture<Build> get(int buildId) throws AzDException {
         var reqInfo = toGetInformation(null);
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId;
-        return requestAdapter.sendAsync(reqInfo, Build.class);
+        var result = requestAdapter.sendAsync(reqInfo, Build.class);
+        BuildCache.update(buildId, result);
+        return result;
     }
 
     /***
@@ -199,7 +202,7 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
          * The maximum number of builds to return.
          */
         @QueryParameter(name = "$top")
-        public int top;
+        public Number top;
         /**
          * If specified, filters to builds that built branches that built this branch.
          */
@@ -234,7 +237,7 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
          * The maximum number of builds to return per definition.
          */
         @QueryParameter(name = "maxBuildsPerDefinition")
-        public int maxBuildsPerDefinition;
+        public Number maxBuildsPerDefinition;
         /**
          * If specified, filters to builds that finished/started/queued before this date based on the queryOrder specified.
          */

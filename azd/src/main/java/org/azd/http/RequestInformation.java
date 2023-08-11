@@ -40,18 +40,22 @@ public class RequestInformation {
                         queryParameters.put(name, value);
                     }
                 }
-            } catch (Exception ignored) { }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
     public void setQueryParameter(String name, Object value) {
         Objects.requireNonNull(name);
-        queryParameters.put(name, value);
+        if (queryParameters.containsKey(name)) queryParameters.replace(name, value);
+        else queryParameters.put(name, value);
     }
 
     public String getRequestUrl() {
         if (requestUrl != null) return requestUrl;
-        if (subdomain != null) baseInstance = baseInstance.replaceAll("https://", "https://" + subdomain + ".");
+        if (subdomain != null && !baseInstance.contains(subdomain))
+            baseInstance = baseInstance.replaceAll("https://", "https://" + subdomain + ".");
         var url = new StringBuilder(baseInstance.replaceAll("/$", ""));
         if (project != null) url.append("/").append(project);
         url.append("/_apis");
