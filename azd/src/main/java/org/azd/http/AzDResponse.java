@@ -7,6 +7,7 @@ public class AzDResponse {
     public int getStatusCode() {
         return statusCode;
     }
+
     public HttpHeaders getResponseHeaders() {
         return responseHeaders;
     }
@@ -14,6 +15,10 @@ public class AzDResponse {
     public Object getResponseBody() {
         return responseBody;
     }
+
+    public String getRequestUrl() { return requestUrl; }
+
+    public RequestInformation getRequestInformation() { return requestInformation; }
 
     /**
      * Retrieves the continuation token from response header. This can then be used for getting the paginated response.
@@ -42,13 +47,18 @@ public class AzDResponse {
         return OptionalLong.empty();
     }
 
-    public AzDResponse(int statusCode, HttpHeaders responseHeaders, Object responseBody) {
+    public AzDResponse(int statusCode, HttpHeaders responseHeaders, Object responseBody, String requestUrl,
+                       RequestInformation requestInformation) {
         this.statusCode = statusCode;
         this.responseHeaders = responseHeaders;
         this.responseBody = responseBody;
+        this.requestUrl = requestUrl;
+        this.requestInformation = requestInformation;
     }
 
     private final int statusCode;
     private final HttpHeaders responseHeaders;
     private final Object responseBody;
+    private final String requestUrl;
+    private final RequestInformation requestInformation;
 }
