@@ -81,11 +81,11 @@ public class BuildWorkItemsRequestBuilder extends BaseRequestBuilder {
      */
     public static class GetQueryParameters {
         @QueryParameter(name = "$top")
-        public int top;
+        public Number top;
         @QueryParameter(name = "fromBuildId")
-        public int fromBuildId;
+        public Number fromBuildId;
         @QueryParameter(name = "toBuildId")
-        public int toBuildId;
+        public Number toBuildId;
     }
 
     /**
