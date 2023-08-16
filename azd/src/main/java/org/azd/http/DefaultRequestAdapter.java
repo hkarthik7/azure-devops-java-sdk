@@ -6,13 +6,14 @@ import org.azd.interfaces.RequestAdapter;
 import org.azd.interfaces.ResponseHandler;
 import org.azd.interfaces.SerializerContext;
 import org.azd.serializer.SerializableEntity;
-import org.azd.utils.AzDDefaultRegisterFactory;
+import org.azd.utils.InstanceFactory;
 
 import java.io.InputStream;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public class DefaultRequestAdapter implements RequestAdapter {
@@ -42,8 +43,8 @@ public class DefaultRequestAdapter implements RequestAdapter {
                                  SerializerContext serializer, ResponseHandler handler) {
         this.accessTokenCredential = accessTokenCredential;
         this.client = client == null ? RequestClientBuilderFactory.create() : client;
-        this.serializer = serializer == null ? AzDDefaultRegisterFactory.createSerializerContext() : serializer;
-        this.handler = handler == null ? AzDDefaultRegisterFactory.createResponseHandler() : handler;
+        this.serializer = serializer == null ? InstanceFactory.createSerializerContext() : serializer;
+        this.handler = handler == null ? InstanceFactory.createResponseHandler() : handler;
     }
 
     @Override
@@ -89,6 +90,21 @@ public class DefaultRequestAdapter implements RequestAdapter {
                 .thenApplyAsync(resp -> {
                     handler.setResponse(resp, requestInformation);
                     return resp.body();
+                });
+    }
+
+    @Override
+    public CompletableFuture<Void> sendPrimitiveAsync(RequestInformation requestInformation) throws AzDException {
+        return client.sendAsync(getRequest(requestInformation), HttpResponse.BodyHandlers.ofString())
+                .thenAcceptAsync(resp -> {
+                    handler.setResponse(resp, requestInformation);
+                    if (resp.body() != null) {
+                        try {
+                            serializer.deserialize(resp.body(), Map.class);
+                        } catch (AzDException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
                 });
     }
 

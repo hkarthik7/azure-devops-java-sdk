@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.azd.exceptions.AzDException;
 import org.azd.interfaces.SerializerContext;
-import org.azd.utils.AzDDefaultRegisterFactory;
+import org.azd.utils.InstanceFactory;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class SerializableEntity {
@@ -37,5 +37,5 @@ public abstract class SerializableEntity {
     }
 
     @JsonIgnore
-    private final SerializerContext SERIALIZER = AzDDefaultRegisterFactory.createSerializerContext();
+    private final SerializerContext SERIALIZER = InstanceFactory.createSerializerContext();
 }

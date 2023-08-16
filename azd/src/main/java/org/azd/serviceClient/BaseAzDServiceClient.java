@@ -7,7 +7,7 @@ import org.azd.enums.Instance;
 import org.azd.http.DefaultRequestAdapter;
 import org.azd.interfaces.AccessTokenCredential;
 import org.azd.interfaces.RequestAdapter;
-import org.azd.utils.AzDDefaultRegisterFactory;
+import org.azd.utils.InstanceFactory;
 
 public class BaseAzDServiceClient {
     public AccountsBaseRequestBuilder accounts() { return new AccountsBaseRequestBuilder(accessTokenCredential, requestAdapter); }
@@ -18,7 +18,7 @@ public class BaseAzDServiceClient {
 
     public BaseAzDServiceClient(AccessTokenCredential accessTokenCredential) {
         this.accessTokenCredential = accessTokenCredential;
-        AzDDefaultRegisterFactory.registerDefaultBaseInstance(Instance.BASE_INSTANCE.getInstance() + accessTokenCredential.getOrganization());
+        InstanceFactory.registerDefaultBaseInstance(Instance.BASE_INSTANCE.getInstance() + accessTokenCredential.getOrganization());
         this.requestAdapter = new DefaultRequestAdapter(accessTokenCredential);
     }
 

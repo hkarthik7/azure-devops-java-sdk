@@ -5,7 +5,7 @@ import org.azd.enums.CustomHeader;
 import org.azd.exceptions.AzDException;
 import org.azd.http.RequestInformation;
 import org.azd.interfaces.RequestAdapter;
-import org.azd.utils.AzDDefaultRegisterFactory;
+import org.azd.utils.InstanceFactory;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -17,7 +17,7 @@ public class StreamHelper {
      * Default size of byte array
      */
     private static int DEFAULT_BYTE_ARRAY_SIZE = 8192;
-    private static final RequestAdapter requestAdapter = AzDDefaultRegisterFactory.createDefaultRequestAdapter();
+    private static final RequestAdapter requestAdapter = InstanceFactory.createDefaultRequestAdapter();
 
     /**
      * Returns the default byte array size

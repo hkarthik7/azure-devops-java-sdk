@@ -8,6 +8,7 @@ import org.azd.build.controllers.ControllersRequestBuilder;
 import org.azd.build.definitions.DefinitionsRequestBuilder;
 import org.azd.build.folders.FoldersRequestBuilder;
 import org.azd.build.sourceproviders.SourceProvidersRequestBuilder;
+import org.azd.build.tags.TagsRequestBuilder;
 import org.azd.interfaces.AccessTokenCredential;
 import org.azd.interfaces.RequestAdapter;
 import org.azd.utils.BaseRequestBuilder;
@@ -87,5 +88,13 @@ public class BuildBaseRequestBuilder extends BaseRequestBuilder {
      */
     public SourceProvidersRequestBuilder sourceproviders() {
         return new SourceProvidersRequestBuilder(accessTokenCredential, requestAdapter);
+    }
+
+    /**
+     * Provides functionality to manage build and build definition tags Api.
+     * @return TagsRequestBuilder {@link TagsRequestBuilder}
+     */
+    public TagsRequestBuilder tags() {
+        return new TagsRequestBuilder(accessTokenCredential, requestAdapter);
     }
 }

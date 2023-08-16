@@ -11,7 +11,6 @@ import org.azd.interfaces.AccessTokenCredential;
 import org.azd.interfaces.RequestAdapter;
 import org.azd.utils.BaseRequestBuilder;
 
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
@@ -61,15 +60,7 @@ public class FeedManagementRequestBuilder extends BaseRequestBuilder {
         var reqInfo = toDeleteRequestInformation();
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + feedId;
 
-        return requestAdapter.sendStringAsync(reqInfo)
-                .thenApplyAsync(r -> {
-                    try {
-                        if (!r.isEmpty()) serializer.deserialize(r, Map.class);
-                    } catch (AzDException e) {
-                        throw new RuntimeException(e);
-                    }
-                    return null;
-                });
+        return requestAdapter.sendPrimitiveAsync(reqInfo);
     }
 
     /**
