@@ -2,7 +2,7 @@ package org.azd.http;
 
 import org.azd.common.types.QueryParameter;
 import org.azd.enums.RequestMethod;
-import org.azd.utils.AzDDefaultRegisterFactory;
+import org.azd.utils.InstanceFactory;
 
 import java.io.InputStream;
 import java.util.Arrays;
@@ -84,7 +84,7 @@ public class RequestInformation {
     private static String getQueryString(String key, Object value) {
         return "&" + key + "=" + value;
     }
-    private String baseInstance = AzDDefaultRegisterFactory.getBaseInstance();
+    private String baseInstance = InstanceFactory.getBaseInstance();
     private String requestUrl;
     private final Map<String, Object> queryParameters = new HashMap<>();
 }

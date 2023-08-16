@@ -7,7 +7,7 @@ import org.azd.interfaces.PageIterator;
 import org.azd.interfaces.RequestAdapter;
 import org.azd.interfaces.SerializerContext;
 import org.azd.serializer.SerializableEntity;
-import org.azd.utils.AzDDefaultRegisterFactory;
+import org.azd.utils.InstanceFactory;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -25,7 +25,7 @@ public class PagedListIterator<T extends SerializableEntity> implements PageIter
 
     public PagedListIterator(Class<T> model, SerializerContext serializer) {
         this.model = model;
-        this.serializer = serializer == null ? AzDDefaultRegisterFactory.createSerializerContext() : serializer;
+        this.serializer = serializer == null ? InstanceFactory.createSerializerContext() : serializer;
         this.listIterator = new ListIterator();
     }
 
@@ -53,7 +53,7 @@ public class PagedListIterator<T extends SerializableEntity> implements PageIter
         public ListIterator(RequestAdapter requestAdapter) {
             this.response = AzDResponseHandler.getResponse();
             this.continuationToken = this.response.getContinuationToken();
-            this.requestAdapter = requestAdapter == null ? AzDDefaultRegisterFactory.createDefaultRequestAdapter() : requestAdapter;
+            this.requestAdapter = requestAdapter == null ? InstanceFactory.createDefaultRequestAdapter() : requestAdapter;
         }
 
         @Override

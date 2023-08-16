@@ -10,7 +10,7 @@ import org.azd.interfaces.SerializerContext;
 public abstract class BaseRequestBuilder {
     protected AccessTokenCredential accessTokenCredential;
     protected RequestAdapter requestAdapter;
-    protected SerializerContext serializer = AzDDefaultRegisterFactory.createSerializerContext();
+    protected SerializerContext serializer = InstanceFactory.createSerializerContext();
     protected String service;
     protected String subdomain;
     protected String project;

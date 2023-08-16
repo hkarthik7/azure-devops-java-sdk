@@ -1,6 +1,6 @@
 package org.azd.http;
 
-import org.azd.utils.AzDDefaultRegisterFactory;
+import org.azd.utils.InstanceFactory;
 
 import java.net.http.HttpClient;
 
@@ -9,7 +9,7 @@ public class RequestClientBuilderFactory {
         return create(null);
     }
     public static HttpClient create(RequestOption option) {
-        final var defaultOption = option == null ? AzDDefaultRegisterFactory.createRequestOption() : option;
+        final var defaultOption = option == null ? InstanceFactory.createRequestOption() : option;
 
         return HttpClient
                 .newBuilder()

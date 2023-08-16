@@ -10,7 +10,6 @@ import org.azd.interfaces.RequestAdapter;
 import org.azd.utils.BaseRequestBuilder;
 
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
@@ -185,15 +184,7 @@ public class SourceProvidersRequestBuilder extends BaseRequestBuilder {
         reqInfo.setQueryParameter("repositoryName", repositoryName);
         reqInfo.setQueryParameter("serviceEndpointId", serviceEndpointId);
 
-        return requestAdapter.sendStringAsync(reqInfo)
-                .thenApplyAsync(r -> {
-                    try {
-                        if (!r.isEmpty()) serializer.deserialize(r, Map.class);
-                    } catch (AzDException e) {
-                        throw new RuntimeException(e);
-                    }
-                    return null;
-                });
+        return requestAdapter.sendPrimitiveAsync(reqInfo);
 
     }
 

@@ -3,7 +3,7 @@ package org.azd.authentication;
 import org.azd.exceptions.AzDException;
 import org.azd.interfaces.AccessTokenCredential;
 import org.azd.oauth.types.AuthorizedToken;
-import org.azd.utils.AzDDefaultRegisterFactory;
+import org.azd.utils.InstanceFactory;
 
 import java.util.Objects;
 
@@ -61,7 +61,7 @@ public class OAuthAccessTokenCredential implements AccessTokenCredential {
     }
 
     private void authenticate() {
-        var oauthBuilder = AzDDefaultRegisterFactory.createOAuthAccessTokenBuilder();
+        var oauthBuilder = InstanceFactory.createOAuthAccessTokenBuilder();
         try {
             if (authorizedToken != null) {
                 if (oauthBuilder.hasTokenExpired(authorizedToken)) {

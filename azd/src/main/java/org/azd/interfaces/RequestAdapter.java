@@ -14,4 +14,6 @@ public interface RequestAdapter {
                                                                   Class<T> model) throws AzDException;
     CompletableFuture<String> sendStringAsync(RequestInformation requestInformation) throws AzDException;
     CompletableFuture<InputStream> sendStreamAsync(RequestInformation requestInformation) throws AzDException;
+
+    CompletableFuture<Void> sendPrimitiveAsync(RequestInformation requestInformation) throws AzDException;
 }
