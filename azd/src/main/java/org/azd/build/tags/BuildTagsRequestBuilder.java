@@ -11,7 +11,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Provides functionality to work with Build Tags Api.
+ */
 public class BuildTagsRequestBuilder extends BaseRequestBuilder {
+    /**
+     * Instantiates a new request builder instance and sets the default values.
+     * @param accessTokenCredential Authentication provider {@link AccessTokenCredential}.
+     * @param requestAdapter The request adapter to execute the requests.
+     */
     public BuildTagsRequestBuilder(AccessTokenCredential accessTokenCredential, RequestAdapter requestAdapter) {
         super(accessTokenCredential, requestAdapter, "build/builds", ApiVersion.BUILD_TAGS);
     }
@@ -91,6 +99,4 @@ public class BuildTagsRequestBuilder extends BaseRequestBuilder {
 
         return requestAdapter.sendAsync(reqInfo, BuildTags.class);
     }
-
-
 }

@@ -8,7 +8,10 @@ import org.azd.build.controllers.ControllersRequestBuilder;
 import org.azd.build.definitions.DefinitionsRequestBuilder;
 import org.azd.build.folders.FoldersRequestBuilder;
 import org.azd.build.sourceproviders.SourceProvidersRequestBuilder;
+import org.azd.build.stages.StagesRequestBuilder;
 import org.azd.build.tags.TagsRequestBuilder;
+import org.azd.build.timeline.TimelineRequestBuilder;
+import org.azd.build.yaml.YamlRequestBuilder;
 import org.azd.interfaces.AccessTokenCredential;
 import org.azd.interfaces.RequestAdapter;
 import org.azd.utils.BaseRequestBuilder;
@@ -97,4 +100,22 @@ public class BuildBaseRequestBuilder extends BaseRequestBuilder {
     public TagsRequestBuilder tags() {
         return new TagsRequestBuilder(accessTokenCredential, requestAdapter);
     }
+
+    /**
+     * Provides functionality to manage build yaml Api.
+     * @return YamlRequestBuilder {@link YamlRequestBuilder}
+     */
+    public YamlRequestBuilder yaml() { return new YamlRequestBuilder(accessTokenCredential, requestAdapter); }
+
+    /**
+     * Provides functionality to manage build stages Api.
+     * @return StagesRequestBuilder {@link StagesRequestBuilder}
+     */
+    public StagesRequestBuilder stages() { return new StagesRequestBuilder(accessTokenCredential, requestAdapter); }
+
+    /**
+     * Provides functionality to manage build stages Api.
+     * @return TimelineRequestBuilder {@link TimelineRequestBuilder}
+     */
+    public TimelineRequestBuilder timeline() { return new TimelineRequestBuilder(accessTokenCredential, requestAdapter); }
 }
