@@ -3,6 +3,7 @@ package org.azd.serviceClient;
 import org.azd.accounts.AccountsBaseRequestBuilder;
 import org.azd.artifacts.ArtifactsRequestBuilder;
 import org.azd.build.BuildBaseRequestBuilder;
+import org.azd.core.CoreRequestBuilder;
 import org.azd.enums.Instance;
 import org.azd.http.DefaultRequestAdapter;
 import org.azd.interfaces.AccessTokenCredential;
@@ -15,6 +16,8 @@ public class BaseAzDServiceClient {
     public ArtifactsRequestBuilder artifacts() { return new ArtifactsRequestBuilder(accessTokenCredential, requestAdapter); }
 
     public BuildBaseRequestBuilder build() { return new BuildBaseRequestBuilder(accessTokenCredential, requestAdapter); }
+
+    public CoreRequestBuilder core() { return new CoreRequestBuilder(accessTokenCredential, requestAdapter); }
 
     public BaseAzDServiceClient(AccessTokenCredential accessTokenCredential) {
         this.accessTokenCredential = accessTokenCredential;
