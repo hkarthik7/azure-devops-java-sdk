@@ -78,6 +78,11 @@ public class GitApiTest {
         g.getRepositories();
     }
 
+    @Test
+    public void shouldGetRepositoriesForGivenQueryParameters() throws AzDException {
+        g.getRepositories(true, true, true).getRepositories().get(0).getValidRemoteUrls();
+    }
+
     @Test(expected = AzDException.class)
     public void shouldRestoreRepositoryFromRecycleBin() throws AzDException {
         g.restoreRepositoryFromRecycleBin("00000000-0000-0000-0000-000000000000", false);

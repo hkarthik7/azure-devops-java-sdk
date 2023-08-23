@@ -149,6 +149,57 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     }
 
     /***
+     * Retrieve git repositories.
+     * @param includeHidden If true then includes hidden repositories.
+     * @throws AzDException Default Api Exception handler.
+     * @return array of git repositories
+     */
+    @Override
+    public Repositories getRepositories(boolean includeHidden) throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA, null, "repositories",
+                ApiVersion.GIT, Map.of("includeHidden", includeHidden), null, null);
+
+        return MAPPER.mapJsonResponse(r, Repositories.class);
+    }
+
+    /***
+     * Retrieve git repositories.
+     * @param includeAllUrls If true then includes all remote URLs.
+     * @param includeLinks Set this value to true to include reference links.
+     * @throws AzDException Default Api Exception handler.
+     * @return array of git repositories
+     */
+    @Override
+    public Repositories getRepositories(boolean includeLinks, boolean includeAllUrls) throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA, null, "repositories",
+                ApiVersion.GIT, Map.of("includeLinks", includeLinks, "includeAllUrls", includeAllUrls), null, null);
+
+        return MAPPER.mapJsonResponse(r, Repositories.class);
+    }
+
+    /***
+     * Retrieve git repositories.
+     * @param includeHidden If true then includes hidden repositories.
+     * @param includeAllUrls If true then includes all remote URLs.
+     * @param includeLinks Set this value to true to include reference links.
+     * @throws AzDException Default Api Exception handler.
+     * @return array of git repositories
+     */
+    @Override
+    public Repositories getRepositories(boolean includeAllUrls, boolean includeLinks, boolean includeHidden) throws AzDException {
+        var q = new HashMap<String, Object>(){{
+            put("includeAllUrls", includeAllUrls);
+            put("includeLinks", includeLinks);
+            put("includeHidden", includeHidden);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA, null, "repositories",
+                ApiVersion.GIT, q, null, null);
+
+        return MAPPER.mapJsonResponse(r, Repositories.class);
+    }
+
+    /***
      * Recover a soft-deleted Git repository. Recently deleted repositories go
      * into a soft-delete state for a period of time before they are hard
      * deleted and become unrecoverable.

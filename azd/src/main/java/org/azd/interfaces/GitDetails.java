@@ -24,6 +24,12 @@ public interface GitDetails {
 
     Repositories getRepositories() throws AzDException;
 
+    Repositories getRepositories(boolean includeHidden) throws AzDException;
+
+    Repositories getRepositories(boolean includeLinks, boolean includeAllUrls) throws AzDException;
+
+    Repositories getRepositories(boolean includeAllUrls, boolean includeLinks, boolean includeHidden) throws AzDException;
+
     GitRepository restoreRepositoryFromRecycleBin(String repositoryId, boolean deleted) throws AzDException;
 
     GitRepository updateRepository(String repositoryId, String repositoryName, String defaultBranchName)
