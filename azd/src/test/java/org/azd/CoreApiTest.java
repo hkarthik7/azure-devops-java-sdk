@@ -1,13 +1,17 @@
 package org.azd;
 
+import org.azd.authentication.PersonalAccessTokenCredential;
+import org.azd.core.CoreRequestBuilder;
 import org.azd.core.types.Project;
 import org.azd.core.types.ProjectFeature;
 import org.azd.core.types.Team;
 import org.azd.enums.FeatureManagement;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
+import org.azd.interfaces.AccessTokenCredential;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.CoreDetails;
+import org.azd.serviceClient.AzDServiceClient;
 import org.azd.utils.AzDClientApi;
 import org.junit.Assume;
 import org.junit.Before;
@@ -15,11 +19,15 @@ import org.junit.Test;
 
 import java.io.File;
 import java.util.Optional;
+import java.util.concurrent.CompletionException;
 
 public class CoreApiTest {
     private static final JsonMapper MAPPER = new JsonMapper();
     private static AzDClient webApi;
     private static CoreDetails c;
+    private static AzDServiceClient client;
+    private static AccessTokenCredential pat;
+    private static CoreRequestBuilder cc;
 
 
     @Before
@@ -32,23 +40,27 @@ public class CoreApiTest {
         String project = m.getP();
         webApi = new AzDClientApi(organization, project, token);
         c = webApi.getCoreApi();
+        pat = new PersonalAccessTokenCredential(organization, project, token);
+        client = new AzDServiceClient(pat);
+        cc = client.core();
     }
 
     @Test
     public void shouldReturnListOfProcess() throws AzDException {
-        c.getProcesses();
+        cc.processes().list().join();
     }
 
-    @Test(expected = AzDException.class)
+    @Test(expected = CompletionException.class)
     public void shouldCreateDefaultProject() throws AzDException {
         // project already exists error
-        c.createProject("my-awesome-project", "This is my new awesome project");
+        cc.projects().create("my-awesome-project", "This is my new awesome project").join();
     }
 
     @Test
     public void shouldCreateProjectWithAdditionalParameters() throws AzDException {
         try {
-            c.createProject("my-New-awesome-project", "My new awesome project", "Git", "b8a3a935-7e91-48b8-a94c-606d37c3e9f2");
+            cc.projects().create("my-New-awesome-project", "My new awesome project", "Git",
+                    "b8a3a935-7e91-48b8-a94c-606d37c3e9f2");
         } catch (AzDException e) {
             // Ignore project already exists error.
         }
@@ -56,36 +68,35 @@ public class CoreApiTest {
 
     @Test
     public void shouldGetAProject() throws AzDException {
-        c.getProject(c.getProjects().getProjects().get(0).getName());
+        cc.projects().get().join();
     }
 
     @Test
     public void shouldGetAProjectWithOptionalParameters() throws AzDException {
-        c.getProject(c.getProjects().getProjects().get(0).getName(), true, true);
+        cc.projects().getProperties().join();
     }
 
     @Test
     public void shouldDeleteAProject() throws AzDException {
         Project project = null;
         try {
-            project = c.getProject("my-New-awesome-project");
+            project = cc.projects().get("my-New-awesome-project").join();
         } catch (AzDException e) {
         }
 
         if (project != null) {
-            c.deleteProject(project.getId());
+            cc.projects().delete(project.getId()).join();
         }
     }
 
     @Test
     public void shouldGetProjectProperties() throws AzDException {
-        var projectId = c.getProject("azure-devops-java-sdk").getId();
-        c.getProjectProperties(projectId).getValue();
+        cc.projects().getProperties().join().getValue();
     }
 
     @Test
     public void shouldReturnAllProjects() throws AzDException {
-        c.getProjects();
+        System.out.println(cc.projects().list().join());
     }
 
     @Test
