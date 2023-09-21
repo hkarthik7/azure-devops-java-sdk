@@ -1,5 +1,10 @@
 # Changelog
 
+# 5.0.10
+
+**Minor Incremental Release**
+- Fix issue: [[Improvement] Add ability for GitApi.getRepositories() to include hidden repositories #68](https://github.com/hkarthik7/azure-devops-java-sdk/issues/68)
+
 # 5.0.9
 
 **Minor Incremental Release**
