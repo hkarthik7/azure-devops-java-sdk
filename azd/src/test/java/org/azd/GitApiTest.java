@@ -79,6 +79,16 @@ public class GitApiTest {
     }
 
     @Test
+    public void shouldGetHiddenRepositories() throws AzDException {
+        g.getRepositories(true);
+    }
+
+    @Test
+    public void shouldGetRepositoriesWithLinksAndUrls() throws AzDException {
+        g.getRepositories(true, true);
+    }
+
+    @Test
     public void shouldGetRepositoriesForGivenQueryParameters() throws AzDException {
         g.getRepositories(true, true, true).getRepositories().get(0).getValidRemoteUrls();
     }
