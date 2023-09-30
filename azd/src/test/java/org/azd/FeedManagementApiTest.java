@@ -1,8 +1,8 @@
 package org.azd;
 
 import org.azd.artifacts.feedmanagement.FeedManagementRequestBuilder;
-import org.azd.artifacts.feedmanagement.types.Feed;
-import org.azd.artifacts.feedmanagement.types.FeedView;
+import org.azd.feedmanagement.types.Feed;
+import org.azd.feedmanagement.types.FeedView;
 import org.azd.authentication.PersonalAccessTokenCredential;
 import org.azd.enums.FeedRole;
 import org.azd.enums.FeedViewType;
@@ -22,8 +22,6 @@ public class FeedManagementApiTest {
 
     private static final JsonSerializer serializer = new JsonSerializer();
     private static FeedManagementRequestBuilder f;
-    private static AzDServiceClient client;
-    private static AccessTokenCredential accessTokenCredential;
 
     @Before
     public void init() throws AzDException {
@@ -33,8 +31,8 @@ public class FeedManagementApiTest {
         String organization = m.getO();
         String token = m.getT();
         String project = m.getP();
-        accessTokenCredential = new PersonalAccessTokenCredential(organization, project, token);
-        client = new AzDServiceClient(accessTokenCredential);
+        AccessTokenCredential accessTokenCredential = new PersonalAccessTokenCredential(organization, project, token);
+        AzDServiceClient client = new AzDServiceClient(accessTokenCredential);
         f = client.artifacts().feedManagement();
     }
 
