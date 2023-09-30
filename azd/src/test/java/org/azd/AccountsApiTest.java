@@ -54,7 +54,7 @@ public class AccountsApiTest {
         a.profile().get()
                 .thenAcceptAsync(p -> {
                     try {
-                        a.profile().getById(p.getId());
+                        a.profile().get(p.getId());
                     } catch (AzDException e) {
                         throw new RuntimeException(e);
                     }
