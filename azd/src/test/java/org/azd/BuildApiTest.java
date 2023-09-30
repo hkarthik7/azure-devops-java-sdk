@@ -19,9 +19,7 @@ import java.io.File;
 public class BuildApiTest {
     private static final JsonMapper MAPPER = new JsonMapper();
     private static BuildDetails b;
-    private static AzDClient webApi;
     private static int buildId;
-    private static AzDServiceClient client;
 
     @Before
     public void init() throws AzDException {
@@ -31,9 +29,9 @@ public class BuildApiTest {
         String organization = m.getO();
         String token = m.getT();
         String project = m.getP();
-        webApi = new AzDClientApi(organization, project, token);
+        AzDClient webApi = new AzDClientApi(organization, project, token);
         var pat = new PersonalAccessTokenCredential(organization, project, token);
-        client = new AzDServiceClient(pat);
+        AzDServiceClient client = new AzDServiceClient(pat);
         b = webApi.getBuildApi();
         buildId = b.getBuilds(1).getBuildResults().stream().findFirst().get().getId();
     }
