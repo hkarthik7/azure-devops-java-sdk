@@ -1,6 +1,6 @@
 package org.azd.artifacts.feedmanagement;
 
-import org.azd.artifacts.feedmanagement.types.FeedPermissions;
+import org.azd.feedmanagement.types.FeedPermissions;
 import org.azd.common.ApiVersion;
 import org.azd.common.types.QueryParameter;
 import org.azd.exceptions.AzDException;

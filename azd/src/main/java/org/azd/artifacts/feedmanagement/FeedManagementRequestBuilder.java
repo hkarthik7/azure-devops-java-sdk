@@ -1,7 +1,7 @@
 package org.azd.artifacts.feedmanagement;
 
-import org.azd.artifacts.feedmanagement.types.Feed;
-import org.azd.artifacts.feedmanagement.types.Feeds;
+import org.azd.feedmanagement.types.Feed;
+import org.azd.feedmanagement.types.Feeds;
 import org.azd.common.ApiVersion;
 import org.azd.common.types.QueryParameter;
 import org.azd.enums.FeedRole;

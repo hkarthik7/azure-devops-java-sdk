@@ -1,6 +1,6 @@
 package org.azd.artifacts.feedmanagement;
 
-import org.azd.artifacts.feedmanagement.types.FeedView;
+import org.azd.feedmanagement.types.FeedView;
 import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
 import org.azd.interfaces.AccessTokenCredential;
