@@ -41,7 +41,7 @@ public class ProfileRequestBuilder extends BaseRequestBuilder {
      * @return Returns a future object of {@link Profile}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<Profile> getById(String id) throws AzDException {
+    public CompletableFuture<Profile> get(String id) throws AzDException {
         Objects.requireNonNull(id, "Id cannot be null or empty.");
         return requestAdapter.sendAsync(toGetRequestInfo(id), Profile.class);
     }
