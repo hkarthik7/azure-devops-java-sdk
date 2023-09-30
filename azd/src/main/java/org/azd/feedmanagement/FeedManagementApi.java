@@ -1,6 +1,5 @@
 package org.azd.feedmanagement;
 
-import org.azd.artifacts.feedmanagement.types.*;
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
 import org.azd.enums.CustomHeader;
@@ -8,6 +7,7 @@ import org.azd.enums.FeedViewType;
 import org.azd.enums.FeedVisibility;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
+import org.azd.feedmanagement.types.*;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.FeedManagementDetails;
 import org.azd.utils.AzDAsyncApi;

@@ -1,4 +1,4 @@
-package org.azd.artifacts.feedmanagement.types;
+package org.azd.feedmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
