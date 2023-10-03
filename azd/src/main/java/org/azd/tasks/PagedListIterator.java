@@ -68,7 +68,7 @@ public class PagedListIterator<T extends SerializableEntity> implements PageIter
                     var reqInfo = response.getRequestInformation();
                     reqInfo.setQueryParameter("continuationToken", continuationToken);
 
-                    requestAdapter.sendStringAsync(reqInfo).join();
+                    requestAdapter.sendString(reqInfo);
                     response = AzDResponseHandler.getResponse();
                     continuationToken = response.getContinuationToken();
 
