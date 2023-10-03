@@ -52,6 +52,11 @@ public class RequestInformation {
         else queryParameters.put(name, value);
     }
 
+    public void setQueryParameters(Map<String, Object> queryParameters) {
+        Objects.requireNonNull(queryParameters);
+        this.queryParameters = queryParameters;
+    }
+
     public String getRequestUrl() {
         if (requestUrl != null) return requestUrl;
         if (subdomain != null && !baseInstance.contains(subdomain))
@@ -86,5 +91,5 @@ public class RequestInformation {
     }
     private String baseInstance = InstanceFactory.getBaseInstance();
     private String requestUrl;
-    private final Map<String, Object> queryParameters = new HashMap<>();
+    private Map<String, Object> queryParameters = new HashMap<>();
 }
