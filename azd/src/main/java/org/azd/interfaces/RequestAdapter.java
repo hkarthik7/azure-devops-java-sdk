@@ -16,4 +16,8 @@ public interface RequestAdapter {
     CompletableFuture<InputStream> sendStreamAsync(RequestInformation requestInformation) throws AzDException;
 
     CompletableFuture<Void> sendPrimitiveAsync(RequestInformation requestInformation) throws AzDException;
+    String sendString(RequestInformation requestInformation) throws AzDException;
+    InputStream sendStream(RequestInformation requestInformation) throws AzDException;
+
+    Void sendPrimitive(RequestInformation requestInformation) throws AzDException;
 }
