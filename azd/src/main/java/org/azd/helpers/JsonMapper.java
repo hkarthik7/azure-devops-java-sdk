@@ -16,6 +16,7 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include;
 /***
  * Helper class to transform json string to POJO and vice versa
  */
+@Deprecated(since = "v6.0")
 public class JsonMapper extends ObjectMapper {
 
     public JsonMapper() {
