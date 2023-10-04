@@ -1,42 +1,25 @@
 package org.azd.accounts;
 
 import org.azd.accounts.types.Accounts;
-import org.azd.accounts.types.Organization;
 import org.azd.accounts.types.Organizations;
 import org.azd.accounts.types.Profile;
-import org.azd.common.ApiVersion;
-import org.azd.connection.Connection;
-import org.azd.enums.CustomHeader;
-import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
-import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AccountsDetails;
+import org.azd.serviceClient.AzDServiceClient;
 import org.azd.utils.AzDAsyncApi;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import static org.azd.utils.RestClient.send;
 
 /***
  * Accounts class to manage Accounts Api
  */
 public class AccountsApi extends AzDAsyncApi<AccountsApi> implements AccountsDetails {
-    /***
-     * Connection object
-     */
-    private final Connection CONNECTION;
-    private final JsonMapper MAPPER = new JsonMapper();
-    private final String AREA = "accounts";
+    private final AccountsBaseRequestBuilder ACCOUNTS;
 
-    /***
-     * Pass the connection object to work with Accounts Api
-     *
-     * @param connection Connection object
+    /**
+     * Requires the instance of AzDServiceClient.
+     * @param client Pass the instance of {@link AzDServiceClient}
      */
-    public AccountsApi(Connection connection) {
-        this.CONNECTION = connection;
+    public AccountsApi(AzDServiceClient client) {
+        ACCOUNTS = client.accounts();
     }
 
     /***
@@ -48,14 +31,7 @@ public class AccountsApi extends AzDAsyncApi<AccountsApi> implements AccountsDet
      */
     @Override
     public Accounts getAccounts(String memberId) throws AzDException {
-        var q = new HashMap<String, Object>() {{
-            put("memberId", memberId);
-        }};
-
-        String r = send(RequestMethod.GET, CONNECTION, AREA, null, AREA, null,
-                null, ApiVersion.ACCOUNTS, q, null, null);
-
-        return MAPPER.mapJsonResponse(r, Accounts.class);
+        return ACCOUNTS.accounts().list(memberId);
     }
 
     /***
@@ -66,23 +42,8 @@ public class AccountsApi extends AzDAsyncApi<AccountsApi> implements AccountsDet
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public List<Organization> getOrganizations() throws AzDException {
-        var ids = new ArrayList<>();
-        ids.add("ms.vss-features.my-organizations-data-provider");
-
-        var b = new HashMap<String, Object>() {{
-            put("contributionIds", ids);
-            put("dataProviderContext", new HashMap<String, Object>() {{
-                put("properties", "{}");
-            }});
-        }};
-
-        String r = send(RequestMethod.POST, CONNECTION, null, null, "Contribution", null,
-                "HierarchyQuery", ApiVersion.ACCOUNTS, null, b, CustomHeader.JSON_CONTENT_TYPE);
-
-        var res = MAPPER.mapJsonResponse(r, Organizations.class);
-
-        return  res.getDataProviders().getOrganizationsProvider().getOrganizations();
+    public Organizations getOrganizations() throws AzDException {
+        return ACCOUNTS.organization().get();
     }
 
     /***
@@ -93,10 +54,7 @@ public class AccountsApi extends AzDAsyncApi<AccountsApi> implements AccountsDet
      */
     @Override
     public Profile getProfile() throws AzDException {
-        String r = send(RequestMethod.GET, CONNECTION, AREA, null,
-                "/profile/profiles", "me", null, ApiVersion.PROFILE, null, null, null);
-
-        return MAPPER.mapJsonResponse(r, Profile.class);
+        return ACCOUNTS.profile().get();
     }
 
     /***
@@ -108,9 +66,6 @@ public class AccountsApi extends AzDAsyncApi<AccountsApi> implements AccountsDet
      */
     @Override
     public Profile getProfile(String id) throws AzDException {
-        String r = send(RequestMethod.GET, CONNECTION, AREA, null,
-                "/profile/profiles", id, null, ApiVersion.PROFILE, null, null, null);
-
-        return MAPPER.mapJsonResponse(r, Profile.class);
+        return ACCOUNTS.profile().get(id);
     }
 }

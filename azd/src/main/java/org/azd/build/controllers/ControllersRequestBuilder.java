@@ -29,7 +29,7 @@ public class ControllersRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      * @return build controller {@link BuildController}
      */
-    public CompletableFuture<BuildController> get(int controllerId) throws AzDException {
+    public CompletableFuture<BuildController> getAsync(int controllerId) throws AzDException {
         var reqInfo = toGetRequestInformation();
         reqInfo.project = null;
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + controllerId;
@@ -42,7 +42,7 @@ public class ControllersRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      * @return array of build controller {@link BuildControllers}
      */
-    public CompletableFuture<BuildControllers> list() throws AzDException {
+    public CompletableFuture<BuildControllers> listAsync() throws AzDException {
         var reqInfo = toGetRequestInformation();
         reqInfo.project = null;
 
@@ -55,11 +55,51 @@ public class ControllersRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      * @return array of build controller {@link BuildControllers}
      */
-    public CompletableFuture<BuildControllers> list(String name) throws AzDException {
+    public CompletableFuture<BuildControllers> listAsync(String name) throws AzDException {
         var reqInfo = toGetRequestInformation();
         reqInfo.setQueryParameter("name", name);
         reqInfo.project = null;
 
         return requestAdapter.sendAsync(reqInfo, BuildControllers.class);
+    }
+
+    /***
+     * Gets a controller
+     * @param controllerId pass the controller id
+     * @throws AzDException Default Api Exception handler.
+     * @return build controller {@link BuildController}
+     */
+    public BuildController get(int controllerId) throws AzDException {
+        var reqInfo = toGetRequestInformation();
+        reqInfo.project = null;
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + controllerId;
+
+        return requestAdapter.send(reqInfo, BuildController.class);
+    }
+
+    /***
+     * Gets controllers
+     * @throws AzDException Default Api Exception handler.
+     * @return array of build controller {@link BuildControllers}
+     */
+    public BuildControllers list() throws AzDException {
+        var reqInfo = toGetRequestInformation();
+        reqInfo.project = null;
+
+        return requestAdapter.send(reqInfo, BuildControllers.class);
+    }
+
+    /***
+     * Gets controller, optionally filtered by name
+     * @param name pass the controller name
+     * @throws AzDException Default Api Exception handler.
+     * @return array of build controller {@link BuildControllers}
+     */
+    public BuildControllers list(String name) throws AzDException {
+        var reqInfo = toGetRequestInformation();
+        reqInfo.setQueryParameter("name", name);
+        reqInfo.project = null;
+
+        return requestAdapter.send(reqInfo, BuildControllers.class);
     }
 }

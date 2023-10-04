@@ -1,23 +1,23 @@
 package org.azd;
 
-import org.azd.authentication.PersonalAccessTokenCredential;
 import org.azd.build.types.BuildDefinition;
 import org.azd.build.types.Folder;
 import org.azd.enums.QueuePriority;
 import org.azd.exceptions.AzDException;
-import org.azd.helpers.JsonMapper;
 import org.azd.helpers.StreamHelper;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.BuildDetails;
-import org.azd.serviceClient.AzDServiceClient;
+import org.azd.interfaces.SerializerContext;
 import org.azd.utils.AzDClientApi;
+import org.azd.utils.InstanceFactory;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.util.List;
 
 public class BuildApiTest {
-    private static final JsonMapper MAPPER = new JsonMapper();
+    private static final SerializerContext serializer = InstanceFactory.createSerializerContext();
     private static BuildDetails b;
     private static int buildId;
 
@@ -25,13 +25,11 @@ public class BuildApiTest {
     public void init() throws AzDException {
         String dir = System.getProperty("user.dir");
         File file = new File(dir + "/src/test/java/org/azd/_unitTest.json");
-        MockParameters m = MAPPER.mapJsonFromFile(file, MockParameters.class);
+        MockParameters m = serializer.deserialize(file, MockParameters.class);
         String organization = m.getO();
         String token = m.getT();
         String project = m.getP();
         AzDClient webApi = new AzDClientApi(organization, project, token);
-        var pat = new PersonalAccessTokenCredential(organization, project, token);
-        AzDServiceClient client = new AzDServiceClient(pat);
         b = webApi.getBuildApi();
         buildId = b.getBuilds(1).getBuildResults().stream().findFirst().get().getId();
     }
@@ -194,7 +192,7 @@ public class BuildApiTest {
 
     @Test
     public void shouldAddBuildTags() throws AzDException {
-        b.addBuildTags(buildId, new String[]{"Demo", "CI", "Test"});
+        b.addBuildTags(buildId, List.of("Demo", "CI", "Test"));
     }
 
     @Test
@@ -204,7 +202,7 @@ public class BuildApiTest {
 
     @Test
     public void shouldAddDefinitionTags() throws AzDException {
-        b.addDefinitionTags(22, new String[]{"TestDefinition", "DemoDefinition"});
+        b.addDefinitionTags(22, List.of("TestDefinition", "DemoDefinition"));
     }
 
     @Test
@@ -239,12 +237,12 @@ public class BuildApiTest {
 
     @Test
     public void shouldUpdateBuildTags() throws AzDException {
-        b.updateBuildTags(buildId, new String[]{"Demo", "CI", "Test"}, false);
+        b.updateBuildTags(buildId, List.of("Demo", "CI", "Test"), false);
     }
 
     @Test
     public void shouldUpdateDefinitionTags() throws AzDException {
-        b.updateDefinitionTags(22, new String[]{"TestDefinition", "DemoDefinition"}, false);
+        b.updateDefinitionTags(22, List.of("TestDefinition", "DemoDefinition"), false);
     }
 
     @Test

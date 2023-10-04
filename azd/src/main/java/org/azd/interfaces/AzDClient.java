@@ -2,6 +2,7 @@ package org.azd.interfaces;
 
 import org.azd.accounts.AccountsApi;
 import org.azd.build.BuildApi;
+import org.azd.connection.Connection;
 import org.azd.core.CoreApi;
 import org.azd.distributedtask.DistributedTaskApi;
 import org.azd.extensionmanagement.ExtensionManagementApi;
@@ -11,6 +12,7 @@ import org.azd.graph.GraphApi;
 import org.azd.maven.MavenApi;
 import org.azd.memberentitlementmanagement.MemberEntitlementManagementApi;
 import org.azd.oauth.OAuthApi;
+import org.azd.oauth.types.AuthorizedToken;
 import org.azd.pipelines.PipelinesApi;
 import org.azd.policy.PolicyApi;
 import org.azd.release.ReleaseApi;
@@ -67,4 +69,10 @@ public interface AzDClient {
     SecurityApi getSecurityApi();
 
     TestApi getTestApi();
+
+    void setProject(String project);
+    String getOrganization();
+    void setOrganization(String org);
+    void setOauthToken(AuthorizedToken token);
+    Connection getConnection();
 }

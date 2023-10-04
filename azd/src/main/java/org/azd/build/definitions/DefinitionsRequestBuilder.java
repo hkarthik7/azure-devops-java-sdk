@@ -5,6 +5,7 @@ import org.azd.build.types.BuildDefinitionRevisions;
 import org.azd.build.types.BuildDefinitions;
 import org.azd.common.ApiVersion;
 import org.azd.common.types.QueryParameter;
+import org.azd.enums.CustomHeader;
 import org.azd.enums.DefinitionQueryOrder;
 import org.azd.exceptions.AzDException;
 import org.azd.interfaces.AccessTokenCredential;
@@ -34,8 +35,8 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      * @return build definition {@link BuildDefinition}
      */
-    public CompletableFuture<BuildDefinition> create(BuildDefinition buildDefinition,
-                                                     Consumer<DefinitionRequestConfiguration> definitionRequestConfiguration) throws AzDException {
+    public CompletableFuture<BuildDefinition> createAsync(BuildDefinition buildDefinition,
+                                                          Consumer<DefinitionRequestConfiguration> definitionRequestConfiguration) throws AzDException {
         var reqInfo = toPostRequestInformation(buildDefinition);
         if (definitionRequestConfiguration != null) {
             final var config = new DefinitionRequestConfiguration();
@@ -51,9 +52,10 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
      * @param definitionId pass the definition id
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<Void> delete(int definitionId) throws AzDException {
+    public CompletableFuture<Void> deleteAsync(int definitionId) throws AzDException {
         var reqInfo = toDeleteRequestInformation();
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + definitionId;
+        reqInfo.requestHeaders.add(CustomHeader.JSON_CONTENT_TYPE);
 
         return requestAdapter.sendPrimitiveAsync(reqInfo);
     }
@@ -65,7 +67,7 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      * @return build definition {@link BuildDefinition}
      */
-    public CompletableFuture<BuildDefinition> get(int definitionId, Consumer<GetRequestConfiguration> requestConfiguration) throws AzDException {
+    public CompletableFuture<BuildDefinition> getAsync(int definitionId, Consumer<GetRequestConfiguration> requestConfiguration) throws AzDException {
         var reqInfo = toGetRequestInformation();
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + definitionId;
 
@@ -79,12 +81,25 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
     }
 
     /***
+     * Gets a definition
+     * @param definitionId pass the definition id.
+     * @throws AzDException Default Api Exception handler.
+     * @return build definition {@link BuildDefinition}
+     */
+    public CompletableFuture<BuildDefinition> getAsync(int definitionId) throws AzDException {
+        var reqInfo = toGetRequestInformation();
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + definitionId;
+
+        return requestAdapter.sendAsync(reqInfo, BuildDefinition.class);
+    }
+
+    /***
      * Gets a definition revisions.
      * @param definitionId pass the definition id
      * @throws AzDException Default Api Exception handler.
      * @return build definition revisions object {@link BuildDefinitionRevisions}
      */
-    public CompletableFuture<BuildDefinitionRevisions> getRevisions(int definitionId) throws AzDException {
+    public CompletableFuture<BuildDefinitionRevisions> getRevisionsAsync(int definitionId) throws AzDException {
         var reqInfo = toGetRequestInformation();
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + definitionId + "/revisions";
         reqInfo.apiVersion = ApiVersion.BUILD_DEFINITION_REVISIONS;
@@ -97,7 +112,7 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      * @return build definitions object {@link BuildDefinitions}
      */
-    public CompletableFuture<BuildDefinitions> list() throws AzDException {
+    public CompletableFuture<BuildDefinitions> listAsync() throws AzDException {
         var reqInfo = toGetRequestInformation();
 
         return requestAdapter.sendAsync(reqInfo, BuildDefinitions.class);
@@ -110,7 +125,7 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      * @return build definitions object {@link BuildDefinitions}
      */
-    public CompletableFuture<BuildDefinitions> list(Consumer<ListRequestConfiguration> requestConfiguration) throws AzDException {
+    public CompletableFuture<BuildDefinitions> listAsync(Consumer<ListRequestConfiguration> requestConfiguration) throws AzDException {
         var reqInfo = toGetRequestInformation();
 
         if (requestConfiguration != null) {
@@ -129,7 +144,7 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      * @return a {@link BuildDefinition} object
      */
-    public CompletableFuture<BuildDefinition> restore(int definitionId, boolean deleted) throws AzDException {
+    public CompletableFuture<BuildDefinition> restoreAsync(int definitionId, boolean deleted) throws AzDException {
         var reqInfo = toPatchRequestInformation(null);
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + definitionId;
         reqInfo.setQueryParameter("deleted", deleted);
@@ -138,17 +153,189 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
     }
 
     /***
-     * Restores a deleted definition
+     * Updates an existing build definition.
+     * In order for this operation to succeed, the value of the "Revision" property of the request body must match the
+     * existing build definition's. It is recommended that you obtain the existing build definition by using GET, modify
+     * the build definition as necessary, and then submit the modified definition with PUT.
+     *
      * @param definitionId pass the build definition id
      * @param buildDefinition Build definition object to update.
      * @throws AzDException Default Api Exception handler.
      * @return a {@link BuildDefinition} object
      */
-    public CompletableFuture<BuildDefinition> update(int definitionId, BuildDefinition buildDefinition) throws AzDException {
+    public CompletableFuture<BuildDefinition> updateAsync(int definitionId, BuildDefinition buildDefinition, Consumer<UpdateRequestConfiguration> requestConfiguration) throws AzDException {
         var reqInfo = toPutRequestInformation(buildDefinition);
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + definitionId;
 
+        if (requestConfiguration != null) {
+            final var config = new UpdateRequestConfiguration();
+            requestConfiguration.accept(config);
+            reqInfo.setQueryParameters(config.updateQueryParameters);
+        }
+
         return requestAdapter.sendAsync(reqInfo, BuildDefinition.class);
+    }
+
+    /***
+     * Creates a new definition.
+     * @param buildDefinition Build definition object.
+     * @param definitionRequestConfiguration Consumer of query parameters to clone the definition if exists.
+     * @throws AzDException Default Api Exception handler.
+     * @return build definition {@link BuildDefinition}
+     */
+    public BuildDefinition create(BuildDefinition buildDefinition,
+                                  Consumer<DefinitionRequestConfiguration> definitionRequestConfiguration) throws AzDException {
+        var reqInfo = toPostRequestInformation(buildDefinition);
+        if (definitionRequestConfiguration != null) {
+            final var config = new DefinitionRequestConfiguration();
+            definitionRequestConfiguration.accept(config);
+            reqInfo.setQueryParameters(config.definitionQueryParameters);
+        }
+
+        return requestAdapter.send(reqInfo, BuildDefinition.class);
+    }
+
+    /***
+     * Deletes a definition and all associated builds.
+     * @param definitionId pass the definition id
+     * @throws AzDException Default Api Exception handler.
+     */
+    public Void delete(int definitionId) throws AzDException {
+        var reqInfo = toDeleteRequestInformation();
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + definitionId;
+        reqInfo.requestHeaders.add(CustomHeader.JSON_CONTENT_TYPE);
+
+        return requestAdapter.sendPrimitive(reqInfo);
+    }
+
+    /***
+     * Gets a definition
+     * @param definitionId pass the definition id
+     * @param requestConfiguration Consumer of query request parameters.
+     * @throws AzDException Default Api Exception handler.
+     * @return build definition {@link BuildDefinition}
+     */
+    public BuildDefinition get(int definitionId, Consumer<GetRequestConfiguration> requestConfiguration) throws AzDException {
+        var reqInfo = toGetRequestInformation();
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + definitionId;
+
+        if (requestConfiguration != null) {
+            final var config = new GetRequestConfiguration();
+            requestConfiguration.accept(config);
+            reqInfo.setQueryParameters(config.queryParameters);
+        }
+
+        return requestAdapter.send(reqInfo, BuildDefinition.class);
+    }
+
+    /***
+     * Gets a definition
+     * @param definitionId pass the definition id.
+     * @throws AzDException Default Api Exception handler.
+     * @return build definition {@link BuildDefinition}
+     */
+    public BuildDefinition get(int definitionId) throws AzDException {
+        var reqInfo = toGetRequestInformation();
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + definitionId;
+
+        return requestAdapter.send(reqInfo, BuildDefinition.class);
+    }
+
+    /***
+     * Gets a definition revisions.
+     * @param definitionId pass the definition id
+     * @throws AzDException Default Api Exception handler.
+     * @return build definition revisions object {@link BuildDefinitionRevisions}
+     */
+    public BuildDefinitionRevisions getRevisions(int definitionId) throws AzDException {
+        var reqInfo = toGetRequestInformation();
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + definitionId + "/revisions";
+        reqInfo.apiVersion = ApiVersion.BUILD_DEFINITION_REVISIONS;
+
+        return requestAdapter.send(reqInfo, BuildDefinitionRevisions.class);
+    }
+
+    /***
+     * Gets a list of definitions.
+     * @throws AzDException Default Api Exception handler.
+     * @return build definitions object {@link BuildDefinitions}
+     */
+    public BuildDefinitions list() throws AzDException {
+        var reqInfo = toGetRequestInformation();
+
+        return requestAdapter.send(reqInfo, BuildDefinitions.class);
+    }
+
+
+    /***
+     * Gets a list of definitions.
+     * @param requestConfiguration Consumer of query request parameters.
+     * @throws AzDException Default Api Exception handler.
+     * @return build definitions object {@link BuildDefinitions}
+     */
+    public BuildDefinitions list(Consumer<ListRequestConfiguration> requestConfiguration) throws AzDException {
+        var reqInfo = toGetRequestInformation();
+
+        if (requestConfiguration != null) {
+            final var config = new ListRequestConfiguration();
+            requestConfiguration.accept(config);
+            reqInfo.setQueryParameters(config.queryParameters);
+        }
+
+        return requestAdapter.send(reqInfo, BuildDefinitions.class);
+    }
+
+    /***
+     * Restores a deleted definition
+     * @param definitionId pass the build definition id
+     * @param deleted When false, restores a deleted definition.
+     * @throws AzDException Default Api Exception handler.
+     * @return a {@link BuildDefinition} object
+     */
+    public BuildDefinition restore(int definitionId, boolean deleted) throws AzDException {
+        var reqInfo = toPatchRequestInformation(null);
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + definitionId;
+        reqInfo.setQueryParameter("deleted", deleted);
+
+        return requestAdapter.send(reqInfo, BuildDefinition.class);
+    }
+
+    /***
+     * Updates an existing build definition.
+     * In order for this operation to succeed, the value of the "Revision" property of the request body must match the
+     * existing build definition's. It is recommended that you obtain the existing build definition by using GET, modify
+     * the build definition as necessary, and then submit the modified definition with PUT.
+     *
+     * @param definitionId pass the build definition id
+     * @param buildDefinition Build definition object to update.
+     * @throws AzDException Default Api Exception handler.
+     * @return a {@link BuildDefinition} object
+     */
+    public BuildDefinition update(int definitionId, BuildDefinition buildDefinition, Consumer<UpdateRequestConfiguration> requestConfiguration) throws AzDException {
+        var reqInfo = toPutRequestInformation(buildDefinition);
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + definitionId;
+
+        if (requestConfiguration != null) {
+            final var config = new UpdateRequestConfiguration();
+            requestConfiguration.accept(config);
+            reqInfo.setQueryParameters(config.updateQueryParameters);
+        }
+
+        return requestAdapter.send(reqInfo, BuildDefinition.class);
+    }
+
+    /**
+     * Represents the query parameter for Create Definition.
+     */
+    public static class UpdateQueryParameters {
+        @QueryParameter(name = "secretsSourceDefinitionId")
+        public Number secretsSourceDefinitionId;
+        @QueryParameter(name = "secretsSourceDefinitionRevision")
+        public Number secretsSourceDefinitionRevision;
+    }
+
+    public static class UpdateRequestConfiguration {
+        public UpdateQueryParameters updateQueryParameters = new UpdateQueryParameters();
     }
 
     /**
@@ -197,7 +384,7 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
          * The maximum number of definitions to return.
          */
         @QueryParameter(name = "$top")
-        public Number $top;
+        public Number top;
         /**
          * If specified, filters to definitions that have builds after this date.
          */
@@ -212,7 +399,7 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
          * A comma-delimited list that specifies the IDs of definitions to retrieve.
          */
         @QueryParameter(name = "definitionIds")
-        public String[] definitionIds;
+        public String definitionIds;
         /**
          * Indicates whether the full definitions should be returned. By default, shallow representations of the definitions are returned.
          */

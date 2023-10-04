@@ -31,7 +31,7 @@ public class BuildTagsRequestBuilder extends BaseRequestBuilder {
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<BuildTags> add(int buildId, String tag) throws AzDException {
+    public CompletableFuture<BuildTags> addAsync(int buildId, String tag) throws AzDException {
         var reqInfo = toPutRequestInformation(null);
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId + "/tags/" + tag;
 
@@ -45,7 +45,7 @@ public class BuildTagsRequestBuilder extends BaseRequestBuilder {
      * @return String array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<BuildTags> add(int buildId, List<String> tags) throws AzDException {
+    public CompletableFuture<BuildTags> addAsync(int buildId, List<String> tags) throws AzDException {
         var reqInfo = toPostRequestInformation(tags);
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId + "/tags";
 
@@ -60,11 +60,11 @@ public class BuildTagsRequestBuilder extends BaseRequestBuilder {
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<Void> delete(int buildId, String tag) throws AzDException {
+    public CompletableFuture<BuildTags> deleteAsync(int buildId, String tag) throws AzDException {
         var reqInfo = toDeleteRequestInformation();
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId + "/tags/" + tag;
 
-        return requestAdapter.sendPrimitiveAsync(reqInfo);
+        return requestAdapter.sendAsync(reqInfo, BuildTags.class);
     }
 
     /***
@@ -73,7 +73,7 @@ public class BuildTagsRequestBuilder extends BaseRequestBuilder {
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<BuildTags> get(int buildId) throws AzDException {
+    public CompletableFuture<BuildTags> getAsync(int buildId) throws AzDException {
         var reqInfo = toGetRequestInformation();
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId + "/tags";
 
@@ -88,7 +88,7 @@ public class BuildTagsRequestBuilder extends BaseRequestBuilder {
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<BuildTags> update(int buildId, List<String> tags, boolean toRemove) throws AzDException {
+    public CompletableFuture<BuildTags> updateAsync(int buildId, List<String> tags, boolean toRemove) throws AzDException {
         var tagValue = toRemove ? "tagsToRemove" : "tagsToAdd";
         var body = new HashMap<String, Object>() {{
             put(tagValue, tags);
@@ -98,5 +98,81 @@ public class BuildTagsRequestBuilder extends BaseRequestBuilder {
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId + "/tags";
 
         return requestAdapter.sendAsync(reqInfo, BuildTags.class);
+    }
+
+    /**
+     * Adds a tag to a build.
+     * @param buildId The ID of the build.
+     * @param tag The tag to add.
+     * @return Sting array of tags {@link BuildTags}
+     * @throws AzDException Default Api Exception handler.
+     */
+    public BuildTags add(int buildId, String tag) throws AzDException {
+        var reqInfo = toPutRequestInformation(null);
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId + "/tags/" + tag;
+
+        return requestAdapter.send(reqInfo, BuildTags.class);
+    }
+
+    /***
+     * Adds tags to a build.
+     * @param buildId The ID of the build.
+     * @param tags The tags to add.
+     * @return String array of tags {@link BuildTags}
+     * @throws AzDException Default Api Exception handler.
+     */
+    public BuildTags add(int buildId, List<String> tags) throws AzDException {
+        var reqInfo = toPostRequestInformation(tags);
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId + "/tags";
+
+        return requestAdapter.send(reqInfo, BuildTags.class);
+    }
+
+    /***
+     * Removes a tag from a build.
+     * NOTE: This method will not work for tags with special characters. To remove tags with special characters, use the update method instead.
+     * @param buildId Id of the build.
+     * @param tag The tag to delete.
+     * @return Sting array of tags {@link BuildTags}
+     * @throws AzDException Default Api Exception handler.
+     */
+    public BuildTags delete(int buildId, String tag) throws AzDException {
+        var reqInfo = toDeleteRequestInformation();
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId + "/tags/" + tag;
+
+        return requestAdapter.send(reqInfo, BuildTags.class);
+    }
+
+    /***
+     * Gets the tags for a build.
+     * @param buildId The ID of the build.
+     * @return Sting array of tags {@link BuildTags}
+     * @throws AzDException Default Api Exception handler.
+     */
+    public BuildTags get(int buildId) throws AzDException {
+        var reqInfo = toGetRequestInformation();
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId + "/tags";
+
+        return requestAdapter.send(reqInfo, BuildTags.class);
+    }
+
+    /***
+     * Adds/Removes tags from a build.
+     * @param buildId The ID of the build.
+     * @param tags The tags to update.
+     * @param toRemove If true removes the tags. Use this to remove tags that has special characters.
+     * @return Sting array of tags {@link BuildTags}
+     * @throws AzDException Default Api Exception handler.
+     */
+    public BuildTags update(int buildId, List<String> tags, boolean toRemove) throws AzDException {
+        var tagValue = toRemove ? "tagsToRemove" : "tagsToAdd";
+        var body = new HashMap<String, Object>() {{
+            put(tagValue, tags);
+        }};
+
+        var reqInfo = toPatchRequestInformation(body);
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId + "/tags";
+
+        return requestAdapter.send(reqInfo, BuildTags.class);
     }
 }

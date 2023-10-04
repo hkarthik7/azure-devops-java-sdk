@@ -18,7 +18,7 @@ public class AuthorizationEndpoint{
     public String state;
     /**
      * List of scopes to add. Scopes registered with the app, space separated.
-     * See https://learn.microsoft.com/en-us/azure/devops/integrate/get-started/authentication/oauth?view=azure-devops#scopes
+     * @see <a href="https://docs.microsoft.com/en-us/azure/devops/integrate/get-started/authentication/oauth?view=azure-devops#scopes">Scopes</a>
      */
     public List<VsoScope> scope;
     /**

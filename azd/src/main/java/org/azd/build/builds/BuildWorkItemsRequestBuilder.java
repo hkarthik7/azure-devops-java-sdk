@@ -32,7 +32,7 @@ public class BuildWorkItemsRequestBuilder extends BaseRequestBuilder {
      * @return Future object of BuildWorkItems {@link BuildWorkItems}
      * @throws AzDException Default Api exception handler.
      */
-    public CompletableFuture<BuildWorkItems> get(int buildId) throws AzDException {
+    public CompletableFuture<BuildWorkItems> getAsync(int buildId) throws AzDException {
         var reqInfo = toGetInformation(buildId, null);
         return requestAdapter.sendAsync(reqInfo, BuildWorkItems.class);
     }
@@ -44,7 +44,7 @@ public class BuildWorkItemsRequestBuilder extends BaseRequestBuilder {
      * @return Future object of BuildWorkItems {@link BuildWorkItems}
      * @throws AzDException Default Api exception handler.
      */
-    public CompletableFuture<BuildWorkItems> get(int buildId,
+    public CompletableFuture<BuildWorkItems> getAsync(int buildId,
                                                       Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
         var reqInfo = toGetInformation(buildId, requestConfiguration);
         return requestAdapter.sendAsync(reqInfo, BuildWorkItems.class);
@@ -58,8 +58,8 @@ public class BuildWorkItemsRequestBuilder extends BaseRequestBuilder {
      * @return Future object of BuildWorkItems {@link BuildWorkItems}
      * @throws AzDException Default Api exception handler.
      */
-    public CompletableFuture<BuildWorkItems> getFromCommits(int buildId, List<String> commitId,
-                                                      Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
+    public CompletableFuture<BuildWorkItems> getFromCommitsAsync(int buildId, List<String> commitId,
+                                                                 Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
         var reqInfo = toPostInformation(buildId, commitId, requestConfiguration);
         return requestAdapter.sendAsync(reqInfo, BuildWorkItems.class);
     }
@@ -70,10 +70,60 @@ public class BuildWorkItemsRequestBuilder extends BaseRequestBuilder {
      * @return Future object of BuildWorkItems {@link BuildWorkItems}
      * @throws AzDException Default Api exception handler.
      */
-    public CompletableFuture<BuildWorkItems> getWorkItemsBetweenBuilds(Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
+    public CompletableFuture<BuildWorkItems> getAsync(Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
         var reqInfo = toGetInformation(0, requestConfiguration);
         reqInfo.serviceEndpoint = "build/workitems";
         return requestAdapter.sendAsync(reqInfo, BuildWorkItems.class);
+    }
+
+    /**
+     * Gets the work items associated with a build. Only work items in the same project are returned.
+     * @param buildId ID of the build.
+     * @return BuildWorkItems {@link BuildWorkItems}
+     * @throws AzDException Default Api exception handler.
+     */
+    public BuildWorkItems get(int buildId) throws AzDException {
+        var reqInfo = toGetInformation(buildId, null);
+        return requestAdapter.send(reqInfo, BuildWorkItems.class);
+    }
+
+    /**
+     * Gets the work items associated with a build. Only work items in the same project are returned.
+     * @param buildId ID of the build.
+     * @param requestConfiguration Consumer of Request configuration query parameters.
+     * @return BuildWorkItems {@link BuildWorkItems}
+     * @throws AzDException Default Api exception handler.
+     */
+    public BuildWorkItems get(int buildId,
+                              Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
+        var reqInfo = toGetInformation(buildId, requestConfiguration);
+        return requestAdapter.send(reqInfo, BuildWorkItems.class);
+    }
+
+    /**
+     * Gets the work items associated with a build, filtered to specific commits.
+     * @param buildId ID of the build.
+     * @param commitId List of commit ids to get the work items.
+     * @param requestConfiguration Consumer of Request configuration query parameters.
+     * @return BuildWorkItems {@link BuildWorkItems}
+     * @throws AzDException Default Api exception handler.
+     */
+    public BuildWorkItems getFromCommits(int buildId, List<String> commitId,
+                                         Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
+        var reqInfo = toPostInformation(buildId, commitId, requestConfiguration);
+        return requestAdapter.send(reqInfo, BuildWorkItems.class);
+    }
+
+    /**
+     * Gets all the work items between two builds.
+     * @param requestConfiguration Consumer of Request configuration query parameters.
+     * @return BuildWorkItems {@link BuildWorkItems}
+     * @throws AzDException Default Api exception handler.
+     */
+    public BuildWorkItems get(Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
+        var reqInfo = toGetInformation(0, requestConfiguration);
+        reqInfo.serviceEndpoint = "build/workitems";
+        return requestAdapter.send(reqInfo, BuildWorkItems.class);
     }
 
     /**

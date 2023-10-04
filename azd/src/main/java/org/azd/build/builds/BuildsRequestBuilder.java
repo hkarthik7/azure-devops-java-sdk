@@ -3,7 +3,6 @@ package org.azd.build.builds;
 import org.azd.build.types.Build;
 import org.azd.build.types.Builds;
 import org.azd.build.types.RetentionLeases;
-import org.azd.cache.BuildCache;
 import org.azd.common.ApiVersion;
 import org.azd.common.types.QueryParameter;
 import org.azd.enums.*;
@@ -38,7 +37,7 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
     }
 
     /**
-     * Provides functionality to Build logs Api.
+     * Provides functionality to manage Build logs Api.
      * @return BuildLogsRequestBuilder {@link BuildLogsRequestBuilder}
      */
     public BuildLogsRequestBuilder logs() {
@@ -46,7 +45,7 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
     }
 
     /**
-     * Provides functionality to Build work items Api.
+     * Provides functionality to manage Build work items Api.
      * @return BuildWorkItemsRequestBuilder {@link BuildWorkItemsRequestBuilder}
      */
     public BuildWorkItemsRequestBuilder workItems() {
@@ -58,7 +57,7 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @param buildId pass the build id to delete
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<Void> delete(int buildId) throws AzDException {
+    public CompletableFuture<Void> deleteAsync(int buildId) throws AzDException {
         var reqInfo = toDeleteRequestInformation();
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId;
 
@@ -71,12 +70,10 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      * @return Future build object {@link Build}
      */
-    public CompletableFuture<Build> get(int buildId) throws AzDException {
+    public CompletableFuture<Build> getAsync(int buildId) throws AzDException {
         var reqInfo = toGetInformation(null);
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId;
-        var result = requestAdapter.sendAsync(reqInfo, Build.class);
-        BuildCache.update(buildId, result);
-        return result;
+        return requestAdapter.sendAsync(reqInfo, Build.class);
     }
 
     /***
@@ -86,7 +83,7 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      * @return Future build object {@link Build}
      */
-    public CompletableFuture<Build> get(int buildId, String propertyFilters) throws AzDException {
+    public CompletableFuture<Build> getAsync(int buildId, String propertyFilters) throws AzDException {
         var reqInfo = toGetRequestInformation();
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId;
         reqInfo.setQueryParameter("propertyFilters", propertyFilters);
@@ -100,7 +97,7 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      * @return Future Retention leases object {@link RetentionLeases}
      */
-    public CompletableFuture<RetentionLeases> getRetentionLeases(int buildId) throws AzDException {
+    public CompletableFuture<RetentionLeases> getRetentionLeasesAsync(int buildId) throws AzDException {
         var reqInfo = toGetInformation(null);
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/leases";
         reqInfo.apiVersion = ApiVersion.BUILD_RETENTION_LEASES;
@@ -113,7 +110,7 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      * @return Future Builds object {@link org.azd.build.types.Builds}
      */
-    public CompletableFuture<Builds> list() throws AzDException {
+    public CompletableFuture<Builds> listAsync() throws AzDException {
         var reqInfo = toGetInformation(null);
 
         return requestAdapter.sendAsync(reqInfo, Builds.class);
@@ -124,7 +121,7 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      * @return Future Builds object {@link org.azd.build.types.Builds}
      */
-    public CompletableFuture<Builds> list(Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
+    public CompletableFuture<Builds> listAsync(Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
         var reqInfo = toGetInformation(requestConfiguration);
 
         return requestAdapter.sendAsync(reqInfo, Builds.class);
@@ -136,7 +133,7 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      * @return a build object {@link Build}
      */
-    public CompletableFuture<Build> queue(int definitionId) throws AzDException {
+    public CompletableFuture<Build> queueAsync(int definitionId) throws AzDException {
         var reqInfo = toPostRequestInformation(null);
         reqInfo.setQueryParameter("definitionId", definitionId);
 
@@ -149,7 +146,7 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      * @return a build object {@link Build}
      */
-    public CompletableFuture<Build> queue(Build build) throws AzDException {
+    public CompletableFuture<Build> queueAsync(Build build) throws AzDException {
         var reqInfo = toPostRequestInformation(build);
 
         return requestAdapter.sendAsync(reqInfo, Build.class);
@@ -164,7 +161,7 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @return Build Object {@link Build}
      * @throws AzDException Default Api Exception handler.
      **/
-    public CompletableFuture<Build> update(int buildId, boolean retry, Build build) throws AzDException {
+    public CompletableFuture<Build> updateAsync(int buildId, boolean retry, Build build) throws AzDException {
         var reqInfo = toPatchRequestInformation(build);
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId;
         reqInfo.setQueryParameter("retry", retry);
@@ -179,10 +176,140 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @return Build Object {@link Builds}
      * @throws AzDException Default Api Exception handler.
      **/
-    public CompletableFuture<Builds> update(Builds builds) throws AzDException {
+    public CompletableFuture<Builds> updateAsync(Builds builds) throws AzDException {
         var reqInfo = toPatchRequestInformation(builds);
 
         return requestAdapter.sendAsync(reqInfo, Builds.class);
+    }
+
+    /***
+     * Deletes a build.
+     * @param buildId pass the build id to delete
+     * @throws AzDException Default Api Exception handler.
+     */
+    public Void delete(int buildId) throws AzDException {
+        var reqInfo = toDeleteRequestInformation();
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId;
+
+        return requestAdapter.sendPrimitive(reqInfo);
+    }
+
+    /***
+     * Gets a build
+     * @param buildId pass the build id
+     * @throws AzDException Default Api Exception handler.
+     * @return Future build object {@link Build}
+     */
+    public Build get(int buildId) throws AzDException {
+        var reqInfo = toGetInformation(null);
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId;
+        return requestAdapter.send(reqInfo, Build.class);
+    }
+
+    /***
+     * Gets a build
+     * @param buildId pass the build id
+     * @param propertyFilters Property filters.
+     * @throws AzDException Default Api Exception handler.
+     * @return Future build object {@link Build}
+     */
+    public Build get(int buildId, String propertyFilters) throws AzDException {
+        var reqInfo = toGetRequestInformation();
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId;
+        reqInfo.setQueryParameter("propertyFilters", propertyFilters);
+
+        return requestAdapter.send(reqInfo, Build.class);
+    }
+
+    /***
+     * Gets all retention leases that apply to a specific build.
+     * @param buildId pass the build id
+     * @throws AzDException Default Api Exception handler.
+     * @return Future Retention leases object {@link RetentionLeases}
+     */
+    public RetentionLeases getRetentionLeases(int buildId) throws AzDException {
+        var reqInfo = toGetInformation(null);
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/leases";
+        reqInfo.apiVersion = ApiVersion.BUILD_RETENTION_LEASES;
+
+        return requestAdapter.send(reqInfo, RetentionLeases.class);
+    }
+
+    /***
+     * Gets a list of builds.
+     * @throws AzDException Default Api Exception handler.
+     * @return Future Builds object {@link org.azd.build.types.Builds}
+     */
+    public Builds list() throws AzDException {
+        var reqInfo = toGetInformation(null);
+
+        return requestAdapter.send(reqInfo, Builds.class);
+    }
+
+    /***
+     * Gets a list of builds.
+     * @throws AzDException Default Api Exception handler.
+     * @return Future Builds object {@link org.azd.build.types.Builds}
+     */
+    public Builds list(Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
+        var reqInfo = toGetInformation(requestConfiguration);
+
+        return requestAdapter.send(reqInfo, Builds.class);
+    }
+
+    /***
+     * Queues a build
+     * @param definitionId pass the pipeline id to queue the build
+     * @throws AzDException Default Api Exception handler.
+     * @return a build object {@link Build}
+     */
+    public Build queue(int definitionId) throws AzDException {
+        var reqInfo = toPostRequestInformation(null);
+        reqInfo.setQueryParameter("definitionId", definitionId);
+
+        return requestAdapter.send(reqInfo, Build.class);
+    }
+
+    /***
+     * Queues a build
+     * @param build Build object to queue the build.
+     * @throws AzDException Default Api Exception handler.
+     * @return a build object {@link Build}
+     */
+    public Build queue(Build build) throws AzDException {
+        var reqInfo = toPostRequestInformation(build);
+
+        return requestAdapter.send(reqInfo, Build.class);
+    }
+
+    /**
+     * Updates a build.
+     *
+     * @param build pass the Build object to update. {@link Build}
+     * @param buildId The ID of the build.
+     * @param retry None
+     * @return Build Object {@link Build}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    public Build update(int buildId, boolean retry, Build build) throws AzDException {
+        var reqInfo = toPatchRequestInformation(build);
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId;
+        reqInfo.setQueryParameter("retry", retry);
+
+        return requestAdapter.send(reqInfo, Build.class);
+    }
+
+    /**
+     * Updates multiple builds.
+     *
+     * @param builds List of build to update. {@link Builds}
+     * @return Build Object {@link Builds}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    public Builds update(Builds builds) throws AzDException {
+        var reqInfo = toPatchRequestInformation(builds.getBuildResults());
+
+        return requestAdapter.send(reqInfo, Builds.class);
     }
 
     /**
@@ -203,7 +330,7 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
          * A comma-delimited list that specifies the IDs of builds to retrieve.
          */
         @QueryParameter(name = "buildIds")
-        public String[] buildIds;
+        public String buildIds;
         /**
          * If specified, filters to builds that match this build number. Append * to do a prefix search.
          */
@@ -218,7 +345,7 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
          * A comma-delimited list of definition IDs. If specified, filters to builds for these definitions.
          */
         @QueryParameter(name = "definitions")
-        public String[] definitions;
+        public String definitions;
         /**
          * Indicates whether to exclude, include, or only return deleted builds.
          */
@@ -243,7 +370,7 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
          * A comma-delimited list of properties to retrieve.
          */
         @QueryParameter(name = "properties")
-        public String[] properties;
+        public String properties;
         /**
          * A comma-delimited list of properties to retrieve.
          */
@@ -253,7 +380,7 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
          * A comma-delimited list of queue IDs. If specified, filters to builds that ran against these queues.
          */
         @QueryParameter(name = "queues")
-        public String[] queues;
+        public String queues;
         /**
          * If specified, filters to builds that match this reason.
          */
@@ -289,7 +416,7 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
          * A comma-delimited list of tags. If specified, filters to builds that have the specified tags.
          */
         @QueryParameter(name = "tagFilters")
-        public String[] tagFilters;
+        public String tagFilters;
     }
 
     /**

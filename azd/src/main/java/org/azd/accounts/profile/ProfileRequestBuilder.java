@@ -31,7 +31,7 @@ public class ProfileRequestBuilder extends BaseRequestBuilder {
      * @return Returns a future object of {@link Profile}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<Profile> get() throws AzDException {
+    public CompletableFuture<Profile> getAsync() throws AzDException {
         return requestAdapter.sendAsync(toGetRequestInfo("me"), Profile.class);
     }
 
@@ -41,9 +41,29 @@ public class ProfileRequestBuilder extends BaseRequestBuilder {
      * @return Returns a future object of {@link Profile}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<Profile> get(String id) throws AzDException {
+    public CompletableFuture<Profile> getAsync(String id) throws AzDException {
         Objects.requireNonNull(id, "Id cannot be null or empty.");
         return requestAdapter.sendAsync(toGetRequestInfo(id), Profile.class);
+    }
+
+    /**
+     * Get the current user profile.
+     * @return Returns a future object of {@link Profile}
+     * @throws AzDException Default Api Exception handler.
+     */
+    public Profile get() throws AzDException {
+        return requestAdapter.send(toGetRequestInfo("me"), Profile.class);
+    }
+
+    /**
+     * Get the user profile for given id.
+     * @param id ID of the user.
+     * @return Returns a future object of {@link Profile}
+     * @throws AzDException Default Api Exception handler.
+     */
+    public Profile get(String id) throws AzDException {
+        Objects.requireNonNull(id, "Id cannot be null or empty.");
+        return requestAdapter.send(toGetRequestInfo(id), Profile.class);
     }
 
     /**

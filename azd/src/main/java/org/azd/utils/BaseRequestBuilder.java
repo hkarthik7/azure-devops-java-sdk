@@ -7,6 +7,8 @@ import org.azd.interfaces.AccessTokenCredential;
 import org.azd.interfaces.RequestAdapter;
 import org.azd.interfaces.SerializerContext;
 
+import java.util.Objects;
+
 public abstract class BaseRequestBuilder {
     protected AccessTokenCredential accessTokenCredential;
     protected RequestAdapter requestAdapter;
@@ -18,6 +20,9 @@ public abstract class BaseRequestBuilder {
 
     protected BaseRequestBuilder(final AccessTokenCredential accessTokenCredential, final RequestAdapter requestAdapter,
                                  final String subdomain, final String service,  final String apiVersion) {
+        Objects.requireNonNull(accessTokenCredential, "Access token credential object cannot be null.");
+        Objects.requireNonNull(requestAdapter, "Request adapter cannot be null");
+
         this.accessTokenCredential = accessTokenCredential;
         this.requestAdapter = requestAdapter;
         this.project = accessTokenCredential.getProjectName();
@@ -76,6 +81,7 @@ public abstract class BaseRequestBuilder {
         reqInfo.project = project;
         reqInfo.serviceEndpoint = service;
         reqInfo.apiVersion = apiVersion;
+        reqInfo.requestHeaders.add(CustomHeader.JSON_CONTENT_TYPE);
         return reqInfo;
     }
 

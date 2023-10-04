@@ -255,7 +255,7 @@ if __name__ == "__main__":
                 f.write(f"\n/**\n * {value_result['Definitions'][key]} \n**/")
                 f.write("\n@JsonIgnoreProperties(ignoreUnknown = true)")
                 f.write(
-                    f"\npublic class {key} extends BaseAbstractMethod {{\n")
+                    f"\npublic class {key} extends SerializableEntity {{\n")
 
                 for v in value_result['SubDefinitions'].get(key):
                     if '[]' in str(v['Type']) and str(v['Type']) != 'string[]':

@@ -11,6 +11,7 @@ import org.azd.oauth.types.AuthorizedToken;
  * mandatory. Setting these parameters as default helps to work with this library on ease.
  * </p>
  */
+@Deprecated(since = "v6.0; This is deprecated; Please use AzDClientApi which uses Personal access token and OAuth2.0 authentication.")
 public class Connection {
     private String organization;
     private String project;
