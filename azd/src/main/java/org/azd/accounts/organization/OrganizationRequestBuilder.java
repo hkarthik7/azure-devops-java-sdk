@@ -32,8 +32,17 @@ public class OrganizationRequestBuilder extends BaseRequestBuilder {
      * @return A list of organizations {@link Organizations}.
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<Organizations> get() throws AzDException {
+    public CompletableFuture<Organizations> getAsync() throws AzDException {
         return requestAdapter.sendAsync(toPostRequestInfo(), Organizations.class);
+    }
+
+    /**
+     * Get the list of future object of organization.
+     * @return A list of organizations {@link Organizations}.
+     * @throws AzDException Default Api Exception handler.
+     */
+    public Organizations get() throws AzDException {
+        return requestAdapter.send(toPostRequestInfo(), Organizations.class);
     }
 
     /**

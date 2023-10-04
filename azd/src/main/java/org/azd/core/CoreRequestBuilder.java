@@ -2,6 +2,7 @@ package org.azd.core;
 
 import org.azd.core.processes.ProcessesRequestBuilder;
 import org.azd.core.projects.ProjectsRequestBuilder;
+import org.azd.core.teams.TeamsRequestBuilder;
 import org.azd.interfaces.AccessTokenCredential;
 import org.azd.interfaces.RequestAdapter;
 import org.azd.utils.BaseRequestBuilder;
@@ -30,4 +31,10 @@ public class CoreRequestBuilder extends BaseRequestBuilder {
      * @return ProjectsRequestBuilder {@link ProjectsRequestBuilder}
      */
     public ProjectsRequestBuilder projects() { return new ProjectsRequestBuilder(accessTokenCredential, requestAdapter); }
+
+    /**
+     * Provides functionality to manage Core teams Api.
+     * @return TeamsRequestBuilder {@link TeamsRequestBuilder}
+     */
+    public TeamsRequestBuilder teams() { return new TeamsRequestBuilder(accessTokenCredential, requestAdapter); }
 }

@@ -1,6 +1,8 @@
 package org.azd.utils;
 
 import org.azd.accounts.AccountsApi;
+import org.azd.authentication.OAuthAccessTokenCredential;
+import org.azd.authentication.PersonalAccessTokenCredential;
 import org.azd.build.BuildApi;
 import org.azd.connection.Connection;
 import org.azd.core.CoreApi;
@@ -9,6 +11,7 @@ import org.azd.extensionmanagement.ExtensionManagementApi;
 import org.azd.feedmanagement.FeedManagementApi;
 import org.azd.git.GitApi;
 import org.azd.graph.GraphApi;
+import org.azd.interfaces.AccessTokenCredential;
 import org.azd.interfaces.AzDClient;
 import org.azd.maven.MavenApi;
 import org.azd.memberentitlementmanagement.MemberEntitlementManagementApi;
@@ -18,6 +21,7 @@ import org.azd.pipelines.PipelinesApi;
 import org.azd.policy.PolicyApi;
 import org.azd.release.ReleaseApi;
 import org.azd.security.SecurityApi;
+import org.azd.serviceClient.AzDServiceClient;
 import org.azd.serviceendpoint.ServiceEndpointApi;
 import org.azd.servicehooks.ServiceHooksApi;
 import org.azd.test.TestApi;
@@ -34,7 +38,10 @@ public class AzDClientApi implements AzDClient {
     /***
      * Instance of connection object
      */
-    private final Connection CONNECTION;
+    private Connection CONNECTION;
+
+    private AccessTokenCredential accessTokenCredential;
+    private AzDServiceClient client;
 
     /***
      * Pass the VSTS organization name and personal access token to create a connection object
@@ -43,13 +50,18 @@ public class AzDClientApi implements AzDClient {
     public AzDClientApi(Connection connection) {
         this.CONNECTION = connection;
     }
+    public AzDClientApi(final AccessTokenCredential accessTokenCredential) {
+        this.accessTokenCredential = accessTokenCredential;
+        this.client = new AzDServiceClient(accessTokenCredential);
+    }
 
     /***
      * Pass the VSTS organization name and personal access token to create a connection object
      * @param organizationName VSTS/Azure DevOps services organization name
      * @param personalAccessToken Personal access token
      */
-    public AzDClientApi(String organizationName, String personalAccessToken) {
+    public AzDClientApi(final String organizationName, final String personalAccessToken) {
+        this(organizationName, null, personalAccessToken);
         this.CONNECTION = new Connection(organizationName, personalAccessToken);
     }
 
@@ -59,26 +71,37 @@ public class AzDClientApi implements AzDClient {
      * @param projectName project name
      * @param personalAccessToken Personal access token
      */
-    public AzDClientApi(String organizationName, String projectName, String personalAccessToken) {
+    public AzDClientApi(final String organizationName, final String projectName, final String personalAccessToken) {
+        this(new PersonalAccessTokenCredential(organizationName, projectName, personalAccessToken));
         this.CONNECTION = new Connection(organizationName, projectName, personalAccessToken);
     }
 
+    public AzDClientApi(final String organization, final String projectName,
+                        final String appSecret, final String authCode, final String callbackUrl, final AuthorizedToken authorizedToken) {
+        this(new OAuthAccessTokenCredential(organization, projectName, appSecret, authCode, callbackUrl, authorizedToken));
+    }
+
+    public AzDClientApi(final String organization, final String projectName,
+                        final String appSecret, final String authCode, final String callbackUrl) {
+        this(organization, projectName, appSecret, authCode, callbackUrl, null);
+    }
+
     public void setProject(String project) {
-        if (this.CONNECTION != null) {
-            this.CONNECTION.setProject(project);
+        if (this.accessTokenCredential != null) {
+            this.accessTokenCredential.setProjectName(project);
         }
     }
 
     public String getOrganization() {
-        if (this.CONNECTION != null) {
-            return this.CONNECTION.getOrganization();
+        if (this.accessTokenCredential != null) {
+            return this.accessTokenCredential.getOrganization();
         }
         return null;
     }
 
     public void setOrganization(String org) {
-        if (this.CONNECTION != null) {
-            this.CONNECTION.setOrganization(org);
+        if (this.accessTokenCredential != null) {
+            this.accessTokenCredential.setOrganization(org);
         }
     }
 
@@ -88,8 +111,17 @@ public class AzDClientApi implements AzDClient {
         }
     }
 
+    public void setAccessToken(String accessToken) {
+        if (this.accessTokenCredential != null) {
+            this.accessTokenCredential.setAccessToken(accessToken);
+        }
+    }
+
     public Connection getConnection() {
         return this.CONNECTION;
+    }
+    public AccessTokenCredential getAccessTokenCredential() {
+        return this.accessTokenCredential;
     }
 
     /***
@@ -98,7 +130,7 @@ public class AzDClientApi implements AzDClient {
      */
     @Override
     public AccountsApi getAccountsApi() {
-        return new AccountsApi(CONNECTION);
+        return new AccountsApi(client);
     }
 
     /***
@@ -107,7 +139,7 @@ public class AzDClientApi implements AzDClient {
      */
     @Override
     public BuildApi getBuildApi() {
-        return new BuildApi(CONNECTION);
+        return new BuildApi(client);
     }
 
     /***
@@ -116,7 +148,7 @@ public class AzDClientApi implements AzDClient {
      */
     @Override
     public CoreApi getCoreApi() {
-        return new CoreApi(CONNECTION);
+        return new CoreApi(client);
     }
 
     /***

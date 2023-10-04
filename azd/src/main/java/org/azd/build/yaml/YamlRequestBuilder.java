@@ -30,7 +30,7 @@ public class YamlRequestBuilder extends BaseRequestBuilder {
      * @return Yaml build object {@link YamlBuild}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<YamlBuild> get(int definitionId) throws AzDException {
+    public CompletableFuture<YamlBuild> getAsync(int definitionId) throws AzDException {
         var reqInfo = toGetRequestInformation();
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + definitionId + "/yaml";
 
@@ -44,7 +44,7 @@ public class YamlRequestBuilder extends BaseRequestBuilder {
      * @return Yaml build object {@link YamlBuild}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<YamlBuild> get(int definitionId, Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
+    public CompletableFuture<YamlBuild> getAsync(int definitionId, Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
         var reqInfo = toGetRequestInformation();
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + definitionId + "/yaml";
 
@@ -55,6 +55,39 @@ public class YamlRequestBuilder extends BaseRequestBuilder {
         }
 
         return requestAdapter.sendAsync(reqInfo, YamlBuild.class);
+    }
+
+    /**
+     * Converts a definition to YAML.
+     * @param definitionId The ID of the definition.
+     * @return Yaml build object {@link YamlBuild}
+     * @throws AzDException Default Api Exception handler.
+     */
+    public YamlBuild get(int definitionId) throws AzDException {
+        var reqInfo = toGetRequestInformation();
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + definitionId + "/yaml";
+
+        return requestAdapter.send(reqInfo, YamlBuild.class);
+    }
+
+    /**
+     * Converts a definition to YAML.
+     * @param definitionId The ID of the definition.
+     * @param requestConfiguration Consumer of query parameters to filter.
+     * @return Yaml build object {@link YamlBuild}
+     * @throws AzDException Default Api Exception handler.
+     */
+    public YamlBuild get(int definitionId, Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
+        var reqInfo = toGetRequestInformation();
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + definitionId + "/yaml";
+
+        if (requestConfiguration != null) {
+            final var config = new RequestConfiguration();
+            requestConfiguration.accept(config);
+            reqInfo.setQueryParameters(config.queryParameters);
+        }
+
+        return requestAdapter.send(reqInfo, YamlBuild.class);
     }
 
     public static class GetQueryParameters {
@@ -72,7 +105,7 @@ public class YamlRequestBuilder extends BaseRequestBuilder {
          * A comma-delimited list of properties to include in the results.
          */
         @QueryParameter(name = "propertyFilters")
-        public String[] propertyFilters;
+        public String propertyFilters;
         /**
          * The revision number to retrieve. If this is not specified, the latest version will be returned.
          */

@@ -28,7 +28,7 @@ public class StagesRequestBuilder extends BaseRequestBuilder {
      * @param updateStageRequest UpdateStageRequest object to update the build stage.
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<Void> update(UpdateStageRequest updateStageRequest)
+    public CompletableFuture<Void> updateAsync(UpdateStageRequest updateStageRequest)
             throws AzDException {
         var body = new HashMap<String, Object>() {{
             put("forceRetryAllJobs", updateStageRequest.forceRetryAllJobs);
@@ -40,6 +40,25 @@ public class StagesRequestBuilder extends BaseRequestBuilder {
                 + updateStageRequest.stageReferenceName;
 
         return requestAdapter.sendPrimitiveAsync(reqInfo);
+    }
+
+    /**
+     * Update a build stage.
+     * @param updateStageRequest UpdateStageRequest object to update the build stage.
+     * @throws AzDException Default Api Exception handler.
+     */
+    public Void update(UpdateStageRequest updateStageRequest)
+            throws AzDException {
+        var body = new HashMap<String, Object>() {{
+            put("forceRetryAllJobs", updateStageRequest.forceRetryAllJobs);
+            put("state", updateStageRequest.state.name());
+        }};
+
+        var reqInfo = toPatchRequestInformation(body);
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + updateStageRequest.buildId + "/stages/"
+                + updateStageRequest.stageReferenceName;
+
+        return requestAdapter.sendPrimitive(reqInfo);
     }
 
     public static class UpdateStageRequest {

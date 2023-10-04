@@ -39,7 +39,7 @@ public class PagedListIteratorTest {
         // Get the top 10 builds.
         // This will return continuation token in the header.
         // We then iterate through the list and get next page by PagedListIterator class.
-        var allBuilds = bb.builds().list(r -> r.queryParameters.top = 10).join();
+        var allBuilds = bb.builds().listAsync(r -> r.queryParameters.top = 10).join();
 
         var iterator = InstanceFactory.createPageIterator(Builds.class);
         var nextPage = iterator.getNextPage();
@@ -55,7 +55,7 @@ public class PagedListIteratorTest {
         // Get the top 10 builds.
         // This will return continuation token in the header.
         // We then iterate through the list and get next page by PagedListIterator class.
-        var allBuilds = bb.builds().list(r -> r.queryParameters.top = 10).join();
+        var allBuilds = bb.builds().listAsync(r -> r.queryParameters.top = 10).join();
 
         PageIterator<Builds> iterator = new PagedListIterator<>(Builds.class);
         var allResults = iterator.getResults();

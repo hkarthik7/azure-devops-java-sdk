@@ -2,6 +2,7 @@ package org.azd.core.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.enums.OperationStatus;
 import org.azd.serializer.SerializableEntity;
 
 /***
@@ -18,12 +19,17 @@ public class OperationReference extends SerializableEntity {
      * The current status of the operation.
      */
     @JsonProperty("status")
-    private String status;
+    private OperationStatus status;
     /***
      * URL to get the full operation object.
      */
     @JsonProperty("url")
     private String url;
+    /**
+     * Unique identifier for the plugin.
+     */
+    @JsonProperty("pluginId")
+    private String pluginId;
 
     public String getId() {
         return id;
@@ -33,11 +39,11 @@ public class OperationReference extends SerializableEntity {
         this.id = id;
     }
 
-    public String getStatus() {
+    public OperationStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(OperationStatus status) {
         this.status = status;
     }
 

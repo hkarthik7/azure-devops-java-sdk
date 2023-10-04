@@ -31,7 +31,7 @@ public class TimelineRequestBuilder extends BaseRequestBuilder {
      * @return a timeline object. {@link Timeline}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<Timeline> get(int buildId) throws AzDException {
+    public CompletableFuture<Timeline> getAsync(int buildId) throws AzDException {
         var reqInfo = toGetRequestInformation();
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId + "/timeline";
 
@@ -46,7 +46,7 @@ public class TimelineRequestBuilder extends BaseRequestBuilder {
      * @return a timeline object. {@link Timeline}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<Timeline> get(int buildId, String timelineId) throws AzDException {
+    public CompletableFuture<Timeline> getAsync(int buildId, String timelineId) throws AzDException {
         var reqInfo = toGetRequestInformation();
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId + "/timeline/" + timelineId;
 
@@ -62,7 +62,7 @@ public class TimelineRequestBuilder extends BaseRequestBuilder {
      * @return a timeline object. {@link Timeline}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<Timeline> get(int buildId, String timelineId, Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
+    public CompletableFuture<Timeline> getAsync(int buildId, String timelineId, Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
         var reqInfo = toGetRequestInformation();
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId + "/timeline/" + timelineId;
 
@@ -73,6 +73,57 @@ public class TimelineRequestBuilder extends BaseRequestBuilder {
         }
 
         return requestAdapter.sendAsync(reqInfo, Timeline.class);
+    }
+
+    /**
+     * Gets details for a build.
+     *
+     * @param buildId Id of the build. use getBuilds() to list all the builds.
+     * @return a timeline object. {@link Timeline}
+     * @throws AzDException Default Api Exception handler.
+     */
+    public Timeline get(int buildId) throws AzDException {
+        var reqInfo = toGetRequestInformation();
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId + "/timeline";
+
+        return requestAdapter.send(reqInfo, Timeline.class);
+    }
+
+    /**
+     * Gets details for a build.
+     *
+     * @param buildId    Id of the build. use getBuilds() to list all the builds.
+     * @param timelineId Id of the build timeline.
+     * @return a timeline object. {@link Timeline}
+     * @throws AzDException Default Api Exception handler.
+     */
+    public Timeline get(int buildId, String timelineId) throws AzDException {
+        var reqInfo = toGetRequestInformation();
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId + "/timeline/" + timelineId;
+
+        return requestAdapter.send(reqInfo, Timeline.class);
+    }
+
+    /**
+     * Gets details for a build.
+     *
+     * @param buildId    Id of the build. use getBuilds() to list all the builds.
+     * @param timelineId Id of the build timeline.
+     * @param requestConfiguration Consumer of query parameters to filter.
+     * @return a timeline object. {@link Timeline}
+     * @throws AzDException Default Api Exception handler.
+     */
+    public Timeline get(int buildId, String timelineId, Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
+        var reqInfo = toGetRequestInformation();
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId + "/timeline/" + timelineId;
+
+        if (requestConfiguration != null) {
+            final var config = new RequestConfiguration();
+            requestConfiguration.accept(config);
+            reqInfo.setQueryParameters(config.queryParameters);
+        }
+
+        return requestAdapter.send(reqInfo, Timeline.class);
     }
 
     public static class GetQueryParameters {

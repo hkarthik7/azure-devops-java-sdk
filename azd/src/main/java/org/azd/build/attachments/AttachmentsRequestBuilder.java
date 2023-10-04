@@ -36,8 +36,8 @@ public class AttachmentsRequestBuilder extends BaseRequestBuilder {
      * @return Returns a future of response stream
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<InputStream> get(int buildId, String timelineId, String recordId,
-                                                         String type, String attachmentName) throws AzDException {
+    public CompletableFuture<InputStream> getAsync(int buildId, String timelineId, String recordId,
+                                                   String type, String attachmentName) throws AzDException {
         var reqInfo = toGetInformation(buildId);
         reqInfo.serviceEndpoint = MessageFormat.format("{0}/{1}/{2}/attachments/{3}/{4}",
                 reqInfo.serviceEndpoint, timelineId, recordId, type, attachmentName);
@@ -53,10 +53,43 @@ public class AttachmentsRequestBuilder extends BaseRequestBuilder {
      * @return Attachments future Object {@link Attachments}
      * @throws AzDException Default Api Exception handler.
      **/
-    public CompletableFuture<Attachments> list(int buildId, String type) throws AzDException {
+    public CompletableFuture<Attachments> listAsync(int buildId, String type) throws AzDException {
         var reqInfo = toGetInformation(buildId);
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/attachments/" + type;
         return requestAdapter.sendAsync(reqInfo, Attachments.class);
+    }
+
+    /**
+     * Gets the attachment of a specific type that are associated with a build.
+     * @param buildId The ID of the build.
+     * @param timelineId The ID of the timeline.
+     * @param recordId The ID of the timeline record.
+     * @param type The type of the attachment.
+     * @param attachmentName The name of the attachment.
+     * @return Returns a future of response stream
+     * @throws AzDException Default Api Exception handler.
+     */
+    public InputStream get(int buildId, String timelineId, String recordId,
+                           String type, String attachmentName) throws AzDException {
+        var reqInfo = toGetInformation(buildId);
+        reqInfo.serviceEndpoint = MessageFormat.format("{0}/{1}/{2}/attachments/{3}/{4}",
+                reqInfo.serviceEndpoint, timelineId, recordId, type, attachmentName);
+        reqInfo.requestHeaders.add(CustomHeader.STREAM_ACCEPT);
+        return requestAdapter.sendStream(reqInfo);
+    }
+
+    /**
+     * Gets the list of attachments of a specific type that are associated with a build.
+     *
+     * @param buildId The ID of the build.
+     * @param type The type of attachment.
+     * @return Attachments future Object {@link Attachments}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    public Attachments list(int buildId, String type) throws AzDException {
+        var reqInfo = toGetInformation(buildId);
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/attachments/" + type;
+        return requestAdapter.send(reqInfo, Attachments.class);
     }
 
     /**

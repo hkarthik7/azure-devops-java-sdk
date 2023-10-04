@@ -32,10 +32,22 @@ public class AccountsRequestBuilder extends BaseRequestBuilder {
      * @return Accounts future object {@link Accounts}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<Accounts> list(String memberId) throws AzDException {
+    public CompletableFuture<Accounts> listAsync(String memberId) throws AzDException {
         Objects.requireNonNull(memberId, "Member Id cannot be null or empty.");
         var requestInfo = toGetRequestInfo(memberId);
-        return  requestAdapter.sendAsync(requestInfo, org.azd.accounts.types.Accounts.class);
+        return  requestAdapter.sendAsync(requestInfo, Accounts.class);
+    }
+
+    /**
+     * Get a list of accounts for a specific member. MemberId parameter is required.
+     * @param memberId ID for a member of the accounts.
+     * @return Accounts future object {@link Accounts}
+     * @throws AzDException Default Api Exception handler.
+     */
+    public Accounts list(String memberId) throws AzDException {
+        Objects.requireNonNull(memberId, "Member Id cannot be null or empty.");
+        var requestInfo = toGetRequestInfo(memberId);
+        return  requestAdapter.send(requestInfo, Accounts.class);
     }
 
     /**

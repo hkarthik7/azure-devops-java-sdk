@@ -31,7 +31,7 @@ public class BuildChangesRequestBuilder extends BaseRequestBuilder {
      * @return Future object of BuildChanges {@link BuildChanges}
      * @throws AzDException Default Api exception handler
      */
-    public CompletableFuture<BuildChanges> get(int buildId) throws AzDException {
+    public CompletableFuture<BuildChanges> getAsync(int buildId) throws AzDException {
         return requestAdapter.sendAsync(toGetInformation(buildId, null), BuildChanges.class);
     }
 
@@ -41,7 +41,7 @@ public class BuildChangesRequestBuilder extends BaseRequestBuilder {
      * @return Future object of BuildChanges {@link BuildChanges}
      * @throws AzDException Default Api exception handler
      */
-    public CompletableFuture<BuildChanges> get(int buildId,
+    public CompletableFuture<BuildChanges> getAsync(int buildId,
                                                     Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
         var reqInfo = toGetInformation(buildId, requestConfiguration);
         return requestAdapter.sendAsync(reqInfo, BuildChanges.class);
@@ -53,11 +53,46 @@ public class BuildChangesRequestBuilder extends BaseRequestBuilder {
      * @return BuildChanges future object {@link BuildChanges}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<BuildChanges> getChangesBetweenBuilds(Consumer<RequestConfiguration> requestConfiguration)
+    public CompletableFuture<BuildChanges> getAsync(Consumer<RequestConfiguration> requestConfiguration)
             throws AzDException {
         var reqInfo = toGetInformation(0, requestConfiguration);
         reqInfo.serviceEndpoint = "build/changes";
         return requestAdapter.sendAsync(reqInfo, BuildChanges.class);
+    }
+
+    /**
+     * Gets the changes associated with a build
+     * @param buildId ID of the build.
+     * @return Future object of BuildChanges {@link BuildChanges}
+     * @throws AzDException Default Api exception handler
+     */
+    public BuildChanges get(int buildId) throws AzDException {
+        return requestAdapter.send(toGetInformation(buildId, null), BuildChanges.class);
+    }
+
+    /**
+     * Gets the changes associated with a build
+     * @param buildId ID of the build.
+     * @return Future object of BuildChanges {@link BuildChanges}
+     * @throws AzDException Default Api exception handler
+     */
+    public BuildChanges get(int buildId,
+                            Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
+        var reqInfo = toGetInformation(buildId, requestConfiguration);
+        return requestAdapter.send(reqInfo, BuildChanges.class);
+    }
+
+    /***
+     * Gets the changes made to the repository between two given builds.
+     * @param requestConfiguration Consumer of request configuration object.
+     * @return BuildChanges future object {@link BuildChanges}
+     * @throws AzDException Default Api Exception handler.
+     */
+    public BuildChanges get(Consumer<RequestConfiguration> requestConfiguration)
+            throws AzDException {
+        var reqInfo = toGetInformation(0, requestConfiguration);
+        reqInfo.serviceEndpoint = "build/changes";
+        return requestAdapter.send(reqInfo, BuildChanges.class);
     }
 
     /**

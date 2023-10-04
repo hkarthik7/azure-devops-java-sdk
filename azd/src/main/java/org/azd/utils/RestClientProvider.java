@@ -10,6 +10,7 @@ import org.azd.helpers.JsonMapper;
 import java.net.http.HttpResponse;
 import java.util.Map;
 
+@Deprecated(since = "v6.0")
 public final class RestClientProvider extends BaseRestClient {
     protected static final JsonMapper MAPPER = new JsonMapper();
     private static final String API_RELATIVE_PATH = "_apis";

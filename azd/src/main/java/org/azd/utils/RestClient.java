@@ -19,6 +19,7 @@ import static org.azd.utils.RestClientProvider.buildRequestUrl;
 /**
  * RestClient to call Azure DevOps REST API.
  */
+@Deprecated(since = "v6.0")
 public abstract class RestClient {
 
     /**

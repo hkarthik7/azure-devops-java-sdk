@@ -34,7 +34,7 @@ public class SourceProvidersRequestBuilder extends BaseRequestBuilder {
      * @return Contents of the file given String. {@link String}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<String> getFileContents(String providerName, Consumer<GetRequestConfiguration> requestConfiguration) throws AzDException {
+    public CompletableFuture<String> getFileContentsAsync(String providerName, Consumer<GetRequestConfiguration> requestConfiguration) throws AzDException {
         var reqInfo = toGetRequestInformation();
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + providerName + "/filecontents";
 
@@ -55,8 +55,8 @@ public class SourceProvidersRequestBuilder extends BaseRequestBuilder {
      * @return SourceRepositoryItems {@link SourceRepositoryItems}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<SourceRepositoryItems> getPathContents(String providerName,
-                                                                    Consumer<GetRequestConfiguration> requestConfiguration) throws AzDException {
+    public CompletableFuture<SourceRepositoryItems> getPathContentsAsync(String providerName,
+                                                                         Consumer<GetRequestConfiguration> requestConfiguration) throws AzDException {
         var reqInfo = toGetRequestInformation();
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + providerName + "/pathcontents";
 
@@ -80,8 +80,8 @@ public class SourceProvidersRequestBuilder extends BaseRequestBuilder {
      * @return SourceProviderPullRequest {@link SourceProviderPullRequest}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<SourceProviderPullRequest> getPullRequest(String providerName, String pullRequestId,
-                                                                       String repositoryName, String serviceEndpointId) throws AzDException {
+    public CompletableFuture<SourceProviderPullRequest> getPullRequestAsync(String providerName, String pullRequestId,
+                                                                            String repositoryName, String serviceEndpointId) throws AzDException {
         var reqInfo = toGetRequestInformation();
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + providerName + "/pullrequests/" + pullRequestId;
         reqInfo.setQueryParameter("repositoryName", repositoryName);
@@ -96,7 +96,7 @@ public class SourceProvidersRequestBuilder extends BaseRequestBuilder {
      * @return SourceProviderAttributes {@link SourceProviderAttributes}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<SourceProviderAttributes> list() throws AzDException {
+    public CompletableFuture<SourceProviderAttributes> listAsync() throws AzDException {
         return requestAdapter.sendAsync(toGetRequestInformation(), SourceProviderAttributes.class);
     }
 
@@ -109,8 +109,8 @@ public class SourceProvidersRequestBuilder extends BaseRequestBuilder {
      * @return SourceProvideBranches {@link SourceProvideBranches}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<SourceProvideBranches> listBranches(String providerName,
-                                                                 Consumer<GetBranchesRequestConfiguration> requestConfiguration) throws AzDException {
+    public CompletableFuture<SourceProvideBranches> listBranchesAsync(String providerName,
+                                                                      Consumer<GetBranchesRequestConfiguration> requestConfiguration) throws AzDException {
         var reqInfo = toGetRequestInformation();
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + providerName + "/branches";
 
@@ -131,8 +131,8 @@ public class SourceProvidersRequestBuilder extends BaseRequestBuilder {
      * @return SourceRepositories {@link SourceRepositories}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<SourceRepositories> listRepositories(String providerName,
-                                                                 Consumer<GetRepositoriesRequestConfiguration> requestConfiguration) throws AzDException {
+    public CompletableFuture<SourceRepositories> listRepositoriesAsync(String providerName,
+                                                                       Consumer<GetRepositoriesRequestConfiguration> requestConfiguration) throws AzDException {
         var reqInfo = toGetRequestInformation();
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + providerName + "/repositories";
 
@@ -156,7 +156,7 @@ public class SourceProvidersRequestBuilder extends BaseRequestBuilder {
      * @return RepositoryWebhooks {@link RepositoryWebhooks}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<RepositoryWebhooks> listWebhooks(String providerName, String serviceEndpointId, String repositoryName) throws AzDException {
+    public CompletableFuture<RepositoryWebhooks> listWebhooksAsync(String providerName, String serviceEndpointId, String repositoryName) throws AzDException {
         var reqInfo = toGetRequestInformation();
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + providerName + "/webhooks";
         reqInfo.setQueryParameter("repositoryName", repositoryName);
@@ -177,14 +177,176 @@ public class SourceProvidersRequestBuilder extends BaseRequestBuilder {
      * @return Void; successful operation
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<Void> restore(String providerName, String serviceEndpointId,
-                                           String repositoryName, List<String> triggerTypes) throws AzDException {
+    public CompletableFuture<Void> restoreAsync(String providerName, String serviceEndpointId,
+                                                String repositoryName, List<String> triggerTypes) throws AzDException {
         var reqInfo = toPostRequestInformation(triggerTypes);
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + providerName + "/webhooks";
         reqInfo.setQueryParameter("repositoryName", repositoryName);
         reqInfo.setQueryParameter("serviceEndpointId", serviceEndpointId);
 
         return requestAdapter.sendPrimitiveAsync(reqInfo);
+
+    }
+
+    /**
+     * Gets the contents of a file in the given source code repository.
+     *
+     * @param providerName      The name of the source provider. E.g., Github
+     * @param requestConfiguration Consumer of request parameters configuration.
+     * @return Contents of the file given String. {@link String}
+     * @throws AzDException Default Api Exception handler.
+     */
+    public String getFileContents(String providerName, Consumer<GetRequestConfiguration> requestConfiguration) throws AzDException {
+        var reqInfo = toGetRequestInformation();
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + providerName + "/filecontents";
+
+        if (requestConfiguration != null) {
+            final var config = new GetRequestConfiguration();
+            requestConfiguration.accept(config);
+            reqInfo.setQueryParameters(config.queryParameters);
+        }
+
+        return requestAdapter.sendString(reqInfo);
+    }
+
+    /**
+     * Gets the contents of a directory in the given source code repository.
+     *
+     * @param providerName      The name of the source provider. E.g., Github
+     * @param requestConfiguration Consumer of request parameters configuration.
+     * @return SourceRepositoryItems {@link SourceRepositoryItems}
+     * @throws AzDException Default Api Exception handler.
+     */
+    public SourceRepositoryItems getPathContents(String providerName,
+                                                 Consumer<GetRequestConfiguration> requestConfiguration) throws AzDException {
+        var reqInfo = toGetRequestInformation();
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + providerName + "/pathcontents";
+
+        if (requestConfiguration != null) {
+            final var config = new GetRequestConfiguration();
+            requestConfiguration.accept(config);
+            reqInfo.setQueryParameters(config.queryParameters);
+        }
+
+        return requestAdapter.send(reqInfo, SourceRepositoryItems.class);
+    }
+
+    /**
+     * Gets a pull request object from source provider.
+     *
+     * @param providerName      The name of the source provider
+     * @param pullRequestId     Vendor-specific id of the pull request.
+     * @param repositoryName    Vendor-specific identifier or the name of the repository that contains the pull request.
+     * @param serviceEndpointId If specified, the ID of the service endpoint to query.
+     *                          Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit.
+     * @return SourceProviderPullRequest {@link SourceProviderPullRequest}
+     * @throws AzDException Default Api Exception handler.
+     */
+    public SourceProviderPullRequest getPullRequest(String providerName, String pullRequestId,
+                                                    String repositoryName, String serviceEndpointId) throws AzDException {
+        var reqInfo = toGetRequestInformation();
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + providerName + "/pullrequests/" + pullRequestId;
+        reqInfo.setQueryParameter("repositoryName", repositoryName);
+        reqInfo.setQueryParameter("serviceEndpointId", serviceEndpointId);
+
+        return requestAdapter.send(reqInfo, SourceProviderPullRequest.class);
+    }
+
+    /**
+     * Get a list of source providers and their capabilities.
+     *
+     * @return SourceProviderAttributes {@link SourceProviderAttributes}
+     * @throws AzDException Default Api Exception handler.
+     */
+    public SourceProviderAttributes list() throws AzDException {
+        return requestAdapter.send(toGetRequestInformation(), SourceProviderAttributes.class);
+    }
+
+
+    /**
+     * Gets a list of branches for the given source code repository.
+     *
+     * @param providerName      The name of the source provider.
+     * @param requestConfiguration Consumer of query parameters to filter.
+     * @return SourceProvideBranches {@link SourceProvideBranches}
+     * @throws AzDException Default Api Exception handler.
+     */
+    public SourceProvideBranches listBranches(String providerName,
+                                              Consumer<GetBranchesRequestConfiguration> requestConfiguration) throws AzDException {
+        var reqInfo = toGetRequestInformation();
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + providerName + "/branches";
+
+        if (requestConfiguration != null) {
+            final var config = new GetBranchesRequestConfiguration();
+            requestConfiguration.accept(config);
+            reqInfo.setQueryParameters(config.queryParameters);
+        }
+
+        return requestAdapter.send(reqInfo, SourceProvideBranches.class);
+    }
+
+    /**
+     * Gets a list of source code repositories.
+     *
+     * @param providerName      The name of the source provider.
+     * @param requestConfiguration Consumer of query parameters to filter.
+     * @return SourceRepositories {@link SourceRepositories}
+     * @throws AzDException Default Api Exception handler.
+     */
+    public SourceRepositories listRepositories(String providerName,
+                                               Consumer<GetRepositoriesRequestConfiguration> requestConfiguration) throws AzDException {
+        var reqInfo = toGetRequestInformation();
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + providerName + "/repositories";
+
+        if (requestConfiguration != null) {
+            final var config = new GetRepositoriesRequestConfiguration();
+            requestConfiguration.accept(config);
+            reqInfo.setQueryParameters(config.queryParameters);
+        }
+
+        return requestAdapter.send(reqInfo, SourceRepositories.class);
+    }
+
+    /**
+     * Gets a list of webhooks installed in the given source code repository.
+     *
+     * @param providerName      The name of the source provider.
+     * @param serviceEndpointId If specified, the ID of the service endpoint to query.
+     *                          Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit.
+     * @param repositoryName    If specified, the vendor-specific identifier or the name of the repository to get webhooks.
+     *                          Can only be omitted for providers that do not support multiple repositories.
+     * @return RepositoryWebhooks {@link RepositoryWebhooks}
+     * @throws AzDException Default Api Exception handler.
+     */
+    public RepositoryWebhooks listWebhooks(String providerName, String serviceEndpointId, String repositoryName) throws AzDException {
+        var reqInfo = toGetRequestInformation();
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + providerName + "/webhooks";
+        reqInfo.setQueryParameter("repositoryName", repositoryName);
+        reqInfo.setQueryParameter("serviceEndpointId", serviceEndpointId);
+
+        return requestAdapter.send(reqInfo, RepositoryWebhooks.class);
+    }
+
+    /**
+     * Recreates the webhooks for the specified triggers in the given source code repository.
+     *
+     * @param providerName      The name of the source provider.
+     * @param serviceEndpointId If specified, the ID of the service endpoint to query.
+     *                          Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit.
+     * @param repositoryName    If specified, the vendor-specific identifier or the name of the repository to get webhooks.
+     *                          Can only be omitted for providers that do not support multiple repositories.
+     * @param triggerTypes      The types of triggers to restore webhooks for.
+     * @return Void; successful operation
+     * @throws AzDException Default Api Exception handler.
+     */
+    public Void restore(String providerName, String serviceEndpointId,
+                        String repositoryName, List<String> triggerTypes) throws AzDException {
+        var reqInfo = toPostRequestInformation(triggerTypes);
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + providerName + "/webhooks";
+        reqInfo.setQueryParameter("repositoryName", repositoryName);
+        reqInfo.setQueryParameter("serviceEndpointId", serviceEndpointId);
+
+        return requestAdapter.sendPrimitive(reqInfo);
 
     }
 

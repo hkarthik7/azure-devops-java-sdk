@@ -71,7 +71,7 @@ public class StreamHelper {
         var reqInfo = new RequestInformation();
         reqInfo.setRequestUrl(url);
         reqInfo.requestHeaders.add(CustomHeader.STREAM_ACCEPT);
-        var res = requestAdapter.sendStreamAsync(reqInfo).join();
+        var res = requestAdapter.sendStream(reqInfo);
         download(fileName, res);
     }
 

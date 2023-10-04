@@ -14,6 +14,7 @@ import java.util.concurrent.CompletableFuture;
 /**
  * BaseRestClient that encapsulates the logic for managing request and response for REST API.
  */
+@Deprecated(since = "v6.0")
 public abstract class BaseRestClient {
     private static final String AUTHORIZATION = "Authorization";
     private static HttpClient.Redirect REDIRECT_POLICY = HttpClient.Redirect.NORMAL;

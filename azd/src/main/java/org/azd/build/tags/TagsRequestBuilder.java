@@ -28,7 +28,7 @@ public class TagsRequestBuilder extends BaseRequestBuilder {
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<BuildTags> delete(String tag) throws AzDException {
+    public CompletableFuture<BuildTags> deleteAsync(String tag) throws AzDException {
         var reqInfo = toDeleteRequestInformation();
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + tag;
 
@@ -40,7 +40,29 @@ public class TagsRequestBuilder extends BaseRequestBuilder {
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<BuildTags> list() throws AzDException {
+    public CompletableFuture<BuildTags> listAsync() throws AzDException {
         return requestAdapter.sendAsync(toGetRequestInformation(), BuildTags.class);
+    }
+
+    /***
+     * Removes a tag from builds, definitions, and from the tag store
+     * @param tag The tag to delete.
+     * @return Sting array of tags {@link BuildTags}
+     * @throws AzDException Default Api Exception handler.
+     */
+    public BuildTags delete(String tag) throws AzDException {
+        var reqInfo = toDeleteRequestInformation();
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + tag;
+
+        return requestAdapter.send(reqInfo, BuildTags.class);
+    }
+
+    /***
+     * Gets a list of all build tags in the project.
+     * @return Sting array of tags {@link BuildTags}
+     * @throws AzDException Default Api Exception handler.
+     */
+    public BuildTags list() throws AzDException {
+        return requestAdapter.send(toGetRequestInformation(), BuildTags.class);
     }
 }

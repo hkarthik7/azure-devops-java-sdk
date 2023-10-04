@@ -29,7 +29,7 @@ public class ProcessesRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      * @return a list of processes {@link Processes}
      */
-    public CompletableFuture<Process> get(String processId) throws AzDException {
+    public CompletableFuture<Process> getAsync(String processId) throws AzDException {
         var reqInfo = toGetRequestInformation();
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + processId;
         reqInfo.project = null;
@@ -42,10 +42,36 @@ public class ProcessesRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      * @return a list of processes {@link Processes}
      */
-    public CompletableFuture<Processes> list() throws AzDException {
+    public CompletableFuture<Processes> listAsync() throws AzDException {
         var reqInfo = toGetRequestInformation();
         reqInfo.project = null;
 
         return requestAdapter.sendAsync(reqInfo, Processes.class);
+    }
+
+    /***
+     * Get a list of processes.
+     * @param processId ID for a process.
+     * @throws AzDException Default Api Exception handler.
+     * @return a list of processes {@link Processes}
+     */
+    public Process get(String processId) throws AzDException {
+        var reqInfo = toGetRequestInformation();
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + processId;
+        reqInfo.project = null;
+
+        return requestAdapter.send(reqInfo, Process.class);
+    }
+
+    /***
+     * Get a list of processes.
+     * @throws AzDException Default Api Exception handler.
+     * @return a list of processes {@link Processes}
+     */
+    public Processes list() throws AzDException {
+        var reqInfo = toGetRequestInformation();
+        reqInfo.project = null;
+
+        return requestAdapter.send(reqInfo, Processes.class);
     }
 }

@@ -34,7 +34,7 @@ public class BuildLogsRequestBuilder extends BaseRequestBuilder {
      * @return Future string object or plain text.
      * @throws AzDException Default Api exception handler.
      */
-    public CompletableFuture<String> get(int buildId, int logId) throws AzDException {
+    public CompletableFuture<String> getAsync(int buildId, int logId) throws AzDException {
         var reqInfo = toGetInformation(buildId, null);
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + logId;
         return requestAdapter.sendStringAsync(reqInfo);
@@ -48,7 +48,7 @@ public class BuildLogsRequestBuilder extends BaseRequestBuilder {
      * @return String object or plain text.
      * @throws AzDException Default Api exception handler.
      */
-    public CompletableFuture<String> get(int buildId, int logId,
+    public CompletableFuture<String> getAsync(int buildId, int logId,
                                               Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
         var reqInfo = toGetInformation(buildId, requestConfiguration);
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + logId;
@@ -63,7 +63,7 @@ public class BuildLogsRequestBuilder extends BaseRequestBuilder {
      * @return Input stream of logs.
      * @throws AzDException Default Api exception handler.
      */
-    public CompletableFuture<InputStream> getAsZip(int buildId, int logId) throws AzDException {
+    public CompletableFuture<InputStream> getAsZipAsync(int buildId, int logId) throws AzDException {
         var reqInfo = toGetInformation(buildId, null);
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + logId;
         reqInfo.requestHeaders.add(CustomHeader.STREAM_ZIP_ACCEPT);
@@ -76,7 +76,7 @@ public class BuildLogsRequestBuilder extends BaseRequestBuilder {
      * @return BuildLogs future object {@link BuildLogs}
      * @throws AzDException Default Api exception handler.
      */
-    public CompletableFuture<BuildLogs> getLogs(int buildId) throws AzDException {
+    public CompletableFuture<BuildLogs> getAsync(int buildId) throws AzDException {
         var reqInfo = toGetInformation(buildId, null);
         return requestAdapter.sendAsync(reqInfo, BuildLogs.class);
     }
@@ -87,20 +87,86 @@ public class BuildLogsRequestBuilder extends BaseRequestBuilder {
      * @return CompletableFuture of Input stream of logs.
      * @throws AzDException Default Api exception handler.
      */
-    public CompletableFuture<InputStream> getLogsAsZip(int buildId) throws AzDException {
+    public CompletableFuture<InputStream> getAsZipAsync(int buildId) throws AzDException {
         var reqInfo = toGetInformation(buildId, null);
         reqInfo.requestHeaders.add(CustomHeader.STREAM_ZIP_ACCEPT);
         return requestAdapter.sendStreamAsync(reqInfo);
     }
 
     /**
+     * Gets an individual log file for a build.
+     * @param buildId ID of the build.
+     * @param logId ID of the log file.
+     * @return string object or plain text.
+     * @throws AzDException Default Api exception handler.
+     */
+    public String get(int buildId, int logId) throws AzDException {
+        var reqInfo = toGetInformation(buildId, null);
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + logId;
+        return requestAdapter.sendString(reqInfo);
+    }
+
+    /**
+     * Gets an individual log file for a build as plain text.
+     * @param buildId ID of the build.
+     * @param logId ID of the log file.
+     * @param requestConfiguration Consumer of query parameters.
+     * @return String object or plain text.
+     * @throws AzDException Default Api exception handler.
+     */
+    public String get(int buildId, int logId, Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
+        var reqInfo = toGetInformation(buildId, requestConfiguration);
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + logId;
+        reqInfo.requestHeaders.add(CustomHeader.TEXT_CONTENT);
+        return requestAdapter.sendString(reqInfo);
+    }
+
+    /**
+     * Gets an individual log file for a build as a zip file.
+     * @param buildId ID of the build.
+     * @param logId ID of the log file.
+     * @return Input stream of logs.
+     * @throws AzDException Default Api exception handler.
+     */
+    public InputStream getAsZip(int buildId, int logId) throws AzDException {
+        var reqInfo = toGetInformation(buildId, null);
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + logId;
+        reqInfo.requestHeaders.add(CustomHeader.STREAM_ZIP_ACCEPT);
+        return requestAdapter.sendStream(reqInfo);
+    }
+
+    /**
+     * Gets the logs for a build.
+     * @param buildId ID of the build.
+     * @return BuildLogs future object {@link BuildLogs}
+     * @throws AzDException Default Api exception handler.
+     */
+    public BuildLogs get(int buildId) throws AzDException {
+        var reqInfo = toGetInformation(buildId, null);
+        return requestAdapter.send(reqInfo, BuildLogs.class);
+    }
+
+    /**
+     * Gets the logs for a build as zip content.
+     * @param buildId ID of the build.
+     * @return Input stream of logs.
+     * @throws AzDException Default Api exception handler.
+     */
+    public InputStream getAsZip(int buildId) throws AzDException {
+        var reqInfo = toGetInformation(buildId, null);
+        reqInfo.requestHeaders.add(CustomHeader.STREAM_ZIP_ACCEPT);
+        return requestAdapter.sendStream(reqInfo);
+    }
+
+
+    /**
      * Represents the query parameters.
      */
     public static class GetQueryParameters {
         @QueryParameter(name = "startLine")
-        public int startLine;
+        public long startLine;
         @QueryParameter(name = "endLine")
-        public int endLine;
+        public long endLine;
     }
 
     /**
