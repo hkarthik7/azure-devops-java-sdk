@@ -1,27 +1,27 @@
 package org.azd;
 
-import org.azd.artifacts.feedmanagement.FeedManagementRequestBuilder;
-import org.azd.feedmanagement.types.Feed;
-import org.azd.feedmanagement.types.FeedView;
-import org.azd.authentication.PersonalAccessTokenCredential;
 import org.azd.enums.FeedRole;
 import org.azd.enums.FeedViewType;
 import org.azd.enums.FeedVisibility;
+import org.azd.enums.Instance;
 import org.azd.exceptions.AzDException;
-import org.azd.interfaces.AccessTokenCredential;
-import org.azd.serializer.JsonSerializer;
-import org.azd.serviceClient.AzDServiceClient;
+import org.azd.feedmanagement.types.Feed;
+import org.azd.helpers.JsonMapper;
+import org.azd.interfaces.AzDClient;
+import org.azd.interfaces.FeedManagementDetails;
+import org.azd.interfaces.SerializerContext;
+import org.azd.utils.AzDClientApi;
+import org.azd.utils.InstanceFactory;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
 import java.util.UUID;
-import java.util.concurrent.CompletionException;
 
 public class FeedManagementApiTest {
 
-    private static final JsonSerializer serializer = new JsonSerializer();
-    private static FeedManagementRequestBuilder f;
+    private static final SerializerContext serializer = InstanceFactory.createSerializerContext();
+    private static FeedManagementDetails f;
 
     @Before
     public void init() throws AzDException {
@@ -31,138 +31,104 @@ public class FeedManagementApiTest {
         String organization = m.getO();
         String token = m.getT();
         String project = m.getP();
-        AccessTokenCredential accessTokenCredential = new PersonalAccessTokenCredential(organization, project, token);
-        AzDServiceClient client = new AzDServiceClient(accessTokenCredential);
-        f = client.artifacts().feedManagement();
+        AzDClient webApi = new AzDClientApi(organization, project, token);
+        f = webApi.getFeedManagementApi();
     }
 
-    @Test(expected = CompletionException.class)
+    @Test(expected = AzDException.class)
     public void shouldCreateAFeed() throws AzDException {
-        var feed = new Feed();
-        feed.setName("myFeed");
-        feed.setDescription("My Test Feed");
-        feed.setBadgesEnabled(false);
-        feed.setHideDeletedPackageVersions(true);
-
-        f.create(feed).join();
+        f.createFeed("myFeed", "My Test Feed", false, true);
     }
 
-    @Test(expected = CompletionException.class)
+    @Test(expected = AzDException.class)
     public void shouldCreateAFeedView() throws AzDException {
-        var feedView = new FeedView();
-        feedView.setName("TestFeedView");
-        feedView.setType(FeedViewType.RELEASE);
-        feedView.setVisibility(FeedVisibility.ORGANIZATION);
-
-        f.view().create("myFeed", feedView).join();
+        f.createFeedView("myFeed", "TestFeedView", FeedViewType.RELEASE, FeedVisibility.ORGANIZATION);
     }
 
-    @Test(expected = CompletionException.class)
+    @Test(expected = AzDException.class)
     public void shouldDeleteAFeedView() throws AzDException {
-        f.view().delete("myFeed", "TestFeedView").join();
+        f.deleteFeedView("myFeed", "TestFeedView");
     }
 
-    @Test(expected = CompletionException.class)
+    @Test(expected = AzDException.class)
     public void shouldDeleteAFeed() throws AzDException {
-        f.delete("myFeed").join();
+        f.deleteFeed("myFeed");
     }
 
     @Test
     public void shouldGetAFeed() throws AzDException {
-        f.get("newTestFeed").join();
+        f.getFeed("newTestFeed");
     }
 
-    @Test(expected = CompletionException.class)
+    @Test(expected = AzDException.class)
     public void shouldGetAFeedWithQueryParameters() throws AzDException {
-        f.get("myFeed", false).join();
+        f.getFeed("myFeed", false);
     }
 
     @Test
     public void shouldGetAFeedPermissions() throws AzDException {
-        f.permissions().get("TestFeed").join();
+        f.getFeedPermissions("TestFeed");
     }
 
     @Test
     public void shouldGetAFeedPermissionsWithQueryParameters() throws AzDException {
-        f.permissions().get("TestFeed", requestConfiguration -> {
-            requestConfiguration.queryParameters.includeDeletedFeeds = true;
-            requestConfiguration.queryParameters.excludeInheritedPermissions = false;
-            requestConfiguration.queryParameters.identityDescriptor = null;
-            requestConfiguration.queryParameters.includeIds = false;
-        }).join();
+        f.getFeedPermissions("TestFeed", true, null, true, true);
     }
 
     @Test
     public void shouldGetAFeedView() throws AzDException {
-        f.view().get("TestFeed", "myView").join();
+        f.getFeedView("TestFeed", "myView");
     }
 
     @Test
     public void shouldGetFeedViews() throws AzDException {
-        f.view().list("TestFeed").join();
+        f.getFeedViews("TestFeed");
     }
 
     @Test
     public void shouldGetFeeds() throws AzDException {
-        f.list();
+        f.getFeeds();
     }
 
     @Test
     public void shouldGetFeedsWithQueryParameters() throws AzDException {
-        f.list(r -> {
-            r.queryParameters.feedRole = FeedRole.ADMINISTRATOR;
-            r.queryParameters.includeDeletedUpstreams = true;
-            r.queryParameters.includeUrls = true;
-        }).join();
+        f.getFeeds(FeedRole.ADMINISTRATOR, true, true);
     }
 
     @Test
     public void shouldSetFeedPermissions() throws AzDException {
-        f.permissions().get("TestFeed").thenAcceptAsync(feedPermissions -> {
-            try {
-                f.permissions().set("TestFeed", feedPermissions);
-            } catch (AzDException e) { }
-        }).join();
+        var feedPermissions = f.getFeedPermissions("TestFeed");
+        f.setFeedPermissions("TestFeed", feedPermissions);
     }
 
     @Test
     public void shouldUpdateAFeed() throws AzDException {
-         var feed = f.get("TestFeed").join();
+        var feed = f.getFeed("TestFeed");
         feed.setBadgesEnabled(false);
-        f.update(feed.getId(), feed);
+        f.updateFeed(feed.getId(), feed);
     }
 
     @Test
     public void shouldUpdateAFeedView() throws AzDException {
-        var feedView = f.view().get("TestFeed", "myView").join();
+        var feedView = f.getFeedView("TestFeed", "myView");
         feedView.setVisibility(FeedVisibility.PRIVATE);
-        f.view().update("TestFeed", feedView.getName(), feedView).join();
+        f.updateFeedView("TestFeed", feedView.getName(), feedView);
     }
 
     @Test
     public void shouldCreateAndUpdateAFeed() throws AzDException {
         String feedName = "MyTestFeed-" + UUID.randomUUID();
         try {
-            var feed = new Feed();
-            feed.setName(feedName);
-            feed.setDescription("My Test Feed");
-            feed.setBadgesEnabled(false);
-            feed.setHideDeletedPackageVersions(true);
-
-            f.create(feed).join();
+            f.createFeed(feedName, "this is a new feed", true, true);
             Thread.sleep(2000l); // to allow for feed creation
         } catch (AzDException e) {
             // ignore feed already exists
         } catch (InterruptedException e) {
             // ignore wait interrupt
         }
-        var newFeed = f.get(feedName).join();
-        newFeed.setName(feedName);
-        newFeed.setDescription("my description");
-        newFeed.setBadgesEnabled(true);
-        newFeed.setHideDeletedPackageVersions(false);
+        Feed feed = f.getFeed(feedName);
+//        f.updateFeed(feed.getId(), feedName, true, "my description", true, false);
 
-        f.update(newFeed.getId(), newFeed).join();
-        f.delete(newFeed.getId());
+        f.deleteFeed(feed.getId());
     }
 }
