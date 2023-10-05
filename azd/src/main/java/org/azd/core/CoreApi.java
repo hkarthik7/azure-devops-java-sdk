@@ -1,25 +1,14 @@
 package org.azd.core;
 
-import org.azd.build.BuildBaseRequestBuilder;
-import org.azd.common.ApiVersion;
-import org.azd.connection.Connection;
 import org.azd.core.types.*;
-import org.azd.enums.CustomHeader;
 import org.azd.enums.FeatureManagement;
 import org.azd.enums.ProjectState;
-import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
-import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.CoreDetails;
 import org.azd.serviceClient.AzDServiceClient;
 import org.azd.utils.AzDAsyncApi;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Optional;
-
-import static org.azd.utils.RestClient.send;
 
 /***
  * Core class to manage core API

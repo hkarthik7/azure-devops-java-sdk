@@ -1,66 +1,56 @@
 package org.azd;
 
 import org.azd.authentication.PersonalAccessTokenCredential;
-import org.azd.core.CoreRequestBuilder;
 import org.azd.core.types.Project;
 import org.azd.core.types.ProjectFeature;
-import org.azd.core.types.Team;
+import org.azd.core.types.WebApiTeam;
 import org.azd.enums.FeatureManagement;
 import org.azd.exceptions.AzDException;
-import org.azd.helpers.JsonMapper;
-import org.azd.interfaces.AccessTokenCredential;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.CoreDetails;
+import org.azd.interfaces.SerializerContext;
 import org.azd.serviceClient.AzDServiceClient;
 import org.azd.utils.AzDClientApi;
+import org.azd.utils.InstanceFactory;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
 import java.util.Optional;
-import java.util.concurrent.CompletionException;
 
 public class CoreApiTest {
-    private static final JsonMapper MAPPER = new JsonMapper();
+    private static final SerializerContext serializer = InstanceFactory.createSerializerContext();
     private static AzDClient webApi;
     private static CoreDetails c;
-    private static AzDServiceClient client;
-    private static AccessTokenCredential pat;
-    private static CoreRequestBuilder cc;
-
 
     @Before
     public void init() throws AzDException {
         String dir = System.getProperty("user.dir");
         File file = new File(dir + "/src/test/java/org/azd/_unitTest.json");
-        MockParameters m = MAPPER.mapJsonFromFile(file, MockParameters.class);
+        MockParameters m = serializer.deserialize(file, MockParameters.class);
         String organization = m.getO();
         String token = m.getT();
         String project = m.getP();
         webApi = new AzDClientApi(organization, project, token);
         c = webApi.getCoreApi();
-        pat = new PersonalAccessTokenCredential(organization, project, token);
-        client = new AzDServiceClient(pat);
-        cc = client.core();
     }
 
     @Test
     public void shouldReturnListOfProcess() throws AzDException {
-        cc.processes().list().join();
+        c.getProcesses();
     }
 
-    @Test(expected = CompletionException.class)
+    @Test(expected = AzDException.class)
     public void shouldCreateDefaultProject() throws AzDException {
         // project already exists error
-        cc.projects().create("my-awesome-project", "This is my new awesome project").join();
+        c.createProject("my-awesome-project", "This is my new awesome project");
     }
 
     @Test
     public void shouldCreateProjectWithAdditionalParameters() throws AzDException {
         try {
-            cc.projects().create("my-New-awesome-project", "My new awesome project", "Git",
-                    "b8a3a935-7e91-48b8-a94c-606d37c3e9f2");
+            c.createProject("my-New-awesome-project", "My new awesome project", "Git", "b8a3a935-7e91-48b8-a94c-606d37c3e9f2");
         } catch (AzDException e) {
             // Ignore project already exists error.
         }
@@ -68,40 +58,41 @@ public class CoreApiTest {
 
     @Test
     public void shouldGetAProject() throws AzDException {
-        cc.projects().get().join();
+        c.getProject(c.getProjects().getProjects().get(0).getName());
     }
 
     @Test
     public void shouldGetAProjectWithOptionalParameters() throws AzDException {
-        cc.projects().getProperties().join();
+        c.getProject(c.getProjects().getProjects().get(0).getName(), true, true);
     }
 
     @Test
     public void shouldDeleteAProject() throws AzDException {
         Project project = null;
         try {
-            project = cc.projects().get("my-New-awesome-project").join();
+            project = c.getProject("my-New-awesome-project");
         } catch (AzDException e) {
         }
 
         if (project != null) {
-            cc.projects().delete(project.getId()).join();
+            c.deleteProject(project.getId());
         }
     }
 
     @Test
     public void shouldGetProjectProperties() throws AzDException {
-        cc.projects().getProperties().join().getValue();
+        var projectId = c.getProject("azure-devops-java-sdk").getId();
+        c.getProjectProperties(projectId).getValue();
     }
 
     @Test
     public void shouldReturnAllProjects() throws AzDException {
-        System.out.println(cc.projects().list().join());
+        c.getProjects();
     }
 
     @Test
     public void shouldCreateAProjectTeam() throws AzDException {
-        Team team = null;
+        WebApiTeam team = null;
         try {
             team = c.getTeam("my-awesome-project", "myNewTeam");
         } catch (AzDException e) {
@@ -114,7 +105,7 @@ public class CoreApiTest {
 
     @Test
     public void shouldDeleteAProjectTeam() throws AzDException {
-        Team team = null;
+        WebApiTeam team = null;
         try {
             team = c.getTeam("my-awesome-project", "myNewTeam");
         } catch (AzDException e) {
