@@ -167,7 +167,7 @@ public class AzDClientApi implements AzDClient {
      */
     @Override
     public FeedManagementApi getFeedManagementApi() {
-        return new FeedManagementApi(CONNECTION);
+        return new FeedManagementApi(client);
     }
 
     /***

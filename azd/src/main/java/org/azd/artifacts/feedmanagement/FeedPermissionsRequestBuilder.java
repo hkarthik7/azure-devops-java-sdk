@@ -24,7 +24,7 @@ public class FeedPermissionsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      * @return Feed Permissions {@link FeedPermissions}
      */
-    public CompletableFuture<FeedPermissions> get(String feedId) throws AzDException {
+    public CompletableFuture<FeedPermissions> getAsync(String feedId) throws AzDException {
         var reqInfo = toGetInformation(feedId, null);
         return requestAdapter.sendAsync(reqInfo, FeedPermissions.class);
     }
@@ -36,7 +36,7 @@ public class FeedPermissionsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      * @return Feed Permissions {@link FeedPermissions}
      */
-    public CompletableFuture<FeedPermissions> get(String feedId, Consumer<RequestConfiguration> requestConfiguration)
+    public CompletableFuture<FeedPermissions> getAsync(String feedId, Consumer<RequestConfiguration> requestConfiguration)
             throws AzDException {
         var reqInfo = toGetInformation(feedId, requestConfiguration);
 
@@ -50,12 +50,53 @@ public class FeedPermissionsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      * @return array of feed permissions {@link FeedPermissions}
      */
-    public CompletableFuture<FeedPermissions> set(String feedId, FeedPermissions feedPermissions)
+    public CompletableFuture<FeedPermissions> setAsync(String feedId, FeedPermissions feedPermissions)
             throws AzDException {
         var reqInfo = toPatchRequestInformation(feedPermissions);
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + feedId + "/permissions";
 
         return requestAdapter.sendAsync(reqInfo, FeedPermissions.class);
+    }
+
+    /**
+     * Get the permissions for a feed. The project parameter must be supplied if the feed was created in a project.
+     * If the feed is not associated with any project, omit the project parameter from the request.
+     * @param feedId Id or name of the feed.
+     * @throws AzDException Default Api Exception handler.
+     * @return Feed Permissions {@link FeedPermissions}
+     */
+    public FeedPermissions get(String feedId) throws AzDException {
+        var reqInfo = toGetInformation(feedId, null);
+        return requestAdapter.send(reqInfo, FeedPermissions.class);
+    }
+
+    /**
+     * Get the permissions for a feed. The project parameter must be supplied if the feed was created in a project.
+     * If the feed is not associated with any project, omit the project parameter from the request.
+     * @param feedId Id or name of the feed.
+     * @throws AzDException Default Api Exception handler.
+     * @return Feed Permissions {@link FeedPermissions}
+     */
+    public FeedPermissions get(String feedId, Consumer<RequestConfiguration> requestConfiguration)
+            throws AzDException {
+        var reqInfo = toGetInformation(feedId, requestConfiguration);
+
+        return requestAdapter.send(reqInfo, FeedPermissions.class);
+    }
+
+    /***
+     * Update the permissions on a feed. The project parameter must be supplied if the feed was created in a project.
+     * If the feed is not associated with any project, omit the project parameter from the request.
+     * @param feedPermissions List of feed permissions to update the permissions for.
+     * @throws AzDException Default Api Exception handler.
+     * @return array of feed permissions {@link FeedPermissions}
+     */
+    public FeedPermissions set(String feedId, FeedPermissions feedPermissions)
+            throws AzDException {
+        var reqInfo = toPatchRequestInformation(feedPermissions.getFeedPermission());
+        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + feedId + "/permissions";
+
+        return requestAdapter.send(reqInfo, FeedPermissions.class);
     }
 
 
