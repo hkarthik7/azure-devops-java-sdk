@@ -1,5 +1,6 @@
 package org.azd.distributedtask;
 
+import org.azd.authentication.PersonalAccessTokenCredential;
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
 import org.azd.core.CoreApi;
@@ -9,6 +10,7 @@ import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.DistributedTaskDetails;
 import org.azd.release.types.ProjectReference;
+import org.azd.serviceClient.AzDServiceClient;
 import org.azd.utils.AzDAsyncApi;
 
 import java.util.*;
@@ -606,7 +608,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
     public VariableGroup addVariableGroup(String name, String description, VariableGroupMap variables) throws AzDException {
         var definition = new VariableGroupDefinition();
         var projectReference = new ProjectReference();
-        var core = new CoreApi(CONNECTION);
+        var core = new CoreApi(new AzDServiceClient(new PersonalAccessTokenCredential(CONNECTION.getOrganization(), CONNECTION.getProject(), CONNECTION.getPersonalAccessToken())));
         var project = core.getProject(CONNECTION.getProject());
 
         projectReference.setName(project.getName());
@@ -747,7 +749,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
     public VariableGroup updateVariableGroup(int groupId, String name, String description, VariableGroupMap variables) throws AzDException {
         var definition = new VariableGroupDefinition();
         var projectReference = new ProjectReference();
-        var core = new CoreApi(CONNECTION);
+        var core = new CoreApi(new AzDServiceClient(new PersonalAccessTokenCredential(CONNECTION.getOrganization(), CONNECTION.getProject(), CONNECTION.getPersonalAccessToken())));
         var project = core.getProject(CONNECTION.getProject());
 
         projectReference.setName(project.getName());

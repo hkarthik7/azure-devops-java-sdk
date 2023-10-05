@@ -25,7 +25,7 @@ public class Identity extends SerializableEntity {
  	* An Identity descriptor is a wrapper for the identity type (Windows SID, Passport) along with a unique identifier such as the SID or PUID. 
 	**/
 	@JsonProperty("descriptor")
-	private IdentityDescriptor descriptor;
+	private String descriptor;
 	/**
  	* Identity Identifier. Also called Storage Key, or VSID 
 	**/
@@ -53,12 +53,12 @@ public class Identity extends SerializableEntity {
  	* An Identity descriptor is a wrapper for the identity type (Windows SID, Passport) along with a unique identifier such as the SID or PUID. 
 	**/
 	@JsonProperty("memberOf")
-	private List<IdentityDescriptor> memberOf;
+	private List<String> memberOf;
 	/**
  	* An Identity descriptor is a wrapper for the identity type (Windows SID, Passport) along with a unique identifier such as the SID or PUID. 
 	**/
 	@JsonProperty("members")
-	private List<IdentityDescriptor> members;
+	private List<String> members;
 
 	@JsonProperty("metaTypeId")
 	private Integer metaTypeId;
@@ -91,9 +91,9 @@ public class Identity extends SerializableEntity {
 
 	public void setCustomDisplayName(String customDisplayName) { this.customDisplayName = customDisplayName; }
 
-	public IdentityDescriptor getDescriptor() { return descriptor; }
+	public String getDescriptor() { return descriptor; }
 
-	public void setDescriptor(IdentityDescriptor descriptor) { this.descriptor = descriptor; }
+	public void setDescriptor(String descriptor) { this.descriptor = descriptor; }
 
 	public String getId() { return id; }
 
@@ -115,13 +115,13 @@ public class Identity extends SerializableEntity {
 
 	public void setMemberIds(List<String> memberIds) { this.memberIds = memberIds; }
 
-	public List<IdentityDescriptor> getMemberOf() { return memberOf; }
+	public List<String> getMemberOf() { return memberOf; }
 
-	public void setMemberOf(List<IdentityDescriptor> memberOf) { this.memberOf = memberOf; }
+	public void setMemberOf(List<String> memberOf) { this.memberOf = memberOf; }
 
-	public List<IdentityDescriptor> getMembers() { return members; }
+	public List<String> getMembers() { return members; }
 
-	public void setMembers(List<IdentityDescriptor> members) { this.members = members; }
+	public void setMembers(List<String> members) { this.members = members; }
 
 	public Integer getMetaTypeId() { return metaTypeId; }
 

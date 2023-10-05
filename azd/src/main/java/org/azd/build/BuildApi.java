@@ -893,7 +893,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public String getFileContents(String providerName, String serviceEndpointId, String repositoryName, String branchName, String path)
             throws AzDException {
-        return BUILD.sourceproviders().getFileContents(providerName, r -> {
+        return BUILD.sourceProviders().getFileContents(providerName, r -> {
             r.queryParameters.path = path;
             r.queryParameters.repository = repositoryName;
             r.queryParameters.serviceEndpointId = serviceEndpointId;
@@ -917,7 +917,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public SourceRepositoryItems getPathContents(String providerName, String serviceEndpointId, String repositoryName, String branchName, String path)
             throws AzDException {
-        return BUILD.sourceproviders().getPathContents(providerName, r -> {
+        return BUILD.sourceProviders().getPathContents(providerName, r -> {
             r.queryParameters.path = path;
             r.queryParameters.repository = repositoryName;
             r.queryParameters.serviceEndpointId = serviceEndpointId;
@@ -939,7 +939,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public SourceProviderPullRequest getPullRequest(String providerName, String pullRequestId, String repositoryName, String serviceEndpointId)
             throws AzDException {
-        return BUILD.sourceproviders().getPullRequest(providerName, pullRequestId, repositoryName, serviceEndpointId);
+        return BUILD.sourceProviders().getPullRequest(providerName, pullRequestId, repositoryName, serviceEndpointId);
     }
 
     /**
@@ -950,7 +950,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
      */
     @Override
     public SourceProviderAttributes getSourceProviders() throws AzDException {
-        return BUILD.sourceproviders().list();
+        return BUILD.sourceProviders().list();
     }
 
     /**
@@ -966,7 +966,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
      */
     @Override
     public SourceProvideBranches getBranches(String providerName, String serviceEndpointId, String repositoryName) throws AzDException {
-        return BUILD.sourceproviders().listBranches(providerName, r -> {
+        return BUILD.sourceProviders().listBranches(providerName, r -> {
             r.queryParameters.serviceEndpointId = serviceEndpointId;
             r.queryParameters.repository = repositoryName;
         });
@@ -986,7 +986,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
      */
     @Override
     public SourceProvideBranches getBranches(String providerName, String serviceEndpointId, String repositoryName, String branchName) throws AzDException {
-        return BUILD.sourceproviders().listBranches(providerName, r -> {
+        return BUILD.sourceProviders().listBranches(providerName, r -> {
             r.queryParameters.serviceEndpointId = serviceEndpointId;
             r.queryParameters.repository = repositoryName;
             r.queryParameters.branchName = branchName;
@@ -1004,7 +1004,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
      */
     @Override
     public SourceRepositories getRepositories(String providerName, String serviceEndpointId) throws AzDException {
-        return BUILD.sourceproviders().listRepositories(providerName, r -> r.queryParameters.serviceEndpointId = serviceEndpointId);
+        return BUILD.sourceProviders().listRepositories(providerName, r -> r.queryParameters.serviceEndpointId = serviceEndpointId);
     }
 
     /**
@@ -1019,7 +1019,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
      */
     @Override
     public SourceRepositories getRepositories(String providerName, String serviceEndpointId, String repositoryName) throws AzDException {
-        return BUILD.sourceproviders().listRepositories(providerName, r -> {
+        return BUILD.sourceProviders().listRepositories(providerName, r -> {
             r.queryParameters.serviceEndpointId = serviceEndpointId;
             r.queryParameters.repository = repositoryName;
         });
@@ -1042,7 +1042,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     @Override
     public SourceRepositories getRepositories(String providerName, String serviceEndpointId, String repositoryName, String continuationToken,
                                               boolean pageResults, SourceProviderResultSet resultSet) throws AzDException {
-        return BUILD.sourceproviders().listRepositories(providerName, r -> {
+        return BUILD.sourceProviders().listRepositories(providerName, r -> {
             r.queryParameters.serviceEndpointId = serviceEndpointId;
             r.queryParameters.repository = repositoryName;
             r.queryParameters.continuationToken = continuationToken;
@@ -1064,7 +1064,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
      */
     @Override
     public RepositoryWebhooks getWebHooks(String providerName, String serviceEndpointId, String repositoryName) throws AzDException {
-        return BUILD.sourceproviders().listWebhooks(providerName, serviceEndpointId, repositoryName);
+        return BUILD.sourceProviders().listWebhooks(providerName, serviceEndpointId, repositoryName);
     }
 
     /**
@@ -1081,7 +1081,7 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
      */
     @Override
     public Void restoreWebHooks(String providerName, String serviceEndpointId, String repositoryName, List<String> triggerTypes) throws AzDException {
-        return BUILD.sourceproviders().restore(providerName, serviceEndpointId, repositoryName, triggerTypes);
+        return BUILD.sourceProviders().restore(providerName, serviceEndpointId, repositoryName, triggerTypes);
     }
 
     /**

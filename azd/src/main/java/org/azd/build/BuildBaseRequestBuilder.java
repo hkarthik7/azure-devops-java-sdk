@@ -89,7 +89,7 @@ public class BuildBaseRequestBuilder extends BaseRequestBuilder {
      * Provides functionality to manage source providers Api.
      * @return SourceProvidersRequestBuilder {@link SourceProvidersRequestBuilder}
      */
-    public SourceProvidersRequestBuilder sourceproviders() {
+    public SourceProvidersRequestBuilder sourceProviders() {
         return new SourceProvidersRequestBuilder(accessTokenCredential, requestAdapter);
     }
 

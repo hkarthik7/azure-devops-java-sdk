@@ -1,5 +1,6 @@
 package org.azd.serviceendpoint;
 
+import org.azd.authentication.PersonalAccessTokenCredential;
 import org.azd.common.ApiVersion;
 import org.azd.connection.Connection;
 import org.azd.core.CoreApi;
@@ -9,6 +10,7 @@ import org.azd.enums.ServiceEndpointActionFilter;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.ServiceEndpointDetails;
+import org.azd.serviceClient.AzDServiceClient;
 import org.azd.serviceendpoint.types.ServiceEndpoint;
 import org.azd.serviceendpoint.types.ServiceEndpoints;
 import org.azd.utils.AzDAsyncApi;
@@ -37,7 +39,11 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
      */
     public ServiceEndpointApi(Connection connection) {
         this.CONNECTION = connection;
-        CORE = new CoreApi(CONNECTION);
+        try {
+            CORE = new CoreApi(new AzDServiceClient(new PersonalAccessTokenCredential(CONNECTION.getOrganization(), CONNECTION.getProject(), CONNECTION.getPersonalAccessToken())));
+        } catch (AzDException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /***

@@ -15,6 +15,9 @@ import java.util.LinkedHashMap;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
+/**
+ * Builder class that constructs requests for Core Projects Api.
+ */
 public class ProjectsRequestBuilder extends BaseRequestBuilder {
     /**
      * Instantiates the request builder with required values.
@@ -285,6 +288,7 @@ public class ProjectsRequestBuilder extends BaseRequestBuilder {
     /***
      * Get project with the specified id or name
      * @param projectName pass the project name or id
+     * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.
      * @throws AzDException Default Api Exception handler.
      * @return project object {@link Project}
      */

@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
-
+@Deprecated(since = "v6.0")
 public class ConnectionTest {
 
     @Test

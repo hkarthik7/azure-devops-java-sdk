@@ -11,6 +11,7 @@ import java.util.Map;
 /**
  * Helper class to construct the request body dynamically by removing non-assigned values in a type.
  */
+@Deprecated(since = "v6.0")
 public class ModelBuilder {
     /**
      * Instance of mapper for unmarshalling the request body.

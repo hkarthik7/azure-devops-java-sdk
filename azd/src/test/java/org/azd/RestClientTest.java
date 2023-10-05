@@ -18,6 +18,7 @@ import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+@Deprecated(since = "v6.0")
 public class RestClientTest {
     private static final JsonMapper MAPPER = new JsonMapper();
     private static AzDClientApi webApi;
