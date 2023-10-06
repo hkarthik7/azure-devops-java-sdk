@@ -76,14 +76,26 @@ public class AzDClientApi implements AzDClient {
         this.CONNECTION = new Connection(organizationName, projectName, personalAccessToken);
     }
 
-    public AzDClientApi(final String organization, final String projectName,
+    /***
+     * Pass the VSTS organization name, project name and personal access token to create a connection object
+     * @param server TFS server with port number. server:port.
+     * @param organizationName VSTS/Azure DevOps services organization name
+     * @param projectName project name
+     * @param personalAccessToken Personal access token
+     */
+    public AzDClientApi(final String server, final String organizationName, final String projectName, final String personalAccessToken) {
+        this(new PersonalAccessTokenCredential(server, organizationName, projectName, personalAccessToken));
+        this.CONNECTION = new Connection(organizationName, projectName, personalAccessToken);
+    }
+
+    public AzDClientApi(final String server, final String organization, final String projectName,
                         final String appSecret, final String authCode, final String callbackUrl, final AuthorizedToken authorizedToken) {
-        this(new OAuthAccessTokenCredential(organization, projectName, appSecret, authCode, callbackUrl, authorizedToken));
+        this(new OAuthAccessTokenCredential(server, organization, projectName, appSecret, authCode, callbackUrl, authorizedToken));
     }
 
     public AzDClientApi(final String organization, final String projectName,
                         final String appSecret, final String authCode, final String callbackUrl) {
-        this(organization, projectName, appSecret, authCode, callbackUrl, null);
+        this(null, organization, projectName, appSecret, authCode, callbackUrl, null);
     }
 
     public void setProject(String project) {
