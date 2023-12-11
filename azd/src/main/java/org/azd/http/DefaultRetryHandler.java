@@ -7,7 +7,7 @@ import org.azd.utils.InstanceFactory;
 
 public class DefaultRetryHandler implements RetryHandler {
     @Override
-    public AzDResponse retry() {
+    public ApiResponse retry() {
         var executionCount = 1;
         while (executionCount < DEFAULT_MAX_RETRIES) {
             if (response.retryAfterInterval().isPresent()) {
@@ -15,7 +15,7 @@ public class DefaultRetryHandler implements RetryHandler {
                     var delay = response.retryAfterInterval().getAsLong() * RETRY_IN_MILLISECONDS;
                     Thread.sleep(delay);
                     requestAdapter.sendStringAsync(response.getRequestInformation());
-                    response = AzDResponseHandler.getResponse();
+                    response = DefaultResponseHandler.getResponse();
                     executionCount++;
                 } catch (InterruptedException | AzDException e) {
                     throw new RuntimeException(e);
@@ -42,16 +42,16 @@ public class DefaultRetryHandler implements RetryHandler {
     }
 
     public DefaultRetryHandler() {
-        this(AzDResponseHandler.getResponse(), null);
+        this(DefaultResponseHandler.getResponse(), null);
     }
 
-    public DefaultRetryHandler(AzDResponse response, RequestAdapter requestAdapter) {
+    public DefaultRetryHandler(ApiResponse response, RequestAdapter requestAdapter) {
         this.response = response;
         this.requestAdapter = requestAdapter == null ? InstanceFactory.createDefaultRequestAdapter() : requestAdapter;
     }
 
     private int DEFAULT_MAX_RETRIES = 3;
     private long RETRY_IN_MILLISECONDS = 1000;
-    private AzDResponse response;
+    private ApiResponse response;
     private final RequestAdapter requestAdapter;
 }

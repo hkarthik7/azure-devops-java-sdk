@@ -51,7 +51,7 @@ public class DefaultRequestAdapter implements RequestAdapter {
     public CompletableFuture<String> sendStringAsync(RequestInformation requestInformation) throws AzDException {
         return client.sendAsync(getRequest(requestInformation), HttpResponse.BodyHandlers.ofString())
                 .thenApplyAsync(resp -> {
-                    handler.setResponse(resp, requestInformation);
+                    handler.handle(resp, requestInformation);
                     return resp.body();
                 });
     }
@@ -62,7 +62,7 @@ public class DefaultRequestAdapter implements RequestAdapter {
         return client.sendAsync(getRequest(requestInformation), HttpResponse.BodyHandlers.ofString())
                 .thenApplyAsync(resp -> {
                     try {
-                        handler.setResponse(resp, requestInformation);
+                        handler.handle(resp, requestInformation);
                         return serializer.deserialize(resp.body(), model);
                     } catch (AzDException e) {
                         throw new RuntimeException(e);
@@ -74,7 +74,7 @@ public class DefaultRequestAdapter implements RequestAdapter {
     public CompletableFuture<InputStream> sendStreamAsync(RequestInformation requestInformation) throws AzDException {
         return client.sendAsync(getRequest(requestInformation), HttpResponse.BodyHandlers.ofInputStream())
                 .thenApplyAsync(resp -> {
-                    handler.setResponse(resp, requestInformation);
+                    handler.handle(resp, requestInformation);
                     return resp.body();
                 });
     }
@@ -83,7 +83,7 @@ public class DefaultRequestAdapter implements RequestAdapter {
     public CompletableFuture<Void> sendPrimitiveAsync(RequestInformation requestInformation) throws AzDException {
         return client.sendAsync(getRequest(requestInformation), HttpResponse.BodyHandlers.ofString())
                 .thenAcceptAsync(resp -> {
-                    handler.setResponse(resp, requestInformation);
+                    handler.handle(resp, requestInformation);
                     if (!resp.body().isEmpty()) {
                         try {
                             serializer.deserialize(resp.body(), Map.class);
@@ -99,7 +99,7 @@ public class DefaultRequestAdapter implements RequestAdapter {
                                                  Class<T> model) throws AzDException {
         var result = client.sendAsync(getRequest(requestInformation), HttpResponse.BodyHandlers.ofString())
                 .thenApplyAsync(resp -> {
-                    handler.setResponse(resp, requestInformation);
+                    handler.handle(resp, requestInformation);
                     return resp.body();
                 }).join();
         return serializer.deserialize(result, model);
@@ -120,7 +120,7 @@ public class DefaultRequestAdapter implements RequestAdapter {
     public Void sendPrimitive(RequestInformation requestInformation) throws AzDException {
         var result = client.sendAsync(getRequest(requestInformation), HttpResponse.BodyHandlers.ofString())
                 .thenApplyAsync(resp -> {
-                    handler.setResponse(resp, requestInformation);
+                    handler.handle(resp, requestInformation);
                     return resp.body();
                 }).join();
 

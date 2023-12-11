@@ -1,8 +1,8 @@
 package org.azd.tasks;
 
 import org.azd.exceptions.AzDException;
-import org.azd.http.AzDResponse;
-import org.azd.http.AzDResponseHandler;
+import org.azd.http.ApiResponse;
+import org.azd.http.DefaultResponseHandler;
 import org.azd.interfaces.PageIterator;
 import org.azd.interfaces.RequestAdapter;
 import org.azd.interfaces.SerializerContext;
@@ -45,13 +45,13 @@ public class PagedListIterator<T extends SerializableEntity> implements PageIter
         return results;
     }
 
-    private static class ListIterator implements Iterator<AzDResponse> {
+    private static class ListIterator implements Iterator<ApiResponse> {
         public ListIterator() {
             this(null);
         }
 
         public ListIterator(RequestAdapter requestAdapter) {
-            this.response = AzDResponseHandler.getResponse();
+            this.response = DefaultResponseHandler.getResponse();
             this.continuationToken = this.response.getContinuationToken();
             this.requestAdapter = requestAdapter == null ? InstanceFactory.createDefaultRequestAdapter() : requestAdapter;
         }
@@ -62,14 +62,14 @@ public class PagedListIterator<T extends SerializableEntity> implements PageIter
         }
 
         @Override
-        public AzDResponse next() {
+        public ApiResponse next() {
             if (hasNext()) {
                 try {
                     var reqInfo = response.getRequestInformation();
                     reqInfo.setQueryParameter("continuationToken", continuationToken);
 
                     requestAdapter.sendString(reqInfo);
-                    response = AzDResponseHandler.getResponse();
+                    response = DefaultResponseHandler.getResponse();
                     continuationToken = response.getContinuationToken();
 
                     return response;
@@ -80,7 +80,7 @@ public class PagedListIterator<T extends SerializableEntity> implements PageIter
             return null;
         }
 
-        private AzDResponse response;
+        private ApiResponse response;
         private String continuationToken;
         private final RequestAdapter requestAdapter;
     }

@@ -1,6 +1,6 @@
 package org.azd.utils;
 
-import org.azd.http.AzDResponseHandler;
+import org.azd.http.DefaultResponseHandler;
 import org.azd.http.DefaultRequestAdapter;
 import org.azd.http.DefaultRetryHandler;
 import org.azd.http.RequestOption;
@@ -22,7 +22,7 @@ public final class InstanceFactory {
     }
 
     public static ResponseHandler createResponseHandler() {
-        return new AzDResponseHandler();
+        return new DefaultResponseHandler();
     }
 
     public static RetryHandler createRetryHandler() { return new DefaultRetryHandler(); }

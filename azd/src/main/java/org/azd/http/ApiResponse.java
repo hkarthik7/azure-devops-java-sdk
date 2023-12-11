@@ -3,7 +3,7 @@ package org.azd.http;
 import java.net.http.HttpHeaders;
 import java.util.OptionalLong;
 
-public class AzDResponse {
+public class ApiResponse {
     public int getStatusCode() {
         return statusCode;
     }
@@ -47,7 +47,7 @@ public class AzDResponse {
         return OptionalLong.empty();
     }
 
-    public AzDResponse(int statusCode, HttpHeaders responseHeaders, Object responseBody, String requestUrl,
+    public ApiResponse(int statusCode, HttpHeaders responseHeaders, Object responseBody, String requestUrl,
                        RequestInformation requestInformation) {
         this.statusCode = statusCode;
         this.responseHeaders = responseHeaders;
