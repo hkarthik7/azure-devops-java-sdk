@@ -31,7 +31,7 @@ public abstract class SerializableEntity {
         JsonNode res = null;
         try {
             res = SERIALIZER.serialize(this.toString());
-        } catch (AzDException e) { }
+        } catch (AzDException ignored) { }
 
         return res;
     }
