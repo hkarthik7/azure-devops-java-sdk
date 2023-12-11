@@ -314,8 +314,8 @@ public class ProjectsRequestBuilder extends BaseRequestBuilder {
      */
     public Project get() throws AzDException {
         var reqInfo = toGetRequestInformation();
-        reqInfo.project = null;
         reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + project;
+        reqInfo.project = null;
 
         return requestAdapter.send(reqInfo, Project.class);
     }
