@@ -1,6 +1,5 @@
 package org.azd;
 
-import org.azd.authentication.PersonalAccessTokenCredential;
 import org.azd.core.types.Project;
 import org.azd.core.types.ProjectFeature;
 import org.azd.core.types.WebApiTeam;
@@ -9,7 +8,6 @@ import org.azd.exceptions.AzDException;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.CoreDetails;
 import org.azd.interfaces.SerializerContext;
-import org.azd.serviceClient.AzDServiceClient;
 import org.azd.utils.AzDClientApi;
 import org.azd.utils.InstanceFactory;
 import org.junit.Assume;
