@@ -28,7 +28,7 @@ public class BaseAzDServiceClient {
         Objects.requireNonNull(accessTokenCredential);
         this.accessTokenCredential = accessTokenCredential;
         InstanceFactory.registerDefaultBaseInstance(Instance.BASE_INSTANCE.getInstance() + accessTokenCredential.getOrganization());
-        this.requestAdapter = new DefaultRequestAdapter(accessTokenCredential);
+        this.requestAdapter = InstanceFactory.createDefaultRequestAdapter(accessTokenCredential);
     }
 
     private final AccessTokenCredential accessTokenCredential;
