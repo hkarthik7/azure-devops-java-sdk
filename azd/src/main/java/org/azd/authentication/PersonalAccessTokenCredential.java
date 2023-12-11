@@ -46,7 +46,7 @@ public class PersonalAccessTokenCredential implements AccessTokenCredential {
         this.server = server;
         this.organization = organization;
         this.projectName = projectName;
-        this.personalAccessToken = personalAccessToken;
+        setAccessToken(personalAccessToken);
 
         if (server != null) Instance.BASE_INSTANCE.setInstance("https://" + server + "/tfs/");
     }
@@ -67,7 +67,7 @@ public class PersonalAccessTokenCredential implements AccessTokenCredential {
      */
     @Override
     public void setAccessToken(String accessToken) {
-        this.personalAccessToken = accessToken;
+        this.personalAccessToken = encodePersonalAccessToken(accessToken);
     }
 
     /**
