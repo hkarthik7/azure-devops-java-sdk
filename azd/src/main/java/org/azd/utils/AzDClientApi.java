@@ -61,7 +61,7 @@ public class AzDClientApi implements AzDClient {
      * @param personalAccessToken Personal access token
      */
     public AzDClientApi(final String organizationName, final String personalAccessToken) {
-        this(organizationName, null, personalAccessToken);
+        this(new PersonalAccessTokenCredential(organizationName, null, personalAccessToken));
         this.CONNECTION = new Connection(organizationName, personalAccessToken);
     }
 
@@ -95,7 +95,7 @@ public class AzDClientApi implements AzDClient {
 
     public AzDClientApi(final String organization, final String projectName,
                         final String appSecret, final String authCode, final String callbackUrl) {
-        this(null, organization, projectName, appSecret, authCode, callbackUrl, null);
+        this(new OAuthAccessTokenCredential(null, organization, projectName, appSecret, authCode, callbackUrl, null));
     }
 
     public void setProject(String project) {
@@ -170,7 +170,7 @@ public class AzDClientApi implements AzDClient {
 
     @Override
     public DistributedTaskApi getDistributedTaskApi() {
-        return new DistributedTaskApi(CONNECTION);
+        return new DistributedTaskApi(client);
     }
 
     /***
