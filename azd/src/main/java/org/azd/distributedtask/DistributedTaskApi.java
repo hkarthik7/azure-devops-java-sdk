@@ -1,40 +1,34 @@
 package org.azd.distributedtask;
 
-import org.azd.authentication.PersonalAccessTokenCredential;
-import org.azd.common.ApiVersion;
-import org.azd.connection.Connection;
-import org.azd.core.CoreApi;
+import org.azd.distributedtask.deploymentgroups.DeploymentGroupsRequestBuilder;
 import org.azd.distributedtask.types.*;
 import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
-import org.azd.helpers.JsonMapper;
+import org.azd.helpers.AzDHelpers;
 import org.azd.interfaces.DistributedTaskDetails;
 import org.azd.release.types.ProjectReference;
 import org.azd.serviceClient.AzDServiceClient;
 import org.azd.utils.AzDAsyncApi;
 
-import java.util.*;
-
-import static org.azd.utils.RestClient.send;
+import java.util.List;
 
 /***
  * DistributedTaskApi class to manage Agents, Deployment groups, Environments and Variable groups API
  */
 public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implements DistributedTaskDetails {
-    /***
-     * Connection object
+    /**
+     * Distributed task request builder object to manage DistributedTask API.
      */
-    private final Connection CONNECTION;
-    private final JsonMapper MAPPER = new JsonMapper();
-    private final String AREA = "distributedtask";
-    private final String DISTRIBUTEDTASK = "a85b8835-c1a1-4aac-ae97-1c3d0ba72dbd";
+    private final DistributedTaskRequestBuilder BUILDER;
+    private final AzDServiceClient CLIENT;
 
-    /***
-     * Pass the connection object
-     * @param connection Connection object
+    /**
+     * Requires the instance of AzDServiceClient.
+     * @param client Pass the instance of {@link AzDServiceClient}
      */
-    public DistributedTaskApi(Connection connection) {
-        this.CONNECTION = connection;
+    public DistributedTaskApi(AzDServiceClient client) {
+        CLIENT = client;
+        BUILDER = client.distributedTask();
     }
 
     /***
@@ -45,16 +39,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public Void deleteAgent(int poolId, int agentId) throws AzDException {
-        try {
-            String r = send(RequestMethod.DELETE, CONNECTION, DISTRIBUTEDTASK, null,
-                    AREA + "/pools", poolId + "/agents/" + agentId, null, ApiVersion.DISTRIBUTED_TASK,
-                    null, null, null);
-
-            if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
-        } catch (AzDException e) {
-            throw e;
-        }
-        return null;
+        return BUILDER.agents().delete(poolId, agentId);
     }
 
     /***
@@ -66,11 +51,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public TaskAgent getAgent(int poolId, int agentId) throws AzDException {
-        String r = send(RequestMethod.GET, CONNECTION, DISTRIBUTEDTASK, null,
-                AREA + "/pools", poolId + "/agents/" + agentId, null, ApiVersion.DISTRIBUTED_TASK,
-                null, null, null);
-
-        return MAPPER.mapJsonResponse(r, TaskAgent.class);
+        return BUILDER.agents().get(poolId, agentId);
     }
 
     /***
@@ -87,17 +68,12 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
     @Override
     public TaskAgent getAgent(int poolId, int agentId, boolean includeAssignedRequest, boolean includeCapabilities,
                               boolean includeLastCompletedRequest, String[] propertyFilters) throws AzDException {
-        var q = new HashMap<String, Object>() {{
-            put("includeAssignedRequest", includeAssignedRequest);
-            put("includeCapabilities", includeCapabilities);
-            put("includeLastCompletedRequest", includeLastCompletedRequest);
-            put("propertyFilters", String.join(",", propertyFilters));
-        }};
-
-        String r = send(RequestMethod.GET, CONNECTION, DISTRIBUTEDTASK, null,
-                AREA + "/pools", poolId + "/agents/" + agentId, null, ApiVersion.DISTRIBUTED_TASK, q, null, null);
-
-        return MAPPER.mapJsonResponse(r, TaskAgent.class);
+        return BUILDER.agents().get(poolId, agentId, r -> {
+            r.queryParameters.includeAssignedRequest = includeAssignedRequest;
+            r.queryParameters.includeCapabilities = includeCapabilities;
+            r.queryParameters.includeLastCompletedRequest = includeLastCompletedRequest;
+            r.queryParameters.propertyFilters = AzDHelpers.toString(propertyFilters);
+        });
     }
 
     /***
@@ -108,10 +84,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public TaskAgents getAgents(int poolId) throws AzDException {
-        String r = send(RequestMethod.GET, CONNECTION, DISTRIBUTEDTASK, null,
-                AREA + "/pools", poolId + "/agents", null, ApiVersion.DISTRIBUTED_TASK, null, null, null);
-
-        return MAPPER.mapJsonResponse(r, TaskAgents.class);
+        return BUILDER.agents().list(poolId);
     }
 
     /***
@@ -130,19 +103,14 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
     public TaskAgents getAgents(int poolId, String agentName, String[] demands, boolean includeAssignedRequest,
                                 boolean includeCapabilities, boolean includeLastCompletedRequest, String[] propertyFilters)
             throws AzDException {
-        var q = new HashMap<String, Object>() {{
-            put("agentName", agentName);
-            put("demands", String.join(",", demands));
-            put("includeAssignedRequest", includeAssignedRequest);
-            put("includeCapabilities", includeCapabilities);
-            put("includeLastCompletedRequest", includeLastCompletedRequest);
-            put("propertyFilters", String.join(",", propertyFilters));
-        }};
-
-        String r = send(RequestMethod.GET, CONNECTION, DISTRIBUTEDTASK, null,
-                AREA + "/pools", poolId + "/agents", null, ApiVersion.DISTRIBUTED_TASK, q, null, null);
-
-        return MAPPER.mapJsonResponse(r, TaskAgents.class);
+        return BUILDER.agents().list(poolId, r -> {
+           r.queryParameters.agentName = agentName;
+           r.queryParameters.includeAssignedRequest = includeAssignedRequest;
+           r.queryParameters.includeCapabilities = includeCapabilities;
+           r.queryParameters.propertyFilters = AzDHelpers.toString(propertyFilters);
+           r.queryParameters.includeLastCompletedRequest = includeLastCompletedRequest;
+           r.queryParameters.demands = AzDHelpers.toString(demands);
+        });
     }
 
     /***
@@ -150,19 +118,13 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      * @param poolId The agent pool to use
      * @param agentId The agent to update
      * @param requestBody Map of request body.
-     * <p>
-     *  Visit https://docs.microsoft.com/en-us/rest/api/azure/devops/distributedtask/agents/update?view=azure-devops-rest-7.1#request-body for more details.
-     * </p>
+     * @see <a href="https://docs.microsoft.com/en-us/rest/api/azure/devops/distributedtask/agents/update?view=azure-devops-rest-7.1#request-body">Request body</a>
      * @return A TaskAgent object {@link TaskAgent}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public TaskAgent updateAgent(int poolId, int agentId, TaskAgent requestBody) throws AzDException {
-        String r = send(RequestMethod.PATCH, CONNECTION, DISTRIBUTEDTASK, null,
-                AREA + "/pools", poolId + "/agents/" + agentId, null, ApiVersion.DISTRIBUTED_TASK,
-                null, requestBody, CustomHeader.JSON_CONTENT_TYPE);
-
-        return MAPPER.mapJsonResponse(r, TaskAgent.class);
+        return BUILDER.agents().update(poolId, agentId, requestBody);
     }
 
     /***
@@ -174,16 +136,11 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public DeploymentGroup addDeploymentGroup(String name, String description) throws AzDException {
-        var requestBody = new HashMap<String, Object>() {{
-            put("name", name);
-            put("description", description);
-        }};
+        var deploymentGroup = new DeploymentGroupsRequestBuilder.DeploymentGroupRequest();
+        deploymentGroup.name = name;
+        deploymentGroup.description = description;
 
-        String r = send(RequestMethod.POST, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
-                AREA + "/deploymentgroups", null, null, ApiVersion.DISTRIBUTED_TASK,
-                null, requestBody, CustomHeader.JSON_CONTENT_TYPE);
-
-        return MAPPER.mapJsonResponse(r, DeploymentGroup.class);
+        return BUILDER.deploymentGroups().add(deploymentGroup);
     }
 
     /***
@@ -196,17 +153,12 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public DeploymentGroup addDeploymentGroup(String name, String description, int poolId) throws AzDException {
-        var requestBody = new HashMap<String, Object>() {{
-            put("name", name);
-            put("description", description);
-            put("poolId", poolId);
-        }};
+        var deploymentGroup = new DeploymentGroupsRequestBuilder.DeploymentGroupRequest();
+        deploymentGroup.name = name;
+        deploymentGroup.description = description;
+        deploymentGroup.poolId = poolId;
 
-        String r = send(RequestMethod.POST, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
-                AREA + "/deploymentgroups", null, null, ApiVersion.DISTRIBUTED_TASK,
-                null, requestBody, CustomHeader.JSON_CONTENT_TYPE);
-
-        return MAPPER.mapJsonResponse(r, DeploymentGroup.class);
+        return BUILDER.deploymentGroups().add(deploymentGroup);
     }
 
     /***
@@ -216,15 +168,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public Void deleteDeploymentGroup(int deploymentGroupId) throws AzDException {
-        try {
-            String r = send(RequestMethod.DELETE, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
-                    AREA + "/deploymentgroups", Integer.toString(deploymentGroupId), null, ApiVersion.DISTRIBUTED_TASK, null, null, null);
-
-            if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
-        } catch (AzDException e) {
-            throw e;
-        }
-        return null;
+        return BUILDER.deploymentGroups().delete(deploymentGroupId);
     }
 
     /***
@@ -235,10 +179,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public DeploymentGroup getDeploymentGroup(int deploymentGroupId) throws AzDException {
-        String r = send(RequestMethod.GET, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
-                AREA + "/deploymentgroups", Integer.toString(deploymentGroupId), null, ApiVersion.DISTRIBUTED_TASK, null, null, null);
-
-        return MAPPER.mapJsonResponse(r, DeploymentGroup.class);
+        return BUILDER.deploymentGroups().get(deploymentGroupId);
     }
 
     /***
@@ -252,15 +193,10 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
     @Override
     public DeploymentGroup getDeploymentGroup(int deploymentGroupId, DeploymentGroupExpands expand, DeploymentGroupActionFilter actionFilter)
             throws AzDException {
-        var q = new HashMap<String, Object>() {{
-            put("$expand", expand.toString().toLowerCase());
-            put("actionFilter", actionFilter.toString().toLowerCase());
-        }};
-
-        String r = send(RequestMethod.GET, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
-                AREA + "/deploymentgroups", Integer.toString(deploymentGroupId), null, ApiVersion.DISTRIBUTED_TASK, q, null, null);
-
-        return MAPPER.mapJsonResponse(r, DeploymentGroup.class);
+        return BUILDER.deploymentGroups().get(deploymentGroupId, r -> {
+            r.queryParameters.expand = expand;
+            r.queryParameters.actionFilter = actionFilter;
+        });
     }
 
     /***
@@ -270,10 +206,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public DeploymentGroups getDeploymentGroups() throws AzDException {
-        String r = send(RequestMethod.GET, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
-                AREA + "/deploymentgroups", null, null, ApiVersion.DISTRIBUTED_TASK, null, null, null);
-
-        return MAPPER.mapJsonResponse(r, DeploymentGroups.class);
+        return BUILDER.deploymentGroups().list();
     }
 
     /***
@@ -284,14 +217,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public DeploymentGroups getDeploymentGroups(int top) throws AzDException {
-        var q = new HashMap<String, Object>() {{
-            put("$top", top);
-        }};
-
-        String r = send(RequestMethod.GET, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
-                AREA + "/deploymentgroups", null, null, ApiVersion.DISTRIBUTED_TASK, q, null, null);
-
-        return MAPPER.mapJsonResponse(r, DeploymentGroups.class);
+        return BUILDER.deploymentGroups().list(r -> r.queryParameters.top = top);
     }
 
     /***
@@ -302,14 +228,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public DeploymentGroups getDeploymentGroups(int[] ids) throws AzDException {
-        var q = new HashMap<String, Object>() {{
-            put("ids", intArrayToString(ids));
-        }};
-
-        String r = send(RequestMethod.GET, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
-                AREA + "/deploymentgroups", null, null, ApiVersion.DISTRIBUTED_TASK, q, null, null);
-
-        return MAPPER.mapJsonResponse(r, DeploymentGroups.class);
+        return BUILDER.deploymentGroups().list(r -> r.queryParameters.ids = AzDHelpers.toString(ids));
     }
 
     /***
@@ -320,14 +239,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public DeploymentGroups getDeploymentGroups(String name) throws AzDException {
-        var q = new HashMap<String, Object>() {{
-            put("name", name);
-        }};
-
-        String r = send(RequestMethod.GET, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
-                AREA + "/deploymentgroups", null, null, ApiVersion.DISTRIBUTED_TASK, q, null, null);
-
-        return MAPPER.mapJsonResponse(r, DeploymentGroups.class);
+        return BUILDER.deploymentGroups().list(r -> r.queryParameters.name = name);
     }
 
     /***
@@ -338,14 +250,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public DeploymentGroups getDeploymentGroups(DeploymentGroupExpands expand) throws AzDException {
-        var q = new HashMap<String, Object>() {{
-            put("$expand", expand.toString().toLowerCase());
-        }};
-
-        String r = send(RequestMethod.GET, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
-                AREA + "/deploymentgroups", null, null, ApiVersion.DISTRIBUTED_TASK, q, null, null);
-
-        return MAPPER.mapJsonResponse(r, DeploymentGroups.class);
+        return BUILDER.deploymentGroups().list(r -> r.queryParameters.expand = expand);
     }
 
     /***
@@ -362,19 +267,14 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
     @Override
     public DeploymentGroups getDeploymentGroups(DeploymentGroupExpands expand, int top, DeploymentGroupActionFilter actionFilter,
                                                 String continuationToken, int[] ids, String name) throws AzDException {
-        var q = new HashMap<String, Object>() {{
-            put("$expand", expand.toString().toLowerCase());
-            put("$top", top);
-            put("actionFilter", actionFilter.toString().toLowerCase());
-            put("continuationToken", continuationToken);
-            put("ids", intArrayToString(ids));
-            put("name", name);
-        }};
-
-        String r = send(RequestMethod.GET, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
-                AREA + "/deploymentgroups", null, null, ApiVersion.DISTRIBUTED_TASK, q, null, null);
-
-        return MAPPER.mapJsonResponse(r, DeploymentGroups.class);
+        return BUILDER.deploymentGroups().list(r -> {
+            r.queryParameters.expand = expand;
+            r.queryParameters.top = top;
+            r.queryParameters.name = name;
+            r.queryParameters.ids = AzDHelpers.toString(ids);
+            r.queryParameters.actionFilter = actionFilter;
+            r.queryParameters.continuationToken = continuationToken;
+        });
     }
 
     /***
@@ -387,16 +287,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public DeploymentGroup updateDeploymentGroup(int deploymentGroupId, String name, String description) throws AzDException {
-        var requestBody = new HashMap<String, Object>() {{
-            put("name", name);
-            put("description", description);
-        }};
-
-        String r = send(RequestMethod.PATCH, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
-                AREA + "/deploymentgroups", Integer.toString(deploymentGroupId), null, ApiVersion.DISTRIBUTED_TASK,
-                null, requestBody, CustomHeader.JSON_CONTENT_TYPE);
-
-        return MAPPER.mapJsonResponse(r, DeploymentGroup.class);
+        return BUILDER.deploymentGroups().update(deploymentGroupId, name, description);
     }
 
     /***
@@ -408,15 +299,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public EnvironmentInstance addEnvironment(String name, String description) throws AzDException {
-        var requestBody = new HashMap<String, Object>() {{
-            put("name", name);
-            put("description", description);
-        }};
-
-        String r = send(RequestMethod.POST, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
-                AREA + "/environments", null, null, ApiVersion.DISTRIBUTED_TASK, null, requestBody, CustomHeader.JSON_CONTENT_TYPE);
-
-        return MAPPER.mapJsonResponse(r, EnvironmentInstance.class);
+        return BUILDER.environments().add(name, description);
     }
 
     /***
@@ -426,15 +309,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public Void deleteEnvironment(int environmentId) throws AzDException {
-        try {
-            String r = send(RequestMethod.DELETE, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
-                    AREA + "/environments", Integer.toString(environmentId), null, ApiVersion.DISTRIBUTED_TASK, null, null, null);
-
-            if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
-        } catch (AzDException e) {
-            throw e;
-        }
-        return null;
+        return BUILDER.environments().delete(environmentId);
     }
 
     /***
@@ -445,11 +320,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public EnvironmentInstance getEnvironment(int environmentId) throws AzDException {
-        String r = send(RequestMethod.GET, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
-                AREA + "/environments", Integer.toString(environmentId), null, ApiVersion.DISTRIBUTED_TASK,
-                null, null, null);
-
-        return MAPPER.mapJsonResponse(r, EnvironmentInstance.class);
+        return BUILDER.environments().get(environmentId);
     }
 
     /***
@@ -461,14 +332,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public EnvironmentInstance getEnvironment(int environmentId, EnvironmentExpands expands) throws AzDException {
-        var q = new HashMap<String, Object>() {{
-            put("expands", expands.toString().toLowerCase());
-        }};
-
-        String r = send(RequestMethod.GET, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
-                AREA + "/environments", Integer.toString(environmentId), null, ApiVersion.DISTRIBUTED_TASK, q, null, null);
-
-        return MAPPER.mapJsonResponse(r, EnvironmentInstance.class);
+        return BUILDER.environments().get(environmentId, expands);
     }
 
     /***
@@ -478,10 +342,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public EnvironmentInstances getEnvironments() throws AzDException {
-        String r = send(RequestMethod.GET, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
-                AREA + "/environments", null, null, ApiVersion.DISTRIBUTED_TASK, null, null, null);
-
-        return MAPPER.mapJsonResponse(r, EnvironmentInstances.class);
+        return BUILDER.environments().list();
     }
 
     /***
@@ -492,14 +353,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public EnvironmentInstances getEnvironments(int top) throws AzDException {
-        var q = new HashMap<String, Object>() {{
-            put("$top", top);
-        }};
-
-        String r = send(RequestMethod.GET, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
-                AREA + "/environments", null, null, ApiVersion.DISTRIBUTED_TASK, q, null, null);
-
-        return MAPPER.mapJsonResponse(r, EnvironmentInstances.class);
+        return BUILDER.environments().list(r -> r.queryParameters.top = top);
     }
 
     /***
@@ -510,14 +364,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public EnvironmentInstances getEnvironments(String name) throws AzDException {
-        var q = new HashMap<String, Object>() {{
-            put("name", name);
-        }};
-
-        String r = send(RequestMethod.GET, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
-                AREA + "/environments", null, null, ApiVersion.DISTRIBUTED_TASK, q, null, null);
-
-        return MAPPER.mapJsonResponse(r, EnvironmentInstances.class);
+        return BUILDER.environments().list(r -> r.queryParameters.name = name);
     }
 
     /***
@@ -530,16 +377,11 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public EnvironmentInstances getEnvironments(int top, String continuationToken, String name) throws AzDException {
-        var q = new HashMap<String, Object>() {{
-            put("$top", top);
-            put("continuationToken", continuationToken);
-            put("name", name);
-        }};
-
-        String r = send(RequestMethod.GET, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
-                AREA + "/environments", null, null, ApiVersion.DISTRIBUTED_TASK, q, null, null);
-
-        return MAPPER.mapJsonResponse(r, EnvironmentInstances.class);
+        return BUILDER.environments().list(r -> {
+            r.queryParameters.name = name;
+            r.queryParameters.continuationToken = continuationToken;
+            r.queryParameters.top = top;
+        });
     }
 
     /***
@@ -552,16 +394,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public EnvironmentInstance updateEnvironment(int environmentId, String name, String description) throws AzDException {
-        var requestBody = new HashMap<String, Object>() {{
-            put("name", name);
-            put("description", description);
-        }};
-
-        String r = send(RequestMethod.PATCH, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
-                AREA + "/environments", Integer.toString(environmentId), null, ApiVersion.DISTRIBUTED_TASK,
-                null, requestBody, CustomHeader.JSON_CONTENT_TYPE);
-
-        return MAPPER.mapJsonResponse(r, EnvironmentInstance.class);
+        return BUILDER.environments().update(environmentId, name, description);
     }
 
     /***
@@ -573,27 +406,22 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
     @Override
     public VariableGroup addVariableGroup(VariableGroupDefinition variableGroupDefinition)
             throws AzDException {
+
+        var variableGroupLibrary = new VariableGroupLibrary();
+        variableGroupLibrary.name = variableGroupDefinition.getName();
+        variableGroupLibrary.description = variableGroupDefinition.getDescription();
+        variableGroupLibrary.type = variableGroupDefinition.getType().name();
+
         var ref = new VariableGroupProjectReference();
         ref.setName(variableGroupDefinition.getName());
         ref.setDescription(variableGroupDefinition.getDescription());
         ref.setProjectReference(variableGroupDefinition.getProjectReference());
 
-        List<Object> o = new ArrayList<>();
-        o.add(ref);
+        variableGroupLibrary.variableGroupProjectReferences = List.of(ref);
+        variableGroupLibrary.providerData = variableGroupDefinition.getProviderData();
+        variableGroupLibrary.variables = variableGroupDefinition.getVariables();
 
-        var requestBody = new HashMap<String, Object>() {{
-            put("variableGroupProjectReferences", o);
-            put("name", variableGroupDefinition.getName());
-            put("description", variableGroupDefinition.getDescription());
-            put("type", variableGroupDefinition.getType());
-            put("variables", variableGroupDefinition.getVariables());
-            put("providerData", variableGroupDefinition.getProviderData());
-        }};
-
-        String r = send(RequestMethod.POST, CONNECTION, DISTRIBUTEDTASK, null,
-                AREA + "/variablegroups", null, null, ApiVersion.VARIABLE_GROUPS, null, requestBody, CustomHeader.JSON_CONTENT_TYPE);
-
-        return MAPPER.mapJsonResponse(r, VariableGroup.class);
+        return BUILDER.variableGroups().add(variableGroupLibrary);
     }
 
     /***
@@ -606,10 +434,10 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public VariableGroup addVariableGroup(String name, String description, VariableGroupMap variables) throws AzDException {
+
         var definition = new VariableGroupDefinition();
         var projectReference = new ProjectReference();
-        var core = new CoreApi(new AzDServiceClient(new PersonalAccessTokenCredential(CONNECTION.getOrganization(), CONNECTION.getProject(), CONNECTION.getPersonalAccessToken())));
-        var project = core.getProject(CONNECTION.getProject());
+        var project = CLIENT.core().projects().get();
 
         projectReference.setName(project.getName());
         projectReference.setId(project.getId());
@@ -631,19 +459,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public Void deleteVariableGroup(int variableGroupId, String[] projectIds) throws AzDException {
-        try {
-            var q = new HashMap<String, Object>() {{
-                put("projectIds", String.join(",", projectIds));
-            }};
-
-            String r = send(RequestMethod.DELETE, CONNECTION, DISTRIBUTEDTASK, null,
-                    AREA + "/variablegroups", Integer.toString(variableGroupId), null, ApiVersion.VARIABLE_GROUPS, q, null, null);
-
-            if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
-        } catch (AzDException e) {
-            throw e;
-        }
-        return null;
+        return BUILDER.variableGroups().delete(variableGroupId, projectIds);
     }
 
     /***
@@ -654,10 +470,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public VariableGroup getVariableGroup(int variableGroupId) throws AzDException {
-        String r = send(RequestMethod.GET, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
-                AREA + "/variablegroups", Integer.toString(variableGroupId), null, ApiVersion.VARIABLE_GROUPS, null, null, null);
-
-        return MAPPER.mapJsonResponse(r, VariableGroup.class);
+        return BUILDER.variableGroups().get(variableGroupId);
     }
 
     /***
@@ -667,10 +480,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public VariableGroups getVariableGroups() throws AzDException {
-        String r = send(RequestMethod.GET, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
-                AREA + "/variablegroups", null, null, ApiVersion.VARIABLE_GROUPS, null, null, null);
-
-        return MAPPER.mapJsonResponse(r, VariableGroups.class);
+        return BUILDER.variableGroups().list();
     }
 
     /***
@@ -681,14 +491,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public VariableGroups getVariableGroups(int top) throws AzDException {
-        var q = new HashMap<String, Object>() {{
-            put("$top", top);
-        }};
-
-        String r = send(RequestMethod.GET, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
-                AREA + "/variablegroups", null, null, ApiVersion.VARIABLE_GROUPS, q, null, null);
-
-        return MAPPER.mapJsonResponse(r, VariableGroups.class);
+        return BUILDER.variableGroups().list(r -> r.queryParameters.top = top);
     }
 
     /***
@@ -699,14 +502,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public VariableGroups getVariableGroups(String groupName) throws AzDException {
-        var q = new HashMap<String, Object>() {{
-            put("groupName", groupName);
-        }};
-
-        String r = send(RequestMethod.GET, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
-                AREA + "/variablegroups", null, null, ApiVersion.VARIABLE_GROUPS, q, null, null);
-
-        return MAPPER.mapJsonResponse(r, VariableGroups.class);
+        return BUILDER.variableGroups().list(r -> r.queryParameters.groupName = groupName);
     }
 
     /***
@@ -722,18 +518,13 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
     @Override
     public VariableGroups getVariableGroups(int top, VariableGroupActionFilter actionFilter, int continuationToken, String groupName,
                                             VariableGroupQueryOrder queryOrder) throws AzDException {
-        var q = new HashMap<String, Object>() {{
-            put("$top", top);
-            put("actionFilter", actionFilter.toString().toLowerCase());
-            put("continuationToken", continuationToken);
-            put("groupName", groupName);
-            put("queryOrder", queryOrder.toString().toLowerCase());
-        }};
-
-        String r = send(RequestMethod.GET, CONNECTION, DISTRIBUTEDTASK, CONNECTION.getProject(),
-                AREA + "/variablegroups", null, null, ApiVersion.VARIABLE_GROUPS, q, null, null);
-
-        return MAPPER.mapJsonResponse(r, VariableGroups.class);
+        return BUILDER.variableGroups().list(r -> {
+            r.queryParameters.groupName = groupName;
+            r.queryParameters.top = top;
+            r.queryParameters.queryOrder = queryOrder;
+            r.queryParameters.continuationToken = continuationToken;
+            r.queryParameters.actionFilter = actionFilter;
+        });
     }
 
     /***
@@ -749,8 +540,7 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
     public VariableGroup updateVariableGroup(int groupId, String name, String description, VariableGroupMap variables) throws AzDException {
         var definition = new VariableGroupDefinition();
         var projectReference = new ProjectReference();
-        var core = new CoreApi(new AzDServiceClient(new PersonalAccessTokenCredential(CONNECTION.getOrganization(), CONNECTION.getProject(), CONNECTION.getPersonalAccessToken())));
-        var project = core.getProject(CONNECTION.getProject());
+        var project = CLIENT.core().projects().get();
 
         projectReference.setName(project.getName());
         projectReference.setId(project.getId());
@@ -760,6 +550,8 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         definition.setVariables(variables.get());
         definition.setProjectReference(projectReference);
         definition.setType(VariableGroupType.Vsts);
+
+        System.out.println(definition.getVariables());
 
         return updateVariableGroup(groupId, definition);
     }
@@ -773,37 +565,21 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
      */
     @Override
     public VariableGroup updateVariableGroup(int groupId, VariableGroupDefinition variableGroupDefinition) throws AzDException {
+
+        var variableGroupLibrary = new VariableGroupLibrary();
+        variableGroupLibrary.name = variableGroupDefinition.getName();
+        variableGroupLibrary.description = variableGroupDefinition.getDescription();
+        variableGroupLibrary.type = variableGroupDefinition.getType().name();
+
         var ref = new VariableGroupProjectReference();
         ref.setName(variableGroupDefinition.getName());
         ref.setDescription(variableGroupDefinition.getDescription());
         ref.setProjectReference(variableGroupDefinition.getProjectReference());
 
-        List<Object> o = new ArrayList<>();
-        o.add(ref);
+        variableGroupLibrary.variableGroupProjectReferences = List.of(ref);
+        variableGroupLibrary.providerData = variableGroupDefinition.getProviderData();
+        variableGroupLibrary.variables = variableGroupDefinition.getVariables();
 
-        var requestBody = new HashMap<String, Object>() {{
-            put("variableGroupProjectReferences", o);
-            put("name", variableGroupDefinition.getName());
-            put("description", variableGroupDefinition.getDescription());
-            put("type", variableGroupDefinition.getType());
-            put("variables", variableGroupDefinition.getVariables());
-            put("providerData", variableGroupDefinition.getProviderData());
-        }};
-
-        String r = send(RequestMethod.PUT, CONNECTION, DISTRIBUTEDTASK, null,
-                AREA + "/variablegroups", Integer.toString(groupId), null, ApiVersion.VARIABLE_GROUPS,
-                null, requestBody, CustomHeader.JSON_CONTENT_TYPE);
-
-        return MAPPER.mapJsonResponse(r, VariableGroup.class);
-    }
-
-    /***
-     * Helper method to convert integer array to string.
-     * @param i integer array
-     * @return {@link String}
-     */
-    private String intArrayToString(int[] i) {
-        var r = Arrays.stream(i).mapToObj(String::valueOf).toArray(String[]::new);
-        return String.join(",", r);
+        return BUILDER.variableGroups().update(groupId, variableGroupLibrary);
     }
 }

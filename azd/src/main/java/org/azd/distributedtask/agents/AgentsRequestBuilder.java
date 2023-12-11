@@ -31,11 +31,12 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
      * @param agentId The agent ID to remove
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<Void> delete(int poolId, int agentId) throws AzDException {
-       var reqInfo = toDeleteRequestInformation();
-       reqInfo.serviceEndpoint = service + "/" + poolId + "/agents/" + agentId;
+    public CompletableFuture<Void> deleteAsync(int poolId, int agentId) throws AzDException {
+        var reqInfo = toDeleteRequestInformation();
+        reqInfo.project = null;
+        reqInfo.serviceEndpoint = service + "/" + poolId + "/agents/" + agentId;
 
-       return requestAdapter.sendPrimitiveAsync(reqInfo);
+        return requestAdapter.sendPrimitiveAsync(reqInfo);
     }
 
     /***
@@ -45,8 +46,9 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
      * @return A TaskAgent object {@link TaskAgent}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<TaskAgent> get(int poolId, int agentId) throws AzDException {
+    public CompletableFuture<TaskAgent> getAsync(int poolId, int agentId) throws AzDException {
         var reqInfo = toGetRequestInformation();
+        reqInfo.project = null;
         reqInfo.serviceEndpoint = service + "/" + poolId + "/agents/" + agentId;
 
         return requestAdapter.sendAsync(reqInfo, TaskAgent.class);
@@ -60,8 +62,9 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
      * @return A TaskAgent object {@link TaskAgent}.
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<TaskAgent> get(int poolId, int agentId, Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
+    public CompletableFuture<TaskAgent> getAsync(int poolId, int agentId, Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
         var reqInfo = toGetRequestInformation();
+        reqInfo.project = null;
         reqInfo.serviceEndpoint = service + "/" + poolId + "/agents/" + agentId;
 
         if (requestConfiguration != null) {
@@ -79,8 +82,9 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
      * @return TaskAgents object {@link TaskAgents}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<TaskAgents> list(int poolId) throws AzDException {
+    public CompletableFuture<TaskAgents> listAsync(int poolId) throws AzDException {
         var reqInfo = toGetRequestInformation();
+        reqInfo.project = null;
         reqInfo.serviceEndpoint = service + "/" + poolId + "/agents";
 
         return requestAdapter.sendAsync(reqInfo, TaskAgents.class);
@@ -93,8 +97,9 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
      * @return TaskAgents object {@link TaskAgents}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<TaskAgents> list(int poolId, Consumer<ListRequestConfiguration> requestConfiguration) throws AzDException {
+    public CompletableFuture<TaskAgents> listAsync(int poolId, Consumer<ListRequestConfiguration> requestConfiguration) throws AzDException {
         var reqInfo = toGetRequestInformation();
+        reqInfo.project = null;
         reqInfo.serviceEndpoint = service + "/" + poolId + "/agents";
 
         if (requestConfiguration != null) {
@@ -115,11 +120,115 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
      * @return A TaskAgent object {@link TaskAgent}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<TaskAgent> update(int poolId, int agentId, TaskAgent taskAgent) throws AzDException {
+    public CompletableFuture<TaskAgent> updateAsync(int poolId, int agentId, TaskAgent taskAgent) throws AzDException {
         var reqInfo = toPatchRequestInformation(taskAgent);
+        reqInfo.project = null;
         reqInfo.serviceEndpoint = service + "/" + poolId + "/agents/" + agentId;
 
         return requestAdapter.sendAsync(reqInfo, TaskAgent.class);
+    }
+
+    /***
+     * Delete an agent.
+     * @param poolId The pool ID to remove the agent from
+     * @param agentId The agent ID to remove
+     * @throws AzDException Default Api Exception handler.
+     */
+    public Void delete(int poolId, int agentId) throws AzDException {
+        var reqInfo = toDeleteRequestInformation();
+        reqInfo.project = null;
+        reqInfo.serviceEndpoint = service + "/" + poolId + "/agents/" + agentId;
+
+        return requestAdapter.sendPrimitive(reqInfo);
+    }
+
+    /***
+     * Get information about an agent.
+     * @param poolId The agent pool containing the agent
+     * @param agentId The agent ID to get information about
+     * @return A TaskAgent object {@link TaskAgent}
+     * @throws AzDException Default Api Exception handler.
+     */
+    public TaskAgent get(int poolId, int agentId) throws AzDException {
+        var reqInfo = toGetRequestInformation();
+        reqInfo.project = null;
+        reqInfo.serviceEndpoint = service + "/" + poolId + "/agents/" + agentId;
+
+        return requestAdapter.send(reqInfo, TaskAgent.class);
+    }
+
+    /***
+     * Get information about an agent.
+     * @param poolId The agent pool containing the agent.
+     * @param agentId The agent ID to get information about.
+     * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.
+     * @return A TaskAgent object {@link TaskAgent}.
+     * @throws AzDException Default Api Exception handler.
+     */
+    public TaskAgent get(int poolId, int agentId, Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
+        var reqInfo = toGetRequestInformation();
+        reqInfo.project = null;
+        reqInfo.serviceEndpoint = service + "/" + poolId + "/agents/" + agentId;
+
+        if (requestConfiguration != null) {
+            final var config = new RequestConfiguration();
+            requestConfiguration.accept(config);
+            reqInfo.setQueryParameters(config.queryParameters);
+        }
+
+        return requestAdapter.send(reqInfo, TaskAgent.class);
+    }
+
+    /***
+     * Get a list of agents.
+     * @param poolId The agent pool containing the agents
+     * @return TaskAgents object {@link TaskAgents}
+     * @throws AzDException Default Api Exception handler.
+     */
+    public TaskAgents list(int poolId) throws AzDException {
+        var reqInfo = toGetRequestInformation();
+        reqInfo.project = null;
+        reqInfo.serviceEndpoint = service + "/" + poolId + "/agents";
+
+        return requestAdapter.send(reqInfo, TaskAgents.class);
+    }
+
+    /***
+     * Get a list of agents.
+     * @param poolId The agent pool containing the agents
+     * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.
+     * @return TaskAgents object {@link TaskAgents}
+     * @throws AzDException Default Api Exception handler.
+     */
+    public TaskAgents list(int poolId, Consumer<ListRequestConfiguration> requestConfiguration) throws AzDException {
+        var reqInfo = toGetRequestInformation();
+        reqInfo.project = null;
+        reqInfo.serviceEndpoint = service + "/" + poolId + "/agents";
+
+        if (requestConfiguration != null) {
+            final var config = new ListRequestConfiguration();
+            requestConfiguration.accept(config);
+            reqInfo.setQueryParameters(config.queryParameters);
+        }
+
+        return requestAdapter.send(reqInfo, TaskAgents.class);
+    }
+
+    /***
+     * Update agent details.
+     * @param poolId The agent pool to use
+     * @param agentId The agent to update
+     * @param taskAgent Task agent object.
+     * @see <a href="https://docs.microsoft.com/en-us/rest/api/azure/devops/distributedtask/agents/update?view=azure-devops-rest-7.1#request-body">Agents - Update</a>
+     * @return A TaskAgent object {@link TaskAgent}
+     * @throws AzDException Default Api Exception handler.
+     */
+    public TaskAgent update(int poolId, int agentId, TaskAgent taskAgent) throws AzDException {
+        var reqInfo = toPatchRequestInformation(taskAgent);
+        reqInfo.project = null;
+        reqInfo.serviceEndpoint = service + "/" + poolId + "/agents/" + agentId;
+
+        return requestAdapter.send(reqInfo, TaskAgent.class);
     }
 
     /**

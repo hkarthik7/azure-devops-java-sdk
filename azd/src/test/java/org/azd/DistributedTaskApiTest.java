@@ -1,37 +1,48 @@
 package org.azd;
 
+import org.azd.authentication.PersonalAccessTokenCredential;
+import org.azd.common.ApiVersion;
+import org.azd.common.ResourceId;
 import org.azd.distributedtask.types.VariableGroupDefinition;
 import org.azd.distributedtask.types.VariableGroupMap;
+import org.azd.enums.CustomHeader;
+import org.azd.enums.RequestMethod;
 import org.azd.enums.VariableGroupType;
 import org.azd.enums.VariableValue;
 import org.azd.exceptions.AzDException;
-import org.azd.helpers.JsonMapper;
+import org.azd.http.DefaultResponseHandler;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.CoreDetails;
 import org.azd.interfaces.DistributedTaskDetails;
+import org.azd.interfaces.SerializerContext;
 import org.azd.release.types.ProjectReference;
+import org.azd.serviceClient.AzDServiceClient;
 import org.azd.utils.AzDClientApi;
+import org.azd.utils.InstanceFactory;
+import org.azd.utils.RestClient;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
 
 public class DistributedTaskApiTest {
-    private static final JsonMapper MAPPER = new JsonMapper();
+    private static final SerializerContext SERIALIZER = InstanceFactory.createSerializerContext();
     private static AzDClient webApi;
     private static DistributedTaskDetails d;
     private static CoreDetails c;
 
+    private AzDServiceClient client;
 
     @Before
     public void init() throws AzDException {
         String dir = System.getProperty("user.dir");
         File file = new File(dir + "/src/test/java/org/azd/_unitTest.json");
-        MockParameters m = MAPPER.mapJsonFromFile(file, MockParameters.class);
+        MockParameters m = SERIALIZER.deserialize(file, MockParameters.class);
         String organization = m.getO();
         String token = m.getT();
         String project = m.getP();
         webApi = new AzDClientApi(organization, project, token);
+        client = new AzDServiceClient(new PersonalAccessTokenCredential(organization, project, token));
         d = webApi.getDistributedTaskApi();
         c = webApi.getCoreApi();
     }
