@@ -45,9 +45,28 @@ public interface GitDetails {
 
     GitPullRequest getPullRequest(String repositoryName, int pullRequestId) throws AzDException;
 
+    GitPullRequest getPullRequest(String repositoryName, int pullRequestId, boolean includeCommits) throws AzDException;
+
+    GitPullRequest getPullRequest(String repositoryName, int pullRequestId, boolean includeCommits, boolean includeWorkItemRefs)
+            throws AzDException;
+
     GitPullRequest getPullRequestById(int pullRequestId) throws AzDException;
 
     PullRequests getPullRequests(String repositoryName) throws AzDException;
+
+    PullRequests getPullRequests(String repositoryName, int top) throws AzDException;
+
+    PullRequests getPullRequests(String repositoryName, int top, int skip) throws AzDException;
+
+    PullRequests getPullRequests(String repositoryName, int top, int skip, String creatorId)
+            throws AzDException;
+
+    PullRequests getPullRequests(String repositoryName, boolean includeLinks) throws AzDException;
+
+    PullRequests getPullRequests(String repositoryName, PullRequestStatus status) throws AzDException;
+
+    PullRequests getPullRequests(String repositoryName, GitPullRequestQueryParameters gitPullRequestQueryParameters)
+            throws AzDException;
 
     PullRequests getPullRequestsByProject() throws AzDException;
 
