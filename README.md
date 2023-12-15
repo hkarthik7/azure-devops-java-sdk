@@ -3,7 +3,7 @@
 [![Build Status](https://dev.azure.com/harishkarthic/azure-devops-java-sdk/_apis/build/status/hkarthik7.azure-devops-java-sdk?branchName=main)](https://dev.azure.com/harishkarthic/azure-devops-java-sdk/_build/latest?definitionId=8&branchName=main)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/hkarthik7/azure-devops-java-sdk/blob/main/LICENSE)
 [![Documentation Status](https://readthedocs.org/projects/azure-devops-java-sdk-docs/badge/?version=latest)](https://azure-devops-java-sdk-docs.readthedocs.io/en/latest/?badge=latest)
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.hkarthik7/azd.svg)](https://search.maven.org/artifact/io.github.hkarthik7/azd/5.0.10/jar)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.hkarthik7/azd.svg)](https://search.maven.org/artifact/io.github.hkarthik7/azd/5.0.11/jar)
 
 # Please check the announcement to know what is new in version 6.0 and read about breaking changes.
 
@@ -31,7 +31,7 @@ To download the library and use it in your project, just add below in your pom.x
 <dependency>
   <groupId>io.github.hkarthik7</groupId>
   <artifactId>azd</artifactId>
-  <version>5.0.10</version>
+  <version>5.0.11</version>
 </dependency>
 ```
 **Java docs**
@@ -39,7 +39,7 @@ To download the library and use it in your project, just add below in your pom.x
 <dependency>
     <groupId>io.github.hkarthik7</groupId>
     <artifactId>azd</artifactId>
-    <version>5.0.10</version>
+    <version>5.0.11</version>
     <classifier>javadoc</classifier>
 </dependency>
 ```
@@ -49,7 +49,7 @@ To download the library and use it in your project, just add below in your pom.x
 <dependency>
     <groupId>io.github.hkarthik7</groupId>
     <artifactId>azd</artifactId>
-    <version>5.0.10</version>
+    <version>5.0.11</version>
     <classifier>sources</classifier>
 </dependency>
 ```
