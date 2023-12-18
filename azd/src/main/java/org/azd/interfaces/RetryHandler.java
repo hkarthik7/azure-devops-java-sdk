@@ -1,7 +1,7 @@
 package org.azd.interfaces;
 
-import org.azd.http.ApiResponse;
+import java.net.http.HttpResponse;
 
 public interface RetryHandler {
-    ApiResponse retry();
+    <T> void retry(HttpResponse<T> response);
 }

@@ -1,6 +1,8 @@
 package org.azd.http;
 
 import org.azd.exceptions.AzDException;
+import org.azd.handlers.DefaultResponseHandler;
+import org.azd.handlers.DefaultRetryHandler;
 import org.azd.interfaces.AccessTokenCredential;
 import org.azd.interfaces.RequestAdapter;
 import org.azd.interfaces.ResponseHandler;
@@ -42,9 +44,9 @@ public class DefaultRequestAdapter implements RequestAdapter {
     public DefaultRequestAdapter(AccessTokenCredential accessTokenCredential, HttpClient client,
                                  SerializerContext serializer, ResponseHandler handler) {
         this.accessTokenCredential = accessTokenCredential;
-        this.client = client == null ? RequestClientBuilderFactory.create() : client;
+        this.client = client == null ? RequestClientBuilderFactory.create(RequestOption.getInstance()) : client;
         this.serializer = serializer == null ? InstanceFactory.createSerializerContext() : serializer;
-        this.handler = handler == null ? InstanceFactory.createResponseHandler() : handler;
+        this.handler = handler == null ? new DefaultResponseHandler(new DefaultRetryHandler()) : handler;
     }
 
     @Override

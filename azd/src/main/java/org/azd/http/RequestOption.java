@@ -28,6 +28,10 @@ public class RequestOption {
         this.CONNECTION_TIME_OUT = Duration.ofSeconds(seconds);
     }
 
+    public static RequestOption getInstance() {
+        return new RequestOption();
+    }
+
     private Duration CONNECTION_TIME_OUT = Duration.ofSeconds(10);
     private HttpClient.Version VERSION = HttpClient.Version.HTTP_2;
     private HttpClient.Redirect REDIRECT_POLICY = HttpClient.Redirect.NORMAL;
