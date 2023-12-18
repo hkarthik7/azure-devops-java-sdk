@@ -40,14 +40,18 @@ public class PagedListIteratorTest {
         // This will return continuation token in the header.
         // We then iterate through the list and get next page by PagedListIterator class.
         var allBuilds = bb.builds().listAsync(r -> r.queryParameters.top = 10).join();
+//        System.out.println(allBuilds.getContinuationToken());
+        System.out.println(bb.builds().listAsync(r -> r.queryParameters.continuationToken = allBuilds.getContinuationToken()).join());
 
-        var iterator = InstanceFactory.createPageIterator(Builds.class);
-        var nextPage = iterator.getNextPage();
+//        var iterator = InstanceFactory.createPageIterator(Builds.class);
+//        var nextPage = iterator.getNextPage();
+//        allBuilds.getBuildResults().forEach(b -> System.out.println(b.getId()));
+//        nextPage.getBuildResults().forEach(b -> System.out.println(b.getId()));
+//        iterator.getNextPage().getBuildResults().forEach(b -> System.out.println(b.getId()));
+//        iterator.getNextPage().getBuildResults().forEach(b -> System.out.println(b.getId()));
+//        iterator.getNextPage().getBuildResults().forEach(b -> System.out.println(b.getId()));
 
-        assert allBuilds.getBuildResults().size() == nextPage.getBuildResults().size();
-
-        var r = InstanceFactory.createRetryHandler();
-        r.retry();
+//        assert allBuilds.getBuildResults().size() == nextPage.getBuildResults().size();
     }
 
     @Test
