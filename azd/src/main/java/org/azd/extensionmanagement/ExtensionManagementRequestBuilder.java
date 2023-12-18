@@ -13,6 +13,9 @@ import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
+/**
+ * Extension management request builder to manage Extension management Api.
+ */
 public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
     /**
      * Instantiates a new request builder instance and sets the default values.
