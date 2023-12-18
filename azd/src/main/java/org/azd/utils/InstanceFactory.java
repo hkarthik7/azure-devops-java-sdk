@@ -1,10 +1,10 @@
 package org.azd.utils;
 
-import org.azd.http.DefaultResponseHandler;
 import org.azd.http.DefaultRequestAdapter;
-import org.azd.http.DefaultRetryHandler;
-import org.azd.http.RequestOption;
-import org.azd.interfaces.*;
+import org.azd.interfaces.AccessTokenCredential;
+import org.azd.interfaces.PageIterator;
+import org.azd.interfaces.RequestAdapter;
+import org.azd.interfaces.SerializerContext;
 import org.azd.oauth.OAuthAccessTokenBuilder;
 import org.azd.serializer.JsonSerializer;
 import org.azd.serializer.SerializableEntity;
@@ -19,18 +19,6 @@ public final class InstanceFactory {
 
     public static SerializerContext createSerializerContext() {
         return new JsonSerializer();
-    }
-
-    public static ResponseHandler createResponseHandler() {
-        return new DefaultResponseHandler();
-    }
-
-    public static RetryHandler createRetryHandler() { return new DefaultRetryHandler(); }
-
-    public static DefaultRetryHandler createDefaultRetryHandler() { return new DefaultRetryHandler(); }
-
-    public static RequestOption createRequestOption() {
-        return new RequestOption();
     }
 
     public static RequestAdapter createDefaultRequestAdapter() {
