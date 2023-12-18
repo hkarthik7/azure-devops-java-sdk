@@ -7,6 +7,7 @@ import org.azd.core.CoreRequestBuilder;
 import org.azd.distributedtask.DistributedTaskRequestBuilder;
 import org.azd.enums.Instance;
 import org.azd.extensionmanagement.ExtensionManagementRequestBuilder;
+import org.azd.git.GitBaseRequestBuilder;
 import org.azd.http.DefaultRequestAdapter;
 import org.azd.interfaces.AccessTokenCredential;
 import org.azd.interfaces.RequestAdapter;
@@ -26,6 +27,8 @@ public class BaseAzDServiceClient {
     public DistributedTaskRequestBuilder distributedTask() { return new DistributedTaskRequestBuilder(accessTokenCredential, requestAdapter); }
 
     public ExtensionManagementRequestBuilder extensionManagement() { return new ExtensionManagementRequestBuilder(accessTokenCredential, requestAdapter); }
+
+    public GitBaseRequestBuilder git() { return new GitBaseRequestBuilder(accessTokenCredential, requestAdapter); }
 
     public BaseAzDServiceClient(AccessTokenCredential accessTokenCredential) {
         Objects.requireNonNull(accessTokenCredential);
