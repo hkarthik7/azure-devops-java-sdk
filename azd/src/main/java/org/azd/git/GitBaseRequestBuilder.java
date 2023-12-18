@@ -1,6 +1,8 @@
 package org.azd.git;
 
+import org.azd.git.pullrequest.PullRequestBaseRequestBuilder;
 import org.azd.git.pullrequests.PullRequestsRequestBuilder;
+import org.azd.git.refs.RefsRequestBuilder;
 import org.azd.git.repositories.RepositoriesRequestBuilder;
 import org.azd.interfaces.AccessTokenCredential;
 import org.azd.interfaces.RequestAdapter;
@@ -34,4 +36,21 @@ public class GitBaseRequestBuilder extends BaseRequestBuilder {
     public PullRequestsRequestBuilder pullRequests() {
         return new PullRequestsRequestBuilder(accessTokenCredential, requestAdapter);
     }
+
+    /**
+     * Provides functionality to manage Refs Api.
+     * @return RefsRequestBuilder {@link RefsRequestBuilder}
+     */
+    public RefsRequestBuilder refs() {
+        return new RefsRequestBuilder(accessTokenCredential, requestAdapter);
+    }
+
+    /**
+     * Provides functionality to manage Pull request and its associated Apis.
+     * @return PullRequestBaseRequestBuilder {@link PullRequestBaseRequestBuilder}
+     */
+    public PullRequestBaseRequestBuilder pullRequest() {
+        return new PullRequestBaseRequestBuilder(accessTokenCredential, requestAdapter);
+    }
+
 }
