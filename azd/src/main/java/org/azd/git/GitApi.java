@@ -354,6 +354,42 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
 
     /***
      * Retrieve a pull request.
+     * @param repositoryName The repository name of the pull request's target branch.
+     * @param pullRequestId The ID of the pull request to retrieve.
+     * @param includeCommits If true, the pull request will be returned with the associated commits.
+     * @throws AzDException Default Api Exception handler.
+     * @return {@link GitPullRequest} object
+     */
+    @Override
+    public GitPullRequest getPullRequest(String repositoryName, int pullRequestId, boolean includeCommits) throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryName, "pullrequests/" + pullRequestId, ApiVersion.GIT, Map.of("includeCommits", includeCommits),
+                null, null);
+
+        return MAPPER.mapJsonResponse(r, GitPullRequest.class);
+    }
+
+    /***
+     * Retrieve a pull request.
+     * @param repositoryName The repository name of the pull request's target branch.
+     * @param pullRequestId The ID of the pull request to retrieve.
+     * @param includeCommits If true, the pull request will be returned with the associated commits.
+     * @param includeWorkItemRefs If true, the pull request will be returned with the associated work item references.
+     * @throws AzDException Default Api Exception handler.
+     * @return {@link GitPullRequest} object
+     */
+    @Override
+    public GitPullRequest getPullRequest(String repositoryName, int pullRequestId, boolean includeCommits,
+                                         boolean includeWorkItemRefs) throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryName, "pullrequests/" + pullRequestId, ApiVersion.GIT,
+                Map.of("includeCommits", includeCommits, "includeWorkItemRefs", includeWorkItemRefs), null, null);
+
+        return MAPPER.mapJsonResponse(r, GitPullRequest.class);
+    }
+
+    /***
+     * Retrieve a pull request.
      * @param pullRequestId The ID of the pull request to retrieve.
      * @throws AzDException Default Api Exception handler.
      * @return {@link GitPullRequest} object
@@ -376,6 +412,107 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     public PullRequests getPullRequests(String repositoryName) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
                 repositoryName, "pullrequests", ApiVersion.GIT, null, null, null);
+
+        return MAPPER.mapJsonResponse(r, PullRequests.class);
+    }
+
+    /***
+     * Retrieve all pull requests from a repository
+     * @param repositoryName specify the repository name
+     * @param top The number of pull requests to retrieve.
+     * @throws AzDException Default Api Exception handler.
+     * @return {@link PullRequests} object
+     */
+    @Override
+    public PullRequests getPullRequests(String repositoryName, int top) throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryName, "pullrequests", ApiVersion.GIT, Map.of("$top", top), null, null);
+
+        return MAPPER.mapJsonResponse(r, PullRequests.class);
+    }
+
+    /***
+     * Retrieve all pull requests from a repository
+     * @param repositoryName specify the repository name
+     * @param top The number of pull requests to retrieve.
+     * @param skip The number of pull requests to ignore. For example, to retrieve results 101-150, set top to 50 and skip to 100.
+     * @throws AzDException Default Api Exception handler.
+     * @return {@link PullRequests} object
+     */
+    @Override
+    public PullRequests getPullRequests(String repositoryName, int top, int skip) throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryName, "pullrequests", ApiVersion.GIT, Map.of("$top", top, "$skip", skip), null, null);
+
+        return MAPPER.mapJsonResponse(r, PullRequests.class);
+    }
+
+    /***
+     * Retrieve all pull requests from a repository
+     * @param repositoryName specify the repository name
+     * @param top The number of pull requests to retrieve.
+     * @param skip The number of pull requests to ignore. For example, to retrieve results 101-150, set top to 50 and skip to 100.
+     * @param creatorId If set, search for pull requests that were created by this identity.
+     * @throws AzDException Default Api Exception handler.
+     * @return {@link PullRequests} object
+     */
+    @Override
+    public PullRequests getPullRequests(String repositoryName, int top, int skip, String creatorId) throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryName, "pullrequests", ApiVersion.GIT,
+                Map.of("$top", top, "$skip", skip, "searchCriteria.creatorId", creatorId), null, null);
+
+        return MAPPER.mapJsonResponse(r, PullRequests.class);
+    }
+
+    /***
+     * Retrieve all pull requests from a repository
+     * @param repositoryName specify the repository name
+     * @param includeLinks Whether to include the _links field on the shallow references.
+     * @throws AzDException Default Api Exception handler.
+     * @return {@link PullRequests} object
+     */
+    @Override
+    public PullRequests getPullRequests(String repositoryName, boolean includeLinks) throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryName, "pullrequests", ApiVersion.GIT,
+                Map.of("searchCriteria.includeLinks", includeLinks), null, null);
+
+        return MAPPER.mapJsonResponse(r, PullRequests.class);
+    }
+
+    /***
+     * Retrieve all pull requests from a repository
+     * @param repositoryName specify the repository name
+     * @param status If set, search for pull requests that are in this state. Defaults to Active if unset.
+     * @throws AzDException Default Api Exception handler.
+     * @return {@link PullRequests} object
+     */
+    @Override
+    public PullRequests getPullRequests(String repositoryName, PullRequestStatus status) throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryName, "pullrequests", ApiVersion.GIT,
+                Map.of("searchCriteria.status", status), null, null);
+
+        return MAPPER.mapJsonResponse(r, PullRequests.class);
+    }
+
+    /***
+     * Retrieve all pull requests from a repository
+     * @param repositoryName specify the repository name
+     * @param gitPullRequestQueryParameters Property bag of query parameters pertaining to the pull requests.
+     * @throws AzDException Default Api Exception handler.
+     * @return {@link PullRequests} object
+     */
+    @Override
+    public PullRequests getPullRequests(String repositoryName, GitPullRequestQueryParameters gitPullRequestQueryParameters)
+            throws AzDException {
+        String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                repositoryName, "pullrequests", ApiVersion.GIT,
+                gitPullRequestQueryParameters != null
+                        ? gitPullRequestQueryParameters.get()
+                        : new GitPullRequestQueryParameters().get(),
+                null, null);
 
         return MAPPER.mapJsonResponse(r, PullRequests.class);
     }

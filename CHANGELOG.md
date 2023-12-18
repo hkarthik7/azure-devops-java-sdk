@@ -1,5 +1,12 @@
 # Changelog
 
+# 5.0.11
+
+**Minor Incremental Release**
+- Fix issue: [GitPullRequest getCommits() is always null #71](https://github.com/hkarthik7/azure-devops-java-sdk/issues/71)
+- Fix issue: [CVE "sonatype-2022-6438" #72](https://github.com/hkarthik7/azure-devops-java-sdk/issues/72)
+
+
 # 5.0.10
 
 **Minor Incremental Release**
