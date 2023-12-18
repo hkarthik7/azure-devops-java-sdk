@@ -2,7 +2,7 @@ package org.azd.tasks;
 
 import org.azd.exceptions.AzDException;
 import org.azd.http.ApiResponse;
-import org.azd.http.DefaultResponseHandler;
+import org.azd.handlers.DefaultResponseHandler;
 import org.azd.interfaces.PageIterator;
 import org.azd.interfaces.RequestAdapter;
 import org.azd.interfaces.SerializerContext;
