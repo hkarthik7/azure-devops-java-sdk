@@ -287,7 +287,7 @@ public class AzDClientApi implements AzDClient {
      */
     @Override
     public ExtensionManagementApi getExtensionManagementApi() {
-        return new ExtensionManagementApi(CONNECTION);
+        return new ExtensionManagementApi(client);
     }
 
     /***
