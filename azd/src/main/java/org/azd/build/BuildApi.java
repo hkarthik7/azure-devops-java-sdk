@@ -6,7 +6,7 @@ import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.AzDHelpers;
 import org.azd.interfaces.BuildDetails;
-import org.azd.serviceClient.AzDServiceClient;
+import org.azd.serviceclient.AzDServiceClient;
 import org.azd.utils.AzDAsyncApi;
 import org.azd.utils.InstanceFactory;
 

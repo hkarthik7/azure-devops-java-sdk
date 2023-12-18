@@ -1,4 +1,4 @@
-package org.azd.serviceClient;
+package org.azd.serviceclient;
 
 import org.azd.interfaces.AccessTokenCredential;
 

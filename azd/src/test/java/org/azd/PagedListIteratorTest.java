@@ -7,9 +7,8 @@ import org.azd.exceptions.AzDException;
 import org.azd.interfaces.AccessTokenCredential;
 import org.azd.interfaces.PageIterator;
 import org.azd.serializer.JsonSerializer;
-import org.azd.serviceClient.AzDServiceClient;
+import org.azd.serviceclient.AzDServiceClient;
 import org.azd.tasks.PagedListIterator;
-import org.azd.utils.InstanceFactory;
 import org.junit.Before;
 import org.junit.Test;
 

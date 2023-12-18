@@ -5,7 +5,7 @@ import org.azd.accounts.types.Organizations;
 import org.azd.accounts.types.Profile;
 import org.azd.exceptions.AzDException;
 import org.azd.interfaces.AccountsDetails;
-import org.azd.serviceClient.AzDServiceClient;
+import org.azd.serviceclient.AzDServiceClient;
 import org.azd.utils.AzDAsyncApi;
 
 /***

@@ -4,7 +4,7 @@ import org.azd.enums.ExtensionStateFlags;
 import org.azd.exceptions.AzDException;
 import org.azd.extensionmanagement.types.*;
 import org.azd.interfaces.ExtensionManagementDetails;
-import org.azd.serviceClient.AzDServiceClient;
+import org.azd.serviceclient.AzDServiceClient;
 import org.azd.utils.AzDAsyncApi;
 
 /***

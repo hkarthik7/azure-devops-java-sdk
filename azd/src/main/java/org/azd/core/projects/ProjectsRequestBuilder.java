@@ -156,7 +156,7 @@ public class ProjectsRequestBuilder extends BaseRequestBuilder {
 
     /***
      * Get the current project. This should be set when creating the service client object using
-     * AzDServiceClient {@link org.azd.serviceClient.AzDServiceClient}
+     * AzDServiceClient {@link org.azd.serviceclient.AzDServiceClient}
      * @throws AzDException Default Api Exception handler.
      * @return project object {@link Project}
      */
@@ -308,7 +308,7 @@ public class ProjectsRequestBuilder extends BaseRequestBuilder {
 
     /***
      * Get the current project. This should be set when creating the service client object using
-     * AzDServiceClient {@link org.azd.serviceClient.AzDServiceClient}
+     * AzDServiceClient {@link org.azd.serviceclient.AzDServiceClient}
      * @throws AzDException Default Api Exception handler.
      * @return project object {@link Project}
      */

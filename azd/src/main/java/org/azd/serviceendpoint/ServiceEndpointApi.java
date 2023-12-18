@@ -10,7 +10,7 @@ import org.azd.enums.ServiceEndpointActionFilter;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.ServiceEndpointDetails;
-import org.azd.serviceClient.AzDServiceClient;
+import org.azd.serviceclient.AzDServiceClient;
 import org.azd.serviceendpoint.types.ServiceEndpoint;
 import org.azd.serviceendpoint.types.ServiceEndpoints;
 import org.azd.utils.AzDAsyncApi;

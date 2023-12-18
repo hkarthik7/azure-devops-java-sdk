@@ -1,4 +1,4 @@
-package org.azd.serviceClient;
+package org.azd.serviceclient;
 
 import org.azd.accounts.AccountsBaseRequestBuilder;
 import org.azd.artifacts.ArtifactsRequestBuilder;
@@ -8,7 +8,6 @@ import org.azd.distributedtask.DistributedTaskRequestBuilder;
 import org.azd.enums.Instance;
 import org.azd.extensionmanagement.ExtensionManagementRequestBuilder;
 import org.azd.git.GitBaseRequestBuilder;
-import org.azd.http.DefaultRequestAdapter;
 import org.azd.interfaces.AccessTokenCredential;
 import org.azd.interfaces.RequestAdapter;
 import org.azd.utils.InstanceFactory;

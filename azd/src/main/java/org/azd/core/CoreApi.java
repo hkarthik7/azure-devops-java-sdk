@@ -5,7 +5,7 @@ import org.azd.enums.FeatureManagement;
 import org.azd.enums.ProjectState;
 import org.azd.exceptions.AzDException;
 import org.azd.interfaces.CoreDetails;
-import org.azd.serviceClient.AzDServiceClient;
+import org.azd.serviceclient.AzDServiceClient;
 import org.azd.utils.AzDAsyncApi;
 
 import java.util.Optional;

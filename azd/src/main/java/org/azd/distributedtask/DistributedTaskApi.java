@@ -7,7 +7,7 @@ import org.azd.exceptions.AzDException;
 import org.azd.helpers.AzDHelpers;
 import org.azd.interfaces.DistributedTaskDetails;
 import org.azd.release.types.ProjectReference;
-import org.azd.serviceClient.AzDServiceClient;
+import org.azd.serviceclient.AzDServiceClient;
 import org.azd.utils.AzDAsyncApi;
 
 import java.util.List;

@@ -1,20 +1,12 @@
 package org.azd.feedmanagement;
 
-import org.azd.artifacts.ArtifactsRequestBuilder;
 import org.azd.artifacts.feedmanagement.FeedManagementRequestBuilder;
-import org.azd.common.ApiVersion;
-import org.azd.connection.Connection;
 import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
 import org.azd.feedmanagement.types.*;
-import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.FeedManagementDetails;
-import org.azd.serviceClient.AzDServiceClient;
+import org.azd.serviceclient.AzDServiceClient;
 import org.azd.utils.AzDAsyncApi;
-import org.azd.utils.AzDClientApi;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.azd.utils.RestClient.send;
 
