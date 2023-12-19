@@ -36,10 +36,10 @@ public class Author extends SerializableEntity {
     @JsonProperty("uniqueName")
     private String uniqueName;
     /***
-     * Link to image
+     * Is origin value deleted
      */
-    @JsonProperty("imageUrl")
-    private String imageUrl;
+    @JsonProperty("isDeletedInOrigin")
+    private Boolean isDeletedInOrigin;
     /***
      * The descriptor is the primary way to reference the graph subject while the system is running.
      * This field will uniquely identify the same graph subject across both Accounts and Organizations.
@@ -88,19 +88,19 @@ public class Author extends SerializableEntity {
         this.uniqueName = uniqueName;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
     public String getDescriptor() {
         return descriptor;
     }
 
     public void setDescriptor(String descriptor) {
         this.descriptor = descriptor;
+    }
+
+    public Boolean getDeletedInOrigin() {
+        return isDeletedInOrigin;
+    }
+
+    public void setDeletedInOrigin(Boolean deletedInOrigin) {
+        isDeletedInOrigin = deletedInOrigin;
     }
 }
