@@ -32,4 +32,12 @@ public class PullRequestBaseRequestBuilder extends BaseRequestBuilder {
     public PullRequestLabelsRequestBuilder labels() {
         return new PullRequestLabelsRequestBuilder(accessTokenCredential, requestAdapter);
     }
+
+    /**
+     * Provides functionality to manage Pull request reviewers Api.
+     * @return PullRequestReviewerRequestBuilder {@link PullRequestReviewerRequestBuilder}
+     */
+    public PullRequestReviewerRequestBuilder reviewers() {
+        return new PullRequestReviewerRequestBuilder(accessTokenCredential, requestAdapter);
+    }
 }
