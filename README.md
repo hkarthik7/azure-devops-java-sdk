@@ -9,12 +9,6 @@
 
 # :loudspeaker: [Announcement](https://github.com/hkarthik7/azure-devops-java-sdk/issues/69) :exclamation::heavy_exclamation_mark:
 
-
-# Please check the announcement to know what is new in version 6.0 and read about breaking changes.
-
-# :loudspeaker: [Announcement](https://github.com/hkarthik7/azure-devops-java-sdk/issues/69) :exclamation::heavy_exclamation_mark:
-
-
 **azd** library helps to manage **Azure DevOps** REST API with ease. This provides functionality to the significant services 
 in **Azure DevOps** and manage in granular level.
 
