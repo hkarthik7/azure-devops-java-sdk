@@ -1,46 +1,58 @@
 package org.azd.artifacts.feedmanagement;
 
-import org.azd.feedmanagement.types.FeedPermissions;
-import org.azd.common.ApiVersion;
-import org.azd.common.types.QueryParameter;
+import org.azd.abstractions.BaseRequestBuilder;
+import org.azd.abstractions.QueryParameter;
+import org.azd.authentication.AccessTokenCredential;
 import org.azd.exceptions.AzDException;
-import org.azd.http.RequestInformation;
-import org.azd.interfaces.AccessTokenCredential;
-import org.azd.interfaces.RequestAdapter;
-import org.azd.utils.BaseRequestBuilder;
+import org.azd.feedmanagement.types.FeedPermissions;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
+/**
+ * Feed permissions request builder to manage Feed permissions Api.
+ */
 public class FeedPermissionsRequestBuilder extends BaseRequestBuilder {
-    public FeedPermissionsRequestBuilder(AccessTokenCredential accessTokenCredential, RequestAdapter requestAdapter) {
-        super(accessTokenCredential, requestAdapter, "feeds", "packaging/feeds", ApiVersion.FEEDS);
+    /**
+     * Instantiates a new RequestBuilder instance and sets the default values.
+     *
+     * @param organizationUrl       Represents organization location request url.
+     * @param accessTokenCredential Access token credential object.
+     */
+    public FeedPermissionsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
+        super(organizationUrl, accessTokenCredential, "packaging", "be8c1476-86a7-44ed-b19d-aec0e9275cd8");
     }
 
     /**
      * Get the permissions for a feed. The project parameter must be supplied if the feed was created in a project.
      * If the feed is not associated with any project, omit the project parameter from the request.
+     *
      * @param feedId Id or name of the feed.
-     * @throws AzDException Default Api Exception handler.
      * @return Feed Permissions {@link FeedPermissions}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<FeedPermissions> getAsync(String feedId) throws AzDException {
-        var reqInfo = toGetInformation(feedId, null);
-        return requestAdapter.sendAsync(reqInfo, FeedPermissions.class);
+        return builder()
+                .serviceEndpoint("feedId", feedId)
+                .build()
+                .executeAsync(FeedPermissions.class);
     }
 
     /**
      * Get the permissions for a feed. The project parameter must be supplied if the feed was created in a project.
      * If the feed is not associated with any project, omit the project parameter from the request.
+     *
      * @param feedId Id or name of the feed.
-     * @throws AzDException Default Api Exception handler.
      * @return Feed Permissions {@link FeedPermissions}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<FeedPermissions> getAsync(String feedId, Consumer<RequestConfiguration> requestConfiguration)
             throws AzDException {
-        var reqInfo = toGetInformation(feedId, requestConfiguration);
-
-        return requestAdapter.sendAsync(reqInfo, FeedPermissions.class);
+        return builder()
+                .serviceEndpoint("feedId", feedId)
+                .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .executeAsync(FeedPermissions.class);
     }
 
     /***
@@ -52,36 +64,43 @@ public class FeedPermissionsRequestBuilder extends BaseRequestBuilder {
      */
     public CompletableFuture<FeedPermissions> setAsync(String feedId, FeedPermissions feedPermissions)
             throws AzDException {
-        var reqInfo = toPatchRequestInformation(feedPermissions);
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + feedId + "/permissions";
-
-        return requestAdapter.sendAsync(reqInfo, FeedPermissions.class);
+        return builder()
+                .PATCH(feedPermissions)
+                .serviceEndpoint("feedId", feedId)
+                .build()
+                .executeAsync(FeedPermissions.class);
     }
 
     /**
      * Get the permissions for a feed. The project parameter must be supplied if the feed was created in a project.
      * If the feed is not associated with any project, omit the project parameter from the request.
+     *
      * @param feedId Id or name of the feed.
-     * @throws AzDException Default Api Exception handler.
      * @return Feed Permissions {@link FeedPermissions}
+     * @throws AzDException Default Api Exception handler.
      */
     public FeedPermissions get(String feedId) throws AzDException {
-        var reqInfo = toGetInformation(feedId, null);
-        return requestAdapter.send(reqInfo, FeedPermissions.class);
+        return builder()
+                .serviceEndpoint("feedId", feedId)
+                .build()
+                .execute(FeedPermissions.class);
     }
 
     /**
      * Get the permissions for a feed. The project parameter must be supplied if the feed was created in a project.
      * If the feed is not associated with any project, omit the project parameter from the request.
+     *
      * @param feedId Id or name of the feed.
-     * @throws AzDException Default Api Exception handler.
      * @return Feed Permissions {@link FeedPermissions}
+     * @throws AzDException Default Api Exception handler.
      */
     public FeedPermissions get(String feedId, Consumer<RequestConfiguration> requestConfiguration)
             throws AzDException {
-        var reqInfo = toGetInformation(feedId, requestConfiguration);
-
-        return requestAdapter.send(reqInfo, FeedPermissions.class);
+        return builder()
+                .serviceEndpoint("feedId", feedId)
+                .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .execute(FeedPermissions.class);
     }
 
     /***
@@ -93,10 +112,11 @@ public class FeedPermissionsRequestBuilder extends BaseRequestBuilder {
      */
     public FeedPermissions set(String feedId, FeedPermissions feedPermissions)
             throws AzDException {
-        var reqInfo = toPatchRequestInformation(feedPermissions.getFeedPermission());
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + feedId + "/permissions";
-
-        return requestAdapter.send(reqInfo, FeedPermissions.class);
+        return builder()
+                .PATCH(feedPermissions)
+                .serviceEndpoint("feedId", feedId)
+                .build()
+                .execute(FeedPermissions.class);
     }
 
 
@@ -131,23 +151,6 @@ public class FeedPermissionsRequestBuilder extends BaseRequestBuilder {
      */
     public static class RequestConfiguration {
         public GetQueryParameters queryParameters = new GetQueryParameters();
-    }
-
-    /**
-     * Constructs the request information for Build Api.
-     * @param feedId ID or name of the feed.
-     * @param requestConfig Consumer of query parameters.
-     * @return RequestInformation object {@link RequestInformation}
-     */
-    private RequestInformation toGetInformation(String feedId, Consumer<RequestConfiguration> requestConfig) {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + feedId + "/permissions";
-        if (requestConfig != null) {
-            final var config = new RequestConfiguration();
-            requestConfig.accept(config);
-            reqInfo.setQueryParameters(config.queryParameters);
-        }
-        return reqInfo;
     }
 
 }

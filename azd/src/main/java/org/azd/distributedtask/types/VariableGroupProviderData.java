@@ -1,6 +1,6 @@
 package org.azd.distributedtask.types;
 
-import org.azd.serializer.SerializableEntity;
+import org.azd.abstractions.serializer.SerializableEntity;
 
 /***
  * Sets provider data.

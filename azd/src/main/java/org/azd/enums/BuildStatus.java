@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * The status of the controller. 
+ * The status of the controller.
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public enum BuildStatus {

@@ -171,13 +171,15 @@ public class UPackApi extends AzDAsyncApi<UPackApi> implements UpackDetails {
     public void updatePackageVersion(String feedId, String packageName, String version, String promote)
             throws AzDException {
 
-        var req = new HashMap<String, Object>(){{
+        var req = new HashMap<String, Object>() {{
             put("op", PackageOperation.ADD.toString());
             put("path", "/views/-");
             put("value", promote.toString()); // "prmote package type"
         }};
 
-        var body = new HashMap<String, Object>(){{ put("views", req); }};
+        var body = new HashMap<String, Object>() {{
+            put("views", req);
+        }};
 
         try {
             String r = send(RequestMethod.PATCH, CONNECTION, UPACK, CONNECTION.getProject(), AREA + "/feeds", feedId,

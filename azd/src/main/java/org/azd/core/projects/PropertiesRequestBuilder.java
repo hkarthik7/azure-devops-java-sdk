@@ -1,24 +1,26 @@
 package org.azd.core.projects;
 
-import org.azd.common.ApiVersion;
+import org.azd.abstractions.BaseRequestBuilder;
+import org.azd.authentication.AccessTokenCredential;
 import org.azd.common.types.JsonPatchDocument;
 import org.azd.core.types.ProjectProperties;
 import org.azd.enums.CustomHeader;
 import org.azd.exceptions.AzDException;
-import org.azd.interfaces.AccessTokenCredential;
-import org.azd.interfaces.RequestAdapter;
-import org.azd.utils.BaseRequestBuilder;
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Provides functionality to manage project properties Api.
+ */
 public class PropertiesRequestBuilder extends BaseRequestBuilder {
     /**
-     * Instantiates the request builder with required values.
-     * @param accessTokenCredential Authentication type {@link AccessTokenCredential}.
-     * @param requestAdapter The request adapter to execute the requests.
+     * Instantiates a new RequestBuilder instance and sets the default values.
+     *
+     * @param organizationUrl       Represents organization location request url.
+     * @param accessTokenCredential Access token credential object.
      */
-    public PropertiesRequestBuilder(AccessTokenCredential accessTokenCredential, RequestAdapter requestAdapter) {
-        super(accessTokenCredential, requestAdapter, "projects", ApiVersion.PROJECT_PROPERTIES);
+    public PropertiesRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
+        super(organizationUrl, accessTokenCredential, "core", "4976a71a-4487-49aa-8aab-a1eda469037a");
     }
 
     /***
@@ -28,11 +30,10 @@ public class PropertiesRequestBuilder extends BaseRequestBuilder {
      * @return ProjectProperties {@link ProjectProperties}
      */
     public CompletableFuture<ProjectProperties> getAsync(String projectId) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + projectId + "/properties";
-
-        return requestAdapter.sendAsync(reqInfo, ProjectProperties.class);
+        return builder()
+                .serviceEndpoint("projectId", projectId)
+                .build()
+                .executeAsync(ProjectProperties.class);
     }
 
     /***
@@ -44,12 +45,25 @@ public class PropertiesRequestBuilder extends BaseRequestBuilder {
      * @return ProjectProperties {@link ProjectProperties}
      */
     public CompletableFuture<ProjectProperties> getAsync(String projectId, String keys) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + projectId + "/properties";
-        reqInfo.setQueryParameter("keys", keys);
+        return builder()
+                .serviceEndpoint("projectId", projectId)
+                .query("keys", keys)
+                .build()
+                .executeAsync(ProjectProperties.class);
+    }
 
-        return requestAdapter.sendAsync(reqInfo, ProjectProperties.class);
+    /***
+     * Create, update, and delete team project properties.
+     * @param projectId provide the project guid not the project name
+     * @throws AzDException Default Api Exception handler.
+     */
+    public CompletableFuture<Void> setAsync(String projectId, JsonPatchDocument projectProperty) throws AzDException {
+        return builder()
+                .PATCH(projectProperty)
+                .serviceEndpoint("projectId", projectId)
+                .header(CustomHeader.JSON_PATCH)
+                .build()
+                .executePrimitiveAsync();
     }
 
     /***
@@ -59,11 +73,10 @@ public class PropertiesRequestBuilder extends BaseRequestBuilder {
      * @return ProjectProperties {@link ProjectProperties}
      */
     public ProjectProperties get(String projectId) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + projectId + "/properties";
-
-        return requestAdapter.send(reqInfo, ProjectProperties.class);
+        return builder()
+                .serviceEndpoint("projectId", projectId)
+                .build()
+                .execute(ProjectProperties.class);
     }
 
     /***
@@ -75,26 +88,11 @@ public class PropertiesRequestBuilder extends BaseRequestBuilder {
      * @return ProjectProperties {@link ProjectProperties}
      */
     public ProjectProperties get(String projectId, String keys) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + projectId + "/properties";
-        reqInfo.setQueryParameter("keys", keys);
-
-        return requestAdapter.send(reqInfo, ProjectProperties.class);
-    }
-
-    /***
-     * Create, update, and delete team project properties.
-     * @param projectId provide the project guid not the project name
-     * @throws AzDException Default Api Exception handler.
-     */
-    public CompletableFuture<Void> setAsync(String projectId, JsonPatchDocument projectProperty) throws AzDException {
-        var reqInfo = toPatchRequestInformation(projectProperty);
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + projectId + "/properties";
-        reqInfo.requestHeaders.add(CustomHeader.JSON_PATCH);
-
-        return requestAdapter.sendPrimitiveAsync(reqInfo);
+        return builder()
+                .serviceEndpoint("projectId", projectId)
+                .query("keys", keys)
+                .build()
+                .execute(ProjectProperties.class);
     }
 
     /***
@@ -103,11 +101,11 @@ public class PropertiesRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public Void set(String projectId, JsonPatchDocument projectProperty) throws AzDException {
-        var reqInfo = toPatchRequestInformation(projectProperty);
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + projectId + "/properties";
-        reqInfo.requestHeaders.add(CustomHeader.JSON_PATCH);
-
-        return requestAdapter.sendPrimitive(reqInfo);
+        return builder()
+                .PATCH(projectProperty)
+                .serviceEndpoint("projectId", projectId)
+                .header(CustomHeader.JSON_PATCH)
+                .build()
+                .executePrimitive();
     }
 }

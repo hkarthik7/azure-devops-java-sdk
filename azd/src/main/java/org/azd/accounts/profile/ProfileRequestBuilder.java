@@ -1,15 +1,11 @@
 package org.azd.accounts.profile;
 
+import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.accounts.types.Profile;
-import org.azd.common.ApiVersion;
-import org.azd.enums.Instance;
+import org.azd.authentication.AccessTokenCredential;
 import org.azd.exceptions.AzDException;
-import org.azd.http.RequestInformation;
-import org.azd.interfaces.AccessTokenCredential;
-import org.azd.interfaces.RequestAdapter;
-import org.azd.utils.BaseRequestBuilder;
+import org.azd.http.ClientRequest;
 
-import java.text.MessageFormat;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
@@ -18,63 +14,69 @@ import java.util.concurrent.CompletableFuture;
  */
 public class ProfileRequestBuilder extends BaseRequestBuilder {
     /**
-     * Instantiates the profile request builder with default values.
-     * @param accessTokenCredential Authentication provider {@link AccessTokenCredential}.
-     * @param requestAdapter The request adapter to execute the requests.
+     * Instantiates a new RequestBuilder instance and sets the default values.
+     *
+     * @param organizationUrl       Represents organization location request url.
+     * @param accessTokenCredential Access token credential object.
      */
-    public ProfileRequestBuilder(AccessTokenCredential accessTokenCredential, RequestAdapter requestAdapter) {
-        super(accessTokenCredential, requestAdapter, "profile/profiles", ApiVersion.PROFILE);
+    public ProfileRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
+        super(organizationUrl, accessTokenCredential, "profile", "f83735dc-483f-4238-a291-d45f6080a9af");
     }
 
     /**
      * Get the current user profile.
+     *
      * @return Returns a future object of {@link Profile}
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Profile> getAsync() throws AzDException {
-        return requestAdapter.sendAsync(toGetRequestInfo("me"), Profile.class);
+        return getRequestBuilder("me").executeAsync(Profile.class);
     }
 
     /**
      * Get the user profile for given id.
+     *
      * @param id ID of the user.
      * @return Returns a future object of {@link Profile}
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Profile> getAsync(String id) throws AzDException {
         Objects.requireNonNull(id, "Id cannot be null or empty.");
-        return requestAdapter.sendAsync(toGetRequestInfo(id), Profile.class);
+        return getRequestBuilder(id).executeAsync(Profile.class);
     }
 
     /**
      * Get the current user profile.
+     *
      * @return Returns a future object of {@link Profile}
      * @throws AzDException Default Api Exception handler.
      */
     public Profile get() throws AzDException {
-        return requestAdapter.send(toGetRequestInfo("me"), Profile.class);
+        return getRequestBuilder("me").execute(Profile.class);
     }
 
     /**
      * Get the user profile for given id.
+     *
      * @param id ID of the user.
      * @return Returns a future object of {@link Profile}
      * @throws AzDException Default Api Exception handler.
      */
     public Profile get(String id) throws AzDException {
         Objects.requireNonNull(id, "Id cannot be null or empty.");
-        return requestAdapter.send(toGetRequestInfo(id), Profile.class);
+        return getRequestBuilder(id).execute(Profile.class);
     }
 
     /**
      * Constructs the request information for Profile Api.
+     *
      * @param id ID of the user.
-     * @return RequestInformation Object {@link RequestInformation}
+     * @return ClientRequest {@link ClientRequest}
      */
-    private RequestInformation toGetRequestInfo(String id) {
-        var requestInfo = toGetRequestInformation();
-        requestInfo.setRequestUrl(MessageFormat.format("{0}/_apis/{1}/{2}?api-version={3}",
-                Instance.ACCOUNT_INSTANCE.getInstance(), service, id, apiVersion));
-        return requestInfo;
+    private ClientRequest getRequestBuilder(String id) {
+        return builder()
+                .baseInstance(organizationUrl)
+                .serviceEndpoint("id", id)
+                .build();
     }
 }

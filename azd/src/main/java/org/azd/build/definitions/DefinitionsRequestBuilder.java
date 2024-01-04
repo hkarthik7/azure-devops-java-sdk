@@ -1,16 +1,13 @@
 package org.azd.build.definitions;
 
+import org.azd.abstractions.BaseRequestBuilder;
+import org.azd.abstractions.QueryParameter;
+import org.azd.authentication.AccessTokenCredential;
 import org.azd.build.types.BuildDefinition;
 import org.azd.build.types.BuildDefinitionRevisions;
 import org.azd.build.types.BuildDefinitions;
-import org.azd.common.ApiVersion;
-import org.azd.common.types.QueryParameter;
-import org.azd.enums.CustomHeader;
 import org.azd.enums.DefinitionQueryOrder;
 import org.azd.exceptions.AzDException;
-import org.azd.interfaces.AccessTokenCredential;
-import org.azd.interfaces.RequestAdapter;
-import org.azd.utils.BaseRequestBuilder;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
@@ -20,12 +17,13 @@ import java.util.function.Consumer;
  */
 public class DefinitionsRequestBuilder extends BaseRequestBuilder {
     /**
-     * Instantiates a new request builder instance and sets the default values.
-     * @param accessTokenCredential Authentication provider {@link AccessTokenCredential}.
-     * @param requestAdapter The request adapter to execute the requests.
+     * Instantiates a new RequestBuilder instance and sets the default values.
+     *
+     * @param organizationUrl       Represents organization location request url.
+     * @param accessTokenCredential Access token credential object.
      */
-    public DefinitionsRequestBuilder(AccessTokenCredential accessTokenCredential, RequestAdapter requestAdapter) {
-        super(accessTokenCredential, requestAdapter, "build/definitions", ApiVersion.BUILD_DEFINITIONS);
+    public DefinitionsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
+        super(organizationUrl, accessTokenCredential, "build", "dbeaf647-6167-421a-bda9-c9327b25e2e6");
     }
 
     /***
@@ -37,14 +35,11 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
      */
     public CompletableFuture<BuildDefinition> createAsync(BuildDefinition buildDefinition,
                                                           Consumer<DefinitionRequestConfiguration> definitionRequestConfiguration) throws AzDException {
-        var reqInfo = toPostRequestInformation(buildDefinition);
-        if (definitionRequestConfiguration != null) {
-            final var config = new DefinitionRequestConfiguration();
-            definitionRequestConfiguration.accept(config);
-            reqInfo.setQueryParameters(config.definitionQueryParameters);
-        }
-
-        return requestAdapter.sendAsync(reqInfo, BuildDefinition.class);
+        return builder()
+                .POST(buildDefinition)
+                .query(DefinitionRequestConfiguration::new, definitionRequestConfiguration, q -> q.definitionQueryParameters)
+                .build()
+                .executeAsync(BuildDefinition.class);
     }
 
     /***
@@ -53,11 +48,11 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Void> deleteAsync(int definitionId) throws AzDException {
-        var reqInfo = toDeleteRequestInformation();
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + definitionId;
-        reqInfo.requestHeaders.add(CustomHeader.JSON_CONTENT_TYPE);
-
-        return requestAdapter.sendPrimitiveAsync(reqInfo);
+        return builder()
+                .DELETE()
+                .serviceEndpoint("definitionId", definitionId)
+                .build()
+                .executePrimitiveAsync();
     }
 
     /***
@@ -68,16 +63,11 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
      * @return build definition {@link BuildDefinition}
      */
     public CompletableFuture<BuildDefinition> getAsync(int definitionId, Consumer<GetRequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + definitionId;
-
-        if (requestConfiguration != null) {
-            final var config = new GetRequestConfiguration();
-            requestConfiguration.accept(config);
-            reqInfo.setQueryParameters(config.queryParameters);
-        }
-
-        return requestAdapter.sendAsync(reqInfo, BuildDefinition.class);
+        return builder()
+                .serviceEndpoint("definitionId", definitionId)
+                .query(GetRequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .executeAsync(BuildDefinition.class);
     }
 
     /***
@@ -87,10 +77,10 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
      * @return build definition {@link BuildDefinition}
      */
     public CompletableFuture<BuildDefinition> getAsync(int definitionId) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + definitionId;
-
-        return requestAdapter.sendAsync(reqInfo, BuildDefinition.class);
+        return builder()
+                .serviceEndpoint("definitionId", definitionId)
+                .build()
+                .executeAsync(BuildDefinition.class);
     }
 
     /***
@@ -100,11 +90,11 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
      * @return build definition revisions object {@link BuildDefinitionRevisions}
      */
     public CompletableFuture<BuildDefinitionRevisions> getRevisionsAsync(int definitionId) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + definitionId + "/revisions";
-        reqInfo.apiVersion = ApiVersion.BUILD_DEFINITION_REVISIONS;
-
-        return requestAdapter.sendAsync(reqInfo, BuildDefinitionRevisions.class);
+        return builder()
+                .serviceEndpoint("definitionId", definitionId)
+                .location("7c116775-52e5-453e-8c5d-914d9762d8c4")
+                .build()
+                .executeAsync(BuildDefinitionRevisions.class);
     }
 
     /***
@@ -113,9 +103,9 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
      * @return build definitions object {@link BuildDefinitions}
      */
     public CompletableFuture<BuildDefinitions> listAsync() throws AzDException {
-        var reqInfo = toGetRequestInformation();
-
-        return requestAdapter.sendAsync(reqInfo, BuildDefinitions.class);
+        return builder()
+                .build()
+                .executeAsync(BuildDefinitions.class);
     }
 
 
@@ -126,15 +116,10 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
      * @return build definitions object {@link BuildDefinitions}
      */
     public CompletableFuture<BuildDefinitions> listAsync(Consumer<ListRequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-
-        if (requestConfiguration != null) {
-            final var config = new ListRequestConfiguration();
-            requestConfiguration.accept(config);
-            reqInfo.setQueryParameters(config.queryParameters);
-        }
-
-        return requestAdapter.sendAsync(reqInfo, BuildDefinitions.class);
+        return builder()
+                .query(ListRequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .executeAsync(BuildDefinitions.class);
     }
 
     /***
@@ -145,11 +130,12 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
      * @return a {@link BuildDefinition} object
      */
     public CompletableFuture<BuildDefinition> restoreAsync(int definitionId, boolean deleted) throws AzDException {
-        var reqInfo = toPatchRequestInformation(null);
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + definitionId;
-        reqInfo.setQueryParameter("deleted", deleted);
-
-        return requestAdapter.sendAsync(reqInfo, BuildDefinition.class);
+        return builder()
+                .PATCH(null)
+                .serviceEndpoint("definitionId", definitionId)
+                .query("deleted", deleted)
+                .build()
+                .executeAsync(BuildDefinition.class);
     }
 
     /***
@@ -163,17 +149,14 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      * @return a {@link BuildDefinition} object
      */
-    public CompletableFuture<BuildDefinition> updateAsync(int definitionId, BuildDefinition buildDefinition, Consumer<UpdateRequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toPutRequestInformation(buildDefinition);
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + definitionId;
-
-        if (requestConfiguration != null) {
-            final var config = new UpdateRequestConfiguration();
-            requestConfiguration.accept(config);
-            reqInfo.setQueryParameters(config.updateQueryParameters);
-        }
-
-        return requestAdapter.sendAsync(reqInfo, BuildDefinition.class);
+    public CompletableFuture<BuildDefinition> updateAsync(int definitionId, BuildDefinition buildDefinition,
+                                                          Consumer<UpdateRequestConfiguration> requestConfiguration) throws AzDException {
+        return builder()
+                .PUT(buildDefinition)
+                .serviceEndpoint("definitionId", definitionId)
+                .query(UpdateRequestConfiguration::new, requestConfiguration, q -> q.updateQueryParameters)
+                .build()
+                .executeAsync(BuildDefinition.class);
     }
 
     /***
@@ -185,14 +168,11 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
      */
     public BuildDefinition create(BuildDefinition buildDefinition,
                                   Consumer<DefinitionRequestConfiguration> definitionRequestConfiguration) throws AzDException {
-        var reqInfo = toPostRequestInformation(buildDefinition);
-        if (definitionRequestConfiguration != null) {
-            final var config = new DefinitionRequestConfiguration();
-            definitionRequestConfiguration.accept(config);
-            reqInfo.setQueryParameters(config.definitionQueryParameters);
-        }
-
-        return requestAdapter.send(reqInfo, BuildDefinition.class);
+        return builder()
+                .POST(buildDefinition)
+                .query(DefinitionRequestConfiguration::new, definitionRequestConfiguration, q -> q.definitionQueryParameters)
+                .build()
+                .execute(BuildDefinition.class);
     }
 
     /***
@@ -201,11 +181,11 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public Void delete(int definitionId) throws AzDException {
-        var reqInfo = toDeleteRequestInformation();
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + definitionId;
-        reqInfo.requestHeaders.add(CustomHeader.JSON_CONTENT_TYPE);
-
-        return requestAdapter.sendPrimitive(reqInfo);
+        return builder()
+                .DELETE()
+                .serviceEndpoint("definitionId", definitionId)
+                .build()
+                .executePrimitive();
     }
 
     /***
@@ -216,16 +196,11 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
      * @return build definition {@link BuildDefinition}
      */
     public BuildDefinition get(int definitionId, Consumer<GetRequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + definitionId;
-
-        if (requestConfiguration != null) {
-            final var config = new GetRequestConfiguration();
-            requestConfiguration.accept(config);
-            reqInfo.setQueryParameters(config.queryParameters);
-        }
-
-        return requestAdapter.send(reqInfo, BuildDefinition.class);
+        return builder()
+                .serviceEndpoint("definitionId", definitionId)
+                .query(GetRequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .execute(BuildDefinition.class);
     }
 
     /***
@@ -235,10 +210,10 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
      * @return build definition {@link BuildDefinition}
      */
     public BuildDefinition get(int definitionId) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + definitionId;
-
-        return requestAdapter.send(reqInfo, BuildDefinition.class);
+        return builder()
+                .serviceEndpoint("definitionId", definitionId)
+                .build()
+                .execute(BuildDefinition.class);
     }
 
     /***
@@ -248,11 +223,11 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
      * @return build definition revisions object {@link BuildDefinitionRevisions}
      */
     public BuildDefinitionRevisions getRevisions(int definitionId) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + definitionId + "/revisions";
-        reqInfo.apiVersion = ApiVersion.BUILD_DEFINITION_REVISIONS;
-
-        return requestAdapter.send(reqInfo, BuildDefinitionRevisions.class);
+        return builder()
+                .serviceEndpoint("definitionId", definitionId)
+                .location("7c116775-52e5-453e-8c5d-914d9762d8c4")
+                .build()
+                .execute(BuildDefinitionRevisions.class);
     }
 
     /***
@@ -261,9 +236,9 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
      * @return build definitions object {@link BuildDefinitions}
      */
     public BuildDefinitions list() throws AzDException {
-        var reqInfo = toGetRequestInformation();
-
-        return requestAdapter.send(reqInfo, BuildDefinitions.class);
+        return builder()
+                .build()
+                .execute(BuildDefinitions.class);
     }
 
 
@@ -274,15 +249,10 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
      * @return build definitions object {@link BuildDefinitions}
      */
     public BuildDefinitions list(Consumer<ListRequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-
-        if (requestConfiguration != null) {
-            final var config = new ListRequestConfiguration();
-            requestConfiguration.accept(config);
-            reqInfo.setQueryParameters(config.queryParameters);
-        }
-
-        return requestAdapter.send(reqInfo, BuildDefinitions.class);
+        return builder()
+                .query(ListRequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .execute(BuildDefinitions.class);
     }
 
     /***
@@ -293,11 +263,12 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
      * @return a {@link BuildDefinition} object
      */
     public BuildDefinition restore(int definitionId, boolean deleted) throws AzDException {
-        var reqInfo = toPatchRequestInformation(null);
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + definitionId;
-        reqInfo.setQueryParameter("deleted", deleted);
-
-        return requestAdapter.send(reqInfo, BuildDefinition.class);
+        return builder()
+                .PATCH(null)
+                .serviceEndpoint("definitionId", definitionId)
+                .query("deleted", deleted)
+                .build()
+                .execute(BuildDefinition.class);
     }
 
     /***
@@ -311,17 +282,14 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      * @return a {@link BuildDefinition} object
      */
-    public BuildDefinition update(int definitionId, BuildDefinition buildDefinition, Consumer<UpdateRequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toPutRequestInformation(buildDefinition);
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + definitionId;
-
-        if (requestConfiguration != null) {
-            final var config = new UpdateRequestConfiguration();
-            requestConfiguration.accept(config);
-            reqInfo.setQueryParameters(config.updateQueryParameters);
-        }
-
-        return requestAdapter.send(reqInfo, BuildDefinition.class);
+    public BuildDefinition update(int definitionId, BuildDefinition buildDefinition,
+                                  Consumer<UpdateRequestConfiguration> requestConfiguration) throws AzDException {
+        return builder()
+                .PUT(buildDefinition)
+                .serviceEndpoint("definitionId", definitionId)
+                .query(UpdateRequestConfiguration::new, requestConfiguration, q -> q.updateQueryParameters)
+                .build()
+                .execute(BuildDefinition.class);
     }
 
     /**

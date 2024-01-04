@@ -1,12 +1,10 @@
 package org.azd.build.controllers;
 
+import org.azd.abstractions.BaseRequestBuilder;
+import org.azd.authentication.AccessTokenCredential;
 import org.azd.build.types.BuildController;
 import org.azd.build.types.BuildControllers;
-import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
-import org.azd.interfaces.AccessTokenCredential;
-import org.azd.interfaces.RequestAdapter;
-import org.azd.utils.BaseRequestBuilder;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -15,12 +13,13 @@ import java.util.concurrent.CompletableFuture;
  */
 public class ControllersRequestBuilder extends BaseRequestBuilder {
     /**
-     * Instantiates a new request builder instance and sets the default values.
-     * @param accessTokenCredential Authentication provider {@link AccessTokenCredential}.
-     * @param requestAdapter The request adapter to execute the requests.
+     * Instantiates a new RequestBuilder instance and sets the default values.
+     *
+     * @param organizationUrl       Represents organization location request url.
+     * @param accessTokenCredential Access token credential object.
      */
-    public ControllersRequestBuilder(AccessTokenCredential accessTokenCredential, RequestAdapter requestAdapter) {
-        super(accessTokenCredential, requestAdapter, "build/controllers", ApiVersion.BUILD_CONTROLLERS);
+    public ControllersRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
+        super(organizationUrl, accessTokenCredential, "build", "fcac1932-2ee1-437f-9b6f-7f696be858f6");
     }
 
     /***
@@ -30,11 +29,10 @@ public class ControllersRequestBuilder extends BaseRequestBuilder {
      * @return build controller {@link BuildController}
      */
     public CompletableFuture<BuildController> getAsync(int controllerId) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + controllerId;
-
-        return requestAdapter.sendAsync(reqInfo, BuildController.class);
+        return builder()
+                .serviceEndpoint("controllerId", controllerId)
+                .build()
+                .executeAsync(BuildController.class);
     }
 
     /***
@@ -43,10 +41,9 @@ public class ControllersRequestBuilder extends BaseRequestBuilder {
      * @return array of build controller {@link BuildControllers}
      */
     public CompletableFuture<BuildControllers> listAsync() throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.project = null;
-
-        return requestAdapter.sendAsync(reqInfo, BuildControllers.class);
+        return builder()
+                .build()
+                .executeAsync(BuildControllers.class);
     }
 
     /***
@@ -56,11 +53,10 @@ public class ControllersRequestBuilder extends BaseRequestBuilder {
      * @return array of build controller {@link BuildControllers}
      */
     public CompletableFuture<BuildControllers> listAsync(String name) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.setQueryParameter("name", name);
-        reqInfo.project = null;
-
-        return requestAdapter.sendAsync(reqInfo, BuildControllers.class);
+        return builder()
+                .query("name", name)
+                .build()
+                .executeAsync(BuildControllers.class);
     }
 
     /***
@@ -70,11 +66,10 @@ public class ControllersRequestBuilder extends BaseRequestBuilder {
      * @return build controller {@link BuildController}
      */
     public BuildController get(int controllerId) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + controllerId;
-
-        return requestAdapter.send(reqInfo, BuildController.class);
+        return builder()
+                .serviceEndpoint("controllerId", controllerId)
+                .build()
+                .execute(BuildController.class);
     }
 
     /***
@@ -83,10 +78,9 @@ public class ControllersRequestBuilder extends BaseRequestBuilder {
      * @return array of build controller {@link BuildControllers}
      */
     public BuildControllers list() throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.project = null;
-
-        return requestAdapter.send(reqInfo, BuildControllers.class);
+        return builder()
+                .build()
+                .execute(BuildControllers.class);
     }
 
     /***
@@ -96,10 +90,9 @@ public class ControllersRequestBuilder extends BaseRequestBuilder {
      * @return array of build controller {@link BuildControllers}
      */
     public BuildControllers list(String name) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.setQueryParameter("name", name);
-        reqInfo.project = null;
-
-        return requestAdapter.send(reqInfo, BuildControllers.class);
+        return builder()
+                .query("name", name)
+                .build()
+                .execute(BuildControllers.class);
     }
 }

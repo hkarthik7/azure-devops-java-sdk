@@ -3,8 +3,8 @@ package org.azd.servicehooks.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.azd.abstractions.serializer.SerializableEntity;
 import org.azd.common.types.Author;
-import org.azd.serializer.SerializableEntity;
 
 /***
  * Encapsulates an event subscription.

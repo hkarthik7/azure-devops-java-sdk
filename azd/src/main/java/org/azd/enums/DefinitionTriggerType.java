@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Represents a demand used by a definition or build. 
+ * Represents a demand used by a definition or build.
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public enum DefinitionTriggerType {

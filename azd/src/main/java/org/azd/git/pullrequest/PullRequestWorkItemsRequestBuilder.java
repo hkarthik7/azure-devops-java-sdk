@@ -1,11 +1,10 @@
 package org.azd.git.pullrequest;
 
+import org.azd.abstractions.BaseRequestBuilder;
+import org.azd.authentication.AccessTokenCredential;
 import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
 import org.azd.git.types.ResourceRefs;
-import org.azd.interfaces.AccessTokenCredential;
-import org.azd.interfaces.RequestAdapter;
-import org.azd.utils.BaseRequestBuilder;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -14,12 +13,13 @@ import java.util.concurrent.CompletableFuture;
  */
 public class PullRequestWorkItemsRequestBuilder extends BaseRequestBuilder {
     /**
-     * Instantiates a new request builder instance and sets the default values.
-     * @param accessTokenCredential Authentication provider {@link AccessTokenCredential}.
-     * @param requestAdapter The request adapter to execute the requests.
+     * Instantiates a new RequestBuilder instance and sets the default values.
+     *
+     * @param organizationUrl       Represents organization location request url.
+     * @param accessTokenCredential Access token credential object.
      */
-    public PullRequestWorkItemsRequestBuilder(AccessTokenCredential accessTokenCredential, RequestAdapter requestAdapter) {
-        super(accessTokenCredential, requestAdapter, "git/repositories", ApiVersion.GIT);
+    public PullRequestWorkItemsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
+        super(organizationUrl, accessTokenCredential, "git", "0a637fcc-5370-4ce8-b0e8-98091f5f9482", ApiVersion.GIT);
     }
 
     /***
@@ -29,11 +29,27 @@ public class PullRequestWorkItemsRequestBuilder extends BaseRequestBuilder {
      * @return ResourceRefs {@link ResourceRefs}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<ResourceRefs> list(int pullRequestId, String repositoryName) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + repositoryName + "/pullRequests/" + pullRequestId + "/workitems";
+    public CompletableFuture<ResourceRefs> listAsync(int pullRequestId, String repositoryName) throws AzDException {
+        return builder()
+                .serviceEndpoint("repositoryId", repositoryName)
+                .serviceEndpoint("pullRequestId", pullRequestId)
+                .build()
+                .executeAsync(ResourceRefs.class);
+    }
 
-        return requestAdapter.sendAsync(reqInfo, ResourceRefs.class);
+    /***
+     * Retrieve a list of work items associated with a pull request.
+     * @param pullRequestId ID of the pull request.
+     * @param repositoryName ID or name of the repository.
+     * @return ResourceRefs {@link ResourceRefs}
+     * @throws AzDException Default Api Exception handler.
+     */
+    public ResourceRefs list(int pullRequestId, String repositoryName) throws AzDException {
+        return builder()
+                .serviceEndpoint("repositoryId", repositoryName)
+                .serviceEndpoint("pullRequestId", pullRequestId)
+                .build()
+                .execute(ResourceRefs.class);
     }
 
 }

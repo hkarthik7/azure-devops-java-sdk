@@ -7,12 +7,12 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.abstractions.serializer.SerializableEntity;
 import org.azd.enums.ProjectState;
 import org.azd.enums.ProjectVisibility;
-import org.azd.serializer.SerializableEntity;
 
 /**
- * None 
+ * None
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TeamProjectReference extends SerializableEntity {

@@ -1,56 +1,90 @@
 package org.azd.git;
 
+import org.azd.abstractions.BaseRequestBuilder;
+import org.azd.authentication.AccessTokenCredential;
+import org.azd.git.annotatedtags.AnnotatedTagsRequestBuilder;
+import org.azd.git.blobs.BlobsRequestBuilder;
+import org.azd.git.commits.CommitsRequestBuilder;
 import org.azd.git.pullrequest.PullRequestBaseRequestBuilder;
 import org.azd.git.pullrequests.PullRequestsRequestBuilder;
 import org.azd.git.refs.RefsRequestBuilder;
 import org.azd.git.repositories.RepositoriesRequestBuilder;
-import org.azd.interfaces.AccessTokenCredential;
-import org.azd.interfaces.RequestAdapter;
-import org.azd.utils.BaseRequestBuilder;
 
 /**
  * Provides functionality to build requests for managing Git Api.
  */
 public class GitBaseRequestBuilder extends BaseRequestBuilder {
     /**
-     * Instantiates a new request builder instance and sets the default values.
-     * @param accessTokenCredential Authentication provider {@link AccessTokenCredential}.
-     * @param requestAdapter The request adapter to execute the requests.
+     * Instantiates a new RequestBuilder instance and sets the default values.
+     *
+     * @param organizationUrl       Represents organization location request url.
+     * @param accessTokenCredential Access token credential object.
      */
-    public GitBaseRequestBuilder(AccessTokenCredential accessTokenCredential, RequestAdapter requestAdapter) {
-        super(accessTokenCredential, requestAdapter);
+    public GitBaseRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
+        super(organizationUrl, accessTokenCredential);
     }
 
     /**
      * Provides functionality to manage Repositories Api.
+     *
      * @return RepositoriesRequestBuilder {@link RepositoriesRequestBuilder}
      */
     public RepositoriesRequestBuilder repositories() {
-        return new RepositoriesRequestBuilder(accessTokenCredential, requestAdapter);
+        return new RepositoriesRequestBuilder(organizationUrl, accessTokenCredential);
     }
 
     /**
      * Provides functionality to manage Repositories Api.
+     *
      * @return RepositoriesRequestBuilder {@link RepositoriesRequestBuilder}
      */
     public PullRequestsRequestBuilder pullRequests() {
-        return new PullRequestsRequestBuilder(accessTokenCredential, requestAdapter);
+        return new PullRequestsRequestBuilder(organizationUrl, accessTokenCredential);
     }
 
     /**
      * Provides functionality to manage Refs Api.
+     *
      * @return RefsRequestBuilder {@link RefsRequestBuilder}
      */
     public RefsRequestBuilder refs() {
-        return new RefsRequestBuilder(accessTokenCredential, requestAdapter);
+        return new RefsRequestBuilder(organizationUrl, accessTokenCredential);
     }
 
     /**
      * Provides functionality to manage Pull request and its associated Apis.
+     *
      * @return PullRequestBaseRequestBuilder {@link PullRequestBaseRequestBuilder}
      */
     public PullRequestBaseRequestBuilder pullRequest() {
-        return new PullRequestBaseRequestBuilder(accessTokenCredential, requestAdapter);
+        return new PullRequestBaseRequestBuilder(organizationUrl, accessTokenCredential);
     }
 
+    /**
+     * Provides functionality to manage Git annotated tags Api.
+     *
+     * @return AnnotatedTagsRequestBuilder {@link AnnotatedTagsRequestBuilder}.
+     */
+    public AnnotatedTagsRequestBuilder annotatedTags() {
+        return new AnnotatedTagsRequestBuilder(organizationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Provides functionality to manage Git commits Api.
+     *
+     * @return CommitsRequestBuilder {@link CommitsRequestBuilder}.
+     */
+    public CommitsRequestBuilder commits() {
+        return new CommitsRequestBuilder(organizationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Provides functionality to manage Git blobs Api.
+     *
+     * @return BlobsRequestBuilder {@link BlobsRequestBuilder}.
+     */
+    public BlobsRequestBuilder blobs() {
+        return new BlobsRequestBuilder(organizationUrl, accessTokenCredential);
+    }
 }
+

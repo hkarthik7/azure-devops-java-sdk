@@ -2,7 +2,7 @@ package org.azd.wiki.types;
 
 import com.fasterxml.jackson.annotation.JacksonInject;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.azd.serializer.SerializableEntity;
+import org.azd.abstractions.serializer.SerializableEntity;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WikiPageContent extends SerializableEntity {

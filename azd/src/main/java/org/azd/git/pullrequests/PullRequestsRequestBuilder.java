@@ -1,15 +1,14 @@
 package org.azd.git.pullrequests;
 
+import org.azd.abstractions.BaseRequestBuilder;
+import org.azd.abstractions.QueryParameter;
+import org.azd.authentication.AccessTokenCredential;
 import org.azd.common.ApiVersion;
-import org.azd.common.types.QueryParameter;
 import org.azd.enums.PullRequestStatus;
 import org.azd.enums.PullRequestTimeRange;
 import org.azd.exceptions.AzDException;
 import org.azd.git.types.GitPullRequest;
 import org.azd.git.types.PullRequests;
-import org.azd.interfaces.AccessTokenCredential;
-import org.azd.interfaces.RequestAdapter;
-import org.azd.utils.BaseRequestBuilder;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
@@ -19,26 +18,31 @@ import java.util.function.Consumer;
  */
 public class PullRequestsRequestBuilder extends BaseRequestBuilder {
     /**
-     * Instantiates a new request builder instance and sets the default values.
-     * @param accessTokenCredential Authentication provider {@link AccessTokenCredential}.
-     * @param requestAdapter The request adapter to execute the requests.
+     * Instantiates a new RequestBuilder instance and sets the default values.
+     *
+     * @param organizationUrl       Represents organization location request url.
+     * @param accessTokenCredential Access token credential object.
      */
-    public PullRequestsRequestBuilder(AccessTokenCredential accessTokenCredential, RequestAdapter requestAdapter) {
-        super(accessTokenCredential, requestAdapter, "git/repositories", ApiVersion.GIT);
+    public PullRequestsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
+        super(organizationUrl, accessTokenCredential, "git", "9946fd70-0d40-406e-b686-b4744cbbcc37", ApiVersion.GIT);
     }
 
     /**
      * Create a pull request.
-     * @param repositoryId id of the repository.
+     *
+     * @param repositoryId   id of the repository.
      * @param gitPullRequest a {@link GitPullRequest} object.
      * @return Git pull request object {@link GitPullRequest}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<GitPullRequest> createAsync(String repositoryId, GitPullRequest gitPullRequest, Boolean supportsIterations) throws AzDException {
-        var reqInfo = toPostRequestInformation(gitPullRequest);
-        reqInfo.serviceEndpoint = service + "/" + repositoryId + "/pullrequests";
-        reqInfo.setQueryParameter("supportsIterations", supportsIterations);
-        return requestAdapter.sendAsync(reqInfo, GitPullRequest.class);
+    public CompletableFuture<GitPullRequest> createAsync(String repositoryId, GitPullRequest gitPullRequest,
+                                                         Boolean supportsIterations) throws AzDException {
+        return builder()
+                .POST(gitPullRequest)
+                .serviceEndpoint("repositoryId", repositoryId)
+                .query("supportsIterations", supportsIterations)
+                .build()
+                .executeAsync(GitPullRequest.class);
     }
 
     /***
@@ -49,9 +53,11 @@ public class PullRequestsRequestBuilder extends BaseRequestBuilder {
      * @return {@link GitPullRequest} object
      */
     public CompletableFuture<GitPullRequest> getAsync(String repositoryName, int pullRequestId) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + repositoryName + "/pullrequests/" + pullRequestId;
-        return requestAdapter.sendAsync(reqInfo, GitPullRequest.class);
+        return builder()
+                .serviceEndpoint("repositoryId", repositoryName)
+                .serviceEndpoint("pullRequestId", pullRequestId)
+                .build()
+                .executeAsync(GitPullRequest.class);
     }
 
     /***
@@ -64,16 +70,12 @@ public class PullRequestsRequestBuilder extends BaseRequestBuilder {
      */
     public CompletableFuture<GitPullRequest> getAsync(String repositoryName, int pullRequestId,
                                                       Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + repositoryName + "/pullrequests/" + pullRequestId;
-
-        if (requestConfiguration != null) {
-            final var config = new RequestConfiguration();
-            requestConfiguration.accept(config);
-            reqInfo.setQueryParameters(config.queryParameters);
-        }
-
-        return requestAdapter.sendAsync(reqInfo, GitPullRequest.class);
+        return builder()
+                .serviceEndpoint("repositoryId", repositoryName)
+                .serviceEndpoint("pullRequestId", pullRequestId)
+                .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .executeAsync(GitPullRequest.class);
     }
 
     /***
@@ -83,9 +85,11 @@ public class PullRequestsRequestBuilder extends BaseRequestBuilder {
      * @return {@link GitPullRequest} object
      */
     public CompletableFuture<GitPullRequest> getByIdAsync(int pullRequestId) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service.replace("repositories", "pullrequests") + "/" + pullRequestId;
-        return requestAdapter.sendAsync(reqInfo, GitPullRequest.class);
+        return builder()
+                .location("01a46dea-7d46-4d40-bc84-319e7c260d99")
+                .serviceEndpoint("pullRequestId", pullRequestId)
+                .build()
+                .executeAsync(GitPullRequest.class);
     }
 
     /***
@@ -95,9 +99,10 @@ public class PullRequestsRequestBuilder extends BaseRequestBuilder {
      * @return {@link PullRequests} object
      */
     public CompletableFuture<PullRequests> listAsync(String repositoryName) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + repositoryName + "/pullrequests";
-        return requestAdapter.sendAsync(reqInfo, PullRequests.class);
+        return builder()
+                .serviceEndpoint("repositoryId", repositoryName)
+                .build()
+                .executeAsync(PullRequests.class);
     }
 
     /***
@@ -107,17 +112,13 @@ public class PullRequestsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      * @return {@link PullRequests} object
      */
-    public CompletableFuture<PullRequests> listAsync(String repositoryName, Consumer<ListRequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + repositoryName + "/pullrequests";
-
-        if (requestConfiguration != null) {
-            final var config = new ListRequestConfiguration();
-            requestConfiguration.accept(config);
-            reqInfo.setQueryParameters(config.queryParameters);
-        }
-
-        return requestAdapter.sendAsync(reqInfo, PullRequests.class);
+    public CompletableFuture<PullRequests> listAsync(String repositoryName,
+                                                     Consumer<ListRequestConfiguration> requestConfiguration) throws AzDException {
+        return builder()
+                .serviceEndpoint("repositoryId", repositoryName)
+                .query(ListRequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .executeAsync(PullRequests.class);
     }
 
     /***
@@ -126,9 +127,10 @@ public class PullRequestsRequestBuilder extends BaseRequestBuilder {
      * @return {@link PullRequests} object
      */
     public CompletableFuture<PullRequests> listAsync() throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service.replace("repositories", "pullrequests");
-        return requestAdapter.sendAsync(reqInfo, PullRequests.class);
+        return builder()
+                .location("a5d28130-9cd2-40fa-9f08-902e7daa9efb")
+                .build()
+                .executeAsync(PullRequests.class);
     }
 
     /***
@@ -138,56 +140,60 @@ public class PullRequestsRequestBuilder extends BaseRequestBuilder {
      * @return {@link PullRequests} object
      */
     public CompletableFuture<PullRequests> listAsync(Consumer<ListRequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service.replace("repositories", "pullrequests");
-
-        if (requestConfiguration != null) {
-            final var config = new ListRequestConfiguration();
-            requestConfiguration.accept(config);
-            reqInfo.setQueryParameters(config.queryParameters);
-        }
-
-        return requestAdapter.sendAsync(reqInfo, PullRequests.class);
+        return builder()
+                .location("a5d28130-9cd2-40fa-9f08-902e7daa9efb")
+                .query(ListRequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .executeAsync(PullRequests.class);
     }
 
     /**
      * Update a pull request
      * <p>
-     *      These are the properties that can be updated with the API:
-     *      Status
-     *      Title
-     *      Description (up to 4000 characters)
-     *      CompletionOptions
-     *      MergeOptions
-     *      AutoCompleteSetBy.Id
-     *      TargetRefName (when the PR retargeting feature is enabled)
-     *      Attempting to update other properties outside of this list will either cause the server
-     *      to throw an InvalidArgumentValueException, or to silently ignore the update.
+     * These are the properties that can be updated with the API:
+     * Status
+     * Title
+     * Description (up to 4000 characters)
+     * CompletionOptions
+     * MergeOptions
+     * AutoCompleteSetBy.Id
+     * TargetRefName (when the PR retargeting feature is enabled)
+     * Attempting to update other properties outside of this list will either cause the server
+     * to throw an InvalidArgumentValueException, or to silently ignore the update.
      * </p>
-     * @param pullRequestId ID of the pull request to update.
-     * @param repositoryId The repository ID of the pull request's target branch.
+     *
+     * @param pullRequestId  ID of the pull request to update.
+     * @param repositoryId   The repository ID of the pull request's target branch.
      * @param gitPullRequest Git pull request object to update.
      * @return GitPullRequest Object {@link GitPullRequest}
      * @throws AzDException Default Api Exception handler.
      **/
-    public CompletableFuture<GitPullRequest> updateAsync(String repositoryId, int pullRequestId, GitPullRequest gitPullRequest) throws AzDException {
-        var reqInfo = toPatchRequestInformation(gitPullRequest);
-        reqInfo.serviceEndpoint = service + "/" + repositoryId + "/pullrequests/" + pullRequestId;
-        return requestAdapter.sendAsync(reqInfo, GitPullRequest.class);
+    public CompletableFuture<GitPullRequest> updateAsync(String repositoryId, int pullRequestId, GitPullRequest gitPullRequest)
+            throws AzDException {
+        return builder()
+                .PATCH(gitPullRequest)
+                .serviceEndpoint("repositoryId", repositoryId)
+                .serviceEndpoint("pullRequestId", pullRequestId)
+                .build()
+                .executeAsync(GitPullRequest.class);
     }
 
     /**
      * Create a pull request.
-     * @param repositoryId id of the repository.
+     *
+     * @param repositoryId   id of the repository.
      * @param gitPullRequest a {@link GitPullRequest} object.
      * @return Git pull request object {@link GitPullRequest}
      * @throws AzDException Default Api Exception handler.
      */
-    public GitPullRequest create(String repositoryId, GitPullRequest gitPullRequest, Boolean supportsIterations) throws AzDException {
-        var reqInfo = toPostRequestInformation(gitPullRequest);
-        reqInfo.serviceEndpoint = service + "/" + repositoryId + "/pullrequests";
-        reqInfo.setQueryParameter("supportsIterations", supportsIterations);
-        return requestAdapter.send(reqInfo, GitPullRequest.class);
+    public GitPullRequest create(String repositoryId, GitPullRequest gitPullRequest,
+                                 Boolean supportsIterations) throws AzDException {
+        return builder()
+                .POST(gitPullRequest)
+                .serviceEndpoint("repositoryId", repositoryId)
+                .query("supportsIterations", supportsIterations)
+                .build()
+                .execute(GitPullRequest.class);
     }
 
     /***
@@ -198,9 +204,11 @@ public class PullRequestsRequestBuilder extends BaseRequestBuilder {
      * @return {@link GitPullRequest} object
      */
     public GitPullRequest get(String repositoryName, int pullRequestId) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + repositoryName + "/pullrequests/" + pullRequestId;
-        return requestAdapter.send(reqInfo, GitPullRequest.class);
+        return builder()
+                .serviceEndpoint("repositoryId", repositoryName)
+                .serviceEndpoint("pullRequestId", pullRequestId)
+                .build()
+                .execute(GitPullRequest.class);
     }
 
     /***
@@ -213,16 +221,12 @@ public class PullRequestsRequestBuilder extends BaseRequestBuilder {
      */
     public GitPullRequest get(String repositoryName, int pullRequestId,
                               Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + repositoryName + "/pullrequests/" + pullRequestId;
-
-        if (requestConfiguration != null) {
-            final var config = new RequestConfiguration();
-            requestConfiguration.accept(config);
-            reqInfo.setQueryParameters(config.queryParameters);
-        }
-
-        return requestAdapter.send(reqInfo, GitPullRequest.class);
+        return builder()
+                .serviceEndpoint("repositoryId", repositoryName)
+                .serviceEndpoint("pullRequestId", pullRequestId)
+                .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .execute(GitPullRequest.class);
     }
 
     /***
@@ -232,9 +236,11 @@ public class PullRequestsRequestBuilder extends BaseRequestBuilder {
      * @return {@link GitPullRequest} object
      */
     public GitPullRequest getById(int pullRequestId) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service.replace("repositories", "pullrequests") + "/" + pullRequestId;
-        return requestAdapter.send(reqInfo, GitPullRequest.class);
+        return builder()
+                .location("01a46dea-7d46-4d40-bc84-319e7c260d99")
+                .serviceEndpoint("pullRequestId", pullRequestId)
+                .build()
+                .execute(GitPullRequest.class);
     }
 
     /***
@@ -244,9 +250,10 @@ public class PullRequestsRequestBuilder extends BaseRequestBuilder {
      * @return {@link PullRequests} object
      */
     public PullRequests list(String repositoryName) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + repositoryName + "/pullrequests";
-        return requestAdapter.send(reqInfo, PullRequests.class);
+        return builder()
+                .serviceEndpoint("repositoryId", repositoryName)
+                .build()
+                .execute(PullRequests.class);
     }
 
     /***
@@ -256,17 +263,13 @@ public class PullRequestsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      * @return {@link PullRequests} object
      */
-    public PullRequests list(String repositoryName, Consumer<ListRequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + repositoryName + "/pullrequests";
-
-        if (requestConfiguration != null) {
-            final var config = new ListRequestConfiguration();
-            requestConfiguration.accept(config);
-            reqInfo.setQueryParameters(config.queryParameters);
-        }
-
-        return requestAdapter.send(reqInfo, PullRequests.class);
+    public PullRequests list(String repositoryName,
+                             Consumer<ListRequestConfiguration> requestConfiguration) throws AzDException {
+        return builder()
+                .serviceEndpoint("repositoryId", repositoryName)
+                .query(ListRequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .execute(PullRequests.class);
     }
 
     /***
@@ -275,9 +278,10 @@ public class PullRequestsRequestBuilder extends BaseRequestBuilder {
      * @return {@link PullRequests} object
      */
     public PullRequests list() throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service.replace("repositories", "pullrequests");
-        return requestAdapter.send(reqInfo, PullRequests.class);
+        return builder()
+                .location("a5d28130-9cd2-40fa-9f08-902e7daa9efb")
+                .build()
+                .execute(PullRequests.class);
     }
 
     /***
@@ -287,42 +291,42 @@ public class PullRequestsRequestBuilder extends BaseRequestBuilder {
      * @return {@link PullRequests} object
      */
     public PullRequests list(Consumer<ListRequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service.replace("repositories", "pullrequests");
-
-        if (requestConfiguration != null) {
-            final var config = new ListRequestConfiguration();
-            requestConfiguration.accept(config);
-            reqInfo.setQueryParameters(config.queryParameters);
-        }
-
-        return requestAdapter.send(reqInfo, PullRequests.class);
+        return builder()
+                .location("a5d28130-9cd2-40fa-9f08-902e7daa9efb")
+                .query(ListRequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .execute(PullRequests.class);
     }
 
     /**
      * Update a pull request
      * <p>
-     *      These are the properties that can be updated with the API:
-     *      Status
-     *      Title
-     *      Description (up to 4000 characters)
-     *      CompletionOptions
-     *      MergeOptions
-     *      AutoCompleteSetBy.Id
-     *      TargetRefName (when the PR retargeting feature is enabled)
-     *      Attempting to update other properties outside of this list will either cause the server
-     *      to throw an InvalidArgumentValueException, or to silently ignore the update.
+     * These are the properties that can be updated with the API:
+     * Status
+     * Title
+     * Description (up to 4000 characters)
+     * CompletionOptions
+     * MergeOptions
+     * AutoCompleteSetBy.Id
+     * TargetRefName (when the PR retargeting feature is enabled)
+     * Attempting to update other properties outside of this list will either cause the server
+     * to throw an InvalidArgumentValueException, or to silently ignore the update.
      * </p>
-     * @param pullRequestId ID of the pull request to update.
-     * @param repositoryId The repository ID of the pull request's target branch.
+     *
+     * @param pullRequestId  ID of the pull request to update.
+     * @param repositoryId   The repository ID of the pull request's target branch.
      * @param gitPullRequest Git pull request object to update.
      * @return GitPullRequest Object {@link GitPullRequest}
      * @throws AzDException Default Api Exception handler.
      **/
-    public GitPullRequest update(String repositoryId, int pullRequestId, GitPullRequest gitPullRequest) throws AzDException {
-        var reqInfo = toPatchRequestInformation(gitPullRequest);
-        reqInfo.serviceEndpoint = service + "/" + repositoryId + "/pullrequests/" + pullRequestId;
-        return requestAdapter.send(reqInfo, GitPullRequest.class);
+    public GitPullRequest update(String repositoryId, int pullRequestId, GitPullRequest gitPullRequest)
+            throws AzDException {
+        return builder()
+                .PATCH(gitPullRequest)
+                .serviceEndpoint("repositoryId", repositoryId)
+                .serviceEndpoint("pullRequestId", pullRequestId)
+                .build()
+                .execute(GitPullRequest.class);
     }
 
     /**
@@ -425,4 +429,4 @@ public class PullRequestsRequestBuilder extends BaseRequestBuilder {
     public static class ListRequestConfiguration {
         public ListQueryParameters queryParameters = new ListQueryParameters();
     }
- }
+}

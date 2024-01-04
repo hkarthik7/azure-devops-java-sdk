@@ -7,12 +7,12 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.abstractions.serializer.SerializableEntity;
 import org.azd.enums.DefinitionQueueStatus;
 import org.azd.enums.DefinitionType;
-import org.azd.serializer.SerializableEntity;
 
 /**
- * The type of the definition. 
+ * The type of the definition.
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DefinitionReference extends SerializableEntity {

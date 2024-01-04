@@ -9,31 +9,31 @@ public enum BuildQueryOrder {
      * Order by finish time ascending.
      */
     @JsonProperty("finishTimeAscending")
-    FINISHTIMEASCENDING,
+    FINISH_TIME_ASCENDING,
     /**
      * Order by finish time descending.
      */
     @JsonProperty("finishTimeDescending")
-    FINISHTIMEDESCENDING,
+    FINISH_TIME_DESCENDING,
     /**
      * Order by queue time ascending.
      */
     @JsonProperty("queueTimeAscending")
-    QUEUETIMEASCENDING,
+    QUEUE_TIME_ASCENDING,
     /**
      * Order by queue time descending.
      */
     @JsonProperty("queueTimeDescending")
-    QUEUETIMEDESCENDING,
+    QUEUE_TIME_DESCENDING,
     /**
      * Order by start time ascending.
      */
     @JsonProperty("startTimeAscending")
-    STARTTIMEASCENDING,
+    START_TIME_ASCENDING,
     /**
      * Order by start time descending.
      */
     @JsonProperty("startTimeDescending")
-    STARTTIMEDESCENDING
+    START_TIME_DESCENDING
 
 }

@@ -4,14 +4,15 @@ package org.azd.build.types;
  * GENERATED FILE, should be edited to suit the purpose.
  * ----------------------------------------------------------
  **/
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.serializer.SerializableEntity;
+import org.azd.abstractions.serializer.SerializableEntity;
 
 import java.util.Map;
 
 /**
- * None 
+ * None
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class VariableGroup extends SerializableEntity {

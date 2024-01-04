@@ -2,8 +2,8 @@ package org.azd.wiki.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.abstractions.serializer.SerializableEntity;
 import org.azd.enums.WikiType;
-import org.azd.serializer.SerializableEntity;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WikiCreateParameters extends SerializableEntity {

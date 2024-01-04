@@ -2,7 +2,7 @@ package org.azd.servicehooks.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.serializer.SerializableEntity;
+import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  * List of service hook subscription
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ServiceHooksSubscriptions extends SerializableEntity {
+public class ServiceHooksSubscriptions extends SerializableCollectionEntity {
     /***
      * List of service hook subscription
      */

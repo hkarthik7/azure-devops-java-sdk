@@ -1,67 +1,95 @@
 package org.azd.git.types;
 /**
-----------------------------------------------------------
-	GENERATED FILE, should be edited to suit the purpose.
-----------------------------------------------------------
-**/
+ * ----------------------------------------------------------
+ * GENERATED FILE, should be edited to suit the purpose.
+ * ----------------------------------------------------------
+ **/
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.serializer.SerializableEntity;
+import org.azd.abstractions.serializer.SerializableEntity;
 
 /**
- * Type of object (Commit, Tree, Blob, Tag) 
-**/
+ * Type of object (Commit, Tree, Blob, Tag)
+ **/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FileContentMetadata extends SerializableEntity {
 
-	@JsonProperty("contentType")
-	private String contentType;
+    @JsonProperty("contentType")
+    private String contentType;
 
-	@JsonProperty("encoding")
-	private Integer encoding;
+    @JsonProperty("encoding")
+    private Integer encoding;
 
-	@JsonProperty("extension")
-	private String extension;
+    @JsonProperty("extension")
+    private String extension;
 
-	@JsonProperty("fileName")
-	private String fileName;
+    @JsonProperty("fileName")
+    private String fileName;
 
-	@JsonProperty("isBinary")
-	private boolean isBinary;
+    @JsonProperty("isBinary")
+    private boolean isBinary;
 
-	@JsonProperty("isImage")
-	private boolean isImage;
+    @JsonProperty("isImage")
+    private boolean isImage;
 
-	@JsonProperty("vsLink")
-	private String vsLink;
+    @JsonProperty("vsLink")
+    private String vsLink;
 
-	public String getContentType() { return contentType; }
+    public String getContentType() {
+        return contentType;
+    }
 
-	public void setContentType(String contentType) { this.contentType = contentType; }
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
 
-	public Integer getEncoding() { return encoding; }
+    public Integer getEncoding() {
+        return encoding;
+    }
 
-	public void setEncoding(Integer encoding) { this.encoding = encoding; }
+    public void setEncoding(Integer encoding) {
+        this.encoding = encoding;
+    }
 
-	public String getExtension() { return extension; }
+    public String getExtension() {
+        return extension;
+    }
 
-	public void setExtension(String extension) { this.extension = extension; }
+    public void setExtension(String extension) {
+        this.extension = extension;
+    }
 
-	public String getFileName() { return fileName; }
+    public String getFileName() {
+        return fileName;
+    }
 
-	public void setFileName(String fileName) { this.fileName = fileName; }
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
 
-	public boolean getIsBinary() { return isBinary; }
+    public boolean getIsBinary() {
+        return isBinary;
+    }
 
-	public void setIsBinary(boolean isBinary) { this.isBinary = isBinary; }
+    public void setIsBinary(boolean isBinary) {
+        this.isBinary = isBinary;
+    }
 
-	public boolean getIsImage() { return isImage; }
+    public boolean getIsImage() {
+        return isImage;
+    }
 
-	public void setIsImage(boolean isImage) { this.isImage = isImage; }
+    public void setIsImage(boolean isImage) {
+        this.isImage = isImage;
+    }
 
-	public String getVsLink() { return vsLink; }
+    public String getVsLink() {
+        return vsLink;
+    }
 
-	public void setVsLink(String vsLink) { this.vsLink = vsLink; }
+    public void setVsLink(String vsLink) {
+        this.vsLink = vsLink;
+    }
 
 }

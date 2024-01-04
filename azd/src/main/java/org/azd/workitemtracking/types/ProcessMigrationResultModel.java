@@ -1,36 +1,44 @@
 package org.azd.workitemtracking.types;
 /**
-----------------------------------------------------------
-	GENERATED FILE, should be edited to suit the purpose.
-----------------------------------------------------------
-**/
+ * ----------------------------------------------------------
+ * GENERATED FILE, should be edited to suit the purpose.
+ * ----------------------------------------------------------
+ **/
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.serializer.SerializableEntity;
+import org.azd.abstractions.serializer.SerializableEntity;
 
 /**
- * Stores project ID and its process ID. 
-**/
+ * Stores project ID and its process ID.
+ **/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ProcessMigrationResultModel extends SerializableEntity {
-	/**
- 	* The ID of the process. 
-	**/
-	@JsonProperty("processId")
-	private String processId;
-	/**
- 	* The ID of the project. 
-	**/
-	@JsonProperty("projectId")
-	private String projectId;
+    /**
+     * The ID of the process.
+     **/
+    @JsonProperty("processId")
+    private String processId;
+    /**
+     * The ID of the project.
+     **/
+    @JsonProperty("projectId")
+    private String projectId;
 
-	public String getProcessId() { return processId; }
+    public String getProcessId() {
+        return processId;
+    }
 
-	public void setProcessId(String processId) { this.processId = processId; }
+    public void setProcessId(String processId) {
+        this.processId = processId;
+    }
 
-	public String getProjectId() { return projectId; }
+    public String getProjectId() {
+        return projectId;
+    }
 
-	public void setProjectId(String projectId) { this.projectId = projectId; }
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
+    }
 
 }

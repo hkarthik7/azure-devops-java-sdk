@@ -3,7 +3,7 @@ package org.azd.accounts.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
-import org.azd.serializer.SerializableEntity;
+import org.azd.abstractions.serializer.SerializableEntity;
 
 /***
  * The class represents a property bag as a collection of key-value pairs. Values of all primitive types

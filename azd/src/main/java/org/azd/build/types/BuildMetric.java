@@ -7,10 +7,10 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.serializer.SerializableEntity;
+import org.azd.abstractions.serializer.SerializableEntity;
 
 /**
- * Represents a reference to a build option definition. 
+ * Represents a reference to a build option definition.
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BuildMetric extends SerializableEntity {

@@ -1,7 +1,8 @@
 package org.azd.distributedtask.variablegroups;
 
-import org.azd.common.ApiVersion;
-import org.azd.common.types.QueryParameter;
+import org.azd.abstractions.BaseRequestBuilder;
+import org.azd.abstractions.QueryParameter;
+import org.azd.authentication.AccessTokenCredential;
 import org.azd.distributedtask.types.VariableGroup;
 import org.azd.distributedtask.types.VariableGroupLibrary;
 import org.azd.distributedtask.types.VariableGroupProjectReference;
@@ -9,19 +10,25 @@ import org.azd.distributedtask.types.VariableGroups;
 import org.azd.enums.VariableGroupActionFilter;
 import org.azd.enums.VariableGroupQueryOrder;
 import org.azd.exceptions.AzDException;
-import org.azd.helpers.AzDHelpers;
-import org.azd.interfaces.AccessTokenCredential;
-import org.azd.interfaces.RequestAdapter;
-import org.azd.utils.BaseRequestBuilder;
+import org.azd.helpers.Utils;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
+/**
+ * Grant ability to manage distributed task environments Api.
+ */
 public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
-    public VariableGroupsRequestBuilder(AccessTokenCredential accessTokenCredential, RequestAdapter requestAdapter) {
-        super(accessTokenCredential, requestAdapter, "distributedtask/variablegroups", ApiVersion.VARIABLE_GROUPS);
+    /**
+     * Instantiates a new RequestBuilder instance and sets the default values.
+     *
+     * @param organizationUrl       Represents organization location request url.
+     * @param accessTokenCredential Access token credential object.
+     */
+    public VariableGroupsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
+        super(organizationUrl, accessTokenCredential, "distributedtask", "ef5b7057-ffc3-4c77-bbad-c10b4a4abcc7");
     }
 
     /***
@@ -40,10 +47,10 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
             put("providerData", variableGroupLibrary.providerData);
         }};
 
-        var reqInfo = toPostRequestInformation(requestBody);
-        reqInfo.project = null;
-
-        return requestAdapter.sendAsync(reqInfo, VariableGroup.class);
+        return builder()
+                .POST(requestBody)
+                .build()
+                .executeAsync(VariableGroup.class);
     }
 
     /***
@@ -53,12 +60,12 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Void> deleteAsync(int variableGroupId, String[] projectIds) throws AzDException {
-        var reqInfo = toDeleteRequestInformation();
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = service + "/" + variableGroupId;
-        reqInfo.setQueryParameter("projectIds", AzDHelpers.toString(projectIds));
-
-        return requestAdapter.sendPrimitiveAsync(reqInfo);
+        return builder()
+                .DELETE()
+                .serviceEndpoint("groupId", variableGroupId)
+                .query("projectIds", Utils.toString(projectIds))
+                .build()
+                .executePrimitiveAsync();
     }
 
     /***
@@ -68,10 +75,11 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<VariableGroup> getAsync(int variableGroupId) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + variableGroupId;
-
-        return requestAdapter.sendAsync(reqInfo, VariableGroup.class);
+        return builder()
+                .location("f5b09dd5-9d54-45a1-8b5a-1c8287d634cc")
+                .serviceEndpoint("groupId", variableGroupId)
+                .build()
+                .executeAsync(VariableGroup.class);
     }
 
     /***
@@ -80,8 +88,10 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<VariableGroups> listAsync() throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        return requestAdapter.sendAsync(reqInfo, VariableGroups.class);
+        return builder()
+                .location("f5b09dd5-9d54-45a1-8b5a-1c8287d634cc")
+                .build()
+                .executeAsync(VariableGroups.class);
     }
 
     /***
@@ -91,15 +101,11 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<VariableGroups> listAsync(Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-
-        if (requestConfiguration != null) {
-            final var config = new RequestConfiguration();
-            requestConfiguration.accept(config);
-            reqInfo.setQueryParameters(config.queryParameters);
-        }
-
-        return requestAdapter.sendAsync(reqInfo, VariableGroups.class);
+        return builder()
+                .location("f5b09dd5-9d54-45a1-8b5a-1c8287d634cc")
+                .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .executeAsync(VariableGroups.class);
     }
 
     /***
@@ -110,11 +116,12 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<VariableGroup> getAsync(int variableGroupId, String[] groupIds) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + variableGroupId;
-        reqInfo.setQueryParameter("groupIds", AzDHelpers.toString(groupIds));
-
-        return requestAdapter.sendAsync(reqInfo, VariableGroup.class);
+        return builder()
+                .location("f5b09dd5-9d54-45a1-8b5a-1c8287d634cc")
+                .serviceEndpoint("groupId", variableGroupId)
+                .query("groupIds", Utils.toString(groupIds))
+                .build()
+                .executeAsync(VariableGroup.class);
     }
 
     /***
@@ -126,11 +133,11 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
      */
     public CompletableFuture<Void> shareAsync(int variableGroupId, List<VariableGroupProjectReference> variableGroupProjectReferences)
             throws AzDException {
-        var reqInfo = toPatchRequestInformation(variableGroupProjectReferences);
-        reqInfo.project = null;
-        reqInfo.setQueryParameter("variableGroupId", variableGroupId);
-
-        return requestAdapter.sendPrimitiveAsync(reqInfo);
+        return builder()
+                .PATCH(variableGroupProjectReferences)
+                .query("variableGroupId", variableGroupId)
+                .build()
+                .executePrimitiveAsync();
     }
 
     /***
@@ -150,11 +157,11 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
             put("providerData", variableGroupLibrary.providerData);
         }};
 
-        var reqInfo = toPutRequestInformation(requestBody);
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = service + "/" + variableGroupId;
-
-        return requestAdapter.sendAsync(reqInfo, VariableGroup.class);
+        return builder()
+                .PUT(requestBody)
+                .serviceEndpoint("groupId", variableGroupId)
+                .build()
+                .executeAsync(VariableGroup.class);
     }
 
     /***
@@ -173,10 +180,10 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
             put("providerData", variableGroupLibrary.providerData);
         }};
 
-        var reqInfo = toPostRequestInformation(requestBody);
-        reqInfo.project = null;
-
-        return requestAdapter.send(reqInfo, VariableGroup.class);
+        return builder()
+                .POST(requestBody)
+                .build()
+                .execute(VariableGroup.class);
     }
 
     /***
@@ -186,12 +193,12 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public Void delete(int variableGroupId, String[] projectIds) throws AzDException {
-        var reqInfo = toDeleteRequestInformation();
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = service + "/" + variableGroupId;
-        reqInfo.setQueryParameter("projectIds", AzDHelpers.toString(projectIds));
-
-        return requestAdapter.sendPrimitive(reqInfo);
+        return builder()
+                .DELETE()
+                .serviceEndpoint("groupId", variableGroupId)
+                .query("projectIds", Utils.toString(projectIds))
+                .build()
+                .executePrimitive();
     }
 
     /***
@@ -201,10 +208,11 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public VariableGroup get(int variableGroupId) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + variableGroupId;
-
-        return requestAdapter.send(reqInfo, VariableGroup.class);
+        return builder()
+                .location("f5b09dd5-9d54-45a1-8b5a-1c8287d634cc")
+                .serviceEndpoint("groupId", variableGroupId)
+                .build()
+                .execute(VariableGroup.class);
     }
 
     /***
@@ -213,8 +221,10 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public VariableGroups list() throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        return requestAdapter.send(reqInfo, VariableGroups.class);
+        return builder()
+                .location("f5b09dd5-9d54-45a1-8b5a-1c8287d634cc")
+                .build()
+                .execute(VariableGroups.class);
     }
 
     /***
@@ -224,15 +234,11 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public VariableGroups list(Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-
-        if (requestConfiguration != null) {
-            final var config = new RequestConfiguration();
-            requestConfiguration.accept(config);
-            reqInfo.setQueryParameters(config.queryParameters);
-        }
-
-        return requestAdapter.send(reqInfo, VariableGroups.class);
+        return builder()
+                .location("f5b09dd5-9d54-45a1-8b5a-1c8287d634cc")
+                .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .execute(VariableGroups.class);
     }
 
     /***
@@ -243,11 +249,12 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public VariableGroup get(int variableGroupId, String[] groupIds) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + variableGroupId;
-        reqInfo.setQueryParameter("groupIds", AzDHelpers.toString(groupIds));
-
-        return requestAdapter.send(reqInfo, VariableGroup.class);
+        return builder()
+                .location("f5b09dd5-9d54-45a1-8b5a-1c8287d634cc")
+                .serviceEndpoint("groupId", variableGroupId)
+                .query("groupIds", Utils.toString(groupIds))
+                .build()
+                .execute(VariableGroup.class);
     }
 
     /***
@@ -259,11 +266,11 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
      */
     public Void share(int variableGroupId, List<VariableGroupProjectReference> variableGroupProjectReferences)
             throws AzDException {
-        var reqInfo = toPatchRequestInformation(variableGroupProjectReferences);
-        reqInfo.project = null;
-        reqInfo.setQueryParameter("variableGroupId", variableGroupId);
-
-        return requestAdapter.sendPrimitive(reqInfo);
+        return builder()
+                .PATCH(variableGroupProjectReferences)
+                .query("variableGroupId", variableGroupId)
+                .build()
+                .executePrimitive();
     }
 
     /***
@@ -283,11 +290,11 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
             put("providerData", variableGroupLibrary.providerData);
         }};
 
-        var reqInfo = toPutRequestInformation(requestBody);
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = service + "/" + variableGroupId;
-
-        return requestAdapter.send(reqInfo, VariableGroup.class);
+        return builder()
+                .PUT(requestBody)
+                .serviceEndpoint("groupId", variableGroupId)
+                .build()
+                .execute(VariableGroup.class);
     }
 
 

@@ -1,8 +1,8 @@
 package org.azd.distributedtask.types;
 
+import org.azd.abstractions.serializer.SerializableEntity;
 import org.azd.enums.VariableValue;
 import org.azd.release.types.ConfigurationVariableValue;
-import org.azd.serializer.SerializableEntity;
 
 import java.util.HashMap;
 import java.util.Map;

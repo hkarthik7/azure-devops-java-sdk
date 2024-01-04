@@ -71,8 +71,12 @@ public interface AzDClient {
     TestApi getTestApi();
 
     void setProject(String project);
+
     String getOrganization();
+
     void setOrganization(String org);
+
     void setOauthToken(AuthorizedToken token);
+
     Connection getConnection();
 }

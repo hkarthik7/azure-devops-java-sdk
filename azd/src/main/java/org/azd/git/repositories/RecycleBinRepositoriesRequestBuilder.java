@@ -1,12 +1,10 @@
 package org.azd.git.repositories;
 
-import org.azd.common.ApiVersion;
+import org.azd.abstractions.BaseRequestBuilder;
+import org.azd.authentication.AccessTokenCredential;
 import org.azd.exceptions.AzDException;
 import org.azd.git.types.GitDeletedRepositories;
 import org.azd.git.types.GitRepository;
-import org.azd.interfaces.AccessTokenCredential;
-import org.azd.interfaces.RequestAdapter;
-import org.azd.utils.BaseRequestBuilder;
 
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -16,12 +14,13 @@ import java.util.concurrent.CompletableFuture;
  */
 public class RecycleBinRepositoriesRequestBuilder extends BaseRequestBuilder {
     /**
-     * Instantiates a new request builder instance and sets the default values.
-     * @param accessTokenCredential Authentication provider {@link AccessTokenCredential}.
-     * @param requestAdapter The request adapter to execute the requests.
+     * Instantiates a new RequestBuilder instance and sets the default values.
+     *
+     * @param organizationUrl       Represents organization location request url.
+     * @param accessTokenCredential Access token credential object.
      */
-    public RecycleBinRepositoriesRequestBuilder(AccessTokenCredential accessTokenCredential, RequestAdapter requestAdapter) {
-        super(accessTokenCredential, requestAdapter, "git/recycleBin/repositories", ApiVersion.GIT);
+    public RecycleBinRepositoriesRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
+        super(organizationUrl, accessTokenCredential, "git", "a663da97-81db-4eb3-8b83-287670f63073");
     }
 
     /***
@@ -30,9 +29,11 @@ public class RecycleBinRepositoriesRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Void> deleteAsync(String repositoryId) throws AzDException {
-        var reqInfo = toDeleteRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + repositoryId;
-        return requestAdapter.sendPrimitiveAsync(reqInfo);
+        return builder()
+                .DELETE()
+                .serviceEndpoint("repositoryId", repositoryId)
+                .build()
+                .executePrimitiveAsync();
     }
 
     /***
@@ -41,7 +42,9 @@ public class RecycleBinRepositoriesRequestBuilder extends BaseRequestBuilder {
      * @return array of git deleted recycle bin repositories
      */
     public CompletableFuture<GitDeletedRepositories> listAsync() throws AzDException {
-        return requestAdapter.sendAsync(toGetRequestInformation(), GitDeletedRepositories.class);
+        return builder()
+                .build()
+                .executeAsync(GitDeletedRepositories.class);
     }
 
     /***
@@ -54,9 +57,11 @@ public class RecycleBinRepositoriesRequestBuilder extends BaseRequestBuilder {
      * @return object of git repository {@link GitRepository}
      */
     public CompletableFuture<GitRepository> restoreAsync(String repositoryId, boolean deleted) throws AzDException {
-        var reqInfo = toPatchRequestInformation(Map.of("deleted", deleted));
-        reqInfo.serviceEndpoint = service + "/" + repositoryId;
-        return requestAdapter.sendAsync(reqInfo, GitRepository.class);
+        return builder()
+                .PATCH(Map.of("deleted", deleted))
+                .serviceEndpoint("repositoryId", repositoryId)
+                .build()
+                .executeAsync(GitRepository.class);
     }
 
     /***
@@ -65,9 +70,11 @@ public class RecycleBinRepositoriesRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public Void delete(String repositoryId) throws AzDException {
-        var reqInfo = toDeleteRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + repositoryId;
-        return requestAdapter.sendPrimitive(reqInfo);
+        return builder()
+                .DELETE()
+                .serviceEndpoint("repositoryId", repositoryId)
+                .build()
+                .executePrimitive();
     }
 
     /***
@@ -76,7 +83,9 @@ public class RecycleBinRepositoriesRequestBuilder extends BaseRequestBuilder {
      * @return array of git deleted recycle bin repositories
      */
     public GitDeletedRepositories list() throws AzDException {
-        return requestAdapter.send(toGetRequestInformation(), GitDeletedRepositories.class);
+        return builder()
+                .build()
+                .execute(GitDeletedRepositories.class);
     }
 
     /***
@@ -89,8 +98,10 @@ public class RecycleBinRepositoriesRequestBuilder extends BaseRequestBuilder {
      * @return object of git repository {@link GitRepository}
      */
     public GitRepository restore(String repositoryId, boolean deleted) throws AzDException {
-        var reqInfo = toPatchRequestInformation(Map.of("deleted", deleted));
-        reqInfo.serviceEndpoint = service + "/" + repositoryId;
-        return requestAdapter.send(reqInfo, GitRepository.class);
+        return builder()
+                .PATCH(Map.of("deleted", deleted))
+                .serviceEndpoint("repositoryId", repositoryId)
+                .build()
+                .execute(GitRepository.class);
     }
 }

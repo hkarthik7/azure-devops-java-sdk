@@ -7,10 +7,10 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.serializer.SerializableEntity;
+import org.azd.abstractions.serializer.SerializableEntity;
 
 /**
- * Represents an attachment to a build. 
+ * Represents an attachment to a build.
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Attachment extends SerializableEntity {

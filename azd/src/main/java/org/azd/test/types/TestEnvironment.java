@@ -7,30 +7,38 @@ package org.azd.test.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.serializer.SerializableEntity;
+import org.azd.abstractions.serializer.SerializableEntity;
 
 /**
- * Test Resolution State Details. 
-**/
+ * Test Resolution State Details.
+ **/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TestEnvironment extends SerializableEntity {
-	/**
- 	* Test Environment Id. 
-	**/
-	@JsonProperty("environmentId")
-	private String environmentId;
-	/**
- 	* Test Environment Name. 
-	**/
-	@JsonProperty("environmentName")
-	private String environmentName;
+    /**
+     * Test Environment Id.
+     **/
+    @JsonProperty("environmentId")
+    private String environmentId;
+    /**
+     * Test Environment Name.
+     **/
+    @JsonProperty("environmentName")
+    private String environmentName;
 
-	public String getEnvironmentId() { return environmentId; }
+    public String getEnvironmentId() {
+        return environmentId;
+    }
 
-	public void setEnvironmentId(String environmentId) { this.environmentId = environmentId; }
+    public void setEnvironmentId(String environmentId) {
+        this.environmentId = environmentId;
+    }
 
-	public String getEnvironmentName() { return environmentName; }
+    public String getEnvironmentName() {
+        return environmentName;
+    }
 
-	public void setEnvironmentName(String environmentName) { this.environmentName = environmentName; }
+    public void setEnvironmentName(String environmentName) {
+        this.environmentName = environmentName;
+    }
 
 }

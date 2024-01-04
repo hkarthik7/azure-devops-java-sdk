@@ -7,11 +7,11 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.abstractions.serializer.SerializableEntity;
 import org.azd.common.types.Author;
-import org.azd.serializer.SerializableEntity;
 
 /**
- * Represents Work Item Recent Activity 
+ * Represents Work Item Recent Activity
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AccountRecentActivityWorkItemModel2 extends SerializableEntity {

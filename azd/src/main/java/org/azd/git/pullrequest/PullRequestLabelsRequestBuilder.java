@@ -1,12 +1,10 @@
 package org.azd.git.pullrequest;
 
-import org.azd.common.ApiVersion;
+import org.azd.abstractions.BaseRequestBuilder;
+import org.azd.authentication.AccessTokenCredential;
 import org.azd.exceptions.AzDException;
 import org.azd.git.types.WebApiTagDefinition;
 import org.azd.git.types.WebApiTagDefinitions;
-import org.azd.interfaces.AccessTokenCredential;
-import org.azd.interfaces.RequestAdapter;
-import org.azd.utils.BaseRequestBuilder;
 
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -16,12 +14,13 @@ import java.util.concurrent.CompletableFuture;
  */
 public class PullRequestLabelsRequestBuilder extends BaseRequestBuilder {
     /**
-     * Instantiates a new request builder instance and sets the default values.
-     * @param accessTokenCredential Authentication provider {@link AccessTokenCredential}.
-     * @param requestAdapter The request adapter to execute the requests.
+     * Instantiates a new RequestBuilder instance and sets the default values.
+     *
+     * @param organizationUrl       Represents organization location request url.
+     * @param accessTokenCredential Access token credential object.
      */
-    public PullRequestLabelsRequestBuilder(AccessTokenCredential accessTokenCredential, RequestAdapter requestAdapter) {
-        super(accessTokenCredential, requestAdapter, "git/repositories", ApiVersion.GIT);
+    public PullRequestLabelsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
+        super(organizationUrl, accessTokenCredential, "git", "f22387e3-984e-4c52-9c6d-fbb8f14c812d");
     }
 
     /***
@@ -35,10 +34,12 @@ public class PullRequestLabelsRequestBuilder extends BaseRequestBuilder {
      */
     public CompletableFuture<WebApiTagDefinition> createAsync(String repositoryName, int pullRequestId, String labelName)
             throws AzDException {
-        var reqInfo = toPostRequestInformation(Map.of("name", labelName));
-        reqInfo.serviceEndpoint = service + "/" + repositoryName + "/pullRequests/" + pullRequestId + "/labels";
-
-        return requestAdapter.sendAsync(reqInfo, WebApiTagDefinition.class);
+        return builder()
+                .POST(Map.of("name", labelName))
+                .serviceEndpoint("repositoryId", repositoryName)
+                .serviceEndpoint("pullRequestId", pullRequestId)
+                .build()
+                .executeAsync(WebApiTagDefinition.class);
     }
 
     /***
@@ -49,10 +50,13 @@ public class PullRequestLabelsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Void> deleteAsync(String repositoryName, int pullRequestId, String labelName) throws AzDException {
-        var reqInfo = toDeleteRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + repositoryName + "/pullRequests/" + pullRequestId + "/labels/" + labelName;
-
-        return requestAdapter.sendPrimitiveAsync(reqInfo);
+        return builder()
+                .DELETE()
+                .serviceEndpoint("repositoryId", repositoryName)
+                .serviceEndpoint("pullRequests", pullRequestId)
+                .serviceEndpoint("labelIdOrName", labelName)
+                .build()
+                .executePrimitiveAsync();
     }
 
     /***
@@ -65,10 +69,12 @@ public class PullRequestLabelsRequestBuilder extends BaseRequestBuilder {
      */
     public CompletableFuture<WebApiTagDefinition> getAsync(String repositoryName, int pullRequestId, String labelName)
             throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + repositoryName + "/pullRequests/" + pullRequestId + "/labels/" + labelName;
-
-        return requestAdapter.sendAsync(reqInfo, WebApiTagDefinition.class);
+        return builder()
+                .serviceEndpoint("repositoryId", repositoryName)
+                .serviceEndpoint("pullRequests", pullRequestId)
+                .serviceEndpoint("labelIdOrName", labelName)
+                .build()
+                .executeAsync(WebApiTagDefinition.class);
     }
 
     /***
@@ -80,10 +86,11 @@ public class PullRequestLabelsRequestBuilder extends BaseRequestBuilder {
      */
     public CompletableFuture<WebApiTagDefinitions> listAsync(String repositoryName, int pullRequestId)
             throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + repositoryName + "/pullRequests/" + pullRequestId + "/labels";
-
-        return requestAdapter.sendAsync(reqInfo, WebApiTagDefinitions.class);
+        return builder()
+                .serviceEndpoint("repositoryId", repositoryName)
+                .serviceEndpoint("pullRequestId", pullRequestId)
+                .build()
+                .executeAsync(WebApiTagDefinitions.class);
     }
 
     /***
@@ -97,10 +104,12 @@ public class PullRequestLabelsRequestBuilder extends BaseRequestBuilder {
      */
     public WebApiTagDefinition create(String repositoryName, int pullRequestId, String labelName)
             throws AzDException {
-        var reqInfo = toPostRequestInformation(Map.of("name", labelName));
-        reqInfo.serviceEndpoint = service + "/" + repositoryName + "/pullRequests/" + pullRequestId + "/labels";
-
-        return requestAdapter.send(reqInfo, WebApiTagDefinition.class);
+        return builder()
+                .POST(Map.of("name", labelName))
+                .serviceEndpoint("repositoryId", repositoryName)
+                .serviceEndpoint("pullRequestId", pullRequestId)
+                .build()
+                .execute(WebApiTagDefinition.class);
     }
 
     /***
@@ -111,10 +120,13 @@ public class PullRequestLabelsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public Void delete(String repositoryName, int pullRequestId, String labelName) throws AzDException {
-        var reqInfo = toDeleteRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + repositoryName + "/pullRequests/" + pullRequestId + "/labels/" + labelName;
-
-        return requestAdapter.sendPrimitive(reqInfo);
+        return builder()
+                .DELETE()
+                .serviceEndpoint("repositoryId", repositoryName)
+                .serviceEndpoint("pullRequests", pullRequestId)
+                .serviceEndpoint("labelIdOrName", labelName)
+                .build()
+                .executePrimitive();
     }
 
     /***
@@ -127,10 +139,12 @@ public class PullRequestLabelsRequestBuilder extends BaseRequestBuilder {
      */
     public WebApiTagDefinition get(String repositoryName, int pullRequestId, String labelName)
             throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + repositoryName + "/pullRequests/" + pullRequestId + "/labels/" + labelName;
-
-        return requestAdapter.send(reqInfo, WebApiTagDefinition.class);
+        return builder()
+                .serviceEndpoint("repositoryId", repositoryName)
+                .serviceEndpoint("pullRequests", pullRequestId)
+                .serviceEndpoint("labelIdOrName", labelName)
+                .build()
+                .execute(WebApiTagDefinition.class);
     }
 
     /***
@@ -142,9 +156,10 @@ public class PullRequestLabelsRequestBuilder extends BaseRequestBuilder {
      */
     public WebApiTagDefinitions list(String repositoryName, int pullRequestId)
             throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + repositoryName + "/pullRequests/" + pullRequestId + "/labels";
-
-        return requestAdapter.send(reqInfo, WebApiTagDefinitions.class);
+        return builder()
+                .serviceEndpoint("repositoryId", repositoryName)
+                .serviceEndpoint("pullRequestId", pullRequestId)
+                .build()
+                .execute(WebApiTagDefinitions.class);
     }
 }

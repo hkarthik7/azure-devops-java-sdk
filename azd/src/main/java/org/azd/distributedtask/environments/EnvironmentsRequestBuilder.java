@@ -1,23 +1,29 @@
 package org.azd.distributedtask.environments;
 
-import org.azd.common.ApiVersion;
-import org.azd.common.types.QueryParameter;
-import org.azd.distributedtask.agents.AgentsRequestBuilder;
+import org.azd.abstractions.BaseRequestBuilder;
+import org.azd.abstractions.QueryParameter;
+import org.azd.authentication.AccessTokenCredential;
 import org.azd.distributedtask.types.EnvironmentInstance;
 import org.azd.distributedtask.types.EnvironmentInstances;
 import org.azd.enums.EnvironmentExpands;
 import org.azd.exceptions.AzDException;
-import org.azd.interfaces.AccessTokenCredential;
-import org.azd.interfaces.RequestAdapter;
-import org.azd.utils.BaseRequestBuilder;
 
-import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
+/**
+ * Grant ability to manage distributed task environments Api.
+ */
 public class EnvironmentsRequestBuilder extends BaseRequestBuilder {
-    public EnvironmentsRequestBuilder(AccessTokenCredential accessTokenCredential, RequestAdapter requestAdapter) {
-        super(accessTokenCredential, requestAdapter, "distributedtask/environments", ApiVersion.DISTRIBUTED_TASK);
+    /**
+     * Instantiates a new RequestBuilder instance and sets the default values.
+     *
+     * @param organizationUrl       Represents organization location request url.
+     * @param accessTokenCredential Access token credential object.
+     */
+    public EnvironmentsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
+        super(organizationUrl, accessTokenCredential, "distributedtask", "8572b1fc-2482-47fa-8f74-7e3ed53ee54b");
     }
 
     /***
@@ -28,13 +34,10 @@ public class EnvironmentsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<EnvironmentInstance> addAsync(String name, String description) throws AzDException {
-        var requestBody = new HashMap<String, Object>() {{
-            put("name", name);
-            put("description", description);
-        }};
-
-        var reqInfo = toPostRequestInformation(requestBody);
-        return requestAdapter.sendAsync(reqInfo, EnvironmentInstance.class);
+        return builder()
+                .POST(Map.of("name", name, "description", description))
+                .build()
+                .executeAsync(EnvironmentInstance.class);
     }
 
     /***
@@ -43,10 +46,11 @@ public class EnvironmentsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Void> deleteAsync(int environmentId) throws AzDException {
-        var reqInfo = toDeleteRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + environmentId;
-
-        return requestAdapter.sendPrimitiveAsync(reqInfo);
+        return builder()
+                .DELETE()
+                .serviceEndpoint("environmentId", environmentId)
+                .build()
+                .executePrimitiveAsync();
     }
 
     /***
@@ -56,10 +60,10 @@ public class EnvironmentsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<EnvironmentInstance> getAsync(int environmentId) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + environmentId;
-
-        return requestAdapter.sendAsync(reqInfo, EnvironmentInstance.class);
+        return builder()
+                .serviceEndpoint("environmentId", environmentId)
+                .build()
+                .executeAsync(EnvironmentInstance.class);
     }
 
     /***
@@ -70,11 +74,11 @@ public class EnvironmentsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<EnvironmentInstance> getAsync(int environmentId, EnvironmentExpands expands) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + environmentId;
-        reqInfo.setQueryParameter("expands", expands);
-
-        return requestAdapter.sendAsync(reqInfo, EnvironmentInstance.class);
+        return builder()
+                .serviceEndpoint("environmentId", environmentId)
+                .query("expands", expands)
+                .build()
+                .executeAsync(EnvironmentInstance.class);
     }
 
     /***
@@ -83,8 +87,9 @@ public class EnvironmentsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<EnvironmentInstances> listAsync() throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        return requestAdapter.sendAsync(reqInfo, EnvironmentInstances.class);
+        return builder()
+                .build()
+                .executeAsync(EnvironmentInstances.class);
     }
 
     /***
@@ -94,15 +99,10 @@ public class EnvironmentsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<EnvironmentInstances> listAsync(Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-
-        if (requestConfiguration != null) {
-            final var config = new RequestConfiguration();
-            requestConfiguration.accept(config);
-            reqInfo.setQueryParameters(config.queryParameters);
-        }
-
-        return requestAdapter.sendAsync(reqInfo, EnvironmentInstances.class);
+        return builder()
+                .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .executeAsync(EnvironmentInstances.class);
     }
 
     /***
@@ -114,15 +114,11 @@ public class EnvironmentsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<EnvironmentInstance> updateAsync(int environmentId, String name, String description) throws AzDException {
-        var requestBody = new HashMap<String, Object>() {{
-            put("name", name);
-            put("description", description);
-        }};
-
-        var reqInfo = toPatchRequestInformation(requestBody);
-        reqInfo.serviceEndpoint = service + "/" + environmentId;
-
-        return requestAdapter.sendAsync(reqInfo, EnvironmentInstance.class);
+        return builder()
+                .PATCH(Map.of("name", name, "description", description))
+                .serviceEndpoint("environmentId", environmentId)
+                .build()
+                .executeAsync(EnvironmentInstance.class);
     }
 
     /***
@@ -133,13 +129,10 @@ public class EnvironmentsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public EnvironmentInstance add(String name, String description) throws AzDException {
-        var requestBody = new HashMap<String, Object>() {{
-            put("name", name);
-            put("description", description);
-        }};
-
-        var reqInfo = toPostRequestInformation(requestBody);
-        return requestAdapter.send(reqInfo, EnvironmentInstance.class);
+        return builder()
+                .POST(Map.of("name", name, "description", description))
+                .build()
+                .execute(EnvironmentInstance.class);
     }
 
     /***
@@ -148,10 +141,11 @@ public class EnvironmentsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public Void delete(int environmentId) throws AzDException {
-        var reqInfo = toDeleteRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + environmentId;
-
-        return requestAdapter.sendPrimitive(reqInfo);
+        return builder()
+                .DELETE()
+                .serviceEndpoint("environmentId", environmentId)
+                .build()
+                .executePrimitive();
     }
 
     /***
@@ -161,10 +155,10 @@ public class EnvironmentsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public EnvironmentInstance get(int environmentId) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + environmentId;
-
-        return requestAdapter.send(reqInfo, EnvironmentInstance.class);
+        return builder()
+                .serviceEndpoint("environmentId", environmentId)
+                .build()
+                .execute(EnvironmentInstance.class);
     }
 
     /***
@@ -175,11 +169,11 @@ public class EnvironmentsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public EnvironmentInstance get(int environmentId, EnvironmentExpands expands) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + environmentId;
-        reqInfo.setQueryParameter("expands", expands);
-
-        return requestAdapter.send(reqInfo, EnvironmentInstance.class);
+        return builder()
+                .serviceEndpoint("environmentId", environmentId)
+                .query("expands", expands)
+                .build()
+                .execute(EnvironmentInstance.class);
     }
 
     /***
@@ -188,8 +182,9 @@ public class EnvironmentsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public EnvironmentInstances list() throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        return requestAdapter.send(reqInfo, EnvironmentInstances.class);
+        return builder()
+                .build()
+                .execute(EnvironmentInstances.class);
     }
 
     /***
@@ -199,15 +194,10 @@ public class EnvironmentsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public EnvironmentInstances list(Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-
-        if (requestConfiguration != null) {
-            final var config = new RequestConfiguration();
-            requestConfiguration.accept(config);
-            reqInfo.setQueryParameters(config.queryParameters);
-        }
-
-        return requestAdapter.send(reqInfo, EnvironmentInstances.class);
+        return builder()
+                .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .execute(EnvironmentInstances.class);
     }
 
     /***
@@ -219,15 +209,11 @@ public class EnvironmentsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public EnvironmentInstance update(int environmentId, String name, String description) throws AzDException {
-        var requestBody = new HashMap<String, Object>() {{
-            put("name", name);
-            put("description", description);
-        }};
-
-        var reqInfo = toPatchRequestInformation(requestBody);
-        reqInfo.serviceEndpoint = service + "/" + environmentId;
-
-        return requestAdapter.send(reqInfo, EnvironmentInstance.class);
+        return builder()
+                .PATCH(Map.of("name", name, "description", description))
+                .serviceEndpoint("environmentId", environmentId)
+                .build()
+                .execute(EnvironmentInstance.class);
     }
 
     /**

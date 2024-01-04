@@ -1,13 +1,11 @@
 package org.azd.distributedtask.agents;
 
-import org.azd.common.ApiVersion;
-import org.azd.common.types.QueryParameter;
+import org.azd.abstractions.BaseRequestBuilder;
+import org.azd.abstractions.QueryParameter;
+import org.azd.authentication.AccessTokenCredential;
 import org.azd.distributedtask.types.TaskAgent;
 import org.azd.distributedtask.types.TaskAgents;
 import org.azd.exceptions.AzDException;
-import org.azd.interfaces.AccessTokenCredential;
-import org.azd.interfaces.RequestAdapter;
-import org.azd.utils.BaseRequestBuilder;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
@@ -17,12 +15,13 @@ import java.util.function.Consumer;
  */
 public class AgentsRequestBuilder extends BaseRequestBuilder {
     /**
-     * Instantiates the request builder with required values.
-     * @param accessTokenCredential Authentication type {@link AccessTokenCredential}.
-     * @param requestAdapter The request adapter to execute the requests.
+     * Instantiates a new RequestBuilder instance and sets the default values.
+     *
+     * @param organizationUrl       Represents organization location request url.
+     * @param accessTokenCredential Access token credential object.
      */
-    public AgentsRequestBuilder(AccessTokenCredential accessTokenCredential, RequestAdapter requestAdapter) {
-        super(accessTokenCredential, requestAdapter, "distributedtask/pools", ApiVersion.DISTRIBUTED_TASK);
+    public AgentsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
+        super(organizationUrl, accessTokenCredential, "distributedtask", "e298ef32-5878-4cab-993c-043836571f42");
     }
 
     /***
@@ -32,11 +31,12 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Void> deleteAsync(int poolId, int agentId) throws AzDException {
-        var reqInfo = toDeleteRequestInformation();
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = service + "/" + poolId + "/agents/" + agentId;
-
-        return requestAdapter.sendPrimitiveAsync(reqInfo);
+        return builder()
+                .DELETE()
+                .serviceEndpoint("poolId", poolId)
+                .serviceEndpoint("agentId", agentId)
+                .build()
+                .executePrimitiveAsync();
     }
 
     /***
@@ -47,11 +47,11 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<TaskAgent> getAsync(int poolId, int agentId) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = service + "/" + poolId + "/agents/" + agentId;
-
-        return requestAdapter.sendAsync(reqInfo, TaskAgent.class);
+        return builder()
+                .serviceEndpoint("poolId", poolId)
+                .serviceEndpoint("agentId", agentId)
+                .build()
+                .executeAsync(TaskAgent.class);
     }
 
     /***
@@ -62,18 +62,32 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
      * @return A TaskAgent object {@link TaskAgent}.
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<TaskAgent> getAsync(int poolId, int agentId, Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = service + "/" + poolId + "/agents/" + agentId;
+    public CompletableFuture<TaskAgent> getAsync(int poolId, int agentId,
+                                                 Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
+        return builder()
+                .serviceEndpoint("poolId", poolId)
+                .serviceEndpoint("agentId", agentId)
+                .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .executeAsync(TaskAgent.class);
+    }
 
-        if (requestConfiguration != null) {
-            final var config = new RequestConfiguration();
-            requestConfiguration.accept(config);
-            reqInfo.setQueryParameters(config.queryParameters);
-        }
-
-        return requestAdapter.sendAsync(reqInfo, TaskAgent.class);
+    /***
+     * Get Permissions on Pool.
+     * @param poolId The agent pool containing the agent.
+     * @param agentId The agent ID to get information about.
+     * @param isCheckPermissions Set to true to check permission.
+     * @return Returns a boolean.
+     * @throws AzDException Default Api Exception handler.
+     */
+    public CompletableFuture<Boolean> getPermissionAsync(int poolId, int agentId, boolean isCheckPermissions) throws AzDException {
+        return builder()
+                .serviceEndpoint("poolId", poolId)
+                .serviceEndpoint("agentId", agentId)
+                .query("isCheckPermissions", isCheckPermissions)
+                .build()
+                .executeStringAsync()
+                .thenApplyAsync(Boolean::valueOf);
     }
 
     /***
@@ -83,11 +97,10 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<TaskAgents> listAsync(int poolId) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = service + "/" + poolId + "/agents";
-
-        return requestAdapter.sendAsync(reqInfo, TaskAgents.class);
+        return builder()
+                .serviceEndpoint("poolId", poolId)
+                .build()
+                .executeAsync(TaskAgents.class);
     }
 
     /***
@@ -98,17 +111,11 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<TaskAgents> listAsync(int poolId, Consumer<ListRequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = service + "/" + poolId + "/agents";
-
-        if (requestConfiguration != null) {
-            final var config = new ListRequestConfiguration();
-            requestConfiguration.accept(config);
-            reqInfo.setQueryParameters(config.queryParameters);
-        }
-
-        return requestAdapter.sendAsync(reqInfo, TaskAgents.class);
+        return builder()
+                .serviceEndpoint("poolId", poolId)
+                .query(ListRequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .executeAsync(TaskAgents.class);
     }
 
     /***
@@ -121,11 +128,12 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<TaskAgent> updateAsync(int poolId, int agentId, TaskAgent taskAgent) throws AzDException {
-        var reqInfo = toPatchRequestInformation(taskAgent);
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = service + "/" + poolId + "/agents/" + agentId;
-
-        return requestAdapter.sendAsync(reqInfo, TaskAgent.class);
+        return builder()
+                .PATCH(taskAgent)
+                .serviceEndpoint("poolId", poolId)
+                .serviceEndpoint("agentId", agentId)
+                .build()
+                .executeAsync(TaskAgent.class);
     }
 
     /***
@@ -135,11 +143,12 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public Void delete(int poolId, int agentId) throws AzDException {
-        var reqInfo = toDeleteRequestInformation();
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = service + "/" + poolId + "/agents/" + agentId;
-
-        return requestAdapter.sendPrimitive(reqInfo);
+        return builder()
+                .DELETE()
+                .serviceEndpoint("poolId", poolId)
+                .serviceEndpoint("agentId", agentId)
+                .build()
+                .executePrimitive();
     }
 
     /***
@@ -150,11 +159,11 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public TaskAgent get(int poolId, int agentId) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = service + "/" + poolId + "/agents/" + agentId;
-
-        return requestAdapter.send(reqInfo, TaskAgent.class);
+        return builder()
+                .serviceEndpoint("poolId", poolId)
+                .serviceEndpoint("agentId", agentId)
+                .build()
+                .execute(TaskAgent.class);
     }
 
     /***
@@ -165,18 +174,31 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
      * @return A TaskAgent object {@link TaskAgent}.
      * @throws AzDException Default Api Exception handler.
      */
-    public TaskAgent get(int poolId, int agentId, Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = service + "/" + poolId + "/agents/" + agentId;
+    public TaskAgent get(int poolId, int agentId,
+                         Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
+        return builder()
+                .serviceEndpoint("poolId", poolId)
+                .serviceEndpoint("agentId", agentId)
+                .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .execute(TaskAgent.class);
+    }
 
-        if (requestConfiguration != null) {
-            final var config = new RequestConfiguration();
-            requestConfiguration.accept(config);
-            reqInfo.setQueryParameters(config.queryParameters);
-        }
-
-        return requestAdapter.send(reqInfo, TaskAgent.class);
+    /***
+     * Get Permissions on Pool.
+     * @param poolId The agent pool containing the agent.
+     * @param agentId The agent ID to get information about.
+     * @param isCheckPermissions Set to true to check permission.
+     * @return Returns a boolean.
+     * @throws AzDException Default Api Exception handler.
+     */
+    public Boolean getPermission(int poolId, int agentId, boolean isCheckPermissions) throws AzDException {
+        return Boolean.valueOf(builder()
+                .serviceEndpoint("poolId", poolId)
+                .serviceEndpoint("agentId", agentId)
+                .query("isCheckPermissions", isCheckPermissions)
+                .build()
+                .executeString());
     }
 
     /***
@@ -186,11 +208,10 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public TaskAgents list(int poolId) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = service + "/" + poolId + "/agents";
-
-        return requestAdapter.send(reqInfo, TaskAgents.class);
+        return builder()
+                .serviceEndpoint("poolId", poolId)
+                .build()
+                .execute(TaskAgents.class);
     }
 
     /***
@@ -201,17 +222,11 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public TaskAgents list(int poolId, Consumer<ListRequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = service + "/" + poolId + "/agents";
-
-        if (requestConfiguration != null) {
-            final var config = new ListRequestConfiguration();
-            requestConfiguration.accept(config);
-            reqInfo.setQueryParameters(config.queryParameters);
-        }
-
-        return requestAdapter.send(reqInfo, TaskAgents.class);
+        return builder()
+                .serviceEndpoint("poolId", poolId)
+                .query(ListRequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .execute(TaskAgents.class);
     }
 
     /***
@@ -224,11 +239,12 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public TaskAgent update(int poolId, int agentId, TaskAgent taskAgent) throws AzDException {
-        var reqInfo = toPatchRequestInformation(taskAgent);
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = service + "/" + poolId + "/agents/" + agentId;
-
-        return requestAdapter.send(reqInfo, TaskAgent.class);
+        return builder()
+                .PATCH(taskAgent)
+                .serviceEndpoint("poolId", poolId)
+                .serviceEndpoint("agentId", agentId)
+                .build()
+                .execute(TaskAgent.class);
     }
 
     /**

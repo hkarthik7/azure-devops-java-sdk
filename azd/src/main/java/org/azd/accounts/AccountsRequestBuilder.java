@@ -1,15 +1,11 @@
 package org.azd.accounts;
 
+import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.accounts.types.Accounts;
-import org.azd.common.ApiVersion;
-import org.azd.enums.Instance;
+import org.azd.authentication.AccessTokenCredential;
 import org.azd.exceptions.AzDException;
-import org.azd.http.RequestInformation;
-import org.azd.interfaces.AccessTokenCredential;
-import org.azd.interfaces.RequestAdapter;
-import org.azd.utils.BaseRequestBuilder;
+import org.azd.http.ClientRequest;
 
-import java.text.MessageFormat;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
@@ -18,47 +14,49 @@ import java.util.concurrent.CompletableFuture;
  */
 public class AccountsRequestBuilder extends BaseRequestBuilder {
     /**
-     * Instantiates a new AccountsRequestBuilder instance and sets the default values.
-     * @param accessTokenCredential Authentication provider {@link AccessTokenCredential}.
-     * @param requestAdapter The request adapter to execute the requests.
+     * Instantiates a new RequestBuilder instance and sets the default values.
+     *
+     * @param organizationUrl       Represents organization location request url.
+     * @param accessTokenCredential Access token credential object.
      */
-    public AccountsRequestBuilder(AccessTokenCredential accessTokenCredential, RequestAdapter requestAdapter) {
-        super(accessTokenCredential, requestAdapter, "accounts", ApiVersion.ACCOUNTS);
+    public AccountsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
+        super(organizationUrl, accessTokenCredential, "account", "229a6a53-b428-4ffb-a835-e8f36b5b4b1e");
     }
 
     /**
      * Get a list of accounts for a specific member. MemberId parameter is required.
+     *
      * @param memberId ID for a member of the accounts.
      * @return Accounts future object {@link Accounts}
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Accounts> listAsync(String memberId) throws AzDException {
         Objects.requireNonNull(memberId, "Member Id cannot be null or empty.");
-        var requestInfo = toGetRequestInfo(memberId);
-        return  requestAdapter.sendAsync(requestInfo, Accounts.class);
+        return getRequestBuilder(memberId).executeAsync(Accounts.class);
     }
 
     /**
      * Get a list of accounts for a specific member. MemberId parameter is required.
+     *
      * @param memberId ID for a member of the accounts.
      * @return Accounts future object {@link Accounts}
      * @throws AzDException Default Api Exception handler.
      */
     public Accounts list(String memberId) throws AzDException {
         Objects.requireNonNull(memberId, "Member Id cannot be null or empty.");
-        var requestInfo = toGetRequestInfo(memberId);
-        return  requestAdapter.send(requestInfo, Accounts.class);
+        return getRequestBuilder(memberId).execute(Accounts.class);
     }
 
     /**
      * Constructs the request information for Accounts Api.
+     *
      * @param memberId ID of the member.
-     * @return RequestInformation object {@link RequestInformation}.
+     * @return ClientRequest {@link ClientRequest}.
      */
-    private RequestInformation toGetRequestInfo(String memberId) {
-        var requestInfo = toGetRequestInformation();
-        requestInfo.setRequestUrl(MessageFormat.format("{0}/_apis/{1}?api-version={2}&memberId={3}",
-                Instance.ACCOUNT_INSTANCE.getInstance(), service, apiVersion, memberId));
-        return requestInfo;
+    private ClientRequest getRequestBuilder(String memberId) {
+        return builder()
+                .baseInstance(organizationUrl)
+                .query("memberId", memberId)
+                .build();
     }
 }

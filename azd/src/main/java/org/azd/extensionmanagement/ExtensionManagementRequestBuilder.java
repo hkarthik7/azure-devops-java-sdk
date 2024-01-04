@@ -1,15 +1,14 @@
 package org.azd.extensionmanagement;
 
-import org.azd.common.ApiVersion;
-import org.azd.common.types.QueryParameter;
+import org.azd.abstractions.BaseRequestBuilder;
+import org.azd.abstractions.QueryParameter;
+import org.azd.authentication.AccessTokenCredential;
 import org.azd.exceptions.AzDException;
 import org.azd.extensionmanagement.types.*;
 import org.azd.helpers.URLHelper;
-import org.azd.interfaces.AccessTokenCredential;
-import org.azd.interfaces.RequestAdapter;
-import org.azd.utils.BaseRequestBuilder;
 
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
@@ -18,12 +17,13 @@ import java.util.function.Consumer;
  */
 public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
     /**
-     * Instantiates a new request builder instance and sets the default values.
-     * @param accessTokenCredential Authentication provider {@link AccessTokenCredential}.
-     * @param requestAdapter The request adapter to execute the requests.
+     * Instantiates a new RequestBuilder instance and sets the default values.
+     *
+     * @param organizationUrl       Represents organization location request url.
+     * @param accessTokenCredential Access token credential object.
      */
-    public ExtensionManagementRequestBuilder(AccessTokenCredential accessTokenCredential, RequestAdapter requestAdapter) {
-        super(accessTokenCredential, requestAdapter, "extmgmt", "extensionmanagement/installedextensionsbyname", ApiVersion.EXTENSION_MANAGEMENT);
+    public ExtensionManagementRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
+        super(organizationUrl, accessTokenCredential, "extensionmanagement", "fb0da285-f23e-4b56-8b53-3ef5f9f6de66");
     }
 
     /***
@@ -34,13 +34,11 @@ public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<InstalledExtension> getAsync(String extensionId, String publisherId) throws AzDException {
-        String id =  URLHelper.encodeSpecialWithSpace(publisherId) + "/" + URLHelper.encodeSpecialWithSpace(extensionId);
-
-        var reqInfo = toGetRequestInformation();
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = service + "/" + id;
-
-        return requestAdapter.sendAsync(reqInfo, InstalledExtension.class);
+        return builder()
+                .serviceEndpoint("publisherName", URLHelper.encodeSpecialWithSpace(publisherId))
+                .serviceEndpoint("extensionName", URLHelper.encodeSpecialWithSpace(extensionId))
+                .build()
+                .executeAsync(InstalledExtension.class);
     }
 
     /***
@@ -52,14 +50,12 @@ public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<InstalledExtension> getAsync(String extensionId, String publisherId, String[] assetTypes) throws AzDException {
-        String id =  URLHelper.encodeSpecialWithSpace(publisherId) + "/" + URLHelper.encodeSpecialWithSpace(extensionId);
-
-        var reqInfo = toGetRequestInformation();
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = service + "/" + id;
-        if (assetTypes != null) reqInfo.setQueryParameter("assetTypes", String.join(",", assetTypes));
-
-        return requestAdapter.sendAsync(reqInfo, InstalledExtension.class);
+        return builder()
+                .serviceEndpoint("publisherName", URLHelper.encodeSpecialWithSpace(publisherId))
+                .serviceEndpoint("extensionName", URLHelper.encodeSpecialWithSpace(extensionId))
+                .query("assetTypes", String.join(",", assetTypes))
+                .build()
+                .executeAsync(InstalledExtension.class);
     }
 
     /***
@@ -68,11 +64,10 @@ public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<InstalledExtensions> listAsync() throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = service.replace("installedextensionsbyname", "installedextensions");
-
-        return requestAdapter.sendAsync(reqInfo, InstalledExtensions.class);
+        return builder()
+                .location("275424d0-c844-4fe2-bda6-04933a1357d8")
+                .build()
+                .executeAsync(InstalledExtensions.class);
     }
 
     /***
@@ -82,17 +77,11 @@ public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<InstalledExtensions> listAsync(Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = service.replace("installedextensionsbyname", "installedextensions");
-
-        if (requestConfiguration != null) {
-            final var config = new RequestConfiguration();
-            requestConfiguration.accept(config);
-            reqInfo.setQueryParameters(config.queryParameters);
-        }
-
-        return requestAdapter.sendAsync(reqInfo, InstalledExtensions.class);
+        return builder()
+                .location("275424d0-c844-4fe2-bda6-04933a1357d8")
+                .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .executeAsync(InstalledExtensions.class);
     }
 
     /***
@@ -102,18 +91,15 @@ public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<InstalledExtension> installAsync(InstallExtensionRequest installExtensionRequest) throws AzDException {
-        String id =  URLHelper.encodeSpecialWithSpace(installExtensionRequest.publisherId) + "/"
-                + URLHelper.encodeSpecialWithSpace(installExtensionRequest.extensionId);
+        Objects.requireNonNull(installExtensionRequest, "Install extension request cannot be null.");
 
-        if (installExtensionRequest.version != null) {
-            id += "/" + installExtensionRequest.version;
-        }
-
-        var reqInfo = toPostRequestInformation(null);
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = service + "/" + id;
-
-        return requestAdapter.sendAsync(reqInfo, InstalledExtension.class);
+        var builder = builder()
+                .serviceEndpoint("publisherName", URLHelper.encodeSpecialWithSpace(installExtensionRequest.publisherId))
+                .serviceEndpoint("extensionName", URLHelper.encodeSpecialWithSpace(installExtensionRequest.extensionId));
+        builder = installExtensionRequest.version != null ? builder.serviceEndpoint("version", installExtensionRequest.version) : builder;
+        return builder
+                .build()
+                .executeAsync(InstalledExtension.class);
     }
 
     /***
@@ -124,16 +110,16 @@ public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
      */
     public CompletableFuture<Void> uninstallAsync(UnInstallExtensionRequest unInstallExtensionRequest)
             throws AzDException {
-        String id =  URLHelper.encodeSpecialWithSpace(unInstallExtensionRequest.publisherId) + "/"
-                + URLHelper.encodeSpecialWithSpace(unInstallExtensionRequest.extensionId);
+        Objects.requireNonNull(unInstallExtensionRequest, "Uninstall extension request cannot be null.");
 
-        var reqInfo = toDeleteRequestInformation();
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = service + "/" + id;
-        reqInfo.setQueryParameter("reason", unInstallExtensionRequest.reason);
-        reqInfo.setQueryParameter("reasonCode", unInstallExtensionRequest.reasonCode);
-
-        return requestAdapter.sendPrimitiveAsync(reqInfo);
+        return builder()
+                .DELETE()
+                .serviceEndpoint("publisherName", URLHelper.encodeSpecialWithSpace(unInstallExtensionRequest.publisherId))
+                .serviceEndpoint("extensionName", URLHelper.encodeSpecialWithSpace(unInstallExtensionRequest.extensionId))
+                .query("reason", unInstallExtensionRequest.reason)
+                .query("reasonCode", unInstallExtensionRequest.reasonCode)
+                .build()
+                .executePrimitiveAsync();
     }
 
     /***
@@ -143,7 +129,7 @@ public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<InstalledExtension> updateAsync(UpdateExtensionRequest updateExtensionRequest) throws AzDException {
-
+        Objects.requireNonNull(updateExtensionRequest, "Update extension request cannot be null.");
         var body = new HashMap<String, Object>() {{
             put("publisherId", updateExtensionRequest.publisherId);
             put("extensionId", updateExtensionRequest.extensionId);
@@ -152,11 +138,11 @@ public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
             }});
         }};
 
-        var reqInfo = toPatchRequestInformation(body);
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = service.replace("installedextensionsbyname", "installedextensions");
-
-        return requestAdapter.sendAsync(reqInfo, InstalledExtension.class);
+        return builder()
+                .PATCH(body)
+                .location("275424d0-c844-4fe2-bda6-04933a1357d8")
+                .build()
+                .executeAsync(InstalledExtension.class);
     }
 
     /***
@@ -167,13 +153,11 @@ public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public InstalledExtension get(String extensionId, String publisherId) throws AzDException {
-        String id =  URLHelper.encodeSpecialWithSpace(publisherId) + "/" + URLHelper.encodeSpecialWithSpace(extensionId);
-
-        var reqInfo = toGetRequestInformation();
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = service + "/" + id;
-
-        return requestAdapter.send(reqInfo, InstalledExtension.class);
+        return builder()
+                .serviceEndpoint("publisherName", URLHelper.encodeSpecialWithSpace(publisherId))
+                .serviceEndpoint("extensionName", URLHelper.encodeSpecialWithSpace(extensionId))
+                .build()
+                .execute(InstalledExtension.class);
     }
 
     /***
@@ -185,14 +169,12 @@ public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public InstalledExtension get(String extensionId, String publisherId, String[] assetTypes) throws AzDException {
-        String id =  URLHelper.encodeSpecialWithSpace(publisherId) + "/" + URLHelper.encodeSpecialWithSpace(extensionId);
-
-        var reqInfo = toGetRequestInformation();
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = service + "/" + id;
-        if (assetTypes != null) reqInfo.setQueryParameter("assetTypes", String.join(",", assetTypes));
-
-        return requestAdapter.send(reqInfo, InstalledExtension.class);
+        return builder()
+                .serviceEndpoint("publisherName", URLHelper.encodeSpecialWithSpace(publisherId))
+                .serviceEndpoint("extensionName", URLHelper.encodeSpecialWithSpace(extensionId))
+                .query("assetTypes", String.join(",", assetTypes))
+                .build()
+                .execute(InstalledExtension.class);
     }
 
     /***
@@ -201,12 +183,10 @@ public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public InstalledExtensions list() throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = service.replace("installedextensionsbyname", "installedextensions");
-        System.out.println(reqInfo.getRequestUrl());
-
-        return requestAdapter.send(reqInfo, InstalledExtensions.class);
+        return builder()
+                .location("275424d0-c844-4fe2-bda6-04933a1357d8")
+                .build()
+                .execute(InstalledExtensions.class);
     }
 
     /***
@@ -216,17 +196,11 @@ public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public InstalledExtensions list(Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = service.replace("installedextensionsbyname", "installedextensions");
-
-        if (requestConfiguration != null) {
-            final var config = new RequestConfiguration();
-            requestConfiguration.accept(config);
-            reqInfo.setQueryParameters(config.queryParameters);
-        }
-
-        return requestAdapter.send(reqInfo, InstalledExtensions.class);
+        return builder()
+                .location("275424d0-c844-4fe2-bda6-04933a1357d8")
+                .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .execute(InstalledExtensions.class);
     }
 
     /***
@@ -236,18 +210,15 @@ public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public InstalledExtension install(InstallExtensionRequest installExtensionRequest) throws AzDException {
-        String id =  URLHelper.encodeSpecialWithSpace(installExtensionRequest.publisherId) + "/"
-                + URLHelper.encodeSpecialWithSpace(installExtensionRequest.extensionId);
+        Objects.requireNonNull(installExtensionRequest, "Install extension request cannot be null.");
 
-        if (installExtensionRequest.version != null) {
-            id += "/" + installExtensionRequest.version;
-        }
-
-        var reqInfo = toPostRequestInformation(null);
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = service + "/" + id;
-
-        return requestAdapter.send(reqInfo, InstalledExtension.class);
+        var builder = builder()
+                .serviceEndpoint("publisherName", URLHelper.encodeSpecialWithSpace(installExtensionRequest.publisherId))
+                .serviceEndpoint("extensionName", URLHelper.encodeSpecialWithSpace(installExtensionRequest.extensionId));
+        builder = installExtensionRequest.version != null ? builder.serviceEndpoint("version", installExtensionRequest.version) : builder;
+        return builder
+                .build()
+                .execute(InstalledExtension.class);
     }
 
     /***
@@ -258,16 +229,16 @@ public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
      */
     public Void uninstall(UnInstallExtensionRequest unInstallExtensionRequest)
             throws AzDException {
-        String id =  URLHelper.encodeSpecialWithSpace(unInstallExtensionRequest.publisherId) + "/"
-                + URLHelper.encodeSpecialWithSpace(unInstallExtensionRequest.extensionId);
+        Objects.requireNonNull(unInstallExtensionRequest, "Uninstall extension request cannot be null.");
 
-        var reqInfo = toDeleteRequestInformation();
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = service + "/" + id;
-        reqInfo.setQueryParameter("reason", unInstallExtensionRequest.reason);
-        reqInfo.setQueryParameter("reasonCode", unInstallExtensionRequest.reasonCode);
-
-        return requestAdapter.sendPrimitive(reqInfo);
+        return builder()
+                .DELETE()
+                .serviceEndpoint(URLHelper.encodeSpecialWithSpace(unInstallExtensionRequest.publisherId),
+                        URLHelper.encodeSpecialWithSpace(unInstallExtensionRequest.extensionId))
+                .query("reason", unInstallExtensionRequest.reason)
+                .query("reasonCode", unInstallExtensionRequest.reasonCode)
+                .build()
+                .executePrimitive();
     }
 
     /***
@@ -277,7 +248,7 @@ public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public InstalledExtension update(UpdateExtensionRequest updateExtensionRequest) throws AzDException {
-
+        Objects.requireNonNull(updateExtensionRequest, "Update extension request cannot be null.");
         var body = new HashMap<String, Object>() {{
             put("publisherId", updateExtensionRequest.publisherId);
             put("extensionId", updateExtensionRequest.extensionId);
@@ -286,11 +257,11 @@ public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
             }});
         }};
 
-        var reqInfo = toPatchRequestInformation(body);
-        reqInfo.project = null;
-        reqInfo.serviceEndpoint = service.replace("installedextensionsbyname", "installedextensions");
-
-        return requestAdapter.send(reqInfo, InstalledExtension.class);
+        return builder()
+                .PATCH(body)
+                .location("275424d0-c844-4fe2-bda6-04933a1357d8")
+                .build()
+                .execute(InstalledExtension.class);
     }
 
     /**
@@ -317,7 +288,8 @@ public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
          * If true includes installation errors.
          */
         @QueryParameter(name = "includeInstallationIssues")
-        public Boolean includeInstallationIssues;;
+        public Boolean includeInstallationIssues;
+        ;
     }
 
     /**

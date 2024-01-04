@@ -2,7 +2,7 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.serializer.SerializableEntity;
+import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  * List of release definition
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReleaseDefinitions extends SerializableEntity {
+public class ReleaseDefinitions extends SerializableCollectionEntity {
     /***
      * List of release definition
      */

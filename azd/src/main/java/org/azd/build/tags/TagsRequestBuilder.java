@@ -1,25 +1,33 @@
 package org.azd.build.tags;
 
+import org.azd.abstractions.BaseRequestBuilder;
+import org.azd.authentication.AccessTokenCredential;
 import org.azd.build.types.BuildTags;
-import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
-import org.azd.interfaces.AccessTokenCredential;
-import org.azd.interfaces.RequestAdapter;
-import org.azd.utils.BaseRequestBuilder;
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Provides functionality to manage build tage Api.
+ */
 public class TagsRequestBuilder extends BaseRequestBuilder {
-    public TagsRequestBuilder(AccessTokenCredential accessTokenCredential, RequestAdapter requestAdapter) {
-        super(accessTokenCredential, requestAdapter, "build/tags", ApiVersion.BUILD_TAGS);
+    /**
+     * Instantiates a new RequestBuilder instance and sets the default values.
+     *
+     * @param organizationUrl       Represents organization location request url.
+     * @param accessTokenCredential Access token credential object.
+     */
+    public TagsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
+        super(organizationUrl, accessTokenCredential, "build", "d84ac5c6-edc7-43d5-adc9-1b34be5dea09");
+
     }
 
     public BuildTagsRequestBuilder build() {
-        return new BuildTagsRequestBuilder(accessTokenCredential, requestAdapter);
+        return new BuildTagsRequestBuilder(organizationUrl, accessTokenCredential);
     }
 
     public BuildDefinitionTagsRequestBuilder definition() {
-        return new BuildDefinitionTagsRequestBuilder(accessTokenCredential, requestAdapter);
+        return new BuildDefinitionTagsRequestBuilder(organizationUrl, accessTokenCredential);
     }
 
     /***
@@ -29,10 +37,11 @@ public class TagsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<BuildTags> deleteAsync(String tag) throws AzDException {
-        var reqInfo = toDeleteRequestInformation();
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + tag;
-
-        return requestAdapter.sendAsync(reqInfo, BuildTags.class);
+        return builder()
+                .DELETE()
+                .serviceEndpoint("tag", tag)
+                .build()
+                .executeAsync(BuildTags.class);
     }
 
     /***
@@ -41,7 +50,9 @@ public class TagsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<BuildTags> listAsync() throws AzDException {
-        return requestAdapter.sendAsync(toGetRequestInformation(), BuildTags.class);
+        return builder()
+                .build()
+                .executeAsync(BuildTags.class);
     }
 
     /***
@@ -51,10 +62,11 @@ public class TagsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public BuildTags delete(String tag) throws AzDException {
-        var reqInfo = toDeleteRequestInformation();
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + tag;
-
-        return requestAdapter.send(reqInfo, BuildTags.class);
+        return builder()
+                .DELETE()
+                .serviceEndpoint("tag", tag)
+                .build()
+                .execute(BuildTags.class);
     }
 
     /***
@@ -63,6 +75,9 @@ public class TagsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public BuildTags list() throws AzDException {
-        return requestAdapter.send(toGetRequestInformation(), BuildTags.class);
+        return builder()
+                .build()
+                .execute(BuildTags.class);
     }
 }
+

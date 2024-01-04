@@ -2,8 +2,8 @@ package org.azd.distributedtask.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.abstractions.serializer.SerializableEntity;
 import org.azd.enums.VariableValue;
-import org.azd.serializer.SerializableEntity;
 
 import java.util.List;
 import java.util.Map;

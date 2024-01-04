@@ -2,7 +2,7 @@ package org.azd.core.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.serializer.SerializableEntity;
+import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  * Array of project properties
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ProjectProperties extends SerializableEntity {
+public class ProjectProperties extends SerializableCollectionEntity {
     /***
      * Array of project properties
      */

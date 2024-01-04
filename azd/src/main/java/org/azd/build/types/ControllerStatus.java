@@ -7,10 +7,10 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.serializer.SerializableEntity;
+import org.azd.abstractions.serializer.SerializableEntity;
 
 /**
- * The quality of the definition document (draft, etc.) 
+ * The quality of the definition document (draft, etc.)
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ControllerStatus extends SerializableEntity {

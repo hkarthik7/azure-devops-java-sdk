@@ -129,8 +129,9 @@ public class WorkApi extends AzDAsyncApi<WorkApi> implements WorkDetails {
 
     /**
      * Get a team's capacity including total capacity and days off
+     *
      * @param iterationId Pass the iteration id.
-     * @param teamName The name of the Azure DevOps organization.
+     * @param teamName    The name of the Azure DevOps organization.
      * @return TeamCapacity Object {@link TeamCapacity}
      * @throws AzDException Default Api Exception handler.
      **/
@@ -146,9 +147,10 @@ public class WorkApi extends AzDAsyncApi<WorkApi> implements WorkDetails {
 
     /**
      * Get a team member's capacity
-     * @param iterationId Pass the team iteration id.
+     *
+     * @param iterationId  Pass the team iteration id.
      * @param teamMemberId Id of the team member.
-     * @param teamName Name of Azure DevOps team.
+     * @param teamName     Name of Azure DevOps team.
      * @return TeamMemberCapacityIdentityRef Object {@link TeamMemberCapacityIdentityRef}
      * @throws AzDException Default Api Exception handler.
      **/
@@ -165,15 +167,16 @@ public class WorkApi extends AzDAsyncApi<WorkApi> implements WorkDetails {
 
     /**
      * Replace a team's capacity
-     * @param iterationId Pass the team iteration id.
-     * @param teamName Name or id of the Azure DevOps team.
+     *
+     * @param iterationId         Pass the team iteration id.
+     * @param teamName            Name or id of the Azure DevOps team.
      * @param teamMembersCapacity A list of team members capacity to update.
      * @return TeamMemberCapacityIdentityRef Object {@link TeamMemberCapacityIdentityRef}
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public TeamMemberCapacityIdentityRefs updateTeamMembersCapacity(String iterationId, String teamName,
-        List<TeamMemberCapacityIdentityRef> teamMembersCapacity) throws AzDException {
+                                                                    List<TeamMemberCapacityIdentityRef> teamMembersCapacity) throws AzDException {
         String r = send(RequestMethod.PUT, CONNECTION, WORK,
                 (CONNECTION.getProject() + "/" + encodeSpecialWithSpace(teamName)),
                 AREA + "/teamsettings/iterations", iterationId, "capacities", ApiVersion.WORK_CAPACITY,
@@ -184,19 +187,19 @@ public class WorkApi extends AzDAsyncApi<WorkApi> implements WorkDetails {
     /**
      * Update a team member's capacity
      *
-     * @param iterationId Pass the team iteration id.
-     * @param teamMemberId Id of the team member.
-     * @param teamName Name of id of the Azure DevOps team.
+     * @param iterationId        Pass the team iteration id.
+     * @param teamMemberId       Id of the team member.
+     * @param teamName           Name of id of the Azure DevOps team.
      * @param teamMemberCapacity Team member capacity object to update. You can only pass the list of activities and optionally days off.
      * @return TeamMemberCapacityIdentityRef Object {@link TeamMemberCapacityIdentityRef}
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public TeamMemberCapacityIdentityRef updateTeamMemberCapacity(String iterationId, String teamName, String teamMemberId,
-        TeamMemberCapacityIdentityRef teamMemberCapacity) throws AzDException {
-        var body = new HashMap<String, Object>(){{
-           put("activities", teamMemberCapacity.getActivities());
-           put("daysOff", teamMemberCapacity.getDaysOff());
+                                                                  TeamMemberCapacityIdentityRef teamMemberCapacity) throws AzDException {
+        var body = new HashMap<String, Object>() {{
+            put("activities", teamMemberCapacity.getActivities());
+            put("daysOff", teamMemberCapacity.getDaysOff());
         }};
 
         String r = send(RequestMethod.PATCH, CONNECTION, WORK,

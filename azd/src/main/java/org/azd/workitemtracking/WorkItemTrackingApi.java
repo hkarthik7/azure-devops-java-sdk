@@ -1114,7 +1114,9 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      **/
     @Override
     public WorkItemFieldTypes getWorkItemFields(GetFieldsExpand expand) throws AzDException {
-        var q = new HashMap<String, String>(){{ put("$expand", expand.name().toLowerCase()); }};
+        var q = new HashMap<String, String>() {{
+            put("$expand", expand.name().toLowerCase());
+        }};
 
         String res = send(RequestMethod.GET, CONNECTION, null, null, AREA,
                 null, "fields", ApiVersion.WORK_ITEM_TYPES, q, null, null);
@@ -1181,7 +1183,9 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      **/
     @Override
     public WorkItemField updateWorkItemField(String fieldNameOrRefName, boolean isDeleted) throws AzDException {
-        var b = new UpdateWorkItemField(){{ setDeleted(isDeleted); }};
+        var b = new UpdateWorkItemField() {{
+            setDeleted(isDeleted);
+        }};
 
         String res = send(RequestMethod.PATCH, CONNECTION, null, null, AREA,
                 null, "fields/" + URLHelper.encodeSpecialWithSpace(fieldNameOrRefName), ApiVersion.WORK_ITEM_TYPES, null, b, CustomHeader.JSON_CONTENT_TYPE);
@@ -1198,7 +1202,9 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      **/
     @Override
     public ProcessMigrationResultModel migrateProjectProcess(String processId) throws AzDException {
-        var b = new ProcessIdModel(){{ setTypeId(processId); }};
+        var b = new ProcessIdModel() {{
+            setTypeId(processId);
+        }};
 
         String res = send(RequestMethod.POST, CONNECTION, WIT, CONNECTION.getProject(), AREA,
                 null, "projectprocessmigration", ApiVersion.WORK_ITEM_MIGRATE, null, b, CustomHeader.JSON_CONTENT_TYPE);
@@ -1240,15 +1246,15 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
     /**
      * Gets the root queries and their children
      *
-     * @param depth In the folder of queries, return child queries and folders to this depth.
-     * @param expand Include the query string (wiql), clauses, query result columns, and sort options in the results.
+     * @param depth          In the folder of queries, return child queries and folders to this depth.
+     * @param expand         Include the query string (wiql), clauses, query result columns, and sort options in the results.
      * @param includeDeleted Include deleted queries and folders
      * @return A list of QueryHierarchyItem Object {@link QueryHierarchyItems}
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public QueryHierarchyItems getQueries(int depth, QueryExpand expand, boolean includeDeleted) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$depth", depth);
             put("$expand", expand.name().toLowerCase());
             put("$includeDeleted", includeDeleted);
@@ -1278,17 +1284,17 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
     /**
      * Retrieves an individual query and its children
      *
-     * @param query ID or path of the query.
-     * @param depth In the folder of queries, return child queries and folders to this depth.
-     * @param expand Include the query string (wiql), clauses, query result columns, and sort options in the results.
-     * @param includeDeleted Include deleted queries and folders
+     * @param query            ID or path of the query.
+     * @param depth            In the folder of queries, return child queries and folders to this depth.
+     * @param expand           Include the query string (wiql), clauses, query result columns, and sort options in the results.
+     * @param includeDeleted   Include deleted queries and folders
      * @param useIsoDateFormat DateTime query clauses will be formatted using a ISO 8601 compliant format
      * @return QueryHierarchyItem Object {@link QueryHierarchyItem}
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public QueryHierarchyItem getQuery(String query, int depth, QueryExpand expand, boolean includeDeleted, boolean useIsoDateFormat) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$depth", depth);
             put("$expand", expand.name().toLowerCase());
             put("$includeDeleted", includeDeleted);
@@ -1326,14 +1332,14 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      * Gets a list of queries by ids (Maximum 1000)
      *
      * @param errorPolicy The flag to control error policy in a query batch request. Possible options are { Fail, Omit }.
-     * @param expand The expand parameters for queries. Possible options are { None, Wiql, Clauses, All, Minimal }
-     * @param ids The requested query ids
+     * @param expand      The expand parameters for queries. Possible options are { None, Wiql, Clauses, All, Minimal }
+     * @param ids         The requested query ids
      * @return QueryHierarchyItem Object {@link QueryHierarchyItem}
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public QueryHierarchyItems getQueryBatches(QueryErrorPolicy errorPolicy, QueryExpand expand, String[] ids) throws AzDException {
-        var b = new HashMap<String, Object>(){{
+        var b = new HashMap<String, Object>() {{
             put("errorPolicy", errorPolicy.name().toLowerCase());
             put("$expand", expand.name().toLowerCase());
             put("ids", ids);
@@ -1347,7 +1353,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
 
     @Override
     public QueryHierarchyItemsResult searchQuery(String filter) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$filter", filter);
         }};
 
@@ -1359,7 +1365,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
 
     @Override
     public QueryHierarchyItemsResult searchQuery(String filter, QueryExpand expand, boolean includeDeleted, int top) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$filter", filter);
             put("$includeDeleted", includeDeleted);
             put("$top", top);

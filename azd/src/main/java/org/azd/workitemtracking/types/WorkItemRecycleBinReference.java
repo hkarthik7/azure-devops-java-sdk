@@ -3,8 +3,8 @@ package org.azd.workitemtracking.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.azd.abstractions.serializer.SerializableEntity;
 import org.azd.common.types.ReferenceLinks;
-import org.azd.serializer.SerializableEntity;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WorkItemRecycleBinReference extends SerializableEntity {

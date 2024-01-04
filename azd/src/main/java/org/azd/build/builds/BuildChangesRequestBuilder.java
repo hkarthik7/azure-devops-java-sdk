@@ -1,13 +1,11 @@
 package org.azd.build.builds;
 
+import org.azd.abstractions.BaseRequestBuilder;
+import org.azd.abstractions.QueryParameter;
+import org.azd.authentication.AccessTokenCredential;
 import org.azd.build.types.BuildChanges;
 import org.azd.common.ApiVersion;
-import org.azd.common.types.QueryParameter;
 import org.azd.exceptions.AzDException;
-import org.azd.http.RequestInformation;
-import org.azd.interfaces.AccessTokenCredential;
-import org.azd.interfaces.RequestAdapter;
-import org.azd.utils.BaseRequestBuilder;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
@@ -17,34 +15,44 @@ import java.util.function.Consumer;
  */
 public class BuildChangesRequestBuilder extends BaseRequestBuilder {
     /**
-     * Instantiates a new request builder instance and sets the default values.
-     * @param accessTokenCredential Authentication provider {@link AccessTokenCredential}.
-     * @param requestAdapter The request adapter to execute the requests.
+     * Instantiates a new RequestBuilder instance and sets the default values.
+     *
+     * @param organizationUrl       Represents organization location request url.
+     * @param accessTokenCredential Access token credential object.
      */
-    public BuildChangesRequestBuilder(AccessTokenCredential accessTokenCredential, RequestAdapter requestAdapter) {
-        super(accessTokenCredential, requestAdapter, "build/builds", ApiVersion.BUILD_CHANGES);
+    public BuildChangesRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
+        super(organizationUrl, accessTokenCredential, "build", "54572c7b-bbd3-45d4-80dc-28be08941620", ApiVersion.BUILD_CHANGES);
     }
 
     /**
      * Gets the changes associated with a build
+     *
      * @param buildId ID of the build.
      * @return Future object of BuildChanges {@link BuildChanges}
      * @throws AzDException Default Api exception handler
      */
     public CompletableFuture<BuildChanges> getAsync(int buildId) throws AzDException {
-        return requestAdapter.sendAsync(toGetInformation(buildId, null), BuildChanges.class);
+        return builder()
+                .serviceEndpoint("buildId", buildId)
+                .build()
+                .executeAsync(BuildChanges.class);
     }
 
     /**
      * Gets the changes associated with a build
-     * @param buildId ID of the build.
+     *
+     * @param buildId              ID of the build.
+     * @param requestConfiguration Consumer of request configuration object.
      * @return Future object of BuildChanges {@link BuildChanges}
      * @throws AzDException Default Api exception handler
      */
     public CompletableFuture<BuildChanges> getAsync(int buildId,
                                                     Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetInformation(buildId, requestConfiguration);
-        return requestAdapter.sendAsync(reqInfo, BuildChanges.class);
+        return builder()
+                .serviceEndpoint("buildId", buildId)
+                .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .executeAsync(BuildChanges.class);
     }
 
     /***
@@ -53,33 +61,44 @@ public class BuildChangesRequestBuilder extends BaseRequestBuilder {
      * @return BuildChanges future object {@link BuildChanges}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<BuildChanges> getAsync(Consumer<RequestConfiguration> requestConfiguration)
+    public CompletableFuture<BuildChanges> listAsync(Consumer<RequestConfiguration> requestConfiguration)
             throws AzDException {
-        var reqInfo = toGetInformation(0, requestConfiguration);
-        reqInfo.serviceEndpoint = "build/changes";
-        return requestAdapter.sendAsync(reqInfo, BuildChanges.class);
+        return builder()
+                .location("f10f0ea5-18a1-43ec-a8fb-2042c7be9b43")
+                .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .executeAsync(BuildChanges.class);
     }
 
     /**
      * Gets the changes associated with a build
+     *
      * @param buildId ID of the build.
      * @return Future object of BuildChanges {@link BuildChanges}
      * @throws AzDException Default Api exception handler
      */
     public BuildChanges get(int buildId) throws AzDException {
-        return requestAdapter.send(toGetInformation(buildId, null), BuildChanges.class);
+        return builder()
+                .serviceEndpoint("buildId", buildId)
+                .build()
+                .execute(BuildChanges.class);
     }
 
     /**
      * Gets the changes associated with a build
-     * @param buildId ID of the build.
+     *
+     * @param buildId              ID of the build.
+     * @param requestConfiguration Consumer of request configuration object.
      * @return Future object of BuildChanges {@link BuildChanges}
      * @throws AzDException Default Api exception handler
      */
     public BuildChanges get(int buildId,
                             Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetInformation(buildId, requestConfiguration);
-        return requestAdapter.send(reqInfo, BuildChanges.class);
+        return builder()
+                .serviceEndpoint("buildId", buildId)
+                .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .execute(BuildChanges.class);
     }
 
     /***
@@ -88,25 +107,42 @@ public class BuildChangesRequestBuilder extends BaseRequestBuilder {
      * @return BuildChanges future object {@link BuildChanges}
      * @throws AzDException Default Api Exception handler.
      */
-    public BuildChanges get(Consumer<RequestConfiguration> requestConfiguration)
+    public BuildChanges list(Consumer<RequestConfiguration> requestConfiguration)
             throws AzDException {
-        var reqInfo = toGetInformation(0, requestConfiguration);
-        reqInfo.serviceEndpoint = "build/changes";
-        return requestAdapter.send(reqInfo, BuildChanges.class);
+        return builder()
+                .location("f10f0ea5-18a1-43ec-a8fb-2042c7be9b43")
+                .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .execute(BuildChanges.class);
     }
 
     /**
      * Represents the query parameters.
      */
     public static class GetQueryParameters {
+        /**
+         * From build id to get build changes.
+         */
         @QueryParameter(name = "fromBuildId")
         public int fromBuildId;
+        /**
+         * To build id to get changes between builds.
+         */
         @QueryParameter(name = "toBuildId")
         public int toBuildId;
+        /**
+         * Specify to return top changes between builds.
+         */
         @QueryParameter(name = "$top")
         public Number top;
+        /**
+         * Continuation token to return the paginated response.
+         */
         @QueryParameter(name = "continuationToken")
         public String continuationToken;
+        /**
+         * True to include the source build changes.
+         */
         @QueryParameter(name = "includeSourceChange")
         public Boolean includeSourceChange;
     }
@@ -116,21 +152,5 @@ public class BuildChangesRequestBuilder extends BaseRequestBuilder {
      */
     public static class RequestConfiguration {
         public GetQueryParameters queryParameters = new GetQueryParameters();
-    }
-
-    /**
-     * Constructs the request information for Build changes api.
-     * @param buildId ID of the build.
-     * @return RequestInformation object {@link RequestInformation}
-     */
-    private RequestInformation toGetInformation(int buildId, Consumer<RequestConfiguration> requestConfig) {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId + "/changes";
-        if (requestConfig != null) {
-            final var config = new RequestConfiguration();
-            requestConfig.accept(config);
-            reqInfo.setQueryParameters(config.queryParameters);
-        }
-        return reqInfo;
     }
 }

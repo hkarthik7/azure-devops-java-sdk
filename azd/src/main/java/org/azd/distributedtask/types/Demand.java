@@ -1,32 +1,40 @@
 package org.azd.distributedtask.types;
 /**
-----------------------------------------------------------
-	GENERATED FILE, should be edited to suit the purpose.
-----------------------------------------------------------
-**/
+ * ----------------------------------------------------------
+ * GENERATED FILE, should be edited to suit the purpose.
+ * ----------------------------------------------------------
+ **/
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.serializer.SerializableEntity;
+import org.azd.abstractions.serializer.SerializableEntity;
 
 /**
- * Represents a JSON object. 
-**/
+ * Represents a JSON object.
+ **/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Demand extends SerializableEntity {
 
-	@JsonProperty("name")
-	private String name;
+    @JsonProperty("name")
+    private String name;
 
-	@JsonProperty("value")
-	private String value;
+    @JsonProperty("value")
+    private String value;
 
-	public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) { this.name = name; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getValue() { return value; }
+    public String getValue() {
+        return value;
+    }
 
-	public void setValue(String value) { this.value = value; }
+    public void setValue(String value) {
+        this.value = value;
+    }
 
 }

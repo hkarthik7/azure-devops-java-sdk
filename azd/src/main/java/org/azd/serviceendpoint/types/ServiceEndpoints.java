@@ -2,7 +2,7 @@ package org.azd.serviceendpoint.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.serializer.SerializableEntity;
+import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  * A list of service endpoints
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ServiceEndpoints extends SerializableEntity {
+public class ServiceEndpoints extends SerializableCollectionEntity {
     /***
      * A list of service endpoints
      */

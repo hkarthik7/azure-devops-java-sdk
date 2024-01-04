@@ -468,7 +468,9 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
      **/
     @Override
     public ReleaseDefinitions getReleaseDefinitions(ReleaseDefinitionExpands expands) throws AzDException {
-        var q = new HashMap<String, Object>(){{ put("$expand", expands.name()); }};
+        var q = new HashMap<String, Object>() {{
+            put("$expand", expands.name());
+        }};
 
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
                 AREA.replace("releases", "definitions"), null,
@@ -486,7 +488,9 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
      **/
     @Override
     public ReleaseDefinitions getReleaseDefinitions(int top) throws AzDException {
-        var q = new HashMap<String, Object>(){{ put("$top", top); }};
+        var q = new HashMap<String, Object>() {{
+            put("$top", top);
+        }};
 
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
                 AREA.replace("releases", "definitions"), null,
@@ -499,17 +503,19 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
      * Get a list of release definitions.
      *
      * @param artifactSourceId Release definitions with given artifactSourceId will be
-     * returned. e.g. For build it would be {projectGuid}:{BuildDefinitionId}, for Jenkins it would be
-     * {JenkinsConnectionId}:{JenkinsDefinitionId}, for TfsOnPrem it would be
-     * {TfsOnPremConnectionId}:{ProjectName}:{TfsOnPremDefinitionId}.
-     * For third-party artifacts e.g. TeamCity, BitBucket you may refer 'uniqueSourceIdentifier'
-     * inside vss-extension.json at https://github.com/Microsoft/vsts-rm-extensions/blob/master/Extensions.
+     *                         returned. e.g. For build it would be {projectGuid}:{BuildDefinitionId}, for Jenkins it would be
+     *                         {JenkinsConnectionId}:{JenkinsDefinitionId}, for TfsOnPrem it would be
+     *                         {TfsOnPremConnectionId}:{ProjectName}:{TfsOnPremDefinitionId}.
+     *                         For third-party artifacts e.g. TeamCity, BitBucket you may refer 'uniqueSourceIdentifier'
+     *                         inside vss-extension.json at https://github.com/Microsoft/vsts-rm-extensions/blob/master/Extensions.
      * @return ReleaseDefinition Object {@link ReleaseDefinition}
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public ReleaseDefinitions getReleaseDefinitions(String artifactSourceId) throws AzDException {
-        var q = new HashMap<String, Object>(){{ put("artifactSourceId", artifactSourceId); }};
+        var q = new HashMap<String, Object>() {{
+            put("artifactSourceId", artifactSourceId);
+        }};
 
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
                 AREA.replace("releases", "definitions"), null,
@@ -527,7 +533,9 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
      **/
     @Override
     public ReleaseDefinitions getReleaseDefinitions(int[] definitionIdFilter) throws AzDException {
-        var q = new HashMap<String, Object>(){{ put("definitionIdFilter", intArrayToString(definitionIdFilter)); }};
+        var q = new HashMap<String, Object>() {{
+            put("definitionIdFilter", intArrayToString(definitionIdFilter));
+        }};
 
         String r = send(RequestMethod.GET, CONNECTION, RELEASE, CONNECTION.getProject(),
                 AREA.replace("releases", "definitions"), null,
@@ -539,30 +547,30 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
     /**
      * Get a list of release definitions.
      *
-     * @param expands The properties that should be expanded in the list of Release definitions.
-     * @param top Number of release definitions to get.
-     * @param artifactSourceId Release definitions with given artifactSourceId will be returned. e.g.
-     * For build it would be {projectGuid}:{BuildDefinitionId}, for Jenkins it would be
-     * {JenkinsConnectionId}:{JenkinsDefinitionId}, for TfsOnPrem it would be
-     * {TfsOnPremConnectionId}:{ProjectName}:{TfsOnPremDefinitionId}. For third-party artifacts e.g.
-     * TeamCity, BitBucket you may refer 'uniqueSourceIdentifier' inside vss-extension.json at
-     * https://github.com/Microsoft/vsts-rm-extensions/blob/master/Extensions.
-     * @param artifactType Release definitions with given artifactType will be returned. Values can be
-     * Build, Jenkins, GitHub, Nuget, Team Build (external), ExternalTFSBuild, Git, TFVC, ExternalTfsXamlBuild.
-     * @param continuationToken Gets the release definitions after the continuation token provided.
-     * @param definitionIdFilter A comma-delimited list of release definitions to retrieve.
-     * @param isDeleted 'true' to get release definitions that has been deleted. Default is 'false'
-     * @param isExactNameMatch 'true'to gets the release definitions with exact match as specified in searchText. Default is 'false'.
-     * @param path Gets the release definitions under the specified path.
-     * @param propertyFilters A comma-delimited list of extended properties to be retrieved.
-     * If set, the returned Release Definitions will contain values for the specified property Ids
-     * (if they exist). If not set, properties will not be included. Note that this will not filter out
-     * any Release Definition from results irrespective of whether it has property set or not.
-     * @param queryOrder Gets the results in the defined order. Default is 'IdAscending'.
-     * @param searchText Get release definitions with names containing searchText.
+     * @param expands                      The properties that should be expanded in the list of Release definitions.
+     * @param top                          Number of release definitions to get.
+     * @param artifactSourceId             Release definitions with given artifactSourceId will be returned. e.g.
+     *                                     For build it would be {projectGuid}:{BuildDefinitionId}, for Jenkins it would be
+     *                                     {JenkinsConnectionId}:{JenkinsDefinitionId}, for TfsOnPrem it would be
+     *                                     {TfsOnPremConnectionId}:{ProjectName}:{TfsOnPremDefinitionId}. For third-party artifacts e.g.
+     *                                     TeamCity, BitBucket you may refer 'uniqueSourceIdentifier' inside vss-extension.json at
+     *                                     https://github.com/Microsoft/vsts-rm-extensions/blob/master/Extensions.
+     * @param artifactType                 Release definitions with given artifactType will be returned. Values can be
+     *                                     Build, Jenkins, GitHub, Nuget, Team Build (external), ExternalTFSBuild, Git, TFVC, ExternalTfsXamlBuild.
+     * @param continuationToken            Gets the release definitions after the continuation token provided.
+     * @param definitionIdFilter           A comma-delimited list of release definitions to retrieve.
+     * @param isDeleted                    'true' to get release definitions that has been deleted. Default is 'false'
+     * @param isExactNameMatch             'true'to gets the release definitions with exact match as specified in searchText. Default is 'false'.
+     * @param path                         Gets the release definitions under the specified path.
+     * @param propertyFilters              A comma-delimited list of extended properties to be retrieved.
+     *                                     If set, the returned Release Definitions will contain values for the specified property Ids
+     *                                     (if they exist). If not set, properties will not be included. Note that this will not filter out
+     *                                     any Release Definition from results irrespective of whether it has property set or not.
+     * @param queryOrder                   Gets the results in the defined order. Default is 'IdAscending'.
+     * @param searchText                   Get release definitions with names containing searchText.
      * @param searchTextContainsFolderName 'true' to get the release definitions under the folder with name as
-     * specified in searchText. Default is 'false'.
-     * @param tagFilter A comma-delimited list of tags. Only release definitions with these tags will be returned.
+     *                                     specified in searchText. Default is 'false'.
+     * @param tagFilter                    A comma-delimited list of tags. Only release definitions with these tags will be returned.
      * @return ReleaseDefinition Object {@link ReleaseDefinition}
      * @throws AzDException Default Api Exception handler.
      **/
@@ -574,7 +582,7 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
                                                     String[] propertyFilters, ReleaseDefinitionQueryOrder queryOrder,
                                                     String searchText, boolean searchTextContainsFolderName,
                                                     String[] tagFilter) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$expand", expands.name());
             put("$top", top);
             put("artifactSourceId", artifactSourceId);

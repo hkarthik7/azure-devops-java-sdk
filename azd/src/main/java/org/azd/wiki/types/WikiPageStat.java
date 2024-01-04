@@ -1,36 +1,44 @@
 package org.azd.wiki.types;
 /**
-----------------------------------------------------------
-	GENERATED FILE, should be edited to suit the purpose.
-----------------------------------------------------------
-**/
+ * ----------------------------------------------------------
+ * GENERATED FILE, should be edited to suit the purpose.
+ * ----------------------------------------------------------
+ **/
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.serializer.SerializableEntity;
+import org.azd.abstractions.serializer.SerializableEntity;
 
 /**
- * Defines properties for wiki page stat. 
-**/
+ * Defines properties for wiki page stat.
+ **/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WikiPageStat extends SerializableEntity {
-	/**
- 	* the count of the stat for the Day 
-	**/
-	@JsonProperty("count")
-	private Integer count;
-	/**
- 	* Day of the stat 
-	**/
-	@JsonProperty("day")
-	private String day;
+    /**
+     * the count of the stat for the Day
+     **/
+    @JsonProperty("count")
+    private Integer count;
+    /**
+     * Day of the stat
+     **/
+    @JsonProperty("day")
+    private String day;
 
-	public Integer getCount() { return count; }
+    public Integer getCount() {
+        return count;
+    }
 
-	public void setCount(Integer count) { this.count = count; }
+    public void setCount(Integer count) {
+        this.count = count;
+    }
 
-	public String getDay() { return day; }
+    public String getDay() {
+        return day;
+    }
 
-	public void setDay(String day) { this.day = day; }
+    public void setDay(String day) {
+        this.day = day;
+    }
 
 }

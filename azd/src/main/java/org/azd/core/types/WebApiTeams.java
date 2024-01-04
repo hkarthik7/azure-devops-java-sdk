@@ -2,7 +2,7 @@ package org.azd.core.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.serializer.SerializableEntity;
+import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  * Represents list of team
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WebApiTeams extends SerializableEntity {
+public class WebApiTeams extends SerializableCollectionEntity {
     /***
      * List of team
      */

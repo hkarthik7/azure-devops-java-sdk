@@ -1,12 +1,16 @@
 package org.azd.feedmanagement;
 
-import org.azd.artifacts.feedmanagement.FeedManagementRequestBuilder;
+import org.azd.common.ApiVersion;
+import org.azd.connection.Connection;
 import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
 import org.azd.feedmanagement.types.*;
+import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.FeedManagementDetails;
-import org.azd.serviceclient.AzDServiceClient;
 import org.azd.utils.AzDAsyncApi;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.azd.utils.RestClient.send;
 
@@ -14,10 +18,20 @@ import static org.azd.utils.RestClient.send;
  * Feed Management class to manage Artifacts API
  */
 public class FeedManagementApi extends AzDAsyncApi<FeedManagementApi> implements FeedManagementDetails {
+    /***
+     * Connection object
+     */
+    private final Connection CONNECTION;
+    private final JsonMapper MAPPER = new JsonMapper();
+    private final String AREA = "packaging";
+    private final String PACKAGING = "7ab4e64e-c4d8-4f50-ae73-5ef2e21642a5";
 
-    private final FeedManagementRequestBuilder FEED;
-    public FeedManagementApi(AzDServiceClient client) {
-        FEED = client.artifacts().feedManagement();
+    /***
+     * Pass the connection object to work with Feed Management Api
+     * @param connection Connection object
+     */
+    public FeedManagementApi(Connection connection) {
+        this.CONNECTION = connection;
     }
 
     /***
@@ -40,13 +54,18 @@ public class FeedManagementApi extends AzDAsyncApi<FeedManagementApi> implements
             String name, String description, boolean badgesEnabled,
             boolean hideDeletedPackageVersions) throws AzDException {
 
-        var feed = new Feed();
-        feed.setName(name);
-        feed.setDescription(description);
-        feed.setBadgesEnabled(badgesEnabled);
-        feed.setHideDeletedPackageVersions(hideDeletedPackageVersions);
+        HashMap<String, Object> requestBody = new HashMap<>() {{
+            put("name", name);
+            put("description", description);
+            put("badgesEnabled", badgesEnabled);
+            put("hideDeletedPackageVersions", hideDeletedPackageVersions);
+        }};
 
-        return FEED.create(feed);
+        String r = send(RequestMethod.POST, CONNECTION, PACKAGING,
+                CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
+                AREA, null, "feeds", ApiVersion.FEEDS, null, requestBody, CustomHeader.JSON_CONTENT_TYPE);
+
+        return MAPPER.mapJsonResponse(r, Feed.class);
     }
 
     /***
@@ -65,12 +84,17 @@ public class FeedManagementApi extends AzDAsyncApi<FeedManagementApi> implements
     public FeedView createFeedView(String feedName, String name,
                                    FeedViewType feedViewType, FeedVisibility visibility) throws AzDException {
 
-        var feedView = new FeedView();
-        feedView.setVisibility(visibility);
-        feedView.setName(name);
-        feedView.setType(feedViewType);
+        HashMap<String, Object> requestBody = new HashMap<>() {{
+            put("name", name);
+            put("type", feedViewType.toString().toLowerCase());
+            put("visibility", visibility.toString().toLowerCase());
+        }};
 
-        return FEED.view().create(feedName, feedView);
+        String r = send(RequestMethod.POST, CONNECTION, PACKAGING,
+                CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
+                AREA + "/feeds", feedName, "views", ApiVersion.FEEDS, null, requestBody, CustomHeader.JSON_CONTENT_TYPE);
+
+        return MAPPER.mapJsonResponse(r, FeedView.class);
     }
 
     /***
@@ -84,7 +108,15 @@ public class FeedManagementApi extends AzDAsyncApi<FeedManagementApi> implements
      */
     @Override
     public Void deleteFeed(String feedId) throws AzDException {
-        return FEED.delete(feedId);
+        try {
+            String r = send(RequestMethod.DELETE, CONNECTION, PACKAGING,
+                    CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
+                    AREA + "/feeds", feedId, null, ApiVersion.FEEDS, null, null, null);
+            if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
+        } catch (AzDException e) {
+            throw e;
+        }
+        return null;
     }
 
     /***
@@ -98,7 +130,15 @@ public class FeedManagementApi extends AzDAsyncApi<FeedManagementApi> implements
      */
     @Override
     public Void deleteFeedView(String feedId, String feedViewId) throws AzDException {
-        return FEED.view().delete(feedId, feedViewId);
+        try {
+            String r = send(RequestMethod.DELETE, CONNECTION, PACKAGING,
+                    CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
+                    AREA + "/feeds", feedId, "views/" + feedViewId, ApiVersion.FEEDS, null, null, null);
+            if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
+        } catch (AzDException e) {
+            throw e;
+        }
+        return null;
     }
 
     /***
@@ -113,7 +153,12 @@ public class FeedManagementApi extends AzDAsyncApi<FeedManagementApi> implements
      */
     @Override
     public Feed getFeed(String feedName) throws AzDException {
-        return FEED.get(feedName);
+
+        String r = send(RequestMethod.GET, CONNECTION, PACKAGING,
+                CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
+                AREA + "/Feeds", feedName, null, ApiVersion.FEEDS, null, null, null);
+
+        return MAPPER.mapJsonResponse(r, Feed.class);
     }
 
     /***
@@ -129,7 +174,16 @@ public class FeedManagementApi extends AzDAsyncApi<FeedManagementApi> implements
      */
     @Override
     public Feed getFeed(String feedName, boolean includeDeletedUpstreams) throws AzDException {
-        return FEED.get(feedName, includeDeletedUpstreams);
+
+        HashMap<String, Object> q = new HashMap<>() {{
+            put("includeDeletedUpstreams", includeDeletedUpstreams);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, PACKAGING,
+                CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
+                AREA + "/Feeds", feedName, null, ApiVersion.FEEDS, q, null, null);
+
+        return MAPPER.mapJsonResponse(r, Feed.class);
     }
 
     /***
@@ -144,7 +198,12 @@ public class FeedManagementApi extends AzDAsyncApi<FeedManagementApi> implements
      */
     @Override
     public FeedPermissions getFeedPermissions(String feedName) throws AzDException {
-        return FEED.permissions().get(feedName);
+
+        String r = send(RequestMethod.GET, CONNECTION, PACKAGING,
+                CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
+                AREA + "/Feeds", feedName, "permissions", ApiVersion.FEEDS, null, null, null);
+
+        return MAPPER.mapJsonResponse(r, FeedPermissions.class);
     }
 
     /***
@@ -166,12 +225,18 @@ public class FeedManagementApi extends AzDAsyncApi<FeedManagementApi> implements
             String feedName, boolean excludeInheritedPermissions, String identityDescriptor,
             boolean includeDeletedFeeds, boolean includeIds) throws AzDException {
 
-        return FEED.permissions().get(feedName, r -> {
-            r.queryParameters.includeIds = includeIds;
-            r.queryParameters.excludeInheritedPermissions = excludeInheritedPermissions;
-            r.queryParameters.identityDescriptor = identityDescriptor;
-            r.queryParameters.includeDeletedFeeds = includeDeletedFeeds;
-        });
+        HashMap<String, Object> q = new HashMap<>() {{
+            put("excludeInheritedPermissions", excludeInheritedPermissions);
+            put("identityDescriptor", identityDescriptor);
+            put("includeDeletedFeeds", includeDeletedFeeds);
+            put("includeIds", includeIds);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, PACKAGING,
+                CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
+                AREA + "/Feeds", feedName, "permissions", ApiVersion.FEEDS, q, null, null);
+
+        return MAPPER.mapJsonResponse(r, FeedPermissions.class);
     }
 
     /***
@@ -186,7 +251,12 @@ public class FeedManagementApi extends AzDAsyncApi<FeedManagementApi> implements
      */
     @Override
     public FeedView getFeedView(String feedName, String feedViewId) throws AzDException {
-        return FEED.view().get(feedName, feedViewId);
+
+        String r = send(RequestMethod.GET, CONNECTION, PACKAGING,
+                CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
+                AREA + "/Feeds", feedName, "views/" + feedViewId, ApiVersion.FEEDS, null, null, null);
+
+        return MAPPER.mapJsonResponse(r, FeedView.class);
     }
 
     /***
@@ -200,7 +270,12 @@ public class FeedManagementApi extends AzDAsyncApi<FeedManagementApi> implements
      */
     @Override
     public FeedViews getFeedViews(String feedName) throws AzDException {
-        return FEED.view().list(feedName);
+
+        String r = send(RequestMethod.GET, CONNECTION, PACKAGING,
+                CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
+                AREA + "/Feeds", feedName, "views", ApiVersion.FEEDS, null, null, null);
+
+        return MAPPER.mapJsonResponse(r, FeedViews.class);
     }
 
     /***
@@ -214,7 +289,12 @@ public class FeedManagementApi extends AzDAsyncApi<FeedManagementApi> implements
      */
     @Override
     public Feeds getFeeds() throws AzDException {
-        return FEED.list();
+
+        String r = send(RequestMethod.GET, CONNECTION, PACKAGING,
+                CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
+                AREA, null, "Feeds", ApiVersion.FEEDS, null, null, null);
+
+        return MAPPER.mapJsonResponse(r, Feeds.class);
     }
 
     /***
@@ -234,11 +314,17 @@ public class FeedManagementApi extends AzDAsyncApi<FeedManagementApi> implements
             FeedRole feedRole, boolean includeDeletedUpstreams,
             boolean includeUrls) throws AzDException {
 
-        return FEED.list(r -> {
-            r.queryParameters.includeUrls = includeUrls;
-            r.queryParameters.feedRole = feedRole;
-            r.queryParameters.includeDeletedUpstreams = includeDeletedUpstreams;
-        });
+        HashMap<String, Object> q = new HashMap<>() {{
+            put("feedRole", feedRole);
+            put("includeDeletedUpstreams", includeDeletedUpstreams);
+            put("includeUrls", includeUrls);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, PACKAGING,
+                CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
+                AREA, null, "Feeds", ApiVersion.FEEDS, q, null, null);
+
+        return MAPPER.mapJsonResponse(r, Feeds.class);
     }
 
     /***
@@ -253,7 +339,12 @@ public class FeedManagementApi extends AzDAsyncApi<FeedManagementApi> implements
      */
     @Override
     public FeedPermissions setFeedPermissions(String feedId, FeedPermissions feedPermissions) throws AzDException {
-        return FEED.permissions().set(feedId, feedPermissions);
+        String r = send(RequestMethod.PATCH, CONNECTION, PACKAGING,
+                CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
+                AREA + "/Feeds", feedId, "permissions", ApiVersion.FEEDS, null,
+                feedPermissions.getFeedPermission(), CustomHeader.JSON_CONTENT_TYPE);
+
+        return MAPPER.mapJsonResponse(r, FeedPermissions.class);
     }
 
     /***
@@ -269,7 +360,11 @@ public class FeedManagementApi extends AzDAsyncApi<FeedManagementApi> implements
      */
     @Override
     public Feed updateFeed(String feedId, Feed feed) throws AzDException {
-        return FEED.update(feedId, feed);
+        String r = send(RequestMethod.PATCH, CONNECTION, PACKAGING,
+                CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
+                AREA + "/Feeds", feedId, null, ApiVersion.FEEDS, null, feed, CustomHeader.JSON_CONTENT_TYPE);
+
+        return MAPPER.mapJsonResponse(r, Feed.class);
     }
 
     /***
@@ -286,6 +381,11 @@ public class FeedManagementApi extends AzDAsyncApi<FeedManagementApi> implements
     @Override
     public FeedView updateFeedView(String feedName, String feedViewName, FeedView feedView)
             throws AzDException {
-        return FEED.view().update(feedName, feedViewName, feedView);
+        String r = send(RequestMethod.PATCH, CONNECTION, PACKAGING,
+                CONNECTION.getProject() != null ? CONNECTION.getProject() : null,
+                AREA + "/Feeds", feedName, "views/" + feedViewName, ApiVersion.FEEDS, null,
+                feedView, CustomHeader.JSON_CONTENT_TYPE);
+
+        return MAPPER.mapJsonResponse(r, FeedView.class);
     }
 }

@@ -1,113 +1,57 @@
 package org.azd.authentication;
 
-import org.azd.enums.Instance;
-import org.azd.interfaces.AccessTokenCredential;
-import org.azd.utils.InstanceFactory;
-
 import java.util.Base64;
 import java.util.Objects;
 
 /**
  * Represents personal access token authentication model.
+ *
  * @see <a href="https://learn.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=Windows">Personal access token</a>
  */
 public class PersonalAccessTokenCredential implements AccessTokenCredential {
 
     /**
+     * Azure DevOps organization or TFS collection url.
+     */
+    private String organizationUrl;
+    /**
+     * Project name
+     */
+    private String projectName;
+    /**
+     * Personal access token.
+     */
+    private String personalAccessToken;
+
+    /**
      * Creates a new Personal access token credential provider object.
-     * @param organization Azure DevOps organization.
+     *
+     * @param organizationUrl     Azure DevOps organization url.
      * @param personalAccessToken Personal access token.
      */
-    public PersonalAccessTokenCredential(String organization, String personalAccessToken) {
-        this(organization, null, personalAccessToken);
+    public PersonalAccessTokenCredential(String organizationUrl, String personalAccessToken) {
+        this(organizationUrl, null, personalAccessToken);
     }
 
     /**
      * Creates a new Personal access token credential provider object.
-     * @param organization Azure DevOps organization.
-     * @param projectName Pass the project name
+     *
+     * @param organizationUrl     Azure DevOps organization url.
+     * @param projectName         Pass the project name
      * @param personalAccessToken Personal access token.
      */
-    public PersonalAccessTokenCredential(String organization, String projectName, String personalAccessToken) {
-        this(null, organization, projectName, personalAccessToken);
-    }
-
-    /**
-     * Creates a new Personal access token credential provider object.
-     * @param server Pass the tfs server with port number. server:port
-     * @param organization Azure DevOps organization or TFS collection name.
-     * @param projectName Pass the project name
-     * @param personalAccessToken Personal access token.
-     */
-    public PersonalAccessTokenCredential(String server, String organization, String projectName, String personalAccessToken) {
-        Objects.requireNonNull(organization, "Organization cannot be null.");
+    public PersonalAccessTokenCredential(String organizationUrl, String projectName, String personalAccessToken) {
+        Objects.requireNonNull(organizationUrl, "Organization url cannot be null.");
         Objects.requireNonNull(personalAccessToken, "Access token cannot be null.");
 
-        this.server = server;
-        this.organization = organization;
+        this.organizationUrl = organizationUrl;
         this.projectName = projectName;
         setAccessToken(personalAccessToken);
-
-        if (server != null) Instance.BASE_INSTANCE.setInstance("https://" + server + "/tfs/");
-    }
-
-
-    /**
-     * Gets the personal access token.
-     * @return Personal access token.
-     */
-    @Override
-    public String getAccessToken() {
-        return personalAccessToken;
-    }
-
-    /**
-     * Sets the personal access token.
-     * @param accessToken Personal access token.
-     */
-    @Override
-    public void setAccessToken(String accessToken) {
-        this.personalAccessToken = encodePersonalAccessToken(accessToken);
-    }
-
-    /**
-     * Gets the organization or tfs collection name.
-     * @return Organization name.
-     */
-    @Override
-    public String getOrganization() {
-        return organization;
-    }
-
-    /**
-     * Sets the organization or tfs collection name.
-     * @param organization Azure DevOps organization or TFS collection name.
-     */
-    @Override
-    public void setOrganization(String organization) {
-        this.organization = organization;
-    }
-
-    /**
-     * Gets the project name.
-     * @return Project name.
-     */
-    @Override
-    public String getProjectName() {
-        return projectName;
-    }
-
-    /**
-     * Sets the project name.
-     * @param projectName Pass the project name.
-     */
-    @Override
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
     }
 
     /**
      * Encodes personal access token.
+     *
      * @param token personal access token.
      * @return Encoded personal access token.
      */
@@ -117,19 +61,62 @@ public class PersonalAccessTokenCredential implements AccessTokenCredential {
     }
 
     /**
-     * TFS server
+     * Gets the personal access token.
+     *
+     * @return Personal access token.
      */
-    private String server;
+    @Override
+    public String getAccessToken() {
+        return personalAccessToken;
+    }
+
     /**
-     * Azure DevOps organization or TFS collection.
+     * Sets the personal access token.
+     *
+     * @param accessToken Personal access token.
      */
-    private String organization;
+    @Override
+    public void setAccessToken(String accessToken) {
+        this.personalAccessToken = encodePersonalAccessToken(accessToken);
+    }
+
     /**
-     * Project name
+     * Gets the organization or tfs collection name.
+     *
+     * @return Organization name.
      */
-    private String projectName;
+    @Override
+    public String getOrganizationUrl() {
+        return organizationUrl;
+    }
+
     /**
-     * Personal access token.
+     * Sets the organization or tfs collection name.
+     *
+     * @param organizationUrl Azure DevOps organization or TFS collection url.
      */
-    private String personalAccessToken;
+    @Override
+    public void setOrganizationUrl(String organizationUrl) {
+        this.organizationUrl = organizationUrl;
+    }
+
+    /**
+     * Gets the project name.
+     *
+     * @return Project name.
+     */
+    @Override
+    public String getProjectName() {
+        return projectName;
+    }
+
+    /**
+     * Sets the project name.
+     *
+     * @param projectName Pass the project name.
+     */
+    @Override
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
 }

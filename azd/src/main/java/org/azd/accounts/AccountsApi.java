@@ -3,23 +3,38 @@ package org.azd.accounts;
 import org.azd.accounts.types.Accounts;
 import org.azd.accounts.types.Organizations;
 import org.azd.accounts.types.Profile;
+import org.azd.common.ApiVersion;
+import org.azd.connection.Connection;
+import org.azd.enums.CustomHeader;
+import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
+import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AccountsDetails;
-import org.azd.serviceclient.AzDServiceClient;
 import org.azd.utils.AzDAsyncApi;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import static org.azd.utils.RestClient.send;
 
 /***
  * Accounts class to manage Accounts Api
  */
 public class AccountsApi extends AzDAsyncApi<AccountsApi> implements AccountsDetails {
-    private final AccountsBaseRequestBuilder ACCOUNTS;
-
-    /**
-     * Requires the instance of AzDServiceClient.
-     * @param client Pass the instance of {@link AzDServiceClient}
+    /***
+     * Connection object
      */
-    public AccountsApi(AzDServiceClient client) {
-        ACCOUNTS = client.accounts();
+    private final Connection CONNECTION;
+    private final JsonMapper MAPPER = new JsonMapper();
+    private final String AREA = "accounts";
+
+    /***
+     * Pass the connection object to work with Accounts Api
+     *
+     * @param connection Connection object
+     */
+    public AccountsApi(Connection connection) {
+        this.CONNECTION = connection;
     }
 
     /***
@@ -31,7 +46,14 @@ public class AccountsApi extends AzDAsyncApi<AccountsApi> implements AccountsDet
      */
     @Override
     public Accounts getAccounts(String memberId) throws AzDException {
-        return ACCOUNTS.accounts().list(memberId);
+        var q = new HashMap<String, Object>() {{
+            put("memberId", memberId);
+        }};
+
+        String r = send(RequestMethod.GET, CONNECTION, AREA, null, AREA, null,
+                null, ApiVersion.ACCOUNTS, q, null, null);
+
+        return MAPPER.mapJsonResponse(r, Accounts.class);
     }
 
     /***
@@ -43,7 +65,20 @@ public class AccountsApi extends AzDAsyncApi<AccountsApi> implements AccountsDet
      */
     @Override
     public Organizations getOrganizations() throws AzDException {
-        return ACCOUNTS.organization().get();
+        var ids = new ArrayList<>();
+        ids.add("ms.vss-features.my-organizations-data-provider");
+
+        var b = new HashMap<String, Object>() {{
+            put("contributionIds", ids);
+            put("dataProviderContext", new HashMap<String, Object>() {{
+                put("properties", "{}");
+            }});
+        }};
+
+        String r = send(RequestMethod.POST, CONNECTION, null, null, "Contribution", null,
+                "HierarchyQuery", ApiVersion.ACCOUNTS, null, b, CustomHeader.JSON_CONTENT_TYPE);
+
+        return MAPPER.mapJsonResponse(r, Organizations.class);
     }
 
     /***
@@ -54,7 +89,10 @@ public class AccountsApi extends AzDAsyncApi<AccountsApi> implements AccountsDet
      */
     @Override
     public Profile getProfile() throws AzDException {
-        return ACCOUNTS.profile().get();
+        String r = send(RequestMethod.GET, CONNECTION, AREA, null,
+                "/profile/profiles", "me", null, ApiVersion.PROFILE, null, null, null);
+
+        return MAPPER.mapJsonResponse(r, Profile.class);
     }
 
     /***
@@ -66,6 +104,9 @@ public class AccountsApi extends AzDAsyncApi<AccountsApi> implements AccountsDet
      */
     @Override
     public Profile getProfile(String id) throws AzDException {
-        return ACCOUNTS.profile().get(id);
+        String r = send(RequestMethod.GET, CONNECTION, AREA, null,
+                "/profile/profiles", id, null, ApiVersion.PROFILE, null, null, null);
+
+        return MAPPER.mapJsonResponse(r, Profile.class);
     }
 }

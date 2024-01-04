@@ -3,9 +3,7 @@ package org.azd.helpers;
 import org.azd.enums.ApiExceptionTypes;
 import org.azd.enums.CustomHeader;
 import org.azd.exceptions.AzDException;
-import org.azd.http.RequestInformation;
-import org.azd.interfaces.RequestAdapter;
-import org.azd.utils.InstanceFactory;
+import org.azd.http.ClientRequest;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -17,7 +15,6 @@ public class StreamHelper {
      * Default size of byte array
      */
     private static int DEFAULT_BYTE_ARRAY_SIZE = 8192;
-    private static final RequestAdapter requestAdapter = InstanceFactory.createDefaultRequestAdapter();
 
     /**
      * Returns the default byte array size
@@ -50,9 +47,8 @@ public class StreamHelper {
         try (FileOutputStream outputStream = new FileOutputStream(fileName, false)) {
             int read;
             byte[] bytes = new byte[DEFAULT_BYTE_ARRAY_SIZE];
-            while ((read = responseStream.read(bytes)) != -1) {
+            while ((read = responseStream.read(bytes)) != -1)
                 outputStream.write(bytes, 0, read);
-            }
         } catch (Exception e) {
             throw new AzDException(ApiExceptionTypes.InvalidArgumentException.name(), e.getMessage());
         }
@@ -68,10 +64,12 @@ public class StreamHelper {
     public static void downloadFromUrl(String url, String fileName) throws AzDException {
         Objects.requireNonNull(url, "Url cannot be null or empty.");
 
-        var reqInfo = new RequestInformation();
-        reqInfo.setRequestUrl(url);
-        reqInfo.requestHeaders.add(CustomHeader.STREAM_ACCEPT);
-        var res = requestAdapter.sendStream(reqInfo);
+        var res = ClientRequest.builder()
+                .URI(url)
+                .header(CustomHeader.STREAM_ACCEPT)
+                .build()
+                .executeStream();
+
         download(fileName, res);
     }
 

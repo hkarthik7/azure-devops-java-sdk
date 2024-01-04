@@ -1,15 +1,13 @@
 package org.azd.git.repositories;
 
-import org.azd.common.ApiVersion;
-import org.azd.common.types.QueryParameter;
+import org.azd.abstractions.BaseRequestBuilder;
+import org.azd.abstractions.QueryParameter;
+import org.azd.authentication.AccessTokenCredential;
 import org.azd.exceptions.AzDException;
 import org.azd.git.types.GitDeletedRepositories;
 import org.azd.git.types.GitRepository;
 import org.azd.git.types.Repositories;
 import org.azd.git.types.RepositoryRequest;
-import org.azd.interfaces.AccessTokenCredential;
-import org.azd.interfaces.RequestAdapter;
-import org.azd.utils.BaseRequestBuilder;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
@@ -19,20 +17,24 @@ import java.util.function.Consumer;
  */
 public class RepositoriesRequestBuilder extends BaseRequestBuilder {
     /**
-     * Instantiates a new request builder instance and sets the default values.
-     * @param accessTokenCredential Authentication provider {@link AccessTokenCredential}.
-     * @param requestAdapter The request adapter to execute the requests.
+     * Instantiates a new RequestBuilder instance and sets the default values.
+     *
+     * @param organizationUrl       Represents organization location request url.
+     * @param accessTokenCredential Access token credential object.
      */
-    public RepositoriesRequestBuilder(AccessTokenCredential accessTokenCredential, RequestAdapter requestAdapter) {
-        super(accessTokenCredential, requestAdapter, "git/repositories", ApiVersion.GIT);
+    public RepositoriesRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
+        super(organizationUrl, accessTokenCredential, "git", "225f7195-f9c7-4d14-ab28-a83f7ff77e1f");
+
+
     }
 
     /**
      * Request builder to manage recycle bin repositories.
+     *
      * @return RecycleBinRepositoriesRequestBuilder {@link RecycleBinRepositoriesRequestBuilder}.
      */
     public RecycleBinRepositoriesRequestBuilder recycleBin() {
-        return new RecycleBinRepositoriesRequestBuilder(accessTokenCredential, requestAdapter);
+        return new RecycleBinRepositoriesRequestBuilder(organizationUrl, accessTokenCredential);
     }
 
     /***
@@ -42,7 +44,10 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
      * @return git repository object {@link GitRepository}
      */
     public CompletableFuture<GitRepository> createAsync(RepositoryRequest repositoryRequest) throws AzDException {
-        return requestAdapter.sendAsync(toPostRequestInformation(repositoryRequest), GitRepository.class);
+        return builder()
+                .POST(repositoryRequest)
+                .build()
+                .executeAsync(GitRepository.class);
     }
 
     /***
@@ -51,9 +56,11 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Void> deleteAsync(String repositoryId) throws AzDException {
-        var reqInfo = toDeleteRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + repositoryId;
-        return requestAdapter.sendPrimitiveAsync(reqInfo);
+        return builder()
+                .DELETE()
+                .serviceEndpoint("repositoryId", repositoryId)
+                .build()
+                .executePrimitiveAsync();
     }
 
     /***
@@ -62,9 +69,10 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
      * @return Git deleted repository object {@link GitDeletedRepositories}
      */
     public CompletableFuture<GitDeletedRepositories> listDeletedAsync() throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service.replace("repositories", "deletedrepositories");
-        return requestAdapter.sendAsync(reqInfo, GitDeletedRepositories.class);
+        return builder()
+                .location("2b6869c4-cb25-42b5-b7a3-0d3e6be0a11a")
+                .build()
+                .executeAsync(GitDeletedRepositories.class);
     }
 
     /***
@@ -74,9 +82,10 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
      * @return git repository object {@link GitRepository}
      */
     public CompletableFuture<GitRepository> getAsync(String repositoryName) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + repositoryName;
-        return requestAdapter.sendAsync(reqInfo, GitRepository.class);
+        return builder()
+                .serviceEndpoint("repositoryId", repositoryName)
+                .build()
+                .executeAsync(GitRepository.class);
     }
 
     /***
@@ -87,10 +96,11 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
      * @return git repository object {@link GitRepository}
      */
     public CompletableFuture<GitRepository> getAsync(String repositoryName, boolean includeParent) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + repositoryName;
-        reqInfo.setQueryParameter("includeParent", includeParent);
-        return requestAdapter.sendAsync(reqInfo, GitRepository.class);
+        return builder()
+                .serviceEndpoint("repositoryId", repositoryName)
+                .query("includeParent", includeParent)
+                .build()
+                .executeAsync(GitRepository.class);
     }
 
     /***
@@ -99,7 +109,9 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
      * @return array of git repositories
      */
     public CompletableFuture<Repositories> listAsync() throws AzDException {
-        return requestAdapter.sendAsync(toGetRequestInformation(), Repositories.class);
+        return builder()
+                .build()
+                .executeAsync(Repositories.class);
     }
 
     /***
@@ -109,15 +121,10 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
      * @return array of git repositories
      */
     public CompletableFuture<Repositories> listAsync(Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-
-        if (requestConfiguration != null) {
-            final var config = new RequestConfiguration();
-            requestConfiguration.accept(config);
-            reqInfo.setQueryParameters(config.queryParameters);
-        }
-
-        return requestAdapter.sendAsync(reqInfo, Repositories.class);
+        return builder()
+                .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .executeAsync(Repositories.class);
     }
 
     /***
@@ -128,9 +135,11 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
      * @return a future repository object {@link GitRepository}
      */
     public CompletableFuture<GitRepository> updateAsync(String repositoryId, GitRepository gitRepository) throws AzDException {
-        var reqInfo = toPatchRequestInformation(gitRepository);
-        reqInfo.serviceEndpoint = service + "/" + repositoryId;
-        return requestAdapter.sendAsync(reqInfo, GitRepository.class);
+        return builder()
+                .PATCH(gitRepository)
+                .serviceEndpoint("repositoryId", repositoryId)
+                .build()
+                .executeAsync(GitRepository.class);
     }
 
     /***
@@ -140,7 +149,10 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
      * @return git repository object {@link GitRepository}
      */
     public GitRepository create(RepositoryRequest repositoryRequest) throws AzDException {
-        return requestAdapter.send(toPostRequestInformation(repositoryRequest), GitRepository.class);
+        return builder()
+                .POST(repositoryRequest)
+                .build()
+                .execute(GitRepository.class);
     }
 
     /***
@@ -149,9 +161,11 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public Void delete(String repositoryId) throws AzDException {
-        var reqInfo = toDeleteRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + repositoryId;
-        return requestAdapter.sendPrimitive(reqInfo);
+        return builder()
+                .DELETE()
+                .serviceEndpoint("repositoryId", repositoryId)
+                .build()
+                .executePrimitive();
     }
 
     /***
@@ -160,9 +174,10 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
      * @return Git deleted repository object {@link GitDeletedRepositories}
      */
     public GitDeletedRepositories listDeleted() throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service.replace("repositories", "deletedrepositories");
-        return requestAdapter.send(reqInfo, GitDeletedRepositories.class);
+        return builder()
+                .location("2b6869c4-cb25-42b5-b7a3-0d3e6be0a11a")
+                .build()
+                .execute(GitDeletedRepositories.class);
     }
 
     /***
@@ -172,9 +187,10 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
      * @return git repository object {@link GitRepository}
      */
     public GitRepository get(String repositoryName) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + repositoryName;
-        return requestAdapter.send(reqInfo, GitRepository.class);
+        return builder()
+                .serviceEndpoint("repositoryId", repositoryName)
+                .build()
+                .execute(GitRepository.class);
     }
 
     /***
@@ -185,10 +201,11 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
      * @return git repository object {@link GitRepository}
      */
     public GitRepository get(String repositoryName, boolean includeParent) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + repositoryName;
-        reqInfo.setQueryParameter("includeParent", includeParent);
-        return requestAdapter.send(reqInfo, GitRepository.class);
+        return builder()
+                .serviceEndpoint("repositoryId", repositoryName)
+                .query("includeParent", includeParent)
+                .build()
+                .execute(GitRepository.class);
     }
 
     /***
@@ -197,7 +214,9 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
      * @return array of git repositories
      */
     public Repositories list() throws AzDException {
-        return requestAdapter.send(toGetRequestInformation(), Repositories.class);
+        return builder()
+                .build()
+                .execute(Repositories.class);
     }
 
     /***
@@ -207,15 +226,10 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
      * @return array of git repositories
      */
     public Repositories list(Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-
-        if (requestConfiguration != null) {
-            final var config = new RequestConfiguration();
-            requestConfiguration.accept(config);
-            reqInfo.setQueryParameters(config.queryParameters);
-        }
-
-        return requestAdapter.send(reqInfo, Repositories.class);
+        return builder()
+                .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .execute(Repositories.class);
     }
 
     /***
@@ -226,9 +240,11 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
      * @return a future repository object {@link GitRepository}
      */
     public GitRepository update(String repositoryId, GitRepository gitRepository) throws AzDException {
-        var reqInfo = toPatchRequestInformation(gitRepository);
-        reqInfo.serviceEndpoint = service + "/" + repositoryId;
-        return requestAdapter.send(reqInfo, GitRepository.class);
+        return builder()
+                .PATCH(gitRepository)
+                .serviceEndpoint("repositoryId", repositoryId)
+                .build()
+                .execute(GitRepository.class);
     }
 
     /**
@@ -260,3 +276,4 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
     }
 
 }
+

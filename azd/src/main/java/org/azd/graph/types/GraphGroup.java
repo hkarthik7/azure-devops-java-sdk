@@ -44,7 +44,8 @@ public class GraphGroup extends GraphEntity {
 
         try {
             res = mapper.convertToString(this);
-        } catch (AzDException ignored) { }
+        } catch (AzDException ignored) {
+        }
 
         return res;
     }

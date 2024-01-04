@@ -165,9 +165,9 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
         var res = send(callbackUri, RequestMethod.GET, null, null, null,
                 null, null, null, null, null, null, null, true)
                 .thenApplyAsync(HttpResponse::body)
-                .join();         
-                
-        if(statusCode != 200)
+                .join();
+
+        if (statusCode != 200)
             MAPPER.mapJsonResponse(StreamHelper.convertToString(res), Map.class);
 
         return res;
@@ -259,7 +259,9 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
             put("value", promote); // "promote package type"
         }};
 
-        var body = new HashMap<String, Object>() {{ put("views", req); }};
+        var body = new HashMap<String, Object>() {{
+            put("views", req);
+        }};
 
         try {
             String r = send(RequestMethod.PATCH, CONNECTION, MAVEN, CONNECTION.getProject(),
@@ -460,7 +462,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
 
             String baseInstance = Instance.BASE_INSTANCE.setSubdomain("pkgs"); // This returns https://pkgs.dev.azure.com
             StringBuilder stringBuilder = new StringBuilder(baseInstance);
-            
+
             stringBuilder.append(CONNECTION.getOrganization());
             if (CONNECTION.getProject() != null) {
                 stringBuilder.append(pathSeparator).append(CONNECTION.getProject());
@@ -471,25 +473,25 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
             if (feedId != null) {
                 stringBuilder.append(pathSeparator).append(feedId);
             }
-            
-            String area="maven" + pathSeparator + "v1";
+
+            String area = "maven" + pathSeparator + "v1";
             stringBuilder.append(pathSeparator).append(area);
 
-            String resource=groupId + pathSeparator + artifactId + pathSeparator + version+ pathSeparator + fileName; 
+            String resource = groupId + pathSeparator + artifactId + pathSeparator + version + pathSeparator + fileName;
             if (resource != null) {
                 stringBuilder.append(pathSeparator).append(resource);
             }
-            
-            String requestUrl=stringBuilder.toString();
+
+            String requestUrl = stringBuilder.toString();
 
             var t = send(requestUrl, RequestMethod.PUT, CONNECTION, null, null,
-                            null, null, null, ApiVersion.MAVEN,null, HttpRequest.BodyPublishers.ofInputStream(() -> content),
-                            HttpResponse.BodyHandlers.ofString(), null, false);
+                    null, null, null, ApiVersion.MAVEN, null, HttpRequest.BodyPublishers.ofInputStream(() -> content),
+                    HttpResponse.BodyHandlers.ofString(), null, false);
 
-            String r= t.thenApplyAsync(HttpResponse::body).join();
-            if(!r.isEmpty()) // if the response is not empty, then the upload was not successful
-                MAPPER.mapJsonResponse(r, Map.class);      
-        } catch(AzDException e){
+            String r = t.thenApplyAsync(HttpResponse::body).join();
+            if (!r.isEmpty()) // if the response is not empty, then the upload was not successful
+                MAPPER.mapJsonResponse(r, Map.class);
+        } catch (AzDException e) {
             throw e;
         }
     }

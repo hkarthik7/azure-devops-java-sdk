@@ -1,0 +1,9 @@
+{
+  "name": "Unit tests configuration file.",
+  "description": "A new project will be created to run unit tests and this file serves as input source. Specify all the configuration to run unit tests in the config file.",
+  "properties": {
+    "builds": {
+      "definitionId": 25
+    }
+  }
+}

@@ -1,15 +1,14 @@
 package org.azd.git.refs;
 
+import org.azd.abstractions.BaseRequestBuilder;
+import org.azd.abstractions.QueryParameter;
+import org.azd.authentication.AccessTokenCredential;
 import org.azd.common.ApiVersion;
-import org.azd.common.types.QueryParameter;
 import org.azd.exceptions.AzDException;
 import org.azd.git.types.GitRef;
 import org.azd.git.types.GitRefUpdate;
 import org.azd.git.types.GitRefUpdateResults;
 import org.azd.git.types.GitRefs;
-import org.azd.interfaces.AccessTokenCredential;
-import org.azd.interfaces.RequestAdapter;
-import org.azd.utils.BaseRequestBuilder;
 
 import java.util.List;
 import java.util.Map;
@@ -21,44 +20,43 @@ import java.util.function.Consumer;
  */
 public class RefsRequestBuilder extends BaseRequestBuilder {
     /**
-     * Instantiates a new request builder instance and sets the default values.
-     * @param accessTokenCredential Authentication provider {@link AccessTokenCredential}.
-     * @param requestAdapter The request adapter to execute the requests.
+     * Instantiates a new RequestBuilder instance and sets the default values.
+     *
+     * @param organizationUrl       Represents organization location request url.
+     * @param accessTokenCredential Access token credential object.
      */
-    public RefsRequestBuilder(AccessTokenCredential accessTokenCredential, RequestAdapter requestAdapter) {
-        super(accessTokenCredential, requestAdapter, "git/repositories", ApiVersion.GIT);
+    public RefsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
+        super(organizationUrl, accessTokenCredential, "git", "2d874a60-a811-4f62-9c9f-963a6ea0a55b", ApiVersion.GIT);
     }
 
     /**
      * Queries the provided repository for its refs and returns them.
+     *
      * @param repositoryName The name or ID of the repository.
      * @return GitRefs future object {@link GitRefs}.
      * @throws AzDException Default Api exception handler.
      */
     public CompletableFuture<GitRefs> listAsync(String repositoryName) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + repositoryName + "/refs";
-        return requestAdapter.sendAsync(reqInfo, GitRefs.class);
+        return builder()
+                .serviceEndpoint("repositoryId", repositoryName)
+                .build()
+                .executeAsync(GitRefs.class);
     }
 
     /**
      * Queries the provided repository for its refs and returns them.
+     *
      * @param repositoryName The name or ID of the repository.
      * @return GitRefs future object {@link GitRefs}.
      * @throws AzDException Default Api exception handler.
      */
     public CompletableFuture<GitRefs> listAsync(String repositoryName,
                                                 Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + repositoryName + "/refs";
-
-        if (requestConfiguration != null) {
-            final var config = new RequestConfiguration();
-            requestConfiguration.accept(config);
-            reqInfo.setQueryParameters(config.queryParameters);
-        }
-
-        return requestAdapter.sendAsync(reqInfo, GitRefs.class);
+        return builder()
+                .serviceEndpoint("repositoryId", repositoryName)
+                .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .executeAsync(GitRefs.class);
     }
 
     /***
@@ -70,58 +68,59 @@ public class RefsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<GitRef> updateAsync(String repositoryName, String branchName, boolean isLocked) throws AzDException {
-        var reqInfo = toPatchRequestInformation(Map.of("isLocked", isLocked));
-        reqInfo.serviceEndpoint = service + "/" + repositoryName + "/refs";
-        reqInfo.setQueryParameter("filter", "heads/" + branchName);
-
-        return requestAdapter.sendAsync(reqInfo, GitRef.class);
+        return builder()
+                .PATCH(Map.of("isLocked", isLocked))
+                .serviceEndpoint("repositoryId", repositoryName)
+                .query("filter", "heads/" + branchName)
+                .build()
+                .executeAsync(GitRef.class);
     }
 
     /**
      * Creating, updating, or deleting refs(branches).
      * Updating a ref means making it point at a different commit than it used to. You must specify both the old and new commit to avoid race conditions.
+     *
      * @param repositoryName The name or ID of the repository.
-     * @param gitRefUpdates Collection of Git Reference object to update.
+     * @param gitRefUpdates  Collection of Git Reference object to update.
      * @return GitRefUpdateResults {@link GitRefUpdateResults}
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<GitRefUpdateResults> updateAsync(String repositoryName, List<GitRefUpdate> gitRefUpdates) throws AzDException {
-        var reqInfo = toPostRequestInformation(gitRefUpdates);
-        reqInfo.serviceEndpoint = service + "/" + repositoryName + "/refs";
-
-        return requestAdapter.sendAsync(reqInfo, GitRefUpdateResults.class);
+        return builder()
+                .PATCH(gitRefUpdates)
+                .serviceEndpoint("repositoryId", repositoryName)
+                .build()
+                .executeAsync(GitRefUpdateResults.class);
     }
 
     /**
      * Queries the provided repository for its refs and returns them.
+     *
      * @param repositoryName The name or ID of the repository.
      * @return GitRefs future object {@link GitRefs}.
      * @throws AzDException Default Api exception handler.
      */
     public GitRefs list(String repositoryName) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + repositoryName + "/refs";
-        return requestAdapter.send(reqInfo, GitRefs.class);
+        return builder()
+                .serviceEndpoint("repositoryId", repositoryName)
+                .build()
+                .execute(GitRefs.class);
     }
 
     /**
      * Queries the provided repository for its refs and returns them.
+     *
      * @param repositoryName The name or ID of the repository.
      * @return GitRefs future object {@link GitRefs}.
      * @throws AzDException Default Api exception handler.
      */
     public GitRefs list(String repositoryName,
                         Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + repositoryName + "/refs";
-
-        if (requestConfiguration != null) {
-            final var config = new RequestConfiguration();
-            requestConfiguration.accept(config);
-            reqInfo.setQueryParameters(config.queryParameters);
-        }
-
-        return requestAdapter.send(reqInfo, GitRefs.class);
+        return builder()
+                .serviceEndpoint("repositoryId", repositoryName)
+                .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .execute(GitRefs.class);
     }
 
     /***
@@ -133,26 +132,29 @@ public class RefsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public GitRef update(String repositoryName, String branchName, boolean isLocked) throws AzDException {
-        var reqInfo = toPatchRequestInformation(Map.of("isLocked", isLocked));
-        reqInfo.serviceEndpoint = service + "/" + repositoryName + "/refs";
-        reqInfo.setQueryParameter("filter", "heads/" + branchName);
-
-        return requestAdapter.send(reqInfo, GitRef.class);
+        return builder()
+                .PATCH(Map.of("isLocked", isLocked))
+                .serviceEndpoint("repositoryId", repositoryName)
+                .query("filter", "heads/" + branchName)
+                .build()
+                .execute(GitRef.class);
     }
 
     /**
      * Creating, updating, or deleting refs(branches).
      * Updating a ref means making it point at a different commit than it used to. You must specify both the old and new commit to avoid race conditions.
+     *
      * @param repositoryName The name or ID of the repository.
-     * @param gitRefUpdates Collection of Git Reference object to update.
+     * @param gitRefUpdates  Collection of Git Reference object to update.
      * @return GitRefUpdateResults {@link GitRefUpdateResults}
      * @throws AzDException Default Api Exception handler.
      */
     public GitRefUpdateResults update(String repositoryName, List<GitRefUpdate> gitRefUpdates) throws AzDException {
-        var reqInfo = toPostRequestInformation(gitRefUpdates);
-        reqInfo.serviceEndpoint = service + "/" + repositoryName + "/refs";
-
-        return requestAdapter.send(reqInfo, GitRefUpdateResults.class);
+        return builder()
+                .PATCH(gitRefUpdates)
+                .serviceEndpoint("repositoryId", repositoryName)
+                .build()
+                .execute(GitRefUpdateResults.class);
     }
 
 
@@ -192,7 +194,7 @@ public class RefsRequestBuilder extends BaseRequestBuilder {
         @QueryParameter(name = "includeMyBranches")
         public Boolean includeMyBranches;
         /**
-         *  Includes up to the first 1000 commit statuses for each ref. The default value is false.
+         * Includes up to the first 1000 commit statuses for each ref. The default value is false.
          */
         @QueryParameter(name = "includeStatuses")
         public Boolean includeStatuses;

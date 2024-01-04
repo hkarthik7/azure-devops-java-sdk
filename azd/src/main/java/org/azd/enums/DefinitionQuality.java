@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Represents a reference to a definition. 
+ * Represents a reference to a definition.
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public enum DefinitionQuality {

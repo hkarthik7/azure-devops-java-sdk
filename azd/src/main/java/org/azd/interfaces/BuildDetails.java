@@ -147,9 +147,9 @@ public interface BuildDetails {
 
     SourceProviderAttributes getSourceProviders() throws AzDException;
 
-    SourceProvideBranches getBranches(String providerName, String serviceEndpointId, String repositoryName) throws AzDException;
+    SourceProviderBranches getBranches(String providerName, String serviceEndpointId, String repositoryName) throws AzDException;
 
-    SourceProvideBranches getBranches(String providerName, String serviceEndpointId, String repositoryName, String branchName) throws AzDException;
+    SourceProviderBranches getBranches(String providerName, String serviceEndpointId, String repositoryName, String branchName) throws AzDException;
 
     SourceRepositories getRepositories(String providerName, String serviceEndpointId) throws AzDException;
 

@@ -1,34 +1,42 @@
 package org.azd.git.types;
 /**
-----------------------------------------------------------
-	GENERATED FILE, should be edited to suit the purpose.
-----------------------------------------------------------
-**/
+ * ----------------------------------------------------------
+ * GENERATED FILE, should be edited to suit the purpose.
+ * ----------------------------------------------------------
+ **/
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.serializer.SerializableEntity;
+import org.azd.abstractions.serializer.SerializableEntity;
 
 import java.util.List;
 
 /**
- * None 
-**/
+ * None
+ **/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GitCommitChanges extends SerializableEntity {
 
-	@JsonProperty("changeCounts")
-	private Object changeCounts;
+    @JsonProperty("changeCounts")
+    private Object changeCounts;
 
-	@JsonProperty("changes")
-	private List<GitChange> changes;
+    @JsonProperty("changes")
+    private List<GitChange> changes;
 
-	public Object getChangeCounts() { return changeCounts; }
+    public Object getChangeCounts() {
+        return changeCounts;
+    }
 
-	public void setChangeCounts(Object changeCounts) { this.changeCounts = changeCounts; }
+    public void setChangeCounts(Object changeCounts) {
+        this.changeCounts = changeCounts;
+    }
 
-	public List<GitChange> getChanges() { return changes; }
+    public List<GitChange> getChanges() {
+        return changes;
+    }
 
-	public void setChanges(List<GitChange> changes) { this.changes = changes; }
+    public void setChanges(List<GitChange> changes) {
+        this.changes = changes;
+    }
 
 }

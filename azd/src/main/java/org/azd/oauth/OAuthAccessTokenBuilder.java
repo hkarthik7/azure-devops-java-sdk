@@ -2,14 +2,11 @@ package org.azd.oauth;
 
 import org.azd.enums.CustomHeader;
 import org.azd.enums.Instance;
-import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.URLHelper;
-import org.azd.http.RequestInformation;
-import org.azd.interfaces.RequestAdapter;
+import org.azd.http.ClientRequest;
 import org.azd.oauth.types.AuthorizationEndpoint;
 import org.azd.oauth.types.AuthorizedToken;
-import org.azd.utils.BaseRequestBuilder;
 
 import java.util.Objects;
 
@@ -17,13 +14,11 @@ import java.util.Objects;
  * Provides the functionality to generate and oauth access token to call Azure DevOps Api.
  * Note that you should have registered you application before using this.
  */
-public class OAuthAccessTokenBuilder extends BaseRequestBuilder {
+public class OAuthAccessTokenBuilder {
     /**
      * Instantiates a new request builder instance and sets the default values.
-     * @param requestAdapter The request adapter to execute the requests.
      */
-    public OAuthAccessTokenBuilder(RequestAdapter requestAdapter) {
-        super(null, requestAdapter, Instance.ACCOUNT_INSTANCE.getInstance(), null);
+    public OAuthAccessTokenBuilder() {
     }
 
     /***
@@ -31,7 +26,7 @@ public class OAuthAccessTokenBuilder extends BaseRequestBuilder {
      * @param authorizationEndpoint Provide the parameters to build authorization endpoint.
      * @return The authorization endpoint to authorize your app
      */
-    public static String buildAuthorizationEndpoint(AuthorizationEndpoint authorizationEndpoint) {
+    public String buildAuthorizationEndpoint(AuthorizationEndpoint authorizationEndpoint) {
         Objects.requireNonNull(authorizationEndpoint);
         var allScopes = new StringBuilder();
 
@@ -41,16 +36,16 @@ public class OAuthAccessTokenBuilder extends BaseRequestBuilder {
         }
 
         StringBuilder stringBuilder = new StringBuilder()
-            .append(Instance.ACCOUNT_INSTANCE.getInstance())
-            .append("/oauth2/authorize?client_id=")
-            .append(authorizationEndpoint.clientId)
-            .append("&response_type=Assertion")
-            .append("&state=")
-            .append(authorizationEndpoint.state)
-            .append("&scope=")
-            .append(allScopes.toString().replaceAll("%20$", ""))
-            .append("&redirect_uri=")
-            .append(URLHelper.encodeSpecialChars(authorizationEndpoint.redirectUrl));
+                .append(Instance.ACCOUNT_INSTANCE.getInstance())
+                .append("/oauth2/authorize?client_id=")
+                .append(authorizationEndpoint.clientId)
+                .append("&response_type=Assertion")
+                .append("&state=")
+                .append(authorizationEndpoint.state)
+                .append("&scope=")
+                .append(allScopes.toString().replaceAll("%20$", ""))
+                .append("&redirect_uri=")
+                .append(URLHelper.encodeSpecialChars(authorizationEndpoint.redirectUrl));
 
         return stringBuilder.toString();
     }
@@ -67,7 +62,7 @@ public class OAuthAccessTokenBuilder extends BaseRequestBuilder {
     public AuthorizedToken getAccessToken(String appSecret, String authCode, String callbackUrl) throws AzDException {
 
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(service);
+        stringBuilder.append(Instance.ACCOUNT_INSTANCE.getInstance());
         stringBuilder.append("/oauth2/token");
 
         var body = new StringBuilder()
@@ -80,8 +75,7 @@ public class OAuthAccessTokenBuilder extends BaseRequestBuilder {
                 .toString();
 
         // add current system time to refresh the token automatically.
-        var reqInfo = toGetRequestInformation(stringBuilder.toString(), body);
-        var authorizedToken = requestAdapter.send(reqInfo, AuthorizedToken.class);
+        var authorizedToken = builder(stringBuilder.toString(), body).execute(AuthorizedToken.class);
         authorizedToken.setReceivedTimestamp(System.currentTimeMillis());
 
         return authorizedToken;
@@ -98,7 +92,7 @@ public class OAuthAccessTokenBuilder extends BaseRequestBuilder {
     public AuthorizedToken getRefreshToken(String appSecret, String refreshToken, String callbackUrl) throws AzDException {
 
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(service);
+        stringBuilder.append(Instance.ACCOUNT_INSTANCE.getInstance());
         stringBuilder.append("/oauth2/token");
 
         var body = new StringBuilder()
@@ -110,8 +104,7 @@ public class OAuthAccessTokenBuilder extends BaseRequestBuilder {
                 .append(callbackUrl)
                 .toString();
 
-        var reqInfo = toGetRequestInformation(stringBuilder.toString(), body);
-        var authorizedToken = requestAdapter.send(reqInfo, AuthorizedToken.class);
+        var authorizedToken = builder(stringBuilder.toString(), body).execute(AuthorizedToken.class);
         authorizedToken.setReceivedTimestamp(System.currentTimeMillis());
 
         return authorizedToken;
@@ -124,16 +117,14 @@ public class OAuthAccessTokenBuilder extends BaseRequestBuilder {
      */
     public boolean hasTokenExpired(AuthorizedToken authorizedToken) {
         return authorizedToken.getReceivedTimestamp() < 1629897097271L || (authorizedToken.getReceivedTimestamp()
-                + authorizedToken.getExpiresIn() * 1000) < System.currentTimeMillis();
+                + authorizedToken.getExpiresIn() * 1000L) < System.currentTimeMillis();
     }
 
-    private RequestInformation toGetRequestInformation(String requestUrl, String body) {
-        var reqInfo = new RequestInformation();
-        reqInfo.requestMethod = RequestMethod.POST;
-        reqInfo.setRequestUrl(requestUrl);
-        reqInfo.requestHeaders.add(CustomHeader.URL_ENCODED);
-        reqInfo.requestBody = body;
-
-        return reqInfo;
+    private ClientRequest builder(String requestUrl, String body) {
+        return ClientRequest.builder()
+                .URI(requestUrl)
+                .header(CustomHeader.URL_ENCODED)
+                .POST(body)
+                .build();
     }
 }

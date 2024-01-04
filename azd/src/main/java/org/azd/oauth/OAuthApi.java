@@ -4,7 +4,6 @@ import org.azd.enums.VsoScope;
 import org.azd.exceptions.AzDException;
 import org.azd.oauth.types.AuthorizationEndpoint;
 import org.azd.oauth.types.AuthorizedToken;
-import org.azd.utils.InstanceFactory;
 
 import java.util.List;
 
@@ -18,7 +17,7 @@ public class OAuthApi {
      * Default constructor
      */
     public OAuthApi() {
-        OAUTH = InstanceFactory.createOAuthAccessTokenBuilder();
+        OAUTH = new OAuthAccessTokenBuilder();
     }
 
     /***
@@ -37,7 +36,7 @@ public class OAuthApi {
         authorizationEndpoint.redirectUrl = redirectUrl;
         authorizationEndpoint.state = state;
 
-        return OAuthAccessTokenBuilder.buildAuthorizationEndpoint(authorizationEndpoint);
+        return OAUTH.buildAuthorizationEndpoint(authorizationEndpoint);
     }
 
 

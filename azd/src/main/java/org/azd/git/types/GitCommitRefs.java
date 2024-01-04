@@ -2,7 +2,7 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.serializer.SerializableEntity;
+import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  * Represents an array of Git commit references.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitCommitRefs extends SerializableEntity {
+public class GitCommitRefs extends SerializableCollectionEntity {
     /**
      * Contains an array of git commit references.
      */

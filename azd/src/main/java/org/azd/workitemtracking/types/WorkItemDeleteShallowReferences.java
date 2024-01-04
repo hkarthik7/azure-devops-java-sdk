@@ -2,7 +2,7 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.serializer.SerializableEntity;
+import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  * Work item shallow references
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemDeleteShallowReferences extends SerializableEntity {
+public class WorkItemDeleteShallowReferences extends SerializableCollectionEntity {
     /***
      * Work item shallow references
      */

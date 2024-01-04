@@ -2,18 +2,16 @@ package org.azd.distributedtask.deploymentgroups;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.ApiVersion;
-import org.azd.common.types.QueryParameter;
+import org.azd.abstractions.BaseRequestBuilder;
+import org.azd.abstractions.QueryParameter;
+import org.azd.authentication.AccessTokenCredential;
 import org.azd.distributedtask.types.DeploymentGroup;
 import org.azd.distributedtask.types.DeploymentGroups;
 import org.azd.enums.DeploymentGroupActionFilter;
 import org.azd.enums.DeploymentGroupExpands;
 import org.azd.exceptions.AzDException;
-import org.azd.interfaces.AccessTokenCredential;
-import org.azd.interfaces.RequestAdapter;
-import org.azd.utils.BaseRequestBuilder;
 
-import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
@@ -22,12 +20,13 @@ import java.util.function.Consumer;
  */
 public class DeploymentGroupsRequestBuilder extends BaseRequestBuilder {
     /**
-     * Instantiates the request builder with required values.
-     * @param accessTokenCredential Authentication type {@link AccessTokenCredential}.
-     * @param requestAdapter The request adapter to execute the requests.
+     * Instantiates a new RequestBuilder instance and sets the default values.
+     *
+     * @param organizationUrl       Represents organization location request url.
+     * @param accessTokenCredential Access token credential object.
      */
-    public DeploymentGroupsRequestBuilder(AccessTokenCredential accessTokenCredential, RequestAdapter requestAdapter) {
-        super(accessTokenCredential, requestAdapter, "distributedtask/deploymentgroups", ApiVersion.DISTRIBUTED_TASK);
+    public DeploymentGroupsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
+        super(organizationUrl, accessTokenCredential, "distributedtask", "083c4d89-ab35-45af-aa11-7cf66895c53e");
     }
 
     /***
@@ -37,8 +36,10 @@ public class DeploymentGroupsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<DeploymentGroup> addAsync(DeploymentGroupRequest deploymentGroup) throws AzDException {
-        var reqInfo = toPostRequestInformation(deploymentGroup);
-        return requestAdapter.sendAsync(reqInfo, DeploymentGroup.class);
+        return builder()
+                .POST(deploymentGroup)
+                .build()
+                .executeAsync(DeploymentGroup.class);
     }
 
     /***
@@ -47,10 +48,11 @@ public class DeploymentGroupsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Void> deleteAsync(int deploymentGroupId) throws AzDException {
-        var reqInfo = toDeleteRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + deploymentGroupId;
-
-        return requestAdapter.sendPrimitiveAsync(reqInfo);
+        return builder()
+                .DELETE()
+                .serviceEndpoint("deploymentGroupId", deploymentGroupId)
+                .build()
+                .executePrimitiveAsync();
     }
 
     /***
@@ -60,10 +62,10 @@ public class DeploymentGroupsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<DeploymentGroup> getAsync(int deploymentGroupId) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + deploymentGroupId;
-
-        return requestAdapter.sendAsync(reqInfo, DeploymentGroup.class);
+        return builder()
+                .serviceEndpoint("deploymentGroupId", deploymentGroupId)
+                .build()
+                .executeAsync(DeploymentGroup.class);
     }
 
     /***
@@ -73,17 +75,13 @@ public class DeploymentGroupsRequestBuilder extends BaseRequestBuilder {
      * @return Deployment group object {@link DeploymentGroup}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<DeploymentGroup> getAsync(int deploymentGroupId, Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + deploymentGroupId;
-
-        if (requestConfiguration != null) {
-            final var config = new RequestConfiguration();
-            requestConfiguration.accept(config);
-            reqInfo.setQueryParameters(config.queryParameters);
-        }
-
-        return requestAdapter.sendAsync(reqInfo, DeploymentGroup.class);
+    public CompletableFuture<DeploymentGroup> getAsync(int deploymentGroupId,
+                                                       Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
+        return builder()
+                .serviceEndpoint("deploymentGroupId", deploymentGroupId)
+                .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .executeAsync(DeploymentGroup.class);
     }
 
     /***
@@ -92,8 +90,9 @@ public class DeploymentGroupsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<DeploymentGroups> listAsync() throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        return requestAdapter.sendAsync(reqInfo, DeploymentGroups.class);
+        return builder()
+                .build()
+                .executeAsync(DeploymentGroups.class);
     }
 
     /***
@@ -103,15 +102,10 @@ public class DeploymentGroupsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<DeploymentGroups> listAsync(Consumer<ListRequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-
-        if (requestConfiguration != null) {
-            final var config = new ListRequestConfiguration();
-            requestConfiguration.accept(config);
-            reqInfo.setQueryParameters(config.queryParameters);
-        }
-
-        return requestAdapter.sendAsync(reqInfo, DeploymentGroups.class);
+        return builder()
+                .query(ListRequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .executeAsync(DeploymentGroups.class);
     }
 
     /***
@@ -123,15 +117,11 @@ public class DeploymentGroupsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<DeploymentGroup> updateAsync(int deploymentGroupId, String name, String description) throws AzDException {
-        var requestBody = new HashMap<String, Object>() {{
-            put("name", name);
-            put("description", description);
-        }};
-
-        var reqInfo = toPatchRequestInformation(requestBody);
-        reqInfo.serviceEndpoint = service + "/" + deploymentGroupId;
-
-        return requestAdapter.sendAsync(reqInfo, DeploymentGroup.class);
+        return builder()
+                .PATCH(Map.of("name", name, "description", description))
+                .serviceEndpoint("deploymentGroupId", deploymentGroupId)
+                .build()
+                .executeAsync(DeploymentGroup.class);
     }
 
     /***
@@ -141,8 +131,10 @@ public class DeploymentGroupsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public DeploymentGroup add(DeploymentGroupRequest deploymentGroup) throws AzDException {
-        var reqInfo = toPostRequestInformation(deploymentGroup);
-        return requestAdapter.send(reqInfo, DeploymentGroup.class);
+        return builder()
+                .POST(deploymentGroup)
+                .build()
+                .execute(DeploymentGroup.class);
     }
 
     /***
@@ -151,10 +143,11 @@ public class DeploymentGroupsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public Void delete(int deploymentGroupId) throws AzDException {
-        var reqInfo = toDeleteRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + deploymentGroupId;
-
-        return requestAdapter.sendPrimitive(reqInfo);
+        return builder()
+                .DELETE()
+                .serviceEndpoint("deploymentGroupId", deploymentGroupId)
+                .build()
+                .executePrimitive();
     }
 
     /***
@@ -164,10 +157,10 @@ public class DeploymentGroupsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public DeploymentGroup get(int deploymentGroupId) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + deploymentGroupId;
-
-        return requestAdapter.send(reqInfo, DeploymentGroup.class);
+        return builder()
+                .serviceEndpoint("deploymentGroupId", deploymentGroupId)
+                .build()
+                .execute(DeploymentGroup.class);
     }
 
     /***
@@ -177,17 +170,13 @@ public class DeploymentGroupsRequestBuilder extends BaseRequestBuilder {
      * @return Deployment group object {@link DeploymentGroup}
      * @throws AzDException Default Api Exception handler.
      */
-    public DeploymentGroup get(int deploymentGroupId, Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = service + "/" + deploymentGroupId;
-
-        if (requestConfiguration != null) {
-            final var config = new RequestConfiguration();
-            requestConfiguration.accept(config);
-            reqInfo.setQueryParameters(config.queryParameters);
-        }
-
-        return requestAdapter.send(reqInfo, DeploymentGroup.class);
+    public DeploymentGroup get(int deploymentGroupId,
+                               Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
+        return builder()
+                .serviceEndpoint("deploymentGroupId", deploymentGroupId)
+                .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .execute(DeploymentGroup.class);
     }
 
     /***
@@ -196,8 +185,9 @@ public class DeploymentGroupsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public DeploymentGroups list() throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        return requestAdapter.send(reqInfo, DeploymentGroups.class);
+        return builder()
+                .build()
+                .execute(DeploymentGroups.class);
     }
 
     /***
@@ -207,15 +197,10 @@ public class DeploymentGroupsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public DeploymentGroups list(Consumer<ListRequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-
-        if (requestConfiguration != null) {
-            final var config = new ListRequestConfiguration();
-            requestConfiguration.accept(config);
-            reqInfo.setQueryParameters(config.queryParameters);
-        }
-
-        return requestAdapter.send(reqInfo, DeploymentGroups.class);
+        return builder()
+                .query(ListRequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .execute(DeploymentGroups.class);
     }
 
     /***
@@ -227,15 +212,11 @@ public class DeploymentGroupsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public DeploymentGroup update(int deploymentGroupId, String name, String description) throws AzDException {
-        var requestBody = new HashMap<String, Object>() {{
-            put("name", name);
-            put("description", description);
-        }};
-
-        var reqInfo = toPatchRequestInformation(requestBody);
-        reqInfo.serviceEndpoint = service + "/" + deploymentGroupId;
-
-        return requestAdapter.send(reqInfo, DeploymentGroup.class);
+        return builder()
+                .PATCH(Map.of("name", name, "description", description))
+                .serviceEndpoint("deploymentGroupId", deploymentGroupId)
+                .build()
+                .execute(DeploymentGroup.class);
     }
 
     /**

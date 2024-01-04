@@ -2,8 +2,8 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.abstractions.serializer.SerializableEntity;
 import org.azd.common.types.ReferenceLinks;
-import org.azd.serializer.SerializableEntity;
 
 /***
  * Represents a queue for running builds.

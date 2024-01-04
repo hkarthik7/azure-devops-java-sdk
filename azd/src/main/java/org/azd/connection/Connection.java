@@ -13,6 +13,8 @@ import org.azd.oauth.types.AuthorizedToken;
  */
 @Deprecated(since = "v6.0; This is deprecated; Please use AzDClientApi which uses Personal access token and OAuth2.0 authentication.")
 public class Connection {
+    private static final TokenRefreshedHandler defaultTokenRefreshedHandler = newToken -> {
+    };
     private String organization;
     private String project;
     private String personalAccessToken;
@@ -20,7 +22,6 @@ public class Connection {
     private String appCallBackURL;
     private AuthorizedToken oauthToken = null;
     private TokenRefreshedHandler tokenRefreshedHandler = defaultTokenRefreshedHandler;
-    private static final TokenRefreshedHandler defaultTokenRefreshedHandler = newToken -> {};
 
     /***
      * default with no parameters

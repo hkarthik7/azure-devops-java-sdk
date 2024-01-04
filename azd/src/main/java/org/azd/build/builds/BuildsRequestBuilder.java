@@ -1,16 +1,14 @@
 package org.azd.build.builds;
 
+import org.azd.abstractions.BaseRequestBuilder;
+import org.azd.abstractions.QueryParameter;
+import org.azd.authentication.AccessTokenCredential;
 import org.azd.build.types.Build;
 import org.azd.build.types.Builds;
 import org.azd.build.types.RetentionLeases;
 import org.azd.common.ApiVersion;
-import org.azd.common.types.QueryParameter;
 import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
-import org.azd.http.RequestInformation;
-import org.azd.interfaces.AccessTokenCredential;
-import org.azd.interfaces.RequestAdapter;
-import org.azd.utils.BaseRequestBuilder;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
@@ -20,36 +18,41 @@ import java.util.function.Consumer;
  */
 public class BuildsRequestBuilder extends BaseRequestBuilder {
     /**
-     * Instantiates a new request builder instance and sets the default values.
-     * @param accessTokenCredential Authentication provider {@link AccessTokenCredential}.
-     * @param requestAdapter The request adapter to execute the requests.
+     * Instantiates a new RequestBuilder instance and sets the default values.
+     *
+     * @param organizationUrl       Represents organization location request url.
+     * @param accessTokenCredential Access token credential object.
      */
-    public BuildsRequestBuilder(AccessTokenCredential accessTokenCredential, RequestAdapter requestAdapter) {
-        super(accessTokenCredential, requestAdapter, "build/builds", ApiVersion.BUILD);
+    public BuildsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
+        super(organizationUrl, accessTokenCredential, "build", "0cd358e1-9217-4d94-8269-1c1ee6f93dcf");
+
     }
 
     /**
      * Provides functionality to Build changes Api.
+     *
      * @return BuildChangesRequestBuilder {@link BuildChangesRequestBuilder}
      */
     public BuildChangesRequestBuilder changes() {
-        return new BuildChangesRequestBuilder(accessTokenCredential, requestAdapter);
+        return new BuildChangesRequestBuilder(organizationUrl, accessTokenCredential);
     }
 
     /**
      * Provides functionality to manage Build logs Api.
+     *
      * @return BuildLogsRequestBuilder {@link BuildLogsRequestBuilder}
      */
     public BuildLogsRequestBuilder logs() {
-        return new BuildLogsRequestBuilder(accessTokenCredential, requestAdapter);
+        return new BuildLogsRequestBuilder(organizationUrl, accessTokenCredential);
     }
 
     /**
      * Provides functionality to manage Build work items Api.
+     *
      * @return BuildWorkItemsRequestBuilder {@link BuildWorkItemsRequestBuilder}
      */
     public BuildWorkItemsRequestBuilder workItems() {
-        return new BuildWorkItemsRequestBuilder(accessTokenCredential, requestAdapter);
+        return new BuildWorkItemsRequestBuilder(organizationUrl, accessTokenCredential);
     }
 
     /***
@@ -58,10 +61,11 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Void> deleteAsync(int buildId) throws AzDException {
-        var reqInfo = toDeleteRequestInformation();
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId;
-
-        return requestAdapter.sendPrimitiveAsync(reqInfo);
+        return builder()
+                .DELETE()
+                .serviceEndpoint("buildId", buildId)
+                .build()
+                .executePrimitiveAsync();
     }
 
     /***
@@ -71,9 +75,10 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @return Future build object {@link Build}
      */
     public CompletableFuture<Build> getAsync(int buildId) throws AzDException {
-        var reqInfo = toGetInformation(null);
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId;
-        return requestAdapter.sendAsync(reqInfo, Build.class);
+        return builder()
+                .serviceEndpoint("buildId", buildId)
+                .build()
+                .executeAsync(Build.class);
     }
 
     /***
@@ -84,11 +89,11 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @return Future build object {@link Build}
      */
     public CompletableFuture<Build> getAsync(int buildId, String propertyFilters) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId;
-        reqInfo.setQueryParameter("propertyFilters", propertyFilters);
-
-        return requestAdapter.sendAsync(reqInfo, Build.class);
+        return builder()
+                .serviceEndpoint("buildId", buildId)
+                .query("propertyFilters", propertyFilters)
+                .build()
+                .executeAsync(Build.class);
     }
 
     /***
@@ -98,11 +103,12 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @return Future Retention leases object {@link RetentionLeases}
      */
     public CompletableFuture<RetentionLeases> getRetentionLeasesAsync(int buildId) throws AzDException {
-        var reqInfo = toGetInformation(null);
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/leases";
-        reqInfo.apiVersion = ApiVersion.BUILD_RETENTION_LEASES;
-
-        return requestAdapter.sendAsync(reqInfo, RetentionLeases.class);
+        return builder()
+                .location("3da19a6a-f088-45c4-83ce-2ad3a87be6c4")
+                .serviceEndpoint("buildId", buildId)
+                .apiVersion(ApiVersion.BUILD_RETENTION_LEASES)
+                .build()
+                .executeAsync(RetentionLeases.class);
     }
 
     /***
@@ -111,9 +117,9 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @return Future Builds object {@link org.azd.build.types.Builds}
      */
     public CompletableFuture<Builds> listAsync() throws AzDException {
-        var reqInfo = toGetInformation(null);
-
-        return requestAdapter.sendAsync(reqInfo, Builds.class);
+        return builder()
+                .build()
+                .executeAsync(Builds.class);
     }
 
     /***
@@ -122,9 +128,10 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @return Future Builds object {@link org.azd.build.types.Builds}
      */
     public CompletableFuture<Builds> listAsync(Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetInformation(requestConfiguration);
-
-        return requestAdapter.sendAsync(reqInfo, Builds.class);
+        return builder()
+                .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .executeAsync(Builds.class);
     }
 
     /***
@@ -134,10 +141,11 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @return a build object {@link Build}
      */
     public CompletableFuture<Build> queueAsync(int definitionId) throws AzDException {
-        var reqInfo = toPostRequestInformation(null);
-        reqInfo.setQueryParameter("definitionId", definitionId);
-
-        return requestAdapter.sendAsync(reqInfo, Build.class);
+        return builder()
+                .POST(null)
+                .query("definitionId", definitionId)
+                .build()
+                .executeAsync(Build.class);
     }
 
     /***
@@ -147,26 +155,28 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @return a build object {@link Build}
      */
     public CompletableFuture<Build> queueAsync(Build build) throws AzDException {
-        var reqInfo = toPostRequestInformation(build);
-
-        return requestAdapter.sendAsync(reqInfo, Build.class);
+        return builder()
+                .POST(build)
+                .build()
+                .executeAsync(Build.class);
     }
 
     /**
      * Updates a build.
      *
-     * @param build pass the Build object to update. {@link Build}
+     * @param build   pass the Build object to update. {@link Build}
      * @param buildId The ID of the build.
-     * @param retry None
+     * @param retry   None
      * @return Build Object {@link Build}
      * @throws AzDException Default Api Exception handler.
      **/
     public CompletableFuture<Build> updateAsync(int buildId, boolean retry, Build build) throws AzDException {
-        var reqInfo = toPatchRequestInformation(build);
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId;
-        reqInfo.setQueryParameter("retry", retry);
-
-        return requestAdapter.sendAsync(reqInfo, Build.class);
+        return builder()
+                .PATCH(build)
+                .serviceEndpoint("buildId", buildId)
+                .query("retry", retry)
+                .build()
+                .executeAsync(Build.class);
     }
 
     /**
@@ -177,21 +187,23 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      **/
     public CompletableFuture<Builds> updateAsync(Builds builds) throws AzDException {
-        var reqInfo = toPatchRequestInformation(builds);
-
-        return requestAdapter.sendAsync(reqInfo, Builds.class);
+        return builder()
+                .PATCH(builds)
+                .build()
+                .executeAsync(Builds.class);
     }
 
     /***
-     * Deletes a build.
+     * Deletes a build hronously.
      * @param buildId pass the build id to delete
      * @throws AzDException Default Api Exception handler.
      */
     public Void delete(int buildId) throws AzDException {
-        var reqInfo = toDeleteRequestInformation();
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId;
-
-        return requestAdapter.sendPrimitive(reqInfo);
+        return builder()
+                .DELETE()
+                .serviceEndpoint("buildId", buildId)
+                .build()
+                .executePrimitive();
     }
 
     /***
@@ -201,9 +213,10 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @return Future build object {@link Build}
      */
     public Build get(int buildId) throws AzDException {
-        var reqInfo = toGetInformation(null);
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId;
-        return requestAdapter.send(reqInfo, Build.class);
+        return builder()
+                .serviceEndpoint("buildId", buildId)
+                .build()
+                .execute(Build.class);
     }
 
     /***
@@ -214,11 +227,11 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @return Future build object {@link Build}
      */
     public Build get(int buildId, String propertyFilters) throws AzDException {
-        var reqInfo = toGetRequestInformation();
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId;
-        reqInfo.setQueryParameter("propertyFilters", propertyFilters);
-
-        return requestAdapter.send(reqInfo, Build.class);
+        return builder()
+                .serviceEndpoint("buildId", buildId)
+                .query("propertyFilters", propertyFilters)
+                .build()
+                .execute(Build.class);
     }
 
     /***
@@ -228,11 +241,12 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @return Future Retention leases object {@link RetentionLeases}
      */
     public RetentionLeases getRetentionLeases(int buildId) throws AzDException {
-        var reqInfo = toGetInformation(null);
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/leases";
-        reqInfo.apiVersion = ApiVersion.BUILD_RETENTION_LEASES;
-
-        return requestAdapter.send(reqInfo, RetentionLeases.class);
+        return builder()
+                .location("3da19a6a-f088-45c4-83ce-2ad3a87be6c4")
+                .serviceEndpoint("buildId", buildId)
+                .apiVersion(ApiVersion.BUILD_RETENTION_LEASES)
+                .build()
+                .execute(RetentionLeases.class);
     }
 
     /***
@@ -241,9 +255,9 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @return Future Builds object {@link org.azd.build.types.Builds}
      */
     public Builds list() throws AzDException {
-        var reqInfo = toGetInformation(null);
-
-        return requestAdapter.send(reqInfo, Builds.class);
+        return builder()
+                .build()
+                .execute(Builds.class);
     }
 
     /***
@@ -252,9 +266,10 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @return Future Builds object {@link org.azd.build.types.Builds}
      */
     public Builds list(Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
-        var reqInfo = toGetInformation(requestConfiguration);
-
-        return requestAdapter.send(reqInfo, Builds.class);
+        return builder()
+                .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .execute(Builds.class);
     }
 
     /***
@@ -264,10 +279,11 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @return a build object {@link Build}
      */
     public Build queue(int definitionId) throws AzDException {
-        var reqInfo = toPostRequestInformation(null);
-        reqInfo.setQueryParameter("definitionId", definitionId);
-
-        return requestAdapter.send(reqInfo, Build.class);
+        return builder()
+                .POST(null)
+                .query("definitionId", definitionId)
+                .build()
+                .execute(Build.class);
     }
 
     /***
@@ -277,26 +293,28 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @return a build object {@link Build}
      */
     public Build queue(Build build) throws AzDException {
-        var reqInfo = toPostRequestInformation(build);
-
-        return requestAdapter.send(reqInfo, Build.class);
+        return builder()
+                .POST(build)
+                .build()
+                .execute(Build.class);
     }
 
     /**
      * Updates a build.
      *
-     * @param build pass the Build object to update. {@link Build}
+     * @param build   pass the Build object to update. {@link Build}
      * @param buildId The ID of the build.
-     * @param retry None
+     * @param retry   None
      * @return Build Object {@link Build}
      * @throws AzDException Default Api Exception handler.
      **/
     public Build update(int buildId, boolean retry, Build build) throws AzDException {
-        var reqInfo = toPatchRequestInformation(build);
-        reqInfo.serviceEndpoint = reqInfo.serviceEndpoint + "/" + buildId;
-        reqInfo.setQueryParameter("retry", retry);
-
-        return requestAdapter.send(reqInfo, Build.class);
+        return builder()
+                .PATCH(build)
+                .serviceEndpoint("buildId", buildId)
+                .query("retry", retry)
+                .build()
+                .execute(Build.class);
     }
 
     /**
@@ -307,9 +325,10 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      **/
     public Builds update(Builds builds) throws AzDException {
-        var reqInfo = toPatchRequestInformation(builds.getBuildResults());
-
-        return requestAdapter.send(reqInfo, Builds.class);
+        return builder()
+                .PATCH(builds)
+                .build()
+                .execute(Builds.class);
     }
 
     /**
@@ -387,7 +406,6 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
         @QueryParameter(name = "reasonFilter")
         public BuildReason reasonFilter;
         /**
-         *
          * If specified, filters to builds that built from this repository.
          */
         @QueryParameter(name = "repositoryId")
@@ -425,20 +443,5 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
     public static class RequestConfiguration {
         public GetQueryParameters queryParameters = new GetQueryParameters();
     }
-
-
-    /**
-     * Constructs the request information for Build Api.
-     * @param requestConfig Consumer of query parameters.
-     * @return RequestInformation object {@link RequestInformation}
-     */
-    private RequestInformation toGetInformation(Consumer<RequestConfiguration> requestConfig) {
-        var reqInfo = toGetRequestInformation();
-        if (requestConfig != null) {
-            final var config = new RequestConfiguration();
-            requestConfig.accept(config);
-            reqInfo.setQueryParameters(config.queryParameters);
-        }
-        return reqInfo;
-    }
 }
+
