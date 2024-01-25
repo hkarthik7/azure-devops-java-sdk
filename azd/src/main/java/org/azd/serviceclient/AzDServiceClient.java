@@ -10,6 +10,7 @@ import org.azd.distributedtask.DistributedTaskRequestBuilder;
 import org.azd.extensionmanagement.ExtensionManagementRequestBuilder;
 import org.azd.featuremanagement.FeatureManagementRequestBuilder;
 import org.azd.git.GitBaseRequestBuilder;
+import org.azd.graph.GraphRequestBuilder;
 import org.azd.helpers.HelpersRequestBuilder;
 import org.azd.locations.LocationsBaseRequestBuilder;
 import org.azd.oauth.OAuthAccessTokenBuilder;
@@ -103,6 +104,14 @@ public interface AzDServiceClient {
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/git/?view=azure-devops-rest-7.1">Git</a>
      */
     GitBaseRequestBuilder git();
+
+    /**
+     * Request builder for Graph Api.
+     *
+     * @return Graph request builder. {@link GraphRequestBuilder}
+     * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/graph/?view=azure-devops-rest-7.1">Graph</a>
+     */
+    GraphRequestBuilder graph();
 
     /**
      * Helper class request builder.
