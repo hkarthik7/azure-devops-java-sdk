@@ -30,8 +30,9 @@ public class TagsRequestBuilder extends BaseRequestBuilder {
         return new BuildDefinitionTagsRequestBuilder(organizationUrl, accessTokenCredential);
     }
 
-    /***
+    /**
      * Removes a tag from builds, definitions, and from the tag store
+     *
      * @param tag The tag to delete.
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
@@ -44,8 +45,9 @@ public class TagsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(BuildTags.class);
     }
 
-    /***
+    /**
      * Gets a list of all build tags in the project.
+     *
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
      */
@@ -55,8 +57,9 @@ public class TagsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(BuildTags.class);
     }
 
-    /***
+    /**
      * Removes a tag from builds, definitions, and from the tag store
+     *
      * @param tag The tag to delete.
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
@@ -69,8 +72,9 @@ public class TagsRequestBuilder extends BaseRequestBuilder {
                 .execute(BuildTags.class);
     }
 
-    /***
+    /**
      * Gets a list of all build tags in the project.
+     *
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
      */

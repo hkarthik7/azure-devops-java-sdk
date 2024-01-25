@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * List of the resource references
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ResourceRefs extends SerializableCollectionEntity {
-    /***
+    /**
      * List of the resource references
      */
     @JsonProperty("value")

@@ -17,11 +17,11 @@ import java.util.Map;
 
 import static org.azd.utils.RestClient.send;
 
-/***
+/**
  * ExtensionManagementApi class to manage installed extensions API
  */
 public class ExtensionManagementApi extends AzDAsyncApi<ExtensionManagementApi> implements ExtensionManagementDetails {
-    /***
+    /**
      * Connection object
      */
     private final Connection CONNECTION;
@@ -29,16 +29,18 @@ public class ExtensionManagementApi extends AzDAsyncApi<ExtensionManagementApi> 
     private final String AREA = "extensionmanagement";
     private final String EXTENSIONMANAGEMENT = "6c2b0933-3600-42ae-bf8b-93d4f7e83594";
 
-    /***
+    /**
      * Pass the connection object to work with Member Entitlement Management Api
+     *
      * @param connection Connection object
      */
     public ExtensionManagementApi(Connection connection) {
         this.CONNECTION = connection;
     }
 
-    /***
+    /**
      * Get an installed extension by its publisher and extension id.
+     *
      * @param extensionId Id of the extension. Example: "sonarqube".
      * @param publisherId Id of the publisher. Example: "sonarsource".
      * @return InstalledExtension {@link InstalledExtension}
@@ -53,11 +55,12 @@ public class ExtensionManagementApi extends AzDAsyncApi<ExtensionManagementApi> 
         return MAPPER.mapJsonResponse(r, InstalledExtension.class);
     }
 
-    /***
+    /**
      * Get an installed extension by its publisher and extension id.
+     *
      * @param extensionId Id of the extension. Example: "sonarqube".
      * @param publisherId Id of the publisher. Example: "sonarsource".
-     * @param assetTypes type of asset
+     * @param assetTypes  type of asset
      * @return InstalledExtension {@link InstalledExtension}
      * @throws AzDException Default Api Exception handler.
      */
@@ -74,8 +77,9 @@ public class ExtensionManagementApi extends AzDAsyncApi<ExtensionManagementApi> 
         return MAPPER.mapJsonResponse(r, InstalledExtension.class);
     }
 
-    /***
+    /**
      * List the installed extensions
+     *
      * @return InstalledExtensions {@link InstalledExtensions}
      * @throws AzDException Default Api Exception handler.
      */
@@ -88,11 +92,12 @@ public class ExtensionManagementApi extends AzDAsyncApi<ExtensionManagementApi> 
         return MAPPER.mapJsonResponse(r, InstalledExtensions.class);
     }
 
-    /***
+    /**
      * Install the specified extension
+     *
      * @param extensionId Id of the extension. Example: "sonarqube".
      * @param publisherId Id of the publisher. Example: "sonarsource".
-     * @param version if null latest version will be selected
+     * @param version     if null latest version will be selected
      * @return InstalledExtension {@link InstalledExtension}
      * @throws AzDException Default Api Exception handler.
      */
@@ -112,8 +117,9 @@ public class ExtensionManagementApi extends AzDAsyncApi<ExtensionManagementApi> 
         return MAPPER.mapJsonResponse(r, InstalledExtension.class);
     }
 
-    /***
+    /**
      * Uninstall the specified extension
+     *
      * @param extensionId Id of the extension. Example: "sonarqube".
      * @param publisherId Id of the publisher. Example: "sonarsource".
      * @throws AzDException Default Api Exception handler.
@@ -135,12 +141,13 @@ public class ExtensionManagementApi extends AzDAsyncApi<ExtensionManagementApi> 
         return null;
     }
 
-    /***
+    /**
      * Uninstall the specified extension
+     *
      * @param extensionId Id of the extension. Example: "sonarqube".
      * @param publisherId Id of the publisher. Example: "sonarsource".
-     * @param reason reason for uninstall
-     * @param reasonCode reason code for uninstall
+     * @param reason      reason for uninstall
+     * @param reasonCode  reason code for uninstall
      * @throws AzDException Default Api Exception handler.
      */
     @Override
@@ -165,10 +172,11 @@ public class ExtensionManagementApi extends AzDAsyncApi<ExtensionManagementApi> 
         return null;
     }
 
-    /***
+    /**
      * Enable/disable an extension
-     * @param extensionId Id of the extension. Example: "sonarqube".
-     * @param publisherId Id of the publisher. Example: "sonarsource".
+     *
+     * @param extensionId    Id of the extension. Example: "sonarqube".
+     * @param publisherId    Id of the publisher. Example: "sonarsource".
      * @param extensionState If none extension will be enabled. {@link ExtensionStateFlags}
      * @return InstalledExtension {@link InstalledExtension}
      * @throws AzDException Default Api Exception handler.

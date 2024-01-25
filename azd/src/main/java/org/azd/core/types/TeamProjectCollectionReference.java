@@ -4,22 +4,22 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Reference object for a TeamProjectCollection.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TeamProjectCollectionReference extends SerializableEntity {
-    /***
+    /**
      * Collection Id.
      */
     @JsonProperty("id")
     private String id;
-    /***
+    /**
      * Collection Name.
      */
     @JsonProperty("name")
     private String name;
-    /***
+    /**
      * Collection REST Url.
      */
     @JsonProperty("url")

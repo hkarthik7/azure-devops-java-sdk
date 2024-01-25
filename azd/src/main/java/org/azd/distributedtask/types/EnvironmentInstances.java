@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * Array of environment instance {@link EnvironmentInstance}
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EnvironmentInstances extends SerializableCollectionEntity {
-    /***
+    /**
      * Array of environment instance {@link EnvironmentInstance}
      */
     @JsonProperty("value")

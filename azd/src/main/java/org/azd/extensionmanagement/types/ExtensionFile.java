@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * This is the set of files available from the extension.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)

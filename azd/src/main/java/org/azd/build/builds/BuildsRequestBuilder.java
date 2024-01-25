@@ -55,8 +55,9 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
         return new BuildWorkItemsRequestBuilder(organizationUrl, accessTokenCredential);
     }
 
-    /***
+    /**
      * Deletes a build asynchronously.
+     *
      * @param buildId pass the build id to delete
      * @throws AzDException Default Api Exception handler.
      */
@@ -68,11 +69,12 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
                 .executePrimitiveAsync();
     }
 
-    /***
+    /**
      * Gets a build
+     *
      * @param buildId pass the build id
-     * @throws AzDException Default Api Exception handler.
      * @return Future build object {@link Build}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Build> getAsync(int buildId) throws AzDException {
         return builder()
@@ -81,12 +83,13 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(Build.class);
     }
 
-    /***
+    /**
      * Gets a build
-     * @param buildId pass the build id
+     *
+     * @param buildId         pass the build id
      * @param propertyFilters Property filters.
-     * @throws AzDException Default Api Exception handler.
      * @return Future build object {@link Build}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Build> getAsync(int buildId, String propertyFilters) throws AzDException {
         return builder()
@@ -96,11 +99,12 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(Build.class);
     }
 
-    /***
+    /**
      * Gets all retention leases that apply to a specific build.
+     *
      * @param buildId pass the build id
-     * @throws AzDException Default Api Exception handler.
      * @return Future Retention leases object {@link RetentionLeases}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<RetentionLeases> getRetentionLeasesAsync(int buildId) throws AzDException {
         return builder()
@@ -111,10 +115,11 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(RetentionLeases.class);
     }
 
-    /***
+    /**
      * Gets a list of builds.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return Future Builds object {@link org.azd.build.types.Builds}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Builds> listAsync() throws AzDException {
         return builder()
@@ -122,10 +127,11 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(Builds.class);
     }
 
-    /***
+    /**
      * Gets a list of builds.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return Future Builds object {@link org.azd.build.types.Builds}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Builds> listAsync(Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
         return builder()
@@ -134,11 +140,12 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(Builds.class);
     }
 
-    /***
+    /**
      * Queues a build
+     *
      * @param definitionId pass the pipeline id to queue the build
-     * @throws AzDException Default Api Exception handler.
      * @return a build object {@link Build}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Build> queueAsync(int definitionId) throws AzDException {
         return builder()
@@ -148,11 +155,12 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(Build.class);
     }
 
-    /***
+    /**
      * Queues a build
+     *
      * @param build Build object to queue the build.
-     * @throws AzDException Default Api Exception handler.
      * @return a build object {@link Build}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Build> queueAsync(Build build) throws AzDException {
         return builder()
@@ -193,8 +201,9 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(Builds.class);
     }
 
-    /***
+    /**
      * Deletes a build hronously.
+     *
      * @param buildId pass the build id to delete
      * @throws AzDException Default Api Exception handler.
      */
@@ -206,11 +215,12 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
                 .executePrimitive();
     }
 
-    /***
+    /**
      * Gets a build
+     *
      * @param buildId pass the build id
-     * @throws AzDException Default Api Exception handler.
      * @return Future build object {@link Build}
+     * @throws AzDException Default Api Exception handler.
      */
     public Build get(int buildId) throws AzDException {
         return builder()
@@ -219,12 +229,13 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
                 .execute(Build.class);
     }
 
-    /***
+    /**
      * Gets a build
-     * @param buildId pass the build id
+     *
+     * @param buildId         pass the build id
      * @param propertyFilters Property filters.
-     * @throws AzDException Default Api Exception handler.
      * @return Future build object {@link Build}
+     * @throws AzDException Default Api Exception handler.
      */
     public Build get(int buildId, String propertyFilters) throws AzDException {
         return builder()
@@ -234,11 +245,12 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
                 .execute(Build.class);
     }
 
-    /***
+    /**
      * Gets all retention leases that apply to a specific build.
+     *
      * @param buildId pass the build id
-     * @throws AzDException Default Api Exception handler.
      * @return Future Retention leases object {@link RetentionLeases}
+     * @throws AzDException Default Api Exception handler.
      */
     public RetentionLeases getRetentionLeases(int buildId) throws AzDException {
         return builder()
@@ -249,10 +261,11 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
                 .execute(RetentionLeases.class);
     }
 
-    /***
+    /**
      * Gets a list of builds.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return Future Builds object {@link org.azd.build.types.Builds}
+     * @throws AzDException Default Api Exception handler.
      */
     public Builds list() throws AzDException {
         return builder()
@@ -260,10 +273,11 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
                 .execute(Builds.class);
     }
 
-    /***
+    /**
      * Gets a list of builds.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return Future Builds object {@link org.azd.build.types.Builds}
+     * @throws AzDException Default Api Exception handler.
      */
     public Builds list(Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
         return builder()
@@ -272,11 +286,12 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
                 .execute(Builds.class);
     }
 
-    /***
+    /**
      * Queues a build
+     *
      * @param definitionId pass the pipeline id to queue the build
-     * @throws AzDException Default Api Exception handler.
      * @return a build object {@link Build}
+     * @throws AzDException Default Api Exception handler.
      */
     public Build queue(int definitionId) throws AzDException {
         return builder()
@@ -286,11 +301,12 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
                 .execute(Build.class);
     }
 
-    /***
+    /**
      * Queues a build
+     *
      * @param build Build object to queue the build.
-     * @throws AzDException Default Api Exception handler.
      * @return a build object {@link Build}
+     * @throws AzDException Default Api Exception handler.
      */
     public Build queue(Build build) throws AzDException {
         return builder()

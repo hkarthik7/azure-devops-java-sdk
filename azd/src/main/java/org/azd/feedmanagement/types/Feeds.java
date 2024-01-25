@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * Array of feed containers
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Feeds extends SerializableCollectionEntity {
-    /***
+    /**
      * Array of feed
      */
     @JsonProperty("value")

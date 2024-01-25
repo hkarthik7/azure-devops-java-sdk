@@ -6,9 +6,9 @@ import org.azd.abstractions.serializer.SerializableEntity;
 
 import java.util.Map;
 
-/***
+/**
  * wrapper container for subjectLookup response
- *
+ * <p>
  * Subject descriptor is in both the value-field map-key and descriptor field of the {@link SubjectLookup}
  */
 @JsonIgnoreProperties(ignoreUnknown = true)

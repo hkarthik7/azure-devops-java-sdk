@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * List of repositories
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Repositories extends SerializableCollectionEntity {
-    /***
+    /**
      * List of repositories
      */
     @JsonProperty("value")

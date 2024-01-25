@@ -8,74 +8,74 @@ import org.azd.common.types.Author;
 
 import java.util.List;
 
-/***
+/**
  * Represents an endpoint which may be used by an orchestration job.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ServiceEndpoint extends SerializableEntity {
-    /***
+    /**
      * Gets or sets the authorization data for talking to the endpoint.
      */
     @JsonProperty("authorization")
     private JsonNode authorization;
-    /***
+    /**
      * Gets or sets the identity reference for the user who created the Service endpoint.
      */
     @JsonProperty("createdBy")
     private Author createdBy;
     @JsonProperty("data")
     private JsonNode data;
-    /***
+    /**
      * Gets or sets the description of endpoint.
      */
     @JsonProperty("description")
     private String description;
-    /***
+    /**
      * Gets or sets the identifier of this endpoint.
      */
     @JsonProperty("id")
     private String id;
-    /***
+    /**
      * EndPoint state indicator
      */
     @JsonProperty("isReady")
     private boolean isReady;
-    /***
+    /**
      * Indicates whether service endpoint is shared with other projects or not.
      */
     @JsonProperty("isShared")
     private boolean isShared;
-    /***
+    /**
      * Gets or sets the friendly name of the endpoint.
      */
     @JsonProperty("name")
     private String name;
-    /***
+    /**
      * Error message during creation/deletion of endpoint
      */
     @JsonProperty("operationStatus")
     private JsonNode operationStatus;
-    /***
+    /**
      * Owner of the endpoint Supported values are "library", "agentcloud"
      */
     @JsonProperty("owner")
     private String owner;
-    /***
+    /**
      * Gets or sets the identity reference for the readers group of the service endpoint.
      */
     @JsonProperty("readersGroup")
     private Author readersGroup;
-    /***
+    /**
      * All other project references where the service endpoint is shared.
      */
     @JsonProperty("serviceEndpointProjectReferences")
     private List<ServiceEndpointProjectReference> serviceEndpointProjectReferences;
-    /***
+    /**
      * Gets or sets the type of the endpoint.
      */
     @JsonProperty("type")
     private String type;
-    /***
+    /**
      * Gets or sets the url of the endpoint.
      */
     @JsonProperty("url")

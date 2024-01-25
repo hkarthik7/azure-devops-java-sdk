@@ -4,22 +4,22 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Represents a reference to an agent pool.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BuildPool extends SerializableEntity {
-    /***
+    /**
      * The pool ID.
      */
     @JsonProperty("id")
     private String id;
-    /***
+    /**
      * The pool name.
      */
     @JsonProperty("name")
     private String name;
-    /***
+    /**
      * A value indicating whether or not this pool is managed by the service.
      */
     @JsonProperty("isHosted")

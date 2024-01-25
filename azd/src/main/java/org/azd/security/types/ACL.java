@@ -6,22 +6,22 @@ import org.azd.abstractions.serializer.SerializableEntity;
 
 import java.util.Map;
 
-/***
+/**
  * Access Control List entry
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ACL extends SerializableEntity {
-    /***
+    /**
      * inherits permissions
      */
     @JsonProperty("inheritPermissions")
     private boolean inheritPermissions;
-    /***
+    /**
      * token identifier
      */
     @JsonProperty("token")
     private String token;
-    /***
+    /**
      * ACL aceDictionary entry
      */
     @JsonProperty("acesDictionary")

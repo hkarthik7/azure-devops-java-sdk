@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 
-/***
+/**
  * Graph group entity
  */
 @JsonIgnoreProperties(ignoreUnknown = true)

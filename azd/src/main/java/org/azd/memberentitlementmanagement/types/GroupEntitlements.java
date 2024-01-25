@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * List of group entitlement
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GroupEntitlements extends SerializableCollectionEntity {
-    /***
+    /**
      * List of group entitlement
      */
     @JsonProperty("value")

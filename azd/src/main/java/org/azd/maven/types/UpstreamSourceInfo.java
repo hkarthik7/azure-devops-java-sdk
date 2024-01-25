@@ -4,39 +4,39 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Upstream source definition, including its Identity, package type, and other
  * associated information.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UpstreamSourceInfo extends SerializableEntity {
 
-    /***
+    /**
      * Locator for connecting to the upstream source in a user friendly format, that
      * may potentially change over time.
      */
     @JsonProperty("displayLocation")
     private String displayLocation;
 
-    /***
+    /**
      * Identity of the upstream source.
      */
     @JsonProperty("id")
     private String id;
 
-    /***
+    /**
      * Locator for connecting to the upstream source.
      */
     @JsonProperty("location")
     private String location;
 
-    /***
+    /**
      * Display name.
      */
     @JsonProperty("name")
     private String name;
 
-    /***
+    /**
      * Source type, such as Public or Internal.
      */
     @JsonProperty("sourceType")

@@ -29,8 +29,9 @@ public class DeploymentGroupsRequestBuilder extends BaseRequestBuilder {
         super(organizationUrl, accessTokenCredential, "distributedtask", "083c4d89-ab35-45af-aa11-7cf66895c53e");
     }
 
-    /***
+    /**
      * Create a deployment group.
+     *
      * @param deploymentGroup DeploymentGroupRequest object {@link DeploymentGroupRequest}.
      * @return Deployment group object {@link DeploymentGroup}
      * @throws AzDException Default Api Exception handler.
@@ -42,8 +43,9 @@ public class DeploymentGroupsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(DeploymentGroup.class);
     }
 
-    /***
+    /**
      * Delete a deployment group.
+     *
      * @param deploymentGroupId ID of the deployment group to be deleted.
      * @throws AzDException Default Api Exception handler.
      */
@@ -55,8 +57,9 @@ public class DeploymentGroupsRequestBuilder extends BaseRequestBuilder {
                 .executePrimitiveAsync();
     }
 
-    /***
+    /**
      * Get a deployment group by its ID.
+     *
      * @param deploymentGroupId ID of the deployment group to be deleted.
      * @return Deployment group object {@link DeploymentGroup}
      * @throws AzDException Default Api Exception handler.
@@ -68,9 +71,10 @@ public class DeploymentGroupsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(DeploymentGroup.class);
     }
 
-    /***
+    /**
      * Get a deployment group by its ID.
-     * @param deploymentGroupId ID of the deployment group to be deleted.
+     *
+     * @param deploymentGroupId    ID of the deployment group to be deleted.
      * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.
      * @return Deployment group object {@link DeploymentGroup}
      * @throws AzDException Default Api Exception handler.
@@ -84,8 +88,9 @@ public class DeploymentGroupsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(DeploymentGroup.class);
     }
 
-    /***
+    /**
      * Get a list of deployment groups by name or IDs.
+     *
      * @return Deployment groups object {@link DeploymentGroups}
      * @throws AzDException Default Api Exception handler.
      */
@@ -95,8 +100,9 @@ public class DeploymentGroupsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(DeploymentGroups.class);
     }
 
-    /***
+    /**
      * Get a list of deployment groups by name or IDs.
+     *
      * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.
      * @return Deployment groups object {@link DeploymentGroups}
      * @throws AzDException Default Api Exception handler.
@@ -108,11 +114,12 @@ public class DeploymentGroupsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(DeploymentGroups.class);
     }
 
-    /***
+    /**
      * Update a deployment group.
+     *
      * @param deploymentGroupId ID of the deployment group.
-     * @param name Name of the deployment group.
-     * @param description Description of the deployment group.
+     * @param name              Name of the deployment group.
+     * @param description       Description of the deployment group.
      * @return Deployment group object {@link DeploymentGroup}
      * @throws AzDException Default Api Exception handler.
      */
@@ -124,8 +131,9 @@ public class DeploymentGroupsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(DeploymentGroup.class);
     }
 
-    /***
+    /**
      * Create a deployment group.
+     *
      * @param deploymentGroup DeploymentGroupRequest object {@link DeploymentGroupRequest}.
      * @return Deployment group object {@link DeploymentGroup}
      * @throws AzDException Default Api Exception handler.
@@ -137,8 +145,9 @@ public class DeploymentGroupsRequestBuilder extends BaseRequestBuilder {
                 .execute(DeploymentGroup.class);
     }
 
-    /***
+    /**
      * Delete a deployment group.
+     *
      * @param deploymentGroupId ID of the deployment group to be deleted.
      * @throws AzDException Default Api Exception handler.
      */
@@ -150,8 +159,9 @@ public class DeploymentGroupsRequestBuilder extends BaseRequestBuilder {
                 .executePrimitive();
     }
 
-    /***
+    /**
      * Get a deployment group by its ID.
+     *
      * @param deploymentGroupId ID of the deployment group to be deleted.
      * @return Deployment group object {@link DeploymentGroup}
      * @throws AzDException Default Api Exception handler.
@@ -163,9 +173,10 @@ public class DeploymentGroupsRequestBuilder extends BaseRequestBuilder {
                 .execute(DeploymentGroup.class);
     }
 
-    /***
+    /**
      * Get a deployment group by its ID.
-     * @param deploymentGroupId ID of the deployment group to be deleted.
+     *
+     * @param deploymentGroupId    ID of the deployment group to be deleted.
      * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.
      * @return Deployment group object {@link DeploymentGroup}
      * @throws AzDException Default Api Exception handler.
@@ -179,8 +190,9 @@ public class DeploymentGroupsRequestBuilder extends BaseRequestBuilder {
                 .execute(DeploymentGroup.class);
     }
 
-    /***
+    /**
      * Get a list of deployment groups by name or IDs.
+     *
      * @return Deployment groups object {@link DeploymentGroups}
      * @throws AzDException Default Api Exception handler.
      */
@@ -190,8 +202,9 @@ public class DeploymentGroupsRequestBuilder extends BaseRequestBuilder {
                 .execute(DeploymentGroups.class);
     }
 
-    /***
+    /**
      * Get a list of deployment groups by name or IDs.
+     *
      * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.
      * @return Deployment groups object {@link DeploymentGroups}
      * @throws AzDException Default Api Exception handler.
@@ -203,11 +216,12 @@ public class DeploymentGroupsRequestBuilder extends BaseRequestBuilder {
                 .execute(DeploymentGroups.class);
     }
 
-    /***
+    /**
      * Update a deployment group.
+     *
      * @param deploymentGroupId ID of the deployment group.
-     * @param name Name of the deployment group.
-     * @param description Description of the deployment group.
+     * @param name              Name of the deployment group.
+     * @param description       Description of the deployment group.
      * @return Deployment group object {@link DeploymentGroup}
      * @throws AzDException Default Api Exception handler.
      */

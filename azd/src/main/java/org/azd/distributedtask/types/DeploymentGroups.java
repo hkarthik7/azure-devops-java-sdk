@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * List of deployment group
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DeploymentGroups extends SerializableCollectionEntity {
-    /***
+    /**
      * List of deployment group
      */
     @JsonProperty("value")

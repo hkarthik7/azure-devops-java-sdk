@@ -7,77 +7,77 @@ import org.azd.abstractions.serializer.SerializableEntity;
 import java.util.List;
 import java.util.Objects;
 
-/***
+/**
  * Represents a security namespace.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SecurityNamespace extends SerializableEntity {
-    /***
+    /**
      * uuid of namespace
      */
     @JsonProperty("namespaceId")
     private String namespaceId;
-    /***
+    /**
      * name of security namespace
      */
     @JsonProperty("name")
     private String name;
-    /***
+    /**
      * display name of security namespace
      */
     @JsonProperty("displayName")
     private String displayName;
-    /***
+    /**
      * separator value
      */
     @JsonProperty("separatorValue")
     private String separatorValue;
-    /***
+    /**
      * element length
      */
     @JsonProperty("elementLength")
     private int elementLength;
-    /***
+    /**
      * write permission numeric value
      */
     @JsonProperty("writePermission")
     private int writePermission;
-    /***
+    /**
      * read permission numeric value
      */
     @JsonProperty("readPermission")
     private int readPermission;
-    /***
+    /**
      * dataspace category
      */
     @JsonProperty("dataspaceCategory")
     private String dataspaceCategory;
-    /***
+    /**
      * list of actions {@link SecurityNamespaceAction}
      */
     @JsonProperty("actions")
     private List<SecurityNamespaceAction> actions;
-    /***
+    /**
      * structure value
      */
     @JsonProperty("structureValue")
     private int structureValue;
-    /***
+    /**
      * extension identifier
      */
     @JsonProperty("extensionType")
     private String extensionType;
-    /***
+    /**
      * is remotable
      */
     @JsonProperty("isRemotable")
     private boolean isRemotable;
-    /***
+    /**
      * use token transfer
      */
     @JsonProperty("useTokenTranslator")
     private boolean useTokenTranslator;
-    /***
+    /**
      * bit mask value, power of 2
      */
     @JsonProperty("systemBitMask")

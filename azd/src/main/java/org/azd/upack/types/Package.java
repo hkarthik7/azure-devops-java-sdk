@@ -4,42 +4,42 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Package version metadata for a Universal package
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Package extends SerializableEntity {
-    /***
+    /**
      * Related REST links.
      */
     @JsonProperty("_links")
     private ReferenceLinks _links;
 
-    /***
+    /**
      * If and when the package was deleted.
      */
     @JsonProperty("deletedDate")
     private String deletedDate;
 
-    /***
+    /**
      * Package Id.
      */
     @JsonProperty("id")
     private String id;
 
-    /***
+    /**
      * The display name of the package.
      */
     @JsonProperty("name")
     private String name;
 
-    /***
+    /**
      * If and when the package was permanently deleted.
      */
     @JsonProperty("permanentlyDeletedDate")
     private String permanentlyDeletedDate;
 
-    /***
+    /**
      * The version of the package.
      */
     @JsonProperty("version")

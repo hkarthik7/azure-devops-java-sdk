@@ -16,7 +16,7 @@ import java.util.List;
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GitRepositoryRefs extends SerializableCollectionEntity {
-    /***
+    /**
      * List of git repositories
      */
     @JsonProperty("value")

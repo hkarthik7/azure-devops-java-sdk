@@ -4,32 +4,32 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Represents an Authorized token object
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AuthorizedToken extends SerializableEntity {
-    /***
+    /**
      * Access token
      */
     @JsonProperty("access_token")
     private String accessToken;
-    /***
+    /**
      * Type of the token
      */
     @JsonProperty("token_type")
     private String tokenType;
-    /***
+    /**
      * Time stamp of token expiry date/time
      */
     @JsonProperty("expires_in")
     private int expiresIn;
-    /***
+    /**
      * Refresh token
      */
     @JsonProperty("refresh_token")
     private String refreshToken;
-    /***
+    /**
      * Received date/time stamp
      */
     @JsonProperty("receivedTimestamp")

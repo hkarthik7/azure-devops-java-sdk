@@ -17,18 +17,18 @@ import java.util.HashMap;
 
 import static org.azd.utils.RestClient.send;
 
-/***
+/**
  * Accounts class to manage Accounts Api
  */
 public class AccountsApi extends AzDAsyncApi<AccountsApi> implements AccountsDetails {
-    /***
+    /**
      * Connection object
      */
     private final Connection CONNECTION;
     private final JsonMapper MAPPER = new JsonMapper();
     private final String AREA = "accounts";
 
-    /***
+    /**
      * Pass the connection object to work with Accounts Api
      *
      * @param connection Connection object
@@ -37,7 +37,7 @@ public class AccountsApi extends AzDAsyncApi<AccountsApi> implements AccountsDet
         this.CONNECTION = connection;
     }
 
-    /***
+    /**
      * Get a list of accounts for a specific member.
      *
      * @param memberId Specify the member Id. This can be obtained by running getUserEntitlements() from MemberEntitlementManagementApi.
@@ -56,7 +56,7 @@ public class AccountsApi extends AzDAsyncApi<AccountsApi> implements AccountsDet
         return MAPPER.mapJsonResponse(r, Accounts.class);
     }
 
-    /***
+    /**
      * Get the list of organizations that you have access to. Note that while creating and granting access to the personal
      * access token select all organizations to apply the access on all available organizations.
      *
@@ -81,7 +81,7 @@ public class AccountsApi extends AzDAsyncApi<AccountsApi> implements AccountsDet
         return MAPPER.mapJsonResponse(r, Organizations.class);
     }
 
-    /***
+    /**
      * Gets the logged in user profile.
      *
      * @return a profile object. {@link Profile}
@@ -95,7 +95,7 @@ public class AccountsApi extends AzDAsyncApi<AccountsApi> implements AccountsDet
         return MAPPER.mapJsonResponse(r, Profile.class);
     }
 
-    /***
+    /**
      * Gets a user profile.
      *
      * @param id pass the user id

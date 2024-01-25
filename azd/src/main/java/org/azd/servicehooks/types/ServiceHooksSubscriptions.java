@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * List of service hook subscription
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ServiceHooksSubscriptions extends SerializableCollectionEntity {
-    /***
+    /**
      * List of service hook subscription
      */
     @JsonProperty("value")

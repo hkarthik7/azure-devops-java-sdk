@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * Permissions for a feed.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FeedPermissions extends SerializableCollectionEntity {
-    /***
+    /**
      * Array of feed permissions.
      */
     @JsonProperty("value")

@@ -7,42 +7,42 @@ import org.azd.graph.types.GraphGroup;
 
 import java.util.List;
 
-/***
+/**
  * A group entity with additional properties including its license, extensions, and project membership
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GroupEntitlement extends SerializableEntity {
-    /***
+    /**
      * Member reference.
      */
     @JsonProperty("group")
     private GraphGroup group;
-    /***
+    /**
      * The unique identifier which matches the Id of the GraphMember.
      */
     @JsonProperty("id")
     private String id;
-    /***
+    /**
      * The last time the group licensing rule was executed
      */
     @JsonProperty("lastExecuted")
     private String lastExecuted;
-    /***
+    /**
      * License Rule.
      */
     @JsonProperty("licenseRule")
     private AccessLevel licenseRule;
-    /***
+    /**
      * Group members. Only used when creating a new group.
      */
     @JsonProperty("members")
     private List<UserEntitlement> members;
-    /***
+    /**
      * Relation between a project and the member's effective permissions in that project.
      */
     @JsonProperty("projectEntitlements")
     private List<ProjectEntitlement> projectEntitlements;
-    /***
+    /**
      * The status of the group rule.
      */
     @JsonProperty("status")

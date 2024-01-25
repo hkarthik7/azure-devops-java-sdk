@@ -22,9 +22,10 @@ public class PullRequestWorkItemsRequestBuilder extends BaseRequestBuilder {
         super(organizationUrl, accessTokenCredential, "git", "0a637fcc-5370-4ce8-b0e8-98091f5f9482", ApiVersion.GIT);
     }
 
-    /***
+    /**
      * Retrieve a list of work items associated with a pull request.
-     * @param pullRequestId ID of the pull request.
+     *
+     * @param pullRequestId  ID of the pull request.
      * @param repositoryName ID or name of the repository.
      * @return ResourceRefs {@link ResourceRefs}
      * @throws AzDException Default Api Exception handler.
@@ -37,9 +38,10 @@ public class PullRequestWorkItemsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(ResourceRefs.class);
     }
 
-    /***
+    /**
      * Retrieve a list of work items associated with a pull request.
-     * @param pullRequestId ID of the pull request.
+     *
+     * @param pullRequestId  ID of the pull request.
      * @param repositoryName ID or name of the repository.
      * @return ResourceRefs {@link ResourceRefs}
      * @throws AzDException Default Api Exception handler.

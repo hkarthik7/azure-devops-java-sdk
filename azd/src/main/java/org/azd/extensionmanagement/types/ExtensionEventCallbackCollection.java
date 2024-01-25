@@ -6,38 +6,38 @@ import org.azd.abstractions.serializer.SerializableEntity;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ExtensionEventCallbackCollection extends SerializableEntity {
-    /***
+    /**
      * Defines an endpoint that gets called via a POST request to notify that an extension disable has occurred.
      */
     @JsonProperty("postDisable")
     private ExtensionEventCallback postDisable;
-    /***
+    /**
      * Defines an endpoint that gets called via a POST request to notify that an extension enable has occurred.
      */
     @JsonProperty("postEnable")
     private ExtensionEventCallback postEnable;
-    /***
+    /**
      * Defines an endpoint that gets called via a POST request to notify that an extension install has completed.
      */
     @JsonProperty("postInstall")
     private ExtensionEventCallback postInstall;
-    /***
+    /**
      * Defines an endpoint that gets called via a POST request to notify that an extension uninstall has occurred.
      */
     @JsonProperty("postUninstall")
     private ExtensionEventCallback postUninstall;
-    /***
+    /**
      * Defines an endpoint that gets called via a POST request to notify that an extension update has occurred.
      */
     @JsonProperty("postUpdate")
     private ExtensionEventCallback postUpdate;
-    /***
+    /**
      * Defines an endpoint that gets called via a POST request to notify that an extension install is about to occur.
      * Response indicates whether to proceed or abort.
      */
     @JsonProperty("preInstall")
     private ExtensionEventCallback preInstall;
-    /***
+    /**
      * For multi-version extensions, defines an endpoint that gets called via an
      * OPTIONS request to determine the particular version of the extension to be used
      */

@@ -59,11 +59,12 @@ public class RefsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(GitRefs.class);
     }
 
-    /***
+    /**
      * Lock or Unlock a branch with repository name and branch name.
+     *
      * @param repositoryName The name or ID of the repository.
-     * @param branchName The name of the branch to lock/unlock
-     * @param isLocked true to lock the branch and false to unlock.
+     * @param branchName     The name of the branch to lock/unlock
+     * @param isLocked       true to lock the branch and false to unlock.
      * @return GitRef {@link GitRef}
      * @throws AzDException Default Api Exception handler.
      */
@@ -123,11 +124,12 @@ public class RefsRequestBuilder extends BaseRequestBuilder {
                 .execute(GitRefs.class);
     }
 
-    /***
+    /**
      * Lock or Unlock a branch with repository name and branch name.
+     *
      * @param repositoryName The name or ID of the repository.
-     * @param branchName The name of the branch to lock/unlock
-     * @param isLocked true to lock the branch and false to unlock.
+     * @param branchName     The name of the branch to lock/unlock
+     * @param isLocked       true to lock the branch and false to unlock.
      * @return GitRef {@link GitRef}
      * @throws AzDException Default Api Exception handler.
      */

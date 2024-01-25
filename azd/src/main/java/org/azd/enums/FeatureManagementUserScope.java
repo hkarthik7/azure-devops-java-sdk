@@ -12,10 +12,20 @@ public enum FeatureManagementUserScope {
      * Current logged in user.
      */
     @JsonProperty("me")
-    ME,
+    ME("me"),
     /**
      * Represents all users.
      */
     @JsonProperty("host")
-    HOST,
+    HOST("host");
+
+    private final String userScope;
+
+    FeatureManagementUserScope(String scope) {
+        userScope = scope;
+    }
+
+    public String getUserScope() {
+        return userScope;
+    }
 }

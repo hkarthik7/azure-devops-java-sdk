@@ -2,15 +2,15 @@ package org.azd.distributedtask.types;
 
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Sets provider data.
  */
 public class VariableGroupProviderData extends SerializableEntity {
-    /***
+    /**
      * Azure resource manager service endpoint id.
      */
     private String serviceEndpointId;
-    /***
+    /**
      * Azure key vault reference
      */
     private String vault;

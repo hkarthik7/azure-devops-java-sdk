@@ -4,22 +4,22 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Artifacts are collections of files produced by a pipeline. Use artifacts to share files between stages in a pipeline or between different pipelines.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PipelinesArtifact extends SerializableEntity {
-    /***
+    /**
      * The name of the artifact.
      */
     @JsonProperty("name")
     private String name;
-    /***
+    /**
      * Signed url for downloading this artifact
      */
     @JsonProperty("signedContent")
     private SignedUrl signedContent;
-    /***
+    /**
      * Self-referential url
      */
     @JsonProperty("url")

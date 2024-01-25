@@ -26,9 +26,10 @@ public class EnvironmentsRequestBuilder extends BaseRequestBuilder {
         super(organizationUrl, accessTokenCredential, "distributedtask", "8572b1fc-2482-47fa-8f74-7e3ed53ee54b");
     }
 
-    /***
+    /**
      * Create an environment.
-     * @param name Name of the environment.
+     *
+     * @param name        Name of the environment.
      * @param description Description of the environment.
      * @return Environment instance {@link EnvironmentInstance}
      * @throws AzDException Default Api Exception handler.
@@ -40,8 +41,9 @@ public class EnvironmentsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(EnvironmentInstance.class);
     }
 
-    /***
+    /**
      * Delete the specified environment.
+     *
      * @param environmentId ID of the environment.
      * @throws AzDException Default Api Exception handler.
      */
@@ -53,8 +55,9 @@ public class EnvironmentsRequestBuilder extends BaseRequestBuilder {
                 .executePrimitiveAsync();
     }
 
-    /***
+    /**
      * Get an environment by its ID.
+     *
      * @param environmentId ID of the environment.
      * @return Environment instance {@link EnvironmentInstance}
      * @throws AzDException Default Api Exception handler.
@@ -66,10 +69,11 @@ public class EnvironmentsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(EnvironmentInstance.class);
     }
 
-    /***
+    /**
      * Get an environment by its ID.
+     *
      * @param environmentId ID of the environment.
-     * @param expands Include these additional details in the returned objects. {@link EnvironmentExpands}
+     * @param expands       Include these additional details in the returned objects. {@link EnvironmentExpands}
      * @return Environment instance {@link EnvironmentInstance}
      * @throws AzDException Default Api Exception handler.
      */
@@ -81,8 +85,9 @@ public class EnvironmentsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(EnvironmentInstance.class);
     }
 
-    /***
+    /**
      * Get all environments.
+     *
      * @return Environment instances array {@link EnvironmentInstances}
      * @throws AzDException Default Api Exception handler.
      */
@@ -92,8 +97,9 @@ public class EnvironmentsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(EnvironmentInstances.class);
     }
 
-    /***
+    /**
      * Get all environments.
+     *
      * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.
      * @return Environment instances array {@link EnvironmentInstances}
      * @throws AzDException Default Api Exception handler.
@@ -105,11 +111,12 @@ public class EnvironmentsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(EnvironmentInstances.class);
     }
 
-    /***
+    /**
      * Update the specified environment.
+     *
      * @param environmentId ID of the environment.
-     * @param name Name of the environment.
-     * @param description Description of the environment.
+     * @param name          Name of the environment.
+     * @param description   Description of the environment.
      * @return Environment instance {@link EnvironmentInstance}
      * @throws AzDException Default Api Exception handler.
      */
@@ -121,9 +128,10 @@ public class EnvironmentsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(EnvironmentInstance.class);
     }
 
-    /***
+    /**
      * Create an environment.
-     * @param name Name of the environment.
+     *
+     * @param name        Name of the environment.
      * @param description Description of the environment.
      * @return Environment instance {@link EnvironmentInstance}
      * @throws AzDException Default Api Exception handler.
@@ -135,8 +143,9 @@ public class EnvironmentsRequestBuilder extends BaseRequestBuilder {
                 .execute(EnvironmentInstance.class);
     }
 
-    /***
+    /**
      * Delete the specified environment.
+     *
      * @param environmentId ID of the environment.
      * @throws AzDException Default Api Exception handler.
      */
@@ -148,8 +157,9 @@ public class EnvironmentsRequestBuilder extends BaseRequestBuilder {
                 .executePrimitive();
     }
 
-    /***
+    /**
      * Get an environment by its ID.
+     *
      * @param environmentId ID of the environment.
      * @return Environment instance {@link EnvironmentInstance}
      * @throws AzDException Default Api Exception handler.
@@ -161,10 +171,11 @@ public class EnvironmentsRequestBuilder extends BaseRequestBuilder {
                 .execute(EnvironmentInstance.class);
     }
 
-    /***
+    /**
      * Get an environment by its ID.
+     *
      * @param environmentId ID of the environment.
-     * @param expands Include these additional details in the returned objects. {@link EnvironmentExpands}
+     * @param expands       Include these additional details in the returned objects. {@link EnvironmentExpands}
      * @return Environment instance {@link EnvironmentInstance}
      * @throws AzDException Default Api Exception handler.
      */
@@ -176,8 +187,9 @@ public class EnvironmentsRequestBuilder extends BaseRequestBuilder {
                 .execute(EnvironmentInstance.class);
     }
 
-    /***
+    /**
      * Get all environments.
+     *
      * @return Environment instances array {@link EnvironmentInstances}
      * @throws AzDException Default Api Exception handler.
      */
@@ -187,8 +199,9 @@ public class EnvironmentsRequestBuilder extends BaseRequestBuilder {
                 .execute(EnvironmentInstances.class);
     }
 
-    /***
+    /**
      * Get all environments.
+     *
      * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.
      * @return Environment instances array {@link EnvironmentInstances}
      * @throws AzDException Default Api Exception handler.
@@ -200,11 +213,12 @@ public class EnvironmentsRequestBuilder extends BaseRequestBuilder {
                 .execute(EnvironmentInstances.class);
     }
 
-    /***
+    /**
      * Update the specified environment.
+     *
      * @param environmentId ID of the environment.
-     * @param name Name of the environment.
-     * @param description Description of the environment.
+     * @param name          Name of the environment.
+     * @param description   Description of the environment.
      * @return Environment instance {@link EnvironmentInstance}
      * @throws AzDException Default Api Exception handler.
      */

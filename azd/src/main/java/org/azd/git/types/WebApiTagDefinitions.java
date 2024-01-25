@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * List of tag definitions
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WebApiTagDefinitions extends SerializableCollectionEntity {
-    /***
+    /**
      * List of tag definitions
      */
     @JsonProperty("value")

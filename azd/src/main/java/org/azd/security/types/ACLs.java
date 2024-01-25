@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * List of Access Control Lists
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ACLs extends SerializableCollectionEntity {
-    /***
+    /**
      * List of access control lists
      */
     @JsonProperty("value")

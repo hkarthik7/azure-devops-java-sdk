@@ -4,27 +4,27 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * EnvironmentResourceReference.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EnvironmentResourceReference extends SerializableEntity {
-    /***
+    /**
      * Id of the resource.
      */
     @JsonProperty("id")
     private int id;
-    /***
+    /**
      * Name of the resource.
      */
     @JsonProperty("name")
     private String name;
-    /***
+    /**
      * Tags of the Environment Resource Reference.
      */
     @JsonProperty("tags")
     private String[] tags;
-    /***
+    /**
      * Type of the resource.
      */
     @JsonProperty("type")

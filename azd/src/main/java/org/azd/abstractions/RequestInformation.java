@@ -26,22 +26,15 @@ public class RequestInformation {
     public RequestHeaders requestHeaders = new RequestHeaders();
     public Object requestBody;
     public InputStream inputStream;
-    public String baseInstance;
+    private String baseInstance;
     private String requestUrl;
     private Map<String, Object> queryParameters = new HashMap<>();
 
     public RequestInformation() {
     }
 
-    /**
-     * Creates a query string from given key and value
-     *
-     * @param key   pass the key of the HashMap
-     * @param value pass the value of the HasMap
-     * @return query string
-     */
-    private static String getQueryString(String key, Object value) {
-        return "&" + key + "=" + value;
+    public void setBaseInstance(final String baseInstance) {
+        if (baseInstance != null) this.baseInstance = baseInstance;
     }
 
     public void setQueryParameters(Object parameters) {
@@ -107,7 +100,7 @@ public class RequestInformation {
         if (requestUrl != null) this.requestUrl = requestUrl;
     }
 
-    public String replacePathParameters() {
+    private String replacePathParameters() {
         // Patten to match route template such as -> "{organization}/{project}/teams/{teamId}"
         var routeTemplate = getRouteTemplate();
         if (routeTemplate != null) {
@@ -163,7 +156,14 @@ public class RequestInformation {
         return null;
     }
 
-    public void setBaseInstance(final String baseInstance) {
-        if (baseInstance != null) this.baseInstance = baseInstance;
+    /**
+     * Creates a query string from given key and value
+     *
+     * @param key   pass the key of the HashMap
+     * @param value pass the value of the HasMap
+     * @return query string
+     */
+    private static String getQueryString(String key, Object value) {
+        return "&" + key + "=" + value;
     }
 }

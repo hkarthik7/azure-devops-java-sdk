@@ -5,24 +5,24 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 import org.azd.common.types.Reference;
 
-/***
+/**
  * This field contains zero or more interesting links about the graph subject.
  * These links may be invoked to obtain additional relationships or more detailed
  * information about this graph subject.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MembershipReferenceLinks extends SerializableEntity {
-    /***
+    /**
      * self reference url
      */
     @JsonProperty("self")
     private Reference self;
-    /***
+    /**
      * URL of member
      */
     @JsonProperty("member")
     private Reference member;
-    /***
+    /**
      * URL of container containing member
      */
     @JsonProperty("container")

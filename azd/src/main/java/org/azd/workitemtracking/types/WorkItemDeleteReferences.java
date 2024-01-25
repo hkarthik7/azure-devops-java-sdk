@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * Work item delete references
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WorkItemDeleteReferences extends SerializableCollectionEntity {
-    /***
+    /**
      * Work item delete references
      */
     @JsonProperty("value")

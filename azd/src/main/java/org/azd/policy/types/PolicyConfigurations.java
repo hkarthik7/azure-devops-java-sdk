@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * List of full policy configuration with settings.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PolicyConfigurations extends SerializableCollectionEntity {
-    /***
+    /**
      * List of full policy configuration with settings.
      */
     @JsonProperty("value")

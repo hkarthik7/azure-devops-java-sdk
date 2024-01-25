@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * List of User-friendly policy type with description (used for querying policy types).
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PolicyTypes extends SerializableCollectionEntity {
-    /***
+    /**
      * List of User-friendly policy type with description (used for querying policy types).
      */
     @JsonProperty("value")

@@ -4,43 +4,43 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Represents the identity of an user object.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Author extends SerializableEntity {
-    /***
+    /**
      * This is the non-unique display name of the graph subject. To change this field, you must alter its value in the source provider.
      */
     @JsonProperty("displayName")
     private String displayName;
-    /***
+    /**
      * This url is the full route to the source resource of this graph subject.
      */
     @JsonProperty("url")
     private String url;
-    /***
+    /**
      * This field contains zero or more interesting links about the graph subject.
      * These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
      */
     @JsonProperty("_links")
     private Object _links;
-    /***
+    /**
      * Unique Id
      */
     @JsonProperty("id")
     private String id;
-    /***
+    /**
      * Unique name
      */
     @JsonProperty("uniqueName")
     private String uniqueName;
-    /***
+    /**
      * Is origin value deleted
      */
     @JsonProperty("isDeletedInOrigin")
     private Boolean isDeletedInOrigin;
-    /***
+    /**
      * The descriptor is the primary way to reference the graph subject while the system is running.
      * This field will uniquely identify the same graph subject across both Accounts and Organizations.
      */

@@ -16,16 +16,9 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class ClientRequestBuilder implements ClientRequest.Builder {
-    private final ServiceEndpointBuilder serviceEndpointBuilder = new ServiceEndpointBuilder(null);
     private final AccessTokenCredential accessTokenCredential;
-    private final Map<String, Object> query = new HashMap<>();
+    private final Map<String, Object> pathParameters;
     private RequestInformation reqInfo;
-    private String apiVersion;
-    private Object queryParams;
-    private String requestUrl;
-    private CustomHeader header;
-    private RequestHeaders requestHeaders;
-    private RequestInformation requestInfo;
 
     public ClientRequestBuilder() {
         this(null);
@@ -33,45 +26,47 @@ public class ClientRequestBuilder implements ClientRequest.Builder {
 
     public ClientRequestBuilder(AccessTokenCredential accessTokenCredential) {
         this.accessTokenCredential = accessTokenCredential;
+        this.pathParameters = new HashMap<>();
+        this.reqInfo = new RequestInformation();
+        if (accessTokenCredential != null) {
+            this.reqInfo.accessTokenCredential = accessTokenCredential;
+            this.reqInfo.project = accessTokenCredential.getProjectName();
+        }
     }
 
     @Override
     public ClientRequest.Builder baseInstance(String baseInstance) {
-        Objects.requireNonNull(baseInstance, "Base instance cannot be null");
-        serviceEndpointBuilder.organizationUrl = baseInstance;
+        reqInfo.setBaseInstance(Objects.requireNonNull(baseInstance, "Base instance cannot be null"));
         return this;
     }
 
     @Override
     public ClientRequest.Builder area(String area) {
-        Objects.requireNonNull(area, "Area cannot be null.");
-        serviceEndpointBuilder.area = area;
+        reqInfo.area = Objects.requireNonNull(area, "Area cannot be null.");
         return this;
     }
 
     @Override
     public ClientRequest.Builder location(String locationId) {
-        Objects.requireNonNull(locationId, "Location id cannot be null.");
-        serviceEndpointBuilder.locationId = locationId;
+        reqInfo.locationId = Objects.requireNonNull(locationId, "Location id cannot be null.");
         return this;
     }
 
     @Override
     public ClientRequest.Builder apiVersion(String apiVersion) {
-        this.apiVersion = apiVersion;
+        reqInfo.apiVersion = apiVersion;
         return this;
     }
 
     @Override
     public ClientRequest.Builder GET() {
-        reqInfo = new RequestInformation();
+        reqInfo.requestMethod = RequestMethod.GET;
         reqInfo.requestHeaders.add(CustomHeader.JSON);
         return this;
     }
 
     @Override
     public ClientRequest.Builder POST(Object requestBody) {
-        reqInfo = new RequestInformation();
         reqInfo.requestMethod = RequestMethod.POST;
         reqInfo.requestBody = requestBody;
         reqInfo.requestHeaders.add(CustomHeader.JSON_CONTENT_TYPE);
@@ -80,7 +75,6 @@ public class ClientRequestBuilder implements ClientRequest.Builder {
 
     @Override
     public ClientRequest.Builder PATCH(Object requestBody) {
-        reqInfo = new RequestInformation();
         reqInfo.requestMethod = RequestMethod.PATCH;
         reqInfo.requestBody = requestBody;
         reqInfo.requestHeaders.add(CustomHeader.JSON_CONTENT_TYPE);
@@ -89,7 +83,6 @@ public class ClientRequestBuilder implements ClientRequest.Builder {
 
     @Override
     public ClientRequest.Builder PUT(Object requestBody) {
-        reqInfo = new RequestInformation();
         reqInfo.requestMethod = RequestMethod.PUT;
         reqInfo.requestBody = requestBody;
         reqInfo.requestHeaders.add(CustomHeader.JSON_CONTENT_TYPE);
@@ -98,7 +91,6 @@ public class ClientRequestBuilder implements ClientRequest.Builder {
 
     @Override
     public ClientRequest.Builder DELETE() {
-        reqInfo = new RequestInformation();
         reqInfo.requestMethod = RequestMethod.DELETE;
         reqInfo.requestHeaders.add(CustomHeader.JSON_CONTENT_TYPE);
         return this;
@@ -106,8 +98,14 @@ public class ClientRequestBuilder implements ClientRequest.Builder {
 
     @Override
     public ClientRequest.Builder OPTIONS() {
-        reqInfo = new RequestInformation();
         reqInfo.requestMethod = RequestMethod.OPTIONS;
+        reqInfo.requestHeaders.add(CustomHeader.JSON);
+        return this;
+    }
+
+    @Override
+    public ClientRequest.Builder HEAD() {
+        reqInfo.requestMethod = RequestMethod.HEAD;
         reqInfo.requestHeaders.add(CustomHeader.JSON);
         return this;
     }
@@ -115,26 +113,28 @@ public class ClientRequestBuilder implements ClientRequest.Builder {
     @Override
     public ClientRequest.Builder URI(String url) {
         Objects.requireNonNull(url, "Request url cannot be null.");
-        this.requestUrl = url;
+        reqInfo.setRequestUrl(url);
         return this;
     }
 
     @Override
     public ClientRequest.Builder URI(URI uri) {
         Objects.requireNonNull(uri, "Request url cannot be null.");
-        this.requestUrl = uri.toString();
+        reqInfo.setRequestUrl(uri.toString());
         return this;
     }
 
     @Override
     public ClientRequest.Builder serviceEndpoint(String key, Object value) {
-        serviceEndpointBuilder.add(key, value);
+        Objects.requireNonNull(key);
+        if (pathParameters.containsKey(key)) pathParameters.replace(key, value);
+        else pathParameters.put(key, value);
         return this;
     }
 
     @Override
     public ClientRequest.Builder query(String name, Object value) {
-        query.put(name, value);
+        reqInfo.setQueryParameter(name, value);
         return this;
     }
 
@@ -143,26 +143,26 @@ public class ClientRequestBuilder implements ClientRequest.Builder {
         if (requestConfig != null) {
             T item = config.get();
             requestConfig.accept(item);
-            queryParams = func.apply(item);
+            reqInfo.setQueryParameters(func.apply(item));
         }
         return this;
     }
 
     @Override
     public ClientRequest.Builder header(CustomHeader customHeader) {
-        this.header = customHeader;
+        reqInfo.requestHeaders.add(customHeader);
         return this;
     }
 
     @Override
     public ClientRequest.Builder headers(RequestHeaders requestHeaders) {
-        this.requestHeaders = requestHeaders;
+        reqInfo.requestHeaders.add(requestHeaders);
         return null;
     }
 
     @Override
     public ClientRequest.Builder request(RequestInformation requestInfo) {
-        this.requestInfo = requestInfo;
+        reqInfo = requestInfo;
         return this;
     }
 
@@ -178,46 +178,7 @@ public class ClientRequestBuilder implements ClientRequest.Builder {
 
     @Override
     public ClientRequest build() {
-        if (requestInfo != null) reqInfo = requestInfo;
-        else {
-            if (reqInfo == null) GET();
-            reqInfo.setRequestUrl(requestUrl);
-            reqInfo.accessTokenCredential = accessTokenCredential;
-            reqInfo.baseInstance = serviceEndpointBuilder.organizationUrl;
-            reqInfo.area = serviceEndpointBuilder.area;
-            reqInfo.locationId = serviceEndpointBuilder.locationId;
-            reqInfo.pathParameters = serviceEndpointBuilder.build();
-            // This is not mandatory as apiVersion will be automatically selected, however some Api doesn't return the
-            // correct api version.
-            reqInfo.apiVersion = apiVersion;
-            reqInfo.setQueryParameters(query);
-            reqInfo.setQueryParameters(queryParams);
-            if (accessTokenCredential != null) reqInfo.project = accessTokenCredential.getProjectName();
-            reqInfo.requestHeaders.add(header);
-            reqInfo.requestHeaders.add(requestHeaders);
-        }
+        reqInfo.pathParameters = pathParameters;
         return new ClientRequestAdapter(this);
     }
-
-    private static final class ServiceEndpointBuilder {
-        private final Map<String, Object> endpointMap = new HashMap<>();
-        private String area;
-        private String locationId;
-        private String organizationUrl;
-
-        public ServiceEndpointBuilder(String area) {
-            this.area = area;
-        }
-
-        public void add(String key, Object value) {
-            Objects.requireNonNull(key);
-            if (endpointMap.containsKey(key)) endpointMap.replace(key, value);
-            else endpointMap.put(key, value);
-        }
-
-        public Map<String, Object> build() {
-            return endpointMap;
-        }
-    }
-
 }

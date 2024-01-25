@@ -23,10 +23,11 @@ public class BuildDefinitionTagsRequestBuilder extends BaseRequestBuilder {
         super(organizationUrl, accessTokenCredential, "build", "cb894432-134a-4d31-a839-83beceaace4b");
     }
 
-    /***
+    /**
      * Adds a tag to a definition.
+     *
      * @param definitionId Id of build definition.
-     * @param tag The tag to add.
+     * @param tag          The tag to add.
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
      */
@@ -39,10 +40,11 @@ public class BuildDefinitionTagsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(BuildTags.class);
     }
 
-    /***
+    /**
      * Adds multiple tags to a definition.
+     *
      * @param definitionId Id of build definition.
-     * @param tags The tags to add.
+     * @param tags         The tags to add.
      * @return String array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
      */
@@ -54,11 +56,12 @@ public class BuildDefinitionTagsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(BuildTags.class);
     }
 
-    /***
+    /**
      * Removes a tag from a definition.
      * NOTE: This method will not work for tags with special characters. To remove tags with special characters, use the update method instead.
+     *
      * @param definitionId Id of the build definition.
-     * @param tag The tag to delete
+     * @param tag          The tag to delete
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
      */
@@ -71,8 +74,9 @@ public class BuildDefinitionTagsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(BuildTags.class);
     }
 
-    /***
+    /**
      * Gets the tags for a definition.
+     *
      * @param definitionId Id of build definition.
      * @return Sting array of tags
      * @throws AzDException Default Api Exception handler.
@@ -84,10 +88,11 @@ public class BuildDefinitionTagsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(BuildTags.class);
     }
 
-    /***
+    /**
      * Gets the tags for a definition.
+     *
      * @param definitionId Id of build definition.
-     * @param revision The definition revision number. If not specified, uses the latest revision of the definition.
+     * @param revision     The definition revision number. If not specified, uses the latest revision of the definition.
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
      */
@@ -99,11 +104,12 @@ public class BuildDefinitionTagsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(BuildTags.class);
     }
 
-    /***
+    /**
      * Adds/Removes tags from a build.
+     *
      * @param definitionId The Id of the build definition.
-     * @param tags The tags to update.
-     * @param toRemove If true removes the tags. Use this to remove tags that has special characters.
+     * @param tags         The tags to update.
+     * @param toRemove     If true removes the tags. Use this to remove tags that has special characters.
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
      */
@@ -116,10 +122,11 @@ public class BuildDefinitionTagsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(BuildTags.class);
     }
 
-    /***
+    /**
      * Adds a tag to a definition.
+     *
      * @param definitionId Id of build definition.
-     * @param tag The tag to add.
+     * @param tag          The tag to add.
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
      */
@@ -132,10 +139,11 @@ public class BuildDefinitionTagsRequestBuilder extends BaseRequestBuilder {
                 .execute(BuildTags.class);
     }
 
-    /***
+    /**
      * Adds multiple tags to a definition.
+     *
      * @param definitionId Id of build definition.
-     * @param tags The tags to add.
+     * @param tags         The tags to add.
      * @return String array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
      */
@@ -147,11 +155,12 @@ public class BuildDefinitionTagsRequestBuilder extends BaseRequestBuilder {
                 .execute(BuildTags.class);
     }
 
-    /***
+    /**
      * Removes a tag from a definition.
      * NOTE: This method will not work for tags with special characters. To remove tags with special characters, use the update method instead.
+     *
      * @param definitionId Id of the build definition.
-     * @param tag The tag to delete
+     * @param tag          The tag to delete
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
      */
@@ -164,8 +173,9 @@ public class BuildDefinitionTagsRequestBuilder extends BaseRequestBuilder {
                 .execute(BuildTags.class);
     }
 
-    /***
+    /**
      * Gets the tags for a definition.
+     *
      * @param definitionId Id of build definition.
      * @return Sting array of tags
      * @throws AzDException Default Api Exception handler.
@@ -177,10 +187,11 @@ public class BuildDefinitionTagsRequestBuilder extends BaseRequestBuilder {
                 .execute(BuildTags.class);
     }
 
-    /***
+    /**
      * Gets the tags for a definition.
+     *
      * @param definitionId Id of build definition.
-     * @param revision The definition revision number. If not specified, uses the latest revision of the definition.
+     * @param revision     The definition revision number. If not specified, uses the latest revision of the definition.
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
      */
@@ -192,11 +203,12 @@ public class BuildDefinitionTagsRequestBuilder extends BaseRequestBuilder {
                 .execute(BuildTags.class);
     }
 
-    /***
+    /**
      * Adds/Removes tags from a build.
+     *
      * @param definitionId The Id of the build definition.
-     * @param tags The tags to update.
-     * @param toRemove If true removes the tags. Use this to remove tags that has special characters.
+     * @param tags         The tags to update.
+     * @param toRemove     If true removes the tags. Use this to remove tags that has special characters.
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
      */

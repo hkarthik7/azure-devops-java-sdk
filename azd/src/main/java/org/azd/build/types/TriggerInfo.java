@@ -4,22 +4,22 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Sourceprovider-specific information about what triggered the build
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TriggerInfo extends SerializableEntity {
-    /***
+    /**
      * Represents the commit id
      */
     @JsonProperty("ci.sourceSha")
     private String sourceSha;
-    /***
+    /**
      * Represents the message or description
      */
     @JsonProperty("ci.message")
     private String message;
-    /***
+    /**
      * Detail of the triggered repository
      */
     @JsonProperty("ci.triggerRepository")

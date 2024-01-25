@@ -4,27 +4,27 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * represents an action in a particular security namespace
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SecurityNamespaceAction extends SerializableEntity {
-    /***
+    /**
      * bitmask position, power of 2 value
      */
     @JsonProperty("bit")
     private int bit;
-    /***
+    /**
      * name of security action
      */
     @JsonProperty("name")
     private String name;
-    /***
+    /**
      * display name of security action
      */
     @JsonProperty("displayName")
     private String displayName;
-    /***
+    /**
      * UUID of security action
      */
     @JsonProperty("namespaceId")

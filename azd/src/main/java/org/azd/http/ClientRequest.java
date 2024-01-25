@@ -222,6 +222,13 @@ public abstract class ClientRequest {
         Builder OPTIONS();
 
         /**
+         * Represents HEAD request method.
+         *
+         * @return ClientRequest.Builder. {@link ClientRequest.Builder}
+         */
+        Builder HEAD();
+
+        /**
          * Sets the complete request url with query parameters.
          *
          * @param url Request url to set.

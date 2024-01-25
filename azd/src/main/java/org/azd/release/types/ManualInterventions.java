@@ -6,7 +6,7 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * List of manual interventions
  */
 @JsonIgnoreProperties(ignoreUnknown = true)

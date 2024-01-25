@@ -6,7 +6,7 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * Result of a git reference update list.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)

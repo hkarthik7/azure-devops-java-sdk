@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * Array of installed extensions
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class InstalledExtensions extends SerializableCollectionEntity {
-    /***
+    /**
      * Array of installed extensions
      */
     @JsonProperty("value")

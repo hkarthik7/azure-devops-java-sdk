@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * List of wiki pages
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WikiV2Pages extends SerializableCollectionEntity {
-    /***
+    /**
      * List of wiki pages
      */
     @JsonProperty("value")

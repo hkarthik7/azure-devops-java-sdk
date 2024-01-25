@@ -5,28 +5,27 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Deployment target.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DeploymentMachine extends SerializableEntity {
-    /***
-     *
+    /**
      * Deployment agent.
      */
     @JsonProperty("agent")
     private TaskAgent agent;
-    /***
+    /**
      * Deployment target Identifier.
      */
     @JsonProperty("id")
     private int id;
-    /***
+    /**
      * Properties of the deployment target.
      */
     @JsonProperty("properties")
     private JsonNode properties;
-    /***
+    /**
      * Tags of the deployment target.
      */
     @JsonProperty("tags")

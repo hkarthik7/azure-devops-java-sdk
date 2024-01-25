@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * List of release definition
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReleaseDefinitions extends SerializableCollectionEntity {
-    /***
+    /**
      * List of release definition
      */
     @JsonProperty("value")

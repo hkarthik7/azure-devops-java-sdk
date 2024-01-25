@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableEntity;
 
 import java.util.List;
 
-/***
+/**
  * How this extension behaves with respect to licensing
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ExtensionLicensing extends SerializableEntity {
-    /***
+    /**
      * A list of contributions which deviate from the default licensing behavior
      */
     @JsonProperty("overrides")

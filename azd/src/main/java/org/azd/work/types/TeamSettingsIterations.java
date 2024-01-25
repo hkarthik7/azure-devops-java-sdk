@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * List of team settings iterations
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TeamSettingsIterations extends SerializableCollectionEntity {
-    /***
+    /**
      * List of team settings iterations
      */
     @JsonProperty("value")

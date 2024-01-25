@@ -6,97 +6,97 @@ import com.fasterxml.jackson.databind.JsonNode;
 import org.azd.abstractions.serializer.SerializableEntity;
 import org.azd.common.types.Author;
 
-/***
+/**
  * Encapsulates an event subscription.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ServiceHooksSubscription extends SerializableEntity {
-    /***
+    /**
      * action description
      */
     @JsonProperty("actionDescription")
     private String actionDescription;
-    /***
+    /**
      * consumer action id
      */
     @JsonProperty("consumerActionId")
     private String consumerActionId;
-    /***
+    /**
      * consumer id
      */
     @JsonProperty("consumerId")
     private String consumerId;
-    /***
+    /**
      * Consumer input values
      */
     @JsonProperty("consumerInputs")
     private JsonNode consumerInputs;
-    /***
+    /**
      * created by
      */
     @JsonProperty("createdBy")
     private Author createdBy;
-    /***
+    /**
      * created date
      */
     @JsonProperty("createdDate")
     private String createdDate;
-    /***
+    /**
      * event description
      */
     @JsonProperty("eventDescription")
     private String eventDescription;
-    /***
+    /**
      * event type
      */
     @JsonProperty("eventType")
     private String eventType;
-    /***
+    /**
      * id
      */
     @JsonProperty("id")
     private String id;
-    /***
+    /**
      * modified by
      */
     @JsonProperty("modifiedBy")
     private JsonNode modifiedBy;
-    /***
+    /**
      * modified date
      */
     @JsonProperty("modifiedDate")
     private String modifiedDate;
-    /***
+    /**
      * probation retries
      */
     @JsonProperty("probationRetries")
     private String probationRetries;
-    /***
+    /**
      * publisher id
      */
     @JsonProperty("publisherId")
     private String publisherId;
-    /***
+    /**
      * publsher inputs
      */
     @JsonProperty("publisherInputs")
     private JsonNode publisherInputs;
-    /***
+    /**
      * resource version
      */
     @JsonProperty("resourceVersion")
     private String resourceVersion;
-    /***
+    /**
      * status
      */
     @JsonProperty("status")
     private String status;
-    /***
+    /**
      * subscriber
      */
     @JsonProperty("subscriber")
     private Author subscriber;
-    /***
+    /**
      * url
      */
     @JsonProperty("url")

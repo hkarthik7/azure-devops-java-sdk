@@ -17,11 +17,11 @@ import java.util.Map;
 
 import static org.azd.utils.RestClient.send;
 
-/***
+/**
  * PipelinesApi class to manage Pipelines API
  */
 public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements PipelinesDetails {
-    /***
+    /**
      * Connection object
      */
     private final Connection CONNECTION;
@@ -29,18 +29,20 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
     private final String AREA = "pipelines";
     private final String PIPELINES = "2e0bf237-8973-4ec9-a581-9c3d679d1776";
 
-    /***
+    /**
      * Pass the connection object to work with Pipelines Api
+     *
      * @param connection Connection object
      */
     public PipelinesApi(Connection connection) {
         this.CONNECTION = connection;
     }
 
-    /***
+    /**
      * Get a specific artifact from a pipeline run
-     * @param pipelineId ID of the pipeline.
-     * @param runId ID of the run of that pipeline.
+     *
+     * @param pipelineId   ID of the pipeline.
+     * @param runId        ID of the run of that pipeline.
      * @param artifactName Name of the artifact.
      * @return PipelinesArtifact object {@link PipelinesArtifact}
      * @throws AzDException Default Api Exception handler.
@@ -57,11 +59,12 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
         return MAPPER.mapJsonResponse(r, PipelinesArtifact.class);
     }
 
-    /***
+    /**
      * Get a specific artifact from a pipeline run
-     * @param pipelineId ID of the pipeline.
-     * @param runId ID of the run of that pipeline.
-     * @param artifactName Name of the artifact.
+     *
+     * @param pipelineId    ID of the pipeline.
+     * @param runId         ID of the run of that pipeline.
+     * @param artifactName  Name of the artifact.
      * @param expandOptions Expand options. Default is None. {@link PipelinesExpandOptions}
      * @return PipelinesArtifact object {@link PipelinesArtifact}
      * @throws AzDException Default Api Exception handler.
@@ -80,11 +83,12 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
         return MAPPER.mapJsonResponse(r, PipelinesArtifact.class);
     }
 
-    /***
+    /**
      * Get a specific log from a pipeline run
+     *
      * @param pipelineId ID of the pipeline.
-     * @param runId ID of the run of that pipeline.
-     * @param logId ID of the log.
+     * @param runId      ID of the run of that pipeline.
+     * @param logId      ID of the log.
      * @return PipelineLog object {@link PipelineLog}
      * @throws AzDException Default Api Exception handler.
      */
@@ -96,11 +100,12 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
         return MAPPER.mapJsonResponse(r, PipelineLog.class);
     }
 
-    /***
+    /**
      * Get a specific log from a pipeline run
-     * @param pipelineId ID of the pipeline.
-     * @param runId ID of the run of that pipeline.
-     * @param logId ID of the log.
+     *
+     * @param pipelineId    ID of the pipeline.
+     * @param runId         ID of the run of that pipeline.
+     * @param logId         ID of the log.
      * @param expandOptions Expand options. Default is None. {@link PipelinesExpandOptions}
      * @return PipelineLog object {@link PipelineLog}
      * @throws AzDException Default Api Exception handler.
@@ -117,10 +122,11 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
         return MAPPER.mapJsonResponse(r, PipelineLog.class);
     }
 
-    /***
+    /**
      * Get a list of logs from a pipeline run.
+     *
      * @param pipelineId ID of the pipeline.
-     * @param runId ID of the run of that pipeline.
+     * @param runId      ID of the run of that pipeline.
      * @return LogCollection object {@link LogCollection}
      * @throws AzDException Default Api Exception handler.
      */
@@ -132,10 +138,11 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
         return MAPPER.mapJsonResponse(r, LogCollection.class);
     }
 
-    /***
+    /**
      * Get a list of logs from a pipeline run.
-     * @param pipelineId ID of the pipeline.
-     * @param runId ID of the run of that pipeline.
+     *
+     * @param pipelineId    ID of the pipeline.
+     * @param runId         ID of the run of that pipeline.
      * @param expandOptions Expand options. Default is None. {@link PipelinesExpandOptions}
      * @return LogCollection object {@link LogCollection}
      * @throws AzDException Default Api Exception handler.
@@ -152,12 +159,13 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
         return MAPPER.mapJsonResponse(r, LogCollection.class);
     }
 
-    /***
+    /**
      * Create a pipeline.
-     * @param name Name of the pipeline.
-     * @param folder Folder of the pipeline.
+     *
+     * @param name           Name of the pipeline.
+     * @param folder         Folder of the pipeline.
      * @param pathOfYamlFile Path of azure-pipelines.yaml file in the repository.
-     * @param repositoryId Id of the repository
+     * @param repositoryId   Id of the repository
      * @param repositoryName Name of the repository
      * @return Pipeline object {@link Pipeline}
      * @throws AzDException Default Api Exception handler.
@@ -186,8 +194,9 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
         return MAPPER.mapJsonResponse(r, Pipeline.class);
     }
 
-    /***
+    /**
      * Gets a pipeline, optionally at the specified version
+     *
      * @param pipelineId The pipeline ID
      * @return Pipeline object {@link Pipeline}
      * @throws AzDException Default Api Exception handler.
@@ -200,9 +209,10 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
         return MAPPER.mapJsonResponse(r, Pipeline.class);
     }
 
-    /***
+    /**
      * Gets a pipeline, optionally at the specified version
-     * @param pipelineId The pipeline ID
+     *
+     * @param pipelineId      The pipeline ID
      * @param pipelineVersion The pipeline version
      * @return Pipeline object {@link Pipeline}
      * @throws AzDException Default Api Exception handler.
@@ -219,8 +229,9 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
         return MAPPER.mapJsonResponse(r, Pipeline.class);
     }
 
-    /***
+    /**
      * Get a list of pipelines.
+     *
      * @return Pipelines {@link Pipelines}
      * @throws AzDException Default Api Exception handler.
      */
@@ -232,8 +243,9 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
         return MAPPER.mapJsonResponse(r, Pipelines.class);
     }
 
-    /***
+    /**
      * Queues a dry run of the pipeline and returns an object containing the final yaml.
+     *
      * @param pipelineId The pipeline ID.
      * @param previewRun If true, don't actually create a new run. Instead, return the final YAML document after parsing templates.
      * @return PreviewRun object {@link PreviewRun}
@@ -251,12 +263,13 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
         return MAPPER.mapJsonResponse(r, PreviewRun.class);
     }
 
-    /***
+    /**
      * Queues a dry run of the pipeline and returns an object containing the final yaml.
-     * @param pipelineId The pipeline ID.
-     * @param previewRun If true, don't actually create a new run. Instead, return the final YAML document after parsing templates.
+     *
+     * @param pipelineId   The pipeline ID.
+     * @param previewRun   If true, don't actually create a new run. Instead, return the final YAML document after parsing templates.
      * @param yamlOverride If you use the preview run option, you may optionally supply different YAML.
-     * This allows you to preview the final YAML document without committing a changed file.
+     *                     This allows you to preview the final YAML document without committing a changed file.
      * @return PreviewRun object {@link PreviewRun}
      * @throws AzDException Default Api Exception handler.
      */
@@ -273,10 +286,11 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
         return MAPPER.mapJsonResponse(r, PreviewRun.class);
     }
 
-    /***
+    /**
      * Gets a run for a particular pipeline.
+     *
      * @param pipelineId The pipeline id
-     * @param runId The run id
+     * @param runId      The run id
      * @return Pipeline run object {@link PipelineRun}
      * @throws AzDException Default Api Exception handler.
      */
@@ -288,8 +302,9 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
         return MAPPER.mapJsonResponse(r, PipelineRun.class);
     }
 
-    /***
+    /**
      * Gets top 10000 runs for a particular pipeline.
+     *
      * @param pipelineId The pipeline id
      * @return a list of pipeline run object {@link PipelineRuns}
      * @throws AzDException Default Api Exception handler.
@@ -302,8 +317,9 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
         return MAPPER.mapJsonResponse(r, PipelineRuns.class);
     }
 
-    /***
+    /**
      * Runs a pipeline.
+     *
      * @param pipelineId The pipeline id
      * @return a pipeline run object {@link PipelineRun}
      * @throws AzDException Default Api Exception handler.
@@ -320,9 +336,10 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
         return MAPPER.mapJsonResponse(r, PipelineRun.class);
     }
 
-    /***
+    /**
      * Runs a pipeline.
-     * @param pipelineId The pipeline id
+     *
+     * @param pipelineId            The pipeline id
      * @param pipelineRunParameters a map of request parameters.
      * @return a pipeline run object {@link PipelineRun}
      * @throws AzDException Default Api Exception handler.

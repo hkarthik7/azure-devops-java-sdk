@@ -4,42 +4,42 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Represents a project team
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Team extends SerializableEntity {
-    /***
+    /**
      * Team (Identity) Guid. A Team Foundation ID.
      */
     @JsonProperty("id")
     private String id;
-    /***
+    /**
      * Team name
      */
     @JsonProperty("name")
     private String name;
-    /***
+    /**
      * Team REST API Url
      */
     @JsonProperty("url")
     private String url;
-    /***
+    /**
      * Team description
      */
     @JsonProperty("description")
     private String description;
-    /***
+    /**
      * Identity REST API Url to this team
      */
     @JsonProperty("identityUrl")
     private String identityUrl;
-    /***
+    /**
      * Name of the project
      */
     @JsonProperty("projectName")
     private String projectName;
-    /***
+    /**
      * Project identifier
      */
     @JsonProperty("projectId")

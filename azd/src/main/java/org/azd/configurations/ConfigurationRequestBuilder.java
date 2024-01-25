@@ -27,12 +27,13 @@ public class ConfigurationRequestBuilder {
      */
     public void proxy(ProxyConfiguration proxyConfiguration) {
         Objects.requireNonNull(proxyConfiguration, "Proxy configuration cannot be null.");
-        var reqOption = ClientConfiguration.getInstance().getRequestOption();
+        var configurationInstance = ClientConfiguration.getInstance();
+        var reqOption = configurationInstance.getRequestOption();
         var proxySelector = new DefaultProxySelector(proxyConfiguration);
         if (proxyConfiguration.proxyUsername != null && proxyConfiguration.proxyPassword != null)
             reqOption.setAuthenticator(new DefaultProxyAuthenticator(proxyConfiguration));
         reqOption.setProxySelector(proxySelector);
-        ClientConfiguration.getInstance().configureRequestOption(reqOption);
+        configurationInstance.configureRequestOption(reqOption);
     }
 
     /**

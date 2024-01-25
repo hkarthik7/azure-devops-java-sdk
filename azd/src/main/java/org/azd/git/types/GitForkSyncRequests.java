@@ -17,7 +17,7 @@ import java.util.List;
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GitForkSyncRequests extends SerializableCollectionEntity {
-    /***
+    /**
      * List of fork sync requests
      */
     @JsonProperty("value")

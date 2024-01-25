@@ -4,17 +4,17 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Group option to add a user to
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GroupOptions extends SerializableEntity {
-    /***
+    /**
      * Access Level
      */
     @JsonProperty("accessLevel")
     private AccessLevel accessLevel;
-    /***
+    /**
      * Group
      */
     @JsonProperty("group")

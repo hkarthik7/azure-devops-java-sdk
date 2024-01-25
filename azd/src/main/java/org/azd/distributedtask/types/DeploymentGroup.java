@@ -7,47 +7,47 @@ import org.azd.release.types.ProjectReference;
 
 import java.util.List;
 
-/***
+/**
  * Deployment group.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DeploymentGroup extends SerializableEntity {
-    /***
+    /**
      * Description of the deployment group.
      */
     @JsonProperty("description")
     private String description;
-    /***
+    /**
      * Deployment group identifier.
      */
     @JsonProperty("id")
     private int id;
-    /***
+    /**
      * Number of deployment targets in the deployment group.
      */
     @JsonProperty("machineCount")
     private int machineCount;
-    /***
+    /**
      * List of unique tags across all deployment targets in the deployment group.
      */
     @JsonProperty("machineTags")
     private String[] machineTags;
-    /***
+    /**
      * List of deployment targets in the deployment group.
      */
     @JsonProperty("machines")
     private List<DeploymentMachine> machines;
-    /***
+    /**
      * Name of the deployment group.
      */
     @JsonProperty("name")
     private String name;
-    /***
+    /**
      * Deployment pool in which deployment agents are registered.
      */
     @JsonProperty("pool")
     private TaskAgentPoolReference pool;
-    /***
+    /**
      * Project to which the deployment group belongs.
      */
     @JsonProperty("project")

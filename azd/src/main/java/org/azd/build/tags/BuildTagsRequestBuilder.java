@@ -40,10 +40,11 @@ public class BuildTagsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(BuildTags.class);
     }
 
-    /***
+    /**
      * Adds tags to a build.
+     *
      * @param buildId The ID of the build.
-     * @param tags The tags to add.
+     * @param tags    The tags to add.
      * @return String array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
      */
@@ -55,11 +56,12 @@ public class BuildTagsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(BuildTags.class);
     }
 
-    /***
+    /**
      * Removes a tag from a build.
      * NOTE: This method will not work for tags with special characters. To remove tags with special characters, use the update method instead.
+     *
      * @param buildId Id of the build.
-     * @param tag The tag to delete.
+     * @param tag     The tag to delete.
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
      */
@@ -72,8 +74,9 @@ public class BuildTagsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(BuildTags.class);
     }
 
-    /***
+    /**
      * Gets the tags for a build.
+     *
      * @param buildId The ID of the build.
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
@@ -85,10 +88,11 @@ public class BuildTagsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(BuildTags.class);
     }
 
-    /***
+    /**
      * Adds/Removes tags from a build.
-     * @param buildId The ID of the build.
-     * @param tags The tags to update.
+     *
+     * @param buildId  The ID of the build.
+     * @param tags     The tags to update.
      * @param toRemove If true removes the tags. Use this to remove tags that has special characters.
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
@@ -118,10 +122,11 @@ public class BuildTagsRequestBuilder extends BaseRequestBuilder {
                 .execute(BuildTags.class);
     }
 
-    /***
+    /**
      * Adds tags to a build.
+     *
      * @param buildId The ID of the build.
-     * @param tags The tags to add.
+     * @param tags    The tags to add.
      * @return String array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
      */
@@ -133,11 +138,12 @@ public class BuildTagsRequestBuilder extends BaseRequestBuilder {
                 .execute(BuildTags.class);
     }
 
-    /***
+    /**
      * Removes a tag from a build.
      * NOTE: This method will not work for tags with special characters. To remove tags with special characters, use the update method instead.
+     *
      * @param buildId Id of the build.
-     * @param tag The tag to delete.
+     * @param tag     The tag to delete.
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
      */
@@ -150,8 +156,9 @@ public class BuildTagsRequestBuilder extends BaseRequestBuilder {
                 .execute(BuildTags.class);
     }
 
-    /***
+    /**
      * Gets the tags for a build.
+     *
      * @param buildId The ID of the build.
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
@@ -163,10 +170,11 @@ public class BuildTagsRequestBuilder extends BaseRequestBuilder {
                 .execute(BuildTags.class);
     }
 
-    /***
+    /**
      * Adds/Removes tags from a build.
-     * @param buildId The ID of the build.
-     * @param tags The tags to update.
+     *
+     * @param buildId  The ID of the build.
+     * @param tags     The tags to update.
      * @param toRemove If true removes the tags. Use this to remove tags that has special characters.
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.

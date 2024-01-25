@@ -4,37 +4,37 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Represents build repository
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Repository extends SerializableEntity {
-    /***
+    /**
      * Id of the repository
      */
     @JsonProperty("id")
     private String id;
-    /***
+    /**
      * Type of the repository
      */
     @JsonProperty("type")
     private String type;
-    /***
+    /**
      * Name of the repository
      */
     @JsonProperty("name")
     private String name;
-    /***
+    /**
      * URL of the repository
      */
     @JsonProperty("url")
     private String url;
-    /***
+    /**
      * Clean
      */
     @JsonProperty("clean")
     private String clean;
-    /***
+    /**
      * To check out submodules or not
      */
     @JsonProperty("checkoutSubmodules")

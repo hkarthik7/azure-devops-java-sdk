@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * List of deleted repositories
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GitDeletedRepositories extends SerializableCollectionEntity {
-    /***
+    /**
      * List of deleted repositories
      */
     @JsonProperty("value")

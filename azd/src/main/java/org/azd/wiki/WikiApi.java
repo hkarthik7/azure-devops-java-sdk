@@ -21,11 +21,11 @@ import java.util.Map;
 
 import static org.azd.utils.RestClient.send;
 
-/***
+/**
  * Wiki class to manage Wiki API
  */
 public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
-    /***
+    /**
      * Connection object
      */
     private final Connection CONNECTION;
@@ -33,18 +33,20 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
     private final String AREA = "wiki/wikis";
     private final String WIKI = "bf7d82a0-8aa5-4613-94ef-6172a5ea01f3";
 
-    /***
+    /**
      * Pass the connection object to work with Work Api
+     *
      * @param connection Connection object
      */
     public WikiApi(Connection connection) {
         this.CONNECTION = connection;
     }
 
-    /***
+    /**
      * Creates the wiki resource.
+     *
      * @param wikiCreateParameters {@link WikiCreateParameters} helps to create code wiki and project wiki. Use the constructor
-     * parameter to create respective wikis.
+     *                             parameter to create respective wikis.
      * @return WikiV2 object {@link WikiV2}
      * @throws AzDException Default Api Exception handler.
      */
@@ -58,8 +60,9 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
         return MAPPER.mapJsonResponse(r, WikiV2.class);
     }
 
-    /***
+    /**
      * Deletes the wiki corresponding to the wiki ID or wiki name provided.
+     *
      * @param wikiIdentifier Wiki ID or wiki name.
      * @return WikiV2 {@link WikiV2}
      * @throws AzDException Default Api Exception handler.
@@ -72,8 +75,9 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
         return MAPPER.mapJsonResponse(r, WikiV2.class);
     }
 
-    /***
+    /**
      * Gets the wiki corresponding to the wiki ID or wiki name provided.
+     *
      * @param wikiIdentifier Wiki ID or wiki name.
      * @return WikiV2 {@link WikiV2}
      * @throws AzDException Default Api Exception handler.
@@ -86,8 +90,9 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
         return MAPPER.mapJsonResponse(r, WikiV2.class);
     }
 
-    /***
+    /**
      * Gets all wikis in a project or collection.
+     *
      * @return WikiV2s {@link WikiV2Pages}
      * @throws AzDException Default Api Exception handler.
      */

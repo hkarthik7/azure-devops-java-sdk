@@ -5,12 +5,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 
-/***
+/**
  * Graph user entity
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GraphUser extends GraphEntity {
-    /***
+    /**
      * The short, generally unique name for the user in the backing directory.
      * For AAD users, this corresponds to the mail nickname, which is often but not
      * necessarily similar to the part of the user's mail address before the @ sign.
@@ -18,17 +18,17 @@ public class GraphUser extends GraphEntity {
      */
     @JsonProperty("directoryAlias")
     private String directoryAlias;
-    /***
+    /**
      * When true, the group has been deleted in the identity provider
      */
     @JsonProperty("isDeletedInOrigin")
     private boolean isDeletedInOrigin;
-    /***
+    /**
      * The legacy descriptor is here in case you need to access old version IMS using identity descriptor.
      */
     @JsonProperty("legacyDescriptor")
     private String legacyDescriptor;
-    /***
+    /**
      * The meta type of the user in the origin, such as "member", "guest", etc. See UserMetaType for the set of possible values.
      */
     @JsonProperty("metaType")

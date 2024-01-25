@@ -24,11 +24,12 @@ public class PullRequestReviewersRequestBuilder extends BaseRequestBuilder {
         super(organizationUrl, accessTokenCredential, "git", "4b6702c7-aa35-4b89-9c96-b9abf6d3e540");
     }
 
-    /***
+    /**
      * Add a reviewer to a pull request or cast a vote.
-     * @param pullRequestId ID of the pull request.
-     * @param repositoryId The repository id of the pull request's target branch.
-     * @param reviewerId ID of the reviewer.
+     *
+     * @param pullRequestId       ID of the pull request.
+     * @param repositoryId        The repository id of the pull request's target branch.
+     * @param reviewerId          ID of the reviewer.
      * @param identityRefWithVote Identity reference object to add a reviewer or cast a vote to the pull request.
      * @return PullRequestReviewer {@link IdentityRefWithVote}
      * @throws AzDException Default Api Exception handler.
@@ -62,10 +63,11 @@ public class PullRequestReviewersRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(PullRequestReviewers.class);
     }
 
-    /***
+    /**
      * Add an un-materialized identity to the reviewers of a pull request.
-     * @param pullRequestId ID of the pull request.
-     * @param repositoryId The repository id of the pull request's target branch.
+     *
+     * @param pullRequestId       ID of the pull request.
+     * @param repositoryId        The repository id of the pull request's target branch.
      * @param identityRefWithVote Identity reference object to add a reviewer or cast a vote to the pull request.
      * @return PullRequestReviewer {@link IdentityRefWithVote}
      * @throws AzDException Default Api Exception handler.
@@ -98,11 +100,12 @@ public class PullRequestReviewersRequestBuilder extends BaseRequestBuilder {
                 .executePrimitiveAsync();
     }
 
-    /***
+    /**
      * Retrieve information about a particular reviewer on a pull request
+     *
      * @param pullRequestId ID of the pull request.
-     * @param repositoryId The repository id of the pull request's target branch.
-     * @param reviewerId ID of the reviewer.
+     * @param repositoryId  The repository id of the pull request's target branch.
+     * @param reviewerId    ID of the reviewer.
      * @return PullRequestReviewer {@link IdentityRefWithVote}
      * @throws AzDException Default Api Exception handler.
      */
@@ -115,10 +118,11 @@ public class PullRequestReviewersRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(IdentityRefWithVote.class);
     }
 
-    /***
+    /**
      * Retrieve the reviewers for a pull request
+     *
      * @param pullRequestId ID of the pull request.
-     * @param repositoryId The repository id of the pull request's target branch.
+     * @param repositoryId  The repository id of the pull request's target branch.
      * @return List of PullRequestReviewer {@link PullRequestReviewers}
      * @throws AzDException Default Api Exception handler.
      */
@@ -130,11 +134,12 @@ public class PullRequestReviewersRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(PullRequestReviewers.class);
     }
 
-    /***
+    /**
      * Edit a reviewer entry. These fields are patchable: isFlagged, hasDeclined
-     * @param pullRequestId ID of the pull request.
-     * @param repositoryId The repository id of the pull request's target branch.
-     * @param reviewerId ID of the reviewer.
+     *
+     * @param pullRequestId       ID of the pull request.
+     * @param repositoryId        The repository id of the pull request's target branch.
+     * @param reviewerId          ID of the reviewer.
      * @param identityRefWithVote Identity reference object to update.
      * @return PullRequestReviewer {@link IdentityRefWithVote}
      * @throws AzDException Default Api Exception handler.
@@ -150,11 +155,12 @@ public class PullRequestReviewersRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(IdentityRefWithVote.class);
     }
 
-    /***
+    /**
      * Reset the votes of multiple reviewers on a pull request.
      * NOTE: This endpoint only supports updating votes, but does not support updating required reviewers (use policy) or display names.
-     * @param pullRequestId ID of the pull request.
-     * @param repositoryId The repository id of the pull request's target branch.
+     *
+     * @param pullRequestId        ID of the pull request.
+     * @param repositoryId         The repository id of the pull request's target branch.
      * @param identityRefWithVotes Identity reference collection to update.
      * @throws AzDException Default Api Exception handler.
      */
@@ -168,11 +174,12 @@ public class PullRequestReviewersRequestBuilder extends BaseRequestBuilder {
                 .executePrimitiveAsync();
     }
 
-    /***
+    /**
      * Add a reviewer to a pull request or cast a vote.
-     * @param pullRequestId ID of the pull request.
-     * @param repositoryId The repository id of the pull request's target branch.
-     * @param reviewerId ID of the reviewer.
+     *
+     * @param pullRequestId       ID of the pull request.
+     * @param repositoryId        The repository id of the pull request's target branch.
+     * @param reviewerId          ID of the reviewer.
      * @param identityRefWithVote Identity reference object to add a reviewer or cast a vote to the pull request.
      * @return PullRequestReviewer {@link IdentityRefWithVote}
      * @throws AzDException Default Api Exception handler.
@@ -206,10 +213,11 @@ public class PullRequestReviewersRequestBuilder extends BaseRequestBuilder {
                 .execute(PullRequestReviewers.class);
     }
 
-    /***
+    /**
      * Add an un-materialized identity to the reviewers of a pull request.
-     * @param pullRequestId ID of the pull request.
-     * @param repositoryId The repository id of the pull request's target branch.
+     *
+     * @param pullRequestId       ID of the pull request.
+     * @param repositoryId        The repository id of the pull request's target branch.
      * @param identityRefWithVote Identity reference object to add a reviewer or cast a vote to the pull request.
      * @return PullRequestReviewer {@link IdentityRefWithVote}
      * @throws AzDException Default Api Exception handler.
@@ -242,11 +250,12 @@ public class PullRequestReviewersRequestBuilder extends BaseRequestBuilder {
                 .executePrimitive();
     }
 
-    /***
+    /**
      * Retrieve information about a particular reviewer on a pull request
+     *
      * @param pullRequestId ID of the pull request.
-     * @param repositoryId The repository id of the pull request's target branch.
-     * @param reviewerId ID of the reviewer.
+     * @param repositoryId  The repository id of the pull request's target branch.
+     * @param reviewerId    ID of the reviewer.
      * @return PullRequestReviewer {@link IdentityRefWithVote}
      * @throws AzDException Default Api Exception handler.
      */
@@ -259,10 +268,11 @@ public class PullRequestReviewersRequestBuilder extends BaseRequestBuilder {
                 .execute(IdentityRefWithVote.class);
     }
 
-    /***
+    /**
      * Retrieve the reviewers for a pull request
+     *
      * @param pullRequestId ID of the pull request.
-     * @param repositoryId The repository id of the pull request's target branch.
+     * @param repositoryId  The repository id of the pull request's target branch.
      * @return List of PullRequestReviewer {@link PullRequestReviewers}
      * @throws AzDException Default Api Exception handler.
      */
@@ -274,11 +284,12 @@ public class PullRequestReviewersRequestBuilder extends BaseRequestBuilder {
                 .execute(PullRequestReviewers.class);
     }
 
-    /***
+    /**
      * Edit a reviewer entry. These fields are patchable: isFlagged, hasDeclined
-     * @param pullRequestId ID of the pull request.
-     * @param repositoryId The repository id of the pull request's target branch.
-     * @param reviewerId ID of the reviewer.
+     *
+     * @param pullRequestId       ID of the pull request.
+     * @param repositoryId        The repository id of the pull request's target branch.
+     * @param reviewerId          ID of the reviewer.
      * @param identityRefWithVote Identity reference object to update.
      * @return PullRequestReviewer {@link IdentityRefWithVote}
      * @throws AzDException Default Api Exception handler.
@@ -294,11 +305,12 @@ public class PullRequestReviewersRequestBuilder extends BaseRequestBuilder {
                 .execute(IdentityRefWithVote.class);
     }
 
-    /***
+    /**
      * Reset the votes of multiple reviewers on a pull request.
      * NOTE: This endpoint only supports updating votes, but does not support updating required reviewers (use policy) or display names.
-     * @param pullRequestId ID of the pull request.
-     * @param repositoryId The repository id of the pull request's target branch.
+     *
+     * @param pullRequestId        ID of the pull request.
+     * @param repositoryId         The repository id of the pull request's target branch.
      * @param identityRefWithVotes Identity reference collection to update.
      * @throws AzDException Default Api Exception handler.
      */

@@ -7,52 +7,52 @@ import org.azd.abstractions.serializer.SerializableEntity;
 
 import java.util.List;
 
-/***
+/**
  * An individual contribution made by an extension
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Contribution extends SerializableEntity {
-    /***
+    /**
      * List of constraints (filters) that should be applied to the availability of this contribution
      */
     @JsonProperty("constraints")
     private List<ContributionConstraint> constraints;
-    /***
+    /**
      * Description of the contribution/type
      */
     @JsonProperty("description")
     private String description;
-    /***
+    /**
      * Fully qualified identifier of the contribution/type
      */
     @JsonProperty("id")
     private String id;
-    /***
+    /**
      * Includes is a set of contributions that should have this contribution included in their targets list.
      */
     @JsonProperty("includes")
     private String[] includes;
-    /***
+    /**
      * Properties/attributes of this contribution
      */
     @JsonProperty("properties")
     private JsonNode properties;
-    /***
+    /**
      * List of demanded claims in order for the user to see this contribution (like anonymous, public, member...).
      */
     @JsonProperty("restrictedTo")
     private String[] restrictedTo;
-    /***
+    /**
      * The ids of the contribution(s) that this contribution targets. (parent contributions)
      */
     @JsonProperty("targets")
     private String[] targets;
-    /***
+    /**
      * Id of the Contribution Type
      */
     @JsonProperty("type")
     private String type;
-    /***
+    /**
      * VisibleTo can be used to restrict whom can reference a given contribution/type.
      * This value should be a list of publishers or extensions access is restricted too.
      * Examples: "ms" - Means only the "ms" publisher can reference this. "ms.vss-web" -

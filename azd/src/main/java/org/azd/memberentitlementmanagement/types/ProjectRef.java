@@ -4,17 +4,17 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * A reference to a project
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ProjectRef extends SerializableEntity {
-    /***
+    /**
      * Project ID.
      */
     @JsonProperty("id")
     private String id;
-    /***
+    /**
      * Project Name.
      */
     @JsonProperty("name")

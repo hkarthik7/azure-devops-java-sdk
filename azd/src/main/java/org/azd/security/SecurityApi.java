@@ -30,18 +30,20 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
     private final String AREA_ACE = "accesscontrolentries";
     private final String AREA_IDENTITIES = "identities";
 
-    /***
+    /**
      * Pass the connection object to work with Security Api
+     *
      * @param connection Connection object
      */
     public SecurityApi(Connection connection) {
         this.CONNECTION = connection;
     }
 
-    /***
+    /**
      * return all security namespaces, remote and local
-     *
+     * <p>
      * Security namespaces are used to store access control lists (ACLs) on tokens.
+     *
      * @return SecurityNamespaces {@link SecurityNamespaces}
      * @throws AzDException Default Api Exception handler.
      */
@@ -50,9 +52,9 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
         return getNamespaces(false);
     }
 
-    /***
+    /**
      * return all security namespaces, remote and local
-     *
+     * <p>
      * Local vs. remote
      * <ul>
      * <li>Security namespaces may have their data mastered in one microservice, but still be visible in other microservices.</li>
@@ -75,7 +77,7 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
         return MAPPER.mapJsonResponse(r, SecurityNamespaces.class);
     }
 
-    /***
+    /**
      * return a namespace with the specific identifier
      *
      * @param namespaceId namespace identifier
@@ -91,7 +93,7 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
         return securityNamespaces.getSecurityNamespaces().get(0);
     }
 
-    /***
+    /**
      * Return a list of access control lists for the specified security namespace and token.
      * All ACLs in the security namespace will be retrieved if no optional parameters are provided.
      *
@@ -104,14 +106,14 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
         return getAccessControlLists(namespaceId, null, null, false, false);
     }
 
-    /***
+    /**
      * Return a list of access control lists for the specified security namespace and token. All ACLs in the security namespace will be retrieved if no optional parameters are provided.
      *
-     * @param namespaceId identifier of namespace
-     * @param descriptors An optional filter string containing a list of identity descriptors separated by ',' whose ACEs should be retrieved. If this is left null, entire ACLs will be returned.
-     * @param token Security token. See <a href="https://docs.microsoft.com/en-us/azure/devops/organizations/security/namespace-reference?view=azure-devops">Security namespace and permission reference for Azure DevOps</a>
+     * @param namespaceId         identifier of namespace
+     * @param descriptors         An optional filter string containing a list of identity descriptors separated by ',' whose ACEs should be retrieved. If this is left null, entire ACLs will be returned.
+     * @param token               Security token. See <a href="https://docs.microsoft.com/en-us/azure/devops/organizations/security/namespace-reference?view=azure-devops">Security namespace and permission reference for Azure DevOps</a>
      * @param includeExtendedInfo If true, populate the extended information properties for the access control entries contained in the returned lists.
-     * @param recurse If true and this is a hierarchical namespace, return child ACLs of the specified token.
+     * @param recurse             If true and this is a hierarchical namespace, return child ACLs of the specified token.
      * @return ACLs {@link ACLs}
      * @throws AzDException Default Api Exception handler.
      */
@@ -137,15 +139,15 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
         return MAPPER.mapJsonResponse(r, ACLs.class);
     }
 
-    /***
+    /**
      * Resolve legacy identity information for use with older APIs such as the Security APIs
      *
-     * @param descriptors A list of identity descriptors to resolve
-     * @param identityIds A list of storage keys to resolve
+     * @param descriptors        A list of identity descriptors to resolve
+     * @param identityIds        A list of storage keys to resolve
      * @param subjectDescriptors list of subject descriptors to resolve
-     * @param filterValue The search value, as specified by the searchFilter.
-     * @param queryMembership The membership information to include with the identities. Values can be None for no membership data or Direct to include the groups that the identity is a member of and the identities that are a member of this identity (groups only)
-     * @param searchFilter The type of search to perform. Values can be AccountName (domain\alias), DisplayName, MailAddress, General (display name, account name, or unique name), or LocalGroupName (only search Azure Devops groups).
+     * @param filterValue        The search value, as specified by the searchFilter.
+     * @param queryMembership    The membership information to include with the identities. Values can be None for no membership data or Direct to include the groups that the identity is a member of and the identities that are a member of this identity (groups only)
+     * @param searchFilter       The type of search to perform. Values can be AccountName (domain\alias), DisplayName, MailAddress, General (display name, account name, or unique name), or LocalGroupName (only search Azure Devops groups).
      * @return Identities {@link Identities}
      * @throws AzDException Default Api Exception handler.
      */
@@ -182,7 +184,7 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
         return MAPPER.mapJsonResponse(r, Identities.class);
     }
 
-    /***
+    /**
      * see {@link SecurityApi#getIdentities(String[], String[], String[], String, String, String)}
      * shortcut to provide var args list of subjectDescriptors only
      *
@@ -243,11 +245,11 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
         return null;
     }
 
-    /***
+    /**
      * Create or update one or more access control lists. All data that currently exists for the ACLs supplied will be overwritten.
      *
      * @param namespaceId Security namespace identifier.
-     * @param payload ACLs {@link ACLs}
+     * @param payload     ACLs {@link ACLs}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
@@ -257,12 +259,12 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
         return null;
     }
 
-    /***
+    /**
      * Remove access control lists under the specified security namespace.
      *
      * @param namespaceId Security namespace identifier.
-     * @param recurse If true and this is a hierarchical namespace, also remove child ACLs of the specified tokens.
-     * @param tokens One or more comma-separated security tokens
+     * @param recurse     If true and this is a hierarchical namespace, also remove child ACLs of the specified tokens.
+     * @param tokens      One or more comma-separated security tokens
      * @throws AzDException Default Api Exception handler.
      */
     @Override

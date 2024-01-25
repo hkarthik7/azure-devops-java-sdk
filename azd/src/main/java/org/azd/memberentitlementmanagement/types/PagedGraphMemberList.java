@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableEntity;
 
 import java.util.List;
 
-/***
+/**
  * A page of users
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PagedGraphMemberList extends SerializableEntity {
-    /***
+    /**
      * A user entity with additional properties including their license, extensions, and project membership
      */
     @JsonProperty("members")

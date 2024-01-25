@@ -23,8 +23,9 @@ public class RecycleBinRepositoriesRequestBuilder extends BaseRequestBuilder {
         super(organizationUrl, accessTokenCredential, "git", "a663da97-81db-4eb3-8b83-287670f63073");
     }
 
-    /***
+    /**
      * Destroy (hard delete) a soft-deleted Git repository.
+     *
      * @param repositoryId pass the repository id
      * @throws AzDException Default Api Exception handler.
      */
@@ -36,10 +37,11 @@ public class RecycleBinRepositoriesRequestBuilder extends BaseRequestBuilder {
                 .executePrimitiveAsync();
     }
 
-    /***
+    /**
      * Retrieve soft-deleted git repositories from the recycle bin.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return array of git deleted recycle bin repositories
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<GitDeletedRepositories> listAsync() throws AzDException {
         return builder()
@@ -47,14 +49,15 @@ public class RecycleBinRepositoriesRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(GitDeletedRepositories.class);
     }
 
-    /***
+    /**
      * Recover a soft-deleted Git repository. Recently deleted repositories go
      * into a soft-delete state for a period of time before they are hard
      * deleted and become unrecoverable.
+     *
      * @param repositoryId pass the repository id
-     * @param deleted Setting to false will undo earlier deletion and restore the repository.
-     * @throws AzDException Default Api Exception handler.
+     * @param deleted      Setting to false will undo earlier deletion and restore the repository.
      * @return object of git repository {@link GitRepository}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<GitRepository> restoreAsync(String repositoryId, boolean deleted) throws AzDException {
         return builder()
@@ -64,8 +67,9 @@ public class RecycleBinRepositoriesRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(GitRepository.class);
     }
 
-    /***
+    /**
      * Destroy (hard delete) a soft-deleted Git repository.
+     *
      * @param repositoryId pass the repository id
      * @throws AzDException Default Api Exception handler.
      */
@@ -77,10 +81,11 @@ public class RecycleBinRepositoriesRequestBuilder extends BaseRequestBuilder {
                 .executePrimitive();
     }
 
-    /***
+    /**
      * Retrieve soft-deleted git repositories from the recycle bin.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return array of git deleted recycle bin repositories
+     * @throws AzDException Default Api Exception handler.
      */
     public GitDeletedRepositories list() throws AzDException {
         return builder()
@@ -88,14 +93,15 @@ public class RecycleBinRepositoriesRequestBuilder extends BaseRequestBuilder {
                 .execute(GitDeletedRepositories.class);
     }
 
-    /***
+    /**
      * Recover a soft-deleted Git repository. Recently deleted repositories go
      * into a soft-delete state for a period of time before they are hard
      * deleted and become unrecoverable.
+     *
      * @param repositoryId pass the repository id
-     * @param deleted Setting to false will undo earlier deletion and restore the repository.
-     * @throws AzDException Default Api Exception handler.
+     * @param deleted      Setting to false will undo earlier deletion and restore the repository.
      * @return object of git repository {@link GitRepository}
+     * @throws AzDException Default Api Exception handler.
      */
     public GitRepository restore(String repositoryId, boolean deleted) throws AzDException {
         return builder()

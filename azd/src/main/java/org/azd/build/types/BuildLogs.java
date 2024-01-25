@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * List of build log
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BuildLogs extends SerializableCollectionEntity {
-    /***
+    /**
      * List of build log
      */
     @JsonProperty("value")

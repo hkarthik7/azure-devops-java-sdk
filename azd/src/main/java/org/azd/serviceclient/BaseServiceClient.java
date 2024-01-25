@@ -9,7 +9,9 @@ import org.azd.configurations.ConfigurationRequestBuilder;
 import org.azd.core.CoreRequestBuilder;
 import org.azd.distributedtask.DistributedTaskRequestBuilder;
 import org.azd.extensionmanagement.ExtensionManagementRequestBuilder;
+import org.azd.featuremanagement.FeatureManagementRequestBuilder;
 import org.azd.git.GitBaseRequestBuilder;
+import org.azd.helpers.HelpersRequestBuilder;
 import org.azd.locations.LocationsBaseRequestBuilder;
 import org.azd.oauth.OAuthAccessTokenBuilder;
 
@@ -127,6 +129,17 @@ public class BaseServiceClient implements AzDServiceClient {
     }
 
     /**
+     * Request builder for feature management Api.
+     * NOTE: This is an unpublished Api.
+     *
+     * @return Feature management request builder. {@link FeatureManagementRequestBuilder}
+     */
+    @Override
+    public FeatureManagementRequestBuilder featureManagement() {
+        return new FeatureManagementRequestBuilder(organizationUrl, accessTokenCredential);
+    }
+
+    /**
      * Organization url.
      *
      * @return Returns the organization url.
@@ -146,6 +159,16 @@ public class BaseServiceClient implements AzDServiceClient {
     public GitBaseRequestBuilder git() {
         var locationUrl = getLocationUrl(ResourceId.GIT);
         return new GitBaseRequestBuilder(locationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Helper class request builder.
+     *
+     * @return HelpersRequestBuilder {@link HelpersRequestBuilder}
+     */
+    @Override
+    public HelpersRequestBuilder helpers() {
+        return new HelpersRequestBuilder(organizationUrl, accessTokenCredential);
     }
 
     /**

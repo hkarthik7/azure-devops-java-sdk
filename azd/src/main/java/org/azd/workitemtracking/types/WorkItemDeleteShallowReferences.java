@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * Work item shallow references
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WorkItemDeleteShallowReferences extends SerializableCollectionEntity {
-    /***
+    /**
      * Work item shallow references
      */
     @JsonProperty("value")

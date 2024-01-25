@@ -126,13 +126,14 @@ public class FeedManagementRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(Feeds.class);
     }
 
-    /***
+    /**
      * Change the attributes of a feed. The project parameter must be supplied if the feed was created in a project.
      * If the feed is not associated with any project, omit the project parameter from the request.
+     *
      * @param feedId Name or Id of the feed.
-     * @param feed Feed object to update the settings for
-     * @throws AzDException Default Api Exception handler.
+     * @param feed   Feed object to update the settings for
      * @return feed {@link Feed}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Feed> updateAsync(String feedId, Feed feed) throws AzDException {
         return builder()
@@ -235,13 +236,14 @@ public class FeedManagementRequestBuilder extends BaseRequestBuilder {
                 .execute(Feeds.class);
     }
 
-    /***
+    /**
      * Change the attributes of a feed. The project parameter must be supplied if the feed was created in a project.
      * If the feed is not associated with any project, omit the project parameter from the request.
+     *
      * @param feedId Name or Id of the feed.
-     * @param feed Feed object to update the settings for
-     * @throws AzDException Default Api Exception handler.
+     * @param feed   Feed object to update the settings for
      * @return feed {@link Feed}
+     * @throws AzDException Default Api Exception handler.
      */
     public Feed update(String feedId, Feed feed) throws AzDException {
         return builder()

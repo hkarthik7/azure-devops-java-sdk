@@ -4,17 +4,17 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Reference to a work item icon.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WorkItemIcon extends SerializableEntity {
-    /***
+    /**
      * The identifier of the icon.
      */
     @JsonProperty("id")
     private String id;
-    /***
+    /**
      * The REST URL of the resource.
      */
     @JsonProperty("url")

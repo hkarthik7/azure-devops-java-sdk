@@ -22,7 +22,7 @@ public abstract class ApiVersion {
     public static final String CORE = "7.1-preview.1";
     public static final String DISTRIBUTED_TASK = "7.1-preview.1";
     public static final String EXTENSION_MANAGEMENT = "7.1-preview.1";
-    public static final String FEATURE_MANAGEMENT = "4.1-preview.1";
+    public static final String FEATURE_MANAGEMENT = "7.1-preview.1";
     public static final String POLICY = "7.1-preview.1";
     public static final String PROJECT = "7.1-preview.4";
     public static final String PROJECT_PROPERTIES = "7.1-preview.1";

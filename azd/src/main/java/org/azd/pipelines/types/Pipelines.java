@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * Defines a list of Pipeline object
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Pipelines extends SerializableCollectionEntity {
-    /***
+    /**
      * Defines a list of Pipeline object
      */
     @JsonProperty("value")

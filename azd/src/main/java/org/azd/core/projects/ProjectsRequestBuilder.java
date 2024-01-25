@@ -40,11 +40,12 @@ public class ProjectsRequestBuilder extends BaseRequestBuilder {
         return new PropertiesRequestBuilder(organizationUrl, accessTokenCredential);
     }
 
-    /***
+    /**
      * Creates a project for given process id
+     *
      * @param projectCreationParameters Request body to create a new project.
-     * @throws AzDException Default Api Exception handler.
      * @return object with link to the project
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<OperationReference> createAsync(ProjectCreationParameters projectCreationParameters) throws AzDException {
         Objects.requireNonNull(projectCreationParameters, "Project parameters cannot be null.");
@@ -67,16 +68,17 @@ public class ProjectsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(OperationReference.class);
     }
 
-    /***
+    /**
      * Queues a project to be deleted.
      * <p>
-     *     You should pass the project id to delete it. Passing the project name
-     *     won't delete. To get the project id run getProject() with projectName
-     *     and get the Id.
+     * You should pass the project id to delete it. Passing the project name
+     * won't delete. To get the project id run getProject() with projectName
+     * and get the Id.
      * </p>
+     *
      * @param projectId pass the project id
-     * @throws AzDException Default Api Exception handler.
      * @return object of deleted project with url
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<OperationReference> deleteAsync(String projectId) throws AzDException {
         return builder()
@@ -86,11 +88,12 @@ public class ProjectsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(OperationReference.class);
     }
 
-    /***
+    /**
      * Get project with the specified id or name
+     *
      * @param projectId pass the project name or id
-     * @throws AzDException Default Api Exception handler.
      * @return project object {@link Project}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Project> getAsync(String projectId) throws AzDException {
         return builder()
@@ -99,11 +102,12 @@ public class ProjectsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(Project.class);
     }
 
-    /***
+    /**
      * Get project with the specified id or name
+     *
      * @param projectId pass the project name or id
-     * @throws AzDException Default Api Exception handler.
      * @return project object {@link Project}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Project> getAsync(String projectId, Consumer<RequestConfiguration> requestConfiguration)
             throws AzDException {
@@ -114,11 +118,12 @@ public class ProjectsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(Project.class);
     }
 
-    /***
+    /**
      * Get the current project. This should be set when creating the service client object using
      * AzureDevOpsServices {@link AzDService}
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return project object {@link Project}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Project> getAsync() throws AzDException {
         return builder()
@@ -127,10 +132,11 @@ public class ProjectsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(Project.class);
     }
 
-    /***
+    /**
      * Get all projects in the organization that the authenticated user has access to.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return array of project {@link Projects}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Projects> listAsync() throws AzDException {
         return builder()
@@ -138,11 +144,12 @@ public class ProjectsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(Projects.class);
     }
 
-    /***
+    /**
      * Get all projects in the organization that the authenticated user has access to.
+     *
      * @param requestConfiguration Consumer of request configuration that represent the query parameters.
-     * @throws AzDException Default Api Exception handler.
      * @return array of project {@link Projects}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Projects> listAsync(Consumer<ListRequestConfiguration> requestConfiguration) throws AzDException {
         return builder()
@@ -151,12 +158,13 @@ public class ProjectsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(Projects.class);
     }
 
-    /***
+    /**
      * Update an existing project's name, abbreviation, description, or restore a project.
-     * @param project Project object to perform update operation.
+     *
+     * @param project   Project object to perform update operation.
      * @param projectId The project id of the project to update.
-     * @throws AzDException Default Api Exception handler.
      * @return OperationReference object {@link OperationReference}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<OperationReference> updateAsync(String projectId, Project project) throws AzDException {
         return builder()
@@ -166,11 +174,12 @@ public class ProjectsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(OperationReference.class);
     }
 
-    /***
+    /**
      * Creates a project for given process id
+     *
      * @param projectCreationParameters Request body to create a new project.
-     * @throws AzDException Default Api Exception handler.
      * @return object with link to the project
+     * @throws AzDException Default Api Exception handler.
      */
     public OperationReference create(ProjectCreationParameters projectCreationParameters) throws AzDException {
         Objects.requireNonNull(projectCreationParameters, "Project parameters cannot be null.");
@@ -193,16 +202,17 @@ public class ProjectsRequestBuilder extends BaseRequestBuilder {
                 .execute(OperationReference.class);
     }
 
-    /***
+    /**
      * Queues a project to be deleted.
      * <p>
-     *     You should pass the project id to delete it. Passing the project name
-     *     won't delete. To get the project id run getProject() with projectName
-     *     and get the Id.
+     * You should pass the project id to delete it. Passing the project name
+     * won't delete. To get the project id run getProject() with projectName
+     * and get the Id.
      * </p>
+     *
      * @param projectId pass the project id
-     * @throws AzDException Default Api Exception handler.
      * @return object of deleted project with url
+     * @throws AzDException Default Api Exception handler.
      */
     public OperationReference delete(String projectId) throws AzDException {
         return builder()
@@ -212,11 +222,12 @@ public class ProjectsRequestBuilder extends BaseRequestBuilder {
                 .execute(OperationReference.class);
     }
 
-    /***
+    /**
      * Get project with the specified id or name
+     *
      * @param projectId pass the project name or id
-     * @throws AzDException Default Api Exception handler.
      * @return project object {@link Project}
+     * @throws AzDException Default Api Exception handler.
      */
     public Project get(String projectId) throws AzDException {
         return builder()
@@ -225,11 +236,12 @@ public class ProjectsRequestBuilder extends BaseRequestBuilder {
                 .execute(Project.class);
     }
 
-    /***
+    /**
      * Get project with the specified id or name
+     *
      * @param projectId pass the project name or id
-     * @throws AzDException Default Api Exception handler.
      * @return project object {@link Project}
+     * @throws AzDException Default Api Exception handler.
      */
     public Project get(String projectId, Consumer<RequestConfiguration> requestConfiguration)
             throws AzDException {
@@ -240,11 +252,12 @@ public class ProjectsRequestBuilder extends BaseRequestBuilder {
                 .execute(Project.class);
     }
 
-    /***
+    /**
      * Get the current project. This should be set when creating the service client object using
      * AzureDevOpsServices {@link AzDService}
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return project object {@link Project}
+     * @throws AzDException Default Api Exception handler.
      */
     public Project get() throws AzDException {
         return builder()
@@ -253,10 +266,11 @@ public class ProjectsRequestBuilder extends BaseRequestBuilder {
                 .execute(Project.class);
     }
 
-    /***
+    /**
      * Get all projects in the organization that the authenticated user has access to.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return array of project {@link Projects}
+     * @throws AzDException Default Api Exception handler.
      */
     public Projects list() throws AzDException {
         return builder()
@@ -264,11 +278,12 @@ public class ProjectsRequestBuilder extends BaseRequestBuilder {
                 .execute(Projects.class);
     }
 
-    /***
+    /**
      * Get all projects in the organization that the authenticated user has access to.
+     *
      * @param requestConfiguration Consumer of request configuration that represent the query parameters.
-     * @throws AzDException Default Api Exception handler.
      * @return array of project {@link Projects}
+     * @throws AzDException Default Api Exception handler.
      */
     public Projects list(Consumer<ListRequestConfiguration> requestConfiguration) throws AzDException {
         return builder()
@@ -277,12 +292,13 @@ public class ProjectsRequestBuilder extends BaseRequestBuilder {
                 .execute(Projects.class);
     }
 
-    /***
+    /**
      * Update an existing project's name, abbreviation, description, or restore a project.
-     * @param project Project object to perform update operation.
+     *
+     * @param project   Project object to perform update operation.
      * @param projectId The project id of the project to update.
-     * @throws AzDException Default Api Exception handler.
      * @return OperationReference object {@link OperationReference}
+     * @throws AzDException Default Api Exception handler.
      */
     public OperationReference update(String projectId, Project project) throws AzDException {
         return builder()

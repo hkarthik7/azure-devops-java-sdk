@@ -21,8 +21,9 @@ public class OAuthAccessTokenBuilder {
     public OAuthAccessTokenBuilder() {
     }
 
-    /***
+    /**
      * Generate the authorization endpoint with client id, state, scope and redirection url.
+     *
      * @param authorizationEndpoint Provide the parameters to build authorization endpoint.
      * @return The authorization endpoint to authorize your app
      */
@@ -50,11 +51,12 @@ public class OAuthAccessTokenBuilder {
         return stringBuilder.toString();
     }
 
-    /***
+    /**
      * Now you use the authorization code to request an access token for the user.
      * Your service must make a service-to-service HTTP request to Azure DevOps Services.
-     * @param appSecret URL encoded client secret acquired when the app was registered.
-     * @param authCode URL encoded "code" provided via the code query parameter to your callback URL.
+     *
+     * @param appSecret   URL encoded client secret acquired when the app was registered.
+     * @param authCode    URL encoded "code" provided via the code query parameter to your callback URL.
      * @param callbackUrl callback URL registered with the app.
      * @return AuthorizedToken object {@link AuthorizedToken}
      * @throws AzDException Default Api Exception handler.
@@ -81,11 +83,12 @@ public class OAuthAccessTokenBuilder {
         return authorizedToken;
     }
 
-    /***
+    /**
      * If a user's access token expires, you can use the refresh token that they acquired in the authorization flow to get a new access token.
-     * @param appSecret URL encoded client secret acquired when the app was registered.
+     *
+     * @param appSecret    URL encoded client secret acquired when the app was registered.
      * @param refreshToken URL encoded refresh token for the user.
-     * @param callbackUrl callback URL registered with the app.
+     * @param callbackUrl  callback URL registered with the app.
      * @return AuthorizedToken object {@link AuthorizedToken}
      * @throws AzDException Default Api Exception handler.
      */
@@ -110,8 +113,9 @@ public class OAuthAccessTokenBuilder {
         return authorizedToken;
     }
 
-    /***
+    /**
      * Check if the access token has expired.
+     *
      * @param authorizedToken authorized token object {@link AuthorizedToken}
      * @return True if the token has expired. {@link Boolean}
      */

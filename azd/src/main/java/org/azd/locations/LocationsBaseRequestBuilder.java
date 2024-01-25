@@ -29,8 +29,7 @@ public class LocationsBaseRequestBuilder extends BaseRequestBuilder {
     }
 
     public CompletableFuture<String> getUrlAsync(String resourceId) {
-        return CompletableFuture.completedFuture(LookUpService.getInstance(accessTokenCredential)
-                .locationUrl(organizationUrl, resourceId));
+        return CompletableFuture.completedFuture(getUrl(resourceId));
     }
 
     public CompletableFuture<ConnectionData> getConnectionDataAsync() throws AzDException {

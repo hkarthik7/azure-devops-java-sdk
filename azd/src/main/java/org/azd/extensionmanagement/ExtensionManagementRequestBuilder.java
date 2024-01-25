@@ -26,8 +26,9 @@ public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
         super(organizationUrl, accessTokenCredential, "extensionmanagement", "fb0da285-f23e-4b56-8b53-3ef5f9f6de66");
     }
 
-    /***
+    /**
      * Get an installed extension by its publisher and extension id.
+     *
      * @param extensionId Id of the extension. Example: "sonarqube".
      * @param publisherId Id of the publisher. Example: "sonarsource".
      * @return InstalledExtension {@link InstalledExtension}
@@ -41,11 +42,12 @@ public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(InstalledExtension.class);
     }
 
-    /***
+    /**
      * Get an installed extension by its publisher and extension id.
+     *
      * @param extensionId Id of the extension. Example: "sonarqube".
      * @param publisherId Id of the publisher. Example: "sonarsource".
-     * @param assetTypes type of asset
+     * @param assetTypes  type of asset
      * @return InstalledExtension {@link InstalledExtension}
      * @throws AzDException Default Api Exception handler.
      */
@@ -58,8 +60,9 @@ public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(InstalledExtension.class);
     }
 
-    /***
+    /**
      * List the installed extensions
+     *
      * @return InstalledExtensions {@link InstalledExtensions}
      * @throws AzDException Default Api Exception handler.
      */
@@ -70,8 +73,9 @@ public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(InstalledExtensions.class);
     }
 
-    /***
+    /**
      * List the installed extensions
+     *
      * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.
      * @return InstalledExtensions {@link InstalledExtensions}
      * @throws AzDException Default Api Exception handler.
@@ -84,8 +88,9 @@ public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(InstalledExtensions.class);
     }
 
-    /***
+    /**
      * Install the specified extension
+     *
      * @param installExtensionRequest Publisher id and Extension id to install the extension. Optionally specify the version.
      * @return InstalledExtension {@link InstalledExtension}
      * @throws AzDException Default Api Exception handler.
@@ -102,10 +107,11 @@ public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(InstalledExtension.class);
     }
 
-    /***
+    /**
      * Uninstall the specified extension
+     *
      * @param unInstallExtensionRequest Specify the publisher id and extension id to uninstall the extension. Optionally specify
-     * the reason and reason code.
+     *                                  the reason and reason code.
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Void> uninstallAsync(UnInstallExtensionRequest unInstallExtensionRequest)
@@ -122,8 +128,9 @@ public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
                 .executePrimitiveAsync();
     }
 
-    /***
+    /**
      * Enable/disable an extension
+     *
      * @param updateExtensionRequest Specify the publisher id, extension id and extension flag value to enable/disable the extension.
      * @return InstalledExtension {@link InstalledExtension}
      * @throws AzDException Default Api Exception handler.
@@ -145,8 +152,9 @@ public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(InstalledExtension.class);
     }
 
-    /***
+    /**
      * Get an installed extension by its publisher and extension id.
+     *
      * @param extensionId Id of the extension. Example: "sonarqube".
      * @param publisherId Id of the publisher. Example: "sonarsource".
      * @return InstalledExtension {@link InstalledExtension}
@@ -160,11 +168,12 @@ public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
                 .execute(InstalledExtension.class);
     }
 
-    /***
+    /**
      * Get an installed extension by its publisher and extension id.
+     *
      * @param extensionId Id of the extension. Example: "sonarqube".
      * @param publisherId Id of the publisher. Example: "sonarsource".
-     * @param assetTypes type of asset
+     * @param assetTypes  type of asset
      * @return InstalledExtension {@link InstalledExtension}
      * @throws AzDException Default Api Exception handler.
      */
@@ -177,8 +186,9 @@ public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
                 .execute(InstalledExtension.class);
     }
 
-    /***
+    /**
      * List the installed extensions
+     *
      * @return InstalledExtensions {@link InstalledExtensions}
      * @throws AzDException Default Api Exception handler.
      */
@@ -189,8 +199,9 @@ public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
                 .execute(InstalledExtensions.class);
     }
 
-    /***
+    /**
      * List the installed extensions
+     *
      * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.
      * @return InstalledExtensions {@link InstalledExtensions}
      * @throws AzDException Default Api Exception handler.
@@ -203,8 +214,9 @@ public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
                 .execute(InstalledExtensions.class);
     }
 
-    /***
+    /**
      * Install the specified extension
+     *
      * @param installExtensionRequest Publisher id and Extension id to install the extension. Optionally specify the version.
      * @return InstalledExtension {@link InstalledExtension}
      * @throws AzDException Default Api Exception handler.
@@ -221,10 +233,11 @@ public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
                 .execute(InstalledExtension.class);
     }
 
-    /***
+    /**
      * Uninstall the specified extension
+     *
      * @param unInstallExtensionRequest Specify the publisher id and extension id to uninstall the extension. Optionally specify
-     * the reason and reason code.
+     *                                  the reason and reason code.
      * @throws AzDException Default Api Exception handler.
      */
     public Void uninstall(UnInstallExtensionRequest unInstallExtensionRequest)
@@ -241,8 +254,9 @@ public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
                 .executePrimitive();
     }
 
-    /***
+    /**
      * Enable/disable an extension
+     *
      * @param updateExtensionRequest Specify the publisher id, extension id and extension flag value to enable/disable the extension.
      * @return InstalledExtension {@link InstalledExtension}
      * @throws AzDException Default Api Exception handler.

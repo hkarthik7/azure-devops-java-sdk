@@ -18,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeFalse;
 
-/***
+/**
  * additional tests for graph api which require other (Core) API components
  * to perform object lookups
  */

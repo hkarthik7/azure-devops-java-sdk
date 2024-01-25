@@ -6,32 +6,32 @@ import org.azd.abstractions.serializer.SerializableEntity;
 
 import java.util.List;
 
-/***
+/**
  * Relation between a project and the user's effective permissions in that project.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ProjectEntitlement extends SerializableEntity {
-    /***
+    /**
      * Assignment Source (e.g. Group or Unknown).
      */
     @JsonProperty("assignmentSource")
     private String assignmentSource;
-    /***
+    /**
      * Project Group (e.g. Contributor, Reader etc.)
      */
     @JsonProperty("group")
     private Group group;
-    /***
+    /**
      * Whether the user is inheriting permissions to a project through a Azure DevOps or AAD group membership.
      */
     @JsonProperty("projectPermissionInherited")
     private String projectPermissionInherited;
-    /***
+    /**
      * Project Ref
      */
     @JsonProperty("projectRef")
     private ProjectRef projectRef;
-    /***
+    /**
      * Team Ref
      */
     @JsonProperty("teamRefs")

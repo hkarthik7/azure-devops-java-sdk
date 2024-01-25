@@ -24,7 +24,7 @@ public final class LocationService {
     public static LocationService getInstance(AccessTokenCredential accessTokenCredential) {
         Objects.requireNonNull(accessTokenCredential, "Access token cannot be null.");
         if (instance == null) {
-            synchronized (LookUpService.class) {
+            synchronized (LocationService.class) {
                 if (instance == null) {
                     instance = new LocationService(accessTokenCredential);
                 }

@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * A list of service endpoints
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ServiceEndpoints extends SerializableCollectionEntity {
-    /***
+    /**
      * A list of service endpoints
      */
     @JsonProperty("value")

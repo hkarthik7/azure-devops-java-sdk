@@ -4,22 +4,22 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Represents the team iteration attributes
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TeamIterationAttributes extends SerializableEntity {
-    /***
+    /**
      * Start date of the iteration. Date-only, correct unadjusted at midnight in UTC.
      */
     @JsonProperty("startDate")
     private String startDate;
-    /***
+    /**
      * Finish date of the iteration. Date-only, correct unadjusted at midnight in UTC.
      */
     @JsonProperty("finishDate")
     private String finishDate;
-    /***
+    /**
      * Time frame of the iteration, such as past, current or future.
      */
     @JsonProperty("timeFrame")

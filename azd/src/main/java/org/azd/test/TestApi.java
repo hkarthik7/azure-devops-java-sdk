@@ -29,8 +29,9 @@ public class TestApi implements TestDetails {
     private final String AREA = "test";
 
 
-    /***
+    /**
      * Pass the connection object to work with Service hooks Api
+     *
      * @param connection Connection object
      */
     public TestApi(Connection connection) {

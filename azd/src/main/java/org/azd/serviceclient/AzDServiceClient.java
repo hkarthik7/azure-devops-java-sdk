@@ -8,7 +8,9 @@ import org.azd.configurations.ConfigurationRequestBuilder;
 import org.azd.core.CoreRequestBuilder;
 import org.azd.distributedtask.DistributedTaskRequestBuilder;
 import org.azd.extensionmanagement.ExtensionManagementRequestBuilder;
+import org.azd.featuremanagement.FeatureManagementRequestBuilder;
 import org.azd.git.GitBaseRequestBuilder;
+import org.azd.helpers.HelpersRequestBuilder;
 import org.azd.locations.LocationsBaseRequestBuilder;
 import org.azd.oauth.OAuthAccessTokenBuilder;
 
@@ -80,6 +82,14 @@ public interface AzDServiceClient {
     ExtensionManagementRequestBuilder extensionManagement();
 
     /**
+     * Request builder for feature management Api.
+     * NOTE: This is an unpublished Api.
+     *
+     * @return Feature management request builder. {@link FeatureManagementRequestBuilder}
+     */
+    FeatureManagementRequestBuilder featureManagement();
+
+    /**
      * Organization url.
      *
      * @return Returns the organization url.
@@ -93,6 +103,13 @@ public interface AzDServiceClient {
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/git/?view=azure-devops-rest-7.1">Git</a>
      */
     GitBaseRequestBuilder git();
+
+    /**
+     * Helper class request builder.
+     *
+     * @return HelpersRequestBuilder {@link HelpersRequestBuilder}
+     */
+    HelpersRequestBuilder helpers();
 
     /**
      * Request builder for locations Api.

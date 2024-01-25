@@ -32,12 +32,13 @@ public class TeamsRequestBuilder extends BaseRequestBuilder {
         return new TeamsMembersRequestBuilder(organizationUrl, accessTokenCredential);
     }
 
-    /***
+    /**
      * Create a team in a team project.
+     *
      * @param projectId project name or GUID
-     * @param teamName pass the team name
-     * @throws AzDException Default Api Exception handler.
+     * @param teamName  pass the team name
      * @return returns web api object
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<WebApiTeam> createAsync(String projectId, String teamName) throws AzDException {
         return builder()
@@ -47,10 +48,11 @@ public class TeamsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(WebApiTeam.class);
     }
 
-    /***
+    /**
      * Delete a team.
+     *
      * @param projectId pass the project name or id
-     * @param teamId pass the team name
+     * @param teamId    pass the team name
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Void> deleteAsync(String projectId, String teamId) throws AzDException {
@@ -62,12 +64,13 @@ public class TeamsRequestBuilder extends BaseRequestBuilder {
                 .executePrimitiveAsync();
     }
 
-    /***
+    /**
      * Get a specific team.
+     *
      * @param projectId pass the project name or id
-     * @param teamId pass the team name
-     * @throws AzDException Default Api Exception handler.
+     * @param teamId    pass the team name
      * @return team object
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<WebApiTeam> getAsync(String projectId, String teamId) throws AzDException {
         return builder()
@@ -77,13 +80,14 @@ public class TeamsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(WebApiTeam.class);
     }
 
-    /***
+    /**
      * Get a specific team.
-     * @param projectId pass the project name or id
-     * @param teamId pass the team name
+     *
+     * @param projectId      pass the project name or id
+     * @param teamId         pass the team name
      * @param expandIdentity if true gets the identity object
-     * @throws AzDException Default Api Exception handler.
      * @return team object
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<WebApiTeam> getAsync(String projectId, String teamId, boolean expandIdentity) throws AzDException {
         return builder()
@@ -94,10 +98,11 @@ public class TeamsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(WebApiTeam.class);
     }
 
-    /***
+    /**
      * Get a list of all teams.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return array of team {@link WebApiTeams}.
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<WebApiTeams> listAsync() throws AzDException {
         return builder()
@@ -106,10 +111,11 @@ public class TeamsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(WebApiTeams.class);
     }
 
-    /***
+    /**
      * Get a list of all teams.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return array of team {@link WebApiTeams}.
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<WebApiTeams> listAsync(Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
         return builder()
@@ -119,11 +125,12 @@ public class TeamsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(WebApiTeams.class);
     }
 
-    /***
+    /**
      * Get a list of teams.
+     *
      * @param projectId Project name.
-     * @throws AzDException Default Api Exception handler.
      * @return array of team {@link WebApiTeams}.
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<WebApiTeams> getAsync(String projectId) throws AzDException {
         return builder()
@@ -132,12 +139,13 @@ public class TeamsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(WebApiTeams.class);
     }
 
-    /***
+    /**
      * Get a list of teams.
-     * @param projectId Project name.
+     *
+     * @param projectId            Project name.
      * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.
-     * @throws AzDException Default Api Exception handler.
      * @return array of team {@link WebApiTeams}.
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<WebApiTeams> getAsync(String projectId, Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
         return builder()
@@ -147,13 +155,14 @@ public class TeamsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(WebApiTeams.class);
     }
 
-    /***
+    /**
      * Update a team's name and/or description.
+     *
      * @param projectId Project name.
-     * @param team WebApiTeam object to update {@link WebApiTeam}.
-     * @param teamId The name or ID (GUID) of the team.
-     * @throws AzDException Default Api Exception handler.
+     * @param team      WebApiTeam object to update {@link WebApiTeam}.
+     * @param teamId    The name or ID (GUID) of the team.
      * @return array of team {@link WebApiTeams}.
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<WebApiTeam> updateAsync(String projectId, String teamId, WebApiTeam team) throws AzDException {
         return builder()
@@ -164,12 +173,13 @@ public class TeamsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(WebApiTeam.class);
     }
 
-    /***
+    /**
      * Create a team in a team project.
+     *
      * @param projectId project name or GUID
-     * @param teamName pass the team name
-     * @throws AzDException Default Api Exception handler.
+     * @param teamName  pass the team name
      * @return returns web api object
+     * @throws AzDException Default Api Exception handler.
      */
     public WebApiTeam create(String projectId, String teamName) throws AzDException {
         return builder()
@@ -179,10 +189,11 @@ public class TeamsRequestBuilder extends BaseRequestBuilder {
                 .execute(WebApiTeam.class);
     }
 
-    /***
+    /**
      * Delete a team.
+     *
      * @param projectId pass the project name or id
-     * @param teamId pass the team name
+     * @param teamId    pass the team name
      * @throws AzDException Default Api Exception handler.
      */
     public Void delete(String projectId, String teamId) throws AzDException {
@@ -194,12 +205,13 @@ public class TeamsRequestBuilder extends BaseRequestBuilder {
                 .executePrimitive();
     }
 
-    /***
+    /**
      * Get a specific team.
+     *
      * @param projectId pass the project name or id
-     * @param teamId pass the team name
-     * @throws AzDException Default Api Exception handler.
+     * @param teamId    pass the team name
      * @return team object
+     * @throws AzDException Default Api Exception handler.
      */
     public WebApiTeam get(String projectId, String teamId) throws AzDException {
         return builder()
@@ -209,13 +221,14 @@ public class TeamsRequestBuilder extends BaseRequestBuilder {
                 .execute(WebApiTeam.class);
     }
 
-    /***
+    /**
      * Get a specific team.
-     * @param projectId pass the project name or id
-     * @param teamId pass the team name
+     *
+     * @param projectId      pass the project name or id
+     * @param teamId         pass the team name
      * @param expandIdentity if true gets the identity object
-     * @throws AzDException Default Api Exception handler.
      * @return team object
+     * @throws AzDException Default Api Exception handler.
      */
     public WebApiTeam get(String projectId, String teamId, boolean expandIdentity) throws AzDException {
         return builder()
@@ -226,10 +239,11 @@ public class TeamsRequestBuilder extends BaseRequestBuilder {
                 .execute(WebApiTeam.class);
     }
 
-    /***
+    /**
      * Get a list of all teams.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return array of team {@link WebApiTeams}.
+     * @throws AzDException Default Api Exception handler.
      */
     public WebApiTeams list() throws AzDException {
         return builder()
@@ -238,10 +252,11 @@ public class TeamsRequestBuilder extends BaseRequestBuilder {
                 .execute(WebApiTeams.class);
     }
 
-    /***
+    /**
      * Get a list of all teams.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return array of team {@link WebApiTeams}.
+     * @throws AzDException Default Api Exception handler.
      */
     public WebApiTeams list(Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
         return builder()
@@ -251,11 +266,12 @@ public class TeamsRequestBuilder extends BaseRequestBuilder {
                 .execute(WebApiTeams.class);
     }
 
-    /***
+    /**
      * Get a list of teams.
+     *
      * @param projectId Project name.
-     * @throws AzDException Default Api Exception handler.
      * @return array of team {@link WebApiTeams}.
+     * @throws AzDException Default Api Exception handler.
      */
     public WebApiTeams get(String projectId) throws AzDException {
         return builder()
@@ -264,12 +280,13 @@ public class TeamsRequestBuilder extends BaseRequestBuilder {
                 .execute(WebApiTeams.class);
     }
 
-    /***
+    /**
      * Get a list of teams.
-     * @param projectId Project name.
+     *
+     * @param projectId            Project name.
      * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.
-     * @throws AzDException Default Api Exception handler.
      * @return array of team {@link WebApiTeams}.
+     * @throws AzDException Default Api Exception handler.
      */
     public WebApiTeams get(String projectId, Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
         return builder()
@@ -279,13 +296,14 @@ public class TeamsRequestBuilder extends BaseRequestBuilder {
                 .execute(WebApiTeams.class);
     }
 
-    /***
+    /**
      * Update a team's name and/or description.
+     *
      * @param projectId Project name.
-     * @param team WebApiTeam object to update {@link WebApiTeam}.
-     * @param teamId The name or ID (GUID) of the team.
-     * @throws AzDException Default Api Exception handler.
+     * @param team      WebApiTeam object to update {@link WebApiTeam}.
+     * @param teamId    The name or ID (GUID) of the team.
      * @return array of team {@link WebApiTeams}.
+     * @throws AzDException Default Api Exception handler.
      */
     public WebApiTeam update(String projectId, String teamId, WebApiTeam team) throws AzDException {
         return builder()

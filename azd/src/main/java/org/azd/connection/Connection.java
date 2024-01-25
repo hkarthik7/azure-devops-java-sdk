@@ -23,7 +23,7 @@ public class Connection {
     private AuthorizedToken oauthToken = null;
     private TokenRefreshedHandler tokenRefreshedHandler = defaultTokenRefreshedHandler;
 
-    /***
+    /**
      * default with no parameters
      */
     public Connection() {
@@ -161,8 +161,9 @@ public class Connection {
         this.project = project;
     }
 
-    /***
+    /**
      * Get the personal access token
+     *
      * @return the personal access token
      * @throws AzDException Default Api Exception handler.
      */

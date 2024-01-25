@@ -23,11 +23,12 @@ public class PropertiesRequestBuilder extends BaseRequestBuilder {
         super(organizationUrl, accessTokenCredential, "core", "4976a71a-4487-49aa-8aab-a1eda469037a");
     }
 
-    /***
+    /**
      * Get a collection of team project properties.
+     *
      * @param projectId provide the project guid not the project name
-     * @throws AzDException Default Api Exception handler.
      * @return ProjectProperties {@link ProjectProperties}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<ProjectProperties> getAsync(String projectId) throws AzDException {
         return builder()
@@ -36,13 +37,14 @@ public class PropertiesRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(ProjectProperties.class);
     }
 
-    /***
+    /**
      * Get a collection of team project properties.
+     *
      * @param projectId provide the project guid not the project name
-     * @param keys A comma-delimited string of team project property names.
-     * Wildcard characters ("?" and "*") are supported. If no key is specified, all properties will be returned.
-     * @throws AzDException Default Api Exception handler.
+     * @param keys      A comma-delimited string of team project property names.
+     *                  Wildcard characters ("?" and "*") are supported. If no key is specified, all properties will be returned.
      * @return ProjectProperties {@link ProjectProperties}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<ProjectProperties> getAsync(String projectId, String keys) throws AzDException {
         return builder()
@@ -52,8 +54,9 @@ public class PropertiesRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(ProjectProperties.class);
     }
 
-    /***
+    /**
      * Create, update, and delete team project properties.
+     *
      * @param projectId provide the project guid not the project name
      * @throws AzDException Default Api Exception handler.
      */
@@ -66,11 +69,12 @@ public class PropertiesRequestBuilder extends BaseRequestBuilder {
                 .executePrimitiveAsync();
     }
 
-    /***
+    /**
      * Get a collection of team project properties.
+     *
      * @param projectId provide the project guid not the project name
-     * @throws AzDException Default Api Exception handler.
      * @return ProjectProperties {@link ProjectProperties}
+     * @throws AzDException Default Api Exception handler.
      */
     public ProjectProperties get(String projectId) throws AzDException {
         return builder()
@@ -79,13 +83,14 @@ public class PropertiesRequestBuilder extends BaseRequestBuilder {
                 .execute(ProjectProperties.class);
     }
 
-    /***
+    /**
      * Get a collection of team project properties.
+     *
      * @param projectId provide the project guid not the project name
-     * @param keys A comma-delimited string of team project property names.
-     * Wildcard characters ("?" and "*") are supported. If no key is specified, all properties will be returned.
-     * @throws AzDException Default Api Exception handler.
+     * @param keys      A comma-delimited string of team project property names.
+     *                  Wildcard characters ("?" and "*") are supported. If no key is specified, all properties will be returned.
      * @return ProjectProperties {@link ProjectProperties}
+     * @throws AzDException Default Api Exception handler.
      */
     public ProjectProperties get(String projectId, String keys) throws AzDException {
         return builder()
@@ -95,8 +100,9 @@ public class PropertiesRequestBuilder extends BaseRequestBuilder {
                 .execute(ProjectProperties.class);
     }
 
-    /***
+    /**
      * Create, update, and delete team project properties.
+     *
      * @param projectId provide the project guid not the project name
      * @throws AzDException Default Api Exception handler.
      */

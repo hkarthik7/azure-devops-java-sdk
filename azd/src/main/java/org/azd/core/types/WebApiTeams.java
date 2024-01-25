@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * Represents list of team
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WebApiTeams extends SerializableCollectionEntity {
-    /***
+    /**
      * List of team
      */
     @JsonProperty("value")

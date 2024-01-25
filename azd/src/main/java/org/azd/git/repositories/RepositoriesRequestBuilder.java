@@ -37,11 +37,12 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
         return new RecycleBinRepositoriesRequestBuilder(organizationUrl, accessTokenCredential);
     }
 
-    /***
+    /**
      * Create a git repository in a team project.
+     *
      * @param repositoryRequest New repository request.
-     * @throws AzDException Default Api Exception handler.
      * @return git repository object {@link GitRepository}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<GitRepository> createAsync(RepositoryRequest repositoryRequest) throws AzDException {
         return builder()
@@ -50,8 +51,25 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(GitRepository.class);
     }
 
-    /***
+    /**
+     * Create a git repository in a team project.
+     *
+     * @param repositoryRequest New repository request.
+     * @param sourceRef         Specify the source refs to use while creating a fork repo
+     * @return git repository object {@link GitRepository}
+     * @throws AzDException Default Api Exception handler.
+     */
+    public CompletableFuture<GitRepository> createAsync(RepositoryRequest repositoryRequest, String sourceRef) throws AzDException {
+        return builder()
+                .POST(repositoryRequest)
+                .query("sourceRef", sourceRef)
+                .build()
+                .executeAsync(GitRepository.class);
+    }
+
+    /**
      * Delete a git repository
+     *
      * @param repositoryId pass the repository id
      * @throws AzDException Default Api Exception handler.
      */
@@ -63,10 +81,11 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
                 .executePrimitiveAsync();
     }
 
-    /***
+    /**
      * Retrieve deleted git repositories.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return Git deleted repository object {@link GitDeletedRepositories}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<GitDeletedRepositories> listDeletedAsync() throws AzDException {
         return builder()
@@ -75,11 +94,12 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(GitDeletedRepositories.class);
     }
 
-    /***
+    /**
      * Retrieve a git repository.
+     *
      * @param repositoryName pass the repository name
-     * @throws AzDException Default Api Exception handler.
      * @return git repository object {@link GitRepository}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<GitRepository> getAsync(String repositoryName) throws AzDException {
         return builder()
@@ -88,12 +108,13 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(GitRepository.class);
     }
 
-    /***
+    /**
      * Retrieve a git repository with parent.
+     *
      * @param repositoryName pass the repository name
-     * @param includeParent True to include parent repository.
-     * @throws AzDException Default Api Exception handler.
+     * @param includeParent  True to include parent repository.
      * @return git repository object {@link GitRepository}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<GitRepository> getAsync(String repositoryName, boolean includeParent) throws AzDException {
         return builder()
@@ -103,10 +124,11 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(GitRepository.class);
     }
 
-    /***
+    /**
      * Retrieve git repositories.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return array of git repositories
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Repositories> listAsync() throws AzDException {
         return builder()
@@ -114,11 +136,12 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(Repositories.class);
     }
 
-    /***
+    /**
      * Retrieve git repositories.
+     *
      * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.
-     * @throws AzDException Default Api Exception handler.
      * @return array of git repositories
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Repositories> listAsync(Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
         return builder()
@@ -127,12 +150,13 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(Repositories.class);
     }
 
-    /***
+    /**
      * Updates the Git repository with either a new repo name or a new default branch.
-     * @param repositoryId provide the repository id
+     *
+     * @param repositoryId  provide the repository id
      * @param gitRepository Git repository object to update.
-     * @throws AzDException Default Api Exception handler.
      * @return a future repository object {@link GitRepository}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<GitRepository> updateAsync(String repositoryId, GitRepository gitRepository) throws AzDException {
         return builder()
@@ -142,11 +166,12 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(GitRepository.class);
     }
 
-    /***
+    /**
      * Create a git repository in a team project.
+     *
      * @param repositoryRequest New repository request.
-     * @throws AzDException Default Api Exception handler.
      * @return git repository object {@link GitRepository}
+     * @throws AzDException Default Api Exception handler.
      */
     public GitRepository create(RepositoryRequest repositoryRequest) throws AzDException {
         return builder()
@@ -155,8 +180,25 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
                 .execute(GitRepository.class);
     }
 
-    /***
+    /**
+     * Create a git repository in a team project.
+     *
+     * @param repositoryRequest New repository request.
+     * @param sourceRef         Specify the source refs to use while creating a fork repo
+     * @return git repository object {@link GitRepository}
+     * @throws AzDException Default Api Exception handler.
+     */
+    public GitRepository create(RepositoryRequest repositoryRequest, String sourceRef) throws AzDException {
+        return builder()
+                .POST(repositoryRequest)
+                .query("sourceRef", sourceRef)
+                .build()
+                .execute(GitRepository.class);
+    }
+
+    /**
      * Delete a git repository
+     *
      * @param repositoryId pass the repository id
      * @throws AzDException Default Api Exception handler.
      */
@@ -168,10 +210,11 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
                 .executePrimitive();
     }
 
-    /***
+    /**
      * Retrieve deleted git repositories.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return Git deleted repository object {@link GitDeletedRepositories}
+     * @throws AzDException Default Api Exception handler.
      */
     public GitDeletedRepositories listDeleted() throws AzDException {
         return builder()
@@ -180,11 +223,12 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
                 .execute(GitDeletedRepositories.class);
     }
 
-    /***
+    /**
      * Retrieve a git repository.
+     *
      * @param repositoryName pass the repository name
-     * @throws AzDException Default Api Exception handler.
      * @return git repository object {@link GitRepository}
+     * @throws AzDException Default Api Exception handler.
      */
     public GitRepository get(String repositoryName) throws AzDException {
         return builder()
@@ -193,12 +237,13 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
                 .execute(GitRepository.class);
     }
 
-    /***
+    /**
      * Retrieve a git repository with parent.
+     *
      * @param repositoryName pass the repository name
-     * @param includeParent True to include parent repository.
-     * @throws AzDException Default Api Exception handler.
+     * @param includeParent  True to include parent repository.
      * @return git repository object {@link GitRepository}
+     * @throws AzDException Default Api Exception handler.
      */
     public GitRepository get(String repositoryName, boolean includeParent) throws AzDException {
         return builder()
@@ -208,10 +253,11 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
                 .execute(GitRepository.class);
     }
 
-    /***
+    /**
      * Retrieve git repositories.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return array of git repositories
+     * @throws AzDException Default Api Exception handler.
      */
     public Repositories list() throws AzDException {
         return builder()
@@ -219,11 +265,12 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
                 .execute(Repositories.class);
     }
 
-    /***
+    /**
      * Retrieve git repositories.
+     *
      * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.
-     * @throws AzDException Default Api Exception handler.
      * @return array of git repositories
+     * @throws AzDException Default Api Exception handler.
      */
     public Repositories list(Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
         return builder()
@@ -232,12 +279,13 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
                 .execute(Repositories.class);
     }
 
-    /***
+    /**
      * Updates the Git repository with either a new repo name or a new default branch.
-     * @param repositoryId provide the repository id
+     *
+     * @param repositoryId  provide the repository id
      * @param gitRepository Git repository object to update.
-     * @throws AzDException Default Api Exception handler.
      * @return a future repository object {@link GitRepository}
+     * @throws AzDException Default Api Exception handler.
      */
     public GitRepository update(String repositoryId, GitRepository gitRepository) throws AzDException {
         return builder()

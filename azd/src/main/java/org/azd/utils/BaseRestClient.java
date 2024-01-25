@@ -32,11 +32,11 @@ public abstract class BaseRestClient {
                 Base64.getEncoder().encodeToString(("" + ":" + token).getBytes());
     }
 
-    /***
+    /**
      * Http request builder
      *
      * @param requestUrl request url
-     * @param token personal access token
+     * @param token      personal access token
      * @return HttpRequest object to build
      */
     private static HttpRequest.Builder build(String requestUrl, String token) {
@@ -50,10 +50,11 @@ public abstract class BaseRestClient {
         return req.setHeader(AUTHORIZATION, encodePersonalAccessToken(token));
     }
 
-    /***
+    /**
      * Response from API for the given request
-     * @param r pass the Http request object
-     * @param handler HttpResponse body handler
+     *
+     * @param r        pass the Http request object
+     * @param handler  HttpResponse body handler
      * @param callback If true client will be built with redirect policy
      * @return String response from API
      */
@@ -97,15 +98,15 @@ public abstract class BaseRestClient {
                 handler, callback);
     }
 
-    /***
+    /**
      * Sends a POST request to REST API with oauth authentication, content length of the request and request body
      *
-     * @param requestUrl pass the request url
-     * @param token pass the personal access token
-     * @param publisher BodyPublisher with request body
-     * @param handler HttpResponse body handlers
+     * @param requestUrl  pass the request url
+     * @param token       pass the personal access token
+     * @param publisher   BodyPublisher with request body
+     * @param handler     HttpResponse body handlers
      * @param contentType Content type for setting headers
-     * @param callback If true client will be built with redirect policy
+     * @param callback    If true client will be built with redirect policy
      * @return response string from the API if any
      * @throws AzDException throws user friendly error message with error code from API
      */
@@ -141,15 +142,15 @@ public abstract class BaseRestClient {
                         .build(), handler, callback);
     }
 
-    /***
+    /**
      * Sends a PUT request to REST API with basic authentication and request body
      *
-     * @param requestUrl pass the request url
-     * @param token pass the personal access token
-     * @param publisher BodyPublisher with request body
-     * @param handler HttpResponse body handlers
+     * @param requestUrl  pass the request url
+     * @param token       pass the personal access token
+     * @param publisher   BodyPublisher with request body
+     * @param handler     HttpResponse body handlers
      * @param contentType Content type for setting headers
-     * @param callback If true client will be built with redirect policy
+     * @param callback    If true client will be built with redirect policy
      * @return response string from the API if any
      * @throws AzDException throws user friendly error message with error code from API
      */

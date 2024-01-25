@@ -17,11 +17,11 @@ import java.util.*;
 
 import static org.azd.utils.RestClient.send;
 
-/***
+/**
  * Service Endpoint Api to manage service endpoint service
  */
 public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implements ServiceEndpointDetails {
-    /***
+    /**
      * Connection object
      */
     private final Connection CONNECTION;
@@ -31,8 +31,9 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
     private final CoreApi CORE;
 
 
-    /***
+    /**
      * Pass the connection object to work with Service endpoint Api
+     *
      * @param connection Connection object
      */
     public ServiceEndpointApi(Connection connection) {
@@ -40,12 +41,13 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
         CORE = new CoreApi(CONNECTION);
     }
 
-    /***
+    /**
      * Creates a new service endpoint
+     *
      * @param endpointName Friendly name of the endpoint
      * @param endpointType Type of the endpoint
-     * @param requestBody Request body to create a service endpoint.
-     * Reference https://docs.microsoft.com/en-us/rest/api/azure/devops/serviceendpoint/endpoints/create?view=azure-devops-rest-6.1#create-service-endpoint
+     * @param requestBody  Request body to create a service endpoint.
+     *                     Reference https://docs.microsoft.com/en-us/rest/api/azure/devops/serviceendpoint/endpoints/create?view=azure-devops-rest-6.1#create-service-endpoint
      * @return ServiceEndpoint {@link ServiceEndpoint}
      * @throws AzDException Default Api Exception handler.
      */
@@ -59,14 +61,15 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
         return MAPPER.mapJsonResponse(r, ServiceEndpoint.class);
     }
 
-    /***
+    /**
      * A helper method to create Azure RM service endpoint
-     * @param endpointName Friendly name of the endpoint
-     * @param servicePrincipalId service principal Id
+     *
+     * @param endpointName        Friendly name of the endpoint
+     * @param servicePrincipalId  service principal Id
      * @param servicePrincipalKey service principal key
-     * @param tenantId Tenant Id
-     * @param subscriptionId subscription Id
-     * @param subscriptionName subscription name
+     * @param tenantId            Tenant Id
+     * @param subscriptionId      subscription Id
+     * @param subscriptionName    subscription name
      * @return ServiceEndpoint {@link ServiceEndpoint}
      * @throws AzDException Default Api Exception handler.
      */
@@ -112,8 +115,9 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
         return createServiceEndpoint(endpointName, "azurerm", body);
     }
 
-    /***
+    /**
      * Get the service endpoint details.
+     *
      * @param endpointId Id of the service endpoint.
      * @return ServiceEndpoint {@link ServiceEndpoint}
      * @throws AzDException Default Api Exception handler.
@@ -125,9 +129,10 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
         return MAPPER.mapJsonResponse(r, ServiceEndpoint.class);
     }
 
-    /***
+    /**
      * Get the service endpoint details.
-     * @param endpointId Id of the service endpoint.
+     *
+     * @param endpointId   Id of the service endpoint.
      * @param actionFilter Action filter for the service connection. It specifies the action which can be performed on the service connection.
      * @return ServiceEndpoint {@link ServiceEndpoint}
      * @throws AzDException Default Api Exception handler.
@@ -143,8 +148,9 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
         return MAPPER.mapJsonResponse(r, ServiceEndpoint.class);
     }
 
-    /***
+    /**
      * Get the service endpoints.
+     *
      * @return ServiceEndpoints {@link ServiceEndpoints}
      * @throws AzDException Default Api Exception handler.
      */
@@ -155,8 +161,9 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
         return MAPPER.mapJsonResponse(r, ServiceEndpoints.class);
     }
 
-    /***
+    /**
      * Delete a service endpoint
+     *
      * @param endpointId Endpoint Id of endpoint to delete
      * @param projectIds project Ids from which endpoint needs to be deleted
      * @throws AzDException Default Api Exception handler.
@@ -178,11 +185,12 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
         return null;
     }
 
-    /***
+    /**
      * Delete a service endpoint
+     *
      * @param endpointId Endpoint Id of endpoint to delete
      * @param projectIds project Ids from which endpoint needs to be deleted
-     * @param deep delete the spn created by endpoint
+     * @param deep       delete the spn created by endpoint
      * @throws AzDException Default Api Exception handler.
      */
     @Override
@@ -203,8 +211,9 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
         return null;
     }
 
-    /***
+    /**
      * Get the service endpoints by name.
+     *
      * @param endpointNames Names of the service endpoints.
      * @return ServiceEndpoint {@link ServiceEndpoint}
      * @throws AzDException Default Api Exception handler.
@@ -220,15 +229,16 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
         return MAPPER.mapJsonResponse(r, ServiceEndpoints.class);
     }
 
-    /***
+    /**
      * Get the service endpoints by name.
-     * @param endpointNames Names of the service endpoints.
-     * @param authSchemes Authorization schemes used for service endpoints.
+     *
+     * @param endpointNames  Names of the service endpoints.
+     * @param authSchemes    Authorization schemes used for service endpoints.
      * @param includeDetails Flag to include more details for service endpoints.
-     * This is for internal use only and the flag will be treated as false for all other requests
-     * @param includeFailed Failed flag for service endpoints.
-     * @param owner Owner for service endpoints.
-     * @param type Type of the service endpoints.
+     *                       This is for internal use only and the flag will be treated as false for all other requests
+     * @param includeFailed  Failed flag for service endpoints.
+     * @param owner          Owner for service endpoints.
+     * @param type           Type of the service endpoints.
      * @return ServiceEndpoint {@link ServiceEndpoint}
      * @throws AzDException Default Api Exception handler.
      */
@@ -249,10 +259,11 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
         return MAPPER.mapJsonResponse(r, ServiceEndpoints.class);
     }
 
-    /***
+    /**
      * Share service endpoint across projects
-     * @param endpointId Endpoint Id of the endpoint to share
-     * @param projectName Provide the project name to which the service endpoint connection to be shared
+     *
+     * @param endpointId     Endpoint Id of the endpoint to share
+     * @param projectName    Provide the project name to which the service endpoint connection to be shared
      * @param connectionName Name of the connection
      * @throws AzDException Default Api Exception handler.
      */
@@ -281,11 +292,12 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
         return null;
     }
 
-    /***
+    /**
      * Update the service endpoint
-     * @param endpointId Endpoint Id of the endpoint to update
+     *
+     * @param endpointId  Endpoint Id of the endpoint to update
      * @param requestBody Request body to update the service endpoint
-     * Reference: https://docs.microsoft.com/en-us/rest/api/azure/devops/serviceendpoint/endpoints/update-service-endpoint?view=azure-devops-rest-6.1#update-service-endpoint
+     *                    Reference: https://docs.microsoft.com/en-us/rest/api/azure/devops/serviceendpoint/endpoints/update-service-endpoint?view=azure-devops-rest-6.1#update-service-endpoint
      * @return ServiceEndpoint {@link ServiceEndpoint}
      * @throws AzDException Default Api Exception handler.
      */

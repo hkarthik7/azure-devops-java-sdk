@@ -12,15 +12,25 @@ public enum ContributedFeatureEnabledValue {
      * The state of the feature is not set for the specified scope
      */
     @JsonProperty("undefined")
-    UNDEFINED,
+    UNDEFINED("undefined"),
     /**
      * The feature is disabled at the specified scope
      */
     @JsonProperty("disabled")
-    DISABLED,
+    DISABLED("disabled"),
     /**
      * The feature is enabled at the specified scope
      */
     @JsonProperty("enabled")
-    ENABLED,
+    ENABLED("enabled");
+
+    private final String featureValue;
+
+    ContributedFeatureEnabledValue(String value) {
+        featureValue = value;
+    }
+
+    public String getFeatureValue() {
+        return featureValue;
+    }
 }

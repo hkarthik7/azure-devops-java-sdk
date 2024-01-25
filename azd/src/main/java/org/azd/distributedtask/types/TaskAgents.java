@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * List of task agent
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TaskAgents extends SerializableCollectionEntity {
-    /***
+    /**
      * List of task agent
      */
     @JsonProperty("value")

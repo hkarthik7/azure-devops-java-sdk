@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Represents a reference to an orchestration plan.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OrchestrationPlan extends SerializableEntity {
-    /***
+    /**
      * The ID of the plan.
      */
     @JsonProperty("planId")

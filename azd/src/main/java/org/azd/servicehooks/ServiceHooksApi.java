@@ -18,11 +18,11 @@ import java.util.Map;
 
 import static org.azd.utils.RestClient.send;
 
-/***
+/**
  * Service Hooks Api to manage service hooks service
  */
 public class ServiceHooksApi extends AzDAsyncApi<ServiceHooksApi> implements ServiceHooksDetails {
-    /***
+    /**
      * Connection object
      */
     private final Connection CONNECTION;
@@ -30,16 +30,18 @@ public class ServiceHooksApi extends AzDAsyncApi<ServiceHooksApi> implements Ser
     private final String AREA = "hooks";
 
 
-    /***
+    /**
      * Pass the connection object to work with Service hooks Api
+     *
      * @param connection Connection object
      */
     public ServiceHooksApi(Connection connection) {
         this.CONNECTION = connection;
     }
 
-    /***
+    /**
      * Get a specific service hooks subscription.
+     *
      * @param subscriptionId ID for a subscription.
      * @return ServiceHooksSubscription {@link ServiceHooksSubscription}
      * @throws AzDException Default Api Exception handler.
@@ -52,8 +54,9 @@ public class ServiceHooksApi extends AzDAsyncApi<ServiceHooksApi> implements Ser
         return MAPPER.mapJsonResponse(r, ServiceHooksSubscription.class);
     }
 
-    /***
+    /**
      * Get a list of subscriptions.
+     *
      * @return ServiceHooksSubscriptions {@link ServiceHooksSubscriptions}
      * @throws AzDException Default Api Exception handler.
      */
@@ -65,12 +68,13 @@ public class ServiceHooksApi extends AzDAsyncApi<ServiceHooksApi> implements Ser
         return MAPPER.mapJsonResponse(r, ServiceHooksSubscriptions.class);
     }
 
-    /***
+    /**
      * Get a list of subscriptions.
+     *
      * @param consumerActionId ID for a consumerActionId.
-     * @param consumerId ID for a consumer.
-     * @param eventType The event type to filter on (if any).
-     * @param publisherId ID for a subscription.
+     * @param consumerId       ID for a consumer.
+     * @param eventType        The event type to filter on (if any).
+     * @param publisherId      ID for a subscription.
      * @return ServiceHooksSubscriptions {@link ServiceHooksSubscriptions}
      * @throws AzDException Default Api Exception handler.
      */
@@ -90,8 +94,9 @@ public class ServiceHooksApi extends AzDAsyncApi<ServiceHooksApi> implements Ser
         return MAPPER.mapJsonResponse(r, ServiceHooksSubscriptions.class);
     }
 
-    /***
+    /**
      * Delete a specific service hooks subscription.
+     *
      * @param subscriptionId ID for a subscription.
      * @throws AzDException Default Api Exception handler.
      */
@@ -107,10 +112,11 @@ public class ServiceHooksApi extends AzDAsyncApi<ServiceHooksApi> implements Ser
         return null;
     }
 
-    /***
+    /**
      * Create a subscription.
+     *
      * @param serviceHooks service hooks object {@link ServiceHooks}
-     *  Reference: https://docs.microsoft.com/en-us/azure/devops/service-hooks/events?view=azure-devops#workitem.created
+     *                     Reference: https://docs.microsoft.com/en-us/azure/devops/service-hooks/events?view=azure-devops#workitem.created
      * @return ServiceHooksSubscription {@link ServiceHooksSubscription}
      * @throws AzDException Default Api Exception handler.
      */

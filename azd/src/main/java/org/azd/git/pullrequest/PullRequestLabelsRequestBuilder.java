@@ -23,12 +23,13 @@ public class PullRequestLabelsRequestBuilder extends BaseRequestBuilder {
         super(organizationUrl, accessTokenCredential, "git", "f22387e3-984e-4c52-9c6d-fbb8f14c812d");
     }
 
-    /***
+    /**
      * Create a label for a specified pull request. The only required field is
      * the name of the new label.
+     *
      * @param repositoryName The repository name of the pull request’s target branch.
-     * @param pullRequestId ID of the pull request.
-     * @param labelName tag/label name
+     * @param pullRequestId  ID of the pull request.
+     * @param labelName      tag/label name
      * @return WebApi tag object {@link WebApiTagDefinition}
      * @throws AzDException Default Api Exception handler.
      */
@@ -42,11 +43,12 @@ public class PullRequestLabelsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(WebApiTagDefinition.class);
     }
 
-    /***
+    /**
      * Removes a label from the set of those assigned to the pull request.
+     *
      * @param repositoryName The repository name of the pull request’s target branch.
-     * @param pullRequestId ID of the pull request.
-     * @param labelName tag/label name
+     * @param pullRequestId  ID of the pull request.
+     * @param labelName      tag/label name
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Void> deleteAsync(String repositoryName, int pullRequestId, String labelName) throws AzDException {
@@ -59,11 +61,12 @@ public class PullRequestLabelsRequestBuilder extends BaseRequestBuilder {
                 .executePrimitiveAsync();
     }
 
-    /***
+    /**
      * Retrieves a single label that has been assigned to a pull request.
+     *
      * @param repositoryName The repository name of the pull request’s target branch.
-     * @param pullRequestId ID of the pull request.
-     * @param labelName tag/label name
+     * @param pullRequestId  ID of the pull request.
+     * @param labelName      tag/label name
      * @return WebApi tag object {@link WebApiTagDefinition}
      * @throws AzDException Default Api Exception handler.
      */
@@ -77,10 +80,11 @@ public class PullRequestLabelsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(WebApiTagDefinition.class);
     }
 
-    /***
+    /**
      * Get all the labels assigned to a pull request.
+     *
      * @param repositoryName The repository name of the pull request’s target branch.
-     * @param pullRequestId ID of the pull request.
+     * @param pullRequestId  ID of the pull request.
      * @return List of WebApi tag object {@link WebApiTagDefinitions}
      * @throws AzDException Default Api Exception handler.
      */
@@ -93,12 +97,13 @@ public class PullRequestLabelsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(WebApiTagDefinitions.class);
     }
 
-    /***
+    /**
      * Create a label for a specified pull request. The only required field is
      * the name of the new label.
+     *
      * @param repositoryName The repository name of the pull request’s target branch.
-     * @param pullRequestId ID of the pull request.
-     * @param labelName tag/label name
+     * @param pullRequestId  ID of the pull request.
+     * @param labelName      tag/label name
      * @return WebApi tag object {@link WebApiTagDefinition}
      * @throws AzDException Default Api Exception handler.
      */
@@ -112,11 +117,12 @@ public class PullRequestLabelsRequestBuilder extends BaseRequestBuilder {
                 .execute(WebApiTagDefinition.class);
     }
 
-    /***
+    /**
      * Removes a label from the set of those assigned to the pull request.
+     *
      * @param repositoryName The repository name of the pull request’s target branch.
-     * @param pullRequestId ID of the pull request.
-     * @param labelName tag/label name
+     * @param pullRequestId  ID of the pull request.
+     * @param labelName      tag/label name
      * @throws AzDException Default Api Exception handler.
      */
     public Void delete(String repositoryName, int pullRequestId, String labelName) throws AzDException {
@@ -129,11 +135,12 @@ public class PullRequestLabelsRequestBuilder extends BaseRequestBuilder {
                 .executePrimitive();
     }
 
-    /***
+    /**
      * Retrieves a single label that has been assigned to a pull request.
+     *
      * @param repositoryName The repository name of the pull request’s target branch.
-     * @param pullRequestId ID of the pull request.
-     * @param labelName tag/label name
+     * @param pullRequestId  ID of the pull request.
+     * @param labelName      tag/label name
      * @return WebApi tag object {@link WebApiTagDefinition}
      * @throws AzDException Default Api Exception handler.
      */
@@ -147,10 +154,11 @@ public class PullRequestLabelsRequestBuilder extends BaseRequestBuilder {
                 .execute(WebApiTagDefinition.class);
     }
 
-    /***
+    /**
      * Get all the labels assigned to a pull request.
+     *
      * @param repositoryName The repository name of the pull request’s target branch.
-     * @param pullRequestId ID of the pull request.
+     * @param pullRequestId  ID of the pull request.
      * @return List of WebApi tag object {@link WebApiTagDefinitions}
      * @throws AzDException Default Api Exception handler.
      */

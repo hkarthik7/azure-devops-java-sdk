@@ -4,57 +4,57 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Represents a shallow reference to a TeamProject.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TeamProjectReference extends SerializableEntity {
-    /***
+    /**
      * Project abbreviation.
      */
     @JsonProperty("abbreviation")
     private String abbreviation;
-    /***
+    /**
      * Url to default team identity image.
      */
     @JsonProperty("defaultTeamImageUrl")
     private String defaultTeamImageUrl;
-    /***
+    /**
      * The project's description (if any).
      */
     @JsonProperty("description")
     private String description;
-    /***
+    /**
      * Project identifier.
      */
     @JsonProperty("id")
     private String id;
-    /***
+    /**
      * Project last update time.
      */
     @JsonProperty("lastUpdateTime")
     private String lastUpdateTime;
-    /***
+    /**
      * Project name.
      */
     @JsonProperty("name")
     private String name;
-    /***
+    /**
      * Project revision.
      */
     @JsonProperty("revision")
     private String revision;
-    /***
+    /**
      * Project state.
      */
     @JsonProperty("state")
     private String state;
-    /***
+    /**
      * Url to the full version of the object.
      */
     @JsonProperty("url")
     private String url;
-    /***
+    /**
      * Project visibility.
      */
     @JsonProperty("visibility")

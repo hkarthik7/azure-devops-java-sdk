@@ -6,22 +6,22 @@ import org.azd.abstractions.serializer.SerializableEntity;
 
 import java.util.List;
 
-/***
+/**
  * Information about this particular installation of the extension
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class InstalledExtensionState extends SerializableEntity {
-    /***
+    /**
      * States of an installed extension
      */
     @JsonProperty("flags")
     private String flags;
-    /***
+    /**
      * List of installation issues
      */
     @JsonProperty("installationIssues")
     private List<InstalledExtensionStateIssue> installationIssues;
-    /***
+    /**
      * The time at which this installation was last updated
      */
     @JsonProperty("lastUpdated")

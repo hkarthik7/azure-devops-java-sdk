@@ -84,13 +84,14 @@ public class FeedViewRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(FeedViews.class);
     }
 
-    /***
+    /**
      * Update a view. The project parameter must be supplied if the feed was created in a project.
-     * @param feedId Name or Id of the feed.
-     * @param viewId Name or Id of the view.
+     *
+     * @param feedId   Name or Id of the feed.
+     * @param viewId   Name or Id of the view.
      * @param feedView Feed view object to update the settings for.
-     * @throws AzDException Default Api Exception handler.
      * @return the updated feed view {@link FeedView}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<FeedView> updateAsync(String feedId, String viewId, FeedView feedView) throws AzDException {
         return builder()
@@ -163,13 +164,14 @@ public class FeedViewRequestBuilder extends BaseRequestBuilder {
                 .execute(FeedViews.class);
     }
 
-    /***
+    /**
      * Update a view. The project parameter must be supplied if the feed was created in a project.
-     * @param feedId Name or Id of the feed.
-     * @param viewId Name or Id of the view.
+     *
+     * @param feedId   Name or Id of the feed.
+     * @param viewId   Name or Id of the view.
      * @param feedView Feed view object to update the settings for.
-     * @throws AzDException Default Api Exception handler.
      * @return the updated feed view {@link FeedView}
+     * @throws AzDException Default Api Exception handler.
      */
     public FeedView update(String feedId, String viewId, FeedView feedView) throws AzDException {
         return builder()

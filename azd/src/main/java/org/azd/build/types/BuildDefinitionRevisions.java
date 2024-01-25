@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * List of build definition revisions
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BuildDefinitionRevisions extends SerializableCollectionEntity {
-    /***
+    /**
      * List of build revisions
      */
     @JsonProperty("value")

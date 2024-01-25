@@ -25,8 +25,9 @@ public class LocationUrl extends SerializableEntity {
         return id;
     }
 
-    /***
+    /**
      * Set the id of resource area
+     *
      * @param id of the resource
      */
     public void setId(String id) {
@@ -42,8 +43,9 @@ public class LocationUrl extends SerializableEntity {
         return name;
     }
 
-    /***
+    /**
      * Set the name of the resource
+     *
      * @param name name of the resource
      */
     public void setName(String name) {
@@ -59,16 +61,17 @@ public class LocationUrl extends SerializableEntity {
         return locationUrl;
     }
 
-    /***
+    /**
      * Sets the location url. This shouldn't be used and is a place holder for json
      * deserialization.
+     *
      * @param locationUrl resource area url
      */
     public void setLocationUrl(String locationUrl) {
         this.locationUrl = locationUrl;
     }
 
-    /***
+    /**
      * Convert the resource object to string
      * @return location url
      */

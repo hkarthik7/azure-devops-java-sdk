@@ -6,7 +6,7 @@ import org.azd.abstractions.serializer.SerializableEntity;
 import org.azd.enums.ProjectState;
 import org.azd.enums.ProjectVisibility;
 
-/***
+/**
  * Represents a Team Project object.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -16,53 +16,52 @@ public class Project extends SerializableEntity {
      */
     @JsonProperty("_links")
     private Object _links;
-    /***
+    /**
      * Project identifier.
      */
     @JsonProperty("id")
     private String id;
-    /***
+    /**
      * Project name.
      */
     @JsonProperty("name")
     private String name;
-    /***
+    /**
      * The project's description (if any).
      */
     @JsonProperty("description")
     private String description;
-    /***
+    /**
      * Url to the full version of the object.
      */
     @JsonProperty("url")
     private String url;
-    /***
+    /**
      * Project state.
      */
     @JsonProperty("state")
     private ProjectState state;
-    /***
+    /**
      * Set of capabilities this project has (such as process template & version control).
      */
     @JsonProperty("capabilities")
     private Capabilities capabilities;
-    /***
+    /**
      * Project revision.
      */
     @JsonProperty("revision")
     private int revision;
-    /***
+    /**
      * Project visibility.
      */
     @JsonProperty("visibility")
     private ProjectVisibility visibility;
-    /***
+    /**
      * The ref to the default team.
      */
     @JsonProperty("defaultTeam")
     private Team defaultTeam;
-    /***
-     *
+    /**
      * Project last update time.
      */
     @JsonProperty("lastUpdateTime")

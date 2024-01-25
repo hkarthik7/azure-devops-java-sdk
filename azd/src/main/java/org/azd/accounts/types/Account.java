@@ -4,82 +4,82 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Represents Azure DevOps Account
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Account extends SerializableEntity {
-    /***
+    /**
      * Identifier for an Account
      */
     @JsonProperty("accountId")
     private String accountId;
-    /***
+    /**
      * Name for an account
      */
     @JsonProperty("accountName")
     private String accountName;
-    /***
+    /**
      * Owner of account
      */
     @JsonProperty("accountOwner")
     private String accountOwner;
-    /***
+    /**
      * Current account status
      */
     @JsonProperty("accountStatus")
     private String accountStatus;
-    /***
+    /**
      * Type of account: Personal, Organization
      */
     @JsonProperty("accountType")
     private String accountType;
-    /***
+    /**
      * Uri for an account
      */
     @JsonProperty("accountUri")
     private String accountUri;
-    /***
+    /**
      * Who created the account
      */
     @JsonProperty("createdBy")
     private String createdBy;
-    /***
+    /**
      * has the account moved
      */
     @JsonProperty("hasMoved")
     private boolean hasMoved;
-    /***
+    /**
      * Identity of last person to update the account
      */
     @JsonProperty("lastUpdatedBy")
     private String lastUpdatedBy;
-    /***
+    /**
      * Date account was last updated
      */
     @JsonProperty("lastUpdatedDate")
     private String lastUpdatedDate;
-    /***
+    /**
      * Namespace for an account
      */
     @JsonProperty("namespaceId")
     private String namespaceId;
-    /***
+    /**
      * new collection Id
      */
     @JsonProperty("newCollectionId")
     private String newCollectionId;
-    /***
+    /**
      * Organization that created the account
      */
     @JsonProperty("organizationName")
     private String organizationName;
-    /***
+    /**
      * Extended properties
      */
     @JsonProperty("properties")
     private PropertiesCollection properties;
-    /***
+    /**
      * Reason for current status
      */
     @JsonProperty("statusReason")

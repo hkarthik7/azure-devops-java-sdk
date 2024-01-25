@@ -22,11 +22,12 @@ public class ControllersRequestBuilder extends BaseRequestBuilder {
         super(organizationUrl, accessTokenCredential, "build", "fcac1932-2ee1-437f-9b6f-7f696be858f6");
     }
 
-    /***
+    /**
      * Gets a controller
+     *
      * @param controllerId pass the controller id
-     * @throws AzDException Default Api Exception handler.
      * @return build controller {@link BuildController}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<BuildController> getAsync(int controllerId) throws AzDException {
         return builder()
@@ -35,10 +36,11 @@ public class ControllersRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(BuildController.class);
     }
 
-    /***
+    /**
      * Gets controllers
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return array of build controller {@link BuildControllers}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<BuildControllers> listAsync() throws AzDException {
         return builder()
@@ -46,11 +48,12 @@ public class ControllersRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(BuildControllers.class);
     }
 
-    /***
+    /**
      * Gets controller, optionally filtered by name
+     *
      * @param name pass the controller name
-     * @throws AzDException Default Api Exception handler.
      * @return array of build controller {@link BuildControllers}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<BuildControllers> listAsync(String name) throws AzDException {
         return builder()
@@ -59,11 +62,12 @@ public class ControllersRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(BuildControllers.class);
     }
 
-    /***
+    /**
      * Gets a controller
+     *
      * @param controllerId pass the controller id
-     * @throws AzDException Default Api Exception handler.
      * @return build controller {@link BuildController}
+     * @throws AzDException Default Api Exception handler.
      */
     public BuildController get(int controllerId) throws AzDException {
         return builder()
@@ -72,10 +76,11 @@ public class ControllersRequestBuilder extends BaseRequestBuilder {
                 .execute(BuildController.class);
     }
 
-    /***
+    /**
      * Gets controllers
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return array of build controller {@link BuildControllers}
+     * @throws AzDException Default Api Exception handler.
      */
     public BuildControllers list() throws AzDException {
         return builder()
@@ -83,11 +88,12 @@ public class ControllersRequestBuilder extends BaseRequestBuilder {
                 .execute(BuildControllers.class);
     }
 
-    /***
+    /**
      * Gets controller, optionally filtered by name
+     *
      * @param name pass the controller name
-     * @throws AzDException Default Api Exception handler.
      * @return array of build controller {@link BuildControllers}
+     * @throws AzDException Default Api Exception handler.
      */
     public BuildControllers list(String name) throws AzDException {
         return builder()

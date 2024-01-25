@@ -16,11 +16,11 @@ import java.util.stream.Collectors;
 
 import static org.azd.utils.RestClient.send;
 
-/***
+/**
  * Build class to manage build API
  */
 public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
-    /***
+    /**
      * Connection object
      */
     private final Connection CONNECTION;
@@ -28,16 +28,18 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
     private final String AREA = "build";
     private final String BUILD = "5d6898bb-45ec-463f-95f9-54d49c71752e";
 
-    /***
+    /**
      * Pass the connection object
+     *
      * @param connection Connection object
      */
     public BuildApi(Connection connection) {
         this.CONNECTION = connection;
     }
 
-    /***
+    /**
      * Deletes a build.
+     *
      * @param buildId pass the build id to delete
      * @throws AzDException Default Api Exception handler.
      */
@@ -53,11 +55,12 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return null;
     }
 
-    /***
+    /**
      * Gets a build
+     *
      * @param buildId pass the build id
-     * @throws AzDException Default Api Exception handler.
      * @return a build object {@link Build}
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public Build getBuild(int buildId) throws AzDException {
@@ -68,11 +71,12 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, Build.class);
     }
 
-    /***
+    /**
      * Gets the changes associated with a build
+     *
      * @param buildId pass the build id
-     * @throws AzDException Default Api Exception handler.
      * @return the object of build changes
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public BuildChanges getBuildChanges(int buildId) throws AzDException {
@@ -82,14 +86,15 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildChanges.class);
     }
 
-    /***
+    /**
      * Gets the changes associated with a build
-     * @param buildId pass the build id
-     * @param top The maximum number of changes to return
-     * @param continuationToken pass the continuation token
+     *
+     * @param buildId             pass the build id
+     * @param top                 The maximum number of changes to return
+     * @param continuationToken   pass the continuation token
      * @param includeSourceChange if set to true gets the source changes
-     * @throws AzDException Default Api Exception handler.
      * @return the object of build changes
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public BuildChanges getBuildChanges(
@@ -106,12 +111,13 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildChanges.class);
     }
 
-    /***
+    /**
      * Gets an individual log file for a build.
+     *
      * @param buildId pass the build id
-     * @param logId pass the log id
-     * @throws AzDException Default Api Exception handler.
+     * @param logId   pass the log id
      * @return logs associated with the build for given id
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public String getBuildLog(int buildId, int logId) throws AzDException {
@@ -120,14 +126,15 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
                 null, null, CustomHeader.TEXT_CONTENT);
     }
 
-    /***
+    /**
      * Gets an individual log file for a build.
-     * @param buildId pass the build id
-     * @param logId pass the log id
+     *
+     * @param buildId   pass the build id
+     * @param logId     pass the log id
      * @param startLine pass the line number from log which you need to fetch
-     * @param endLine pass till which line number you need to fetch from the log
-     * @throws AzDException Default Api Exception handler.
+     * @param endLine   pass till which line number you need to fetch from the log
      * @return logs associated with the build for given id
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public String getBuildLog(int buildId, int logId, long startLine, long endLine) throws AzDException {
@@ -142,11 +149,12 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
                 null, CustomHeader.TEXT_CONTENT);
     }
 
-    /***
+    /**
      * Gets the logs for a build.
+     *
      * @param buildId pass the build id
-     * @throws AzDException Default Api Exception handler.
      * @return the object of build logs with id. This can be used to fetch the particular log with id
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public BuildLogs getBuildLogs(int buildId) throws AzDException {
@@ -157,11 +165,12 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildLogs.class);
     }
 
-    /***
+    /**
      * Gets the work items associated with a build.
+     *
      * @param buildId The ID of the build.
-     * @throws AzDException Default Api Exception handler.
      * @return an array of work items associated with the build
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public BuildWorkItems getBuildWorkItems(int buildId) throws AzDException {
@@ -172,12 +181,13 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildWorkItems.class);
     }
 
-    /***
+    /**
      * Gets the work items associated with a build.
+     *
      * @param buildId id of the build
-     * @param top specify how many top work items to return
-     * @throws AzDException Default Api Exception handler.
+     * @param top     specify how many top work items to return
      * @return an array of work items associated with the build
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public BuildWorkItems getBuildWorkItems(int buildId, int top) throws AzDException {
@@ -192,13 +202,14 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildWorkItems.class);
     }
 
-    /***
+    /**
      * Gets the changes made to the repository between two given builds.
+     *
      * @param fromBuildId The ID of the first build.
-     * @param toBuildId The ID of the last build.
-     * @param top The maximum number of changes to return.
-     * @throws AzDException Default Api Exception handler.
+     * @param toBuildId   The ID of the last build.
+     * @param top         The maximum number of changes to return.
      * @return an array of changes between the builds
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public BuildChanges getChangesBetweenBuilds(int fromBuildId, int toBuildId, int top) throws AzDException {
@@ -215,13 +226,14 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildChanges.class);
     }
 
-    /***
+    /**
      * Gets all the work items between two builds.
+     *
      * @param fromBuildId The ID of the first build.
-     * @param toBuildId The ID of the last build.
-     * @param top The maximum number of changes to return.
-     * @throws AzDException Default Api Exception handler.
+     * @param toBuildId   The ID of the last build.
+     * @param top         The maximum number of changes to return.
      * @return an array of workitems between the builds
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public BuildWorkItems getWorkItemsBetweenBuilds(int fromBuildId, int toBuildId, int top) throws AzDException {
@@ -238,10 +250,11 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildWorkItems.class);
     }
 
-    /***
+    /**
      * Gets a list of builds.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return a build array {@link Builds}
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public Builds getBuilds() throws AzDException {
@@ -252,11 +265,12 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, Builds.class);
     }
 
-    /***
+    /**
      * Gets a list of builds.
+     *
      * @param buildIds array of build ids
-     * @throws AzDException Default Api Exception handler.
      * @return an array of build
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public Builds getBuilds(int[] buildIds) throws AzDException {
@@ -273,11 +287,12 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, Builds.class);
     }
 
-    /***
+    /**
      * Gets a list of builds.
+     *
      * @param top specify how many builds to retrieve
-     * @throws AzDException Default Api Exception handler.
      * @return an array of build
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public Builds getBuilds(int top) throws AzDException {
@@ -292,29 +307,30 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, Builds.class);
     }
 
-    /***
+    /**
      * Gets a list of builds.
-     * @param top specify how many builds to retrieve
-     * @param branchName If specified, filters to builds that built branches that built this branch.
-     * @param buildNumber If specified, filters to builds that match this build number. Append * to do a prefix search.
-     * @param continuationToken A continuation token, returned by a previous call to this method, that can be used to return the next set of builds.
-     * @param definitions A comma-delimited list of definition IDs. If specified, filters to builds for these definitions.
-     * @param deletedFilter Indicates whether to exclude, include, or only return deleted builds.
+     *
+     * @param top                    specify how many builds to retrieve
+     * @param branchName             If specified, filters to builds that built branches that built this branch.
+     * @param buildNumber            If specified, filters to builds that match this build number. Append * to do a prefix search.
+     * @param continuationToken      A continuation token, returned by a previous call to this method, that can be used to return the next set of builds.
+     * @param definitions            A comma-delimited list of definition IDs. If specified, filters to builds for these definitions.
+     * @param deletedFilter          Indicates whether to exclude, include, or only return deleted builds.
      * @param maxBuildsPerDefinition The maximum number of builds to return per definition.
-     * @param maxTime If specified, filters to builds that finished/started/queued before this date based on the queryOrder specified.
-     * @param minTime If specified, filters to builds that finished/started/queued after this date based on the queryOrder specified.
-     * @param properties A comma-delimited list of properties to retrieve.
-     * @param queryOrder The order in which builds should be returned.
-     * @param queues A comma-delimited list of queue IDs. If specified, filters to builds that ran against these queues.
-     * @param reasonFilter If specified, filters to builds that match this reason.
-     * @param repositoryId If specified, filters to builds that built from this repository.
-     * @param repositoryType If specified, filters to builds that built from repositories of this type.
-     * @param requestedFor If specified, filters to builds requested for the specified user.
-     * @param resultFilter If specified, filters to builds that match this result.
-     * @param statusFilter If specified, filters to builds that match this status.
-     * @param tagFilters A comma-delimited list of tags. If specified, filters to builds that have the specified tags.
-     * @throws AzDException Default Api Exception handler.
+     * @param maxTime                If specified, filters to builds that finished/started/queued before this date based on the queryOrder specified.
+     * @param minTime                If specified, filters to builds that finished/started/queued after this date based on the queryOrder specified.
+     * @param properties             A comma-delimited list of properties to retrieve.
+     * @param queryOrder             The order in which builds should be returned.
+     * @param queues                 A comma-delimited list of queue IDs. If specified, filters to builds that ran against these queues.
+     * @param reasonFilter           If specified, filters to builds that match this reason.
+     * @param repositoryId           If specified, filters to builds that built from this repository.
+     * @param repositoryType         If specified, filters to builds that built from repositories of this type.
+     * @param requestedFor           If specified, filters to builds requested for the specified user.
+     * @param resultFilter           If specified, filters to builds that match this result.
+     * @param statusFilter           If specified, filters to builds that match this status.
+     * @param tagFilters             A comma-delimited list of tags. If specified, filters to builds that have the specified tags.
      * @return an array of build
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public Builds getBuilds(
@@ -355,11 +371,12 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, Builds.class);
     }
 
-    /***
+    /**
      * Queues a build
+     *
      * @param definitionId pass the pipeline id to queue the build
-     * @throws AzDException Default Api Exception handler.
      * @return a build object {@link Build}
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public Build queueBuild(int definitionId) throws AzDException {
@@ -374,11 +391,12 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, Build.class);
     }
 
-    /***
+    /**
      * Queues a build
+     *
      * @param buildParameters dictionary of parameters to queue the build.
-     * @throws AzDException Default Api Exception handler.
      * @return a build object {@link Build}
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public Build queueBuild(Build buildParameters) throws AzDException {
@@ -424,10 +442,11 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, Builds.class);
     }
 
-    /***
+    /**
      * Gets controllers
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return array of build controller {@link BuildControllers}
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public BuildControllers getBuildControllers() throws AzDException {
@@ -437,11 +456,12 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildControllers.class);
     }
 
-    /***
+    /**
      * Gets controller, optionally filtered by name
+     *
      * @param name pass the controller name
-     * @throws AzDException Default Api Exception handler.
      * @return array of build controller {@link BuildControllers}
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public BuildControllers getBuildControllers(String name) throws AzDException {
@@ -456,11 +476,12 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildControllers.class);
     }
 
-    /***
+    /**
      * Gets a controller
+     *
      * @param controllerId pass the controller id
-     * @throws AzDException Default Api Exception handler.
      * @return build controller {@link BuildController}
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public BuildController getBuildController(int controllerId) throws AzDException {
@@ -472,14 +493,15 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildController.class);
     }
 
-    /***
+    /**
      * Creates a new definition.
+     *
      * @param buildDefinitionParameters json string of the build pipeline. Export the build definition from existing pipeline and edit it.
-     * Or get the existing build definition using getBuildDefinition(definitionId) method and call toString() method on it to
-     * convert the value to string and create the definition. Easiest way is to use cloneBuildDefinition() method to create
-     * a clone of build definition and later edit it to suit the needs.
-     * @throws AzDException Default Api Exception handler.
+     *                                  Or get the existing build definition using getBuildDefinition(definitionId) method and call toString() method on it to
+     *                                  convert the value to string and create the definition. Easiest way is to use cloneBuildDefinition() method to create
+     *                                  a clone of build definition and later edit it to suit the needs.
      * @return build definition {@link BuildDefinition}
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public BuildDefinition createBuildDefinition(String buildDefinitionParameters) throws AzDException {
@@ -494,12 +516,13 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildDefinition.class);
     }
 
-    /***
+    /**
      * Creates a new definition.
+     *
      * @param buildDefinition Build definition object. Export the build definition from existing pipeline and edit it.
-     * Or get the existing build definition using getBuildDefinition(definitionId).
-     * @throws AzDException Default Api Exception handler.
+     *                        Or get the existing build definition using getBuildDefinition(definitionId).
      * @return build definition {@link BuildDefinition}
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public BuildDefinition createBuildDefinition(BuildDefinition buildDefinition, Number definitionToCloneId,
@@ -518,9 +541,10 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildDefinition.class);
     }
 
-    /***
+    /**
      * Clone an existing definition/pipeline
-     * @param definitionName Name of the build definition/pipeline. E.g., WebApp-Deployment-CI
+     *
+     * @param definitionName      Name of the build definition/pipeline. E.g., WebApp-Deployment-CI
      * @param definitionCloneName Name of the pipeline/definition to be created or cloned. E.g., WebApp-Deployment-CI-Copy
      * @return build definition {@link BuildDefinition}
      * @throws AzDException Default Api Exception handler.
@@ -552,8 +576,9 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return null;
     }
 
-    /***
+    /**
      * Deletes a definition and all associated builds.
+     *
      * @param definitionId pass the definition id
      * @throws AzDException Default Api Exception handler.
      */
@@ -569,11 +594,12 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return null;
     }
 
-    /***
+    /**
      * Gets a definition
+     *
      * @param definitionId pass the definition id
-     * @throws AzDException Default Api Exception handler.
      * @return build definition {@link BuildDefinition}
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public BuildDefinition getBuildDefinition(int definitionId) throws AzDException {
@@ -585,14 +611,15 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildDefinition.class);
     }
 
-    /***
+    /**
      * Gets a definition, optionally at a specific revision.
-     * @param definitionId The ID of the definition.
+     *
+     * @param definitionId        The ID of the definition.
      * @param includeLatestBuilds if specified gets the details of latest build
-     * @param minMetricsTime If specified, indicates the date from which metrics should be included.
-     * @param revision The revision number to retrieve. If this is not specified, the latest version will be returned.
-     * @throws AzDException Default Api Exception handler.
+     * @param minMetricsTime      If specified, indicates the date from which metrics should be included.
+     * @param revision            The revision number to retrieve. If this is not specified, the latest version will be returned.
      * @return Build definition object
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public BuildDefinition getBuildDefinition(
@@ -611,11 +638,12 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildDefinition.class);
     }
 
-    /***
+    /**
      * Gets all revisions of a definition.
+     *
      * @param definitionId The ID of the definition.
-     * @throws AzDException Default Api Exception handler.
      * @return array of build definition revisions {@link BuildDefinitionRevision}
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public BuildDefinitionRevisions getBuildDefinitionRevisions(int definitionId) throws AzDException {
@@ -627,10 +655,11 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildDefinitionRevisions.class);
     }
 
-    /***
+    /**
      * Gets a list of definitions.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return build definitions {@link BuildDefinitions}
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public BuildDefinitions getBuildDefinitions() throws AzDException {
@@ -642,11 +671,12 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildDefinitions.class);
     }
 
-    /***
+    /**
      * Gets a list of definitions.
+     *
      * @param definitionIds array of definition ids
-     * @throws AzDException Default Api Exception handler.
      * @return build definitions {@link BuildDefinitions}
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public BuildDefinitions getBuildDefinitions(int[] definitionIds) throws AzDException {
@@ -663,11 +693,12 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildDefinitions.class);
     }
 
-    /***
+    /**
      * Gets a list of definitions.
+     *
      * @param top definitions to retrieve
-     * @throws AzDException Default Api Exception handler.
      * @return build definitions {@link BuildDefinitions}
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public BuildDefinitions getBuildDefinitions(int top) throws AzDException {
@@ -682,11 +713,12 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildDefinitions.class);
     }
 
-    /***
+    /**
      * Gets a list of definitions.
+     *
      * @param name Name of the build definition
-     * @throws AzDException Default Api Exception handler.
      * @return build definitions {@link BuildDefinitions}
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public BuildDefinitions getBuildDefinitions(String name) throws AzDException {
@@ -722,23 +754,24 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildDefinitions.class);
     }
 
-    /***
+    /**
      * Gets a list of definitions.
-     * @param builtAfter If specified, filters to definitions that have builds after this date.
-     * @param continuationToken A continuation token, returned by a previous call to this method, that can be used to return the next set of definitions.
+     *
+     * @param builtAfter           If specified, filters to definitions that have builds after this date.
+     * @param continuationToken    A continuation token, returned by a previous call to this method, that can be used to return the next set of definitions.
      * @param includeAllProperties Indicates whether the full definitions should be returned. By default, shallow representations of the definitions are returned.
-     * @param includeLatestBuilds Indicates whether to return the latest and latest completed builds for this definition.
-     * @param minMetricsTime If specified, indicates the date from which metrics should be included.
-     * @param notBuiltAfter If specified, filters to definitions that do not have builds after this date.
-     * @param path If specified, filters to definitions under this folder.
-     * @param processType If specified, filters to definitions with the given process type.
-     * @param queryOrder Indicates the order in which definitions should be returned.
-     * @param repositoryId A repository ID. If specified, filters to definitions that use this repository.
-     * @param repositoryType If specified, filters to definitions that have a repository of this type.
-     * @param taskIdFilter If specified, filters to definitions that use the specified task.
-     * @param yamlFilename If specified, filters to YAML definitions that match the given filename.
-     * @throws AzDException Default Api Exception handler.
+     * @param includeLatestBuilds  Indicates whether to return the latest and latest completed builds for this definition.
+     * @param minMetricsTime       If specified, indicates the date from which metrics should be included.
+     * @param notBuiltAfter        If specified, filters to definitions that do not have builds after this date.
+     * @param path                 If specified, filters to definitions under this folder.
+     * @param processType          If specified, filters to definitions with the given process type.
+     * @param queryOrder           Indicates the order in which definitions should be returned.
+     * @param repositoryId         A repository ID. If specified, filters to definitions that use this repository.
+     * @param repositoryType       If specified, filters to definitions that have a repository of this type.
+     * @param taskIdFilter         If specified, filters to definitions that use the specified task.
+     * @param yamlFilename         If specified, filters to YAML definitions that match the given filename.
      * @return build definitions {@link BuildDefinitions}
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public BuildDefinitions getBuildDefinitions(
@@ -769,12 +802,13 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildDefinitions.class);
     }
 
-    /***
+    /**
      * Restores a deleted definition
+     *
      * @param definitionId pass the build definition id
-     * @param deleted When false, restores a deleted definition.
-     * @throws AzDException Default Api Exception handler.
+     * @param deleted      When false, restores a deleted definition.
      * @return a {@link BuildDefinition} object
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public BuildDefinition restoreBuildDefinition(int definitionId, boolean deleted) throws AzDException {
@@ -932,10 +966,11 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, Folder.class);
     }
 
-    /***
+    /**
      * Adds a tag to a build.
+     *
      * @param buildId The ID of the build.
-     * @param tag The tag to add.
+     * @param tag     The tag to add.
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
      */
@@ -948,10 +983,11 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
 
-    /***
+    /**
      * Adds tags to a build.
+     *
      * @param buildId The ID of the build.
-     * @param tags The tags to add.
+     * @param tags    The tags to add.
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
      */
@@ -964,10 +1000,11 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
 
-    /***
+    /**
      * Adds a tag to a definition.
+     *
      * @param definitionId Id of build definition.
-     * @param tag The tag to add.
+     * @param tag          The tag to add.
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
      */
@@ -980,10 +1017,11 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
 
-    /***
+    /**
      * Adds multiple tags to a definition.
+     *
      * @param definitionId Id of build definition.
-     * @param tags The tags to add.
+     * @param tags         The tags to add.
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
      */
@@ -996,11 +1034,12 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
 
-    /***
+    /**
      * Removes a tag from a build.
      * NOTE: This method will not work for tags with special characters. To remove tags with special characters, use the updateBuildTags method instead.
+     *
      * @param buildId Id of the build.
-     * @param tag The tag to delete.
+     * @param tag     The tag to delete.
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
      */
@@ -1013,11 +1052,12 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
 
-    /***
+    /**
      * Removes a tag from a definition.
      * NOTE: This method will not work for tags with special characters. To remove tags with special characters, use the updateDefinitionTags method instead.
+     *
      * @param definitionId Id of the build definition.
-     * @param tag The tag to delete
+     * @param tag          The tag to delete
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
      */
@@ -1030,8 +1070,9 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
 
-    /***
+    /**
      * Removes a tag from builds, definitions, and from the tag store
+     *
      * @param tag The tag to delete.
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
@@ -1044,8 +1085,9 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
 
-    /***
+    /**
      * Gets the tags for a build.
+     *
      * @param buildId The ID of the build.
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
@@ -1058,8 +1100,9 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
 
-    /***
+    /**
      * Gets the tags for a definition.
+     *
      * @param definitionId Id of build definition.
      * @return Sting array of tags
      * @throws AzDException Default Api Exception handler.
@@ -1073,10 +1116,11 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
 
-    /***
+    /**
      * Gets the tags for a definition.
+     *
      * @param definitionId Id of build definition.
-     * @param revision The definition revision number. If not specified, uses the latest revision of the definition.
+     * @param revision     The definition revision number. If not specified, uses the latest revision of the definition.
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
      */
@@ -1092,8 +1136,9 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
 
-    /***
+    /**
      * Gets a list of all build tags in the project.
+     *
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
      */
@@ -1105,10 +1150,11 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
 
-    /***
+    /**
      * Adds/Removes tags from a build.
-     * @param buildId The ID of the build.
-     * @param tags The tags to update.
+     *
+     * @param buildId  The ID of the build.
+     * @param tags     The tags to update.
      * @param toRemove If true removes the tags. Use this to remove tags that has special characters.
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
@@ -1129,11 +1175,12 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
 
-    /***
+    /**
      * Adds/Removes tags from a build.
+     *
      * @param definitionId The Id of the build definition.
-     * @param tags The tags to update.
-     * @param toRemove If true removes the tags. Use this to remove tags that has special characters.
+     * @param tags         The tags to update.
+     * @param toRemove     If true removes the tags. Use this to remove tags that has special characters.
      * @return Sting array of tags {@link BuildTags}
      * @throws AzDException Default Api Exception handler.
      */
@@ -1152,8 +1199,9 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, BuildTags.class);
     }
 
-    /***
+    /**
      * Converts a definition to YAML.
+     *
      * @param definitionId The ID of the definition.
      * @return Yaml build object {@link YamlBuild}
      * @throws AzDException Default Api Exception handler.
@@ -1167,13 +1215,14 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, YamlBuild.class);
     }
 
-    /***
+    /**
      * Converts a definition to YAML, optionally at a specific revision.
-     * @param definitionId The ID of the definition.
+     *
+     * @param definitionId        The ID of the definition.
      * @param includeLatestBuilds if true includes latest builds
-     * @param minMetricsTime If specified, indicates the date from which metrics should be included.
-     * @param propertyFilters A comma-delimited list of properties to include in the results.
-     * @param revision The revision number to retrieve. If this is not specified, the latest version will be returned.
+     * @param minMetricsTime      If specified, indicates the date from which metrics should be included.
+     * @param propertyFilters     A comma-delimited list of properties to include in the results.
+     * @param revision            The revision number to retrieve. If this is not specified, the latest version will be returned.
      * @return Yaml build object {@link YamlBuild}
      * @throws AzDException Default Api Exception handler.
      */
@@ -1194,12 +1243,13 @@ public class BuildApi extends AzDAsyncApi<BuildApi> implements BuildDetails {
         return MAPPER.mapJsonResponse(r, YamlBuild.class);
     }
 
-    /***
+    /**
      * Update a build stage.
-     * @param buildId Id of the build to update the stage.
+     *
+     * @param buildId            Id of the build to update the stage.
      * @param stageReferenceName Name of the stage to update.
-     * @param forceRetryAllJobs if true forcefully retries all jobs.
-     * @param state state to update.
+     * @param forceRetryAllJobs  if true forcefully retries all jobs.
+     * @param state              state to update.
      * @throws AzDException Default Api Exception handler.
      */
     @Override

@@ -5,37 +5,37 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 import org.azd.common.types.Author;
 
-/***
+/**
  * Represents a revision of a build definition.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BuildDefinitionRevision extends SerializableEntity {
-    /***
+    /**
      * The revision number.
      */
     @JsonProperty("revision")
     private int revision;
-    /***
+    /**
      * The name of the definition.
      */
     @JsonProperty("name")
     private String name;
-    /***
+    /**
      * The date and time that the definition was changed.
      */
     @JsonProperty("changedDate")
     private String changedDate;
-    /***
+    /**
      * The change type (add, edit, delete).
      */
     @JsonProperty("changeType")
     private String changeType;
-    /***
+    /**
      * A link to the definition at this revision.
      */
     @JsonProperty("definitionUrl")
     private String definitionUrl;
-    /***
+    /**
      * The identity of the person or process that changed the definition.
      */
     @JsonProperty("changedBy")

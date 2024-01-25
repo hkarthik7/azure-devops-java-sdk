@@ -14,11 +14,11 @@ import java.util.*;
 
 import static org.azd.utils.RestClient.send;
 
-/***
+/**
  * Release Api to manage releases service
  */
 public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetails {
-    /***
+    /**
      * Connection object
      */
     private final Connection CONNECTION;
@@ -26,22 +26,24 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
     private final String AREA = "release/releases";
     private final String RELEASE = "efc2f575-36ef-48e9-b672-0c6fb4a48ac5";
 
-    /***
+    /**
      * Pass the connection object to work with Release Api
+     *
      * @param connection Connection object
      */
     public ReleaseApi(Connection connection) {
         this.CONNECTION = connection;
     }
 
-    /***
+    /**
      * Create a release.
+     *
      * @param releaseDefinitionId pass definition Id to create a release.
-     * @param description pass description to create a release.
-     * @param artifactAlias build pipeline alias name. Run getBuilds() from BuildApi to get the build alias name and build number.
-     * @param artifactId pass the build id.
-     * @param artifactName pass the build pipeline name
-     * @param isDraft creates the release as draft if set to false
+     * @param description         pass description to create a release.
+     * @param artifactAlias       build pipeline alias name. Run getBuilds() from BuildApi to get the build alias name and build number.
+     * @param artifactId          pass the build id.
+     * @param artifactName        pass the build pipeline name
+     * @param isDraft             creates the release as draft if set to false
      * @return Release {@link Release}
      * @throws AzDException Default Api Exception handler.
      */
@@ -73,8 +75,9 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         return MAPPER.mapJsonResponse(r, Release.class);
     }
 
-    /***
+    /**
      * Get a Release
+     *
      * @param releaseId pass the release id
      * @return Release {@link Release}
      * @throws AzDException Default Api Exception handler.
@@ -87,10 +90,11 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         return MAPPER.mapJsonResponse(r, Release.class);
     }
 
-    /***
+    /**
      * Gets a Release
+     *
      * @param releaseId pass the release id
-     * @param expand field to expand in the result. {@link SingleReleaseExpands}
+     * @param expand    field to expand in the result. {@link SingleReleaseExpands}
      * @return Release {@link Release}
      * @throws AzDException Default Api Exception handler.
      */
@@ -106,16 +110,17 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         return MAPPER.mapJsonResponse(r, Release.class);
     }
 
-    /***
+    /**
      * Gets a Release
-     * @param releaseId pass the release id
-     * @param expand field to expand in the result. {@link SingleReleaseExpands}
+     *
+     * @param releaseId       pass the release id
+     * @param expand          field to expand in the result. {@link SingleReleaseExpands}
      * @param approvalFilters A filter which would allow fetching approval steps selectively based on whether it is automated, or manual.
-     * This would also decide whether we should fetch pre and post approval snapshots. Assumes All by default
+     *                        This would also decide whether we should fetch pre and post approval snapshots. Assumes All by default
      * @param propertyFilters A comma-delimited list of extended properties to be retrieved.
-     * If set, the returned Release will contain values for the specified property Ids (if they exist).
-     * If not set, properties will not be included.
-     * @param topGateRecords Number of release gate records to get. Default is 5.
+     *                        If set, the returned Release will contain values for the specified property Ids (if they exist).
+     *                        If not set, properties will not be included.
+     * @param topGateRecords  Number of release gate records to get. Default is 5.
      * @return Release {@link Release}
      * @throws AzDException Default Api Exception handler.
      */
@@ -136,9 +141,10 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         return MAPPER.mapJsonResponse(r, Release.class);
     }
 
-    /***
+    /**
      * Get a release environment.
-     * @param releaseId pass the release id
+     *
+     * @param releaseId     pass the release id
      * @param environmentId Id of the release environment.
      * @return Release Environment {@link ReleaseEnvironment}
      * @throws AzDException Default Api Exception handler.
@@ -152,11 +158,12 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         return MAPPER.mapJsonResponse(r, ReleaseEnvironment.class);
     }
 
-    /***
+    /**
      * Get a release environment.
-     * @param releaseId pass the release id
+     *
+     * @param releaseId     pass the release id
      * @param environmentId Id of the release environment.
-     * @param expand Release expands {@link SingleReleaseExpands}
+     * @param expand        Release expands {@link SingleReleaseExpands}
      * @return Release Environment {@link ReleaseEnvironment}
      * @throws AzDException Default Api Exception handler.
      */
@@ -174,8 +181,9 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         return MAPPER.mapJsonResponse(r, ReleaseEnvironment.class);
     }
 
-    /***
+    /**
      * Get a list of releases
+     *
      * @return Releases {@link Releases}
      * @throws AzDException Default Api Exception handler.
      */
@@ -187,8 +195,9 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         return MAPPER.mapJsonResponse(r, Releases.class);
     }
 
-    /***
+    /**
      * Get a list of releases
+     *
      * @param expand The property that should be expanded in the list of releases. {@link ReleaseExpands}
      * @return Releases {@link Releases}
      * @throws AzDException Default Api Exception handler.
@@ -205,8 +214,9 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         return MAPPER.mapJsonResponse(r, Releases.class);
     }
 
-    /***
+    /**
      * Get a list of releases
+     *
      * @param definitionId pass the release definition id
      * @return Releases {@link Releases}
      * @throws AzDException Default Api Exception handler.
@@ -223,10 +233,11 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         return MAPPER.mapJsonResponse(r, Releases.class);
     }
 
-    /***
+    /**
      * Get a list of releases
+     *
      * @param expand The property that should be expanded in the list of releases. {@link ReleaseExpands}
-     * @param top Number of releases to get. Default is 50.
+     * @param top    Number of releases to get. Default is 50.
      * @return Releases {@link Releases}
      * @throws AzDException Default Api Exception handler.
      */
@@ -243,8 +254,9 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         return MAPPER.mapJsonResponse(r, Releases.class);
     }
 
-    /***
+    /**
      * Get a list of releases
+     *
      * @param releaseIdFilter A comma-delimited list of releases Ids. Only releases with these Ids will be returned.
      * @return Releases {@link Releases}
      * @throws AzDException Default Api Exception handler.
@@ -261,9 +273,10 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         return MAPPER.mapJsonResponse(r, Releases.class);
     }
 
-    /***
+    /**
      * Get a list of releases
-     * @param expand The property that should be expanded in the list of releases. {@link ReleaseExpands}
+     *
+     * @param expand            The property that should be expanded in the list of releases. {@link ReleaseExpands}
      * @param artifactVersionId Releases with given artifactVersionId will be returned. E.g. in case of Build artifactType, it is buildId.
      * @return Releases {@link Releases}
      * @throws AzDException Default Api Exception handler.
@@ -281,37 +294,38 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         return MAPPER.mapJsonResponse(r, Releases.class);
     }
 
-    /***
+    /**
      * Get a list of releases
-     * @param expand The property that should be expanded in the list of releases. {@link ReleaseExpands}
-     * @param top Number of releases to get. Default is 50.
-     * @param artifactTypeId Releases with given artifactTypeId will be returned.
-     * Values can be Build, Jenkins, GitHub, Nuget, Team Build (external), ExternalTFSBuild, Git, TFVC, ExternalTfsXamlBuild.
-     * @param artifactVersionId Releases with given artifactVersionId will be returned. E.g. in case of Build artifactType, it is buildId.
-     * @param continuationToken Gets the releases after the continuation token provided.
-     * @param createdBy Releases created by this user.
+     *
+     * @param expand                  The property that should be expanded in the list of releases. {@link ReleaseExpands}
+     * @param top                     Number of releases to get. Default is 50.
+     * @param artifactTypeId          Releases with given artifactTypeId will be returned.
+     *                                Values can be Build, Jenkins, GitHub, Nuget, Team Build (external), ExternalTFSBuild, Git, TFVC, ExternalTfsXamlBuild.
+     * @param artifactVersionId       Releases with given artifactVersionId will be returned. E.g. in case of Build artifactType, it is buildId.
+     * @param continuationToken       Gets the releases after the continuation token provided.
+     * @param createdBy               Releases created by this user.
      * @param definitionEnvironmentId pass the release definition environment id
-     * @param definitionId Releases from this release definition Id.
+     * @param definitionId            Releases from this release definition Id.
      * @param environmentStatusFilter environment status filter
-     * @param isDeleted Gets the soft deleted releases, if true.
-     * @param maxCreatedTime Releases that were created before this time.
-     * @param minCreatedTime Releases that were created after this time.
-     * @param path Releases under this folder path will be returned
-     * @param propertyFilters A comma-delimited list of extended properties to be retrieved.
-     * If set, the returned Releases will contain values for the specified property Ids (if they exist).
-     * If not set, properties will not be included. Note that this will not filter out any Release from
-     * results irrespective of whether it has property set or not.
-     * @param queryOrder Gets the results in the defined order of created date for releases. Default is descending.
-     * @param releaseIdFilter A comma-delimited list of releases Ids. Only releases with these Ids will be returned.
-     * @param searchText Releases with names containing searchText.
-     * @param sourceBranchFilter Releases with given sourceBranchFilter will be returned.
-     * @param sourceId Unique identifier of the artifact used. e.g. For build it would be {projectGuid}:{BuildDefinitionId},
-     * for Jenkins it would be {JenkinsConnectionId}:{JenkinsDefinitionId}, for TfsOnPrem it would be
-     * {TfsOnPremConnectionId}:{ProjectName}:{TfsOnPremDefinitionId}. For third-party artifacts e.g. TeamCity,
-     * BitBucket you may refer 'uniqueSourceIdentifier' inside vss-extension.json
-     * https://github.com/Microsoft/vsts-rm-extensions/blob/master/Extensions.
-     * @param statusFilter Releases that have the status from {@link ReleaseStatus}.
-     * @param tagFilter A comma-delimited list of tags. Only releases with these tags will be returned.
+     * @param isDeleted               Gets the soft deleted releases, if true.
+     * @param maxCreatedTime          Releases that were created before this time.
+     * @param minCreatedTime          Releases that were created after this time.
+     * @param path                    Releases under this folder path will be returned
+     * @param propertyFilters         A comma-delimited list of extended properties to be retrieved.
+     *                                If set, the returned Releases will contain values for the specified property Ids (if they exist).
+     *                                If not set, properties will not be included. Note that this will not filter out any Release from
+     *                                results irrespective of whether it has property set or not.
+     * @param queryOrder              Gets the results in the defined order of created date for releases. Default is descending.
+     * @param releaseIdFilter         A comma-delimited list of releases Ids. Only releases with these Ids will be returned.
+     * @param searchText              Releases with names containing searchText.
+     * @param sourceBranchFilter      Releases with given sourceBranchFilter will be returned.
+     * @param sourceId                Unique identifier of the artifact used. e.g. For build it would be {projectGuid}:{BuildDefinitionId},
+     *                                for Jenkins it would be {JenkinsConnectionId}:{JenkinsDefinitionId}, for TfsOnPrem it would be
+     *                                {TfsOnPremConnectionId}:{ProjectName}:{TfsOnPremDefinitionId}. For third-party artifacts e.g. TeamCity,
+     *                                BitBucket you may refer 'uniqueSourceIdentifier' inside vss-extension.json
+     *                                https://github.com/Microsoft/vsts-rm-extensions/blob/master/Extensions.
+     * @param statusFilter            Releases that have the status from {@link ReleaseStatus}.
+     * @param tagFilter               A comma-delimited list of tags. Only releases with these tags will be returned.
      * @return Releases {@link Releases}
      * @throws AzDException Default Api Exception handler.
      */
@@ -352,10 +366,11 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         return MAPPER.mapJsonResponse(r, Releases.class);
     }
 
-    /***
+    /**
      * Create a release definition
+     *
      * @param releaseDefinitionParameters Pass the release definition parameter as string. It is easy to export
-     * json result from an existing pipeline and edit it.
+     *                                    json result from an existing pipeline and edit it.
      * @return ReleaseDefinition {@link ReleaseDefinition}
      * @throws AzDException Default Api Exception handler.
      */
@@ -371,8 +386,9 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         return MAPPER.mapJsonResponse(r, ReleaseDefinition.class);
     }
 
-    /***
+    /**
      * Delete a release definition.
+     *
      * @param definitionId Id of the release definition/pipeline.
      * @throws AzDException Default Api Exception handler.
      */
@@ -389,12 +405,13 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         return null;
     }
 
-    /***
+    /**
      * Delete a release definition.
+     *
      * @param definitionId Id of the release definition/pipeline.
-     * @param comment Comment for deleting a release definition.
-     * @param forceDelete 'true' to automatically cancel any in-progress release deployments
-     * and proceed with release definition deletion . Default is 'false'.
+     * @param comment      Comment for deleting a release definition.
+     * @param forceDelete  'true' to automatically cancel any in-progress release deployments
+     *                     and proceed with release definition deletion . Default is 'false'.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
@@ -415,8 +432,9 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         return null;
     }
 
-    /***
+    /**
      * Get a release definition.
+     *
      * @param definitionId Id of the release definition/pipeline.
      * @return ReleaseDefinition {@link ReleaseDefinition}
      * @throws AzDException Default Api Exception handler.
@@ -430,8 +448,9 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         return MAPPER.mapJsonResponse(r, ReleaseDefinition.class);
     }
 
-    /***
+    /**
      * Get revision history for a release definition
+     *
      * @param definitionId Id of the release definition/pipeline.
      * @return ReleaseDefinitionRevisions {@link ReleaseDefinitionRevisions}
      * @throws AzDException Default Api Exception handler.
@@ -445,8 +464,9 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         return MAPPER.mapJsonResponse(r, ReleaseDefinitionRevisions.class);
     }
 
-    /***
+    /**
      * Get a list of release definitions.
+     *
      * @return ReleaseDefinitions {@link ReleaseDefinitions}
      * @throws AzDException Default Api Exception handler.
      */
@@ -623,8 +643,9 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         return MAPPER.mapJsonResponse(r, ReleaseDefinition.class);
     }
 
-    /***
+    /**
      * Delete a release using release id.
+     *
      * @param releaseId Release id to delete
      * @throws AzDException Default Api Exception handler.
      */
@@ -640,10 +661,11 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         return null;
     }
 
-    /***
+    /**
      * Update a complete release object.
+     *
      * @param releaseId Id of the release to update.
-     * @param release Release object to update
+     * @param release   Release object to update
      * @return a release object {@link Release}
      * @throws AzDException Default Api Exception handler.
      */
@@ -655,14 +677,15 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         return MAPPER.mapJsonResponse(r, Release.class);
     }
 
-    /***
+    /**
      * Update the status of a release environment.
-     * @param releaseId Id of the release to update.
-     * @param environmentId Id of the stage or environment to update.
-     * @param comment Gets or sets comment.
+     *
+     * @param releaseId               Id of the release to update.
+     * @param environmentId           Id of the stage or environment to update.
+     * @param comment                 Gets or sets comment.
      * @param scheduledDeploymentTime Gets or sets scheduled deployment time.
-     * @param status Gets or sets status of environment.
-     * @param variables Sets list of environment variables to be overridden at deployment time.
+     * @param status                  Gets or sets status of environment.
+     * @param variables               Sets list of environment variables to be overridden at deployment time.
      * @return ReleaseEnvironment object {@link ReleaseEnvironment}
      * @throws AzDException Default Api Exception handler.
      */
@@ -685,14 +708,15 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         return MAPPER.mapJsonResponse(r, ReleaseEnvironment.class);
     }
 
-    /***
+    /**
      * Update few properties of a release.
-     * @param releaseId Id of the release to update.
-     * @param comment Sets comment for release.
-     * @param keepForever Set 'true' to exclude the release from retention policies.
+     *
+     * @param releaseId          Id of the release to update.
+     * @param comment            Sets comment for release.
+     * @param keepForever        Set 'true' to exclude the release from retention policies.
      * @param manualEnvironments Sets list of manual environments.
-     * @param status Sets status of the release.
-     * @param name Sets name of the release.
+     * @param status             Sets status of the release.
+     * @param name               Sets name of the release.
      * @return A release object {@link Release}
      * @throws AzDException Default Api Exception handler.
      */
@@ -713,9 +737,10 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         return MAPPER.mapJsonResponse(r, Release.class);
     }
 
-    /***
+    /**
      * Queue a release pipeline with release id and environment or stage name.
-     * @param releaseId Id of the release
+     *
+     * @param releaseId       Id of the release
      * @param environmentName Stage name or environment name
      * @return Release Environment object {@link ReleaseEnvironment}
      * @throws AzDException Default Api Exception handler.
@@ -744,8 +769,9 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         throw new AzDException("NoSuchElementException", "Given environment name '" + environmentName + "' doesn't exist.");
     }
 
-    /***
+    /**
      * Abandon a release.
+     *
      * @param releaseId Id of the release
      * @return A release object {@link Release}
      * @throws AzDException Default Api Exception handler.
@@ -755,8 +781,9 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         return updateReleaseResource(releaseId, null, false, null, ReleaseStatus.ABANDONED, null);
     }
 
-    /***
+    /**
      * Get a list of approvals
+     *
      * @return List of release approvals {@link ReleaseApprovals}
      * @throws AzDException Default Api Exception handler.
      */
@@ -768,8 +795,9 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         return MAPPER.mapJsonResponse(r, ReleaseApprovals.class);
     }
 
-    /***
+    /**
      * Get a list of approvals
+     *
      * @param releaseIdsFilter array of release ids to filter the approvals
      * @return List of release approvals {@link ReleaseApprovals}
      * @throws AzDException Default Api Exception handler.
@@ -786,17 +814,18 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         return MAPPER.mapJsonResponse(r, ReleaseApprovals.class);
     }
 
-    /***
+    /**
      * Get a list of approvals
-     * @param assignedToFilter Approvals assigned to this user.
-     * @param continuationToken Gets the approvals after the continuation token provided.
+     *
+     * @param assignedToFilter        Approvals assigned to this user.
+     * @param continuationToken       Gets the approvals after the continuation token provided.
      * @param includeMyGroupApprovals 'true' to include my group approvals. Default is 'false'.
-     * @param queryOrder Gets the results in the defined order of created approvals. Default is 'descending'.
-     * @param releaseIdsFilter Approvals for release id(s) mentioned in the filter.
-     * Multiple releases can be mentioned by separating them with ',' e.g. releaseIdsFilter=1,2,3,4.
-     * @param statusFilter Approvals with this status. Default is 'pending'.
-     * @param top Number of approvals to get. Default is 50.
-     * @param typeFilter Approval with this type.
+     * @param queryOrder              Gets the results in the defined order of created approvals. Default is 'descending'.
+     * @param releaseIdsFilter        Approvals for release id(s) mentioned in the filter.
+     *                                Multiple releases can be mentioned by separating them with ',' e.g. releaseIdsFilter=1,2,3,4.
+     * @param statusFilter            Approvals with this status. Default is 'pending'.
+     * @param top                     Number of approvals to get. Default is 50.
+     * @param typeFilter              Approval with this type.
      * @return List of release approvals {@link ReleaseApprovals}
      * @throws AzDException Default Api Exception handler.
      */
@@ -821,11 +850,12 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         return MAPPER.mapJsonResponse(r, ReleaseApprovals.class);
     }
 
-    /***
+    /**
      * Update status of an approval
+     *
      * @param approvalId Id of the approval.
-     * @param status Gets or sets the status of the approval.
-     * @param comments Gets or sets comments for approval.
+     * @param status     Gets or sets the status of the approval.
+     * @param comments   Gets or sets comments for approval.
      * @return release approval object {@link ReleaseApproval}
      * @throws AzDException Default Api Exception handler.
      */
@@ -842,9 +872,10 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         return MAPPER.mapJsonResponse(r, ReleaseApproval.class);
     }
 
-    /***
+    /**
      * Get manual intervention for a given release and manual intervention id.
-     * @param releaseId Id of the manual intervention.
+     *
+     * @param releaseId            Id of the manual intervention.
      * @param manualInterventionId Id of the release.
      * @return manual intervention object {@link ManualIntervention}
      * @throws AzDException Default Api Exception handler.
@@ -859,8 +890,9 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         return MAPPER.mapJsonResponse(r, ManualIntervention.class);
     }
 
-    /***
+    /**
      * List all manual interventions for a given release.
+     *
      * @param releaseId Id of the release.
      * @return list of manual intervention object {@link ManualInterventions}
      * @throws AzDException Default Api Exception handler.
@@ -873,12 +905,13 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         return MAPPER.mapJsonResponse(r, ManualInterventions.class);
     }
 
-    /***
+    /**
      * Update manual intervention.
-     * @param releaseId Id of the release.
+     *
+     * @param releaseId            Id of the release.
      * @param manualInterventionId Id of the manual intervention.
-     * @param comment Sets the comment for manual intervention update.
-     * @param status Sets the status of the manual intervention.
+     * @param comment              Sets the comment for manual intervention update.
+     * @param status               Sets the status of the manual intervention.
      * @return manual intervention object {@link ManualIntervention}
      * @throws AzDException Default Api Exception handler.
      */
@@ -898,8 +931,9 @@ public class ReleaseApi extends AzDAsyncApi<ReleaseApi> implements ReleaseDetail
         return MAPPER.mapJsonResponse(r, ManualIntervention.class);
     }
 
-    /***
+    /**
      * Helper method to convert integer array to string.
+     *
      * @param i integer array
      * @return {@link String}
      */

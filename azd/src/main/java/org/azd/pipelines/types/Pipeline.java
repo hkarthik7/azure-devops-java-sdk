@@ -4,37 +4,37 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Definition of a pipeline.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Pipeline extends SerializableEntity {
-    /***
+    /**
      * Pipeline configuration object
      */
     @JsonProperty("configuration")
     private PipelineConfiguration configuration;
-    /***
+    /**
      * Pipeline folder
      */
     @JsonProperty("folder")
     private String folder;
-    /***
+    /**
      * Pipeline ID
      */
     @JsonProperty("id")
     private int id;
-    /***
+    /**
      * Pipeline name
      */
     @JsonProperty("name")
     private String name;
-    /***
+    /**
      * Revision number
      */
     @JsonProperty("revision")
     private String revision;
-    /***
+    /**
      * URL of the pipeline
      */
     @JsonProperty("url")

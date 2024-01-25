@@ -5,22 +5,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 import org.azd.enums.OperationStatus;
 
-/***
+/**
  * Reference for an async operation.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OperationReference extends SerializableEntity {
-    /***
+    /**
      * Unique identifier for the operation.
      */
     @JsonProperty("id")
     private String id;
-    /***
+    /**
      * The current status of the operation.
      */
     @JsonProperty("status")
     private OperationStatus status;
-    /***
+    /**
      * URL to get the full operation object.
      */
     @JsonProperty("url")

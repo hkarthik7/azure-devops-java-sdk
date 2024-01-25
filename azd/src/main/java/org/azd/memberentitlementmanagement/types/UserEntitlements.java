@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * List of user entitlement
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserEntitlements extends SerializableCollectionEntity {
-    /***
+    /**
      * List of user entitlement
      */
     @JsonProperty("value")

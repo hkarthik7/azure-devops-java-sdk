@@ -135,8 +135,9 @@ public class SecurityApiTest {
         assertFalse(acLs.getACLs().isEmpty());
     }
 
-    /***
+    /**
      * not really a test. Dump all actions to see bitmasks
+     *
      * @throws AzDException
      */
     @Test
@@ -233,7 +234,7 @@ public class SecurityApiTest {
         }
     }
 
-    /***
+    /**
      * - lookup a user and a repository
      * - get current ACL
      * - update ACL
@@ -312,18 +313,19 @@ public class SecurityApiTest {
         }
     }
 
-    /***
+    /**
      * - lookup a user and a repository
      * - get current ACL
      * - update ACE with merge flag set
      * - re-fetch ACL and compare:
-     *   - deny value should be our mask OR'd with original values
-     *   , allow value should be our mask OR'd with original values + with deny bits unset
+     * - deny value should be our mask OR'd with original values
+     * , allow value should be our mask OR'd with original values + with deny bits unset
      * - reset ACL
-     *
+     * <p>
      * Not necessarily universal.
      * Depending on the internal permission logic, denying access to one action may implicitly deny other actions.
      * i.e. in git permissions, bit 1 (admin) appears to be flipped depending on other allow/deny values
+     *
      * @throws AzDException
      */
     @Test

@@ -26,12 +26,13 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
         super(organizationUrl, accessTokenCredential, "build", "dbeaf647-6167-421a-bda9-c9327b25e2e6");
     }
 
-    /***
+    /**
      * Creates a new definition.
-     * @param buildDefinition Build definition object.
+     *
+     * @param buildDefinition                Build definition object.
      * @param definitionRequestConfiguration Consumer of query parameters to clone the definition if exists.
-     * @throws AzDException Default Api Exception handler.
      * @return build definition {@link BuildDefinition}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<BuildDefinition> createAsync(BuildDefinition buildDefinition,
                                                           Consumer<DefinitionRequestConfiguration> definitionRequestConfiguration) throws AzDException {
@@ -42,8 +43,9 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(BuildDefinition.class);
     }
 
-    /***
+    /**
      * Deletes a definition and all associated builds.
+     *
      * @param definitionId pass the definition id
      * @throws AzDException Default Api Exception handler.
      */
@@ -55,12 +57,13 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
                 .executePrimitiveAsync();
     }
 
-    /***
+    /**
      * Gets a definition
-     * @param definitionId pass the definition id
+     *
+     * @param definitionId         pass the definition id
      * @param requestConfiguration Consumer of query request parameters.
-     * @throws AzDException Default Api Exception handler.
      * @return build definition {@link BuildDefinition}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<BuildDefinition> getAsync(int definitionId, Consumer<GetRequestConfiguration> requestConfiguration) throws AzDException {
         return builder()
@@ -70,11 +73,12 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(BuildDefinition.class);
     }
 
-    /***
+    /**
      * Gets a definition
+     *
      * @param definitionId pass the definition id.
-     * @throws AzDException Default Api Exception handler.
      * @return build definition {@link BuildDefinition}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<BuildDefinition> getAsync(int definitionId) throws AzDException {
         return builder()
@@ -83,11 +87,12 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(BuildDefinition.class);
     }
 
-    /***
+    /**
      * Gets a definition revisions.
+     *
      * @param definitionId pass the definition id
-     * @throws AzDException Default Api Exception handler.
      * @return build definition revisions object {@link BuildDefinitionRevisions}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<BuildDefinitionRevisions> getRevisionsAsync(int definitionId) throws AzDException {
         return builder()
@@ -97,10 +102,11 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(BuildDefinitionRevisions.class);
     }
 
-    /***
+    /**
      * Gets a list of definitions.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return build definitions object {@link BuildDefinitions}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<BuildDefinitions> listAsync() throws AzDException {
         return builder()
@@ -109,11 +115,12 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
     }
 
 
-    /***
+    /**
      * Gets a list of definitions.
+     *
      * @param requestConfiguration Consumer of query request parameters.
-     * @throws AzDException Default Api Exception handler.
      * @return build definitions object {@link BuildDefinitions}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<BuildDefinitions> listAsync(Consumer<ListRequestConfiguration> requestConfiguration) throws AzDException {
         return builder()
@@ -122,12 +129,13 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(BuildDefinitions.class);
     }
 
-    /***
+    /**
      * Restores a deleted definition
+     *
      * @param definitionId pass the build definition id
-     * @param deleted When false, restores a deleted definition.
-     * @throws AzDException Default Api Exception handler.
+     * @param deleted      When false, restores a deleted definition.
      * @return a {@link BuildDefinition} object
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<BuildDefinition> restoreAsync(int definitionId, boolean deleted) throws AzDException {
         return builder()
@@ -138,16 +146,16 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(BuildDefinition.class);
     }
 
-    /***
+    /**
      * Updates an existing build definition.
      * In order for this operation to succeed, the value of the "Revision" property of the request body must match the
      * existing build definition's. It is recommended that you obtain the existing build definition by using GET, modify
      * the build definition as necessary, and then submit the modified definition with PUT.
      *
-     * @param definitionId pass the build definition id
+     * @param definitionId    pass the build definition id
      * @param buildDefinition Build definition object to update.
-     * @throws AzDException Default Api Exception handler.
      * @return a {@link BuildDefinition} object
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<BuildDefinition> updateAsync(int definitionId, BuildDefinition buildDefinition,
                                                           Consumer<UpdateRequestConfiguration> requestConfiguration) throws AzDException {
@@ -159,12 +167,13 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(BuildDefinition.class);
     }
 
-    /***
+    /**
      * Creates a new definition.
-     * @param buildDefinition Build definition object.
+     *
+     * @param buildDefinition                Build definition object.
      * @param definitionRequestConfiguration Consumer of query parameters to clone the definition if exists.
-     * @throws AzDException Default Api Exception handler.
      * @return build definition {@link BuildDefinition}
+     * @throws AzDException Default Api Exception handler.
      */
     public BuildDefinition create(BuildDefinition buildDefinition,
                                   Consumer<DefinitionRequestConfiguration> definitionRequestConfiguration) throws AzDException {
@@ -175,8 +184,9 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
                 .execute(BuildDefinition.class);
     }
 
-    /***
+    /**
      * Deletes a definition and all associated builds.
+     *
      * @param definitionId pass the definition id
      * @throws AzDException Default Api Exception handler.
      */
@@ -188,12 +198,13 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
                 .executePrimitive();
     }
 
-    /***
+    /**
      * Gets a definition
-     * @param definitionId pass the definition id
+     *
+     * @param definitionId         pass the definition id
      * @param requestConfiguration Consumer of query request parameters.
-     * @throws AzDException Default Api Exception handler.
      * @return build definition {@link BuildDefinition}
+     * @throws AzDException Default Api Exception handler.
      */
     public BuildDefinition get(int definitionId, Consumer<GetRequestConfiguration> requestConfiguration) throws AzDException {
         return builder()
@@ -203,11 +214,12 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
                 .execute(BuildDefinition.class);
     }
 
-    /***
+    /**
      * Gets a definition
+     *
      * @param definitionId pass the definition id.
-     * @throws AzDException Default Api Exception handler.
      * @return build definition {@link BuildDefinition}
+     * @throws AzDException Default Api Exception handler.
      */
     public BuildDefinition get(int definitionId) throws AzDException {
         return builder()
@@ -216,11 +228,12 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
                 .execute(BuildDefinition.class);
     }
 
-    /***
+    /**
      * Gets a definition revisions.
+     *
      * @param definitionId pass the definition id
-     * @throws AzDException Default Api Exception handler.
      * @return build definition revisions object {@link BuildDefinitionRevisions}
+     * @throws AzDException Default Api Exception handler.
      */
     public BuildDefinitionRevisions getRevisions(int definitionId) throws AzDException {
         return builder()
@@ -230,10 +243,11 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
                 .execute(BuildDefinitionRevisions.class);
     }
 
-    /***
+    /**
      * Gets a list of definitions.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return build definitions object {@link BuildDefinitions}
+     * @throws AzDException Default Api Exception handler.
      */
     public BuildDefinitions list() throws AzDException {
         return builder()
@@ -242,11 +256,12 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
     }
 
 
-    /***
+    /**
      * Gets a list of definitions.
+     *
      * @param requestConfiguration Consumer of query request parameters.
-     * @throws AzDException Default Api Exception handler.
      * @return build definitions object {@link BuildDefinitions}
+     * @throws AzDException Default Api Exception handler.
      */
     public BuildDefinitions list(Consumer<ListRequestConfiguration> requestConfiguration) throws AzDException {
         return builder()
@@ -255,12 +270,13 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
                 .execute(BuildDefinitions.class);
     }
 
-    /***
+    /**
      * Restores a deleted definition
+     *
      * @param definitionId pass the build definition id
-     * @param deleted When false, restores a deleted definition.
-     * @throws AzDException Default Api Exception handler.
+     * @param deleted      When false, restores a deleted definition.
      * @return a {@link BuildDefinition} object
+     * @throws AzDException Default Api Exception handler.
      */
     public BuildDefinition restore(int definitionId, boolean deleted) throws AzDException {
         return builder()
@@ -271,16 +287,16 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
                 .execute(BuildDefinition.class);
     }
 
-    /***
+    /**
      * Updates an existing build definition.
      * In order for this operation to succeed, the value of the "Revision" property of the request body must match the
      * existing build definition's. It is recommended that you obtain the existing build definition by using GET, modify
      * the build definition as necessary, and then submit the modified definition with PUT.
      *
-     * @param definitionId pass the build definition id
+     * @param definitionId    pass the build definition id
      * @param buildDefinition Build definition object to update.
-     * @throws AzDException Default Api Exception handler.
      * @return a {@link BuildDefinition} object
+     * @throws AzDException Default Api Exception handler.
      */
     public BuildDefinition update(int definitionId, BuildDefinition buildDefinition,
                                   Consumer<UpdateRequestConfiguration> requestConfiguration) throws AzDException {

@@ -6,32 +6,32 @@ import org.azd.abstractions.serializer.SerializableEntity;
 
 import java.util.List;
 
-/***
+/**
  * Summary of licenses and extensions assigned to users in the organization
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UsersSummary extends SerializableEntity {
-    /***
+    /**
      * Available Access Levels
      */
     @JsonProperty("availableAccessLevels")
     private List<AccessLevel> availableAccessLevels;
-    /***
+    /**
      * Default Access Level
      */
     @JsonProperty("defaultAccessLevel")
     private AccessLevel defaultAccessLevel;
-    /***
+    /**
      * Group Options
      */
     @JsonProperty("groupOptions")
     private List<GroupOptions> groupOptions;
-    /***
+    /**
      * Summary of Licenses in the organization
      */
     @JsonProperty("licenses")
     private List<LicenseSummaryData> licenses;
-    /***
+    /**
      * Summary of Projects in the organization
      */
     @JsonProperty("projectRefs")

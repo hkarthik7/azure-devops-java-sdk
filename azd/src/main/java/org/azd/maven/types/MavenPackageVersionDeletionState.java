@@ -4,31 +4,31 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Deletion state of a maven package.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MavenPackageVersionDeletionState extends SerializableEntity {
 
-    /***
+    /**
      * Artifact Id of the package.
      */
     @JsonProperty("artifactId")
     private String artifactId;
 
-    /***
+    /**
      * UTC date the package was deleted.
      */
     @JsonProperty("deletedDate")
     private String deletedDate;
 
-    /***
+    /**
      * Group Id of the package.
      */
     @JsonProperty("groupId")
     private String groupId;
 
-    /***
+    /**
      * The version of the package.
      */
     @JsonProperty("version")

@@ -10,7 +10,7 @@ import org.azd.common.types.Author;
 import java.util.HashMap;
 import java.util.Map;
 
-/***
+/**
  * Represents a Work item internal field elements
  */
 @JsonIgnoreProperties(ignoreUnknown = true)

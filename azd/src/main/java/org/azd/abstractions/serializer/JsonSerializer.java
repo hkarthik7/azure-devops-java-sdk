@@ -22,7 +22,7 @@ public final class JsonSerializer extends ObjectMapper implements SerializerCont
         this.setSerializationInclusion(JsonInclude.Include.NON_NULL);
     }
 
-    /***
+    /**
      * Serializes the object to string
      *
      * @param value any nonnull json object.
@@ -54,12 +54,12 @@ public final class JsonSerializer extends ObjectMapper implements SerializerCont
         }
     }
 
-    /***
+    /**
      * Deserializes the json string to object of given type.
      *
-     * @param content json response from API
+     * @param content   json response from API
      * @param valueType class name to convert to POJO
-     * @param <T> Type name
+     * @param <T>       Type name
      * @return the given type
      * @throws AzDException Api exception handler
      */
@@ -79,12 +79,12 @@ public final class JsonSerializer extends ObjectMapper implements SerializerCont
         }
     }
 
-    /***
+    /**
      * Deserializes the json string to object of given type.
      *
-     * @param content json response from API
+     * @param content   json response from API
      * @param valueType class name to convert to POJO
-     * @param <T> Type name
+     * @param <T>       Type name
      * @return the given type
      * @throws AzDException Api exception handler
      */
@@ -103,12 +103,12 @@ public final class JsonSerializer extends ObjectMapper implements SerializerCont
         }
     }
 
-    /***
+    /**
      * Deserializes the stream of json string to object of given type.
      *
-     * @param content input stream response from API
+     * @param content   input stream response from API
      * @param valueType class name to convert to POJO
-     * @param <T> Type name
+     * @param <T>       Type name
      * @return the given type
      * @throws AzDException Api exception handler
      */
@@ -121,12 +121,12 @@ public final class JsonSerializer extends ObjectMapper implements SerializerCont
         }
     }
 
-    /***
+    /**
      * Deserializes the json string to given object from a file.
      *
-     * @param src file name
+     * @param src       file name
      * @param valueType class name to convert to POJO
-     * @param <T> Type name
+     * @param <T>       Type name
      * @return the given type
      * @throws AzDException Api exception handler
      */

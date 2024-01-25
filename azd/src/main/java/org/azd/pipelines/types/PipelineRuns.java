@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * List of Run object
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PipelineRuns extends SerializableCollectionEntity {
-    /***
+    /**
      * List of Run object
      */
     @JsonProperty("value")

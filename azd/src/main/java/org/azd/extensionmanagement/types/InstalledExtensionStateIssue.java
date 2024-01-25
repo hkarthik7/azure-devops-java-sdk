@@ -4,22 +4,22 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Represents an installation issue
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class InstalledExtensionStateIssue extends SerializableEntity {
-    /***
+    /**
      * The error message
      */
     @JsonProperty("message")
     private String message;
-    /***
+    /**
      * Source of the installation issue, for example "Demands"
      */
     @JsonProperty("source")
     private String source;
-    /***
+    /**
      * Installation issue type (Warning, Error)
      */
     @JsonProperty("type")

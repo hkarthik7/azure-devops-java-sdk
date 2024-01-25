@@ -55,8 +55,9 @@ public class BuildChangesRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(BuildChanges.class);
     }
 
-    /***
+    /**
      * Gets the changes made to the repository between two given builds.
+     *
      * @param requestConfiguration Consumer of request configuration object.
      * @return BuildChanges future object {@link BuildChanges}
      * @throws AzDException Default Api Exception handler.
@@ -101,8 +102,9 @@ public class BuildChangesRequestBuilder extends BaseRequestBuilder {
                 .execute(BuildChanges.class);
     }
 
-    /***
+    /**
      * Gets the changes made to the repository between two given builds.
+     *
      * @param requestConfiguration Consumer of request configuration object.
      * @return BuildChanges future object {@link BuildChanges}
      * @throws AzDException Default Api Exception handler.

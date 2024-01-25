@@ -22,11 +22,12 @@ public class ProcessesRequestBuilder extends BaseRequestBuilder {
         super(organizationUrl, accessTokenCredential, "core", "93878975-88c5-4e6a-8abb-7ddd77a8a7d8");
     }
 
-    /***
+    /**
      * Get a list of processes.
+     *
      * @param processId ID for a process.
-     * @throws AzDException Default Api Exception handler.
      * @return a list of processes {@link Processes}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Process> getAsync(String processId) throws AzDException {
         return builder()
@@ -35,10 +36,11 @@ public class ProcessesRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(Process.class);
     }
 
-    /***
+    /**
      * Get a list of processes.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return a list of processes {@link Processes}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Processes> listAsync() throws AzDException {
         return builder()
@@ -46,11 +48,12 @@ public class ProcessesRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(Processes.class);
     }
 
-    /***
+    /**
      * Get a list of processes.
+     *
      * @param processId ID for a process.
-     * @throws AzDException Default Api Exception handler.
      * @return a list of processes {@link Processes}
+     * @throws AzDException Default Api Exception handler.
      */
     public Process get(String processId) throws AzDException {
         return builder()
@@ -59,10 +62,11 @@ public class ProcessesRequestBuilder extends BaseRequestBuilder {
                 .execute(Process.class);
     }
 
-    /***
+    /**
      * Get a list of processes.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return a list of processes {@link Processes}
+     * @throws AzDException Default Api Exception handler.
      */
     public Processes list() throws AzDException {
         return builder()

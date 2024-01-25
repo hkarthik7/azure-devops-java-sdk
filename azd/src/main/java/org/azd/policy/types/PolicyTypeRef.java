@@ -4,22 +4,22 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Policy type reference.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PolicyTypeRef extends SerializableEntity {
-    /***
+    /**
      * Display name of the policy type.
      */
     @JsonProperty("displayName")
     private String displayName;
-    /***
+    /**
      * The policy type ID.
      */
     @JsonProperty("id")
     private String id;
-    /***
+    /**
      * The URL where the policy type can be retrieved.
      */
     @JsonProperty("url")

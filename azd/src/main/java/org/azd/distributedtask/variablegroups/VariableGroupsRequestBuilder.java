@@ -31,8 +31,9 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
         super(organizationUrl, accessTokenCredential, "distributedtask", "ef5b7057-ffc3-4c77-bbad-c10b4a4abcc7");
     }
 
-    /***
+    /**
      * Add a variable group.
+     *
      * @param variableGroupLibrary Request body of variable group {@link VariableGroupLibrary}
      * @return Variable group {@link VariableGroup}
      * @throws AzDException Default Api Exception handler.
@@ -53,10 +54,11 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(VariableGroup.class);
     }
 
-    /***
+    /**
      * Delete a variable group
+     *
      * @param variableGroupId Id of the variable group.
-     * @param projectIds String array of project ids.
+     * @param projectIds      String array of project ids.
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Void> deleteAsync(int variableGroupId, String[] projectIds) throws AzDException {
@@ -68,8 +70,9 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
                 .executePrimitiveAsync();
     }
 
-    /***
+    /**
      * Get a variable group.
+     *
      * @param variableGroupId Id of the variable group.
      * @return Variable group {@link VariableGroup}
      * @throws AzDException Default Api Exception handler.
@@ -82,8 +85,9 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(VariableGroup.class);
     }
 
-    /***
+    /**
      * Get variable groups.
+     *
      * @return Variable groups object {@link VariableGroups}
      * @throws AzDException Default Api Exception handler.
      */
@@ -94,8 +98,9 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(VariableGroups.class);
     }
 
-    /***
+    /**
      * Get variable groups.
+     *
      * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.
      * @return Variable groups object {@link VariableGroups}
      * @throws AzDException Default Api Exception handler.
@@ -108,10 +113,11 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(VariableGroups.class);
     }
 
-    /***
+    /**
      * Get variable groups by Ids.
+     *
      * @param variableGroupId Id of the variable group.
-     * @param groupIds String array of Ids of variable group ids.
+     * @param groupIds        String array of Ids of variable group ids.
      * @return Variable group {@link VariableGroup}
      * @throws AzDException Default Api Exception handler.
      */
@@ -124,12 +130,13 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(VariableGroup.class);
     }
 
-    /***
+    /**
      * Add a variable group. This corresponds to VariableGroups - Share Variable Group.
-     * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/distributedtask/variablegroups/share-variable-group?view=azure-devops-rest-7.1">Share Variable Group</a>
+     *
      * @param variableGroupId Id of the variable group.
      * @return Variable group {@link VariableGroup}
      * @throws AzDException Default Api Exception handler.
+     * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/distributedtask/variablegroups/share-variable-group?view=azure-devops-rest-7.1">Share Variable Group</a>
      */
     public CompletableFuture<Void> shareAsync(int variableGroupId, List<VariableGroupProjectReference> variableGroupProjectReferences)
             throws AzDException {
@@ -140,9 +147,10 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
                 .executePrimitiveAsync();
     }
 
-    /***
+    /**
      * Update a variable group.
-     * @param variableGroupId Id of the variable group.
+     *
+     * @param variableGroupId      Id of the variable group.
      * @param variableGroupLibrary Request body to update the variable group.
      * @return Variable group {@link VariableGroup}
      * @throws AzDException Default Api Exception handler.
@@ -164,8 +172,9 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(VariableGroup.class);
     }
 
-    /***
+    /**
      * Add a variable group.
+     *
      * @param variableGroupLibrary Request body of variable group {@link VariableGroupLibrary}
      * @return Variable group {@link VariableGroup}
      * @throws AzDException Default Api Exception handler.
@@ -186,10 +195,11 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
                 .execute(VariableGroup.class);
     }
 
-    /***
+    /**
      * Delete a variable group
+     *
      * @param variableGroupId Id of the variable group.
-     * @param projectIds String array of project ids.
+     * @param projectIds      String array of project ids.
      * @throws AzDException Default Api Exception handler.
      */
     public Void delete(int variableGroupId, String[] projectIds) throws AzDException {
@@ -201,8 +211,9 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
                 .executePrimitive();
     }
 
-    /***
+    /**
      * Get a variable group.
+     *
      * @param variableGroupId Id of the variable group.
      * @return Variable group {@link VariableGroup}
      * @throws AzDException Default Api Exception handler.
@@ -215,8 +226,9 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
                 .execute(VariableGroup.class);
     }
 
-    /***
+    /**
      * Get variable groups.
+     *
      * @return Variable groups object {@link VariableGroups}
      * @throws AzDException Default Api Exception handler.
      */
@@ -227,8 +239,9 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
                 .execute(VariableGroups.class);
     }
 
-    /***
+    /**
      * Get variable groups.
+     *
      * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.
      * @return Variable groups object {@link VariableGroups}
      * @throws AzDException Default Api Exception handler.
@@ -241,10 +254,11 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
                 .execute(VariableGroups.class);
     }
 
-    /***
+    /**
      * Get variable groups by Ids.
+     *
      * @param variableGroupId Id of the variable group.
-     * @param groupIds String array of Ids of variable group ids.
+     * @param groupIds        String array of Ids of variable group ids.
      * @return Variable group {@link VariableGroup}
      * @throws AzDException Default Api Exception handler.
      */
@@ -257,12 +271,13 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
                 .execute(VariableGroup.class);
     }
 
-    /***
+    /**
      * Add a variable group. This corresponds to VariableGroups - Share Variable Group.
-     * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/distributedtask/variablegroups/share-variable-group?view=azure-devops-rest-7.1">Share Variable Group</a>
+     *
      * @param variableGroupId Id of the variable group.
      * @return Variable group {@link VariableGroup}
      * @throws AzDException Default Api Exception handler.
+     * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/distributedtask/variablegroups/share-variable-group?view=azure-devops-rest-7.1">Share Variable Group</a>
      */
     public Void share(int variableGroupId, List<VariableGroupProjectReference> variableGroupProjectReferences)
             throws AzDException {
@@ -273,9 +288,10 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
                 .executePrimitive();
     }
 
-    /***
+    /**
      * Update a variable group.
-     * @param variableGroupId Id of the variable group.
+     *
+     * @param variableGroupId      Id of the variable group.
      * @param variableGroupLibrary Request body to update the variable group.
      * @return Variable group {@link VariableGroup}
      * @throws AzDException Default Api Exception handler.

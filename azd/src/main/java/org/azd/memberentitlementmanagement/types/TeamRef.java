@@ -4,17 +4,17 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * A reference to a team
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TeamRef extends SerializableEntity {
-    /***
+    /**
      * Team ID
      */
     @JsonProperty("id")
     private String id;
-    /***
+    /**
      * Team Name
      */
     @JsonProperty("name")

@@ -6,13 +6,13 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * List of refs (branches).
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GitRefs extends SerializableCollectionEntity {
 
-    /***
+    /**
      * List of refs (branches).
      */
     @JsonProperty("value")

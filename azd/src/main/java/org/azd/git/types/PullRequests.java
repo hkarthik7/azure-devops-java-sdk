@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * Represents a list of pull request
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PullRequests extends SerializableCollectionEntity {
-    /***
+    /**
      * Represents a list of pull request
      */
     @JsonProperty("value")

@@ -3,14 +3,19 @@ package org.azd.git.blobs;
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.abstractions.QueryParameter;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.enums.CustomHeader;
 import org.azd.enums.GitBlobRefFormat;
 import org.azd.exceptions.AzDException;
 import org.azd.git.types.GitBlobRef;
 
 import java.io.InputStream;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
+/**
+ * Request builder to manage Git blobs Api.
+ */
 public class BlobsRequestBuilder extends BaseRequestBuilder {
     /**
      * Instantiates a new RequestBuilder instance and sets the default values.
@@ -44,7 +49,7 @@ public class BlobsRequestBuilder extends BaseRequestBuilder {
      * @param repositoryId         The name or ID of the repository.
      * @param sha1                 SHA1 hash of the file. You can get the SHA1 of a file using the "Git/Items/Get Item" endpoint.
      * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.
-     * @return GitBlobRef Object {@link GitBlobRef}
+     * @return Input stream.
      * @throws AzDException Default Api Exception handler.
      **/
     public CompletableFuture<InputStream> getAsync(String repositoryId, String sha1,
@@ -53,6 +58,7 @@ public class BlobsRequestBuilder extends BaseRequestBuilder {
                 .serviceEndpoint("repositoryId", repositoryId)
                 .serviceEndpoint("sha1", sha1)
                 .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .header(CustomHeader.STREAM)
                 .build()
                 .executeStreamAsync();
     }
@@ -61,9 +67,105 @@ public class BlobsRequestBuilder extends BaseRequestBuilder {
      * Gets one or more blobs in a zip file download.
      *
      * @param repositoryId The name or ID of the repository.
+     * @param blobIds      Blob IDs (SHA1 hashes) to be returned in the zip file.
      * @throws AzDException Default Api Exception handler.
      **/
+    public CompletableFuture<InputStream> getAsZipAsync(String repositoryId, List<String> blobIds) throws AzDException {
+        return builder()
+                .POST(blobIds)
+                .serviceEndpoint("repositoryId", repositoryId)
+                .header(CustomHeader.STREAM_ZIP_ACCEPT)
+                .build()
+                .executeStreamAsync();
+    }
 
+    /**
+     * Gets one or more blobs in a zip file download.
+     *
+     * @param repositoryId The name or ID of the repository.
+     * @param blobIds      Blob IDs (SHA1 hashes) to be returned in the zip file.
+     * @param filename     Specify the file name to get in a zip file.
+     * @throws AzDException Default Api Exception handler.
+     **/
+    public CompletableFuture<InputStream> getAsZipAsync(String repositoryId, List<String> blobIds, String filename) throws AzDException {
+        return builder()
+                .POST(blobIds)
+                .serviceEndpoint("repositoryId", repositoryId)
+                .query("filename", filename)
+                .header(CustomHeader.STREAM_ZIP_ACCEPT)
+                .build()
+                .executeStreamAsync();
+    }
+
+    /**
+     * Get a single blob.
+     *
+     * @param repositoryId The name or ID of the repository.
+     * @param sha1         SHA1 hash of the file. You can get the SHA1 of a file using the "Git/Items/Get Item" endpoint.
+     * @return GitBlobRef Object {@link GitBlobRef}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    public GitBlobRef get(String repositoryId, String sha1) throws AzDException {
+        return builder()
+                .serviceEndpoint("repositoryId", repositoryId)
+                .serviceEndpoint("sha1", sha1)
+                .build()
+                .execute(GitBlobRef.class);
+    }
+
+    /**
+     * Get a single blob.
+     *
+     * @param repositoryId         The name or ID of the repository.
+     * @param sha1                 SHA1 hash of the file. You can get the SHA1 of a file using the "Git/Items/Get Item" endpoint.
+     * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.
+     * @return Input stream.
+     * @throws AzDException Default Api Exception handler.
+     **/
+    public InputStream get(String repositoryId, String sha1,
+                           Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
+        return builder()
+                .serviceEndpoint("repositoryId", repositoryId)
+                .serviceEndpoint("sha1", sha1)
+                .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .header(CustomHeader.STREAM)
+                .build()
+                .executeStream();
+    }
+
+    /**
+     * Gets one or more blobs in a zip file download.
+     *
+     * @param repositoryId The name or ID of the repository.
+     * @param blobIds      Blob IDs (SHA1 hashes) to be returned in the zip file.
+     * @throws AzDException Default Api Exception handler.
+     **/
+    public InputStream getAsZip(String repositoryId, List<String> blobIds) throws AzDException {
+        return builder()
+                .POST(blobIds)
+                .serviceEndpoint("repositoryId", repositoryId)
+                .header(CustomHeader.STREAM_ZIP_ACCEPT)
+                .build()
+                .executeStream();
+    }
+
+    /**
+     * Gets one or more blobs in a zip file download.
+     *
+     * @param repositoryId The name or ID of the repository.
+     * @param blobIds      Blob IDs (SHA1 hashes) to be returned in the zip file.
+     * @param filename     Specify the file name to get in a zip file.
+     * @throws AzDException Default Api Exception handler.
+     **/
+    public InputStream getAsZip(String repositoryId, List<String> blobIds, String filename) throws AzDException {
+        return builder()
+                .POST(blobIds)
+                .serviceEndpoint("repositoryId", repositoryId)
+                .query("filename", filename)
+                .header(CustomHeader.STREAM_ZIP_ACCEPT)
+                .build()
+                .executeStream();
+    }
 
     /**
      * Represents the query parameters.

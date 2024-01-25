@@ -6,79 +6,79 @@ import org.azd.abstractions.serializer.SerializableEntity;
 import java.util.List;
 import java.util.Map;
 
-/***
+/**
  * identity returned by API identities descriptor lookup
- *
+ * <p>
  * {
- *   "count": 1,
- *   "value": [
- *     {
- *       "id": "81fa6389-0872-6fdd-a451-7ba7880f566a",
- *       "descriptor": "Microsoft.IdentityModel.Claims.ClaimsIdentity;7a394543-62fd-4274-a7d2-8fac775942b6\\jtseng@vscsi.us",
- *       "subjectDescriptor": "aad.MDA0NzBlMzQtZGE2MS03YTY5LWJkOTYtNDg3YTg0OWVjNTU4",
- *       "providerDisplayName": "Jia-hao Tseng",
- *       "isActive": true,
- *       "members": [],
- *       "memberOf": [],
- *       "memberIds": [],
- *       "properties": {
- *         "SchemaClassName": {
- *           "$type": "System.String",
- *           "$value": "User"
- *         },
- *         "Description": {
- *           "$type": "System.String",
- *           "$value": ""
- *         },
- *         "Domain": {
- *           "$type": "System.String",
- *           "$value": "7a394543-62fd-4274-a7d2-8fac775942b6"
- *         },
- *         "Account": {
- *           "$type": "System.String",
- *           "$value": "jtseng@vscsi.us"
- *         },
- *         "DN": {
- *           "$type": "System.String",
- *           "$value": ""
- *         },
- *         "Mail": {
- *           "$type": "System.String",
- *           "$value": "jtseng@vscsi.us"
- *         },
- *         "SpecialType": {
- *           "$type": "System.String",
- *           "$value": "Generic"
- *         },
- *         "Alias": {
- *           "$type": "System.String",
- *           "$value": "jtseng"
- *         },
- *         "PUID": {
- *           "$type": "System.String",
- *           "$value": "aad:100FAFF21C1B5261"
- *         },
- *         "ComplianceValidated": {
- *           "$type": "System.DateTime",
- *           "$value": "2020-04-23T00:00:00Z"
- *         },
- *         "http://schemas.microsoft.com/identity/claims/objectidentifier": {
- *           "$type": "System.String",
- *           "$value": "55c8c7b6-7ace-43bc-918f-304dfa2b6317"
- *         },
- *         "MetadataUpdateDate": {
- *           "$type": "System.DateTime",
- *           "$value": "2018-07-10T16:11:40Z"
- *         },
- *         "DirectoryAlias": {
- *           "$type": "System.String",
- *           "$value": "jtseng"
- *         }
- *       },
- *       "resourceVersion": 2,
- *       "metaTypeId": 0
- *     }
- *   ]
+ * "count": 1,
+ * "value": [
+ * {
+ * "id": "81fa6389-0872-6fdd-a451-7ba7880f566a",
+ * "descriptor": "Microsoft.IdentityModel.Claims.ClaimsIdentity;7a394543-62fd-4274-a7d2-8fac775942b6\\jtseng@vscsi.us",
+ * "subjectDescriptor": "aad.MDA0NzBlMzQtZGE2MS03YTY5LWJkOTYtNDg3YTg0OWVjNTU4",
+ * "providerDisplayName": "Jia-hao Tseng",
+ * "isActive": true,
+ * "members": [],
+ * "memberOf": [],
+ * "memberIds": [],
+ * "properties": {
+ * "SchemaClassName": {
+ * "$type": "System.String",
+ * "$value": "User"
+ * },
+ * "Description": {
+ * "$type": "System.String",
+ * "$value": ""
+ * },
+ * "Domain": {
+ * "$type": "System.String",
+ * "$value": "7a394543-62fd-4274-a7d2-8fac775942b6"
+ * },
+ * "Account": {
+ * "$type": "System.String",
+ * "$value": "jtseng@vscsi.us"
+ * },
+ * "DN": {
+ * "$type": "System.String",
+ * "$value": ""
+ * },
+ * "Mail": {
+ * "$type": "System.String",
+ * "$value": "jtseng@vscsi.us"
+ * },
+ * "SpecialType": {
+ * "$type": "System.String",
+ * "$value": "Generic"
+ * },
+ * "Alias": {
+ * "$type": "System.String",
+ * "$value": "jtseng"
+ * },
+ * "PUID": {
+ * "$type": "System.String",
+ * "$value": "aad:100FAFF21C1B5261"
+ * },
+ * "ComplianceValidated": {
+ * "$type": "System.DateTime",
+ * "$value": "2020-04-23T00:00:00Z"
+ * },
+ * "http://schemas.microsoft.com/identity/claims/objectidentifier": {
+ * "$type": "System.String",
+ * "$value": "55c8c7b6-7ace-43bc-918f-304dfa2b6317"
+ * },
+ * "MetadataUpdateDate": {
+ * "$type": "System.DateTime",
+ * "$value": "2018-07-10T16:11:40Z"
+ * },
+ * "DirectoryAlias": {
+ * "$type": "System.String",
+ * "$value": "jtseng"
+ * }
+ * },
+ * "resourceVersion": 2,
+ * "metaTypeId": 0
+ * }
+ * ]
  * }
  */
 @JsonIgnoreProperties(ignoreUnknown = true)

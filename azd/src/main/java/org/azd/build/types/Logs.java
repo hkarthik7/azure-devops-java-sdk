@@ -4,22 +4,22 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Represents a build log.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Logs extends SerializableEntity {
-    /***
+    /**
      * The ID of the log.
      */
     @JsonProperty("id")
     private String id;
-    /***
+    /**
      * The type of the log location.
      */
     @JsonProperty("type")
     private String type;
-    /***
+    /**
      * A full link to the log resource.
      */
     @JsonProperty("url")

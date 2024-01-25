@@ -7,31 +7,31 @@ import org.azd.release.types.ProjectReference;
 
 import java.util.Map;
 
-/***
+/**
  * Represents the request body for adding and updating a variable group.
  */
 public class VariableGroupDefinition extends SerializableEntity {
-    /***
+    /**
      * Sets name of the variable group.
      */
     private String name;
-    /***
+    /**
      * Sets description of the variable group.
      */
     private String description;
-    /***
+    /**
      * Sets type of the variable group.
      */
     private VariableGroupType type;
-    /***
+    /**
      * Sets variables contained in the variable group.
      */
     private Map<String, VariableValue> variables;
-    /***
+    /**
      * Sets provider data.
      */
     private VariableGroupProviderData providerData;
-    /***
+    /**
      * A shallow reference of project.
      */
     private ProjectReference projectReference;

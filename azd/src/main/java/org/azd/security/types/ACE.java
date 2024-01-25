@@ -5,22 +5,22 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * ACL acesDictionary entry
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ACE extends SerializableEntity {
-    /***
+    /**
      * descriptor identifier
      */
     @JsonProperty("descriptor")
     private String descriptor;
-    /***
+    /**
      * allow value
      */
     @JsonProperty("allow")
     private long allow;
-    /***
+    /**
      * deny value
      */
     @JsonProperty("deny")

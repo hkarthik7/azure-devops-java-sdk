@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * List of Graph group
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GraphGroups extends SerializableCollectionEntity {
-    /***
+    /**
      * List of Graph group
      */
     @JsonProperty("value")

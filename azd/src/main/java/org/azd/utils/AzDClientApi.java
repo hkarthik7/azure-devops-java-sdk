@@ -26,37 +26,40 @@ import org.azd.wiki.WikiApi;
 import org.azd.work.WorkApi;
 import org.azd.workitemtracking.WorkItemTrackingApi;
 
-/***
+/**
  * AzDClientApi class to easily call VSTS REST Api with the connection parameters
  */
 public class AzDClientApi implements AzDClient {
 
-    /***
+    /**
      * Instance of connection object
      */
     private final Connection CONNECTION;
 
-    /***
+    /**
      * Pass the VSTS organization name and personal access token to create a connection object
+     *
      * @param connection Connection object {@link Connection}
      */
     public AzDClientApi(Connection connection) {
         this.CONNECTION = connection;
     }
 
-    /***
+    /**
      * Pass the VSTS organization name and personal access token to create a connection object
-     * @param organizationName VSTS/Azure DevOps services organization name
+     *
+     * @param organizationName    VSTS/Azure DevOps services organization name
      * @param personalAccessToken Personal access token
      */
     public AzDClientApi(String organizationName, String personalAccessToken) {
         this.CONNECTION = new Connection(organizationName, personalAccessToken);
     }
 
-    /***
+    /**
      * Pass the VSTS organization name, project name and personal access token to create a connection object
-     * @param organizationName VSTS/Azure DevOps services organization name
-     * @param projectName project name
+     *
+     * @param organizationName    VSTS/Azure DevOps services organization name
+     * @param projectName         project name
      * @param personalAccessToken Personal access token
      */
     public AzDClientApi(String organizationName, String projectName, String personalAccessToken) {
@@ -92,8 +95,9 @@ public class AzDClientApi implements AzDClient {
         return this.CONNECTION;
     }
 
-    /***
+    /**
      * Returns an instance of AccountsApi
+     *
      * @return an instance of AccountsApi {@link AccountsApi}
      */
     @Override
@@ -101,8 +105,9 @@ public class AzDClientApi implements AzDClient {
         return new AccountsApi(CONNECTION);
     }
 
-    /***
+    /**
      * Returns an instance of Build Api
+     *
      * @return instance of BuildApi {@link BuildApi}
      */
     @Override
@@ -110,8 +115,9 @@ public class AzDClientApi implements AzDClient {
         return new BuildApi(CONNECTION);
     }
 
-    /***
+    /**
      * Returns an instance of Core Api
+     *
      * @return instance of CoreApi {@link CoreApi}
      */
     @Override
@@ -119,8 +125,9 @@ public class AzDClientApi implements AzDClient {
         return new CoreApi(CONNECTION);
     }
 
-    /***
+    /**
      * Returns an instance of DistributedTask Api
+     *
      * @return instance of DistributedTaskApi {@link DistributedTaskApi}
      */
 
@@ -129,8 +136,9 @@ public class AzDClientApi implements AzDClient {
         return new DistributedTaskApi(CONNECTION);
     }
 
-    /***
+    /**
      * Returns an instance of FeedManagement Api
+     *
      * @return instance of Feed management Api {@link FeedManagementApi}
      */
     @Override
@@ -138,8 +146,9 @@ public class AzDClientApi implements AzDClient {
         return new FeedManagementApi(CONNECTION);
     }
 
-    /***
+    /**
      * Returns an instance of Git Api
+     *
      * @return instance of Git Api {@link GitApi}
      */
     @Override
@@ -147,8 +156,9 @@ public class AzDClientApi implements AzDClient {
         return new GitApi(CONNECTION);
     }
 
-    /***
+    /**
      * Returns an instance of GraphApi
+     *
      * @return instance of Graph Api {@link GraphApi}
      */
     @Override
@@ -156,8 +166,9 @@ public class AzDClientApi implements AzDClient {
         return new GraphApi(CONNECTION);
     }
 
-    /***
+    /**
      * Returns an instance of Maven Api
+     *
      * @return instance of Maven Api {@link MavenApi}
      */
     @Override
@@ -165,8 +176,9 @@ public class AzDClientApi implements AzDClient {
         return new MavenApi(CONNECTION);
     }
 
-    /***
+    /**
      * Returns an instance of Member Entitlement management Api
+     *
      * @return instance of Member Entitle management Api {@link MemberEntitlementManagementApi}
      */
     @Override
@@ -174,8 +186,9 @@ public class AzDClientApi implements AzDClient {
         return new MemberEntitlementManagementApi(CONNECTION);
     }
 
-    /***
+    /**
      * Returns an instance of Release Api
+     *
      * @return instance of Release Api {@link ReleaseApi}
      */
     @Override
@@ -183,8 +196,9 @@ public class AzDClientApi implements AzDClient {
         return new ReleaseApi(CONNECTION);
     }
 
-    /***
+    /**
      * Returns an instance of Service Hooks Api
+     *
      * @return instance of Service Hooks Api {@link ServiceHooksApi}
      */
     @Override
@@ -192,8 +206,9 @@ public class AzDClientApi implements AzDClient {
         return new ServiceHooksApi(CONNECTION);
     }
 
-    /***
+    /**
      * Returns an instance of WikiApi
+     *
      * @return instance of Wiki Api {@link WikiApi}
      */
     @Override
@@ -201,8 +216,9 @@ public class AzDClientApi implements AzDClient {
         return new WikiApi(CONNECTION);
     }
 
-    /***
+    /**
      * Returns an instance of Work Api
+     *
      * @return instance of Work Api {@link WorkApi}
      */
     @Override
@@ -210,8 +226,9 @@ public class AzDClientApi implements AzDClient {
         return new WorkApi(CONNECTION);
     }
 
-    /***
+    /**
      * Returns an instance of Work item tracking Api
+     *
      * @return instance of work item tracking Api {@link WorkItemTrackingApi}
      */
     @Override
@@ -219,8 +236,9 @@ public class AzDClientApi implements AzDClient {
         return new WorkItemTrackingApi(CONNECTION);
     }
 
-    /***
+    /**
      * Returns an instance of OAuth Api
+     *
      * @return instance of OAuth Api {@link OAuthApi}
      */
     @Override
@@ -228,8 +246,9 @@ public class AzDClientApi implements AzDClient {
         return new OAuthApi();
     }
 
-    /***
+    /**
      * Returns an instance of Service endpoint Api
+     *
      * @return instance of ServiceEndpointApi {@link ServiceEndpointApi}
      */
     @Override
@@ -237,8 +256,9 @@ public class AzDClientApi implements AzDClient {
         return new ServiceEndpointApi(CONNECTION);
     }
 
-    /***
+    /**
      * Returns an instance of Extension management Api
+     *
      * @return instance of ExtensionManagementApi {@link ExtensionManagementApi}
      */
     @Override
@@ -246,8 +266,9 @@ public class AzDClientApi implements AzDClient {
         return new ExtensionManagementApi(CONNECTION);
     }
 
-    /***
+    /**
      * Returns an instance of Policy Api
+     *
      * @return instance of PolicyApi {@link PolicyApi}
      */
     @Override
@@ -255,8 +276,9 @@ public class AzDClientApi implements AzDClient {
         return new PolicyApi(CONNECTION);
     }
 
-    /***
+    /**
      * Returns an instance of Pipelines Api
+     *
      * @return instance of PipelinesApi {@link PipelinesApi}
      */
     @Override
@@ -264,8 +286,9 @@ public class AzDClientApi implements AzDClient {
         return new PipelinesApi(CONNECTION);
     }
 
-    /***
+    /**
      * Returns an instance of Universal Package Api
+     *
      * @return instance of UPackApi {@link UPackApi}
      */
     @Override
@@ -273,8 +296,9 @@ public class AzDClientApi implements AzDClient {
         return new UPackApi(CONNECTION);
     }
 
-    /***
+    /**
      * Returns an instance of security api
+     *
      * @return instance of securityApi {@link SecurityApi}
      */
     @Override

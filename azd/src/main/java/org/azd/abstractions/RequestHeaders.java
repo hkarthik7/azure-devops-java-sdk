@@ -5,9 +5,10 @@ import org.azd.enums.CustomHeader;
 import java.util.HashMap;
 
 public class RequestHeaders {
-    private final HashMap<String, String> headers = new HashMap<>();
+    private final HashMap<String, String> headers;
 
     public RequestHeaders() {
+        this.headers = new HashMap<>();
     }
 
     public void add(CustomHeader customHeader) {
@@ -47,5 +48,9 @@ public class RequestHeaders {
 
     public HashMap<String, String> getHeaders() {
         return headers;
+    }
+
+    public boolean isEmpty() {
+        return headers.isEmpty();
     }
 }

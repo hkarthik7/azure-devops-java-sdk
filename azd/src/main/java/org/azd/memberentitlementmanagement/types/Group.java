@@ -4,17 +4,17 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Project Group (e.g. Contributor, Reader etc.)
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Group extends SerializableEntity {
-    /***
+    /**
      * Display Name of the Group
      */
     @JsonProperty("displayName")
     private String displayName;
-    /***
+    /**
      * Group Type
      */
     @JsonProperty("groupType")

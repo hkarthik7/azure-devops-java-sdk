@@ -34,14 +34,14 @@ public class FeatureManagementRequestBuilder extends BaseRequestBuilder {
     /**
      * Get a feature by id.
      *
-     * @param featureManagement Represents the id of a feature.
+     * @param feature Represents the id of a feature.
      * @return Contributed feature object {@link ContributedFeature}
      * @throws AzDException Default Api exception handler.
      */
-    public CompletableFuture<ContributedFeature> getAsync(FeatureManagement featureManagement) throws AzDException {
-        Objects.requireNonNull(featureManagement);
+    public CompletableFuture<ContributedFeature> getAsync(FeatureManagement feature) throws AzDException {
+        Objects.requireNonNull(feature);
         return builder()
-                .serviceEndpoint("featureId", featureManagement.getFeatureId())
+                .serviceEndpoint("featureId", feature.getFeatureId())
                 .build()
                 .executeAsync(ContributedFeature.class);
     }
@@ -61,17 +61,17 @@ public class FeatureManagementRequestBuilder extends BaseRequestBuilder {
     /**
      * Get the state of the specified feature for the given user/all-users scope
      *
-     * @param featureManagement Contribution id of the feature.
-     * @param userScope         User-Scope at which to get the value. Should be "me" for the current user or "host" for all users.
+     * @param feature   Contribution id of the feature.
+     * @param userScope User-Scope at which to get the value. Should be "me" for the current user or "host" for all users.
      * @return Contributed feature state object. {@link ContributedFeatureState}
      * @throws AzDException Default Api exception handler.
      */
-    public CompletableFuture<ContributedFeatureState> getStateAsync(FeatureManagement featureManagement, FeatureManagementUserScope userScope)
+    public CompletableFuture<ContributedFeatureState> getStateAsync(FeatureManagement feature, FeatureManagementUserScope userScope)
             throws AzDException {
         return builder()
                 .location("98911314-3f9b-4eaf-80e8-83900d8e85d9")
-                .serviceEndpoint("featureId", featureManagement.getFeatureId())
-                .serviceEndpoint("userScope", userScope.name())
+                .serviceEndpoint("featureId", feature.getFeatureId())
+                .serviceEndpoint("userScope", userScope.getUserScope())
                 .build()
                 .executeAsync(ContributedFeatureState.class);
     }
@@ -79,20 +79,20 @@ public class FeatureManagementRequestBuilder extends BaseRequestBuilder {
     /**
      * Set the state of a feature
      *
-     * @param featureState      Posted feature state object. Should specify the effective value.
-     * @param featureManagement Contribution id of the feature
-     * @param userScope         User-Scope at which to set the value. Should be "me" for the current user or "host" for all users.
+     * @param featureState Posted feature state object. Should specify the effective value.
+     * @param feature      Contribution id of the feature
+     * @param userScope    User-Scope at which to set the value. Should be "me" for the current user or "host" for all users.
      * @return Contributed feature object. {@link ContributedFeature}
      * @throws AzDException Default Api exception handler.
      */
     public CompletableFuture<ContributedFeatureState> setStateAsync(ContributedFeatureState featureState,
-                                                                    FeatureManagement featureManagement, FeatureManagementUserScope userScope)
+                                                                    FeatureManagement feature, FeatureManagementUserScope userScope)
             throws AzDException {
         return builder()
                 .PATCH(featureState)
                 .location("98911314-3f9b-4eaf-80e8-83900d8e85d9")
-                .serviceEndpoint("featureId", featureManagement.getFeatureId())
-                .serviceEndpoint("userScope", userScope.name())
+                .serviceEndpoint("featureId", feature.getFeatureId())
+                .serviceEndpoint("userScope", userScope.getUserScope())
                 .build()
                 .executeAsync(ContributedFeatureState.class);
     }
@@ -101,21 +101,21 @@ public class FeatureManagementRequestBuilder extends BaseRequestBuilder {
      * Set the state of a feature
      *
      * @param featureState         Posted feature state object. Should specify the effective value.
-     * @param featureManagement    Contribution id of the feature
+     * @param feature              Contribution id of the feature
      * @param userScope            User-Scope at which to set the value. Should be "me" for the current user or "host" for all users.
      * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.
      * @return Contributed feature object. {@link ContributedFeature}
      * @throws AzDException Default Api exception handler.
      */
     public CompletableFuture<ContributedFeatureState> setStateAsync(ContributedFeatureState featureState,
-                                                                    FeatureManagement featureManagement, FeatureManagementUserScope userScope,
+                                                                    FeatureManagement feature, FeatureManagementUserScope userScope,
                                                                     Consumer<RequestConfiguration> requestConfiguration)
             throws AzDException {
         return builder()
                 .PATCH(featureState)
                 .location("98911314-3f9b-4eaf-80e8-83900d8e85d9")
-                .serviceEndpoint("featureId", featureManagement.getFeatureId())
-                .serviceEndpoint("userScope", userScope.name())
+                .serviceEndpoint("featureId", feature.getFeatureId())
+                .serviceEndpoint("userScope", userScope.getUserScope())
                 .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
                 .build()
                 .executeAsync(ContributedFeatureState.class);
@@ -124,22 +124,22 @@ public class FeatureManagementRequestBuilder extends BaseRequestBuilder {
     /**
      * Get the state of the specified feature for the given named scope
      *
-     * @param featureManagement Contribution id of the feature.
-     * @param userScope         User-Scope at which to get the value. Should be "me" for the current user or "host" for all users.
-     * @param scopeName         Scope at which to get the feature setting for (e.g. "project" or "team")
-     * @param scopeValue        Value of the scope (e.g. the project or team id)
+     * @param feature    Contribution id of the feature.
+     * @param userScope  User-Scope at which to get the value. Should be "me" for the current user or "host" for all users.
+     * @param scopeName  Scope at which to get the feature setting for (e.g. "project" or "team")
+     * @param scopeValue Value of the scope (e.g. the project or team id)
      * @return Contributed feature state object. {@link ContributedFeatureState}
      * @throws AzDException Default Api exception handler.
      */
-    public CompletableFuture<ContributedFeatureState> getStateForScopeAsync(FeatureManagement featureManagement,
+    public CompletableFuture<ContributedFeatureState> getStateForScopeAsync(FeatureManagement feature,
                                                                             FeatureManagementUserScope userScope, FeatureManagementScopeName scopeName,
                                                                             String scopeValue)
             throws AzDException {
         return builder()
                 .location("dd291e43-aa9f-4cee-8465-a93c78e414a4")
-                .serviceEndpoint("featureId", featureManagement.getFeatureId())
-                .serviceEndpoint("userScope", userScope.name())
-                .serviceEndpoint("scopeName", scopeName.name())
+                .serviceEndpoint("featureId", feature.getFeatureId())
+                .serviceEndpoint("userScope", userScope.getUserScope())
+                .serviceEndpoint("scopeName", scopeName.getScopeName())
                 .serviceEndpoint("scopeValue", scopeValue)
                 .build()
                 .executeAsync(ContributedFeatureState.class);
@@ -148,24 +148,24 @@ public class FeatureManagementRequestBuilder extends BaseRequestBuilder {
     /**
      * Set the state of a feature at a specific scope
      *
-     * @param featureManagement Contribution id of the feature.
-     * @param userScope         User-Scope at which to get the value. Should be "me" for the current user or "host" for all users.
-     * @param scopeName         Scope at which to get the feature setting for (e.g. "project" or "team")
-     * @param scopeValue        Value of the scope (e.g. the project or team id)
+     * @param feature    Contribution id of the feature.
+     * @param userScope  User-Scope at which to get the value. Should be "me" for the current user or "host" for all users.
+     * @param scopeName  Scope at which to get the feature setting for (e.g. "project" or "team")
+     * @param scopeValue Value of the scope (e.g. the project or team id)
      * @return Contributed feature state object. {@link ContributedFeatureState}
      * @throws AzDException Default Api exception handler.
      */
     public CompletableFuture<ContributedFeatureState> setStateForScopeAsync(ContributedFeatureState featureState,
-                                                                            FeatureManagement featureManagement,
+                                                                            FeatureManagement feature,
                                                                             FeatureManagementUserScope userScope, FeatureManagementScopeName scopeName,
                                                                             String scopeValue)
             throws AzDException {
         return builder()
                 .PATCH(featureState)
                 .location("dd291e43-aa9f-4cee-8465-a93c78e414a4")
-                .serviceEndpoint("featureId", featureManagement.getFeatureId())
-                .serviceEndpoint("userScope", userScope.name())
-                .serviceEndpoint("scopeName", scopeName.name())
+                .serviceEndpoint("featureId", feature.getFeatureId())
+                .serviceEndpoint("userScope", userScope.getUserScope())
+                .serviceEndpoint("scopeName", scopeName.getScopeName())
                 .serviceEndpoint("scopeValue", scopeValue)
                 .build()
                 .executeAsync(ContributedFeatureState.class);
@@ -174,7 +174,7 @@ public class FeatureManagementRequestBuilder extends BaseRequestBuilder {
     /**
      * Set the state of a feature at a specific scope
      *
-     * @param featureManagement    Contribution id of the feature.
+     * @param feature              Contribution id of the feature.
      * @param userScope            User-Scope at which to get the value. Should be "me" for the current user or "host" for all users.
      * @param scopeName            Scope at which to get the feature setting for (e.g. "project" or "team")
      * @param scopeValue           Value of the scope (e.g. the project or team id)
@@ -183,16 +183,16 @@ public class FeatureManagementRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api exception handler.
      */
     public CompletableFuture<ContributedFeatureState> setStateForScopeAsync(ContributedFeatureState featureState,
-                                                                            FeatureManagement featureManagement,
+                                                                            FeatureManagement feature,
                                                                             FeatureManagementUserScope userScope, FeatureManagementScopeName scopeName,
                                                                             String scopeValue, Consumer<RequestConfiguration> requestConfiguration)
             throws AzDException {
         return builder()
                 .PATCH(featureState)
                 .location("dd291e43-aa9f-4cee-8465-a93c78e414a4")
-                .serviceEndpoint("featureId", featureManagement.getFeatureId())
-                .serviceEndpoint("userScope", userScope.name())
-                .serviceEndpoint("scopeName", scopeName.name())
+                .serviceEndpoint("featureId", feature.getFeatureId())
+                .serviceEndpoint("userScope", userScope.getUserScope())
+                .serviceEndpoint("scopeName", scopeName.getScopeName())
                 .serviceEndpoint("scopeValue", scopeValue)
                 .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
                 .build()
@@ -229,7 +229,7 @@ public class FeatureManagementRequestBuilder extends BaseRequestBuilder {
         return builder()
                 .POST(query)
                 .location("3f810f28-03e2-4239-b0bc-788add3005e5")
-                .serviceEndpoint("userScope", userScope.name())
+                .serviceEndpoint("userScope", userScope.getUserScope())
                 .build()
                 .executeAsync(ContributedFeatureStateQuery.class);
     }
@@ -251,8 +251,8 @@ public class FeatureManagementRequestBuilder extends BaseRequestBuilder {
         return builder()
                 .POST(query)
                 .location("f29e997b-c2da-4d15-8380-765788a1a74c")
-                .serviceEndpoint("userScope", userScope.name())
-                .serviceEndpoint("scopeName", scopeName.name())
+                .serviceEndpoint("userScope", userScope.getUserScope())
+                .serviceEndpoint("scopeName", scopeName.getScopeName())
                 .serviceEndpoint("scopeValue", scopeValue)
                 .build()
                 .executeAsync(ContributedFeatureStateQuery.class);
@@ -261,14 +261,14 @@ public class FeatureManagementRequestBuilder extends BaseRequestBuilder {
     /**
      * Get a feature by id.
      *
-     * @param featureManagement Represents the id of a feature.
+     * @param feature Represents the id of a feature.
      * @return Contributed feature object {@link ContributedFeature}
      * @throws AzDException Default Api exception handler.
      */
-    public ContributedFeature get(FeatureManagement featureManagement) throws AzDException {
-        Objects.requireNonNull(featureManagement);
+    public ContributedFeature get(FeatureManagement feature) throws AzDException {
+        Objects.requireNonNull(feature);
         return builder()
-                .serviceEndpoint("featureId", featureManagement.getFeatureId())
+                .serviceEndpoint("featureId", feature.getFeatureId())
                 .build()
                 .execute(ContributedFeature.class);
     }
@@ -288,17 +288,17 @@ public class FeatureManagementRequestBuilder extends BaseRequestBuilder {
     /**
      * Get the state of the specified feature for the given user/all-users scope
      *
-     * @param featureManagement Contribution id of the feature.
-     * @param userScope         User-Scope at which to get the value. Should be "me" for the current user or "host" for all users.
+     * @param feature   Contribution id of the feature.
+     * @param userScope User-Scope at which to get the value. Should be "me" for the current user or "host" for all users.
      * @return Contributed feature state object. {@link ContributedFeatureState}
      * @throws AzDException Default Api exception handler.
      */
-    public ContributedFeatureState getState(FeatureManagement featureManagement, FeatureManagementUserScope userScope)
+    public ContributedFeatureState getState(FeatureManagement feature, FeatureManagementUserScope userScope)
             throws AzDException {
         return builder()
                 .location("98911314-3f9b-4eaf-80e8-83900d8e85d9")
-                .serviceEndpoint("featureId", featureManagement.getFeatureId())
-                .serviceEndpoint("userScope", userScope.name())
+                .serviceEndpoint("featureId", feature.getFeatureId())
+                .serviceEndpoint("userScope", userScope.getUserScope())
                 .build()
                 .execute(ContributedFeatureState.class);
     }
@@ -306,20 +306,20 @@ public class FeatureManagementRequestBuilder extends BaseRequestBuilder {
     /**
      * Set the state of a feature
      *
-     * @param featureState      Posted feature state object. Should specify the effective value.
-     * @param featureManagement Contribution id of the feature
-     * @param userScope         User-Scope at which to set the value. Should be "me" for the current user or "host" for all users.
+     * @param featureState Posted feature state object. Should specify the effective value.
+     * @param feature      Contribution id of the feature
+     * @param userScope    User-Scope at which to set the value. Should be "me" for the current user or "host" for all users.
      * @return Contributed feature object. {@link ContributedFeature}
      * @throws AzDException Default Api exception handler.
      */
     public ContributedFeatureState setState(ContributedFeatureState featureState,
-                                            FeatureManagement featureManagement, FeatureManagementUserScope userScope)
+                                            FeatureManagement feature, FeatureManagementUserScope userScope)
             throws AzDException {
         return builder()
                 .PATCH(featureState)
                 .location("98911314-3f9b-4eaf-80e8-83900d8e85d9")
-                .serviceEndpoint("featureId", featureManagement.getFeatureId())
-                .serviceEndpoint("userScope", userScope.name())
+                .serviceEndpoint("featureId", feature.getFeatureId())
+                .serviceEndpoint("userScope", userScope.getUserScope())
                 .build()
                 .execute(ContributedFeatureState.class);
     }
@@ -328,21 +328,21 @@ public class FeatureManagementRequestBuilder extends BaseRequestBuilder {
      * Set the state of a feature
      *
      * @param featureState         Posted feature state object. Should specify the effective value.
-     * @param featureManagement    Contribution id of the feature
+     * @param feature              Contribution id of the feature
      * @param userScope            User-Scope at which to set the value. Should be "me" for the current user or "host" for all users.
      * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.
      * @return Contributed feature object. {@link ContributedFeature}
      * @throws AzDException Default Api exception handler.
      */
     public ContributedFeatureState setState(ContributedFeatureState featureState,
-                                            FeatureManagement featureManagement, FeatureManagementUserScope userScope,
+                                            FeatureManagement feature, FeatureManagementUserScope userScope,
                                             Consumer<RequestConfiguration> requestConfiguration)
             throws AzDException {
         return builder()
                 .PATCH(featureState)
                 .location("98911314-3f9b-4eaf-80e8-83900d8e85d9")
-                .serviceEndpoint("featureId", featureManagement.getFeatureId())
-                .serviceEndpoint("userScope", userScope.name())
+                .serviceEndpoint("featureId", feature.getFeatureId())
+                .serviceEndpoint("userScope", userScope.getUserScope())
                 .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
                 .build()
                 .execute(ContributedFeatureState.class);
@@ -351,22 +351,22 @@ public class FeatureManagementRequestBuilder extends BaseRequestBuilder {
     /**
      * Get the state of the specified feature for the given named scope
      *
-     * @param featureManagement Contribution id of the feature.
-     * @param userScope         User-Scope at which to get the value. Should be "me" for the current user or "host" for all users.
-     * @param scopeName         Scope at which to get the feature setting for (e.g. "project" or "team")
-     * @param scopeValue        Value of the scope (e.g. the project or team id)
+     * @param feature    Contribution id of the feature.
+     * @param userScope  User-Scope at which to get the value. Should be "me" for the current user or "host" for all users.
+     * @param scopeName  Scope at which to get the feature setting for (e.g. "project" or "team")
+     * @param scopeValue Value of the scope (e.g. the project or team id)
      * @return Contributed feature state object. {@link ContributedFeatureState}
      * @throws AzDException Default Api exception handler.
      */
-    public ContributedFeatureState getStateForScope(FeatureManagement featureManagement,
+    public ContributedFeatureState getStateForScope(FeatureManagement feature,
                                                     FeatureManagementUserScope userScope, FeatureManagementScopeName scopeName,
                                                     String scopeValue)
             throws AzDException {
         return builder()
                 .location("dd291e43-aa9f-4cee-8465-a93c78e414a4")
-                .serviceEndpoint("featureId", featureManagement.getFeatureId())
-                .serviceEndpoint("userScope", userScope.name())
-                .serviceEndpoint("scopeName", scopeName.name())
+                .serviceEndpoint("featureId", feature.getFeatureId())
+                .serviceEndpoint("userScope", userScope.getUserScope())
+                .serviceEndpoint("scopeName", scopeName.getScopeName())
                 .serviceEndpoint("scopeValue", scopeValue)
                 .build()
                 .execute(ContributedFeatureState.class);
@@ -375,24 +375,24 @@ public class FeatureManagementRequestBuilder extends BaseRequestBuilder {
     /**
      * Set the state of a feature at a specific scope
      *
-     * @param featureManagement Contribution id of the feature.
-     * @param userScope         User-Scope at which to get the value. Should be "me" for the current user or "host" for all users.
-     * @param scopeName         Scope at which to get the feature setting for (e.g. "project" or "team")
-     * @param scopeValue        Value of the scope (e.g. the project or team id)
+     * @param feature    Contribution id of the feature.
+     * @param userScope  User-Scope at which to get the value. Should be "me" for the current user or "host" for all users.
+     * @param scopeName  Scope at which to get the feature setting for (e.g. "project" or "team")
+     * @param scopeValue Value of the scope (e.g. the project or team id)
      * @return Contributed feature state object. {@link ContributedFeatureState}
      * @throws AzDException Default Api exception handler.
      */
     public ContributedFeatureState setStateForScope(ContributedFeatureState featureState,
-                                                    FeatureManagement featureManagement,
+                                                    FeatureManagement feature,
                                                     FeatureManagementUserScope userScope, FeatureManagementScopeName scopeName,
                                                     String scopeValue)
             throws AzDException {
         return builder()
                 .PATCH(featureState)
                 .location("dd291e43-aa9f-4cee-8465-a93c78e414a4")
-                .serviceEndpoint("featureId", featureManagement.getFeatureId())
-                .serviceEndpoint("userScope", userScope.name())
-                .serviceEndpoint("scopeName", scopeName.name())
+                .serviceEndpoint("featureId", feature.getFeatureId())
+                .serviceEndpoint("userScope", userScope.getUserScope())
+                .serviceEndpoint("scopeName", scopeName.getScopeName())
                 .serviceEndpoint("scopeValue", scopeValue)
                 .build()
                 .execute(ContributedFeatureState.class);
@@ -401,7 +401,7 @@ public class FeatureManagementRequestBuilder extends BaseRequestBuilder {
     /**
      * Set the state of a feature at a specific scope
      *
-     * @param featureManagement    Contribution id of the feature.
+     * @param feature              Contribution id of the feature.
      * @param userScope            User-Scope at which to get the value. Should be "me" for the current user or "host" for all users.
      * @param scopeName            Scope at which to get the feature setting for (e.g. "project" or "team")
      * @param scopeValue           Value of the scope (e.g. the project or team id)
@@ -410,16 +410,16 @@ public class FeatureManagementRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api exception handler.
      */
     public ContributedFeatureState setStateForScope(ContributedFeatureState featureState,
-                                                    FeatureManagement featureManagement,
+                                                    FeatureManagement feature,
                                                     FeatureManagementUserScope userScope, FeatureManagementScopeName scopeName,
                                                     String scopeValue, Consumer<RequestConfiguration> requestConfiguration)
             throws AzDException {
         return builder()
                 .PATCH(featureState)
                 .location("dd291e43-aa9f-4cee-8465-a93c78e414a4")
-                .serviceEndpoint("featureId", featureManagement.getFeatureId())
-                .serviceEndpoint("userScope", userScope.name())
-                .serviceEndpoint("scopeName", scopeName.name())
+                .serviceEndpoint("featureId", feature.getFeatureId())
+                .serviceEndpoint("userScope", userScope.getUserScope())
+                .serviceEndpoint("scopeName", scopeName.getScopeName())
                 .serviceEndpoint("scopeValue", scopeValue)
                 .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
                 .build()
@@ -456,7 +456,7 @@ public class FeatureManagementRequestBuilder extends BaseRequestBuilder {
         return builder()
                 .POST(query)
                 .location("3f810f28-03e2-4239-b0bc-788add3005e5")
-                .serviceEndpoint("userScope", userScope.name())
+                .serviceEndpoint("userScope", userScope.getUserScope())
                 .build()
                 .execute(ContributedFeatureStateQuery.class);
     }
@@ -478,8 +478,8 @@ public class FeatureManagementRequestBuilder extends BaseRequestBuilder {
         return builder()
                 .POST(query)
                 .location("f29e997b-c2da-4d15-8380-765788a1a74c")
-                .serviceEndpoint("userScope", userScope.name())
-                .serviceEndpoint("scopeName", scopeName.name())
+                .serviceEndpoint("userScope", userScope.getUserScope())
+                .serviceEndpoint("scopeName", scopeName.getScopeName())
                 .serviceEndpoint("scopeValue", scopeValue)
                 .build()
                 .execute(ContributedFeatureStateQuery.class);

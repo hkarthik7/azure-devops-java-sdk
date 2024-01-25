@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * return security roles
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SecurityRoles extends SerializableCollectionEntity {
-    /***
+    /**
      * list of security role definitions
      */
     @JsonProperty("value")

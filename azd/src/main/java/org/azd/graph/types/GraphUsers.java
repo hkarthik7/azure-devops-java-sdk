@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * Represents a list of graph user
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GraphUsers extends SerializableCollectionEntity {
-    /***
+    /**
      * Represents a list of graph user
      */
     @JsonProperty("value")

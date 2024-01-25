@@ -4,22 +4,22 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * List of issues occurred while execution of task.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Issues extends SerializableEntity {
-    /***
+    /**
      * Issue data.
      */
     @JsonProperty("data")
     private Object data;
-    /***
+    /**
      * Issue type, for example error, warning or info.
      */
     @JsonProperty("issueType")
     private String issueType;
-    /***
+    /**
      * Issue message.
      */
     @JsonProperty("message")

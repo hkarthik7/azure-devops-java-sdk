@@ -6,7 +6,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public enum FeatureManagementScopeName {
     @JsonProperty("project")
-    PROJECT,
+    PROJECT("project"),
     @JsonProperty("team")
-    TEAM;
+    TEAM("team");
+
+    private final String userScopeName;
+
+    FeatureManagementScopeName(String scopeName) {
+        userScopeName = scopeName;
+    }
+
+    public String getScopeName() {
+        return userScopeName;
+    }
 }

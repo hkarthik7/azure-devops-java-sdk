@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Represents a definition steps
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -19,27 +19,27 @@ public class Steps extends SerializableEntity {
      */
     @JsonProperty("inputs")
     private Object inputs;
-    /***
+    /**
      * If enabled or not
      */
     @JsonProperty("enabled")
     private boolean enabled;
-    /***
+    /**
      * Continue on error or not
      */
     @JsonProperty("continueOnError")
     private boolean continueOnError;
-    /***
+    /**
      * Always run
      */
     @JsonProperty("alwaysRun")
     private boolean alwaysRun;
-    /***
+    /**
      * Step display name
      */
     @JsonProperty("displayName")
     private String displayName;
-    /***
+    /**
      * Timeout in minutes
      */
     @JsonProperty("timeoutInMinutes")
@@ -49,12 +49,12 @@ public class Steps extends SerializableEntity {
      */
     @JsonProperty("retryCountOnTaskFailure")
     private int retryCountOnTaskFailure;
-    /***
+    /**
      * Steps condition
      */
     @JsonProperty("condition")
     private String condition;
-    /***
+    /**
      * task in a step
      */
     @JsonProperty("task")

@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Pipeline configuration object
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PipelineConfiguration extends SerializableEntity {
-    /***
+    /**
      * Configuration type
      */
     @JsonProperty("type")

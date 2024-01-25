@@ -5,8 +5,11 @@ import org.azd.authentication.AccessTokenCredential;
 import org.azd.git.annotatedtags.AnnotatedTagsRequestBuilder;
 import org.azd.git.blobs.BlobsRequestBuilder;
 import org.azd.git.commits.CommitsRequestBuilder;
+import org.azd.git.forks.ForksRequestBuilder;
+import org.azd.git.items.ItemsRequestBuilder;
 import org.azd.git.pullrequest.PullRequestBaseRequestBuilder;
 import org.azd.git.pullrequests.PullRequestsRequestBuilder;
+import org.azd.git.pushes.PushesRequestBuilder;
 import org.azd.git.refs.RefsRequestBuilder;
 import org.azd.git.repositories.RepositoriesRequestBuilder;
 
@@ -85,6 +88,33 @@ public class GitBaseRequestBuilder extends BaseRequestBuilder {
      */
     public BlobsRequestBuilder blobs() {
         return new BlobsRequestBuilder(organizationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Provides functionality to manage Git Items Api.
+     *
+     * @return ItemsRequestBuilder {@link ItemsRequestBuilder}.
+     */
+    public ItemsRequestBuilder items() {
+        return new ItemsRequestBuilder(organizationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Provides functionality to manage Git Forks Api.
+     *
+     * @return ForksRequestBuilder {@link ForksRequestBuilder}.
+     */
+    public ForksRequestBuilder forks() {
+        return new ForksRequestBuilder(organizationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Provides functionality to manage Git Pushes Api.
+     *
+     * @return PushesRequestBuilder {@link PushesRequestBuilder}.
+     */
+    public PushesRequestBuilder pushes() {
+        return new PushesRequestBuilder(organizationUrl, accessTokenCredential);
     }
 }
 

@@ -55,12 +55,13 @@ public class FeedPermissionsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(FeedPermissions.class);
     }
 
-    /***
+    /**
      * Update the permissions on a feed. The project parameter must be supplied if the feed was created in a project.
      * If the feed is not associated with any project, omit the project parameter from the request.
+     *
      * @param feedPermissions List of feed permissions to update the permissions for.
-     * @throws AzDException Default Api Exception handler.
      * @return array of feed permissions {@link FeedPermissions}
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<FeedPermissions> setAsync(String feedId, FeedPermissions feedPermissions)
             throws AzDException {
@@ -103,12 +104,13 @@ public class FeedPermissionsRequestBuilder extends BaseRequestBuilder {
                 .execute(FeedPermissions.class);
     }
 
-    /***
+    /**
      * Update the permissions on a feed. The project parameter must be supplied if the feed was created in a project.
      * If the feed is not associated with any project, omit the project parameter from the request.
+     *
      * @param feedPermissions List of feed permissions to update the permissions for.
-     * @throws AzDException Default Api Exception handler.
      * @return array of feed permissions {@link FeedPermissions}
+     * @throws AzDException Default Api Exception handler.
      */
     public FeedPermissions set(String feedId, FeedPermissions feedPermissions)
             throws AzDException {

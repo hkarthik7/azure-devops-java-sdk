@@ -6,32 +6,32 @@ import org.azd.abstractions.serializer.SerializableEntity;
 
 import java.util.List;
 
-/***
+/**
  * Represents a phase
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Phases extends SerializableEntity {
-    /***
+    /**
      * List of steps
      */
     @JsonProperty("steps")
     private List<Steps> steps;
-    /***
+    /**
      * Name of the task
      */
     @JsonProperty("name")
     private String name;
-    /***
+    /**
      * Task reference name
      */
     @JsonProperty("refName")
     private String refName;
-    /***
+    /**
      * Job authorization scope
      */
     @JsonProperty("jobAuthorizationScope")
     private String jobAuthorizationScope;
-    /***
+    /**
      * Steps condition
      */
     @JsonProperty("condition")

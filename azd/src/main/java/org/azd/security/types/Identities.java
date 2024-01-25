@@ -6,7 +6,7 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * collection of identities
  */
 @JsonIgnoreProperties(ignoreUnknown = true)

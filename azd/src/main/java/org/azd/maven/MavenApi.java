@@ -23,11 +23,11 @@ import java.util.Map;
 
 import static org.azd.utils.RestClient.send;
 
-/***
+/**
  * MavenApi class to manage maven artifact package api
  */
 public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
-    /***
+    /**
      * Connection object
      */
     private final Connection CONNECTION;
@@ -36,7 +36,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
     private final String MAVEN = "6f7f8c07-ff36-473c-bcf3-bd6cc9b6c066";
     private final String PACKAGES_RELATIVE_PATH = "_packaging";
 
-    /***
+    /**
      * Pass the connection object to work with Maven Package Api
      *
      * @param connection Connection object
@@ -45,7 +45,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
         this.CONNECTION = connection;
     }
 
-    /***
+    /**
      * Get information about a package version.
      *
      * @param feedId     Name or ID of the feed. Example: "mavenfeed".
@@ -66,7 +66,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
         return MAPPER.mapJsonResponse(r, Package.class);
     }
 
-    /***
+    /**
      * Get information about a package version.
      *
      * @param feedId      Name or ID of the feed. Example: "mavenfeed".
@@ -93,7 +93,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
         return MAPPER.mapJsonResponse(r, Package.class);
     }
 
-    /***
+    /**
      * Get information about a package version in the recycle bin.
      *
      * @param feedId     Name or ID of the feed. Example: "mavenfeed".
@@ -101,7 +101,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
      * @param artifactId Artifact ID of the package. Example: "app".
      * @param version    Version of the package. Example: "1.0.0".
      * @return MavenPackageVersionDeletionState
-     *         {@link MavenPackageVersionDeletionState}
+     * {@link MavenPackageVersionDeletionState}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
@@ -115,14 +115,14 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
         return MAPPER.mapJsonResponse(r, MavenPackageVersionDeletionState.class);
     }
 
-    /***
+    /**
      * Get the upstreaming behavior of a package within the context of a feed
      *
      * @param feedId     Name or ID of the feed. Example: "mavenfeed".
      * @param groupId    Group ID of the package. Example: "com.example".
      * @param artifactId Artifact ID of the package. Example: "app".
      * @return UpstreamingBehavior
-     *         {@link UpstreamingBehavior}
+     * {@link UpstreamingBehavior}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
@@ -134,16 +134,16 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
         return MAPPER.mapJsonResponse(r, UpstreamingBehavior.class);
     }
 
-    /***
+    /**
      * Fulfills Maven package file download requests by either returning the URL
-     of
+     * of
      * the requested package file or, in the case of Azure DevOps Server (OnPrem),
      *
-     * @param feedId Name or ID of the feed. Example: "mavenfeed".
-     * @param groupId Group ID of the package. Example: "com.example".
+     * @param feedId     Name or ID of the feed. Example: "mavenfeed".
+     * @param groupId    Group ID of the package. Example: "com.example".
      * @param artifactId Artifact ID of the package. Example: "app".
-     * @param version Version of the package. Example: "1.0.0".
-     * @param fileName File name to download. Example: "app-1.0.0.jar".
+     * @param version    Version of the package. Example: "1.0.0".
+     * @param fileName   File name to download. Example: "app-1.0.0.jar".
      * @return Package content.
      * @throws AzDException Default Api Exception handler.
      */
@@ -173,7 +173,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
         return res;
     }
 
-    /***
+    /**
      * Delete a package version from the feed and move it to the feed's recycle bin.
      *
      * @param feedId     Name or ID of the feed. Example: "mavenfeed".
@@ -198,7 +198,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
 
     }
 
-    /***
+    /**
      * Permanently delete a package from a feed's recycle bin.
      *
      * @param feedId     Name or ID of the feed. Example: "mavenfeed".
@@ -222,7 +222,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
         }
     }
 
-    /***
+    /**
      * Set mutable state on a package version.(eg. prelease, release)
      *
      * @param feedId     Name or ID of the feed. Example: "mavenfeed".
@@ -239,7 +239,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
         updatePackageVersion(feedId, groupId, artifactId, version, promote.toString().toLowerCase());
     }
 
-    /***
+    /**
      * Set mutable state on a package version.(eg. prelease, release)
      *
      * @param feedId     Name or ID of the feed. Example: "mavenfeed".
@@ -276,7 +276,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
         }
     }
 
-    /***
+    /**
      * Update several packages from a single feed in a single request. The updates
      * to the packages do not happen atomically.
      *
@@ -315,7 +315,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
         }
     }
 
-    /***
+    /**
      * Restore a package version from the recycle bin to its associated feed.
      *
      * @param feedId     Name or ID of the feed. Example: "mavenfeed".
@@ -339,7 +339,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
         }
     }
 
-    /***
+    /**
      * Set the upstreaming behavior of a (scoped) package.
      *
      * @param feedId     Name or ID of the feed. Example: "mavenfeed".
@@ -353,7 +353,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
         setUpstreamingBehavior(feedId, groupId, artifactId, "allowExternalVersions");
     }
 
-    /***
+    /**
      * Set the upstreaming behavior of a (scoped) package.
      *
      * @param feedId     Name or ID of the feed. Example: "mavenfeed".
@@ -380,7 +380,7 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
         }
     }
 
-    /***
+    /**
      * To clear the upstream behavior of a (scoped) package.
      *
      * @param feedId     Name or ID of the feed. Example: "mavenfeed".
@@ -405,15 +405,15 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
         }
     }
 
-    /***
+    /**
      * Delete or restore several package versions from the recycle bin.
      *
-     * @param feedId                 Name or ID of the feed. Example: "mavenfeed".
+     * @param feedId    Name or ID of the feed. Example: "mavenfeed".
      * @param operation Type of operation that needs to be performed on
-     *                               packages. Recycle Bin supports only
-     *                               PERMANENTDELETE or
-     *                               RESTORETOFEED. {@link PackagesBatchOperation}
-     * @param packages               Identifies a particular Maven package versions
+     *                  packages. Recycle Bin supports only
+     *                  PERMANENTDELETE or
+     *                  RESTORETOFEED. {@link PackagesBatchOperation}
+     * @param packages  Identifies a particular Maven package versions
      * @throws AzDException Default Api Exception handler.
      */
     @Override
@@ -441,17 +441,17 @@ public class MavenApi extends AzDAsyncApi<MavenApi> implements MavenDetails {
         }
     }
 
-    /***
+    /**
      * Fulfills Maven package file upload requests by either returning the URL
-     of
+     * of
      * the requested package file or, in the case of Azure DevOps Server (OnPrem),
      *
-     * @param feedId Name or ID of the feed. Example: "mavenfeed".
-     * @param groupId Group ID of the package. Example: "com.example".
+     * @param feedId     Name or ID of the feed. Example: "mavenfeed".
+     * @param groupId    Group ID of the package. Example: "com.example".
      * @param artifactId Artifact ID of the package. Example: "app".
-     * @param version Version of the package. Example: "1.0.0".
-     * @param fileName File name to upoad. Must include artifactId Example: "app-1.0.0.jar".
-     * @param content Inputstream for the package file.
+     * @param version    Version of the package. Example: "1.0.0".
+     * @param fileName   File name to upoad. Must include artifactId Example: "app-1.0.0.jar".
+     * @param content    Inputstream for the package file.
      * @throws AzDException Default Api Exception handler.
      */
     @Override

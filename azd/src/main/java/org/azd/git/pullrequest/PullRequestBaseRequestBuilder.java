@@ -44,5 +44,14 @@ public class PullRequestBaseRequestBuilder extends BaseRequestBuilder {
     public PullRequestReviewersRequestBuilder reviewers() {
         return new PullRequestReviewersRequestBuilder(organizationUrl, accessTokenCredential);
     }
+
+    /**
+     * Provides functionality to manage Pull request status Api.
+     *
+     * @return PullRequestStatusRequestBuilder {@link PullRequestStatusRequestBuilder}
+     */
+    public PullRequestStatusRequestBuilder statuses() {
+        return new PullRequestStatusRequestBuilder(organizationUrl, accessTokenCredential);
+    }
 }
 

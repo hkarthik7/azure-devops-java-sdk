@@ -6,12 +6,12 @@ import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * Array of build controller
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BuildControllers extends SerializableCollectionEntity {
-    /***
+    /**
      * Array of build controller
      */
     @JsonProperty("value")

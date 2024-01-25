@@ -45,12 +45,13 @@ public class PullRequestsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(GitPullRequest.class);
     }
 
-    /***
+    /**
      * Retrieve a pull request.
+     *
      * @param repositoryName The repository name of the pull request's target branch.
-     * @param pullRequestId The ID of the pull request to retrieve.
-     * @throws AzDException Default Api Exception handler.
+     * @param pullRequestId  The ID of the pull request to retrieve.
      * @return {@link GitPullRequest} object
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<GitPullRequest> getAsync(String repositoryName, int pullRequestId) throws AzDException {
         return builder()
@@ -60,13 +61,14 @@ public class PullRequestsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(GitPullRequest.class);
     }
 
-    /***
+    /**
      * Retrieve a pull request.
-     * @param repositoryName The repository name of the pull request's target branch.
-     * @param pullRequestId The ID of the pull request to retrieve.
+     *
+     * @param repositoryName       The repository name of the pull request's target branch.
+     * @param pullRequestId        The ID of the pull request to retrieve.
      * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.
-     * @throws AzDException Default Api Exception handler.
      * @return {@link GitPullRequest} object
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<GitPullRequest> getAsync(String repositoryName, int pullRequestId,
                                                       Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
@@ -78,11 +80,12 @@ public class PullRequestsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(GitPullRequest.class);
     }
 
-    /***
+    /**
      * Retrieve a pull request.
+     *
      * @param pullRequestId The ID of the pull request to retrieve.
-     * @throws AzDException Default Api Exception handler.
      * @return {@link GitPullRequest} object
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<GitPullRequest> getByIdAsync(int pullRequestId) throws AzDException {
         return builder()
@@ -92,11 +95,12 @@ public class PullRequestsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(GitPullRequest.class);
     }
 
-    /***
+    /**
      * Retrieve all pull requests from a repository
+     *
      * @param repositoryName specify the repository name
-     * @throws AzDException Default Api Exception handler.
      * @return {@link PullRequests} object
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<PullRequests> listAsync(String repositoryName) throws AzDException {
         return builder()
@@ -105,12 +109,13 @@ public class PullRequestsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(PullRequests.class);
     }
 
-    /***
+    /**
      * Retrieve all pull requests from a repository
-     * @param repositoryName specify the repository name
+     *
+     * @param repositoryName       specify the repository name
      * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.
-     * @throws AzDException Default Api Exception handler.
      * @return {@link PullRequests} object
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<PullRequests> listAsync(String repositoryName,
                                                      Consumer<ListRequestConfiguration> requestConfiguration) throws AzDException {
@@ -121,10 +126,11 @@ public class PullRequestsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(PullRequests.class);
     }
 
-    /***
+    /**
      * Gets all pull requests from a project.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return {@link PullRequests} object
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<PullRequests> listAsync() throws AzDException {
         return builder()
@@ -133,11 +139,12 @@ public class PullRequestsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(PullRequests.class);
     }
 
-    /***
+    /**
      * Gets all pull requests from a project.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.
      * @return {@link PullRequests} object
+     * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<PullRequests> listAsync(Consumer<ListRequestConfiguration> requestConfiguration) throws AzDException {
         return builder()
@@ -196,12 +203,13 @@ public class PullRequestsRequestBuilder extends BaseRequestBuilder {
                 .execute(GitPullRequest.class);
     }
 
-    /***
+    /**
      * Retrieve a pull request.
+     *
      * @param repositoryName The repository name of the pull request's target branch.
-     * @param pullRequestId The ID of the pull request to retrieve.
-     * @throws AzDException Default Api Exception handler.
+     * @param pullRequestId  The ID of the pull request to retrieve.
      * @return {@link GitPullRequest} object
+     * @throws AzDException Default Api Exception handler.
      */
     public GitPullRequest get(String repositoryName, int pullRequestId) throws AzDException {
         return builder()
@@ -211,13 +219,14 @@ public class PullRequestsRequestBuilder extends BaseRequestBuilder {
                 .execute(GitPullRequest.class);
     }
 
-    /***
+    /**
      * Retrieve a pull request.
-     * @param repositoryName The repository name of the pull request's target branch.
-     * @param pullRequestId The ID of the pull request to retrieve.
+     *
+     * @param repositoryName       The repository name of the pull request's target branch.
+     * @param pullRequestId        The ID of the pull request to retrieve.
      * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.
-     * @throws AzDException Default Api Exception handler.
      * @return {@link GitPullRequest} object
+     * @throws AzDException Default Api Exception handler.
      */
     public GitPullRequest get(String repositoryName, int pullRequestId,
                               Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
@@ -229,11 +238,12 @@ public class PullRequestsRequestBuilder extends BaseRequestBuilder {
                 .execute(GitPullRequest.class);
     }
 
-    /***
+    /**
      * Retrieve a pull request.
+     *
      * @param pullRequestId The ID of the pull request to retrieve.
-     * @throws AzDException Default Api Exception handler.
      * @return {@link GitPullRequest} object
+     * @throws AzDException Default Api Exception handler.
      */
     public GitPullRequest getById(int pullRequestId) throws AzDException {
         return builder()
@@ -243,11 +253,12 @@ public class PullRequestsRequestBuilder extends BaseRequestBuilder {
                 .execute(GitPullRequest.class);
     }
 
-    /***
+    /**
      * Retrieve all pull requests from a repository
+     *
      * @param repositoryName specify the repository name
-     * @throws AzDException Default Api Exception handler.
      * @return {@link PullRequests} object
+     * @throws AzDException Default Api Exception handler.
      */
     public PullRequests list(String repositoryName) throws AzDException {
         return builder()
@@ -256,12 +267,13 @@ public class PullRequestsRequestBuilder extends BaseRequestBuilder {
                 .execute(PullRequests.class);
     }
 
-    /***
+    /**
      * Retrieve all pull requests from a repository
-     * @param repositoryName specify the repository name
+     *
+     * @param repositoryName       specify the repository name
      * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.
-     * @throws AzDException Default Api Exception handler.
      * @return {@link PullRequests} object
+     * @throws AzDException Default Api Exception handler.
      */
     public PullRequests list(String repositoryName,
                              Consumer<ListRequestConfiguration> requestConfiguration) throws AzDException {
@@ -272,10 +284,11 @@ public class PullRequestsRequestBuilder extends BaseRequestBuilder {
                 .execute(PullRequests.class);
     }
 
-    /***
+    /**
      * Gets all pull requests from a project.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return {@link PullRequests} object
+     * @throws AzDException Default Api Exception handler.
      */
     public PullRequests list() throws AzDException {
         return builder()
@@ -284,11 +297,12 @@ public class PullRequestsRequestBuilder extends BaseRequestBuilder {
                 .execute(PullRequests.class);
     }
 
-    /***
+    /**
      * Gets all pull requests from a project.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.
      * @return {@link PullRequests} object
+     * @throws AzDException Default Api Exception handler.
      */
     public PullRequests list(Consumer<ListRequestConfiguration> requestConfiguration) throws AzDException {
         return builder()

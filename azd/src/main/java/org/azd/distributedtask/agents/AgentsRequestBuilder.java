@@ -24,9 +24,10 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
         super(organizationUrl, accessTokenCredential, "distributedtask", "e298ef32-5878-4cab-993c-043836571f42");
     }
 
-    /***
+    /**
      * Delete an agent.
-     * @param poolId The pool ID to remove the agent from
+     *
+     * @param poolId  The pool ID to remove the agent from
      * @param agentId The agent ID to remove
      * @throws AzDException Default Api Exception handler.
      */
@@ -39,9 +40,10 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
                 .executePrimitiveAsync();
     }
 
-    /***
+    /**
      * Get information about an agent.
-     * @param poolId The agent pool containing the agent
+     *
+     * @param poolId  The agent pool containing the agent
      * @param agentId The agent ID to get information about
      * @return A TaskAgent object {@link TaskAgent}
      * @throws AzDException Default Api Exception handler.
@@ -54,10 +56,11 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(TaskAgent.class);
     }
 
-    /***
+    /**
      * Get information about an agent.
-     * @param poolId The agent pool containing the agent.
-     * @param agentId The agent ID to get information about.
+     *
+     * @param poolId               The agent pool containing the agent.
+     * @param agentId              The agent ID to get information about.
      * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.
      * @return A TaskAgent object {@link TaskAgent}.
      * @throws AzDException Default Api Exception handler.
@@ -72,10 +75,11 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(TaskAgent.class);
     }
 
-    /***
+    /**
      * Get Permissions on Pool.
-     * @param poolId The agent pool containing the agent.
-     * @param agentId The agent ID to get information about.
+     *
+     * @param poolId             The agent pool containing the agent.
+     * @param agentId            The agent ID to get information about.
      * @param isCheckPermissions Set to true to check permission.
      * @return Returns a boolean.
      * @throws AzDException Default Api Exception handler.
@@ -90,8 +94,9 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
                 .thenApplyAsync(Boolean::valueOf);
     }
 
-    /***
+    /**
      * Get a list of agents.
+     *
      * @param poolId The agent pool containing the agents
      * @return TaskAgents object {@link TaskAgents}
      * @throws AzDException Default Api Exception handler.
@@ -103,9 +108,10 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(TaskAgents.class);
     }
 
-    /***
+    /**
      * Get a list of agents.
-     * @param poolId The agent pool containing the agents
+     *
+     * @param poolId               The agent pool containing the agents
      * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.
      * @return TaskAgents object {@link TaskAgents}
      * @throws AzDException Default Api Exception handler.
@@ -118,14 +124,15 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(TaskAgents.class);
     }
 
-    /***
+    /**
      * Update agent details.
-     * @param poolId The agent pool to use
-     * @param agentId The agent to update
+     *
+     * @param poolId    The agent pool to use
+     * @param agentId   The agent to update
      * @param taskAgent Task agent object.
-     * @see <a href="https://docs.microsoft.com/en-us/rest/api/azure/devops/distributedtask/agents/update?view=azure-devops-rest-7.1#request-body">Agents - Update</a>
      * @return A TaskAgent object {@link TaskAgent}
      * @throws AzDException Default Api Exception handler.
+     * @see <a href="https://docs.microsoft.com/en-us/rest/api/azure/devops/distributedtask/agents/update?view=azure-devops-rest-7.1#request-body">Agents - Update</a>
      */
     public CompletableFuture<TaskAgent> updateAsync(int poolId, int agentId, TaskAgent taskAgent) throws AzDException {
         return builder()
@@ -136,9 +143,10 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
                 .executeAsync(TaskAgent.class);
     }
 
-    /***
+    /**
      * Delete an agent.
-     * @param poolId The pool ID to remove the agent from
+     *
+     * @param poolId  The pool ID to remove the agent from
      * @param agentId The agent ID to remove
      * @throws AzDException Default Api Exception handler.
      */
@@ -151,9 +159,10 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
                 .executePrimitive();
     }
 
-    /***
+    /**
      * Get information about an agent.
-     * @param poolId The agent pool containing the agent
+     *
+     * @param poolId  The agent pool containing the agent
      * @param agentId The agent ID to get information about
      * @return A TaskAgent object {@link TaskAgent}
      * @throws AzDException Default Api Exception handler.
@@ -166,10 +175,11 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
                 .execute(TaskAgent.class);
     }
 
-    /***
+    /**
      * Get information about an agent.
-     * @param poolId The agent pool containing the agent.
-     * @param agentId The agent ID to get information about.
+     *
+     * @param poolId               The agent pool containing the agent.
+     * @param agentId              The agent ID to get information about.
      * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.
      * @return A TaskAgent object {@link TaskAgent}.
      * @throws AzDException Default Api Exception handler.
@@ -184,10 +194,11 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
                 .execute(TaskAgent.class);
     }
 
-    /***
+    /**
      * Get Permissions on Pool.
-     * @param poolId The agent pool containing the agent.
-     * @param agentId The agent ID to get information about.
+     *
+     * @param poolId             The agent pool containing the agent.
+     * @param agentId            The agent ID to get information about.
      * @param isCheckPermissions Set to true to check permission.
      * @return Returns a boolean.
      * @throws AzDException Default Api Exception handler.
@@ -201,8 +212,9 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
                 .executeString());
     }
 
-    /***
+    /**
      * Get a list of agents.
+     *
      * @param poolId The agent pool containing the agents
      * @return TaskAgents object {@link TaskAgents}
      * @throws AzDException Default Api Exception handler.
@@ -214,9 +226,10 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
                 .execute(TaskAgents.class);
     }
 
-    /***
+    /**
      * Get a list of agents.
-     * @param poolId The agent pool containing the agents
+     *
+     * @param poolId               The agent pool containing the agents
      * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.
      * @return TaskAgents object {@link TaskAgents}
      * @throws AzDException Default Api Exception handler.
@@ -229,14 +242,15 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
                 .execute(TaskAgents.class);
     }
 
-    /***
+    /**
      * Update agent details.
-     * @param poolId The agent pool to use
-     * @param agentId The agent to update
+     *
+     * @param poolId    The agent pool to use
+     * @param agentId   The agent to update
      * @param taskAgent Task agent object.
-     * @see <a href="https://docs.microsoft.com/en-us/rest/api/azure/devops/distributedtask/agents/update?view=azure-devops-rest-7.1#request-body">Agents - Update</a>
      * @return A TaskAgent object {@link TaskAgent}
      * @throws AzDException Default Api Exception handler.
+     * @see <a href="https://docs.microsoft.com/en-us/rest/api/azure/devops/distributedtask/agents/update?view=azure-devops-rest-7.1#request-body">Agents - Update</a>
      */
     public TaskAgent update(int poolId, int agentId, TaskAgent taskAgent) throws AzDException {
         return builder()
