@@ -189,8 +189,8 @@ public class Main {
         proxyConfiguration.proxyPort = 8888;
 
         // Optionally with username and password
-        proxyConfiguration.proxyUsername = System.getenv("https.proxy_username");
-        proxyConfiguration.proxyPassword = System.getenv("https.proxy_password");
+        proxyConfiguration.proxyUsername = System.getenv("http.proxy_username");
+        proxyConfiguration.proxyPassword = System.getenv("http.proxy_password");
         proxyConfiguration.noProxyHosts = List.of("hostname");
 
         client.configuration().proxy(proxyConfiguration);
@@ -267,9 +267,9 @@ public class Main {
 
             // Construct the request URI
             URI requestUri = UrlBuilder.fromBaseUrl(locationUrl)
-                    .appendPath("_apis")
+                    .appendPath(Constants.APIS_RELATIVE_PATH)
                     .appendPath("identities")
-                    .appendQueryString("api-version", ApiVersion.IDENTITIES)
+                    .appendQueryString(Constants.API_VERSION, ApiVersion.IDENTITIES)
                     .appendQueryString("descriptors", descriptors)
                     .build();
 
@@ -282,6 +282,53 @@ public class Main {
                     .executeString(); // Or use Async method
 
             System.out.println(response);
+
+        } catch (AzDException e1) {
+            e1.printStackTrace();
+        }
+    }
+}
+```
+
+Or `extend` from the [BaseRequestBuilder](https://github.com/hkarthik7/azure-devops-java-sdk/blob/feature/v6.0/azd/src/main/java/org/azd/abstractions/BaseRequestBuilder.java).
+
+```java
+public class IdentitiesRequestBuilder extends BaseRequestBuilder {
+    public IdentitiesRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
+        super(organizationUrl, accessTokenCredential);
+    }
+
+    public String readIdentities() throws AzDException {
+        // GET https://vssps.dev.azure.com/{organization}/_apis/identities?api-version=7.1-preview.1&descriptors={descriptors}
+        // This returns https://vssps.dev.azure.com/{organization}
+        LocationsBaseRequestBuilder locations = new LocationsBaseRequestBuilder(organizationUrl, accessTokenCredential);
+        String locationUrl = locations.getUrl(ResourceId.IDENTITIES);
+
+        // Get the descriptor of authenticated user.
+        String descriptors = locations.getConnectionData().getAuthenticatedUser().getDescriptor();
+
+        // Construct the request URI
+        URI requestUri = UrlBuilder.fromBaseUrl(locationUrl)
+                .appendPath(Constants.APIS_RELATIVE_PATH)
+                .appendPath("identities")
+                .appendQueryString(Constants.API_VERSION, ApiVersion.IDENTITIES)
+                .appendQueryString("descriptors", descriptors)
+                .build();
+
+        // return the response
+        return builder()
+                .GET()
+                .URI(requestUri)
+                .build()
+                .executeString();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        try {
+            IdentitiesRequestBuilder identities = new IdentitiesRequestBuilder(client.getOrganizationUrl(), client.accessTokenCredential());
+            System.out.println(identities.readIdentities());
 
         } catch (AzDException e1) {
             e1.printStackTrace();
