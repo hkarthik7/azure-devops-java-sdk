@@ -290,53 +290,6 @@ public class Main {
 }
 ```
 
-Or `extend` from the [BaseRequestBuilder](https://github.com/hkarthik7/azure-devops-java-sdk/blob/feature/v6.0/azd/src/main/java/org/azd/abstractions/BaseRequestBuilder.java).
-
-```java
-public class IdentitiesRequestBuilder extends BaseRequestBuilder {
-    public IdentitiesRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential);
-    }
-
-    public String readIdentities() throws AzDException {
-        // GET https://vssps.dev.azure.com/{organization}/_apis/identities?api-version=7.1-preview.1&descriptors={descriptors}
-        // This returns https://vssps.dev.azure.com/{organization}
-        LocationsBaseRequestBuilder locations = new LocationsBaseRequestBuilder(organizationUrl, accessTokenCredential);
-        String locationUrl = locations.getUrl(ResourceId.IDENTITIES);
-
-        // Get the descriptor of authenticated user.
-        String descriptors = locations.getConnectionData().getAuthenticatedUser().getDescriptor();
-
-        // Construct the request URI
-        URI requestUri = UrlBuilder.fromBaseUrl(locationUrl)
-                .appendPath(Constants.APIS_RELATIVE_PATH)
-                .appendPath("identities")
-                .appendQueryString(Constants.API_VERSION, ApiVersion.IDENTITIES)
-                .appendQueryString("descriptors", descriptors)
-                .build();
-
-        // return the response
-        return builder()
-                .GET()
-                .URI(requestUri)
-                .build()
-                .executeString();
-    }
-}
-
-public class Main {
-    public static void main(String[] args) {
-        try {
-            IdentitiesRequestBuilder identities = new IdentitiesRequestBuilder(client.getOrganizationUrl(), client.accessTokenCredential());
-            System.out.println(identities.readIdentities());
-
-        } catch (AzDException e1) {
-            e1.printStackTrace();
-        }
-    }
-}
-```
-
 ## Documentation vs Api usage
 
 Client object is constructed in a way that you navigate the documentation.
