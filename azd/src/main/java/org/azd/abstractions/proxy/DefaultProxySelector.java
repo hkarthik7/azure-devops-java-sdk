@@ -15,26 +15,14 @@ public class DefaultProxySelector extends ProxySelector {
 
     @Override
     public List<Proxy> select(URI uri) {
-        if (testProxy(proxyConfig.proxyUrl)) {
-            var proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyConfig.proxyUrl, proxyConfig.proxyPort));
-            return List.of(proxy);
-        } else {
-            return List.of(Proxy.NO_PROXY);
-        }
+        var proxy = Proxy.NO_PROXY;
+        if (proxyConfig.proxyUrl != null && proxyConfig.proxyPort > 0)
+            proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyConfig.proxyUrl, proxyConfig.proxyPort));
+        return List.of(proxy);
     }
 
     @Override
     public void connectFailed(URI uri, SocketAddress sa, IOException ioe) {
         throw new RuntimeException("Connection to " + uri + " failed. Details: " + ioe.getMessage());
-    }
-
-    private boolean testProxy(String url) {
-        try {
-            if (proxyConfig.noProxyHosts == null) return false;
-            var serverUrl = new URL(url).getHost();
-            return proxyConfig.noProxyHosts.contains(serverUrl);
-        } catch (Exception ex) {
-            throw new RuntimeException("An error occurred while testing proxy: " + ex.getMessage());
-        }
     }
 }

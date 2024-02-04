@@ -1,7 +1,9 @@
 package org.azd.serviceclient;
 
+import org.azd.abstractions.proxy.ProxyProvider;
 import org.azd.accounts.AccountsBaseRequestBuilder;
 import org.azd.artifacts.ArtifactsRequestBuilder;
+import org.azd.artifactspackagetypes.ArtifactsPackageTypesRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.build.BuildBaseRequestBuilder;
 import org.azd.common.ResourceId;
@@ -14,6 +16,7 @@ import org.azd.git.GitBaseRequestBuilder;
 import org.azd.graph.GraphRequestBuilder;
 import org.azd.helpers.HelpersRequestBuilder;
 import org.azd.locations.LocationsBaseRequestBuilder;
+import org.azd.memberentitlementmanagement.MemberEntitlementManagementRequestBuilder;
 import org.azd.oauth.OAuthAccessTokenBuilder;
 
 import java.net.URI;
@@ -41,6 +44,7 @@ public class BaseServiceClient implements AzDServiceClient {
     public BaseServiceClient(AccessTokenCredential accessTokenCredential) {
         this.accessTokenCredential = Objects.requireNonNull(accessTokenCredential, "Access token credential cannot be null.");
         this.organizationUrl = Objects.requireNonNull(accessTokenCredential.getOrganizationUrl(), "Organization url cannot be null.");
+        ProxyProvider.configure(this.organizationUrl);
     }
 
     /**
@@ -69,6 +73,18 @@ public class BaseServiceClient implements AzDServiceClient {
     public ArtifactsRequestBuilder artifacts() {
         var locationUrl = getLocationUrl(ResourceId.PACKAGING);
         return new ArtifactsRequestBuilder(locationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Request builder for artifacts package types Api.
+     *
+     * @return Artifacts Package Types base request builder. {@link ArtifactsPackageTypesRequestBuilder}
+     * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/artifactspackagetypes/maven?view=azure-devops-rest-7.1">Artifacts Package Types</a>
+     */
+    @Override
+    public ArtifactsPackageTypesRequestBuilder artifactsPackageTypes() {
+        var locationUrl = getLocationUrl(ResourceId.MAVEN);
+        return new ArtifactsPackageTypesRequestBuilder(locationUrl, accessTokenCredential);
     }
 
     /**
@@ -192,6 +208,12 @@ public class BaseServiceClient implements AzDServiceClient {
     @Override
     public LocationsBaseRequestBuilder locations() {
         return new LocationsBaseRequestBuilder(organizationUrl, accessTokenCredential);
+    }
+
+    @Override
+    public MemberEntitlementManagementRequestBuilder memberEntitlementManagement() {
+        var locationUrl = getLocationUrl(ResourceId.MEMBER_ENTITLEMENT_MANAGEMENT);
+        return new MemberEntitlementManagementRequestBuilder(locationUrl, accessTokenCredential);
     }
 
     /**

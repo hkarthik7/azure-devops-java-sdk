@@ -1,5 +1,6 @@
 package org.azd.abstractions;
 
+import org.azd.abstractions.serializer.SerializerContext;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.http.ClientRequest;
 
@@ -11,6 +12,7 @@ public abstract class BaseRequestBuilder {
     protected String area;
     protected String locationId;
     protected String apiVersion;
+    protected SerializerContext serializer;
 
     protected BaseRequestBuilder(final String organizationUrl, final AccessTokenCredential accessTokenCredential) {
         this(organizationUrl, accessTokenCredential, null, null, null);
@@ -35,6 +37,7 @@ public abstract class BaseRequestBuilder {
         this.area = area;
         this.locationId = locationId;
         this.apiVersion = apiVersion;
+        this.serializer = InstanceFactory.createSerializerContext();
     }
 
     /**
@@ -43,10 +46,22 @@ public abstract class BaseRequestBuilder {
      * @return ClientRequest.Builder of builder. {@link ClientRequest.Builder}
      */
     protected ClientRequest.Builder builder() {
-        return ClientRequest.builder(accessTokenCredential)
-                .baseInstance(organizationUrl)
-                .area(area)
-                .location(locationId)
-                .apiVersion(apiVersion);
+        var builder = ClientRequest.builder(accessTokenCredential)
+                .baseInstance(organizationUrl);
+        if (area != null) builder.area(area);
+        if (locationId != null) builder.location(locationId);
+        builder.apiVersion(apiVersion);
+
+        return builder;
+    }
+
+    /**
+     * Decides whether to include the project or not.
+     */
+    public static class ProjectExcludeParameter {
+        /**
+         * Set false to exclude project from request url.
+         */
+        public boolean excludeProject = true;
     }
 }

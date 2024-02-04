@@ -10,6 +10,11 @@ public enum CustomHeader {
      */
     JSON_CONTENT_TYPE("Content-Type", "application/json"),
     /**
+     * Json content type applicable for most of the post request.
+     * "Content-Type", "application/json; charset=utf-8"
+     */
+    JSON_CONTENT_TYPE_UTF_8(CustomHeader.JSON_CONTENT_TYPE.name, "application/json; charset=utf-8"),
+    /**
      * Json content to accept
      * "Accept", "application/json"
      */
@@ -24,6 +29,11 @@ public enum CustomHeader {
      * "Accept", "text/plain"
      */
     TEXT_CONTENT(CustomHeader.JSON.name, "text/plain"),
+    /**
+     * Json content type applicable for most of the post request.
+     * "Content-Type", "application/json"
+     */
+    XML_CONTENT_TYPE(CustomHeader.JSON_CONTENT_TYPE.name, "application/xml"),
     /**
      * For url encoded request/response
      * "Content-Type", "application/x-www-form-urlencoded"

@@ -4,6 +4,7 @@ import org.azd.abstractions.ClientConfiguration;
 import org.azd.abstractions.proxy.DefaultProxyAuthenticator;
 import org.azd.abstractions.proxy.DefaultProxySelector;
 import org.azd.abstractions.proxy.ProxyConfiguration;
+import org.azd.abstractions.proxy.ProxyProvider;
 
 import java.util.Objects;
 
@@ -27,13 +28,7 @@ public class ConfigurationRequestBuilder {
      */
     public void proxy(ProxyConfiguration proxyConfiguration) {
         Objects.requireNonNull(proxyConfiguration, "Proxy configuration cannot be null.");
-        var configurationInstance = ClientConfiguration.getInstance();
-        var reqOption = configurationInstance.getRequestOption();
-        var proxySelector = new DefaultProxySelector(proxyConfiguration);
-        if (proxyConfiguration.proxyUsername != null && proxyConfiguration.proxyPassword != null)
-            reqOption.setAuthenticator(new DefaultProxyAuthenticator(proxyConfiguration));
-        reqOption.setProxySelector(proxySelector);
-        configurationInstance.configureRequestOption(reqOption);
+        ProxyProvider.configure(proxyConfiguration);
     }
 
     /**

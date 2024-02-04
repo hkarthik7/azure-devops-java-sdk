@@ -2,6 +2,7 @@ package org.azd.serviceclient;
 
 import org.azd.accounts.AccountsBaseRequestBuilder;
 import org.azd.artifacts.ArtifactsRequestBuilder;
+import org.azd.artifactspackagetypes.ArtifactsPackageTypesRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.build.BuildBaseRequestBuilder;
 import org.azd.configurations.ConfigurationRequestBuilder;
@@ -12,7 +13,9 @@ import org.azd.featuremanagement.FeatureManagementRequestBuilder;
 import org.azd.git.GitBaseRequestBuilder;
 import org.azd.graph.GraphRequestBuilder;
 import org.azd.helpers.HelpersRequestBuilder;
+import org.azd.interfaces.MemberEntitlementManagementDetails;
 import org.azd.locations.LocationsBaseRequestBuilder;
+import org.azd.memberentitlementmanagement.MemberEntitlementManagementRequestBuilder;
 import org.azd.oauth.OAuthAccessTokenBuilder;
 
 /**
@@ -42,6 +45,14 @@ public interface AzDServiceClient {
      */
 
     ArtifactsRequestBuilder artifacts();
+
+    /**
+     * Request builder for artifacts package types Api.
+     *
+     * @return Artifacts Package Types base request builder. {@link ArtifactsPackageTypesRequestBuilder}
+     * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/artifactspackagetypes/maven?view=azure-devops-rest-7.1">Artifacts Package Types</a>
+     */
+    ArtifactsPackageTypesRequestBuilder artifactsPackageTypes();
 
     /**
      * Request builder for build Api.
@@ -126,6 +137,13 @@ public interface AzDServiceClient {
      * @return Location base request builder. {@link LocationsBaseRequestBuilder}
      */
     LocationsBaseRequestBuilder locations();
+
+    /**
+     * Request builder for Member entitlement management Api.
+     *
+     * @return Member entitlement management request builder. {@link MemberEntitlementManagementRequestBuilder}
+     */
+    MemberEntitlementManagementRequestBuilder memberEntitlementManagement();
 
     /**
      * Request builder for OAuth access token creation.

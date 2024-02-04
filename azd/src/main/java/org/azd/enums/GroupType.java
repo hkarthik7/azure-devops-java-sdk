@@ -1,27 +1,36 @@
 package org.azd.enums;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Group Type
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public enum GroupType {
     /**
      * Custom
      */
+    @JsonProperty("custom")
     CUSTOM,
     /**
      * Project administrator
      */
-    PROJECTADMINISTRATOR,
+    @JsonProperty("projectAdministrator")
+    PROJECT_ADMINISTRATOR,
     /**
      * Project contributor
      */
-    PROJECTCONTRIBUTOR,
+    @JsonProperty("projectContributor")
+    PROJECT_CONTRIBUTOR,
     /**
      * Project reader
      */
-    PROJECTREADER,
+    @JsonProperty("projectReader")
+    PROJECT_READER,
     /**
      * Project stake holder
      */
-    PROJECTSTAKEHOLDER
+    @JsonProperty("projectStakeHolder")
+    PROJECT_STAKE_HOLDER
 }

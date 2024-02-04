@@ -36,22 +36,12 @@ public class ArtifactsRequestBuilder extends BaseRequestBuilder {
      * @return FeedManagementRequestBuilder {@link FeedManagementRequestBuilder}
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/artifacts/feed-management?view=azure-devops-rest-7.2">Feed Management</a>
      */
-    public FeedManagementRequestBuilder feedManagement(Predicate<ProjectIncludeParameter> configuration) {
+    public FeedManagementRequestBuilder feedManagement(Predicate<ProjectExcludeParameter> configuration) {
         if (configuration != null) {
-            final var config = new ProjectIncludeParameter();
+            final var config = new ProjectExcludeParameter();
             if (configuration.test(config)) accessTokenCredential.setProjectName(null);
         }
         return new FeedManagementRequestBuilder(organizationUrl, accessTokenCredential);
-    }
-
-    /**
-     * Decides whether to include the project or not.
-     */
-    public static class ProjectIncludeParameter {
-        /**
-         * Set false to exclude project from request url.
-         */
-        public boolean excludeProject = true;
     }
 }
 

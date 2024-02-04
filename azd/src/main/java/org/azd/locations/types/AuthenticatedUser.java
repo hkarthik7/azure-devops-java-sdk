@@ -19,7 +19,7 @@ public class AuthenticatedUser extends SerializableEntity {
     @JsonProperty("isActive")
     private boolean isActive;
     @JsonProperty("properties")
-    private Properties properties;
+    private Object properties;
     @JsonProperty("resourceVersion")
     private int resourceVersion;
     @JsonProperty("metaTypeId")
@@ -73,11 +73,11 @@ public class AuthenticatedUser extends SerializableEntity {
         isActive = active;
     }
 
-    public Properties getProperties() {
+    public Object getProperties() {
         return properties;
     }
 
-    public void setProperties(Properties properties) {
+    public void setProperties(Object properties) {
         this.properties = properties;
     }
 

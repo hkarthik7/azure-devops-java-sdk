@@ -52,7 +52,7 @@ public class MemberEntitlementManagementApiTest {
     public void shouldAddUserEntitlement() throws AzDException {
         var p = c.getProject("azure-devops-java-sdk");
         mem.addUserEntitlement(AccountLicenseType.EXPRESS,
-                "test@xmail.com", GroupType.PROJECTCONTRIBUTOR, p.getId());
+                "test@xmail.com", GroupType.PROJECT_CONTRIBUTOR, p.getId());
     }
 
     @Test

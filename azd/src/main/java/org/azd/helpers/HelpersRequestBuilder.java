@@ -3,8 +3,10 @@ package org.azd.helpers;
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.common.ResourceId;
+import org.azd.helpers.build.BuildHelpersRequestBuilder;
 import org.azd.helpers.featuremanagement.FeatureManagementHelpersRequestBuilder;
 import org.azd.helpers.git.GitHelpersRequestBuilder;
+import org.azd.helpers.graph.GraphHelpersRequestBuilder;
 import org.azd.locations.LocationsBaseRequestBuilder;
 
 /**
@@ -22,12 +24,12 @@ public class HelpersRequestBuilder extends BaseRequestBuilder {
     }
 
     /**
-     * Constructs git helpers request builder instance.
-     * 
-     * @return GitHelpersRequestBuilder {@link GitHelpersRequestBuilder} 
+     * Constructs build helpers request builder instance.
+     *
+     * @return BuildHelpersRequestBuilder {@link BuildHelpersRequestBuilder}
      */
-    public GitHelpersRequestBuilder git() {
-        return new GitHelpersRequestBuilder(getLocationUrl(ResourceId.GIT), accessTokenCredential);
+    public BuildHelpersRequestBuilder build() {
+        return new BuildHelpersRequestBuilder(getLocationUrl(ResourceId.BUILD), accessTokenCredential);
     }
 
     /**
@@ -37,6 +39,24 @@ public class HelpersRequestBuilder extends BaseRequestBuilder {
      */
     public FeatureManagementHelpersRequestBuilder featureManagement() {
         return new FeatureManagementHelpersRequestBuilder(organizationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Constructs git helpers request builder instance.
+     *
+     * @return GitHelpersRequestBuilder {@link GitHelpersRequestBuilder}
+     */
+    public GitHelpersRequestBuilder git() {
+        return new GitHelpersRequestBuilder(getLocationUrl(ResourceId.GIT), accessTokenCredential);
+    }
+
+    /**
+     * Constructs graph helpers request builder instance.
+     *
+     * @return GraphHelpersRequestBuilder {@link GraphHelpersRequestBuilder}
+     */
+    public GraphHelpersRequestBuilder graph() {
+        return new GraphHelpersRequestBuilder(getLocationUrl(ResourceId.GRAPH), accessTokenCredential);
     }
 
     /**

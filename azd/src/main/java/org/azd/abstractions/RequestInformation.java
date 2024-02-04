@@ -5,6 +5,7 @@ import org.azd.authentication.AccessTokenCredential;
 import org.azd.common.Constants;
 import org.azd.common.types.ApiLocation;
 import org.azd.enums.RequestMethod;
+import org.azd.utils.UrlBuilder;
 
 import java.io.InputStream;
 import java.net.URI;
@@ -51,10 +52,13 @@ public class RequestInformation {
                         }
                     }
                     if (value != null) {
-                        if (value.getClass().isArray()) {
+                        if (value.getClass().isEnum()) {
+                            queryParameters.put(name, value.toString().toLowerCase().replaceAll("_", ""));
+                        }
+                        else if (value.getClass().isArray()) {
                             queryParameters.put(name, Arrays.asList((Object[]) value));
                         } else if (!value.toString().isEmpty()) {
-                            queryParameters.put(name, value);
+                            queryParameters.put(name, value.toString());
                         }
                     }
                 } catch (Exception e) {
@@ -77,21 +81,16 @@ public class RequestInformation {
         }
     }
 
-    public String getRequestUrl() {
-        if (requestUrl != null) return requestUrl;
+    public URI getRequestUri() {
+        if (requestUrl != null) return URI.create(requestUrl);
         if (baseInstance != null) {
-            var url = new StringBuilder(baseInstance.replaceAll("/$", ""));
-            var endpoint = replacePathParameters();
-            url.append("/");
-            if (endpoint != null) url.append(endpoint);
-            if (apiVersion != null) url.append("?api-version=").append(apiVersion);
-            else {
-                if (getApiVersion() != null) url.append("?api-version=").append(getApiVersion());
-            }
+            var reqUrl = UrlBuilder.fromBaseUrl(baseInstance)
+                    .appendPath(replacePathParameters())
+                    .appendQueryString(Constants.API_VERSION, getApiVersion());
             if (!queryParameters.isEmpty())
                 for (var key : queryParameters.keySet())
-                    url.append(getQueryString(key, queryParameters.get(key)));
-            return url.toString();
+                    reqUrl.appendQueryString(key, String.valueOf(queryParameters.get(key)));
+            return reqUrl.build();
         }
         return null;
     }
@@ -144,6 +143,7 @@ public class RequestInformation {
     }
 
     private String getApiVersion() {
+        if (apiVersion != null) return apiVersion;
         var apiLocation = getLocation();
         if (apiLocation != null) {
             var releasedVersion = Double.parseDouble(apiLocation.releasedVersion);
@@ -154,16 +154,5 @@ public class RequestInformation {
             return apiVersion;
         }
         return null;
-    }
-
-    /**
-     * Creates a query string from given key and value
-     *
-     * @param key   pass the key of the HashMap
-     * @param value pass the value of the HasMap
-     * @return query string
-     */
-    private static String getQueryString(String key, Object value) {
-        return "&" + key + "=" + value;
     }
 }

@@ -7,7 +7,9 @@ import org.azd.enums.CustomHeader;
 import org.azd.exceptions.AzDException;
 
 import java.io.InputStream;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 
 /**
  * Provides the functionality to manage Build Attachments Api.
@@ -26,24 +28,24 @@ public class AttachmentsRequestBuilder extends BaseRequestBuilder {
     /**
      * Gets the attachment of a specific type that are associated with a build.
      *
-     * @param buildId        The ID of the build.
-     * @param timelineId     The ID of the timeline.
-     * @param recordId       The ID of the timeline record.
-     * @param type           The type of the attachment.
-     * @param attachmentName The name of the attachment.
+     * @param attachmentParameters Consumer of Attachment parameters to get the attachment.
      * @return Returns a future of response stream
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<InputStream> getAsync(int buildId, String timelineId, String recordId,
-                                                   String type, String attachmentName) throws AzDException {
+    public CompletableFuture<InputStream> getAsync(Consumer<AttachmentParameters> attachmentParameters) throws AzDException {
+        Objects.requireNonNull(attachmentParameters);
+
+        final var params = new AttachmentParameters();
+        attachmentParameters.accept(params);
+
         return builder()
                 .area("build")
                 .location("af5122d3-3438-485e-a25a-2dbbfde84ee6")
-                .serviceEndpoint("buildId", buildId)
-                .serviceEndpoint("timelineId", timelineId)
-                .serviceEndpoint("recordId", recordId)
-                .serviceEndpoint("type", type)
-                .serviceEndpoint("name", attachmentName)
+                .serviceEndpoint("buildId", params.buildId)
+                .serviceEndpoint("timelineId", params.timelineId)
+                .serviceEndpoint("recordId", params.recordId)
+                .serviceEndpoint("type", params.type)
+                .serviceEndpoint("name", params.attachmentName)
                 .header(CustomHeader.STREAM_ACCEPT)
                 .build()
                 .executeStreamAsync();
@@ -70,24 +72,24 @@ public class AttachmentsRequestBuilder extends BaseRequestBuilder {
     /**
      * Gets the attachment of a specific type that are associated with a build.
      *
-     * @param buildId        The ID of the build.
-     * @param timelineId     The ID of the timeline.
-     * @param recordId       The ID of the timeline record.
-     * @param type           The type of the attachment.
-     * @param attachmentName The name of the attachment.
+     * @param attachmentParameters Consumer of Attachment parameters to get the attachment.
      * @return Returns a future of response stream
      * @throws AzDException Default Api Exception handler.
      */
-    public InputStream get(int buildId, String timelineId, String recordId,
-                           String type, String attachmentName) throws AzDException {
+    public InputStream get(Consumer<AttachmentParameters> attachmentParameters) throws AzDException {
+        Objects.requireNonNull(attachmentParameters);
+
+        final var params = new AttachmentParameters();
+        attachmentParameters.accept(params);
+
         return builder()
                 .area("build")
                 .location("af5122d3-3438-485e-a25a-2dbbfde84ee6")
-                .serviceEndpoint("buildId", buildId)
-                .serviceEndpoint("timelineId", timelineId)
-                .serviceEndpoint("recordId", recordId)
-                .serviceEndpoint("type", type)
-                .serviceEndpoint("name", attachmentName)
+                .serviceEndpoint("buildId", params.buildId)
+                .serviceEndpoint("timelineId", params.timelineId)
+                .serviceEndpoint("recordId", params.recordId)
+                .serviceEndpoint("type", params.type)
+                .serviceEndpoint("name", params.attachmentName)
                 .header(CustomHeader.STREAM_ACCEPT)
                 .build()
                 .executeStream();
@@ -109,5 +111,31 @@ public class AttachmentsRequestBuilder extends BaseRequestBuilder {
                 .serviceEndpoint("type", type)
                 .build()
                 .execute(Attachments.class);
+    }
+
+    /**
+     * Represents the Attachment parameters.
+     */
+    public static class AttachmentParameters {
+        /**
+         * ID of the build.
+         */
+        public int buildId;
+        /**
+         * ID of timeline.
+         */
+        public String timelineId;
+        /**
+         * ID of the record.
+         */
+        public String recordId;
+        /**
+         * Type of attachment.
+         */
+        public String type;
+        /**
+         * Name of the attachment.
+         */
+        public String attachmentName;
     }
 }

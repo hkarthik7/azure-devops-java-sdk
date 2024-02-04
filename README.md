@@ -269,7 +269,7 @@ public class Main {
             URI requestUri = UrlBuilder.fromBaseUrl(locationUrl)
                     .appendPath(Constants.APIS_RELATIVE_PATH)
                     .appendPath("identities")
-                    .appendQueryString(Constants.API_VERSION, ApiVersion.IDENTITIES)
+                    .appendQueryString(Constants.API_VERSION, ApiVersion.IDENTITY)
                     .appendQueryString("descriptors", descriptors)
                     .build();
 

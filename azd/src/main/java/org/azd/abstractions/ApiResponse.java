@@ -3,6 +3,7 @@ package org.azd.abstractions;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.enums.HttpStatusCode;
 
 import java.net.http.HttpHeaders;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ApiResponse {
     @JsonProperty("statusCode")
-    private final int statusCode;
+    private final HttpStatusCode statusCode;
     @JsonProperty("responseHeadersMap")
     private final Map<String, List<String>> responseHeadersMap;
     @JsonProperty("responseBody")
@@ -21,7 +22,7 @@ public class ApiResponse {
     @JsonProperty("requestInformation")
     private final RequestInformation requestInformation;
 
-    public ApiResponse(int statusCode, Map<String, List<String>> responseHeadersMap, Object responseBody, String requestUrl,
+    public ApiResponse(HttpStatusCode statusCode, Map<String, List<String>> responseHeadersMap, Object responseBody, String requestUrl,
                        RequestInformation requestInformation) {
         this.statusCode = statusCode;
         this.responseHeadersMap = responseHeadersMap;
@@ -30,7 +31,7 @@ public class ApiResponse {
         this.requestInformation = requestInformation;
     }
 
-    public int getStatusCode() {
+    public HttpStatusCode getStatusCode() {
         return statusCode;
     }
 

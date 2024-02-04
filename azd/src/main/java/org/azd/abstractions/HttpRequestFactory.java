@@ -25,7 +25,7 @@ public class HttpRequestFactory {
 
     public HttpRequest newRequest() {
         try {
-            var builder = HttpRequest.newBuilder(URI.create(requestInformation.getRequestUrl()));
+            var builder = HttpRequest.newBuilder(requestInformation.getRequestUri());
 
             if (accessTokenCredential != null)
                 builder.setHeader(Constants.AUTHORIZATION, accessTokenCredential.getAccessToken());

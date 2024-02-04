@@ -9,7 +9,6 @@ public class DefaultProxyAuthenticator extends Authenticator {
 
     public DefaultProxyAuthenticator(ProxyConfiguration proxyConfig) {
         this.proxyConfig = Objects.requireNonNull(proxyConfig, "Proxy configuration cannot be null.");
-        ;
     }
 
     @Override

@@ -38,7 +38,7 @@ public class FeatureManagementHelpersRequestBuilder extends FeatureManagementReq
      * @throws AzDException Default Api Exception handler
      */
     public Optional<Boolean> getFeatureState(String projectId, FeatureManagement feature) throws AzDException {
-        var state = getStateForScope(feature, FeatureManagementUserScope.HOST, FeatureManagementScopeName.PROJECT, projectId);
+        var state = stateScope().get(feature, FeatureManagementUserScope.HOST, FeatureManagementScopeName.PROJECT, projectId);
         if (state == null) return Optional.empty();
         if (state.getState().equals(ContributedFeatureEnabledValue.ENABLED))
             return Optional.of(Boolean.TRUE);
@@ -69,7 +69,7 @@ public class FeatureManagementHelpersRequestBuilder extends FeatureManagementReq
         featureState.setScope(scope);
         featureState.setState(state ? ContributedFeatureEnabledValue.ENABLED : ContributedFeatureEnabledValue.DISABLED);
 
-        var resp = setStateForScope(featureState, feature, FeatureManagementUserScope.HOST, FeatureManagementScopeName.PROJECT, projectId);
+        var resp = stateScope().set(featureState, feature, FeatureManagementUserScope.HOST, FeatureManagementScopeName.PROJECT, projectId);
 
         var projFeature = new ProjectFeature();
         var projScope = new ProjectFeature.Scope();

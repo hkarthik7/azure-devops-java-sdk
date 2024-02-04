@@ -3,6 +3,7 @@ package org.azd.abstractions.handlers;
 import org.azd.abstractions.ApiResponse;
 import org.azd.abstractions.RequestInformation;
 import org.azd.abstractions.ResponseHandler;
+import org.azd.enums.HttpStatusCode;
 
 import java.net.http.HttpResponse;
 import java.util.OptionalLong;
@@ -15,7 +16,7 @@ public class DefaultResponseHandler extends ResponseHandler {
 
     @Override
     public <T> T handle(HttpResponse<T> response, RequestInformation requestInformation) {
-        apiResponse = new ApiResponse(response.statusCode(), response.headers().map(),
+        apiResponse = new ApiResponse(HttpStatusCode.getByCode(response.statusCode()), response.headers().map(),
                 response.body(), response.request().uri().toString(), requestInformation);
 
         if (shouldRetry(response)) apiResponse = retryHandler.retry(apiResponse);

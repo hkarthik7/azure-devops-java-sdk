@@ -407,7 +407,7 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
         @QueryParameter(name = "properties")
         public String properties;
         /**
-         * A comma-delimited list of properties to retrieve.
+         * Build query order.
          */
         @QueryParameter(name = "queryOrder")
         public BuildQueryOrder queryOrder;

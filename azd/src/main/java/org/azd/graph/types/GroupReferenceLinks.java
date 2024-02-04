@@ -1,8 +1,8 @@
 package org.azd.graph.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.azd.abstractions.InstanceFactory;
 import org.azd.exceptions.AzDException;
-import org.azd.helpers.JsonMapper;
 
 /**
  * This field contains zero or more interesting links about the graph subject.
@@ -16,10 +16,10 @@ public class GroupReferenceLinks extends GraphReferenceLinks {
     @Override
     public String toString() {
         String res = null;
-        var mapper = new JsonMapper();
+        var serializer = InstanceFactory.createSerializerContext();
 
         try {
-            res = mapper.convertToString(this);
+            res = serializer.serialize(this);
         } catch (AzDException ignored) {
         }
 

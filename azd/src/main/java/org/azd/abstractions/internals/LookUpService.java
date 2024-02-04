@@ -42,7 +42,7 @@ public class LookUpService {
                     .build()
                     .executeAsync(ResourceAreas.class)
                     .thenApplyAsync(results -> {
-                        results.resourceAreas.forEach(result ->
+                        results.getResourceAreas().forEach(result ->
                                 resourceAreasCache.put(result.getId().toLowerCase(), result));
                         return results;
                     })
