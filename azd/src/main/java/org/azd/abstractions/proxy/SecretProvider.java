@@ -10,7 +10,7 @@ import java.util.Base64;
 
 public class SecretProvider {
     public static String readTaskLibSecrets(String lookupKey) throws Exception {
-        // This is copied from the sdk implementation for Node
+        // This is the java implementation of azure-devops-node-api sdk's `readTaskLibSecrets` method.
         // The lookupKey should have the following format:
         // base64encoded<keyFilePath>:base64encoded<encryptedContent>
         if (lookupKey != null && lookupKey.contains(":")) {

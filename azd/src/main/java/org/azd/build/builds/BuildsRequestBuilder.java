@@ -355,7 +355,7 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
          * The maximum number of builds to return.
          */
         @QueryParameter(name = "$top")
-        public Number top;
+        public Integer top;
         /**
          * If specified, filters to builds that built branches that built this branch.
          */

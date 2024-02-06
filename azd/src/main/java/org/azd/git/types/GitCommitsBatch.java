@@ -17,12 +17,12 @@ public class GitCommitsBatch extends SerializableEntity {
      * Number of entries to skip
      */
     @JsonProperty("$skip")
-    public Number skip;
+    public Integer skip;
     /**
      * Maximum number of entries to retrieve
      */
     @JsonProperty("$top")
-    public Number top;
+    public Integer top;
     /**
      * Alias or display name of the author
      */

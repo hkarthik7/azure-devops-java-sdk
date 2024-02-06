@@ -356,12 +356,12 @@ public class CommitsRequestBuilder extends BaseRequestBuilder {
          * The maximum number of changes to return.
          */
         @QueryParameter(name = "top")
-        public Number top;
+        public Integer top;
         /**
          * The number of changes to skip.
          */
         @QueryParameter(name = "skip")
-        public Number skip;
+        public Integer skip;
     }
 
     /**
@@ -379,12 +379,12 @@ public class CommitsRequestBuilder extends BaseRequestBuilder {
          * The maximum number of changes to return.
          */
         @QueryParameter(name = "$top")
-        public Number top;
+        public Integer top;
         /**
          * The number of changes to skip.
          */
         @QueryParameter(name = "$skip")
-        public Number skip;
+        public Integer skip;
         /**
          * True to include additional commit status information.
          */
@@ -412,12 +412,12 @@ public class CommitsRequestBuilder extends BaseRequestBuilder {
          * The maximum number of changes to return.
          */
         @QueryParameter(name = "top")
-        public Number top;
+        public Integer top;
         /**
          * The number of changes to skip.
          */
         @QueryParameter(name = "skip")
-        public Number skip;
+        public Integer skip;
         /**
          * True to include additional commit status information.
          */
@@ -440,12 +440,12 @@ public class CommitsRequestBuilder extends BaseRequestBuilder {
          * Maximum number of entries to retrieve.
          */
         @QueryParameter(name = "searchCriteria.$top")
-        public Number top;
+        public Integer top;
         /**
          * Number of entries to skip
          */
         @QueryParameter(name = "searchCriteria.$skip")
-        public Number skip;
+        public Integer skip;
         /**
          * Alias or display name of the author
          */

@@ -332,12 +332,12 @@ public class ProjectsRequestBuilder extends BaseRequestBuilder {
          * Projects to skip.
          */
         @QueryParameter(name = "$skip")
-        public Number skip;
+        public Integer skip;
         /**
          * Projects to select.
          */
         @QueryParameter(name = "$top")
-        public Number top;
+        public Integer top;
         /**
          * Pointer that shows how many projects already been fetched.
          */

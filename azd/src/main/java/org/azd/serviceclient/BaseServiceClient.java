@@ -18,6 +18,7 @@ import org.azd.helpers.HelpersRequestBuilder;
 import org.azd.locations.LocationsBaseRequestBuilder;
 import org.azd.memberentitlementmanagement.MemberEntitlementManagementRequestBuilder;
 import org.azd.oauth.OAuthAccessTokenBuilder;
+import org.azd.pipelines.PipelinesBaseRequestBuilder;
 
 import java.net.URI;
 import java.util.Objects;
@@ -210,6 +211,12 @@ public class BaseServiceClient implements AzDServiceClient {
         return new LocationsBaseRequestBuilder(organizationUrl, accessTokenCredential);
     }
 
+    /**
+     * Request builder for Member entitlement management Api.
+     *
+     * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/memberentitlementmanagement/?view=azure-devops-rest-7.1">Member Entitlement Management</a>
+     * @return Member entitlement management request builder. {@link MemberEntitlementManagementRequestBuilder}
+     */
     @Override
     public MemberEntitlementManagementRequestBuilder memberEntitlementManagement() {
         var locationUrl = getLocationUrl(ResourceId.MEMBER_ENTITLEMENT_MANAGEMENT);
@@ -225,6 +232,18 @@ public class BaseServiceClient implements AzDServiceClient {
     @Override
     public OAuthAccessTokenBuilder oauth() {
         return new OAuthAccessTokenBuilder();
+    }
+
+    /**
+     * Request builder for Pipelines Api.
+     *
+     * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/pipelines/?view=azure-devops-rest-7.1">Pipelines</a>
+     * @return Pipelines request builder. {@link PipelinesBaseRequestBuilder}
+     */
+    @Override
+    public PipelinesBaseRequestBuilder pipelines() {
+        var locationUrl = getLocationUrl(ResourceId.PIPELINES);
+        return new PipelinesBaseRequestBuilder(locationUrl, accessTokenCredential);
     }
 
     /**

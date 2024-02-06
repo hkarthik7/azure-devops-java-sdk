@@ -168,7 +168,7 @@ public class RefsRequestBuilder extends BaseRequestBuilder {
          * Maximum number of refs to return. It cannot be bigger than 1000. If it is not provided but continuationToken is, top will default to 100.
          */
         @QueryParameter(name = "$top")
-        public Number top;
+        public Integer top;
         /**
          * The continuation token used for pagination.
          */

@@ -5,6 +5,7 @@ import org.azd.abstractions.QueryParameter;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.common.ApiVersion;
 import org.azd.common.types.JsonPatchDocument;
+import org.azd.enums.CustomHeader;
 import org.azd.enums.UserEntitlementProperty;
 import org.azd.exceptions.AzDException;
 import org.azd.memberentitlementmanagement.types.PagedGraphMemberList;
@@ -118,6 +119,7 @@ public class UserEntitlementsRequestBuilder extends BaseRequestBuilder {
                 .PATCH(jsonPatchDocument)
                 .location("8480c6eb-ce60-47e9-88df-eca3c801638b")
                 .serviceEndpoint("userId", userId)
+                .header(CustomHeader.JSON_PATCH)
                 .build()
                 .executeAsync(UserEntitlementsResponse.class);
     }
@@ -135,6 +137,7 @@ public class UserEntitlementsRequestBuilder extends BaseRequestBuilder {
         return builder()
                 .PATCH(jsonPatchDocument)
                 .query("doNotSendInviteForNewUsers", doNotSendInviteForNewUsers)
+                .header(CustomHeader.JSON_PATCH)
                 .build()
                 .executeAsync(UserEntitlementOperationReference.class);
     }
@@ -226,6 +229,7 @@ public class UserEntitlementsRequestBuilder extends BaseRequestBuilder {
                 .PATCH(jsonPatchDocument)
                 .location("8480c6eb-ce60-47e9-88df-eca3c801638b")
                 .serviceEndpoint("userId", userId)
+                .header(CustomHeader.JSON_PATCH)
                 .build()
                 .execute(UserEntitlementsResponse.class);
     }
@@ -243,6 +247,7 @@ public class UserEntitlementsRequestBuilder extends BaseRequestBuilder {
         return builder()
                 .PATCH(jsonPatchDocument)
                 .query("doNotSendInviteForNewUsers", doNotSendInviteForNewUsers)
+                .header(CustomHeader.JSON_PATCH)
                 .build()
                 .execute(UserEntitlementOperationReference.class);
     }

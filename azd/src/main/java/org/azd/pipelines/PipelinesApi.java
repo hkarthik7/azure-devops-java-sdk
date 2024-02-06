@@ -154,7 +154,7 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, PIPELINES, CONNECTION.getProject(),
-                AREA, Integer.toString(pipelineId), "runs/" + runId + "/logs", ApiVersion.PIPELINES, null, null, null);
+                AREA, Integer.toString(pipelineId), "runs/" + runId + "/logs", ApiVersion.PIPELINES, q, null, null);
 
         return MAPPER.mapJsonResponse(r, LogCollection.class);
     }
@@ -172,7 +172,6 @@ public class PipelinesApi extends AzDAsyncApi<PipelinesApi> implements Pipelines
      */
     @Override
     public Pipeline createPipeline(String name, String folder, String pathOfYamlFile, String repositoryId, String repositoryName) throws AzDException {
-        var git = new GitApi(CONNECTION);
 
         var body = new HashMap<String, Object>() {{
             put("name", name);

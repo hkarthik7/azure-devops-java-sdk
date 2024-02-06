@@ -136,7 +136,7 @@ public class BuildChangesRequestBuilder extends BaseRequestBuilder {
          * Specify to return top changes between builds.
          */
         @QueryParameter(name = "$top")
-        public Number top;
+        public Integer top;
         /**
          * Continuation token to return the paginated response.
          */

@@ -274,7 +274,7 @@ public class DeploymentGroupsRequestBuilder extends BaseRequestBuilder {
          * Maximum number of deployment groups to return. Default is 1000.
          */
         @QueryParameter(name = "$top")
-        public Number top;
+        public Integer top;
         /**
          * Get deployment groups with names greater than this continuationToken lexicographically.
          */

@@ -333,12 +333,12 @@ public class TeamsRequestBuilder extends BaseRequestBuilder {
          * Number of teams to skip.
          */
         @QueryParameter(name = "$skip")
-        public Number skip;
+        public Integer skip;
         /**
          * Maximum number of teams to return.
          */
         @QueryParameter(name = "$top")
-        public Number top;
+        public Integer top;
     }
 
     /**

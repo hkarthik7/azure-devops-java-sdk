@@ -13,10 +13,10 @@ import org.azd.featuremanagement.FeatureManagementRequestBuilder;
 import org.azd.git.GitBaseRequestBuilder;
 import org.azd.graph.GraphRequestBuilder;
 import org.azd.helpers.HelpersRequestBuilder;
-import org.azd.interfaces.MemberEntitlementManagementDetails;
 import org.azd.locations.LocationsBaseRequestBuilder;
 import org.azd.memberentitlementmanagement.MemberEntitlementManagementRequestBuilder;
 import org.azd.oauth.OAuthAccessTokenBuilder;
+import org.azd.pipelines.PipelinesBaseRequestBuilder;
 
 /**
  * Client builder for constructing Api specific requests for Azure DevOps services.
@@ -141,6 +141,7 @@ public interface AzDServiceClient {
     /**
      * Request builder for Member entitlement management Api.
      *
+     * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/memberentitlementmanagement/?view=azure-devops-rest-7.1">Member Entitlement Management</a>
      * @return Member entitlement management request builder. {@link MemberEntitlementManagementRequestBuilder}
      */
     MemberEntitlementManagementRequestBuilder memberEntitlementManagement();
@@ -152,4 +153,12 @@ public interface AzDServiceClient {
      * @see <a href="https://learn.microsoft.com/en-us/azure/devops/integrate/get-started/authentication/oauth?toc=%2Fazure%2Fdevops%2Fmarketplace-extensibility%2Ftoc.json&view=azure-devops">OAuth2.0</a>
      */
     OAuthAccessTokenBuilder oauth();
+
+    /**
+     * Request builder for Pipelines Api.
+     *
+     * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/pipelines/?view=azure-devops-rest-7.1">Pipelines</a>
+     * @return Pipelines request builder. {@link PipelinesBaseRequestBuilder}
+     */
+    PipelinesBaseRequestBuilder pipelines();
 }

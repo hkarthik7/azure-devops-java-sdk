@@ -374,12 +374,12 @@ public class PullRequestsRequestBuilder extends BaseRequestBuilder {
          * The number of pull requests to ignore. For example, to retrieve results 101-150, set top to 50 and skip to 100.
          */
         @QueryParameter(name = "$skip")
-        public Number skip;
+        public Integer skip;
         /**
          * The number of pull requests to retrieve.
          */
         @QueryParameter(name = "$top")
-        public Number top;
+        public Integer top;
         /**
          * If set, search for pull requests that were created by this identity.
          */

@@ -218,12 +218,12 @@ public class PushesRequestBuilder extends BaseRequestBuilder {
          * Start date to search from.
          */
         @QueryParameter(name = "$top")
-        public Number top;
+        public Integer top;
         /**
          * Start date to search from.
          */
         @QueryParameter(name = "$skip")
-        public Number skip;
+        public Integer skip;
         /**
          * Start date to search from.
          */

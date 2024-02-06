@@ -4,11 +4,18 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 
+import java.util.Objects;
+
 /**
  * Definition of a pipeline.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Pipeline extends SerializableEntity {
+    /**
+     * The class to represent a collection of REST reference links.
+     */
+    @JsonProperty("_links")
+    private Object links;
     /**
      * Pipeline configuration object
      */
@@ -88,4 +95,11 @@ public class Pipeline extends SerializableEntity {
         this.url = url;
     }
 
+    public Object getLinks() {
+        return links;
+    }
+
+    public void setLinks(Object links) {
+        this.links = links;
+    }
 }

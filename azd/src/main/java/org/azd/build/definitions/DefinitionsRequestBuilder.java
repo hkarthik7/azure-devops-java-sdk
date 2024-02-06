@@ -368,7 +368,7 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
          * The maximum number of definitions to return.
          */
         @QueryParameter(name = "$top")
-        public Number top;
+        public Integer top;
         /**
          * If specified, filters to definitions that have builds after this date.
          */

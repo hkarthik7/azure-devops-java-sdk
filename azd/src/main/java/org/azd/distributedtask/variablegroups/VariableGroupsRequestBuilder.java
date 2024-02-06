@@ -322,7 +322,7 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
          * Number of variable groups to get.
          */
         @QueryParameter(name = "$top")
-        public Number top;
+        public Integer top;
         /**
          * Action filter for the variable group. It specifies the action which can be performed on the variable groups.
          */

@@ -221,7 +221,7 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public Projects getProjects(Number skip, Number top, Number continuationToken,
+    public Projects getProjects(Integer skip, Integer top, Number continuationToken,
                                 Boolean getDefaultTeamImageUrl, ProjectState stateFilter) throws AzDException {
 
         HashMap<String, Object> q = new HashMap<>() {{

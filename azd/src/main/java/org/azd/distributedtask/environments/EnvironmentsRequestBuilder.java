@@ -238,7 +238,7 @@ public class EnvironmentsRequestBuilder extends BaseRequestBuilder {
          * Maximum number of environments to return.
          */
         @QueryParameter(name = "$top")
-        public Number top;
+        public Integer top;
         /**
          * continuationToken value to get next set of results.
          */

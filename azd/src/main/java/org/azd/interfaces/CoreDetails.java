@@ -25,7 +25,7 @@ public interface CoreDetails {
 
     Projects getProjects() throws AzDException;
 
-    Projects getProjects(Number skip, Number top, Number continuationToken,
+    Projects getProjects(Integer skip, Integer top, Number continuationToken,
                          Boolean getDefaultTeamImageUrl, ProjectState stateFilter) throws AzDException;
 
     OperationReference updateProject(String projectId, Project projectParameters) throws AzDException;
