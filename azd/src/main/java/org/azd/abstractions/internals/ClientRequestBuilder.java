@@ -168,6 +168,7 @@ public class ClientRequestBuilder implements ClientRequest.Builder {
 
     @Override
     public RequestInformation request() {
+        reqInfo.pathParameters = pathParameters;
         return reqInfo;
     }
 
