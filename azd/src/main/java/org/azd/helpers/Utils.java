@@ -13,4 +13,11 @@ public final class Utils extends URLHelper {
         if (values == null) return null;
         return String.join(",", values);
     }
+
+    public static boolean isNullOrEmpty(String value) {
+        var isNullOrEmpty = true;
+        if (value == null) return isNullOrEmpty;
+        if (value.isEmpty() || value.isBlank()) return isNullOrEmpty;
+        return false;
+    }
 }

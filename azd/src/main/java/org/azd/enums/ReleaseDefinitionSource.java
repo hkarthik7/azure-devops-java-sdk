@@ -22,7 +22,7 @@ public enum ReleaseDefinitionSource {
      * Indicates ReleaseDefinition created from PortalExtension API.
      **/
     @JsonProperty("portalExtensionApi")
-    PORTALEXTENSIONAPI,
+    PORTAL_EXTENSION_API,
     /**
      * Indicates ReleaseDefinition created using REST API.
      **/
@@ -37,5 +37,5 @@ public enum ReleaseDefinitionSource {
      * Indicates ReleaseDefinition created using UI.
      **/
     @JsonProperty("userInterface")
-    USERINTERFACE;
+    USER_INTERFACE;
 }

@@ -16,101 +16,101 @@ public enum DeploymentOperationStatus {
     /**
      * The deployment operation status is all.
      **/
-    @JsonProperty("all")
+    @JsonProperty("All")
     ALL,
     /**
      * The deployment operation status is approved.
      **/
-    @JsonProperty("approved")
+    @JsonProperty("Approved")
     APPROVED,
     /**
      * The deployment operation status is canceled.
      **/
-    @JsonProperty("canceled")
+    @JsonProperty("Canceled")
     CANCELED,
     /**
      * The deployment operation status is cancelling.
      **/
-    @JsonProperty("cancelling")
+    @JsonProperty("Cancelling")
     CANCELLING,
     /**
      * The deployment operation status is deferred.
      **/
-    @JsonProperty("deferred")
+    @JsonProperty("Deferred")
     DEFERRED,
     /**
      * The deployment operation status is EvaluatingGates.
      **/
-    @JsonProperty("evaluatingGates")
-    EVALUATINGGATES,
+    @JsonProperty("EvaluatingGates")
+    EVALUATING_GATES,
     /**
      * The deployment operation status is GateFailed.
      **/
-    @JsonProperty("gateFailed")
-    GATEFAILED,
+    @JsonProperty("GateFailed")
+    GATE_FAILED,
     /**
      * The deployment operation status is manualintervention pending.
      **/
-    @JsonProperty("manualInterventionPending")
-    MANUALINTERVENTIONPENDING,
+    @JsonProperty("ManualInterventionPending")
+    MANUAL_INTERVENTION_PENDING,
     /**
      * The deployment operation status is pending.
      **/
-    @JsonProperty("pending")
+    @JsonProperty("Pending")
     PENDING,
     /**
      * The deployment operation status is phase canceled.
      **/
-    @JsonProperty("phaseCanceled")
-    PHASECANCELED,
+    @JsonProperty("PhaseCanceled")
+    PHASE_CANCELED,
     /**
      * The deployment operation status is phase failed.
      **/
-    @JsonProperty("phaseFailed")
-    PHASEFAILED,
+    @JsonProperty("PhaseFailed")
+    PHASE_FAILED,
     /**
      * The deployment operation status is phase in progress.
      **/
-    @JsonProperty("phaseInProgress")
-    PHASEINPROGRESS,
+    @JsonProperty("PhaseInProgress")
+    PHASE_IN_PROGRESS,
     /**
      * The deployment operation status is phase partially succeeded.
      **/
-    @JsonProperty("phasePartiallySucceeded")
-    PHASEPARTIALLYSUCCEEDED,
+    @JsonProperty("PhasePartiallySucceeded")
+    PHASE_PARTIALLY_SUCCEEDED,
     /**
      * The deployment operation status is phase succeeded.
      **/
-    @JsonProperty("phaseSucceeded")
-    PHASESUCCEEDED,
+    @JsonProperty("PhaseSucceeded")
+    PHASE_SUCCEEDED,
     /**
      * The deployment operation status is queued.
      **/
-    @JsonProperty("queued")
+    @JsonProperty("Queued")
     QUEUED,
     /**
      * The deployment operation status is queued for agent.
      **/
-    @JsonProperty("queuedForAgent")
-    QUEUEDFORAGENT,
+    @JsonProperty("QueuedForAgent")
+    QUEUED_FOR_AGENT,
     /**
      * The deployment operation status is queued for pipeline.
      **/
-    @JsonProperty("queuedForPipeline")
-    QUEUEDFORPIPELINE,
+    @JsonProperty("QueuedForPipeline")
+    QUEUED_FOR_PIPELINE,
     /**
      * The deployment operation status is rejected.
      **/
-    @JsonProperty("rejected")
+    @JsonProperty("Rejected")
     REJECTED,
     /**
      * The deployment operation status is scheduled.
      **/
-    @JsonProperty("scheduled")
+    @JsonProperty("Scheduled")
     SCHEDULED,
     /**
      * The deployment operation status is undefined.
      **/
-    @JsonProperty("undefined")
+    @JsonProperty("Undefined")
     UNDEFINED;
 }

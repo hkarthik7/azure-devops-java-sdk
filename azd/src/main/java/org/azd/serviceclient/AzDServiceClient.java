@@ -5,7 +5,7 @@ import org.azd.artifacts.ArtifactsRequestBuilder;
 import org.azd.artifactspackagetypes.ArtifactsPackageTypesRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.build.BuildBaseRequestBuilder;
-import org.azd.configurations.ConfigurationRequestBuilder;
+import org.azd.configurations.ClientConfigurationRequestBuilder;
 import org.azd.core.CoreRequestBuilder;
 import org.azd.distributedtask.DistributedTaskRequestBuilder;
 import org.azd.extensionmanagement.ExtensionManagementRequestBuilder;
@@ -17,6 +17,8 @@ import org.azd.locations.LocationsBaseRequestBuilder;
 import org.azd.memberentitlementmanagement.MemberEntitlementManagementRequestBuilder;
 import org.azd.oauth.OAuthAccessTokenBuilder;
 import org.azd.pipelines.PipelinesBaseRequestBuilder;
+import org.azd.policy.PolicyRequestBuilder;
+import org.azd.release.ReleaseBaseRequestBuilder;
 
 /**
  * Client builder for constructing Api specific requests for Azure DevOps services.
@@ -65,9 +67,9 @@ public interface AzDServiceClient {
     /**
      * Request builder for configuring the AzD service client.
      *
-     * @return Configuration request builder. {@link ConfigurationRequestBuilder}
+     * @return Configuration request builder. {@link ClientConfigurationRequestBuilder}
      */
-    ConfigurationRequestBuilder configuration();
+    ClientConfigurationRequestBuilder configuration();
 
     /**
      * Request builder for core Api.
@@ -141,8 +143,8 @@ public interface AzDServiceClient {
     /**
      * Request builder for Member entitlement management Api.
      *
-     * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/memberentitlementmanagement/?view=azure-devops-rest-7.1">Member Entitlement Management</a>
      * @return Member entitlement management request builder. {@link MemberEntitlementManagementRequestBuilder}
+     * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/memberentitlementmanagement/?view=azure-devops-rest-7.1">Member Entitlement Management</a>
      */
     MemberEntitlementManagementRequestBuilder memberEntitlementManagement();
 
@@ -157,8 +159,23 @@ public interface AzDServiceClient {
     /**
      * Request builder for Pipelines Api.
      *
-     * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/pipelines/?view=azure-devops-rest-7.1">Pipelines</a>
      * @return Pipelines request builder. {@link PipelinesBaseRequestBuilder}
+     * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/pipelines/?view=azure-devops-rest-7.1">Pipelines</a>
      */
     PipelinesBaseRequestBuilder pipelines();
+
+    /**
+     * Request builder for Policy Api.
+     *
+     * @return Policy request builder {@link PolicyRequestBuilder}
+     * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/policy/?view=azure-devops-rest-7.1">Policy</a>
+     */
+    PolicyRequestBuilder policy();
+
+    /**
+     * Request builder for Release Api.
+     *
+     * @return Release Request builder {@link ReleaseBaseRequestBuilder}
+     */
+    ReleaseBaseRequestBuilder release();
 }

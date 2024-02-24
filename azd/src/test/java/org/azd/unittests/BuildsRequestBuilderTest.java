@@ -5,18 +5,23 @@ import org.azd.abstractions.InstanceFactory;
 import org.azd.abstractions.serializer.SerializerContext;
 import org.azd.authentication.PersonalAccessTokenCredential;
 import org.azd.build.types.Builds;
-import org.azd.enums.BuildQueryOrder;
-import org.azd.enums.BuildReason;
-import org.azd.enums.Instance;
+import org.azd.common.ApiVersion;
+import org.azd.common.Constants;
+import org.azd.common.ResourceId;
+import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
+import org.azd.helpers.StreamHelper;
 import org.azd.http.ClientRequest;
 import org.azd.legacy.MockParameters;
+import org.azd.release.types.*;
 import org.azd.serviceclient.AzDService;
 import org.azd.serviceclient.AzDServiceClient;
+import org.azd.utils.UrlBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class BuildsRequestBuilderTest {
@@ -96,10 +101,16 @@ public class BuildsRequestBuilderTest {
 //
 //        StreamHelper.download("ClickJack-1.5.0.jar", responseStream);
 
-        var id = client.locations().getConnectionData().getAuthenticatedUser().getId();
-        System.out.println(id);
-        System.out.println(client.accounts().profile().get().getId());
-        System.out.println(client.memberEntitlementManagement().userEntitlements().get(id));
+//        var id = client.locations().getConnectionData().getAuthenticatedUser().getId();
+//        System.out.println(id);
+//        System.out.println(client.accounts().profile().get().getId());
+//        System.out.println(client.memberEntitlementManagement().userEntitlements().get(id));
+
+//        var locationService = LocationService.getInstance(client.accessTokenCredential());
+//        System.out.println(locationService.getServiceLocation(client.locations().getUrl(ResourceId.PACKAGING),
+//                "packaging", "feeds"));
+
+        System.out.println(client.release().releases().list().getReleases());
 
     }
 }

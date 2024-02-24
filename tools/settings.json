@@ -5,6 +5,6 @@
     "notes": "\n/*\n----------------------------------------------------------\n\tGENERATED FILE, should be edited to suit the purpose.\n----------------------------------------------------------\n*/",
     "imports": "\nimport com.fasterxml.jackson.annotation.JsonIgnoreProperties;\nimport com.fasterxml.jackson.annotation.JsonProperty;\nimport org.azd.abstractions.serializer.SerializableEntity;\n"
   },
-  "url": "https://learn.microsoft.com/en-us/rest/api/azure/devops/pipelines/preview/preview?view=azure-devops-rest-7.1",
+  "url": "https://learn.microsoft.com/en-us/rest/api/azure/devops/release/releases/update-release-resource?view=azure-devops-rest-7.1&tabs=HTTP",
   "commentOnly": false
 }

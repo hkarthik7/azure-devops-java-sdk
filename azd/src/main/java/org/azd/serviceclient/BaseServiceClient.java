@@ -7,7 +7,7 @@ import org.azd.artifactspackagetypes.ArtifactsPackageTypesRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.build.BuildBaseRequestBuilder;
 import org.azd.common.ResourceId;
-import org.azd.configurations.ConfigurationRequestBuilder;
+import org.azd.configurations.ClientConfigurationRequestBuilder;
 import org.azd.core.CoreRequestBuilder;
 import org.azd.distributedtask.DistributedTaskRequestBuilder;
 import org.azd.extensionmanagement.ExtensionManagementRequestBuilder;
@@ -19,6 +19,8 @@ import org.azd.locations.LocationsBaseRequestBuilder;
 import org.azd.memberentitlementmanagement.MemberEntitlementManagementRequestBuilder;
 import org.azd.oauth.OAuthAccessTokenBuilder;
 import org.azd.pipelines.PipelinesBaseRequestBuilder;
+import org.azd.policy.PolicyRequestBuilder;
+import org.azd.release.ReleaseBaseRequestBuilder;
 
 import java.net.URI;
 import java.util.Objects;
@@ -103,11 +105,11 @@ public class BaseServiceClient implements AzDServiceClient {
     /**
      * Request builder for configuring the AzD service client.
      *
-     * @return Configuration request builder. {@link ConfigurationRequestBuilder}
+     * @return Configuration request builder. {@link ClientConfigurationRequestBuilder}
      */
     @Override
-    public ConfigurationRequestBuilder configuration() {
-        return new ConfigurationRequestBuilder();
+    public ClientConfigurationRequestBuilder configuration() {
+        return new ClientConfigurationRequestBuilder();
     }
 
     /**
@@ -214,8 +216,8 @@ public class BaseServiceClient implements AzDServiceClient {
     /**
      * Request builder for Member entitlement management Api.
      *
-     * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/memberentitlementmanagement/?view=azure-devops-rest-7.1">Member Entitlement Management</a>
      * @return Member entitlement management request builder. {@link MemberEntitlementManagementRequestBuilder}
+     * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/memberentitlementmanagement/?view=azure-devops-rest-7.1">Member Entitlement Management</a>
      */
     @Override
     public MemberEntitlementManagementRequestBuilder memberEntitlementManagement() {
@@ -237,13 +239,36 @@ public class BaseServiceClient implements AzDServiceClient {
     /**
      * Request builder for Pipelines Api.
      *
-     * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/pipelines/?view=azure-devops-rest-7.1">Pipelines</a>
      * @return Pipelines request builder. {@link PipelinesBaseRequestBuilder}
+     * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/pipelines/?view=azure-devops-rest-7.1">Pipelines</a>
      */
     @Override
     public PipelinesBaseRequestBuilder pipelines() {
         var locationUrl = getLocationUrl(ResourceId.PIPELINES);
         return new PipelinesBaseRequestBuilder(locationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Request builder for Policy Api.
+     *
+     * @return Policy request builder {@link PolicyRequestBuilder}
+     * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/policy/?view=azure-devops-rest-7.1">Policy</a>
+     */
+    @Override
+    public PolicyRequestBuilder policy() {
+        var locationUrl = getLocationUrl(ResourceId.POLICY);
+        return new PolicyRequestBuilder(locationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Request builder for Release Api.
+     *
+     * @return Release Request builder {@link ReleaseBaseRequestBuilder}
+     */
+    @Override
+    public ReleaseBaseRequestBuilder release() {
+        var locationUrl = getLocationUrl(ResourceId.RELEASE);
+        return new ReleaseBaseRequestBuilder(locationUrl, accessTokenCredential);
     }
 
     /**

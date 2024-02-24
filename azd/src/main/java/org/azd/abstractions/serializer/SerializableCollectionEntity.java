@@ -1,9 +1,14 @@
 package org.azd.abstractions.serializer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.azd.authentication.AccessTokenCredential;
+import org.azd.exceptions.AzDException;
+import org.azd.http.ClientRequest;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+
+import static org.azd.helpers.Utils.isNullOrEmpty;
 
 /**
  * Collection entity that provides additional functionalities such as next page, continuation token.
@@ -49,5 +54,15 @@ public abstract class SerializableCollectionEntity extends SerializableEntity {
         var requestUrl = getResponse().getRequestUrl();
         requestUrl = replaceContinuationToken(requestUrl, continuationToken);
         return requestUrl;
+    }
+
+    @JsonIgnore
+    public <T extends SerializableEntity> T getNextPage(AccessTokenCredential accessTokenCredential, Class<T> value)
+            throws AzDException {
+        if (isNullOrEmpty(getNextPageLink())) return null;
+        return ClientRequest.builder(accessTokenCredential)
+                .URI(getNextPageLink())
+                .build()
+                .execute(value);
     }
 }

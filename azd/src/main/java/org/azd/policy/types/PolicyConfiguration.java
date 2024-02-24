@@ -25,32 +25,32 @@ public class PolicyConfiguration extends SerializableEntity {
      * The policy configuration ID.
      */
     @JsonProperty("id")
-    private int id;
+    private Integer id;
     /**
      * Indicates whether the policy is blocking.
      */
     @JsonProperty("isBlocking")
-    private boolean isBlocking;
+    private Boolean isBlocking;
     /**
      * Indicates whether the policy has been (soft) deleted.
      */
     @JsonProperty("isDeleted")
-    private boolean isDeleted;
+    private Boolean isDeleted;
     /**
      * Indicates whether the policy is enabled.
      */
     @JsonProperty("isEnabled")
-    private boolean isEnabled;
+    private Boolean isEnabled;
     /**
      * If set, this policy requires "Manage Enterprise Policies" permission to create, edit, or delete.
      */
     @JsonProperty("isEnterpriseManaged")
-    private boolean isEnterpriseManaged;
+    private Boolean isEnterpriseManaged;
     /**
      * The policy configuration revision ID.
      */
     @JsonProperty("revision")
-    private int revision;
+    private Integer revision;
     /**
      * The policy configuration settings.
      */
@@ -83,51 +83,51 @@ public class PolicyConfiguration extends SerializableEntity {
         this.createdDate = createdDate;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public boolean isBlocking() {
+    public Boolean isBlocking() {
         return isBlocking;
     }
 
-    public void setBlocking(boolean blocking) {
+    public void setBlocking(Boolean blocking) {
         isBlocking = blocking;
     }
 
-    public boolean isDeleted() {
+    public Boolean isDeleted() {
         return isDeleted;
     }
 
-    public void setDeleted(boolean deleted) {
+    public void setDeleted(Boolean deleted) {
         isDeleted = deleted;
     }
 
-    public boolean isEnabled() {
+    public Boolean isEnabled() {
         return isEnabled;
     }
 
-    public void setEnabled(boolean enabled) {
+    public void setEnabled(Boolean enabled) {
         isEnabled = enabled;
     }
 
-    public boolean isEnterpriseManaged() {
+    public Boolean isEnterpriseManaged() {
         return isEnterpriseManaged;
     }
 
-    public void setEnterpriseManaged(boolean enterpriseManaged) {
+    public void setEnterpriseManaged(Boolean enterpriseManaged) {
         isEnterpriseManaged = enterpriseManaged;
     }
 
-    public int getRevision() {
+    public Integer getRevision() {
         return revision;
     }
 
-    public void setRevision(int revision) {
+    public void setRevision(Integer revision) {
         this.revision = revision;
     }
 

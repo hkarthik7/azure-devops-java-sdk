@@ -37,9 +37,13 @@ public abstract class ApiVersion {
     public static final String PROFILE = "7.1-preview.3";
     public static final String USER_ENTITLEMENTS = "7.1-preview.3";
     public static final String RELEASE = "7.1-preview.3";
+    public static final String RELEASE_LOGS = "7.1-preview.2";
+    public static final String RELEASE_FOLDERS = "7.1-preview.2";
     public static final String RELEASES = "7.1-preview.8";
+    public static final String RELEASE_GATES = "7.1-preview.1";
     public static final String RELEASE_ENVIRONMENT = "7.1-preview.7";
     public static final String RELEASE_DEFINITION = "7.1-preview.4";
+    public static final String RELEASE_DEPLOYMENTS = "7.1-preview.2";
     public static final String RELEASE_DEFINITION_HISTORY = "7.1-preview.1";
     public static final String RELEASE_MANUAL_INTERVENTION = "7.1-preview.1";
     public static final String SEARCH_MEMBER_ENTITLEMENTS = "7.1-preview.2";

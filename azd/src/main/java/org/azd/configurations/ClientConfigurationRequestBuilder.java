@@ -1,8 +1,6 @@
 package org.azd.configurations;
 
 import org.azd.abstractions.ClientConfiguration;
-import org.azd.abstractions.proxy.DefaultProxyAuthenticator;
-import org.azd.abstractions.proxy.DefaultProxySelector;
 import org.azd.abstractions.proxy.ProxyConfiguration;
 import org.azd.abstractions.proxy.ProxyProvider;
 
@@ -11,7 +9,7 @@ import java.util.Objects;
 /**
  * Configuration builder to configure the client settings such as setting default retry and proxy configuration.
  */
-public class ConfigurationRequestBuilder {
+public class ClientConfigurationRequestBuilder {
     /**
      * Configures proxy setting for HttpClient.
      * <p> Example:
