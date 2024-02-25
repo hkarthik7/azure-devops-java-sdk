@@ -14,6 +14,18 @@ public final class Utils extends URLHelper {
         return String.join(",", values);
     }
 
+    public static String toString(Object... values) {
+        if (values == null) return null;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < values.length; i++) {
+            sb.append(values[i]);
+            if (i < values.length - 1) {
+                sb.append(",");
+            }
+        }
+        return sb.toString();
+    }
+
     public static String toEncodedString(String... values) {
         if (values == null) return null;
         return Arrays.stream(values)

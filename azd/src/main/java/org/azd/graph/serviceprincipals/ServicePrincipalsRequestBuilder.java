@@ -287,7 +287,7 @@ public class ServicePrincipalsRequestBuilder extends BaseRequestBuilder {
          * A comma separated list of descriptors of groups you want the graph service principal to join
          */
         @QueryParameter(name = "groupDescriptors")
-        public String groupDescriptors;
+        public String[] groupDescriptors;
     }
 
     /**

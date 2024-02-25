@@ -30,6 +30,7 @@ public abstract class ResourceId {
     public static final String RELEASE = "efc2f575-36ef-48e9-b672-0c6fb4a48ac5";
     public static final String REPORTING = "57731fdf-7d72-4678-83de-f8b31266e429";
     public static final String SEARCH = "ea48a0a1-269c-42d8-b8ad-ddc8fcdcf578";
+    public static final String SERVICE_ENDPOINT = "1814ab31-2f4f-4a9f-8761-f4d77dc5a5d7";
     public static final String TEST = "3b95fb80-fdda-4218-b60e-1052d070ae6b";
     public static final String TEST_RESULTS = "c83eaf52-edf3-4034-ae11-17d38f25404c";
     public static final String TFVC = "8aa40520-446d-40e6-89f6-9c9f9ce44c48";

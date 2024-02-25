@@ -87,7 +87,7 @@ public class MavenRequestBuilder extends BaseRequestBuilder {
                             if (headers.get().equals(CustomHeader.JSON_CONTENT_TYPE_UTF_8.getValue()) && statusCode != HttpStatusCode.OK)
                                 serializer.deserialize(StreamHelper.convertToString(x), Map.class);
 
-                            // VSTS server doesn't return callback URL.
+                            // Obviously VSTS server doesn't return callback URL.
                             if (headers.get().equals(CustomHeader.STREAM.getValue()) && statusCode == HttpStatusCode.OK)
                                 return x;
 

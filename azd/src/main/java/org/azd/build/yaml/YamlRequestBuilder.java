@@ -100,7 +100,7 @@ public class YamlRequestBuilder extends BaseRequestBuilder {
          * A comma-delimited list of properties to include in the results.
          */
         @QueryParameter(name = "propertyFilters")
-        public String propertyFilters;
+        public String[] propertyFilters;
         /**
          * The revision number to retrieve. If this is not specified, the latest version will be returned.
          */

@@ -307,7 +307,7 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
          * Filter by demands the agents can satisfy. Comma separated values; E.g; "a,b,c".
          */
         @QueryParameter(name = "demands")
-        public String demands;
+        public String[] demands;
         /**
          * Whether to include details about the agents' current work
          */
@@ -327,7 +327,7 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
          * Filter which custom properties will be returned. Comma separated values; E.g; "a,b,c".
          */
         @QueryParameter(name = "propertyFilters")
-        public String propertyFilters;
+        public String[] propertyFilters;
     }
 
     /**

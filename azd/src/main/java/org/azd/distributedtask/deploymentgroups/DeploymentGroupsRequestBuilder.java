@@ -284,7 +284,7 @@ public class DeploymentGroupsRequestBuilder extends BaseRequestBuilder {
          * Comma separated list of IDs of the deployment groups.
          */
         @QueryParameter(name = "ids")
-        public String ids;
+        public String[] ids;
         /**
          * Name of the deployment group.
          */

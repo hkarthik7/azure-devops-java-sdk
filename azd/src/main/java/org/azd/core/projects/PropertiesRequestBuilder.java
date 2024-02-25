@@ -6,6 +6,7 @@ import org.azd.common.types.JsonPatchDocument;
 import org.azd.core.types.ProjectProperties;
 import org.azd.enums.CustomHeader;
 import org.azd.exceptions.AzDException;
+import org.azd.helpers.Utils;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -46,10 +47,10 @@ public class PropertiesRequestBuilder extends BaseRequestBuilder {
      * @return ProjectProperties {@link ProjectProperties}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<ProjectProperties> getAsync(String projectId, String keys) throws AzDException {
+    public CompletableFuture<ProjectProperties> getAsync(String projectId, String... keys) throws AzDException {
         return builder()
                 .serviceEndpoint("projectId", projectId)
-                .query("keys", keys)
+                .query("keys", Utils.toString(keys))
                 .build()
                 .executeAsync(ProjectProperties.class);
     }
@@ -92,10 +93,10 @@ public class PropertiesRequestBuilder extends BaseRequestBuilder {
      * @return ProjectProperties {@link ProjectProperties}
      * @throws AzDException Default Api Exception handler.
      */
-    public ProjectProperties get(String projectId, String keys) throws AzDException {
+    public ProjectProperties get(String projectId, String... keys) throws AzDException {
         return builder()
                 .serviceEndpoint("projectId", projectId)
-                .query("keys", keys)
+                .query("keys", Utils.toString(keys))
                 .build()
                 .execute(ProjectProperties.class);
     }

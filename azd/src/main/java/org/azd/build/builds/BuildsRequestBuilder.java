@@ -365,7 +365,7 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
          * A comma-delimited list that specifies the IDs of builds to retrieve.
          */
         @QueryParameter(name = "buildIds")
-        public String buildIds;
+        public String[] buildIds;
         /**
          * If specified, filters to builds that match this build number. Append * to do a prefix search.
          */
@@ -380,7 +380,7 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
          * A comma-delimited list of definition IDs. If specified, filters to builds for these definitions.
          */
         @QueryParameter(name = "definitions")
-        public String definitions;
+        public String[] definitions;
         /**
          * Indicates whether to exclude, include, or only return deleted builds.
          */
@@ -390,7 +390,7 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
          * The maximum number of builds to return per definition.
          */
         @QueryParameter(name = "maxBuildsPerDefinition")
-        public Number maxBuildsPerDefinition;
+        public Integer maxBuildsPerDefinition;
         /**
          * If specified, filters to builds that finished/started/queued before this date based on the queryOrder specified.
          */
@@ -405,7 +405,7 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
          * A comma-delimited list of properties to retrieve.
          */
         @QueryParameter(name = "properties")
-        public String properties;
+        public String[] properties;
         /**
          * Build query order.
          */
@@ -415,7 +415,7 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
          * A comma-delimited list of queue IDs. If specified, filters to builds that ran against these queues.
          */
         @QueryParameter(name = "queues")
-        public String queues;
+        public String[] queues;
         /**
          * If specified, filters to builds that match this reason.
          */
@@ -450,7 +450,7 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
          * A comma-delimited list of tags. If specified, filters to builds that have the specified tags.
          */
         @QueryParameter(name = "tagFilters")
-        public String tagFilters;
+        public String[] tagFilters;
     }
 
     /**

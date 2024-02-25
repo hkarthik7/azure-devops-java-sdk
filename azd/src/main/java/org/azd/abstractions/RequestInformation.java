@@ -5,6 +5,7 @@ import org.azd.authentication.AccessTokenCredential;
 import org.azd.common.Constants;
 import org.azd.common.types.ApiLocation;
 import org.azd.enums.RequestMethod;
+import org.azd.helpers.Utils;
 import org.azd.utils.UrlBuilder;
 
 import java.io.InputStream;
@@ -56,7 +57,8 @@ public class RequestInformation {
                             queryParameters.put(name, value.toString().toLowerCase().replaceAll("_", ""));
                         }
                         else if (value.getClass().isArray()) {
-                            queryParameters.put(name, Arrays.asList((Object[]) value));
+//                            queryParameters.put(name, Arrays.asList((Object[]) value));
+                            queryParameters.put(name, Utils.toString((Object[]) value));
                         } else if (!value.toString().isEmpty()) {
                             queryParameters.put(name, value.toString());
                         }

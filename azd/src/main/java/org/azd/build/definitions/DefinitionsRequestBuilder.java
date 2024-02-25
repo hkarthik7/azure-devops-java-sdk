@@ -356,7 +356,7 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
          * The revision number to retrieve. If this is not specified, the latest version will be returned.
          */
         @QueryParameter(name = "revision")
-        public Number revision;
+        public Integer revision;
     }
 
     public static class GetRequestConfiguration {
@@ -383,7 +383,7 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
          * A comma-delimited list that specifies the IDs of definitions to retrieve.
          */
         @QueryParameter(name = "definitionIds")
-        public String definitionIds;
+        public String[] definitionIds;
         /**
          * Indicates whether the full definitions should be returned. By default, shallow representations of the definitions are returned.
          */

@@ -336,7 +336,7 @@ public class GroupsRequestBuilder extends BaseRequestBuilder {
          * A comma separated list of descriptors referencing groups you want the graph group to join
          */
         @QueryParameter(name = "groupDescriptors")
-        public String groupDescriptors;
+        public String[] groupDescriptors;
         /**
          * A descriptor referencing the scope (collection, project) in which the group should be created.
          * If omitted, will be created in the scope of the enclosing account or organization. Valid only for VSTS groups.
@@ -372,7 +372,7 @@ public class GroupsRequestBuilder extends BaseRequestBuilder {
          * e.g. Microsoft.IdentityModel.Claims.ClaimsIdentity
          */
         @QueryParameter(name = "subjectTypes")
-        public String subjectTypes;
+        public String[] subjectTypes;
     }
 
     /**

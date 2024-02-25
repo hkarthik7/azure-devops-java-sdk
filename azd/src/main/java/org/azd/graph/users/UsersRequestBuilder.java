@@ -328,7 +328,7 @@ public class UsersRequestBuilder extends BaseRequestBuilder {
          * A comma separated list of descriptors referencing groups you want the graph group to join
          */
         @QueryParameter(name = "groupDescriptors")
-        public String groupDescriptors;
+        public String[] groupDescriptors;
     }
 
     /**
@@ -358,7 +358,7 @@ public class UsersRequestBuilder extends BaseRequestBuilder {
          * e.g. msa’, ‘aad’, ‘svc’ (service identity), ‘imp’ (imported identity), etc.
          */
         @QueryParameter(name = "subjectTypes")
-        public String subjectTypes;
+        public String[] subjectTypes;
     }
 
     /**
