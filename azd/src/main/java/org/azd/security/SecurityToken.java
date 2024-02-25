@@ -124,11 +124,10 @@ public class SecurityToken {
         ServiceHooks("cb594ebe-87dd-4fc9-ac2c-6a10a4c92046"),
         UtilizationPermissions("83abde3a-4593-424e-b45f-9898af99034d", "/"),
         WorkItemTrackingAdministration("445d2788-c5fb-4132-bbef-09c4045ad93f"),
-        WorkItemTrackingProvision("5a6cd233-6615-414d-9393-48dbb252bd23", "$/{PROJECT_ID}") // root token has the format "/$"
-        ;
+        WorkItemTrackingProvision("5a6cd233-6615-414d-9393-48dbb252bd23", "$/{PROJECT_ID}"); // root token has the format "/$"
 
-        private String namespace;
-        private String format;
+        private final String namespace;
+        private final String format;
 
         /**
          * For informational purposes, the following namespaces are deprecated and read-only:

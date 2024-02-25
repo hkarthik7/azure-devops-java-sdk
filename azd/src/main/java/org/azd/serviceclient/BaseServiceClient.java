@@ -21,6 +21,7 @@ import org.azd.oauth.OAuthAccessTokenBuilder;
 import org.azd.pipelines.PipelinesBaseRequestBuilder;
 import org.azd.policy.PolicyRequestBuilder;
 import org.azd.release.ReleaseBaseRequestBuilder;
+import org.azd.security.SecurityRequestBuilder;
 
 import java.net.URI;
 import java.util.Objects;
@@ -269,6 +270,16 @@ public class BaseServiceClient implements AzDServiceClient {
     public ReleaseBaseRequestBuilder release() {
         var locationUrl = getLocationUrl(ResourceId.RELEASE);
         return new ReleaseBaseRequestBuilder(locationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Request builder for Security Api.
+     *
+     * @return Security Request builder {@link SecurityRequestBuilder}
+     */
+    @Override
+    public SecurityRequestBuilder security() {
+        return new SecurityRequestBuilder(organizationUrl, accessTokenCredential);
     }
 
     /**

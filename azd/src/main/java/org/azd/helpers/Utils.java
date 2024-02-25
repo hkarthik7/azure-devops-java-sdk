@@ -4,14 +4,22 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public final class Utils extends URLHelper {
-    public static String toString(int[] values) {
+    public static String toString(int... values) {
         if (values == null) return null;
         return Arrays.stream(values).mapToObj(String::valueOf).collect(Collectors.joining(","));
     }
 
-    public static String toString(String[] values) {
+    public static String toString(String... values) {
         if (values == null) return null;
         return String.join(",", values);
+    }
+
+    public static String toEncodedString(String... values) {
+        if (values == null) return null;
+        return Arrays.stream(values)
+                .filter(x -> x != null && !x.isBlank())
+                .map(URLHelper::encodeSpecialWithSpace)
+                .collect(Collectors.joining(","));
     }
 
     public static boolean isNullOrEmpty(String value) {

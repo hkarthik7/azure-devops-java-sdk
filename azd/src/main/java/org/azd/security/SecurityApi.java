@@ -8,6 +8,7 @@ import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.helpers.URLHelper;
+import org.azd.helpers.Utils;
 import org.azd.interfaces.SecurityDetails;
 import org.azd.security.types.*;
 import org.azd.utils.AzDAsyncApi;
@@ -122,10 +123,7 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
                                       boolean includeExtendedInfo, boolean recurse) throws AzDException {
         HashMap<String, Object> q = new HashMap<>() {{
             if (descriptors != null && descriptors.length > 0) {
-                put("descriptors", Arrays.stream(descriptors)
-                        .filter(x -> x != null && !x.isBlank())
-                        .map(URLHelper::encodeSpecialWithSpace)
-                        .collect(Collectors.joining(",")));
+                put("descriptors", Utils.toEncodedString(descriptors));
             }
             if (token != null) {
                 put("token", URLHelper.encodeSpecialWithSpace(token));
@@ -224,22 +222,17 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
      */
     @Override
     public Void removeAccessControlEntries(String namespaceId, String[] descriptors, String[] tokens) throws AzDException {
-        if (tokens == null || tokens.length == 0) {
+        if (tokens == null || tokens.length == 0)
             throw new AzDException(ApiExceptionTypes.InvalidArgumentException.name(), "Tokens list must not be empty.");
-        }
-        if (tokens == null || tokens.length == 0) {
+
+        if (descriptors == null || descriptors.length == 0)
             throw new AzDException(ApiExceptionTypes.InvalidArgumentException.name(), "Descriptors list must not be empty.");
-        }
+
         HashMap<String, Object> q = new HashMap<>() {{
-            put("tokens", Arrays.stream(tokens)
-                    .filter(x -> x != null && !x.isBlank())
-                    .map(URLHelper::encodeSpecialWithSpace)
-                    .collect(Collectors.joining(",")));
-            put("descriptors", Arrays.stream(descriptors)
-                    .filter(x -> x != null && !x.isBlank())
-                    .map(URLHelper::encodeSpecialWithSpace)
-                    .collect(Collectors.joining(",")));
+            put("tokens", Utils.toEncodedString(tokens));
+            put("descriptors", Utils.toEncodedString(descriptors));
         }};
+
         String r = send(RequestMethod.DELETE, CONNECTION, SECURITY, null,
                 AREA_ACE, namespaceId, null, ApiVersion.SECURITY, q, null, null);
         return null;

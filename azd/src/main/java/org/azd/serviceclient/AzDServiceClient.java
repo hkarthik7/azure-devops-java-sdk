@@ -19,6 +19,7 @@ import org.azd.oauth.OAuthAccessTokenBuilder;
 import org.azd.pipelines.PipelinesBaseRequestBuilder;
 import org.azd.policy.PolicyRequestBuilder;
 import org.azd.release.ReleaseBaseRequestBuilder;
+import org.azd.security.SecurityRequestBuilder;
 
 /**
  * Client builder for constructing Api specific requests for Azure DevOps services.
@@ -178,4 +179,12 @@ public interface AzDServiceClient {
      * @return Release Request builder {@link ReleaseBaseRequestBuilder}
      */
     ReleaseBaseRequestBuilder release();
+
+    /**
+     * Request builder for Security Api.
+     *
+     * @return Security Request builder {@link SecurityRequestBuilder}
+     */
+    SecurityRequestBuilder security();
+
 }
