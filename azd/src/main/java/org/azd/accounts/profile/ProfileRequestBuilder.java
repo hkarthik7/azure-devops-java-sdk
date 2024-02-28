@@ -3,6 +3,7 @@ package org.azd.accounts.profile;
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.accounts.types.Profile;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
 import org.azd.http.ClientRequest;
 
@@ -20,7 +21,7 @@ public class ProfileRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public ProfileRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "profile", "f83735dc-483f-4238-a291-d45f6080a9af");
+        super(organizationUrl, accessTokenCredential, "profile", "f83735dc-483f-4238-a291-d45f6080a9af", ApiVersion.PROFILE);
     }
 
     /**

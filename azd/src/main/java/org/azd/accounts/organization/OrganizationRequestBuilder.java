@@ -3,6 +3,7 @@ package org.azd.accounts.organization;
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.accounts.types.Organizations;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
 import org.azd.http.ClientRequest;
 
@@ -21,7 +22,7 @@ public class OrganizationRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public OrganizationRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "Contribution", "3353e165-a11e-43aa-9d88-14f2bb09b6d9");
+        super(organizationUrl, accessTokenCredential, "Contribution", "3353e165-a11e-43aa-9d88-14f2bb09b6d9", ApiVersion.ACCOUNTS);
     }
 
     /**

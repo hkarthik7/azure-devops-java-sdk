@@ -44,8 +44,8 @@ public class AccountsRequestBuilderTest {
         // 2. Get the id from connection data (authenticated user).
         var authenticatedUserId = client.locations().getConnectionData().getAuthenticatedUser().getId();
 
-        assert Objects.equals(client.accounts().accounts().list(id).getAccounts().get(0).getAccountId(),
-                client.accounts().accounts().list(authenticatedUserId).getAccounts().get(0).getAccountId());
+        assert Objects.equals(client.accounts().list(id).getAccounts().get(0).getAccountId(),
+                client.accounts().list(authenticatedUserId).getAccounts().get(0).getAccountId());
     }
 
     @Test

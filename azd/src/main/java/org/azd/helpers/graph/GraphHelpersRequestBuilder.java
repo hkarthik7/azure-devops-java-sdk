@@ -55,7 +55,7 @@ public class GraphHelpersRequestBuilder extends GraphRequestBuilder {
         var user = new GraphUserPrincipalNameCreationContext();
         user.principalName = emailId;
 
-        return users().create(user, c -> c.queryParameters.groupDescriptors = groupDescriptor);
+        return users().create(user, c -> c.queryParameters.groupDescriptors = new String[]{groupDescriptor});
     }
 
     /**

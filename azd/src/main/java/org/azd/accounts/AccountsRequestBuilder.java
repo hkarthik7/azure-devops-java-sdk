@@ -1,8 +1,11 @@
 package org.azd.accounts;
 
 import org.azd.abstractions.BaseRequestBuilder;
+import org.azd.accounts.organization.OrganizationRequestBuilder;
+import org.azd.accounts.profile.ProfileRequestBuilder;
 import org.azd.accounts.types.Accounts;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
 import org.azd.http.ClientRequest;
 
@@ -10,7 +13,7 @@ import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Provides functionality to manage Accounts Api.
+ * Provides functionality to manage Accounts Api, and it's related entities.
  */
 public class AccountsRequestBuilder extends BaseRequestBuilder {
     /**
@@ -20,7 +23,25 @@ public class AccountsRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public AccountsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "account", "229a6a53-b428-4ffb-a835-e8f36b5b4b1e");
+        super(organizationUrl, accessTokenCredential, "account", "229a6a53-b428-4ffb-a835-e8f36b5b4b1e", ApiVersion.ACCOUNTS);
+    }
+
+    /**
+     * Provides functionality to manage the Organization Api.
+     *
+     * @return OrganizationRequestBuilder {@link OrganizationRequestBuilder}
+     */
+    public OrganizationRequestBuilder organization() {
+        return new OrganizationRequestBuilder(organizationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Provides functionality to manage Profile Api.
+     *
+     * @return ProfileRequestBuilder {@link ProfileRequestBuilder}
+     */
+    public ProfileRequestBuilder profile() {
+        return new ProfileRequestBuilder(organizationUrl, accessTokenCredential);
     }
 
     /**
@@ -60,3 +81,4 @@ public class AccountsRequestBuilder extends BaseRequestBuilder {
                 .build();
     }
 }
+

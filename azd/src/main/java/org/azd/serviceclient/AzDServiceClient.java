@@ -1,6 +1,6 @@
 package org.azd.serviceclient;
 
-import org.azd.accounts.AccountsBaseRequestBuilder;
+import org.azd.accounts.AccountsRequestBuilder;
 import org.azd.artifacts.ArtifactsRequestBuilder;
 import org.azd.artifactspackagetypes.ArtifactsPackageTypesRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
@@ -20,6 +20,8 @@ import org.azd.pipelines.PipelinesBaseRequestBuilder;
 import org.azd.policy.PolicyRequestBuilder;
 import org.azd.release.ReleaseBaseRequestBuilder;
 import org.azd.security.SecurityRequestBuilder;
+import org.azd.serviceendpoint.ServiceEndpointRequestBuilder;
+import org.azd.servicehooks.ServiceHooksRequestBuilder;
 
 /**
  * Client builder for constructing Api specific requests for Azure DevOps services.
@@ -35,10 +37,10 @@ public interface AzDServiceClient {
     /**
      * Request builder for accounts Api.
      *
-     * @return Accounts base request builder. {@link AccountsBaseRequestBuilder}
+     * @return Accounts base request builder. {@link AccountsRequestBuilder}
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/account/accounts?view=azure-devops-rest-7.1">Accounts</a>
      */
-    AccountsBaseRequestBuilder accounts();
+    AccountsRequestBuilder accounts();
 
     /**
      * Request builder for artifacts Api.
@@ -186,5 +188,19 @@ public interface AzDServiceClient {
      * @return Security Request builder {@link SecurityRequestBuilder}
      */
     SecurityRequestBuilder security();
+
+    /**
+     * Request builder for Service endpoint Api.
+     *
+     * @return Service endpoint Request builder {@link ServiceEndpointRequestBuilder}
+     */
+    ServiceEndpointRequestBuilder serviceEndpoint();
+
+    /**
+     * Request builder for Service hooks Api.
+     *
+     * @return Service hooks Request builder {@link ServiceHooksRequestBuilder}
+     */
+    ServiceHooksRequestBuilder serviceHooks();
 
 }

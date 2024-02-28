@@ -7,6 +7,7 @@ import org.azd.helpers.build.BuildHelpersRequestBuilder;
 import org.azd.helpers.featuremanagement.FeatureManagementHelpersRequestBuilder;
 import org.azd.helpers.git.GitHelpersRequestBuilder;
 import org.azd.helpers.graph.GraphHelpersRequestBuilder;
+import org.azd.helpers.serviceendpoint.ServiceEndpointHelpersRequestBuilder;
 import org.azd.locations.LocationsBaseRequestBuilder;
 
 /**
@@ -57,6 +58,15 @@ public class HelpersRequestBuilder extends BaseRequestBuilder {
      */
     public GraphHelpersRequestBuilder graph() {
         return new GraphHelpersRequestBuilder(getLocationUrl(ResourceId.GRAPH), accessTokenCredential);
+    }
+
+    /**
+     * Constructs service endpoint helpers request builder instance.
+     *
+     * @return ServiceEndpointHelpersRequestBuilder {@link ServiceEndpointHelpersRequestBuilder}
+     */
+    public ServiceEndpointHelpersRequestBuilder serviceEndpoint() {
+        return new ServiceEndpointHelpersRequestBuilder(getLocationUrl(ResourceId.SERVICE_ENDPOINT), accessTokenCredential);
     }
 
     /**

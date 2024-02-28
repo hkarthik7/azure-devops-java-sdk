@@ -2,15 +2,21 @@ package org.azd.servicehooks.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonNode;
+import java.lang.Object;
 import org.azd.abstractions.serializer.SerializableEntity;
 import org.azd.common.types.Author;
+import org.azd.enums.SubscriptionStatus;
 
 /**
  * Encapsulates an event subscription.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ServiceHooksSubscription extends SerializableEntity {
+    /**
+     * Reference Links
+     **/
+    @JsonProperty("_links")
+    private Object _links;
     /**
      * action description
      */
@@ -30,7 +36,7 @@ public class ServiceHooksSubscription extends SerializableEntity {
      * Consumer input values
      */
     @JsonProperty("consumerInputs")
-    private JsonNode consumerInputs;
+    private Object consumerInputs;
     /**
      * created by
      */
@@ -60,7 +66,7 @@ public class ServiceHooksSubscription extends SerializableEntity {
      * modified by
      */
     @JsonProperty("modifiedBy")
-    private JsonNode modifiedBy;
+    private Object modifiedBy;
     /**
      * modified date
      */
@@ -80,7 +86,7 @@ public class ServiceHooksSubscription extends SerializableEntity {
      * publsher inputs
      */
     @JsonProperty("publisherInputs")
-    private JsonNode publisherInputs;
+    private Object publisherInputs;
     /**
      * resource version
      */
@@ -90,7 +96,7 @@ public class ServiceHooksSubscription extends SerializableEntity {
      * status
      */
     @JsonProperty("status")
-    private String status;
+    private SubscriptionStatus status;
     /**
      * subscriber
      */
@@ -126,11 +132,11 @@ public class ServiceHooksSubscription extends SerializableEntity {
         this.consumerId = consumerId;
     }
 
-    public JsonNode getConsumerInputs() {
+    public Object getConsumerInputs() {
         return consumerInputs;
     }
 
-    public void setConsumerInputs(JsonNode consumerInputs) {
+    public void setConsumerInputs(Object consumerInputs) {
         this.consumerInputs = consumerInputs;
     }
 
@@ -174,11 +180,11 @@ public class ServiceHooksSubscription extends SerializableEntity {
         this.id = id;
     }
 
-    public JsonNode getModifiedBy() {
+    public Object getModifiedBy() {
         return modifiedBy;
     }
 
-    public void setModifiedBy(JsonNode modifiedBy) {
+    public void setModifiedBy(Object modifiedBy) {
         this.modifiedBy = modifiedBy;
     }
 
@@ -206,11 +212,11 @@ public class ServiceHooksSubscription extends SerializableEntity {
         this.publisherId = publisherId;
     }
 
-    public JsonNode getPublisherInputs() {
+    public Object getPublisherInputs() {
         return publisherInputs;
     }
 
-    public void setPublisherInputs(JsonNode publisherInputs) {
+    public void setPublisherInputs(Object publisherInputs) {
         this.publisherInputs = publisherInputs;
     }
 
@@ -222,11 +228,11 @@ public class ServiceHooksSubscription extends SerializableEntity {
         this.resourceVersion = resourceVersion;
     }
 
-    public String getStatus() {
+    public SubscriptionStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(SubscriptionStatus status) {
         this.status = status;
     }
 
@@ -246,4 +252,11 @@ public class ServiceHooksSubscription extends SerializableEntity {
         this.url = url;
     }
 
+    public Object get_links() {
+        return _links;
+    }
+
+    public void set_links(Object _links) {
+        this._links = _links;
+    }
 }

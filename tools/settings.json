@@ -5,6 +5,6 @@
     "notes": "\n/*\n----------------------------------------------------------\n\tGENERATED FILE, should be edited to suit the purpose.\n----------------------------------------------------------\n*/",
     "imports": "\nimport com.fasterxml.jackson.annotation.JsonIgnoreProperties;\nimport com.fasterxml.jackson.annotation.JsonProperty;\nimport org.azd.abstractions.serializer.SerializableEntity;\n"
   },
-  "url": "https://learn.microsoft.com/en-us/rest/api/azure/devops/security/access-control-entries/set-access-control-entries?view=azure-devops-rest-7.1&tabs=HTTP#merge",
+  "url": "https://learn.microsoft.com/en-us/rest/api/azure/devops/hooks/subscriptions/create-subscriptions-query?view=azure-devops-rest-7.1",
   "commentOnly": false
 }

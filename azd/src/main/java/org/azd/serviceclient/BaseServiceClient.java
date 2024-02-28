@@ -1,7 +1,7 @@
 package org.azd.serviceclient;
 
 import org.azd.abstractions.proxy.ProxyProvider;
-import org.azd.accounts.AccountsBaseRequestBuilder;
+import org.azd.accounts.AccountsRequestBuilder;
 import org.azd.artifacts.ArtifactsRequestBuilder;
 import org.azd.artifactspackagetypes.ArtifactsPackageTypesRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
@@ -22,6 +22,8 @@ import org.azd.pipelines.PipelinesBaseRequestBuilder;
 import org.azd.policy.PolicyRequestBuilder;
 import org.azd.release.ReleaseBaseRequestBuilder;
 import org.azd.security.SecurityRequestBuilder;
+import org.azd.serviceendpoint.ServiceEndpointRequestBuilder;
+import org.azd.servicehooks.ServiceHooksRequestBuilder;
 
 import java.net.URI;
 import java.util.Objects;
@@ -54,17 +56,17 @@ public class BaseServiceClient implements AzDServiceClient {
     /**
      * Request builder for accounts Api.
      *
-     * @return Accounts base request builder. {@link AccountsBaseRequestBuilder}
+     * @return Accounts base request builder. {@link AccountsRequestBuilder}
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/account/accounts?view=azure-devops-rest-7.1">Accounts</a>
      */
     @Override
-    public AccountsBaseRequestBuilder accounts() {
+    public AccountsRequestBuilder accounts() {
         var locationUrl = getLocationUrl(ResourceId.ACCOUNT);
         // Remove the organization name from the request url.
         var pathToRemove = URI.create(locationUrl).getPath();
-        // Accounts url doesn't return the correct url if send with organization name.
+        // Accounts url doesn't return the correct url if sent with organization name.
         locationUrl = locationUrl.replace(pathToRemove, "");
-        return new AccountsBaseRequestBuilder(locationUrl, accessTokenCredential);
+        return new AccountsRequestBuilder(locationUrl, accessTokenCredential);
     }
 
     /**
@@ -280,6 +282,27 @@ public class BaseServiceClient implements AzDServiceClient {
     @Override
     public SecurityRequestBuilder security() {
         return new SecurityRequestBuilder(organizationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Request builder for Service endpoint Api.
+     *
+     * @return Service endpoint Request builder {@link ServiceEndpointRequestBuilder}
+     */
+    @Override
+    public ServiceEndpointRequestBuilder serviceEndpoint() {
+        var locationUrl = getLocationUrl(ResourceId.SERVICE_ENDPOINT);
+        return new ServiceEndpointRequestBuilder(locationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Request builder for Service hooks Api.
+     *
+     * @return Service hooks Request builder {@link ServiceHooksRequestBuilder}
+     */
+    @Override
+    public ServiceHooksRequestBuilder serviceHooks() {
+        return new ServiceHooksRequestBuilder(organizationUrl, accessTokenCredential);
     }
 
     /**
