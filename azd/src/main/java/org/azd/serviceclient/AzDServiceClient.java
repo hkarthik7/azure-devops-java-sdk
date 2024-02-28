@@ -22,6 +22,7 @@ import org.azd.release.ReleaseBaseRequestBuilder;
 import org.azd.security.SecurityRequestBuilder;
 import org.azd.serviceendpoint.ServiceEndpointRequestBuilder;
 import org.azd.servicehooks.ServiceHooksRequestBuilder;
+import org.azd.test.TestRequestBuilder;
 
 /**
  * Client builder for constructing Api specific requests for Azure DevOps services.
@@ -202,5 +203,12 @@ public interface AzDServiceClient {
      * @return Service hooks Request builder {@link ServiceHooksRequestBuilder}
      */
     ServiceHooksRequestBuilder serviceHooks();
+
+    /**
+     * Request builder for Test Api.
+     *
+     * @return Test Request builder {@link TestRequestBuilder}
+     */
+    TestRequestBuilder test();
 
 }

@@ -24,6 +24,7 @@ import org.azd.release.ReleaseBaseRequestBuilder;
 import org.azd.security.SecurityRequestBuilder;
 import org.azd.serviceendpoint.ServiceEndpointRequestBuilder;
 import org.azd.servicehooks.ServiceHooksRequestBuilder;
+import org.azd.test.TestRequestBuilder;
 
 import java.net.URI;
 import java.util.Objects;
@@ -303,6 +304,17 @@ public class BaseServiceClient implements AzDServiceClient {
     @Override
     public ServiceHooksRequestBuilder serviceHooks() {
         return new ServiceHooksRequestBuilder(organizationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Request builder for Test Api.
+     *
+     * @return Test Request builder {@link TestRequestBuilder}
+     */
+    @Override
+    public TestRequestBuilder test() {
+        var locationUrl = getLocationUrl(ResourceId.TEST_ID);
+        return new TestRequestBuilder(locationUrl, accessTokenCredential);
     }
 
     /**
