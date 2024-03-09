@@ -55,14 +55,4 @@ public abstract class SerializableCollectionEntity extends SerializableEntity {
         requestUrl = replaceContinuationToken(requestUrl, continuationToken);
         return requestUrl;
     }
-
-    @JsonIgnore
-    public <T extends SerializableEntity> T getNextPage(AccessTokenCredential accessTokenCredential, Class<T> value)
-            throws AzDException {
-        if (isNullOrEmpty(getNextPageLink())) return null;
-        return ClientRequest.builder(accessTokenCredential)
-                .URI(getNextPageLink())
-                .build()
-                .execute(value);
-    }
 }

@@ -23,6 +23,9 @@ import org.azd.security.SecurityRequestBuilder;
 import org.azd.serviceendpoint.ServiceEndpointRequestBuilder;
 import org.azd.servicehooks.ServiceHooksRequestBuilder;
 import org.azd.test.TestRequestBuilder;
+import org.azd.wiki.WikiRequestBuilder;
+import org.azd.work.WorkRequestBuilder;
+import org.azd.workitemtracking.WorkItemTrackingRequestBuilder;
 
 /**
  * Client builder for constructing Api specific requests for Azure DevOps services.
@@ -211,4 +214,24 @@ public interface AzDServiceClient {
      */
     TestRequestBuilder test();
 
+    /**
+     * Request builder for Wiki Api.
+     *
+     * @return Wiki Request builder {@link WikiRequestBuilder}
+     */
+    WikiRequestBuilder wiki();
+
+    /**
+     * Request builder for Work Api.
+     *
+     * @return Work Request builder {@link WorkRequestBuilder}
+     */
+    WorkRequestBuilder work();
+
+    /**
+     * Request builder for Work item tracking Api.
+     *
+     * @return Work item tracking Request builder {@link WorkItemTrackingRequestBuilder}
+     */
+    WorkItemTrackingRequestBuilder workItemTracking();
 }

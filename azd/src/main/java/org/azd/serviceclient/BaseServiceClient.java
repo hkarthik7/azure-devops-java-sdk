@@ -25,6 +25,9 @@ import org.azd.security.SecurityRequestBuilder;
 import org.azd.serviceendpoint.ServiceEndpointRequestBuilder;
 import org.azd.servicehooks.ServiceHooksRequestBuilder;
 import org.azd.test.TestRequestBuilder;
+import org.azd.wiki.WikiRequestBuilder;
+import org.azd.work.WorkRequestBuilder;
+import org.azd.workitemtracking.WorkItemTrackingRequestBuilder;
 
 import java.net.URI;
 import java.util.Objects;
@@ -315,6 +318,39 @@ public class BaseServiceClient implements AzDServiceClient {
     public TestRequestBuilder test() {
         var locationUrl = getLocationUrl(ResourceId.TEST_ID);
         return new TestRequestBuilder(locationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Request builder for Wiki Api.
+     *
+     * @return Wiki Request builder {@link WikiRequestBuilder}
+     */
+    @Override
+    public WikiRequestBuilder wiki() {
+        var locationUrl = getLocationUrl(ResourceId.WIKI);
+        return new WikiRequestBuilder(locationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Request builder for Work Api.
+     *
+     * @return Work Request builder {@link WorkRequestBuilder}
+     */
+    @Override
+    public WorkRequestBuilder work() {
+        var locationUrl = getLocationUrl(ResourceId.WORK);
+        return new WorkRequestBuilder(locationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Request builder for Work item tracking Api.
+     *
+     * @return Work item tracking Request builder {@link WorkItemTrackingRequestBuilder}
+     */
+    @Override
+    public WorkItemTrackingRequestBuilder workItemTracking() {
+        var locationUrl = getLocationUrl(ResourceId.WIT);
+        return new WorkItemTrackingRequestBuilder(locationUrl, accessTokenCredential);
     }
 
     /**

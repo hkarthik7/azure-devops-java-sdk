@@ -32,9 +32,12 @@ public class HttpRequestFactory {
 
             requestInformation.requestHeaders.getHeaders().forEach(builder::header);
 
-            var body = HttpRequest.BodyPublishers.ofString(serializer.serialize(requestInformation.requestBody));
-            if (requestInformation.inputStream != null)
-                body = HttpRequest.BodyPublishers.ofInputStream(() -> requestInformation.inputStream);
+            var body = requestInformation.body;
+            if (body == null) {
+                body = requestInformation.inputStream == null
+                        ? HttpRequest.BodyPublishers.ofString(serializer.serialize(requestInformation.requestBody))
+                        : HttpRequest.BodyPublishers.ofInputStream(() -> requestInformation.inputStream);
+            }
 
             return builder.method(requestInformation.requestMethod.name(), body).build();
         } catch (AzDException ex) {

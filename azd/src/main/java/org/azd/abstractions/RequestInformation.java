@@ -10,6 +10,7 @@ import org.azd.utils.UrlBuilder;
 
 import java.io.InputStream;
 import java.net.URI;
+import java.net.http.HttpRequest;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,6 +29,7 @@ public class RequestInformation {
     public RequestHeaders requestHeaders = new RequestHeaders();
     public Object requestBody;
     public InputStream inputStream;
+    public HttpRequest.BodyPublisher body;
     private String baseInstance;
     private String requestUrl;
     private Map<String, Object> queryParameters = new HashMap<>();

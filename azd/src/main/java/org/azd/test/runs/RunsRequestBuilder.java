@@ -382,7 +382,6 @@ public class RunsRequestBuilder extends BaseRequestBuilder {
         public QueryParameters queryParameters = new QueryParameters();
     }
 
-
     /**
      * Represents the query parameters.
      */
@@ -435,6 +434,4 @@ public class RunsRequestBuilder extends BaseRequestBuilder {
     public static class RequestConfiguration {
         public GetQueryParameters queryParameters = new GetQueryParameters();
     }
-
-
 }

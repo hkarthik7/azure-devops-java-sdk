@@ -55,6 +55,7 @@ public abstract class ApiVersion {
     public static final String VARIABLE_GROUPS = "7.1-preview.2";
     public static final String WIKI = "7.1-preview.2";
     public static final String WIKI_ATTACHMENTS = "7.1-preview.1";
+    public static final String WIKI_PAGES = "7.1-preview.1";
     public static final String WORK = "7.1-preview.1";
     public static final String WORK_CAPACITY = "7.1-preview.3";
     public static final String WORK_ITEM_MIGRATE = "7.1-preview.1";

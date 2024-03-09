@@ -8,6 +8,7 @@ import org.azd.helpers.featuremanagement.FeatureManagementHelpersRequestBuilder;
 import org.azd.helpers.git.GitHelpersRequestBuilder;
 import org.azd.helpers.graph.GraphHelpersRequestBuilder;
 import org.azd.helpers.serviceendpoint.ServiceEndpointHelpersRequestBuilder;
+import org.azd.helpers.workitemtracking.WorkItemTrackingHelpersRequestBuilder;
 import org.azd.locations.LocationsBaseRequestBuilder;
 
 /**
@@ -67,6 +68,15 @@ public class HelpersRequestBuilder extends BaseRequestBuilder {
      */
     public ServiceEndpointHelpersRequestBuilder serviceEndpoint() {
         return new ServiceEndpointHelpersRequestBuilder(getLocationUrl(ResourceId.SERVICE_ENDPOINT), accessTokenCredential);
+    }
+
+    /**
+     * Constructs work item tracking helpers request builder instance.
+     *
+     * @return WorkItemTrackingHelpersRequestBuilder {@link WorkItemTrackingHelpersRequestBuilder}
+     */
+    public WorkItemTrackingHelpersRequestBuilder workItemTracking() {
+        return new WorkItemTrackingHelpersRequestBuilder(getLocationUrl(ResourceId.WIT), accessTokenCredential);
     }
 
     /**

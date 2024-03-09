@@ -7,7 +7,9 @@ import org.azd.enums.CustomHeader;
 import org.azd.enums.RequestMethod;
 import org.azd.http.ClientRequest;
 
+import java.io.InputStream;
 import java.net.URI;
+import java.net.http.HttpRequest;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -68,7 +70,7 @@ public class ClientRequestBuilder implements ClientRequest.Builder {
     @Override
     public ClientRequest.Builder POST(Object requestBody) {
         reqInfo.requestMethod = RequestMethod.POST;
-        reqInfo.requestBody = requestBody;
+        setRequestBody(requestBody);
         reqInfo.requestHeaders.add(CustomHeader.JSON_CONTENT_TYPE);
         return this;
     }
@@ -76,7 +78,7 @@ public class ClientRequestBuilder implements ClientRequest.Builder {
     @Override
     public ClientRequest.Builder PATCH(Object requestBody) {
         reqInfo.requestMethod = RequestMethod.PATCH;
-        reqInfo.requestBody = requestBody;
+        setRequestBody(requestBody);
         reqInfo.requestHeaders.add(CustomHeader.JSON_CONTENT_TYPE);
         return this;
     }
@@ -84,7 +86,7 @@ public class ClientRequestBuilder implements ClientRequest.Builder {
     @Override
     public ClientRequest.Builder PUT(Object requestBody) {
         reqInfo.requestMethod = RequestMethod.PUT;
-        reqInfo.requestBody = requestBody;
+        setRequestBody(requestBody);
         reqInfo.requestHeaders.add(CustomHeader.JSON_CONTENT_TYPE);
         return this;
     }
@@ -157,7 +159,7 @@ public class ClientRequestBuilder implements ClientRequest.Builder {
     @Override
     public ClientRequest.Builder headers(RequestHeaders requestHeaders) {
         reqInfo.requestHeaders.add(requestHeaders);
-        return null;
+        return this;
     }
 
     @Override
@@ -181,5 +183,15 @@ public class ClientRequestBuilder implements ClientRequest.Builder {
     public ClientRequest build() {
         reqInfo.pathParameters = pathParameters;
         return new ClientRequestAdapter(this);
+    }
+
+    private void setRequestBody(Object requestBody) {
+        if (requestBody != null) {
+            if (requestBody instanceof InputStream)
+                reqInfo.inputStream = (InputStream) requestBody;
+            else if (requestBody instanceof  HttpRequest.BodyPublisher)
+                reqInfo.body = (HttpRequest.BodyPublisher) requestBody;
+            else reqInfo.requestBody = requestBody;
+        }
     }
 }

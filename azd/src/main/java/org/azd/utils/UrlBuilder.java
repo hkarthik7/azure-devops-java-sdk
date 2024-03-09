@@ -43,13 +43,11 @@ public class UrlBuilder {
      */
     public UrlBuilder appendPath(String path) {
         if (path != null && !path.isEmpty()) {
-            if (urlBuilder.length() > 0 && urlBuilder.charAt(urlBuilder.length() - 1) != '/') {
+            if (urlBuilder.length() > 0 && urlBuilder.charAt(urlBuilder.length() - 1) != '/')
                 urlBuilder.append('/');
-            }
 
-            if (path.charAt(0) == '/') {
+            if (path.charAt(0) == '/')
                 path = path.substring(1);
-            }
 
             urlBuilder.append(URLHelper.encodeSpace(path));
         }
@@ -66,14 +64,10 @@ public class UrlBuilder {
     public UrlBuilder appendQueryString(String key, String value) {
         Objects.requireNonNull(key, "Query parameter key cannot be null.");
         if (value != null) {
-            if (urlBuilder.indexOf("?") == -1) {
-                urlBuilder.append('?');
-            } else {
-                urlBuilder.append('&');
-            }
+            if (urlBuilder.indexOf("?") == -1) urlBuilder.append('?');
+            else urlBuilder.append('&');
             urlBuilder.append(encode(key)).append('=').append(encode(value));
         }
-
         return this;
     }
 
