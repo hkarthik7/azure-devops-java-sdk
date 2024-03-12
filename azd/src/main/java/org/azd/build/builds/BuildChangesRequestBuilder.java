@@ -62,11 +62,11 @@ public class BuildChangesRequestBuilder extends BaseRequestBuilder {
      * @return BuildChanges future object {@link BuildChanges}
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<BuildChanges> listAsync(Consumer<RequestConfiguration> requestConfiguration)
+    public CompletableFuture<BuildChanges> listAsync(Consumer<ListRequestConfiguration> requestConfiguration)
             throws AzDException {
         return builder()
                 .location("f10f0ea5-18a1-43ec-a8fb-2042c7be9b43")
-                .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .query(ListRequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
                 .build()
                 .executeAsync(BuildChanges.class);
     }
@@ -109,11 +109,11 @@ public class BuildChangesRequestBuilder extends BaseRequestBuilder {
      * @return BuildChanges future object {@link BuildChanges}
      * @throws AzDException Default Api Exception handler.
      */
-    public BuildChanges list(Consumer<RequestConfiguration> requestConfiguration)
+    public BuildChanges list(Consumer<ListRequestConfiguration> requestConfiguration)
             throws AzDException {
         return builder()
                 .location("f10f0ea5-18a1-43ec-a8fb-2042c7be9b43")
-                .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .query(ListRequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
                 .build()
                 .execute(BuildChanges.class);
     }
@@ -122,16 +122,6 @@ public class BuildChangesRequestBuilder extends BaseRequestBuilder {
      * Represents the query parameters.
      */
     public static class GetQueryParameters {
-        /**
-         * From build id to get build changes.
-         */
-        @QueryParameter(name = "fromBuildId")
-        public int fromBuildId;
-        /**
-         * To build id to get changes between builds.
-         */
-        @QueryParameter(name = "toBuildId")
-        public int toBuildId;
         /**
          * Specify to return top changes between builds.
          */
@@ -154,5 +144,33 @@ public class BuildChangesRequestBuilder extends BaseRequestBuilder {
      */
     public static class RequestConfiguration {
         public GetQueryParameters queryParameters = new GetQueryParameters();
+    }
+
+    /**
+     * Represents the query parameters.
+     */
+    public static class ListQueryParameters {
+        /**
+         * From build id to get build changes.
+         */
+        @QueryParameter(name = "fromBuildId")
+        public int fromBuildId;
+        /**
+         * To build id to get changes between builds.
+         */
+        @QueryParameter(name = "toBuildId")
+        public int toBuildId;
+        /**
+         * Specify to return top changes between builds.
+         */
+        @QueryParameter(name = "$top")
+        public Integer top;
+    }
+
+    /**
+     * Request configuration object for the query parameters.
+     */
+    public static class ListRequestConfiguration {
+        public ListQueryParameters queryParameters = new ListQueryParameters();
     }
 }

@@ -41,16 +41,15 @@ public class BuildWorkItemsRequestBuilder extends BaseRequestBuilder {
     /**
      * Gets the work items associated with a build. Only work items in the same project are returned.
      *
-     * @param buildId              ID of the build.
-     * @param requestConfiguration Consumer of Request configuration query parameters.
+     * @param buildId ID of the build.
+     * @param top     The maximum number of work items to return.
      * @return Future object of BuildWorkItems {@link BuildWorkItems}
      * @throws AzDException Default Api exception handler.
      */
-    public CompletableFuture<BuildWorkItems> getAsync(int buildId,
-                                                      Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
+    public CompletableFuture<BuildWorkItems> getAsync(int buildId, int top) throws AzDException {
         return builder()
                 .serviceEndpoint("buildId", buildId)
-                .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .query("$top", top)
                 .build()
                 .executeAsync(BuildWorkItems.class);
     }
@@ -58,18 +57,17 @@ public class BuildWorkItemsRequestBuilder extends BaseRequestBuilder {
     /**
      * Gets the work items associated with a build, filtered to specific commits.
      *
-     * @param buildId              ID of the build.
-     * @param commitId             List of commit ids to get the work items.
-     * @param requestConfiguration Consumer of Request configuration query parameters.
+     * @param buildId  ID of the build.
+     * @param commitId List of commit ids to get the work items.
+     * @param top      The maximum number of work items to return, or the number of commits to consider if no commit IDs are specified.
      * @return Future object of BuildWorkItems {@link BuildWorkItems}
      * @throws AzDException Default Api exception handler.
      */
-    public CompletableFuture<BuildWorkItems> getFromCommitsAsync(int buildId, List<String> commitId,
-                                                                 Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
+    public CompletableFuture<BuildWorkItems> getFromCommitsAsync(int buildId, List<String> commitId, int top) throws AzDException {
         return builder()
                 .POST(commitId)
                 .serviceEndpoint("buildId", buildId)
-                .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .query("$top", top)
                 .build()
                 .executeAsync(BuildWorkItems.class);
     }
@@ -106,16 +104,15 @@ public class BuildWorkItemsRequestBuilder extends BaseRequestBuilder {
     /**
      * Gets the work items associated with a build. Only work items in the same project are returned.
      *
-     * @param buildId              ID of the build.
-     * @param requestConfiguration Consumer of Request configuration query parameters.
+     * @param buildId ID of the build.
+     * @param top     The maximum number of work items to return.
      * @return Future object of BuildWorkItems {@link BuildWorkItems}
      * @throws AzDException Default Api exception handler.
      */
-    public BuildWorkItems get(int buildId,
-                              Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
+    public BuildWorkItems get(int buildId, int top) throws AzDException {
         return builder()
                 .serviceEndpoint("buildId", buildId)
-                .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .query("$top", top)
                 .build()
                 .execute(BuildWorkItems.class);
     }
@@ -123,18 +120,17 @@ public class BuildWorkItemsRequestBuilder extends BaseRequestBuilder {
     /**
      * Gets the work items associated with a build, filtered to specific commits.
      *
-     * @param buildId              ID of the build.
-     * @param commitId             List of commit ids to get the work items.
-     * @param requestConfiguration Consumer of Request configuration query parameters.
+     * @param buildId  ID of the build.
+     * @param commitId List of commit ids to get the work items.
+     * @param top      The maximum number of work items to return, or the number of commits to consider if no commit IDs are specified.
      * @return Future object of BuildWorkItems {@link BuildWorkItems}
      * @throws AzDException Default Api exception handler.
      */
-    public BuildWorkItems getFromCommits(int buildId, List<String> commitId,
-                                         Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
+    public BuildWorkItems getFromCommits(int buildId, List<String> commitId, int top) throws AzDException {
         return builder()
                 .POST(commitId)
                 .serviceEndpoint("buildId", buildId)
-                .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .query("$top", top)
                 .build()
                 .execute(BuildWorkItems.class);
     }

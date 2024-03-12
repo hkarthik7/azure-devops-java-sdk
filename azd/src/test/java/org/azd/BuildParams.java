@@ -7,4 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class BuildParams {
     @JsonProperty("definitionId")
     public int definitionId;
+    @JsonProperty("definitionName")
+    public String definitionName;
 }

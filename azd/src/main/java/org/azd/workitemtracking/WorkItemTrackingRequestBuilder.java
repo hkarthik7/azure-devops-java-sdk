@@ -10,7 +10,10 @@ import org.azd.workitemtracking.queries.QueriesRequestBuilder;
 import org.azd.workitemtracking.recyclebin.RecycleBinRequestBuilder;
 import org.azd.workitemtracking.revisions.WorkItemRevisionsRequestBuilder;
 import org.azd.workitemtracking.tags.WorkItemTagsRequestBuilder;
+import org.azd.workitemtracking.wiql.WiqlRequestBuilder;
 import org.azd.workitemtracking.workitems.WorkItemsRequestBuilder;
+import org.azd.workitemtracking.workitemtypes.WorkItemTypesRequestBuilder;
+import org.azd.workitemtracking.workitemtypesfield.WorkItemTypesFieldRequestBuilder;
 
 /**
  * Provides functionality to work with Work item tracking Api.
@@ -107,5 +110,31 @@ public class WorkItemTrackingRequestBuilder extends BaseRequestBuilder {
         return new WorkItemTagsRequestBuilder(organizationUrl, accessTokenCredential);
     }
 
+    /**
+     * Provides functionality to work with Work item Wiql Api.
+     *
+     * @return WiqlRequestBuilder {@link WiqlRequestBuilder}
+     */
+    public WiqlRequestBuilder wiql() {
+        return new WiqlRequestBuilder(organizationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Provides functionality to work with Work item types Api.
+     *
+     * @return WorkItemTypesRequestBuilder {@link WorkItemTypesRequestBuilder}
+     */
+    public WorkItemTypesRequestBuilder workItemTypes() {
+        return new WorkItemTypesRequestBuilder(organizationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Provides functionality to work with Work item types field Api.
+     *
+     * @return WorkItemTypesFieldRequestBuilder {@link WorkItemTypesFieldRequestBuilder}
+     */
+    public WorkItemTypesFieldRequestBuilder workItemTypesField() {
+        return new WorkItemTypesFieldRequestBuilder(organizationUrl, accessTokenCredential);
+    }
 
 }

@@ -4,19 +4,21 @@ import org.azd.UnitTestConfiguration;
 import org.azd.abstractions.InstanceFactory;
 import org.azd.abstractions.serializer.SerializerContext;
 import org.azd.authentication.PersonalAccessTokenCredential;
+import org.azd.build.types.Build;
+import org.azd.build.types.BuildDefinition;
 import org.azd.build.types.Builds;
-import org.azd.common.ApiVersion;
-import org.azd.common.Constants;
-import org.azd.common.ResourceId;
-import org.azd.enums.*;
+import org.azd.build.types.Folder;
+import org.azd.enums.BuildQueryOrder;
+import org.azd.enums.BuildReason;
+import org.azd.enums.Instance;
+import org.azd.enums.QueuePriority;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.StreamHelper;
+import org.azd.helpers.Utils;
 import org.azd.http.ClientRequest;
 import org.azd.legacy.MockParameters;
-import org.azd.release.types.*;
 import org.azd.serviceclient.AzDService;
 import org.azd.serviceclient.AzDServiceClient;
-import org.azd.utils.UrlBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -75,42 +77,417 @@ public class BuildsRequestBuilderTest {
     }
 
     @Test
-    public void shouldListBuilds() throws AzDException {
-//        var feeds = client.artifacts().feedManagement().list(r -> r.queryParameters.includeDeletedUpstreams = true);
-//        client.artifacts().feedManagement().permissions().get(feeds.getFeeds().get(0).getId());
-//        client.accounts().accounts().list(client.locations().getConnectionData().getAuthenticatedUser().getId());
-//        client.build().builds().list();
-//        System.out.println(client.git().pushes().listAsync("testRepository",
-//                r -> r.queryParameters.top = 1).join());
+    public void shouldGetABuild() throws AzDException {
+        var buildId = client.build().builds().list().getBuildResults().get(0).getId();
+        client.build().builds().get(buildId);
+    }
 
-//        System.out.println(client.core().projects().get().getId());
-//        var query = new ContributedFeatureStateQuery();
-//        query.setFeatureIds(List.of(FeatureManagement.ARTIFACTS_FEED));
-//        System.out.println(client.featureManagement().queryNamedScope(query,
-//        FeatureManagementUserScope.HOST, FeatureManagementScopeName.PROJECT, client.core().projects().get().getId()));
-//        client.accounts().profile().get();
-//        client.artifacts().feedManagement().list(r -> r.queryParameters.includeDeletedUpstreams = true);
-//        var feedId = client.artifacts().feedManagement().get("maven-feed").getId();
-//        var responseStream = client.artifactsPackageTypes().maven().download(r -> {
-//            r.artifactId = "ClickJack";
-//            r.groupId = "org.jack.click";
-//            r.fileName = "ClickJack-1.5.0.jar";
-//            r.feedId = feedId;
-//            r.version = "1.5.0";
-//        });
-//
-//        StreamHelper.download("ClickJack-1.5.0.jar", responseStream);
+    @Test
+    public void shouldReturnABuildChanges() throws AzDException {
+        var buildId = client.build().builds().list().getBuildResults().get(0).getId();
+        client.build().builds().changes().get(buildId);
+    }
 
-//        var id = client.locations().getConnectionData().getAuthenticatedUser().getId();
-//        System.out.println(id);
-//        System.out.println(client.accounts().profile().get().getId());
-//        System.out.println(client.memberEntitlementManagement().userEntitlements().get(id));
+    @Test
+    public void shouldReturnABuildChangesWithOptionalParameters() throws AzDException {
+        var buildId = client.build().builds().list().getBuildResults().get(0).getId();
+        client.build().builds().changes().get(buildId, r -> {
+            r.queryParameters.top = 10;
+            r.queryParameters.includeSourceChange = true;
+        });
+    }
 
-//        var locationService = LocationService.getInstance(client.accessTokenCredential());
-//        System.out.println(locationService.getServiceLocation(client.locations().getUrl(ResourceId.PACKAGING),
-//                "packaging", "feeds"));
+    @Test
+    public void shouldReturnABuildLog() throws AzDException {
+        var buildId = client.build().builds().list().getBuildResults().get(0).getId();
+        client.build().builds().logs().get(buildId, 3);
+    }
 
-        System.out.println(client.release().releases().list().getReleases());
+    @Test
+    public void shouldReturnABuildLogWithOptionalParameters() throws AzDException {
+        var buildId = client.build().builds().list().getBuildResults().get(0).getId();
+        client.build().builds().logs().get(buildId, 3, r -> {
+            r.queryParameters.startLine = 3;
+            r.queryParameters.endLine = 6;
+        });
+    }
 
+    @Test
+    public void shouldReturnBuildLogs() throws AzDException {
+        var buildId = client.build().builds().list().getBuildResults().get(0).getId();
+        client.build().builds().logs().get(buildId);
+    }
+
+    @Test
+    public void shouldReturnBuildWorkItems() throws AzDException {
+        var buildId = client.build().builds().list().getBuildResults().get(0).getId();
+        client.build().builds().workItems().get(buildId);
+    }
+
+    @Test
+    public void shouldReturnBuildWorkItemsWithOptionalParameters() throws AzDException {
+        var buildId = client.build().builds().list().getBuildResults().get(0).getId();
+        client.build().builds().workItems().get(buildId, 10);
+    }
+
+    @Test
+    public void shouldReturnChangesBetweenBuilds() throws AzDException {
+        var fromBuildId = client.build().builds().list().getBuildResults().get(0).getId();
+        var toBuildId = client.build().builds().list().getBuildResults().get(0).getId();
+        client.build().builds().changes().list(r -> {
+            r.queryParameters.fromBuildId = fromBuildId;
+            r.queryParameters.toBuildId = toBuildId;
+            r.queryParameters.top = 10;
+        });
+    }
+
+    @Test
+    public void shouldReturnWorkItemsBetweenBuilds() throws AzDException {
+        var fromBuildId = client.build().builds().list().getBuildResults().get(0).getId();
+        var toBuildId = client.build().builds().list().getBuildResults().get(0).getId();
+        client.build().builds().workItems().get(r -> {
+            r.queryParameters.fromBuildId = fromBuildId;
+            r.queryParameters.toBuildId = toBuildId;
+            r.queryParameters.top = 10;
+        });
+    }
+
+    @Test
+    public void shouldReturnBuilds() throws AzDException {
+        client.build().builds().list();
+    }
+
+    @Test
+    public void shouldReturnBuildsContinuationToken() throws AzDException {
+        assert client.build().builds().list(r -> r.queryParameters.top = 1).getContinuationToken() != null;
+    }
+
+    @Test
+    public void shouldReturnBuildsWithArrayOfBuildIds() throws AzDException {
+        var builds = client.build().builds().list(r -> r.queryParameters.top = 2)
+                .getBuildResults()
+                .stream()
+                .mapToInt(Build::getId)
+                .toArray();
+        client.build().builds().list(r -> r.queryParameters.buildIds = Utils.toStringArray(builds));
+    }
+
+    @Test
+    public void shouldReturnTopTwoBuilds() throws AzDException {
+        client.build().builds().list(r -> r.queryParameters.top = 2);
+    }
+
+    @Test
+    public void shouldQueueTheBuild() throws AzDException {
+        client.build().builds().queue(testConfiguration.properties.builds.definitionId);
+    }
+
+    @Test
+    public void shouldReturnListOfBuildController() throws AzDException {
+        client.build().controllers().list();
+    }
+
+    @Test(expected = AzDException.class)
+    public void shouldReturnABuildController() throws AzDException {
+        client.build().controllers().get(25);
+    }
+
+    @Test(expected = AzDException.class)
+    public void shouldCreateBuildDefinition() throws AzDException {
+        client.build().definitions().create(null, null);
+    }
+
+    @Test
+    public void shouldDeleteABuildDefinition() throws AzDException {
+        client.build().definitions().delete(13);
+    }
+
+    @Test
+    public void shouldReturnBuildDefinition() throws AzDException {
+        client.build().definitions().get(testConfiguration.properties.builds.definitionId);
+    }
+
+    @Test
+    public void shouldReturnBuildDefinitionWithOptionalParameters() throws AzDException {
+        client.build().definitions().get(testConfiguration.properties.builds.definitionId, r -> {
+            r.queryParameters.revision = 2;
+            r.queryParameters.includeLatestBuilds = true;
+        });
+    }
+
+    @Test
+    public void shouldReturnBuildDefinitionRevisions() throws AzDException {
+        client.build().definitions().getRevisions(testConfiguration.properties.builds.definitionId);
+    }
+
+    @Test
+    public void shouldReturnBuildDefinitions() throws AzDException {
+        client.build().definitions().list();
+    }
+
+    @Test
+    public void shouldReturnBuildDefinitionsWithIds() throws AzDException {
+        var definitions = client.build().definitions().list(r -> r.queryParameters.top = 2)
+                .getBuildDefinitions().stream()
+                .mapToInt(BuildDefinition::getId)
+                .toArray();
+        client.build().definitions().list(r -> r.queryParameters.definitionIds = Utils.toStringArray(definitions));
+    }
+
+    @Test
+    public void shouldReturnTopTwoBuildDefinitions() throws AzDException {
+        client.build().definitions().list(r -> r.queryParameters.top = 2);
+    }
+
+    @Test
+    public void shouldReturnBuildDefinitionsWithName() throws AzDException {
+        client.build().definitions().list(r -> r.queryParameters.name = testConfiguration.properties.builds.definitionName);
+    }
+
+    @Test(expected = AzDException.class)
+    public void shouldRestoreBuildDefinition() throws AzDException {
+        client.build().definitions().restore(126, false);
+    }
+
+    @Test
+    public void shouldAddBuildTags() throws AzDException {
+        var buildId = client.build().builds().list().getBuildResults().get(0).getId();
+        client.build().tags().build().add(buildId, List.of("Demo"));
+    }
+
+    @Test
+    public void shouldAddDefinitionTags() throws AzDException {
+        client.build().tags().definition().add(testConfiguration.properties.builds.definitionId, List.of("TestDefinition", "DemoDefinition"));
+    }
+
+    @Test
+    public void shouldDeleteABuildTag() throws AzDException {
+        var buildId = client.build().builds().list().getBuildResults().get(0).getId();
+        client.build().tags().build().delete(buildId, "Test");
+    }
+
+    @Test
+    public void shouldDeleteADefinitionTag() throws AzDException {
+        client.build().tags().definition().delete(testConfiguration.properties.builds.definitionId, "DemoDefinition");
+    }
+
+    @Test
+    public void shouldDeleteATag() throws AzDException {
+        client.build().tags().delete("DemoDefinition");
+    }
+
+    @Test
+    public void shouldGetBuildTags() throws AzDException {
+        var buildId = client.build().builds().list().getBuildResults().get(0).getId();
+        client.build().tags().build().get(buildId);
+    }
+
+    @Test
+    public void shouldGetDefinitionTags() throws AzDException {
+        client.build().tags().definition().get(testConfiguration.properties.builds.definitionId);
+    }
+
+    @Test
+    public void shouldGetTags() throws AzDException {
+        client.build().tags().list();
+    }
+
+    @Test
+    public void shouldUpdateBuildTags() throws AzDException {
+        var buildId = client.build().builds().list().getBuildResults().get(0).getId();
+        client.build().tags().build().update(buildId, List.of("Demo", "CI", "Test"), false);
+    }
+
+    @Test
+    public void shouldUpdateDefinitionTags() throws AzDException {
+        client.build().tags().definition().update(testConfiguration.properties.builds.definitionId,
+                List.of("TestDefinition", "DemoDefinition"), false);
+    }
+
+    @Test
+    public void shouldGetYamlBuildForADefinition() throws AzDException {
+        client.build().yaml().get(testConfiguration.properties.builds.definitionId).getYaml();
+    }
+
+    @Test
+    public void shouldGetSourceProvidersFileContents() throws AzDException {
+        client.build().sourceProviders().getFileContents("Github", r -> {
+            r.queryParameters.commitOrBranch = "master";
+            r.queryParameters.repository = "hkarthik7/PSDB";
+            r.queryParameters.serviceEndpointId = "a7054ra9-0a34-46ac-bfdf-b8a1da865tdfd6";
+            r.queryParameters.path = "LICENSE";
+        });
+    }
+
+    @Test(expected = AzDException.class)
+    public void shouldGetSourceProvidersPullRequest() throws AzDException {
+        client.build().sourceProviders().getPullRequest("Github", "2",
+                "hkarthik7/PSDB", "a7054ra9-0a34-46ac-bfdf-b8a1da865tdfd6");
+    }
+
+    @Test
+    public void shouldGetSourceProviders() throws AzDException {
+        client.build().sourceProviders().list();
+    }
+
+    @Test(expected = AzDException.class)
+    public void shouldGetSourceProvidersBranches() throws AzDException {
+        client.build().sourceProviders().listBranches("Github", r -> {
+            r.queryParameters.serviceEndpointId = "a7054ra9-0a34-46ac-bfdf-b8a1da865tdfd6";
+            r.queryParameters.repository = "hkarthik7/PSDB";
+        });
+    }
+
+    @Test(expected = AzDException.class)
+    public void shouldGetSourceProvidersRepositories() throws AzDException {
+        client.build().sourceProviders().listRepositories("Github",
+                r -> r.queryParameters.serviceEndpointId = "a7054ra9-0a34-46ac-bfdf-b8a1da865tdfd6");
+    }
+
+    @Test(expected = AzDException.class)
+    public void shouldGetSourceProvidersWebhooks() throws AzDException {
+        client.build().sourceProviders().listWebhooks("Github",
+                "a7054ra9-0a34-46ac-bfdf-b8a1da865tdfd6", "hkarthik7/PSDB");
+    }
+
+    @Test()
+    public void shouldGetBuildTimelines() throws AzDException {
+        var buildId = client.build().builds().list().getBuildResults().get(0).getId();
+        client.build().timeline().get(buildId);
+    }
+
+    @Test()
+    public void shouldGetBuildTimelinesWithTimelineId() throws AzDException {
+        var buildId = client.build().builds().list().getBuildResults().get(0).getId();
+        var timeline = client.build().timeline().get(buildId);
+        client.build().timeline().get(buildId, timeline.getId());
+    }
+
+    @Test()
+    public void shouldGetBuildTimelinesWithChangeAndPlanId() throws AzDException {
+        var buildId = client.build().builds().list().getBuildResults().get(0).getId();
+        var timeline = client.build().timeline().get(buildId);
+        client.build().timeline().get(buildId, timeline.getId(), r -> {
+            r.queryParameters.changeId = timeline.getChangeId();
+        });
+    }
+
+    @Test
+    public void shouldCreateBuildArtifact() {
+        try {
+            var buildId = client.build().builds().list().getBuildResults()
+                    .stream()
+                    .filter(x -> x.getDefinition().getId().equals(testConfiguration.properties.builds.definitionId))
+                    .findFirst()
+                    .get()
+                    .getId();
+            var artifact = client.build().artifacts().get(buildId, "Test");
+
+            client.build().artifacts().create(buildId, artifact);
+        } catch (AzDException ignored) {
+
+        }
+    }
+
+    @Test
+    public void shouldGetABuildArtifact() {
+        try {
+            var buildId = client.build().builds().list().getBuildResults()
+                    .stream()
+                    .filter(x -> x.getDefinition().getId().equals(testConfiguration.properties.builds.definitionId))
+                    .findFirst()
+                    .get()
+                    .getId();
+            client.build().artifacts().get(buildId, "Test");
+        } catch (AzDException ignored) {
+        }
+    }
+
+    @Test
+    public void shouldGetBuildArtifactAsZip() throws AzDException {
+        var buildId = client.build().builds().list().getBuildResults()
+                .stream()
+                .filter(x -> x.getDefinition().getId().equals(testConfiguration.properties.builds.definitionId))
+                .findFirst()
+                .get()
+                .getId();
+
+        var artifact = client.build().artifacts().getAsZip(buildId, "Test");
+
+        StreamHelper.download("test-artifact.zip", artifact);
+    }
+
+    @Test
+    public void shouldGetABuildArtifacts() throws AzDException {
+        var buildId = client.build().builds().list().getBuildResults()
+                .stream()
+                .filter(x -> x.getDefinition().getId().equals(testConfiguration.properties.builds.definitionId))
+                .findFirst()
+                .get()
+                .getId();
+        client.build().artifacts().list(buildId);
+    }
+
+    @Test()
+    public void shouldUpdateABuild() throws AzDException {
+        var build = client.build().builds().list().getBuildResults()
+                .stream()
+                .filter(x -> x.getDefinition().getId().equals(testConfiguration.properties.builds.definitionId))
+                .findFirst()
+                .get();
+
+        build.setTags(new String[]{"Demo"});
+        // Set retry to true only when previous attempt of a build has failed and if retry is true build object
+        // should be set to null.
+        // client.build().builds().update(build.getId(), true, build);
+        client.build().builds().update(build.getId(), false, build);
+    }
+
+    @Test()
+    public void shouldUpdateMultipleBuilds() throws AzDException {
+        var builds = client.build().builds().list(r -> r.queryParameters.top = 2);
+        for (var build : builds.getBuildResults()) {
+            build.setPriority(QueuePriority.LOW);
+        }
+        client.build().builds().update(builds);
+    }
+
+    @Test()
+    public void shouldUpdateBuildDefinition() throws AzDException {
+        var def = client.build().definitions().get(testConfiguration.properties.builds.definitionId);
+        def.setDescription("Demo CI for azd project");
+        client.build().definitions().update(def.getId(), def, null);
+    }
+
+    @Test()
+    public void shouldCreateFolder() {
+        try {
+            var folder = new Folder();
+            folder.setDescription("New demo folder");
+            folder.setPath("\\Demo-Folder\\sub-demo");
+
+            client.build().folders().create(folder.getPath(), folder);
+        } catch (AzDException ignored) {
+        }
+    }
+
+    @Test()
+    public void shouldDeleteAFolder() throws AzDException {
+        try {
+            client.build().folders().delete("\\Demo-Folder\\sub-demo");
+        } catch (AzDException ignored) {
+        }
+    }
+
+    @Test()
+    public void shouldGetAListOfFolders() throws AzDException {
+        client.build().folders().list();
+    }
+
+    @Test()
+    public void shouldUpdateFolder() throws AzDException {
+        var folder = client.build().folders().list().getFolders().get(1);
+        folder.setDescription("Demo folder for azd project");
+        client.build().folders().update(folder.getPath(), folder);
     }
 }

@@ -26,6 +26,15 @@ public final class Utils extends URLHelper {
         return sb.toString();
     }
 
+    public static String[] toStringArray(int... values) {
+        if (values == null) return null;
+
+        return Arrays.stream(values)
+                .parallel()
+                .mapToObj(String::valueOf)
+                .toArray(String[]::new);
+    }
+
     public static String toEncodedString(String... values) {
         if (values == null) return null;
         return Arrays.stream(values)

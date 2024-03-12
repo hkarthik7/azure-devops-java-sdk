@@ -10,6 +10,7 @@ import org.azd.common.ApiVersion;
 import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
 
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
@@ -195,8 +196,10 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      **/
     public CompletableFuture<Builds> updateAsync(Builds builds) throws AzDException {
+        Objects.requireNonNull(builds, "Builds cannot be null.");
+
         return builder()
-                .PATCH(builds)
+                .PATCH(builds.getBuildResults())
                 .build()
                 .executeAsync(Builds.class);
     }
@@ -341,8 +344,10 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      **/
     public Builds update(Builds builds) throws AzDException {
+        Objects.requireNonNull(builds, "Builds cannot be null.");
+
         return builder()
-                .PATCH(builds)
+                .PATCH(builds.getBuildResults())
                 .build()
                 .execute(Builds.class);
     }

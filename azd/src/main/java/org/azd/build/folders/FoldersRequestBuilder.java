@@ -35,7 +35,7 @@ public class FoldersRequestBuilder extends BaseRequestBuilder {
     public CompletableFuture<Folder> createAsync(String path, Folder folder) throws AzDException {
         return builder()
                 .PUT(folder)
-                .query("path", URLHelper.encodeSpecialWithSpace(path))
+                .query("path", URLHelper.encodeSpace(path))
                 .build()
                 .executeAsync(Folder.class);
     }
@@ -49,7 +49,7 @@ public class FoldersRequestBuilder extends BaseRequestBuilder {
     public CompletableFuture<Void> deleteAsync(String path) throws AzDException {
         return builder()
                 .DELETE()
-                .query("path", URLHelper.encodeSpecialWithSpace(path))
+                .query("path", URLHelper.encodeSpace(path))
                 .build()
                 .executePrimitiveAsync();
     }
@@ -74,7 +74,7 @@ public class FoldersRequestBuilder extends BaseRequestBuilder {
      **/
     public CompletableFuture<Folders> listAsync(String path, FolderQueryOrder queryOrder) throws AzDException {
         return builder()
-                .serviceEndpoint("path", URLHelper.encodeSpecialWithSpace(path))
+                .serviceEndpoint("path", URLHelper.encodeSpace(path))
                 .query("queryOrder", queryOrder)
                 .build()
                 .executeAsync(Folders.class);
@@ -93,7 +93,7 @@ public class FoldersRequestBuilder extends BaseRequestBuilder {
 
         return builder()
                 .POST(folder)
-                .query("path", URLHelper.encodeSpecialWithSpace(finalPath))
+                .query("path", URLHelper.encodeSpace(finalPath))
                 .build()
                 .executeAsync(Folder.class);
     }
@@ -109,7 +109,7 @@ public class FoldersRequestBuilder extends BaseRequestBuilder {
     public Folder create(String path, Folder folder) throws AzDException {
         return builder()
                 .PUT(folder)
-                .query("path", URLHelper.encodeSpecialWithSpace(path))
+                .query("path", URLHelper.encodeSpace(path))
                 .build()
                 .execute(Folder.class);
     }
@@ -123,7 +123,7 @@ public class FoldersRequestBuilder extends BaseRequestBuilder {
     public Void delete(String path) throws AzDException {
         return builder()
                 .DELETE()
-                .query("path", URLHelper.encodeSpecialWithSpace(path))
+                .query("path", URLHelper.encodeSpace(path))
                 .build()
                 .executePrimitive();
     }
@@ -148,7 +148,7 @@ public class FoldersRequestBuilder extends BaseRequestBuilder {
      **/
     public Folders list(String path, FolderQueryOrder queryOrder) throws AzDException {
         return builder()
-                .serviceEndpoint("path", URLHelper.encodeSpecialWithSpace(path))
+                .serviceEndpoint("path", URLHelper.encodeSpace(path))
                 .query("queryOrder", queryOrder)
                 .build()
                 .execute(Folders.class);
@@ -167,7 +167,7 @@ public class FoldersRequestBuilder extends BaseRequestBuilder {
 
         return builder()
                 .POST(folder)
-                .query("path", URLHelper.encodeSpecialWithSpace(finalPath))
+                .query("path", URLHelper.encodeSpace(finalPath))
                 .build()
                 .execute(Folder.class);
     }
