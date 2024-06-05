@@ -55,7 +55,7 @@ public class PullRequestLabelsRequestBuilder extends BaseRequestBuilder {
         return builder()
                 .DELETE()
                 .serviceEndpoint("repositoryId", repositoryName)
-                .serviceEndpoint("pullRequests", pullRequestId)
+                .serviceEndpoint("pullRequestId", pullRequestId)
                 .serviceEndpoint("labelIdOrName", labelName)
                 .build()
                 .executePrimitiveAsync();
@@ -74,7 +74,7 @@ public class PullRequestLabelsRequestBuilder extends BaseRequestBuilder {
             throws AzDException {
         return builder()
                 .serviceEndpoint("repositoryId", repositoryName)
-                .serviceEndpoint("pullRequests", pullRequestId)
+                .serviceEndpoint("pullRequestId", pullRequestId)
                 .serviceEndpoint("labelIdOrName", labelName)
                 .build()
                 .executeAsync(WebApiTagDefinition.class);
@@ -129,7 +129,7 @@ public class PullRequestLabelsRequestBuilder extends BaseRequestBuilder {
         return builder()
                 .DELETE()
                 .serviceEndpoint("repositoryId", repositoryName)
-                .serviceEndpoint("pullRequests", pullRequestId)
+                .serviceEndpoint("pullRequestId", pullRequestId)
                 .serviceEndpoint("labelIdOrName", labelName)
                 .build()
                 .executePrimitive();
@@ -148,7 +148,7 @@ public class PullRequestLabelsRequestBuilder extends BaseRequestBuilder {
             throws AzDException {
         return builder()
                 .serviceEndpoint("repositoryId", repositoryName)
-                .serviceEndpoint("pullRequests", pullRequestId)
+                .serviceEndpoint("pullRequestId", pullRequestId)
                 .serviceEndpoint("labelIdOrName", labelName)
                 .build()
                 .execute(WebApiTagDefinition.class);

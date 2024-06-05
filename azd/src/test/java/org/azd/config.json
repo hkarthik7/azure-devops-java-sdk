@@ -4,7 +4,32 @@
   "properties": {
     "builds": {
       "definitionId": 22,
-      "definitionName": "Test-Demo-CI"
+      "definitionName": "Test-Demo-CI",
+      "artifactAlias": "_Test-Demo-CI"
+    },
+    "core": {
+      "projectName": "my-awesome-project",
+      "teamName": "myNewTeam"
+    },
+    "distributedTask": {
+      "agentId": 8,
+      "poolId": 9,
+      "deploymentGroupName": "myDeploymentGroup",
+      "environmentName": "newEnvironment",
+      "variableGroupName": "testGroup"
+    },
+    "git": {
+      "repositoryName": "testRepository",
+      "branchName": "develop"
+    },
+    "pipelines": {
+      "id": 8,
+      "runId": 661,
+      "artifactName": "drop",
+      "previewPipelineId": 25
+    },
+    "release": {
+      "definitionId": 2
     }
   }
 }

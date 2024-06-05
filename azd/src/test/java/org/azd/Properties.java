@@ -7,4 +7,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Properties {
     @JsonProperty("builds")
     public BuildParams builds;
+    @JsonProperty("core")
+    public CoreParams core;
+    @JsonProperty("distributedTask")
+    public DistributedTaskParams distributedTask;
+    @JsonProperty("git")
+    public GitParams git;
+    @JsonProperty("pipelines")
+    public PipelinesParams pipelines;
+    @JsonProperty("release")
+    public ReleaseParams release;
 }

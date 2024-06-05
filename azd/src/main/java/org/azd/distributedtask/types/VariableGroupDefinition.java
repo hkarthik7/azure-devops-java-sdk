@@ -30,7 +30,7 @@ public class VariableGroupDefinition extends SerializableEntity {
     /**
      * Sets provider data.
      */
-    private VariableGroupProviderData providerData;
+    private Object providerData;
     /**
      * A shallow reference of project.
      */
@@ -76,11 +76,11 @@ public class VariableGroupDefinition extends SerializableEntity {
         this.variables = variables;
     }
 
-    public VariableGroupProviderData getProviderData() {
+    public Object getProviderData() {
         return providerData;
     }
 
-    public void setProviderData(VariableGroupProviderData providerData) {
+    public void setProviderData(Object providerData) {
         this.providerData = providerData;
     }
 

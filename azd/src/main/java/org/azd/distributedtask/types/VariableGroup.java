@@ -7,6 +7,7 @@ import org.azd.abstractions.serializer.SerializableEntity;
 import org.azd.common.types.Author;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * A variable group is a collection of related variables.
@@ -72,7 +73,7 @@ public class VariableGroup extends SerializableEntity {
      * Gets or sets variables contained in the variable group.
      */
     @JsonProperty("variables")
-    private JsonNode variables;
+    private Map<String, ConfigurableVariableValue> variables;
 
     public Author getCreatedBy() {
         return createdBy;
@@ -162,11 +163,11 @@ public class VariableGroup extends SerializableEntity {
         this.variableGroupProjectReferences = variableGroupProjectReferences;
     }
 
-    public JsonNode getVariables() {
+    public Map<String, ConfigurableVariableValue> getVariables() {
         return variables;
     }
 
-    public void setVariables(JsonNode variables) {
+    public void setVariables(Map<String, ConfigurableVariableValue> variables) {
         this.variables = variables;
     }
 

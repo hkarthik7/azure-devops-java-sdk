@@ -55,7 +55,7 @@ public class PolicyConfiguration extends SerializableEntity {
      * The policy configuration settings.
      */
     @JsonProperty("settings")
-    private JsonNode settings;
+    private Object settings;
     /**
      * The policy configuration type.
      */
@@ -131,11 +131,11 @@ public class PolicyConfiguration extends SerializableEntity {
         this.revision = revision;
     }
 
-    public JsonNode getSettings() {
+    public Object getSettings() {
         return settings;
     }
 
-    public void setSettings(JsonNode settings) {
+    public void setSettings(Object settings) {
         this.settings = settings;
     }
 

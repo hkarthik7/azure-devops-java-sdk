@@ -2,6 +2,7 @@ package org.azd.pipelines.preview;
 
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
 import org.azd.pipelines.types.PreviewRun;
 import org.azd.pipelines.types.RunPipelineParameters;
@@ -19,7 +20,7 @@ public class PreviewRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public PreviewRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "pipelines", "53df2d18-29ea-46a9-bee0-933540f80abf");
+        super(organizationUrl, accessTokenCredential, "pipelines", "53df2d18-29ea-46a9-bee0-933540f80abf", ApiVersion.PIPELINES);
     }
 
     /**
@@ -30,7 +31,7 @@ public class PreviewRequestBuilder extends BaseRequestBuilder {
      * @return Preview run object {@link PreviewRun}
      * @throws AzDException Default Api exception handler.
      */
-    public CompletableFuture<PreviewRun> previewAsync(String pipelineId, RunPipelineParameters runPipelineParameters) throws AzDException {
+    public CompletableFuture<PreviewRun> previewAsync(int pipelineId, RunPipelineParameters runPipelineParameters) throws AzDException {
         return builder()
                 .POST(runPipelineParameters)
                 .serviceEndpoint("pipelineId", pipelineId)
@@ -47,7 +48,7 @@ public class PreviewRequestBuilder extends BaseRequestBuilder {
      * @return Preview run object {@link PreviewRun}
      * @throws AzDException Default Api exception handler.
      */
-    public CompletableFuture<PreviewRun> previewAsync(String pipelineId, RunPipelineParameters runPipelineParameters,
+    public CompletableFuture<PreviewRun> previewAsync(int pipelineId, RunPipelineParameters runPipelineParameters,
                                                       int pipelineVersion) throws AzDException {
         return builder()
                 .POST(runPipelineParameters)
@@ -65,7 +66,7 @@ public class PreviewRequestBuilder extends BaseRequestBuilder {
      * @return Preview run object {@link PreviewRun}
      * @throws AzDException Default Api exception handler.
      */
-    public PreviewRun preview(String pipelineId, RunPipelineParameters runPipelineParameters) throws AzDException {
+    public PreviewRun preview(int pipelineId, RunPipelineParameters runPipelineParameters) throws AzDException {
         return builder()
                 .POST(runPipelineParameters)
                 .serviceEndpoint("pipelineId", pipelineId)
@@ -82,7 +83,7 @@ public class PreviewRequestBuilder extends BaseRequestBuilder {
      * @return Preview run object {@link PreviewRun}
      * @throws AzDException Default Api exception handler.
      */
-    public PreviewRun preview(String pipelineId, RunPipelineParameters runPipelineParameters,
+    public PreviewRun preview(int pipelineId, RunPipelineParameters runPipelineParameters,
                                                       int pipelineVersion) throws AzDException {
         return builder()
                 .POST(runPipelineParameters)

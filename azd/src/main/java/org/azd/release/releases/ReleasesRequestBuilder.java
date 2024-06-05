@@ -90,6 +90,20 @@ public class ReleasesRequestBuilder extends BaseRequestBuilder {
     }
 
     /**
+     * Delete a Release
+     *
+     * @param releaseId pass the release id
+     * @throws AzDException Default Api Exception handler.
+     */
+    public CompletableFuture<Void> deleteAsync(int releaseId) throws AzDException {
+        return builder()
+                .DELETE()
+                .serviceEndpoint("releaseId", releaseId)
+                .build()
+                .executePrimitiveAsync();
+    }
+
+    /**
      * Get a Release
      *
      * @param releaseId pass the release id
@@ -226,6 +240,20 @@ public class ReleasesRequestBuilder extends BaseRequestBuilder {
                 .POST(releaseStartMetadata)
                 .build()
                 .execute(Release.class);
+    }
+
+    /**
+     * Delete a Release
+     *
+     * @param releaseId pass the release id
+     * @throws AzDException Default Api Exception handler.
+     */
+    public Void delete(int releaseId) throws AzDException {
+        return builder()
+                .DELETE()
+                .serviceEndpoint("releaseId", releaseId)
+                .build()
+                .executePrimitive();
     }
 
     /**

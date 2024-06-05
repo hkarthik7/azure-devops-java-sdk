@@ -52,7 +52,7 @@ public class SubjectLookupRequestBuilder extends BaseRequestBuilder {
      * <br/><strong>Example:</strong>
      * <pre>{@code
      * var subjectLookup = new GraphSubjectLookup();
-     * var subjectLookupKeys = new List<GraphSubjectLookupKey>();
+     * var subjectLookupKeys = new ArrayList<GraphSubjectLookupKey>();
      * subjectLookupKeys.add(new GraphSubjectLookupKey("aadgp.Uy0xLTktMTU1MTM3NDI0NS0xMjA0NDAwOTY5LTI0MDI5ODY0MTMtMjE3OTQwODYxNi0zLTE5MTI3MjIxNjAtMjUyNDcwNjM3MC0yNDg2NjA0ODIwLTg2MjI3NjQyNA"));
      * subjectLookupKeys.add(new GraphSubjectLookupKey("aad.NjJhOWYxYmQtNmEwOS03NjQyLTkzYTAtMDFkMTVmZDQ2NDk4"));
      * subjectLookup.setLookupKeys(subjectLookupKeys)

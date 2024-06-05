@@ -6,6 +6,7 @@ import org.azd.authentication.AccessTokenCredential;
 import org.azd.exceptions.AzDException;
 import org.azd.feedmanagement.types.FeedPermissions;
 
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
@@ -114,8 +115,10 @@ public class FeedPermissionsRequestBuilder extends BaseRequestBuilder {
      */
     public FeedPermissions set(String feedId, FeedPermissions feedPermissions)
             throws AzDException {
+        Objects.requireNonNull(feedPermissions, "Feed permissions cannot be null.");
+
         return builder()
-                .PATCH(feedPermissions)
+                .PATCH(feedPermissions.getFeedPermission())
                 .serviceEndpoint("feedId", feedId)
                 .build()
                 .execute(FeedPermissions.class);

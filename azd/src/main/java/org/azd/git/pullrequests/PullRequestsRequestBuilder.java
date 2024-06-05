@@ -30,8 +30,10 @@ public class PullRequestsRequestBuilder extends BaseRequestBuilder {
     /**
      * Create a pull request.
      *
-     * @param repositoryId   id of the repository.
-     * @param gitPullRequest a {@link GitPullRequest} object.
+     * @param repositoryId       id of the repository.
+     * @param gitPullRequest     a {@link GitPullRequest} object.
+     * @param supportsIterations If true, subsequent pushes to the pull request will be individually reviewable.
+     *                           Set this to false for large pull requests for performance reasons if this functionality is not needed.
      * @return Git pull request object {@link GitPullRequest}
      * @throws AzDException Default Api Exception handler.
      */
@@ -188,8 +190,10 @@ public class PullRequestsRequestBuilder extends BaseRequestBuilder {
     /**
      * Create a pull request.
      *
-     * @param repositoryId   id of the repository.
-     * @param gitPullRequest a {@link GitPullRequest} object.
+     * @param repositoryId       id of the repository.
+     * @param gitPullRequest     a {@link GitPullRequest} object.
+     * @param supportsIterations If true, subsequent pushes to the pull request will be individually reviewable.
+     *                           Set this to false for large pull requests for performance reasons if this functionality is not needed.
      * @return Git pull request object {@link GitPullRequest}
      * @throws AzDException Default Api Exception handler.
      */

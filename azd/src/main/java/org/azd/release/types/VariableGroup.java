@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 import org.azd.common.types.Author;
-import org.azd.distributedtask.types.VariableGroupProviderData;
 
 import java.util.List;
 import java.util.Map;
@@ -63,7 +62,7 @@ public class VariableGroup extends SerializableEntity {
      * Gets or sets provider data.
      **/
     @JsonProperty("providerData")
-    private VariableGroupProviderData providerData;
+    private Object providerData;
     /**
      * Gets or sets type.
      **/
@@ -144,11 +143,11 @@ public class VariableGroup extends SerializableEntity {
         this.name = name;
     }
 
-    public VariableGroupProviderData getProviderData() {
+    public Object getProviderData() {
         return providerData;
     }
 
-    public void setProviderData(VariableGroupProviderData providerData) {
+    public void setProviderData(Object providerData) {
         this.providerData = providerData;
     }
 

@@ -2,6 +2,7 @@ package org.azd.release;
 
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.release.approvals.ApprovalsRequestBuilder;
 import org.azd.release.definitions.DefinitionsRequestBuilder;
 import org.azd.release.deployments.DeploymentsRequestBuilder;
 import org.azd.release.folders.ReleaseFoldersRequestBuilder;
@@ -21,6 +22,15 @@ public class ReleaseBaseRequestBuilder extends BaseRequestBuilder {
      */
     public ReleaseBaseRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
         super(organizationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Provides functionality to work with Release approvals API.
+     *
+     * @return ApprovalsRequestBuilder {@link ApprovalsRequestBuilder}
+     */
+    public ApprovalsRequestBuilder approvals() {
+        return new ApprovalsRequestBuilder(organizationUrl, accessTokenCredential);
     }
 
     /**

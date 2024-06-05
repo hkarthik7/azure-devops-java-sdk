@@ -88,7 +88,7 @@ public class RefsRequestBuilder extends BaseRequestBuilder {
      */
     public CompletableFuture<GitRefUpdateResults> updateAsync(String repositoryName, List<GitRefUpdate> gitRefUpdates) throws AzDException {
         return builder()
-                .PATCH(gitRefUpdates)
+                .POST(gitRefUpdates)
                 .serviceEndpoint("repositoryId", repositoryName)
                 .build()
                 .executeAsync(GitRefUpdateResults.class);
@@ -153,7 +153,7 @@ public class RefsRequestBuilder extends BaseRequestBuilder {
      */
     public GitRefUpdateResults update(String repositoryName, List<GitRefUpdate> gitRefUpdates) throws AzDException {
         return builder()
-                .PATCH(gitRefUpdates)
+                .POST(gitRefUpdates)
                 .serviceEndpoint("repositoryId", repositoryName)
                 .build()
                 .execute(GitRefUpdateResults.class);

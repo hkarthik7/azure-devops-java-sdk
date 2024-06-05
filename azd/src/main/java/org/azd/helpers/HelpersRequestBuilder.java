@@ -3,13 +3,17 @@ package org.azd.helpers;
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.common.ResourceId;
+import org.azd.helpers.artifactspackagetypes.ArtifactsPackageTypesHelpersRequestBuilder;
 import org.azd.helpers.build.BuildHelpersRequestBuilder;
 import org.azd.helpers.featuremanagement.FeatureManagementHelpersRequestBuilder;
 import org.azd.helpers.git.GitHelpersRequestBuilder;
 import org.azd.helpers.graph.GraphHelpersRequestBuilder;
+import org.azd.helpers.release.ReleaseHelpersRequestBuilder;
 import org.azd.helpers.serviceendpoint.ServiceEndpointHelpersRequestBuilder;
 import org.azd.helpers.workitemtracking.WorkItemTrackingHelpersRequestBuilder;
 import org.azd.locations.LocationsBaseRequestBuilder;
+
+import java.util.function.Predicate;
 
 /**
  * Container class that includes helper methods. 
@@ -23,6 +27,28 @@ public class HelpersRequestBuilder extends BaseRequestBuilder {
      */
     public HelpersRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
         super(organizationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Constructs build helpers request builder instance.
+     *
+     * @return ArtifactsPackageTypesHelpersRequestBuilder {@link ArtifactsPackageTypesHelpersRequestBuilder}
+     */
+    public ArtifactsPackageTypesHelpersRequestBuilder artifactsPackageTypes() {
+        return new ArtifactsPackageTypesHelpersRequestBuilder(getLocationUrl(ResourceId.MAVEN), accessTokenCredential);
+    }
+
+    /**
+     * Constructs build helpers request builder instance.
+     *
+     * @return ArtifactsPackageTypesHelpersRequestBuilder {@link ArtifactsPackageTypesHelpersRequestBuilder}
+     */
+    public ArtifactsPackageTypesHelpersRequestBuilder artifactsPackageTypes(Predicate<ProjectExcludeParameter> configuration) {
+        if (configuration != null) {
+            final var config = new ProjectExcludeParameter();
+            if (configuration.test(config)) accessTokenCredential.setProjectName(null);
+        }
+        return new ArtifactsPackageTypesHelpersRequestBuilder(getLocationUrl(ResourceId.MAVEN), accessTokenCredential);
     }
 
     /**
@@ -60,6 +86,16 @@ public class HelpersRequestBuilder extends BaseRequestBuilder {
     public GraphHelpersRequestBuilder graph() {
         return new GraphHelpersRequestBuilder(getLocationUrl(ResourceId.GRAPH), accessTokenCredential);
     }
+
+    /**
+     * Constructs graph helpers request builder instance.
+     *
+     * @return ReleaseHelpersRequestBuilder {@link ReleaseHelpersRequestBuilder}
+     */
+    public ReleaseHelpersRequestBuilder release() {
+        return new ReleaseHelpersRequestBuilder(getLocationUrl(ResourceId.RELEASE), accessTokenCredential);
+    }
+
 
     /**
      * Constructs service endpoint helpers request builder instance.

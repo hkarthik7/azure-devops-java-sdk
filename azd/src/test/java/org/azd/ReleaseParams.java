@@ -4,11 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildParams {
+public class ReleaseParams {
     @JsonProperty("definitionId")
     public int definitionId;
-    @JsonProperty("definitionName")
-    public String definitionName;
-    @JsonProperty("artifactAlias")
-    public String artifactAlias;
 }

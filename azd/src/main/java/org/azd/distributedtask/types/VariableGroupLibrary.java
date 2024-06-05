@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
 import org.azd.enums.VariableValue;
+import org.azd.release.types.ConfigurationVariableValue;
 
 import java.util.List;
 import java.util.Map;
@@ -24,7 +25,7 @@ public class VariableGroupLibrary extends SerializableEntity {
      * Sets provider data.
      */
     @JsonProperty("providerData")
-    public VariableGroupProviderData providerData;
+    public Object providerData;
     /**
      * Sets type of the variable group.
      */
@@ -39,5 +40,5 @@ public class VariableGroupLibrary extends SerializableEntity {
      * Sets variables contained in the variable group.
      */
     @JsonProperty("variables")
-    public Map<String, VariableValue> variables;
+    public Map<String, ConfigurableVariableValue> variables;
 }

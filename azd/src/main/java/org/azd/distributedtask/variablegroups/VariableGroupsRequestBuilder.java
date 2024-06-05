@@ -14,6 +14,7 @@ import org.azd.helpers.Utils;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
@@ -39,6 +40,8 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<VariableGroup> addAsync(VariableGroupLibrary variableGroupLibrary) throws AzDException {
+        Objects.requireNonNull(variableGroupLibrary, "Variable group library cannot be null.");
+
         var requestBody = new HashMap<String, Object>() {{
             put("variableGroupProjectReferences", variableGroupLibrary.variableGroupProjectReferences);
             put("name", variableGroupLibrary.name);
@@ -156,6 +159,7 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<VariableGroup> updateAsync(int variableGroupId, VariableGroupLibrary variableGroupLibrary) throws AzDException {
+        Objects.requireNonNull(variableGroupLibrary, "Variable group library cannot be null.");
         var requestBody = new HashMap<String, Object>() {{
             put("variableGroupProjectReferences", variableGroupLibrary.variableGroupProjectReferences);
             put("name", variableGroupLibrary.name);
@@ -180,6 +184,8 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public VariableGroup add(VariableGroupLibrary variableGroupLibrary) throws AzDException {
+        Objects.requireNonNull(variableGroupLibrary, "Variable group library cannot be null.");
+
         var requestBody = new HashMap<String, Object>() {{
             put("variableGroupProjectReferences", variableGroupLibrary.variableGroupProjectReferences);
             put("name", variableGroupLibrary.name);
@@ -297,6 +303,8 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public VariableGroup update(int variableGroupId, VariableGroupLibrary variableGroupLibrary) throws AzDException {
+        Objects.requireNonNull(variableGroupLibrary, "Variable group library cannot be null.");
+
         var requestBody = new HashMap<String, Object>() {{
             put("variableGroupProjectReferences", variableGroupLibrary.variableGroupProjectReferences);
             put("name", variableGroupLibrary.name);

@@ -33,7 +33,7 @@ public class ArtifactsRequestBuilder extends BaseRequestBuilder {
      * @return Pipelines artifact object {@link PipelinesArtifact}
      * @throws AzDException Default Api exception handler.
      */
-    public CompletableFuture<PipelinesArtifact> getAsync(String pipelineId, String runId,
+    public CompletableFuture<PipelinesArtifact> getAsync(int pipelineId, int runId,
                                                          Consumer<RequestConfiguration> requestConfiguration)
             throws AzDException {
         return builder()
@@ -54,7 +54,7 @@ public class ArtifactsRequestBuilder extends BaseRequestBuilder {
      * @return Pipelines artifact object {@link PipelinesArtifact}
      * @throws AzDException Default Api exception handler.
      */
-    public PipelinesArtifact get(String pipelineId, String runId, Consumer<RequestConfiguration> requestConfiguration)
+    public PipelinesArtifact get(int pipelineId, int runId, Consumer<RequestConfiguration> requestConfiguration)
             throws AzDException {
         return builder()
                 .serviceEndpoint("pipelineId", pipelineId)
