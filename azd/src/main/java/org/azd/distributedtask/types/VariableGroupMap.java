@@ -13,17 +13,18 @@ import java.util.Map;
  */
 public class VariableGroupMap extends BaseAbstractMethod {
     private final Map<String, ConfigurationVariableValue> map = new HashMap<>();
-    private final ConfigurationVariableValue variableValue = new ConfigurationVariableValue();
 
     public VariableGroupMap() {
     }
 
     public void put(String name, String value) {
+        ConfigurationVariableValue variableValue = new ConfigurationVariableValue();
         variableValue.setValue(value);
         map.put(name, variableValue);
     }
 
     public void put(String name, String value, VariableValue valueType) {
+        ConfigurationVariableValue variableValue = new ConfigurationVariableValue();
         if (valueType == VariableValue.IS_SECRET)
             variableValue.setIsSecret(true);
         if (valueType == VariableValue.IS_READONLY)
