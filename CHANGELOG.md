@@ -1,5 +1,10 @@
 # Changelog
 
+# 5.0.12
+
+**Minor Incremental Release**
+- Fix issue: [VariableGroupMap always assign the same value to variables #73](https://github.com/hkarthik7/azure-devops-java-sdk/issues/73)
+
 # 5.0.11
 
 **Minor Incremental Release**
