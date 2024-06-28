@@ -47,15 +47,16 @@ public class EndpointsRequestBuilder extends BaseRequestBuilder {
     /**
      * Delete a service endpoint.
      *
-     * @param endpointId Endpoint Id of endpoint to delete.
-     * @param deep       delete the spn created by endpoint.
+     * @param endpointId           Endpoint Id of endpoint to delete.
+     * @param requestConfiguration Consumer of delete request configuration.
      * @throws AzDException Default Api Exception handler.
      */
-    public CompletableFuture<Void> deleteAsync(String endpointId, boolean deep) throws AzDException {
+    public CompletableFuture<Void> deleteAsync(String endpointId, Consumer<DeleteRequestConfiguration> requestConfiguration)
+            throws AzDException {
         return builder()
                 .DELETE()
                 .serviceEndpoint("endpointId", endpointId)
-                .query("deep", deep)
+                .query(DeleteRequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
                 .build()
                 .executePrimitiveAsync();
     }
@@ -251,15 +252,15 @@ public class EndpointsRequestBuilder extends BaseRequestBuilder {
     /**
      * Delete a service endpoint.
      *
-     * @param endpointId Endpoint Id of endpoint to delete.
-     * @param deep       delete the spn created by endpoint.
+     * @param endpointId           Endpoint Id of endpoint to delete.
+     * @param requestConfiguration Consumer of delete request configuration that represents the query parameters.
      * @throws AzDException Default Api Exception handler.
      */
-    public Void delete(String endpointId, boolean deep) throws AzDException {
+    public Void delete(String endpointId, Consumer<DeleteRequestConfiguration> requestConfiguration) throws AzDException {
         return builder()
                 .DELETE()
                 .serviceEndpoint("endpointId", endpointId)
-                .query("deep", deep)
+                .query(DeleteRequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
                 .build()
                 .executePrimitive();
     }
@@ -486,5 +487,28 @@ public class EndpointsRequestBuilder extends BaseRequestBuilder {
      */
     public static class RequestConfiguration {
         public GetQueryParameters queryParameters = new GetQueryParameters();
+    }
+
+    /**
+     * Represents the delete query parameters.
+     */
+    public static class DeleteQueryParameters {
+        /**
+         * Project Ids from which endpoint needs to be deleted
+         */
+        @QueryParameter(name = "projectIds")
+        public String[] projectIds;
+        /**
+         * Delete the spn created by endpoint
+         */
+        @QueryParameter(name = "deep")
+        public Boolean deep;
+    }
+
+    /**
+     * Request configuration object for the query parameters.
+     */
+    public static class DeleteRequestConfiguration {
+        public DeleteQueryParameters queryParameters = new DeleteQueryParameters();
     }
 }

@@ -134,7 +134,7 @@ public class AccessControlListsRequestBuilder extends BaseRequestBuilder {
          * should be retrieved. If this is left null, entire ACLs will be returned.
          */
         @QueryParameter(name = "descriptors")
-        public String descriptors;
+        public String[] descriptors;
         /**
          * Security token
          */

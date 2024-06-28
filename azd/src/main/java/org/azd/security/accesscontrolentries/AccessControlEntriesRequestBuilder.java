@@ -108,7 +108,7 @@ public class AccessControlEntriesRequestBuilder extends BaseRequestBuilder {
          * String containing a list of identity descriptors separated by ',' whose entries should be removed.
          */
         @QueryParameter(name = "descriptors")
-        public String descriptors;
+        public String[] descriptors;
         /**
          * The token whose ACL should be modified.
          */

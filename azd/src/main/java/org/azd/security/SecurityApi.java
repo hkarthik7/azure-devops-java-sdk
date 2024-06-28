@@ -144,8 +144,12 @@ public class SecurityApi extends AzDAsyncApi<SecurityApi> implements SecurityDet
      * @param identityIds        A list of storage keys to resolve
      * @param subjectDescriptors list of subject descriptors to resolve
      * @param filterValue        The search value, as specified by the searchFilter.
-     * @param queryMembership    The membership information to include with the identities. Values can be None for no membership data or Direct to include the groups that the identity is a member of and the identities that are a member of this identity (groups only)
-     * @param searchFilter       The type of search to perform. Values can be AccountName (domain\alias), DisplayName, MailAddress, General (display name, account name, or unique name), or LocalGroupName (only search Azure Devops groups).
+     * @param queryMembership    The membership information to include with the identities. Values can be
+     *                           None for no membership data or Direct to include the groups that the
+     *                           identity is a member of and the identities that are a member of this identity (groups only)
+     * @param searchFilter       The type of search to perform. Values can be AccountName (domain\alias),
+     *                           DisplayName, MailAddress, General (display name, account name, or unique name),
+     *                           or LocalGroupName (only search Azure Devops groups).
      * @return Identities {@link Identities}
      * @throws AzDException Default Api Exception handler.
      */

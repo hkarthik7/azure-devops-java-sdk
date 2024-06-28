@@ -2,8 +2,10 @@ package org.azd.security;
 
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.locations.LocationsBaseRequestBuilder;
 import org.azd.security.accesscontrolentries.AccessControlEntriesRequestBuilder;
 import org.azd.security.accesscontrollists.AccessControlListsRequestBuilder;
+import org.azd.security.identities.IdentitiesRequestBuilder;
 import org.azd.security.securitynamespaces.SecurityNamespacesRequestBuilder;
 
 /**
@@ -45,5 +47,16 @@ public class SecurityRequestBuilder extends BaseRequestBuilder {
      */
     public SecurityNamespacesRequestBuilder securityNamespaces() {
         return new SecurityNamespacesRequestBuilder(organizationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Provides functionality to work with legacy Identities lists Api.
+     *
+     * @return IdentitiesRequestBuilder {@link IdentitiesRequestBuilder}
+     */
+    public IdentitiesRequestBuilder identities() {
+        var location = new LocationsBaseRequestBuilder(organizationUrl, accessTokenCredential);
+        var url = location.getUrl("fc3682be-3d6c-427a-87c8-e527b16a1d05");
+        return new IdentitiesRequestBuilder(url, accessTokenCredential);
     }
 }
