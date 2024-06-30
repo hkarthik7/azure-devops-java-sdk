@@ -5,6 +5,7 @@ import org.azd.abstractions.QueryParameter;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
+import org.azd.helpers.URLHelper;
 import org.azd.workitemtracking.types.WorkItemQueryResult;
 
 import java.util.Map;
@@ -37,7 +38,7 @@ public class WiqlRequestBuilder extends BaseRequestBuilder {
         return builder()
                 .location("a02355f5-5f8a-4671-8e32-369d23aac83d")
                 .serviceEndpoint("id", id)
-                .serviceEndpoint("team", team)
+                .serviceEndpoint("team", URLHelper.encodeSpecialWithSpace(team))
                 .apiVersion(ApiVersion.WIT_WIQL)
                 .build()
                 .executeAsync(WorkItemQueryResult.class);
@@ -57,7 +58,7 @@ public class WiqlRequestBuilder extends BaseRequestBuilder {
         return builder()
                 .location("a02355f5-5f8a-4671-8e32-369d23aac83d")
                 .serviceEndpoint("id", id)
-                .serviceEndpoint("team", team)
+                .serviceEndpoint("team", URLHelper.encodeSpecialWithSpace(team))
                 .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
                 .apiVersion(ApiVersion.WIT_WIQL)
                 .build()
@@ -75,7 +76,7 @@ public class WiqlRequestBuilder extends BaseRequestBuilder {
         return builder()
                 .location("1a9c53f7-f243-4447-b110-35ef023636e4")
                 .POST(Map.of("query", query))
-                .serviceEndpoint("team", team)
+                .serviceEndpoint("team", URLHelper.encodeSpecialWithSpace(team))
                 .apiVersion(ApiVersion.WIT_WIQL)
                 .build()
                 .executeAsync(WorkItemQueryResult.class);
@@ -94,7 +95,7 @@ public class WiqlRequestBuilder extends BaseRequestBuilder {
         return builder()
                 .location("1a9c53f7-f243-4447-b110-35ef023636e4")
                 .POST(Map.of("query", query))
-                .serviceEndpoint("team", team)
+                .serviceEndpoint("team", URLHelper.encodeSpecialWithSpace(team))
                 .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
                 .apiVersion(ApiVersion.WIT_WIQL)
                 .build()
@@ -113,7 +114,7 @@ public class WiqlRequestBuilder extends BaseRequestBuilder {
         return builder()
                 .location("a02355f5-5f8a-4671-8e32-369d23aac83d")
                 .serviceEndpoint("id", id)
-                .serviceEndpoint("team", team)
+                .serviceEndpoint("team", URLHelper.encodeSpecialWithSpace(team))
                 .apiVersion(ApiVersion.WIT_WIQL)
                 .build()
                 .execute(WorkItemQueryResult.class);
@@ -133,7 +134,7 @@ public class WiqlRequestBuilder extends BaseRequestBuilder {
         return builder()
                 .location("a02355f5-5f8a-4671-8e32-369d23aac83d")
                 .serviceEndpoint("id", id)
-                .serviceEndpoint("team", team)
+                .serviceEndpoint("team", URLHelper.encodeSpecialWithSpace(team))
                 .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
                 .apiVersion(ApiVersion.WIT_WIQL)
                 .build()
@@ -151,7 +152,7 @@ public class WiqlRequestBuilder extends BaseRequestBuilder {
         return builder()
                 .location("1a9c53f7-f243-4447-b110-35ef023636e4")
                 .POST(Map.of("query", query))
-                .serviceEndpoint("team", team)
+                .serviceEndpoint("team", URLHelper.encodeSpecialWithSpace(team))
                 .apiVersion(ApiVersion.WIT_WIQL)
                 .build()
                 .execute(WorkItemQueryResult.class);
@@ -170,7 +171,7 @@ public class WiqlRequestBuilder extends BaseRequestBuilder {
         return builder()
                 .location("1a9c53f7-f243-4447-b110-35ef023636e4")
                 .POST(Map.of("query", query))
-                .serviceEndpoint("team", team)
+                .serviceEndpoint("team", URLHelper.encodeSpecialWithSpace(team))
                 .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
                 .apiVersion(ApiVersion.WIT_WIQL)
                 .build()

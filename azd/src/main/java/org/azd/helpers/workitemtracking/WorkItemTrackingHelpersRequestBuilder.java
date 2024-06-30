@@ -162,7 +162,7 @@ public class WorkItemTrackingHelpersRequestBuilder extends WorkItemTrackingReque
 
             var jsonDocument = new JsonPatchDocument();
             jsonDocument.setOperation(PatchOperation.REMOVE);
-            jsonDocument.setPath("/relations/-" + hyperlinkRelationNumber);
+            jsonDocument.setPath("/relations/" + hyperlinkRelationNumber);
 
             reqBody.add(jsonDocument);
         }

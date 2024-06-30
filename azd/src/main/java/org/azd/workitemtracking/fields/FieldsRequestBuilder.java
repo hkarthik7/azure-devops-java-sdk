@@ -5,6 +5,7 @@ import org.azd.authentication.AccessTokenCredential;
 import org.azd.common.ApiVersion;
 import org.azd.enums.GetFieldsExpand;
 import org.azd.exceptions.AzDException;
+import org.azd.helpers.URLHelper;
 import org.azd.workitemtracking.types.WorkItemField;
 import org.azd.workitemtracking.types.WorkItemFieldUpdate;
 import org.azd.workitemtracking.types.WorkItemFields;
@@ -48,7 +49,7 @@ public class FieldsRequestBuilder extends BaseRequestBuilder {
     public CompletableFuture<Void> deleteAsync(String fieldNameOrRefName) throws AzDException {
         return builder()
                 .DELETE()
-                .serviceEndpoint("fieldNameOrRefName", fieldNameOrRefName)
+                .serviceEndpoint("fieldNameOrRefName", URLHelper.encodeSpecialWithSpace(fieldNameOrRefName))
                 .build()
                 .executePrimitiveAsync();
     }
@@ -62,7 +63,7 @@ public class FieldsRequestBuilder extends BaseRequestBuilder {
      */
     public CompletableFuture<WorkItemField> getAsync(String fieldNameOrRefName) throws AzDException {
         return builder()
-                .serviceEndpoint("fieldNameOrRefName", fieldNameOrRefName)
+                .serviceEndpoint("fieldNameOrRefName", URLHelper.encodeSpecialWithSpace(fieldNameOrRefName))
                 .build()
                 .executeAsync(WorkItemField.class);
     }
@@ -105,7 +106,7 @@ public class FieldsRequestBuilder extends BaseRequestBuilder {
     public CompletableFuture<WorkItemField> updateAsync(String fieldNameOrRefName, WorkItemFieldUpdate workItemFieldUpdate) throws AzDException {
         return builder()
                 .PATCH(workItemFieldUpdate)
-                .serviceEndpoint("fieldNameOrRefName", fieldNameOrRefName)
+                .serviceEndpoint("fieldNameOrRefName", URLHelper.encodeSpecialWithSpace(fieldNameOrRefName))
                 .build()
                 .executeAsync(WorkItemField.class);
     }
@@ -133,7 +134,7 @@ public class FieldsRequestBuilder extends BaseRequestBuilder {
     public Void delete(String fieldNameOrRefName) throws AzDException {
         return builder()
                 .DELETE()
-                .serviceEndpoint("fieldNameOrRefName", fieldNameOrRefName)
+                .serviceEndpoint("fieldNameOrRefName", URLHelper.encodeSpecialWithSpace(fieldNameOrRefName))
                 .build()
                 .executePrimitive();
     }
@@ -147,7 +148,7 @@ public class FieldsRequestBuilder extends BaseRequestBuilder {
      */
     public WorkItemField get(String fieldNameOrRefName) throws AzDException {
         return builder()
-                .serviceEndpoint("fieldNameOrRefName", fieldNameOrRefName)
+                .serviceEndpoint("fieldNameOrRefName", URLHelper.encodeSpecialWithSpace(fieldNameOrRefName))
                 .build()
                 .execute(WorkItemField.class);
     }
@@ -190,7 +191,7 @@ public class FieldsRequestBuilder extends BaseRequestBuilder {
     public WorkItemField update(String fieldNameOrRefName, WorkItemFieldUpdate workItemFieldUpdate) throws AzDException {
         return builder()
                 .PATCH(workItemFieldUpdate)
-                .serviceEndpoint("fieldNameOrRefName", fieldNameOrRefName)
+                .serviceEndpoint("fieldNameOrRefName", URLHelper.encodeSpecialWithSpace(fieldNameOrRefName))
                 .build()
                 .execute(WorkItemField.class);
     }

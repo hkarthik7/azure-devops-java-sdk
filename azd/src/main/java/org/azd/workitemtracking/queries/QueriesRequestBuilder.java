@@ -5,6 +5,7 @@ import org.azd.abstractions.QueryParameter;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.enums.QueryExpand;
 import org.azd.exceptions.AzDException;
+import org.azd.helpers.URLHelper;
 import org.azd.workitemtracking.types.QueryBatchGetRequest;
 import org.azd.workitemtracking.types.QueryHierarchyItem;
 import org.azd.workitemtracking.types.QueryHierarchyItems;
@@ -38,7 +39,7 @@ public class QueriesRequestBuilder extends BaseRequestBuilder {
     public CompletableFuture<QueryHierarchyItem> createAsync(String query, QueryHierarchyItem queryHierarchyItem) throws AzDException {
         return builder()
                 .POST(queryHierarchyItem)
-                .serviceEndpoint("query", query)
+                .serviceEndpoint("query", URLHelper.encodeSpecialWithSpace(query))
                 .build()
                 .executeAsync(QueryHierarchyItem.class);
     }
@@ -57,7 +58,7 @@ public class QueriesRequestBuilder extends BaseRequestBuilder {
                                                              QueryHierarchyItem queryHierarchyItem) throws AzDException {
         return builder()
                 .POST(queryHierarchyItem)
-                .serviceEndpoint("query", query)
+                .serviceEndpoint("query", URLHelper.encodeSpecialWithSpace(query))
                 .build()
                 .executeAsync(QueryHierarchyItem.class);
     }
@@ -73,7 +74,7 @@ public class QueriesRequestBuilder extends BaseRequestBuilder {
     public CompletableFuture<Void> deleteAsync(String query) throws AzDException {
         return builder()
                 .DELETE()
-                .serviceEndpoint("query", query)
+                .serviceEndpoint("query", URLHelper.encodeSpecialWithSpace(query))
                 .build()
                 .executePrimitiveAsync();
     }
@@ -87,7 +88,7 @@ public class QueriesRequestBuilder extends BaseRequestBuilder {
      */
     public CompletableFuture<QueryHierarchyItem> getAsync(String query) throws AzDException {
         return builder()
-                .serviceEndpoint("query", query)
+                .serviceEndpoint("query", URLHelper.encodeSpecialWithSpace(query))
                 .build()
                 .executeAsync(QueryHierarchyItem.class);
     }
@@ -102,7 +103,7 @@ public class QueriesRequestBuilder extends BaseRequestBuilder {
      */
     public CompletableFuture<QueryHierarchyItem> getAsync(String query, Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
         return builder()
-                .serviceEndpoint("query", query)
+                .serviceEndpoint("query", URLHelper.encodeSpecialWithSpace(query))
                 .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
                 .build()
                 .executeAsync(QueryHierarchyItem.class);
@@ -176,7 +177,7 @@ public class QueriesRequestBuilder extends BaseRequestBuilder {
             throws AzDException {
         return builder()
                 .PATCH(queryHierarchyItem)
-                .serviceEndpoint("query", query)
+                .serviceEndpoint("query", URLHelper.encodeSpecialWithSpace(query))
                 .build()
                 .executeAsync(QueryHierarchyItem.class);
     }
@@ -196,7 +197,7 @@ public class QueriesRequestBuilder extends BaseRequestBuilder {
             throws AzDException {
         return builder()
                 .PATCH(queryHierarchyItem)
-                .serviceEndpoint("query", query)
+                .serviceEndpoint("query", URLHelper.encodeSpecialWithSpace(query))
                 .query("$undeleteDescendants", undeleteDescendants)
                 .build()
                 .executeAsync(QueryHierarchyItem.class);
@@ -213,7 +214,7 @@ public class QueriesRequestBuilder extends BaseRequestBuilder {
     public QueryHierarchyItem create(String query, QueryHierarchyItem queryHierarchyItem) throws AzDException {
         return builder()
                 .POST(queryHierarchyItem)
-                .serviceEndpoint("query", query)
+                .serviceEndpoint("query", URLHelper.encodeSpecialWithSpace(query))
                 .build()
                 .execute(QueryHierarchyItem.class);
     }
@@ -232,7 +233,7 @@ public class QueriesRequestBuilder extends BaseRequestBuilder {
                                      QueryHierarchyItem queryHierarchyItem) throws AzDException {
         return builder()
                 .POST(queryHierarchyItem)
-                .serviceEndpoint("query", query)
+                .serviceEndpoint("query", URLHelper.encodeSpecialWithSpace(query))
                 .build()
                 .execute(QueryHierarchyItem.class);
     }
@@ -248,7 +249,7 @@ public class QueriesRequestBuilder extends BaseRequestBuilder {
     public Void delete(String query) throws AzDException {
         return builder()
                 .DELETE()
-                .serviceEndpoint("query", query)
+                .serviceEndpoint("query", URLHelper.encodeSpecialWithSpace(query))
                 .build()
                 .executePrimitive();
     }
@@ -262,7 +263,7 @@ public class QueriesRequestBuilder extends BaseRequestBuilder {
      */
     public QueryHierarchyItem get(String query) throws AzDException {
         return builder()
-                .serviceEndpoint("query", query)
+                .serviceEndpoint("query", URLHelper.encodeSpecialWithSpace(query))
                 .build()
                 .execute(QueryHierarchyItem.class);
     }
@@ -277,7 +278,7 @@ public class QueriesRequestBuilder extends BaseRequestBuilder {
      */
     public QueryHierarchyItem get(String query, Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
         return builder()
-                .serviceEndpoint("query", query)
+                .serviceEndpoint("query", URLHelper.encodeSpecialWithSpace(query))
                 .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
                 .build()
                 .execute(QueryHierarchyItem.class);
@@ -351,7 +352,7 @@ public class QueriesRequestBuilder extends BaseRequestBuilder {
             throws AzDException {
         return builder()
                 .PATCH(queryHierarchyItem)
-                .serviceEndpoint("query", query)
+                .serviceEndpoint("query", URLHelper.encodeSpecialWithSpace(query))
                 .build()
                 .execute(QueryHierarchyItem.class);
     }
@@ -371,7 +372,7 @@ public class QueriesRequestBuilder extends BaseRequestBuilder {
             throws AzDException {
         return builder()
                 .PATCH(queryHierarchyItem)
-                .serviceEndpoint("query", query)
+                .serviceEndpoint("query", URLHelper.encodeSpecialWithSpace(query))
                 .query("$undeleteDescendants", undeleteDescendants)
                 .build()
                 .execute(QueryHierarchyItem.class);
