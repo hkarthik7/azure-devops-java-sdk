@@ -1,5 +1,10 @@
 # Changelog
 
+# 5.0.13
+
+**Minor Incremental Release**
+- Bumped dependency version.
+
 # 5.0.12
 
 **Minor Incremental Release**
