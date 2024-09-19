@@ -40,7 +40,7 @@ stages:
 
       - task: Maven@4
         inputs:
-          mavenPomFile: 'Maven azd/pom.xml'
+          mavenPomFile: 'azd/pom.xml'
           goals: 'test'
           publishJUnitResults: true
           testResultsFiles: '**/surefire-reports/TEST-*.xml'
@@ -83,7 +83,7 @@ stages:
 
       - task: Maven@4
         inputs:
-          mavenPomFile: 'Maven azd/pom.xml'
+          mavenPomFile: 'azd/pom.xml'
           goals: 'test'
           publishJUnitResults: true
           testResultsFiles: '**/surefire-reports/TEST-*.xml'
@@ -126,7 +126,7 @@ stages:
 
     - task: Maven@4
       inputs:
-        mavenPomFile: 'Maven azd/pom.xml'
+        mavenPomFile: 'azd/pom.xml'
         goals: 'package'
         publishJUnitResults: true
         testResultsFiles: '**/surefire-reports/TEST-*.xml'
