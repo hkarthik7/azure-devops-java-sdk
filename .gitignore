@@ -40,3 +40,4 @@ __pycache__/
 
 # Don't upload the types folder under tools/
 tools/types/
+tools/env/
