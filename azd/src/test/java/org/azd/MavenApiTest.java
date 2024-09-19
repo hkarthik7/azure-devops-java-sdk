@@ -151,8 +151,8 @@ public class MavenApiTest {
     @Test
     public void shouldDownloadPackage() throws AzDException {
         var feedId = feed.getFeed(FEED).getId();
-        var responseStream = mvn.downloadPackage(feedId, TEST1_GROUP, TEST1_ARTIFACT, TEST1_VERSION, "ClickJack-1.5.0.jar");
-        StreamHelper.download("ClickJack-1.5.0.jar", responseStream);
+        var responseStream = mvn.downloadPackage(feedId, TEST1_GROUP, TEST1_ARTIFACT, TEST1_VERSION, "ClickJack-1.5.1.jar");
+        StreamHelper.download("ClickJack-1.5.1.jar", responseStream);
         System.out.println("Maven API TEST : shouldDownloadPackage - OK");
     }
 
@@ -162,7 +162,7 @@ public class MavenApiTest {
         var uploadVersion = TEST1_VERSION.substring(0, TEST1_VERSION.lastIndexOf(".")) + "." + (Integer.parseInt(TEST1_VERSION.substring(TEST1_VERSION.lastIndexOf(".") + 1)) + 1);
         String uploadFileName = TEST1_ARTIFACT+"-"+uploadVersion+".jar";
 
-        var responseStream = mvn.downloadPackage(feedId, TEST1_GROUP, TEST1_ARTIFACT, TEST1_VERSION, "ClickJack-1.5.0.jar");
+        var responseStream = mvn.downloadPackage(feedId, TEST1_GROUP, TEST1_ARTIFACT, TEST1_VERSION, "ClickJack-1.5.1.jar");
         StreamHelper.download(uploadFileName, responseStream);
 
         var content = StreamHelper.convertToStream(new File(uploadFileName));
