@@ -38,13 +38,17 @@ stages:
         displayName: 'PowerShell Script'
         enabled: true
 
-      - task: Maven@3
-        displayName: 'Maven azd/pom.xml'
+      - task: Maven@4
         inputs:
-          mavenPomFile: azd/pom.xml
-          goals: test
+          mavenPomFile: 'Maven azd/pom.xml'
+          goals: 'test'
           publishJUnitResults: true
           testResultsFiles: '**/surefire-reports/TEST-*.xml'
+          javaHomeOption: 'JDKVersion'
+          mavenVersionOption: 'Default'
+          mavenAuthenticateFeed: false
+          effectivePomSkip: false
+          sonarQubeRunAnalysis: false
 
 - stage: Build_Test_Windows
 
@@ -77,13 +81,17 @@ stages:
         displayName: 'PowerShell Script'
         enabled: true
 
-      - task: Maven@3
-        displayName: 'Maven azd/pom.xml'
+      - task: Maven@4
         inputs:
-          mavenPomFile: azd/pom.xml
-          goals: test
+          mavenPomFile: 'Maven azd/pom.xml'
+          goals: 'test'
           publishJUnitResults: true
           testResultsFiles: '**/surefire-reports/TEST-*.xml'
+          javaHomeOption: 'JDKVersion'
+          mavenVersionOption: 'Default'
+          mavenAuthenticateFeed: false
+          effectivePomSkip: false
+          sonarQubeRunAnalysis: false
   
 - stage: Publish_Artifact
 
@@ -116,13 +124,17 @@ stages:
       displayName: 'PowerShell Script'
       enabled: true
 
-    - task: Maven@3
-      displayName: 'Maven azd/pom.xml'
+    - task: Maven@4
       inputs:
-        mavenPomFile: azd/pom.xml
-        goals: package
+        mavenPomFile: 'Maven azd/pom.xml'
+        goals: 'package'
         publishJUnitResults: true
         testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        javaHomeOption: 'JDKVersion'
+        mavenVersionOption: 'Default'
+        mavenAuthenticateFeed: false
+        effectivePomSkip: false
+        sonarQubeRunAnalysis: false
 
     - task: CopyFiles@2
       displayName: 'Copy jar file'
