@@ -5,10 +5,6 @@
 [![Documentation Status](https://readthedocs.org/projects/azure-devops-java-sdk-docs/badge/?version=latest)](https://azure-devops-java-sdk-docs.readthedocs.io/en/latest/?badge=latest)
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.hkarthik7/azd.svg)](https://search.maven.org/artifact/io.github.hkarthik7/azd/6.0.0/jar)
 
-# Please check the announcement to know what is new in version 6.0 and read about breaking changes.
-
-# :loudspeaker: [Announcement](https://github.com/hkarthik7/azure-devops-java-sdk/issues/69) :exclamation::heavy_exclamation_mark:
-
 **azd** library provides a convenient way to manage and interact with **Azure DevOps Services** REST API with ease. This SDK offers a set of APIs and utilities
 with declarative syntax and provide functionalities to the significant services.
 
@@ -307,8 +303,8 @@ Client object is constructed in a way that you navigate the documentation.
 ## Dependencies
 
 | NAME                       | VERSION |
-| -------------------------- | ------- |
-| com.fasterxml.jackson.core | v2.15.1 |
+| -------------------------- |---------|
+| com.fasterxml.jackson.core | v2.17.2 |
 
 ## Build Locally
 
