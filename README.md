@@ -262,12 +262,12 @@ public class Main {
             String descriptors = client.locations().getConnectionData().getAuthenticatedUser().getDescriptor();
 
             // Construct the request URI
-            URI requestUri = UrlBuilder.fromBaseUrl(locationUrl)
-                    .appendPath(Constants.APIS_RELATIVE_PATH)
-                    .appendPath("identities")
-                    .appendQueryString(Constants.API_VERSION, ApiVersion.IDENTITY)
-                    .appendQueryString("descriptors", descriptors)
-                    .build();
+            URI requestUri = UrlBuilder.fromBaseUrl(locationUrl) // https://vssps.dev.azure.com/{organization}
+                    .appendPath(Constants.APIS_RELATIVE_PATH) // /_apis
+                    .appendPath("identities") // /identities
+                    .appendQueryString(Constants.API_VERSION, ApiVersion.IDENTITY) // ?api-version=7.1
+                    .appendQueryString("descriptors", descriptors) // &descriptors={descriptors}
+                    .build(); // https://vssps.dev.azure.com/{organization}/_apis/identities?api-version=7.1
 
             System.out.println(requestUri);
 
