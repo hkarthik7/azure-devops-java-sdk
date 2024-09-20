@@ -1,134 +1,146 @@
 name: $(Build.BuildID)
 
 trigger:
-- main
+  - main
 
 resources:
-- repo: self
+  - repo: self
 
 stages:
-- stage: Build_Test_Linux
+  - stage: Build_Test_Linux
 
-  jobs:
-  - job: Linux
+    jobs:
+      - job: Linux
 
-    pool:
-      vmImage: ubuntu-latest
-      demands: maven
+        pool:
+          vmImage: ubuntu-latest
+          demands: maven
 
-    steps:
-      - task: JavaToolInstaller@0
-        inputs:
-          versionSpec: '11'
-          jdkArchitectureOption: 'x64'
-          jdkSourceOption: 'PreInstalled'
+        steps:
+          - task: JavaToolInstaller@0
+            inputs:
+              versionSpec: '11'
+              jdkArchitectureOption: 'x64'
+              jdkSourceOption: 'PreInstalled'
 
-      - powershell: |
-          $s = @{
-              "o" = "$(system.teamOrganization)"
-              "t" = "$(system.teamToken)"
-              "p" = "$(system.teamProject)"
-          } | ConvertTo-Json
+          - powershell: |
+              $s = @{
+                  "o" = "$(system.teamOrganization)"
+                  "t" = "$(system.teamToken)"
+                  "p" = "$(system.teamProject)"
+              } | ConvertTo-Json
+              
+              $f = Get-ChildItem -Path $PWD.Path -Filter "_unitTest.json" -Recurse
+              $pom = Get-ChildItem -Path $PWD.Path -Filter "pom.xml" -Recurse
+              
+              $s| Set-Content -Path $f.FullName -Encoding UTF8
 
-          $f = Get-ChildItem -Path $PWD.Path -Filter "_unitTest.json" -Recurse
-          $pom = Get-ChildItem -Path $PWD.Path -Filter "pom.xml" -Recurse
+            displayName: 'PowerShell Script'
+            enabled: true
 
-          $s| Set-Content -Path $f.FullName -Encoding UTF8
+          - task: Maven@4
+            inputs:
+              mavenPomFile: 'azd/pom.xml'
+              goals: 'test'
+              publishJUnitResults: true
+              testResultsFiles: '**/surefire-reports/TEST-*.xml'
+              javaHomeOption: 'JDKVersion'
+              mavenVersionOption: 'Default'
+              mavenAuthenticateFeed: false
+              effectivePomSkip: false
+              sonarQubeRunAnalysis: false
 
-        displayName: 'PowerShell Script'
-        enabled: true
+  - stage: Build_Test_Windows
 
-      - task: Maven@3
-        displayName: 'Maven azd/pom.xml'
-        inputs:
-          mavenPomFile: azd/pom.xml
-          goals: test
-          publishJUnitResults: true
-          testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    jobs:
+      - job: Windows
 
-- stage: Build_Test_Windows
+        pool:
+          vmImage: windows-latest
+          demands: maven
 
-  jobs:
-  - job: Windows
+        steps:
+          - task: JavaToolInstaller@0
+            inputs:
+              versionSpec: '11'
+              jdkArchitectureOption: 'x64'
+              jdkSourceOption: 'PreInstalled'
 
-    pool:
-      vmImage: windows-latest
-      demands: maven
+          - powershell: |
+              $s = @{
+                  "o" = "$(system.teamOrganization)"
+                  "t" = "$(system.teamToken)"
+                  "p" = "$(system.teamProject)"
+              } | ConvertTo-Json
+              
+              $f = Get-ChildItem -Path $PWD.Path -Filter "_unitTest.json" -Recurse
+              $pom = Get-ChildItem -Path $PWD.Path -Filter "pom.xml" -Recurse
+              
+              $s| Set-Content -Path $f.FullName -Encoding UTF8
 
-    steps:
-      - task: JavaToolInstaller@0
-        inputs:
-          versionSpec: '11'
-          jdkArchitectureOption: 'x64'
-          jdkSourceOption: 'PreInstalled'
+            displayName: 'PowerShell Script'
+            enabled: true
 
-      - powershell: |
-          $s = @{
-              "o" = "$(system.teamOrganization)"
-              "t" = "$(system.teamToken)"
-              "p" = "$(system.teamProject)"
-          } | ConvertTo-Json
+          - task: Maven@4
+            inputs:
+              mavenPomFile: 'azd/pom.xml'
+              goals: 'test'
+              publishJUnitResults: true
+              testResultsFiles: '**/surefire-reports/TEST-*.xml'
+              javaHomeOption: 'JDKVersion'
+              mavenVersionOption: 'Default'
+              mavenAuthenticateFeed: false
+              effectivePomSkip: false
+              sonarQubeRunAnalysis: false
 
-          $f = Get-ChildItem -Path $PWD.Path -Filter "_unitTest.json" -Recurse
-          $pom = Get-ChildItem -Path $PWD.Path -Filter "pom.xml" -Recurse
+  - stage: Publish_Artifact
 
-          $s| Set-Content -Path $f.FullName -Encoding UTF8
+    jobs:
+      - job: Publish_Artifact
 
-        displayName: 'PowerShell Script'
-        enabled: true
+        pool:
+          vmImage: windows-latest
+          demands: maven
 
-      - task: Maven@3
-        displayName: 'Maven azd/pom.xml'
-        inputs:
-          mavenPomFile: azd/pom.xml
-          goals: test
-          publishJUnitResults: true
-          testResultsFiles: '**/surefire-reports/TEST-*.xml'
-  
-- stage: Publish_Artifact
+        steps:
+          - task: JavaToolInstaller@0
+            inputs:
+              versionSpec: '11'
+              jdkArchitectureOption: 'x64'
+              jdkSourceOption: 'PreInstalled'
 
-  jobs:
-  - job: Publish_Artifact
+          - powershell: |
+              $s = @{
+                  "o" = "$(system.teamOrganization)"
+                  "t" = "$(system.teamToken)"
+                  "p" = "$(system.teamProject)"
+              } | ConvertTo-Json
+              
+              $f = Get-ChildItem -Path $PWD.Path -Filter "_unitTest.json" -Recurse
+              $pom = Get-ChildItem -Path $PWD.Path -Filter "pom.xml" -Recurse
+              
+              $s| Set-Content -Path $f.FullName -Encoding UTF8
 
-    pool:
-        vmImage: windows-latest
-        demands: maven
+            displayName: 'PowerShell Script'
+            enabled: true
 
-    steps:
-    - task: JavaToolInstaller@0
-      inputs:
-        versionSpec: '11'
-        jdkArchitectureOption: 'x64'
-        jdkSourceOption: 'PreInstalled'
+          - task: Maven@4
+            inputs:
+              mavenPomFile: 'azd/pom.xml'
+              goals: 'package'
+              publishJUnitResults: true
+              testResultsFiles: '**/surefire-reports/TEST-*.xml'
+              javaHomeOption: 'JDKVersion'
+              mavenVersionOption: 'Default'
+              mavenAuthenticateFeed: false
+              effectivePomSkip: false
+              sonarQubeRunAnalysis: false
 
-    - powershell: |
-        $s = @{
-            "o" = "$(system.teamOrganization)"
-            "t" = "$(system.teamToken)"
-            "p" = "$(system.teamProject)"
-        } | ConvertTo-Json
+          - task: CopyFiles@2
+            displayName: 'Copy jar file'
+            inputs:
+              Contents: '**/*.jar'
+              TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
-        $f = Get-ChildItem -Path $PWD.Path -Filter "_unitTest.json" -Recurse
-        $pom = Get-ChildItem -Path $PWD.Path -Filter "pom.xml" -Recurse
-
-        $s| Set-Content -Path $f.FullName -Encoding UTF8
-
-      displayName: 'PowerShell Script'
-      enabled: true
-
-    - task: Maven@3
-      displayName: 'Maven azd/pom.xml'
-      inputs:
-        mavenPomFile: azd/pom.xml
-        goals: package
-        publishJUnitResults: true
-        testResultsFiles: '**/surefire-reports/TEST-*.xml'
-
-    - task: CopyFiles@2
-      displayName: 'Copy jar file'
-      inputs:
-        Contents: '**/*.jar'
-        TargetFolder: '$(Build.ArtifactStagingDirectory)'
-
-    - task: PublishBuildArtifacts@1
-      displayName: 'Publish Artifact'
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish Artifact'
