@@ -4,6 +4,7 @@ import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.abstractions.QueryParameter;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.build.types.Timeline;
+import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
 
 import java.util.concurrent.CompletableFuture;
@@ -20,7 +21,7 @@ public class TimelineRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public TimelineRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "build", "8baac422-4c6e-4de5-8532-db96d92acffa");
+        super(organizationUrl, accessTokenCredential, "build", "8baac422-4c6e-4de5-8532-db96d92acffa", ApiVersion.BUILD_TIMELINE);
     }
 
     /**

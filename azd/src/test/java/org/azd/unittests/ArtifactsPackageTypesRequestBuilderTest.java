@@ -242,9 +242,9 @@ public class ArtifactsPackageTypesRequestBuilderTest {
             r.groupId = TEST1_GROUP;
             r.artifactId = TEST1_ARTIFACT;
             r.version = TEST1_VERSION;
-            r.fileName = "ClickJack-1.5.0.jar";
+            r.fileName = "ClickJack-1.5.1.jar";
         });
-        StreamHelper.download("ClickJack-1.5.0.jar", responseStream);
+        StreamHelper.download("ClickJack-1.5.1.jar", responseStream);
         System.out.println("Maven API TEST : shouldDownloadPackage - OK");
     }
 
@@ -259,7 +259,7 @@ public class ArtifactsPackageTypesRequestBuilderTest {
             r.groupId = TEST1_GROUP;
             r.artifactId = TEST1_ARTIFACT;
             r.version = TEST1_VERSION;
-            r.fileName = "ClickJack-1.5.0.jar";
+            r.fileName = "ClickJack-1.5.1.jar";
         });
         StreamHelper.download(uploadFileName, responseStream);
 

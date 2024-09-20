@@ -5,7 +5,7 @@ Thank you for your interest and support in developing **azd**.
 ## Steps to contribute
 
 1. Visit [API documentation](https://docs.microsoft.com/en-us/rest/api/azure/devops/?WT.mc_id=docs-github-dbrown&view=azure-devops-rest-6.1)
-and find the API to create a wrapper function.
+and find the API that you want to support.
 2. Get familiar with the REST API.
 3. Fork this repository and create a branch for your work.
 4. In your local development environment open the pom.xml file and sync to install dependencies.
