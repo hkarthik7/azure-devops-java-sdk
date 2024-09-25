@@ -37,6 +37,67 @@ public class Main {
         AzDServiceClient client = AzDService.builder().authentication(pat).buildClient();
         // or
         AzDServiceClient client = AzDService.builder().authentication(oauth).buildClient();
+
+        // Use client object to call the APIs.
+
+        // clone a build pipeline/definition
+        client.helpers().build().cloneBuildDefinition("Deploy-WebApp-CI", "Deploy-WebApp-CI-Copy");
+
+        // delete a build by id
+        client.build().builds().delete(25);
+
+        // delete a pipeline/definition by definition id
+        client.build().definitions().delete(9);
+
+        // get a build by Id
+        client.build().builds().get(20);
+
+        // list the build controllers
+        client.build().controllers().list();
+
+        // list the build definitions
+        client.build().definitions().list().getBuildDefinitions().stream().forEach(System.out::println);
+
+        // get the logs for a specific build
+        client.build().builds().logs().get(20, 3);
+
+        // get all work items associated to a build
+        client.build().builds().workItems().get(22);
+
+        // list all builds and filter a particular id
+        client.build().builds().list().getBuildResults().stream().filter(id -> id.getId() == 22).forEach(System.out::println);
+
+        // queue a build with its' definition Id
+        client.build().builds().queue(12);
+
+        // get the file contents from a source provider repository
+        // Name of the source provider, service endpoint id, complete name of repository name,
+        // branch name and the name of file to get the contents from.
+        client.build().sourceProviders().getFileContents("Github", r ->
+        {
+            r.queryParameters.serviceEndpointId = "a7054ra9-0a34-46ac-bfdf-b8a1da865tdfd6";
+            r.queryParameters.repository = "hkarthik7/PSDB";
+            r.queryParameters.commitOrBranch = "master";
+            r.queryParameters.path = "LICENSE";
+        });
+
+        // Get the list of files and folders from the source provider repository path
+        client.build().sourceProviders().getPathContents("Github", r ->
+        {
+            r.queryParameters.serviceEndpointId = "a7054ra9-0a34-46ac-bfdf-b8a1da865tdfd6";
+            r.queryParameters.repository = "hkarthik7/PSDB";
+            r.queryParameters.commitOrBranch = "master";
+            r.queryParameters.path = "/";
+        });
+
+        // Get the build timeline with build id.
+        client.build().timeline().get(122);
+
+        // Get the stage name, state of the stage and result of the stage from build timeline API
+        Timeline timeline = client.build().timeline().get(122);
+        for(var record: timeline.getRecords()) {
+            System.out.println(record.getName() + " - " + record.getState() + " - " + record.getResult());
+        }        
     }
 }
 ```
