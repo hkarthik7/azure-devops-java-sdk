@@ -3,6 +3,7 @@ package org.azd.legacy;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AzDClient;
+import org.azd.interfaces.TestDetails;
 import org.azd.test.TestApi;
 import org.azd.utils.AzDClientApi;
 import org.junit.Before;
@@ -13,7 +14,7 @@ import java.io.File;
 public class TestApiTest {
     private static final JsonMapper MAPPER = new JsonMapper();
     private static AzDClient webApi;
-    private static TestApi t;
+    private static TestDetails t;
 
     @Before
     public void init() throws AzDException {

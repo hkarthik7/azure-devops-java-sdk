@@ -26,49 +26,49 @@ import org.azd.work.WorkApi;
 import org.azd.workitemtracking.WorkItemTrackingApi;
 
 public interface AzDClient {
-    AccountsApi getAccountsApi();
+    AccountsDetails getAccountsApi();
 
-    BuildApi getBuildApi();
+    BuildDetails getBuildApi();
 
-    CoreApi getCoreApi();
+    CoreDetails getCoreApi();
 
-    DistributedTaskApi getDistributedTaskApi();
+    DistributedTaskDetails getDistributedTaskApi();
 
-    FeedManagementApi getFeedManagementApi();
+    FeedManagementDetails getFeedManagementApi();
 
-    GitApi getGitApi();
+    GitDetails getGitApi();
 
-    GraphApi getGraphApi();
+    GraphDetails getGraphApi();
 
-    MavenApi getMavenApi();
+    MavenDetails getMavenApi();
 
-    MemberEntitlementManagementApi getMemberEntitlementManagementApi();
+    MemberEntitlementManagementDetails getMemberEntitlementManagementApi();
 
-    ReleaseApi getReleaseApi();
+    ReleaseDetails getReleaseApi();
 
-    ServiceHooksApi getServiceHooksApi();
+    ServiceHooksDetails getServiceHooksApi();
 
-    WikiApi getWikiApi();
+    WikiDetails getWikiApi();
 
-    WorkApi getWorkApi();
+    WorkDetails getWorkApi();
 
-    WorkItemTrackingApi getWorkItemTrackingApi();
+    WorkItemTrackingDetails getWorkItemTrackingApi();
 
     OAuthApi getOAuth();
 
-    ServiceEndpointApi getServiceEndpointApi();
+    ServiceEndpointDetails getServiceEndpointApi();
 
-    ExtensionManagementApi getExtensionManagementApi();
+    ExtensionManagementDetails getExtensionManagementApi();
 
-    PolicyApi getPolicyApi();
+    PolicyDetails getPolicyApi();
 
-    PipelinesApi getPipelinesApi();
+    PipelinesDetails getPipelinesApi();
 
-    UPackApi getUPackApi();
+    UpackDetails getUPackApi();
 
-    SecurityApi getSecurityApi();
+    SecurityDetails getSecurityApi();
 
-    TestApi getTestApi();
+    TestDetails getTestApi();
 
     void setProject(String project);
 

@@ -9,10 +9,7 @@ import org.azd.graph.GraphApi;
 import org.azd.graph.types.GraphGroup;
 import org.azd.graph.types.GraphUser;
 import org.azd.helpers.JsonMapper;
-import org.azd.interfaces.AzDClient;
-import org.azd.interfaces.CoreDetails;
-import org.azd.interfaces.GraphDetails;
-import org.azd.interfaces.SecurityDetails;
+import org.azd.interfaces.*;
 import org.azd.pipelines.PipelinesApi;
 import org.azd.pipelines.types.Pipeline;
 import org.azd.security.SecurityToken;
@@ -77,7 +74,7 @@ public class SecurityApiTest {
     @Test
     public void shouldListACLsWithExtendedInfo() throws AzDException {
         var namespace = "Git Repositories";
-        CoreApi coreApi = webApi.getCoreApi();
+        CoreDetails coreApi = webApi.getCoreApi();
         Optional<Project> anyProject = coreApi.getProjects().getProjects().stream().findAny();
         Assume.assumeTrue(anyProject.isPresent());
         SecurityNamespace securityNamespace = s.getNamespaces().getSecurityNamespaces().stream().filter(x -> x.getDisplayName().equals(namespace)).findFirst().get();
@@ -176,9 +173,9 @@ public class SecurityApiTest {
 
     @Test(expected = AssertionError.class)
     public void shouldAddAndRemoveACL() throws AzDException {
-        CoreApi coreApi = webApi.getCoreApi();
-        PipelinesApi pipelinesApi = webApi.getPipelinesApi();
-        GraphApi graphApi = webApi.getGraphApi();
+        CoreDetails coreApi = webApi.getCoreApi();
+        PipelinesDetails pipelinesApi = webApi.getPipelinesApi();
+        GraphDetails graphApi = webApi.getGraphApi();
         long allowMask = 1 + 2 + 4 + 256 + 1024;
         long denyMask = 8 + 16 + 32;
 
@@ -245,7 +242,7 @@ public class SecurityApiTest {
      */
     @Test
     public void shouldUpdateAccessControlList() throws AzDException {
-        GraphApi graphApi = webApi.getGraphApi();
+        GraphDetails graphApi = webApi.getGraphApi();
 
         long allowMask = 1 + 2 + 4 + 256 + 1024;
         long denyMask = 8 + 16 + 32;
@@ -333,9 +330,9 @@ public class SecurityApiTest {
         var projectName = "my-awesome-project";
         long allowMask = 2 + 4 + 16;
         long denyMask = 256 + 512;
-        GitApi gitApi = webApi.getGitApi();
-        CoreApi coreApi = webApi.getCoreApi();
-        GraphApi graphApi = webApi.getGraphApi();
+        GitDetails gitApi = webApi.getGitApi();
+        CoreDetails coreApi = webApi.getCoreApi();
+        GraphDetails graphApi = webApi.getGraphApi();
 
         //s.getNamespace(SecurityToken.Scope.GIT.getNamespace()).getActions().stream().sorted(Comparator.comparingInt(x -> x.getBit())).forEach(x -> System.out.println("Action ("+x.getBit()+"): " + x.getDisplayName()));
         Optional<GraphUser> userOptional = graphApi.getUsers().getUsers().stream().findAny();

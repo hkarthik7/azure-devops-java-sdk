@@ -9,7 +9,7 @@ import org.azd.extensionmanagement.ExtensionManagementApi;
 import org.azd.feedmanagement.FeedManagementApi;
 import org.azd.git.GitApi;
 import org.azd.graph.GraphApi;
-import org.azd.interfaces.AzDClient;
+import org.azd.interfaces.*;
 import org.azd.maven.MavenApi;
 import org.azd.memberentitlementmanagement.MemberEntitlementManagementApi;
 import org.azd.oauth.OAuthApi;
@@ -101,7 +101,7 @@ public class AzDClientApi implements AzDClient {
      * @return an instance of AccountsApi {@link AccountsApi}
      */
     @Override
-    public AccountsApi getAccountsApi() {
+    public AccountsDetails getAccountsApi() {
         return new AccountsApi(CONNECTION);
     }
 
@@ -111,7 +111,7 @@ public class AzDClientApi implements AzDClient {
      * @return instance of BuildApi {@link BuildApi}
      */
     @Override
-    public BuildApi getBuildApi() {
+    public BuildDetails getBuildApi() {
         return new BuildApi(CONNECTION);
     }
 
@@ -121,7 +121,7 @@ public class AzDClientApi implements AzDClient {
      * @return instance of CoreApi {@link CoreApi}
      */
     @Override
-    public CoreApi getCoreApi() {
+    public CoreDetails getCoreApi() {
         return new CoreApi(CONNECTION);
     }
 
@@ -132,7 +132,7 @@ public class AzDClientApi implements AzDClient {
      */
 
     @Override
-    public DistributedTaskApi getDistributedTaskApi() {
+    public DistributedTaskDetails getDistributedTaskApi() {
         return new DistributedTaskApi(CONNECTION);
     }
 
@@ -142,7 +142,7 @@ public class AzDClientApi implements AzDClient {
      * @return instance of Feed management Api {@link FeedManagementApi}
      */
     @Override
-    public FeedManagementApi getFeedManagementApi() {
+    public FeedManagementDetails getFeedManagementApi() {
         return new FeedManagementApi(CONNECTION);
     }
 
@@ -152,7 +152,7 @@ public class AzDClientApi implements AzDClient {
      * @return instance of Git Api {@link GitApi}
      */
     @Override
-    public GitApi getGitApi() {
+    public GitDetails getGitApi() {
         return new GitApi(CONNECTION);
     }
 
@@ -162,7 +162,7 @@ public class AzDClientApi implements AzDClient {
      * @return instance of Graph Api {@link GraphApi}
      */
     @Override
-    public GraphApi getGraphApi() {
+    public GraphDetails getGraphApi() {
         return new GraphApi(CONNECTION);
     }
 
@@ -172,7 +172,7 @@ public class AzDClientApi implements AzDClient {
      * @return instance of Maven Api {@link MavenApi}
      */
     @Override
-    public MavenApi getMavenApi() {
+    public MavenDetails getMavenApi() {
         return new MavenApi(CONNECTION);
     }
 
@@ -182,7 +182,7 @@ public class AzDClientApi implements AzDClient {
      * @return instance of Member Entitle management Api {@link MemberEntitlementManagementApi}
      */
     @Override
-    public MemberEntitlementManagementApi getMemberEntitlementManagementApi() {
+    public MemberEntitlementManagementDetails getMemberEntitlementManagementApi() {
         return new MemberEntitlementManagementApi(CONNECTION);
     }
 
@@ -192,7 +192,7 @@ public class AzDClientApi implements AzDClient {
      * @return instance of Release Api {@link ReleaseApi}
      */
     @Override
-    public ReleaseApi getReleaseApi() {
+    public ReleaseDetails getReleaseApi() {
         return new ReleaseApi(CONNECTION);
     }
 
@@ -202,7 +202,7 @@ public class AzDClientApi implements AzDClient {
      * @return instance of Service Hooks Api {@link ServiceHooksApi}
      */
     @Override
-    public ServiceHooksApi getServiceHooksApi() {
+    public ServiceHooksDetails getServiceHooksApi() {
         return new ServiceHooksApi(CONNECTION);
     }
 
@@ -212,7 +212,7 @@ public class AzDClientApi implements AzDClient {
      * @return instance of Wiki Api {@link WikiApi}
      */
     @Override
-    public WikiApi getWikiApi() {
+    public WikiDetails getWikiApi() {
         return new WikiApi(CONNECTION);
     }
 
@@ -222,7 +222,7 @@ public class AzDClientApi implements AzDClient {
      * @return instance of Work Api {@link WorkApi}
      */
     @Override
-    public WorkApi getWorkApi() {
+    public WorkDetails getWorkApi() {
         return new WorkApi(CONNECTION);
     }
 
@@ -232,7 +232,7 @@ public class AzDClientApi implements AzDClient {
      * @return instance of work item tracking Api {@link WorkItemTrackingApi}
      */
     @Override
-    public WorkItemTrackingApi getWorkItemTrackingApi() {
+    public WorkItemTrackingDetails getWorkItemTrackingApi() {
         return new WorkItemTrackingApi(CONNECTION);
     }
 
@@ -252,7 +252,7 @@ public class AzDClientApi implements AzDClient {
      * @return instance of ServiceEndpointApi {@link ServiceEndpointApi}
      */
     @Override
-    public ServiceEndpointApi getServiceEndpointApi() {
+    public ServiceEndpointDetails getServiceEndpointApi() {
         return new ServiceEndpointApi(CONNECTION);
     }
 
@@ -262,7 +262,7 @@ public class AzDClientApi implements AzDClient {
      * @return instance of ExtensionManagementApi {@link ExtensionManagementApi}
      */
     @Override
-    public ExtensionManagementApi getExtensionManagementApi() {
+    public ExtensionManagementDetails getExtensionManagementApi() {
         return new ExtensionManagementApi(CONNECTION);
     }
 
@@ -272,7 +272,7 @@ public class AzDClientApi implements AzDClient {
      * @return instance of PolicyApi {@link PolicyApi}
      */
     @Override
-    public PolicyApi getPolicyApi() {
+    public PolicyDetails getPolicyApi() {
         return new PolicyApi(CONNECTION);
     }
 
@@ -282,7 +282,7 @@ public class AzDClientApi implements AzDClient {
      * @return instance of PipelinesApi {@link PipelinesApi}
      */
     @Override
-    public PipelinesApi getPipelinesApi() {
+    public PipelinesDetails getPipelinesApi() {
         return new PipelinesApi(CONNECTION);
     }
 
@@ -292,7 +292,7 @@ public class AzDClientApi implements AzDClient {
      * @return instance of UPackApi {@link UPackApi}
      */
     @Override
-    public UPackApi getUPackApi() {
+    public UpackDetails getUPackApi() {
         return new UPackApi(CONNECTION);
     }
 
@@ -302,7 +302,7 @@ public class AzDClientApi implements AzDClient {
      * @return instance of securityApi {@link SecurityApi}
      */
     @Override
-    public SecurityApi getSecurityApi() {
+    public SecurityDetails getSecurityApi() {
         return new SecurityApi(CONNECTION);
     }
 
@@ -312,7 +312,7 @@ public class AzDClientApi implements AzDClient {
      * @return instance of TestApi {@link TestApi}
      */
     @Override
-    public TestApi getTestApi() {
+    public TestDetails getTestApi() {
         return new TestApi(CONNECTION);
     }
 }

@@ -4,6 +4,7 @@ import org.azd.enums.IterationsTimeFrame;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AzDClient;
+import org.azd.interfaces.WorkDetails;
 import org.azd.utils.AzDClientApi;
 import org.azd.work.WorkApi;
 import org.azd.work.types.Activity;
@@ -19,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 public class WorkApiTest {
     private static final JsonMapper MAPPER = new JsonMapper();
     private static AzDClient webApi;
-    private static WorkApi w;
+    private static WorkDetails w;
 
     @Before
     public void init() throws AzDException {

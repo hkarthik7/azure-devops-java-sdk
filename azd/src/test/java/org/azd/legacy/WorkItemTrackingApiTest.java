@@ -6,6 +6,7 @@ import org.azd.helpers.JsonMapper;
 import org.azd.helpers.StreamHelper;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.CoreDetails;
+import org.azd.interfaces.WorkItemTrackingDetails;
 import org.azd.utils.AzDClientApi;
 import org.azd.workitemtracking.WorkItemTrackingApi;
 import org.azd.workitemtracking.types.QueryHierarchyItem;
@@ -28,7 +29,7 @@ public class WorkItemTrackingApiTest {
 
     private static AzDClient webApi;
 
-    private static WorkItemTrackingApi w;
+    private static WorkItemTrackingDetails w;
 
     private static CoreDetails c;
 
