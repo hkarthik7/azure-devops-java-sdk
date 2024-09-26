@@ -6,27 +6,74 @@ import org.azd.http.ClientRequest;
 
 import java.util.Objects;
 
+/**
+ * Base request builder that provide required functionalities to the inherited members.
+ */
 public abstract class BaseRequestBuilder {
+    /**
+     * Represents the access token credential object.
+     */
     protected final AccessTokenCredential accessTokenCredential;
+    /**
+     * Organisation url.
+     */
     protected String organizationUrl;
+    /**
+     * Represents the Azure DevOps Area.
+     */
     protected String area;
+    /**
+     * Location id.
+     */
     protected String locationId;
+    /**
+     * Api version.
+     */
     protected String apiVersion;
+    /**
+     * Serializer object
+     */
     protected SerializerContext serializer;
 
+    /**
+     * Constructs the instance with passed values.
+     * @param organizationUrl Organisation url.
+     * @param accessTokenCredential Access token credential object. {@link AccessTokenCredential}
+     */
     protected BaseRequestBuilder(final String organizationUrl, final AccessTokenCredential accessTokenCredential) {
         this(organizationUrl, accessTokenCredential, null, null, null);
     }
 
+    /**
+     * Constructs the instance with passed values.
+     * @param organizationUrl Organisation url.
+     * @param accessTokenCredential Access token credential object. {@link AccessTokenCredential}
+     * @param area Azure DevOps service area.
+     */
     protected BaseRequestBuilder(final String organizationUrl, final AccessTokenCredential accessTokenCredential, final String area) {
         this(organizationUrl, accessTokenCredential, area, null, null);
     }
 
+    /**
+     * Constructs the instance with passed values.
+     * @param organizationUrl Organisation url.
+     * @param accessTokenCredential Access token credential object. {@link AccessTokenCredential}
+     * @param area Azure DevOps service area.
+     * @param locationId Location id.
+     */
     protected BaseRequestBuilder(final String organizationUrl, final AccessTokenCredential accessTokenCredential, final String area,
                                  final String locationId) {
         this(organizationUrl, accessTokenCredential, area, locationId, null);
     }
 
+    /**
+     * Constructs the instance with passed values.
+     * @param organizationUrl Organisation url.
+     * @param accessTokenCredential Access token credential object. {@link AccessTokenCredential}
+     * @param area Azure DevOps service area.
+     * @param locationId Location id.
+     * @param apiVersion Api version.
+     */
     protected BaseRequestBuilder(final String organizationUrl, final AccessTokenCredential accessTokenCredential, final String area,
                                  final String locationId, final String apiVersion) {
         Objects.requireNonNull(accessTokenCredential, "Access token credential cannot be null.");

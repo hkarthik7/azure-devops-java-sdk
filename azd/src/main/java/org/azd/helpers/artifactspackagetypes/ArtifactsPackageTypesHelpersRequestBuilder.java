@@ -40,8 +40,8 @@ public class ArtifactsPackageTypesHelpersRequestBuilder extends ArtifactsPackage
      * @param groupId    Group ID of the package. Example: "com.example".
      * @param artifactId Artifact ID of the package. Example: "app".
      * @param version    Version of the package. Example: "1.0.0".
-     * @param fileName   File name to upoad. Must include artifactId Example: "app-1.0.0.jar".
-     * @param content    Inputstream for the package file.
+     * @param fileName   File name to upload. Must include artifactId Example: "app-1.0.0.jar".
+     * @param content    InputStream for the package file.
      * @throws AzDException Default Api Exception handler.
      */
     public Void uploadPackage(String feedId, String groupId, String artifactId, String version, String fileName, InputStream content)

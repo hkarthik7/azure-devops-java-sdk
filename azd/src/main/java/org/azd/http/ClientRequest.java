@@ -134,9 +134,10 @@ public abstract class ClientRequest {
      * Call ClientRequest.builder(AccessTokenCredential) for requests that require authentication with access token or
      * ClientRequest.builder() for requests that doesn't require authentication to create the instance of builder.
      * The builder is used to build the request information such as request method, query parameters, service, subdomain,
-     * endpoints, headers etc. that are required to call Azure DevOps Api. By default, the base url used is
+     * endpoints, headers etc. that are required to call Azure DevOps Api. The base url can be
      * set by {@link org.azd.enums.Instance} which is (dev.azure.com), however this behaviour can be overwritten by
-     * calling baseInstance() or by directly setting the request url by calling URI().
+     * calling baseInstance() on {@link org.azd.enums.Instance} or by directly setting the request url by calling URI()
+     * on the {@link ClientRequest.Builder} instance.
      * If the organization name is part of AccessTokenCredential then it is appended with base instance. To override
      * this default behaviour call noOrganization() and to nullify the project call noProject().
      */
