@@ -14,7 +14,7 @@ import java.io.File;
 import java.io.InputStream;
 
 /**
- * JsonSerializer class to serialize and deserialize json -> object and vice versa.
+ * JsonSerializer class to serialize and deserialize json to object and vice versa.
  */
 public final class JsonSerializer extends ObjectMapper implements SerializerContext {
     public JsonSerializer() {
