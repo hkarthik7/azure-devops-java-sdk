@@ -33,8 +33,7 @@ public class ArtifactsPackageTypesHelpersRequestBuilder extends ArtifactsPackage
 
     /**
      * Fulfills Maven package file upload requests by either returning the URL
-     * of
-     * the requested package file or, in the case of Azure DevOps Server (OnPrem),
+     * of the requested package file or, in the case of Azure DevOps Server (OnPrem),
      *
      * @param feedId     Name or ID of the feed. Example: "mavenfeed".
      * @param groupId    Group ID of the package. Example: "com.example".
