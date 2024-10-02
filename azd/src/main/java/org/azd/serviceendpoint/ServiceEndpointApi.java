@@ -47,7 +47,7 @@ public class ServiceEndpointApi extends AzDAsyncApi<ServiceEndpointApi> implemen
      * @param endpointName Friendly name of the endpoint
      * @param endpointType Type of the endpoint
      * @param requestBody  Request body to create a service endpoint.
-     *                     Reference https://docs.microsoft.com/en-us/rest/api/azure/devops/serviceendpoint/endpoints/create?view=azure-devops-rest-6.1#create-service-endpoint
+     *                     <a href="https://docs.microsoft.com/en-us/rest/api/azure/devops/serviceendpoint/endpoints/create?view=azure-devops-rest-6.1#create-service-endpoint">Reference</a>
      * @return ServiceEndpoint {@link ServiceEndpoint}
      * @throws AzDException Default Api Exception handler.
      */
