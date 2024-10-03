@@ -1078,7 +1078,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      */
     @Override
     public WorkItem removeWorkItemAttachment(int workItemId, List<String> attachmentUrl) throws AzDException {
-        if (attachmentUrl.size() <= 0) {
+        if (attachmentUrl.size() == 0) {
             throw new AzDException("The attachment url list cannot be null. Please validate the argument before passing");
         }
 
