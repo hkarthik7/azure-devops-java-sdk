@@ -1,5 +1,3 @@
-# Security
-
 # ServiceEndpoint
 
 - [REST API](https://learn.microsoft.com/en-us/rest/api/azure/devops/serviceendpoint/endpoints?view=azure-devops-rest-7.1)
