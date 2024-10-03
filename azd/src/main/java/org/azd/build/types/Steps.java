@@ -2,13 +2,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Represents a definition steps
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Steps extends BaseAbstractMethod {
+public class Steps extends SerializableEntity {
     /**
      * Represents an environment
      */
@@ -19,27 +19,27 @@ public class Steps extends BaseAbstractMethod {
      */
     @JsonProperty("inputs")
     private Object inputs;
-    /***
+    /**
      * If enabled or not
      */
     @JsonProperty("enabled")
     private boolean enabled;
-    /***
+    /**
      * Continue on error or not
      */
     @JsonProperty("continueOnError")
     private boolean continueOnError;
-    /***
+    /**
      * Always run
      */
     @JsonProperty("alwaysRun")
     private boolean alwaysRun;
-    /***
+    /**
      * Step display name
      */
     @JsonProperty("displayName")
     private String displayName;
-    /***
+    /**
      * Timeout in minutes
      */
     @JsonProperty("timeoutInMinutes")
@@ -49,12 +49,12 @@ public class Steps extends BaseAbstractMethod {
      */
     @JsonProperty("retryCountOnTaskFailure")
     private int retryCountOnTaskFailure;
-    /***
+    /**
      * Steps condition
      */
     @JsonProperty("condition")
     private String condition;
-    /***
+    /**
      * task in a step
      */
     @JsonProperty("task")

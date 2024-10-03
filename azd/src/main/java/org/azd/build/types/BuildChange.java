@@ -2,45 +2,45 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.abstractions.serializer.SerializableEntity;
 import org.azd.common.types.Author;
-import org.azd.common.types.BaseAbstractMethod;
 
-/***
+/**
  * Represents a change associated with a build.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildChange extends BaseAbstractMethod {
-    /***
+public class BuildChange extends SerializableEntity {
+    /**
      * The identifier for the change. For a commit, this would be the SHA1. For a TFVC changeset, this would be the changeset ID.
      */
     @JsonProperty("id")
     private String id;
-    /***
+    /**
      * The description of the change. This might be a commit message or changeset description.
      */
     @JsonProperty("message")
     private String message;
-    /***
+    /**
      * The type of change. "commit", "changeset", etc.
      */
     @JsonProperty("type")
     private String type;
-    /***
+    /**
      * The author of the change.
      */
     @JsonProperty("author")
     private Author author;
-    /***
+    /**
      * The timestamp for the change.
      */
     @JsonProperty("timestamp")
     private String timestamp;
-    /***
+    /**
      * The location of the full representation of the resource.
      */
     @JsonProperty("location")
     private String location;
-    /***
+    /**
      * The person or process that pushed the change.
      */
     @JsonProperty("pusher")

@@ -3,13 +3,13 @@ package org.azd.build.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
 /**
  * Represents a repository's webhook returned from a source provider.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class RepositoryWebhook extends BaseAbstractMethod {
+public class RepositoryWebhook extends SerializableEntity {
     /**
      * The friendly name of the repository.
      */

@@ -9,12 +9,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * The type (error, warning) of the issue. 
-**/
+ * The type (error, warning) of the issue.
+ **/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public enum IssueType {
-	@JsonProperty("error")
-	ERROR,
-	@JsonProperty("warning")
-	WARNING
+    @JsonProperty("error")
+    ERROR,
+    @JsonProperty("warning")
+    WARNING
 }

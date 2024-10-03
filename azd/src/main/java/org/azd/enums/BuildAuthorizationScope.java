@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Represents a build definition. 
+ * Represents a build definition.
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public enum BuildAuthorizationScope {

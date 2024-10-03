@@ -2,10 +2,10 @@ package org.azd.wiki.types;
 
 import com.fasterxml.jackson.annotation.JacksonInject;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WikiPageContent extends BaseAbstractMethod {
+public class WikiPageContent extends SerializableEntity {
     /**
      * Content of wiki page
      */

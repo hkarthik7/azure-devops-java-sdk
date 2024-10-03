@@ -2,26 +2,26 @@ package org.azd.pipelines.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
 import java.util.List;
 
-/***
+/**
  * A collection of logs.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class LogCollection extends BaseAbstractMethod {
-    /***
+public class LogCollection extends SerializableEntity {
+    /**
      * The list of logs.
      */
     @JsonProperty("logs")
     private List<PipelineLog> logs;
-    /***
+    /**
      * A signed url allowing limited-time anonymous access to private resources.
      */
     @JsonProperty("signedContent")
     private SignedUrl signedContent;
-    /***
+    /**
      * URL of the log.
      */
     @JsonProperty("url")

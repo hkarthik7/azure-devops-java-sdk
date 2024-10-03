@@ -2,13 +2,13 @@ package org.azd.extensionmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * This is the set of files available from the extension.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ExtensionFile extends BaseAbstractMethod {
+public class ExtensionFile extends SerializableEntity {
     @JsonProperty("assetType")
     private String assetType;
     @JsonProperty("language")

@@ -32,4 +32,8 @@ public enum Instance {
     public String setSubdomain(String subdomainName) {
         return instance.replaceFirst("https://", "https://" + subdomainName + ".");
     }
+
+    public String append(String organization) {
+        return instance.replaceAll("/$", "") + "/" + organization;
+    }
 }

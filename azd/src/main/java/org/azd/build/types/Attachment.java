@@ -7,13 +7,13 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
 /**
- * Represents an attachment to a build. 
+ * Represents an attachment to a build.
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Attachment extends BaseAbstractMethod {
+public class Attachment extends SerializableEntity {
     /**
      * The class to represent a collection of REST reference links.
      **/

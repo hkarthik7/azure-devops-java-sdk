@@ -3,7 +3,7 @@ package org.azd.build.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
  * Represents a SourceProviderAttribute
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SourceProviderAttribute extends BaseAbstractMethod {
+public class SourceProviderAttribute extends SerializableEntity {
     /**
      * The name of the source provider.
      */

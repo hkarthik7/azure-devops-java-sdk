@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Represents the result of validating a build request. 
+ * Represents the result of validating a build request.
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public enum BuildReason {
@@ -22,22 +22,22 @@ public enum BuildReason {
      * The build was started for the trigger TriggerType.BatchedContinuousIntegration.
      **/
     @JsonProperty("batchedCI")
-    BATCHEDCI,
+    BATCHED_CI,
     /**
      * The build was started when another build completed.
      **/
     @JsonProperty("buildCompletion")
-    BUILDCOMPLETION,
+    BUILD_COMPLETION,
     /**
      * The build was started for the trigger ContinuousIntegrationType.Gated.
      **/
     @JsonProperty("checkInShelveset")
-    CHECKINSHELVESET,
+    CHECK_IN_SHELVE_SET,
     /**
      * The build was started for the trigger TriggerType.ContinuousIntegration.
      **/
     @JsonProperty("individualCI")
-    INDIVIDUALCI,
+    INDIVIDUAL_CI,
     /**
      * The build was started manually.
      **/
@@ -52,12 +52,12 @@ public enum BuildReason {
      * The build was started by a pull request. Added in resource version 3.
      **/
     @JsonProperty("pullRequest")
-    PULLREQUEST,
+    PULL_REQUEST,
     /**
      * The build was started when resources in pipeline triggered it
      **/
     @JsonProperty("resourceTrigger")
-    RESOURCETRIGGER,
+    RESOURCE_TRIGGER,
     /**
      * The build was started for the trigger TriggerType.Schedule.
      **/
@@ -67,7 +67,7 @@ public enum BuildReason {
      * The build was started for the trigger TriggerType.ScheduleForced.
      **/
     @JsonProperty("scheduleForced")
-    SCHEDULEFORCED,
+    SCHEDULE_FORCED,
     /**
      * The build was triggered for retention policy purposes.
      **/
@@ -77,12 +77,12 @@ public enum BuildReason {
      * The build was created by a user.
      **/
     @JsonProperty("userCreated")
-    USERCREATED,
+    USER_CREATED,
     /**
      * was started manually for private validation,
      **/
     @JsonProperty("validateShelveset")
-    VALIDATESHELVESET;
+    VALIDATE_SHELVE_SET;
 
 
 }

@@ -2,51 +2,51 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
 import java.util.List;
 
-/***
+/**
  * Field instance of a work item type.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemTypeFieldInstance extends BaseAbstractMethod {
-    /***
+public class WorkItemTypeFieldInstance extends SerializableEntity {
+    /**
      * The list of field allowed values.
      */
     @JsonProperty("allowedValues")
     private String[] allowedValues;
-    /***
+    /**
      * Indicates whether field value is always required.
      */
     @JsonProperty("alwaysRequired")
     private boolean alwaysRequired;
-    /***
+    /**
      * Represents the default value of the field.
      */
     @JsonProperty("defaultValue")
     private String defaultValue;
-    /***
+    /**
      * The list of dependent fields.
      */
     @JsonProperty("dependentFields")
     private List<WorkItemFieldReference> dependentFields;
-    /***
+    /**
      * Gets the help text for the field.
      */
     @JsonProperty("helpText")
     private String helpText;
-    /***
+    /**
      * The friendly name of the field.
      */
     @JsonProperty("name")
     private String name;
-    /***
+    /**
      * The reference name of the field.
      */
     @JsonProperty("referenceName")
     private String referenceName;
-    /***
+    /**
      * The REST URL of the resource.
      */
     @JsonProperty("url")

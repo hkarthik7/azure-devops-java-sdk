@@ -2,16 +2,16 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
 import java.util.List;
 
-/***
+/**
  * Represents a build process.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Process extends BaseAbstractMethod {
-    /***
+public class Process extends SerializableEntity {
+    /**
      * List of build phase
      */
     @JsonProperty("phases")

@@ -19,13 +19,14 @@ import static org.azd.utils.RestClientProvider.buildRequestUrl;
 /**
  * RestClient to call Azure DevOps REST API.
  */
+@Deprecated(since = "v6.0")
 public abstract class RestClient {
 
     /**
      * Http Headers of last request.   We want to make these accessible everywhere (i.e) something that
      * can be checked after every request, but we don't want to have to modify all the existing API methods
      * to return the data.
-     *
+     * <p>
      * We need this to be able to check if we are near any API rate limits - as creating 20+ releases in
      * a short time can cause one to go over the limit and even have requests fail.
      */
@@ -33,6 +34,7 @@ public abstract class RestClient {
 
     /**
      * Method to get retryAfterInterval value from response header
+     *
      * @return Value in seconds (if it exists in header) of how long we should wait to send next request.
      */
     static OptionalLong retryAfterInterval() {
@@ -40,23 +42,6 @@ public abstract class RestClient {
             return headersFromLastRequest.firstValueAsLong("Retry-After");
         }
         return OptionalLong.empty();
-    }
-
-    /**
-     * Metadata class to retrieve the response headers.
-     */
-    public static final class Metadata {
-        public static String getResponseHeader(String value) {
-            return RestClient.headersFromLastRequest.firstValue(value).orElse(null);
-        }
-
-        public static HttpHeaders getResponseHeaders() {
-            return RestClient.headersFromLastRequest;
-        }
-
-        public OptionalLong getRetryAfterInterval() {
-            return RestClient.retryAfterInterval();
-        }
     }
 
     /**
@@ -118,7 +103,7 @@ public abstract class RestClient {
      * @param contentStream API payload as stream
      * @param contentType   Type of content to request and accept as; Default is "Content-Type", "application/octet-stream"
      * @param callback      If true default redirect policy will be applied. The redirect policy can be controlled
-     * in BaseRestClient class.
+     *                      in BaseRestClient class.
      * @return InputStream from API
      * @throws AzDException Default Api exception handler
      */
@@ -140,8 +125,8 @@ public abstract class RestClient {
         if (contentType == null) contentType = CustomHeader.STREAM;
 
         return RestClientProvider.response(requestMethod, requestUrl, connection.getPersonalAccessToken(),
-                HttpRequest.BodyPublishers.ofInputStream(() -> contentStream),
-                HttpResponse.BodyHandlers.ofInputStream(), contentType, callback)
+                        HttpRequest.BodyPublishers.ofInputStream(() -> contentStream),
+                        HttpResponse.BodyHandlers.ofInputStream(), contentType, callback)
                 .thenApplyAsync(HttpResponse::body)
                 .join();
     }
@@ -317,5 +302,22 @@ public abstract class RestClient {
         }
 
         throw new AzDException(ApiExceptionTypes.InvalidArgumentException.name(), "Connection object cannot be null.");
+    }
+
+    /**
+     * Metadata class to retrieve the response headers.
+     */
+    public static final class Metadata {
+        public static String getResponseHeader(String value) {
+            return RestClient.headersFromLastRequest.firstValue(value).orElse(null);
+        }
+
+        public static HttpHeaders getResponseHeaders() {
+            return RestClient.headersFromLastRequest;
+        }
+
+        public OptionalLong getRetryAfterInterval() {
+            return RestClient.retryAfterInterval();
+        }
     }
 }

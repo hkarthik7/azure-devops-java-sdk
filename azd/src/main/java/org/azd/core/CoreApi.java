@@ -5,6 +5,7 @@ import org.azd.connection.Connection;
 import org.azd.core.types.*;
 import org.azd.enums.CustomHeader;
 import org.azd.enums.FeatureManagement;
+import org.azd.enums.ProjectState;
 import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
@@ -18,11 +19,11 @@ import java.util.Optional;
 
 import static org.azd.utils.RestClient.send;
 
-/***
+/**
  * Core class to manage core API
  */
 public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
-    /***
+    /**
      * Connection object
      */
     private final Connection CONNECTION;
@@ -30,18 +31,20 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
     private final String CORE = "79134c72-4a58-4b42-976c-04e7115f32bf";
     private final String AREA = "projects";
 
-    /***
+    /**
      * Pass the connection object to work with Core Api
+     *
      * @param connection Connection object
      */
     public CoreApi(Connection connection) {
         this.CONNECTION = connection;
     }
 
-    /***
+    /**
      * Get a list of processes.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return a list of processes {@link Processes}
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public Processes getProcesses() throws AzDException {
@@ -52,12 +55,13 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
         return MAPPER.mapJsonResponse(r, Processes.class);
     }
 
-    /***
+    /**
      * Creates a default scrum project
+     *
      * @param projectName pass the project name
      * @param description pass the description for the project
-     * @throws AzDException Default Api Exception handler.
      * @return object with link to the project
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public OperationReference createProject(String projectName, String description) throws AzDException {
@@ -81,14 +85,15 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
         return MAPPER.mapJsonResponse(r, OperationReference.class);
     }
 
-    /***
+    /**
      * Creates a project for given process id
-     * @param projectName pass the project name
-     * @param description project description
+     *
+     * @param projectName       pass the project name
+     * @param description       project description
      * @param sourceControlType type of version control
-     * @param templateTypeId pass the process id. Run getProcesses to get the list of process id
-     * @throws AzDException Default Api Exception handler.
+     * @param templateTypeId    pass the process id. Run getProcesses to get the list of process id
      * @return object with link to the project
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public OperationReference createProject(String projectName, String description, String sourceControlType,
@@ -113,16 +118,17 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
         return MAPPER.mapJsonResponse(r, OperationReference.class);
     }
 
-    /***
+    /**
      * Queues a project to be deleted.
      * <p>
-     *     You should pass the project id to delete it. Passing the project name
-     *     won't delete. To get the project id run getProject() with projectName
-     *     and get the Id.
+     * You should pass the project id to delete it. Passing the project name
+     * won't delete. To get the project id run getProject() with projectName
+     * and get the Id.
      * </p>
+     *
      * @param projectId pass the project id
-     * @throws AzDException Default Api Exception handler.
      * @return object of deleted project with url
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public OperationReference deleteProject(String projectId) throws AzDException {
@@ -133,11 +139,12 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
         return MAPPER.mapJsonResponse(r, OperationReference.class);
     }
 
-    /***
+    /**
      * Get project with the specified id or name
+     *
      * @param projectName pass the project name or id
-     * @throws AzDException Default Api Exception handler.
      * @return project object {@link Project}
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public Project getProject(String projectName) throws AzDException {
@@ -148,13 +155,14 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
         return MAPPER.mapJsonResponse(r, Project.class);
     }
 
-    /***
+    /**
      * Get project with the specified id or name with optional parameters
-     * @param projectName pass the project name or id
+     *
+     * @param projectName         pass the project name or id
      * @param includeCapabilities Include capabilities (such as source control) in the team project result (default: false).
-     * @param includeHistory Search within renamed projects (that had such name in the past).
-     * @throws AzDException Default Api Exception handler.
+     * @param includeHistory      Search within renamed projects (that had such name in the past).
      * @return project object {@link Project}
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public Project getProject(String projectName, boolean includeCapabilities, boolean includeHistory) throws AzDException {
@@ -170,11 +178,12 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
         return MAPPER.mapJsonResponse(r, Project.class);
     }
 
-    /***
+    /**
      * Get a collection of team project properties.
+     *
      * @param projectId provide the project guid not the project name
-     * @throws AzDException Default Api Exception handler.
      * @return ProjectProperties {@link ProjectProperties}
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public ProjectProperties getProjectProperties(String projectId) throws AzDException {
@@ -185,10 +194,11 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
         return MAPPER.mapJsonResponse(r, ProjectProperties.class);
     }
 
-    /***
+    /**
      * Get all projects in the organization that the authenticated user has access to.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return array of projects {@link Projects}
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public Projects getProjects() throws AzDException {
@@ -199,19 +209,20 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
         return MAPPER.mapJsonResponse(r, Projects.class);
     }
 
-    /***
+    /**
      * Get all projects in the organization that the authenticated user has access to.
-     * @param skip specify how many projects to skip
-     * @param top specify the number projects to retrieve
-     * @param continuationToken specify the next value to retrieve
+     *
+     * @param skip                   specify how many projects to skip
+     * @param top                    specify the number projects to retrieve
+     * @param continuationToken      specify the next value to retrieve
      * @param getDefaultTeamImageUrl if true gets the default team image url
-     * @param stateFilter allowed values are [all, createPending, deleted, deleting, new, unchanged, wellFormed]
-     * @throws AzDException Default Api Exception handler.
+     * @param stateFilter            allowed values are [all, createPending, deleted, deleting, new, unchanged, wellFormed]
      * @return array of projects {@link Projects}
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public Projects getProjects(int skip, int top, String continuationToken,
-                                boolean getDefaultTeamImageUrl, String stateFilter) throws AzDException {
+    public Projects getProjects(Integer skip, Integer top, Number continuationToken,
+                                Boolean getDefaultTeamImageUrl, ProjectState stateFilter) throws AzDException {
 
         HashMap<String, Object> q = new HashMap<>() {{
             put("$skip", skip);
@@ -227,13 +238,14 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
         return MAPPER.mapJsonResponse(r, Projects.class);
     }
 
-    /***
+    /**
      * Update an existing project's name, abbreviation, description, or restore a project.
-     * @param projectId pass the project id
+     *
+     * @param projectId         pass the project id
      * @param projectParameters HashMap of project parameters to be updated.
-     * <p> Refer "https://docs.microsoft.com/en-us/rest/api/azure/devops/core/projects/update?view=azure-devops-rest-6.1" </p>
-     * @throws AzDException Default Api Exception handler.
+     *                          <p> Refer "https://docs.microsoft.com/en-us/rest/api/azure/devops/core/projects/update?view=azure-devops-rest-6.1" </p>
      * @return an object or team project with url
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public OperationReference updateProject(String projectId, Project projectParameters) throws AzDException {
@@ -244,12 +256,13 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
         return MAPPER.mapJsonResponse(r, OperationReference.class);
     }
 
-    /***
+    /**
      * Create a team in a team project.
+     *
      * @param projectName project name or GUID
-     * @param teamName pass the team name
-     * @throws AzDException Default Api Exception handler.
+     * @param teamName    pass the team name
      * @return returns web api object
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public WebApiTeam createTeam(String projectName, String teamName) throws AzDException {
@@ -264,10 +277,11 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
         return MAPPER.mapJsonResponse(r, WebApiTeam.class);
     }
 
-    /***
+    /**
      * Delete a team.
+     *
      * @param projectName pass the project name or id
-     * @param teamName pass the team name
+     * @param teamName    pass the team name
      * @throws AzDException Default Api Exception handler.
      */
     @Override
@@ -282,32 +296,34 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
         return null;
     }
 
-    /***
+    /**
      * Get a specific team.
+     *
      * @param projectName pass the project name or id
-     * @param teamName pass the team name
-     * @throws AzDException Default Api Exception handler.
+     * @param teamName    pass the team name
      * @return team object
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public Team getTeam(String projectName, String teamName) throws AzDException {
+    public WebApiTeam getTeam(String projectName, String teamName) throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, CORE, null,
                 AREA, projectName, "teams/" + teamName, ApiVersion.PROJECT_TEAMS, null, null, null);
 
-        return MAPPER.mapJsonResponse(r, Team.class);
+        return MAPPER.mapJsonResponse(r, WebApiTeam.class);
     }
 
-    /***
+    /**
      * Get a specific team.
-     * @param projectName pass the project name or id
-     * @param teamName pass the team name
+     *
+     * @param projectName    pass the project name or id
+     * @param teamName       pass the team name
      * @param expandIdentity if true gets the identity object
-     * @throws AzDException Default Api Exception handler.
      * @return team object
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public Team getTeam(String projectName, String teamName, boolean expandIdentity) throws AzDException {
+    public WebApiTeam getTeam(String projectName, String teamName, boolean expandIdentity) throws AzDException {
 
         HashMap<String, Object> q = new HashMap<>() {{
             put("$expandIdentity", expandIdentity);
@@ -316,33 +332,35 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
         String r = send(RequestMethod.GET, CONNECTION, CORE, null,
                 AREA, projectName, "teams/" + teamName, ApiVersion.PROJECT_TEAMS, q, null, null);
 
-        return MAPPER.mapJsonResponse(r, Team.class);
+        return MAPPER.mapJsonResponse(r, WebApiTeam.class);
     }
 
-    /***
+    /**
      * Get a list of all teams.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return array of team
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public Teams getTeams() throws AzDException {
+    public WebApiTeams getTeams() throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, CORE, null,
                 "teams", null, null, ApiVersion.PROJECT_TEAMS, null, null, null);
-        return MAPPER.mapJsonResponse(r, Teams.class);
+        return MAPPER.mapJsonResponse(r, WebApiTeams.class);
     }
 
-    /***
+    /**
      * Get a list of all teams.
+     *
      * @param expandIdentity if true gets the identity object
-     * @param mine if true gets the team to which user has access to
-     * @param skip pass to skip number of teams
-     * @param top pass to retrieve number of teams
-     * @throws AzDException Default Api Exception handler.
+     * @param mine           if true gets the team to which user has access to
+     * @param skip           pass to skip number of teams
+     * @param top            pass to retrieve number of teams
      * @return array of team
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public Teams getTeams(boolean expandIdentity, String mine, int skip, int top) throws AzDException {
+    public WebApiTeams getTeams(boolean expandIdentity, boolean mine, int skip, int top) throws AzDException {
 
         HashMap<String, Object> q = new HashMap<>() {{
             put("$expandIdentity", expandIdentity);
@@ -354,19 +372,20 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
         String r = send(RequestMethod.GET, CONNECTION, CORE, null,
                 "teams", null, null, ApiVersion.PROJECT_TEAMS, q, null, null);
 
-        return MAPPER.mapJsonResponse(r, Teams.class);
+        return MAPPER.mapJsonResponse(r, WebApiTeams.class);
     }
 
-    /***
+    /**
      * Update a team's name and/or description.
+     *
      * @param projectName The name or ID (GUID) of the team project containing the team to update.
-     * @param teamName The name or ID of the team to update.
+     * @param teamName    The name or ID of the team to update.
      * @param description provide the description for your team to update
+     * @return team object {@link WebApiTeam}
      * @throws AzDException Default Api Exception handler.
-     * @return team object {@link Team}
      */
     @Override
-    public Team updateTeams(String projectName, String teamName, String description) throws AzDException {
+    public WebApiTeam updateTeams(String projectName, String teamName, String description) throws AzDException {
 
         HashMap<String, Object> h = new HashMap<>() {{
             put("name", teamName);
@@ -376,15 +395,16 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
         String r = send(RequestMethod.PATCH, CONNECTION, CORE, null,
                 AREA, projectName, "teams/" + teamName, ApiVersion.PROJECT_TEAMS, null, h, CustomHeader.JSON_CONTENT_TYPE);
 
-        return MAPPER.mapJsonResponse(r, Team.class);
+        return MAPPER.mapJsonResponse(r, WebApiTeam.class);
     }
 
-    /***
+    /**
      * Call un-published API feature to fetch project service feature state.
      * See {@link FeatureManagement} for current list of features.
      * Besides an 'enabled' and 'disabled' state, there is also an undefined state, hence the Optional return wrapper
+     *
      * @param projectId project identifier
-     * @param feature FeatureManagement enum type for which to return state
+     * @param feature   FeatureManagement enum type for which to return state
      * @return Optional wrapped boolean, empty if state is undefined
      * @throws AzDException Default Api Exception handler
      */
@@ -397,13 +417,13 @@ public class CoreApi extends AzDAsyncApi<CoreApi> implements CoreDetails {
         return MAPPER.mapJsonResponse(r, ProjectFeature.class).getStateAsBoolean();
     }
 
-    /***
+    /**
      * Set project feature state for project service
      * See {@link FeatureManagement} for list of features
      *
      * @param projectId project identifier
-     * @param feature enum value for feature to enable or disable
-     * @param state enable or disable feature
+     * @param feature   enum value for feature to enable or disable
+     * @param state     enable or disable feature
      * @return object containing feature id and state
      * @throws AzDException Default Api Exception handler
      */

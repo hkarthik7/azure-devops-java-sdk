@@ -2,16 +2,16 @@ package org.azd.extensionmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * Array of installed extensions
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class InstalledExtensions extends BaseAbstractMethod {
-    /***
+public class InstalledExtensions extends SerializableCollectionEntity {
+    /**
      * Array of installed extensions
      */
     @JsonProperty("value")

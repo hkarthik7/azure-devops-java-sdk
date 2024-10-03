@@ -3,39 +3,39 @@ package org.azd.extensionmanagement.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * A contribution type, given by a json schema
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ContributionType extends BaseAbstractMethod {
-    /***
+public class ContributionType extends SerializableEntity {
+    /**
      * Description of the contribution/type
      */
     @JsonProperty("description")
     private String description;
-    /***
+    /**
      * Fully qualified identifier of the contribution/type
      */
     @JsonProperty("id")
     private String id;
-    /***
+    /**
      * Controls whether or not contributions of this type have the type indexed for queries.
      */
     @JsonProperty("indexed")
     private boolean indexed;
-    /***
+    /**
      * Friendly name of the contribution/type
      */
     @JsonProperty("name")
     private String name;
-    /***
+    /**
      * Describes the allowed properties for this contribution type
      */
     @JsonProperty("properties")
     private JsonNode properties;
-    /***
+    /**
      * VisibleTo can be used to restrict whom can reference a given contribution/type.
      * This value should be a list of publishers or extensions access is restricted too.
      * Examples: "ms" - Means only the "ms" publisher can reference this. "ms.vss-web" -

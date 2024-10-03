@@ -2,24 +2,24 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Represents build options input
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Inputs extends BaseAbstractMethod {
-    /***
+public class Inputs extends SerializableEntity {
+    /**
      * Branch filters
      */
     @JsonProperty("branchFilters")
     private String branchFilters;
-    /***
+    /**
      * Type of workitem
      */
     @JsonProperty("workItemType")
     private String workItemType;
-    /***
+    /**
      * user reference
      */
     @JsonProperty("assignToRequestor")

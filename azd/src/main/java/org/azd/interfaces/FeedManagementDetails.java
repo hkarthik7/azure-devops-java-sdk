@@ -1,5 +1,6 @@
 package org.azd.interfaces;
 
+import org.azd.enums.FeedRole;
 import org.azd.enums.FeedViewType;
 import org.azd.enums.FeedVisibility;
 import org.azd.exceptions.AzDException;
@@ -33,7 +34,7 @@ public interface FeedManagementDetails {
     Feeds getFeeds() throws AzDException;
 
     Feeds getFeeds(
-            String feedRole, boolean includeDeletedUpstreams,
+            FeedRole feedRole, boolean includeDeletedUpstreams,
             boolean includeUrls) throws AzDException;
 
     FeedPermissions setFeedPermissions(String feedId, FeedPermissions feedPermissions) throws AzDException;

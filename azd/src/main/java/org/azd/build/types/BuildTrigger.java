@@ -7,14 +7,14 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 import org.azd.enums.DefinitionTriggerType;
 
 /**
- * Represents binding of data source for the service endpoint request. 
+ * Represents binding of data source for the service endpoint request.
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildTrigger extends BaseAbstractMethod {
+public class BuildTrigger extends SerializableEntity {
     /**
      * The type of the trigger.
      **/

@@ -3,34 +3,34 @@ package org.azd.release.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Gets or sets the list of artifacts.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReleaseArtifacts extends BaseAbstractMethod {
-    /***
+public class ReleaseArtifacts extends SerializableEntity {
+    /**
      * Gets or sets alias.
      */
     @JsonProperty("alias")
     private String alias;
-    /***
+    /**
      * Definition reference.
      */
     @JsonProperty("definitionReference")
     private JsonNode definitionReference;
-    /***
+    /**
      * Indicates whether artifact is primary or not.
      */
     @JsonProperty("isPrimary")
     private boolean isPrimary;
-    /***
+    /**
      * Indicates whether artifact is retained by release or not.
      */
     @JsonProperty("isRetained")
     private String isRetained;
-    /***
+    /**
      * Gets or sets type. It can have value as 'Build', 'Jenkins', 'GitHub', 'Nuget',
      * 'Team Build (external)', 'ExternalTFSBuild', 'Git', 'TFVC', 'ExternalTfsXamlBuild'.
      */

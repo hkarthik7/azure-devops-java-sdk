@@ -2,16 +2,16 @@ package org.azd.security.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * return security roles
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SecurityRoles extends BaseAbstractMethod {
-    /***
+public class SecurityRoles extends SerializableCollectionEntity {
+    /**
      * list of security role definitions
      */
     @JsonProperty("value")

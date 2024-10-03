@@ -1,6 +1,6 @@
 package org.azd.exceptions;
 
-/***
+/**
  * Throws the exception from REST API
  */
 @SuppressWarnings("serial")

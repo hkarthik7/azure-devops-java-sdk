@@ -2,19 +2,19 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Ignored gates.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class IgnoredGates extends BaseAbstractMethod {
-    /***
+public class IgnoredGates extends SerializableEntity {
+    /**
      * Gets the date on which gate is last ignored.
      */
     @JsonProperty("lastModifiedOn")
     private String lastModifiedOn;
-    /***
+    /**
      * Name of gate ignored.
      */
     @JsonProperty("name")

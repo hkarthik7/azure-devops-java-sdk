@@ -2,7 +2,7 @@ package org.azd.distributedtask.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  * Container of Variable groups
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class VariableGroups extends BaseAbstractMethod {
+public class VariableGroups extends SerializableCollectionEntity {
     /**
      * Container of Variable groups
      */

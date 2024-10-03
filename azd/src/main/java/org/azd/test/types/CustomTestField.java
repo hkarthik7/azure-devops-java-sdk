@@ -7,30 +7,38 @@ package org.azd.test.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
 /**
- * A custom field information. Allowed Key : Value pairs - ( AttemptId: int value, IsTestResultFlaky: bool) 
-**/
+ * A custom field information. Allowed Key : Value pairs - ( AttemptId: int value, IsTestResultFlaky: bool)
+ **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CustomTestField extends BaseAbstractMethod {
-	/**
- 	* Field Name. 
-	**/
-	@JsonProperty("fieldName")
-	private String fieldName;
-	/**
- 	* Field value. 
-	**/
-	@JsonProperty("value")
-	private Object value;
+public class CustomTestField extends SerializableEntity {
+    /**
+     * Field Name.
+     **/
+    @JsonProperty("fieldName")
+    private String fieldName;
+    /**
+     * Field value.
+     **/
+    @JsonProperty("value")
+    private Object value;
 
-	public String getFieldName() { return fieldName; }
+    public String getFieldName() {
+        return fieldName;
+    }
 
-	public void setFieldName(String fieldName) { this.fieldName = fieldName; }
+    public void setFieldName(String fieldName) {
+        this.fieldName = fieldName;
+    }
 
-	public Object getValue() { return value; }
+    public Object getValue() {
+        return value;
+    }
 
-	public void setValue(Object value) { this.value = value; }
+    public void setValue(Object value) {
+        this.value = value;
+    }
 
 }

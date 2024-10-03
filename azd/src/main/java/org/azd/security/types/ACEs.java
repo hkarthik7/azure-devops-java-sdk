@@ -2,15 +2,15 @@ package org.azd.security.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
 import java.util.List;
 
-/***
+/**
  * this is a list of access control entries, for posting to replace or merge ACEs
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ACEs extends BaseAbstractMethod {
+public class ACEs extends SerializableEntity {
     @JsonProperty
     private String token;
     @JsonProperty

@@ -2,36 +2,36 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
 import java.util.List;
 
-/***
+/**
  * Represents a phase
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Phases extends BaseAbstractMethod {
-    /***
+public class Phases extends SerializableEntity {
+    /**
      * List of steps
      */
     @JsonProperty("steps")
     private List<Steps> steps;
-    /***
+    /**
      * Name of the task
      */
     @JsonProperty("name")
     private String name;
-    /***
+    /**
      * Task reference name
      */
     @JsonProperty("refName")
     private String refName;
-    /***
+    /**
      * Job authorization scope
      */
     @JsonProperty("jobAuthorizationScope")
     private String jobAuthorizationScope;
-    /***
+    /**
      * Steps condition
      */
     @JsonProperty("condition")

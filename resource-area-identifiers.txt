@@ -1,6 +1,8 @@
 Resource area identifiers:
 Source: https://docs.microsoft.com/en-us/azure/devops/extend/develop/work-with-urls?view=azure-devops&tabs=http#resource-area-ids-reference
 
+NOTE: This file does not have a complete list of resource area ids. Please refer examples/ to see how to get the ids.
+
 ACCOUNT = "0d55247a-1c47-4462-9b1f-5e2125590ee6"
 BUILD = "5d6898bb-45ec-463f-95f9-54d49c71752e"
 COLLECTION = "79bea8f8-c898-4965-8c51-8bbc3966faa8"

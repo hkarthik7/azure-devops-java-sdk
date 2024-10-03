@@ -1,11 +1,11 @@
 # Accounts
 
 - [REST API](https://learn.microsoft.com/en-us/rest/api/azure/devops/account/accounts/list?view=azure-devops-rest-7.1&tabs=HTTP)
-- API Version: 7.1
+- API Version: 6.1
 
 ## Example
 
-Before getting started you require personal access token to authenticate with **Azure DevOps** services REST API.
+Before getting started you require personal access token to authenticate to **Azure DevOps** services REST API.
 You can grab one by following the [documentation](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?WT.mc_id=docs-github-dbrown&view=azure-devops&tabs=preview-page).
 
 You are required to create a client object before calling Accounts Api.
@@ -13,48 +13,40 @@ You are required to create a client object before calling Accounts Api.
 ```java
 public class Main {
     public static void main(String[] args) {
-        // Organisation Url -> https://dev.azure.com/{organisation} for Azure DevOps services
-        // and http://{server:port}/tfs/{collection} for TFS server.
-        // Running Instance.BASE_INSTANCE.getInstance() will return -> https://dev.azure.com/
-        // or run Instance.BASE_INSTANCE.append("organisationName") which returns
-        // https://dev.azure.com/organisationName
+        String organisation = "myOrganisationName";
+        String personalAccessToken = "accessToken";
 
-        // Declare variables
-        String organisationUrl = Instance.BASE_INSTANCE.append("myOrganisation");
-        String projectName = "myProject";
-        String personalAccessToken = "myPersonalAccessToken";
-        
-        // 1) Choose authentication provider
-        AccessTokenCredential pat = new PersonalAccessTokenCredential(organisationUrl, projectName, personalAccessToken);
-        // or
-        AccessTokenCredential oauth = new OAuthAccessTokenCredential(organisationUrl, projectName,
-                "appSecret", "authCode", "callbackUrl");
+        // Connect Azure DevOps API with organisation name and personal access token.
+        var webApi = new AzDClientApi(organisation, personalAccessToken);
 
-        // 2) Build client using the authentication provider.
-        AzDServiceClient client = AzDService.builder().authentication(pat).buildClient();
-        // or
-        AzDServiceClient client = AzDService.builder().authentication(oauth).buildClient();
-        
+        // call the respective API with created webApi client connection object;
+        var accounts = webApi.getAccountsApi();
+        var mem = webApi.getMemberEntitlementManagementApi();
+
         try {
-            // Use client object to call the APIs.
-            // Get the member id from Profile API or Locations API.
-            String id = client.locations().getConnectionData().getAuthenticatedUser().getId();
-            String profileId = client.accounts().profile().get().getId();
-            Accounts accounts = client.accounts().list(id);
+            // get the list of accounts that the user has access to.
+            var memberId = mem
+                    .getUserEntitlements()
+                    .getMembers()
+                    .stream()
+                    .filter(x -> x.getUser().getDisplayName().contains("my-name"))
+                    .findFirst()
+                    .get()
+                    .getId();
 
-            // Returns a future object.
-            client.accounts().listAsync(profileId);
+            accounts.getAccounts(memberId);
 
-            for (var account : accounts.getAccounts())
-                System.out.println(account.getAccountName() + " : " + account.getAccountOwner());
+            // optionally get the list of all organizations
+            // this functionality is not the part of Accounts api, it can be considered as a helper method to list the organizations
+            // when we don't have access to Graph Api.
+            accounts.getOrganizations();
 
-            // Organisations
-            client.accounts().organization().getAsync().join().getDataProviders();
+            // get the user profile that has logged in
+            accounts.getProfile();
 
-            // Note that all the result objects has getResponse() which returns ApiResponse object.
-            // This contains the request information, request url, raw response, response headers.
-            client.accounts().profile().get().getResponse();
-            
+            // get a user profile with id
+            accounts.getProfile("user-id");
+
         } catch (AzDException e) {
             e.printStackTrace();
         }

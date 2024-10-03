@@ -7,15 +7,15 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
 import java.util.List;
 
 /**
- * Represents a repository used by a build definition. 
+ * Represents a repository used by a build definition.
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildProcess extends BaseAbstractMethod {
+public class BuildProcess extends SerializableEntity {
     /**
      * An array of phases which included the steps/tasks of a definition.
      */

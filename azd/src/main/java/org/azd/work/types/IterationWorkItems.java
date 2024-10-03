@@ -2,27 +2,27 @@ package org.azd.work.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 import org.azd.common.types.ReferenceLinks;
 
 import java.util.List;
 
-/***
+/**
  * Represents work items in an iteration backlog
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class IterationWorkItems extends BaseAbstractMethod {
-    /***
+public class IterationWorkItems extends SerializableEntity {
+    /**
      * Work item relations
      */
     @JsonProperty("workItemRelations")
     private List<WorkItemLink> workItemRelations;
-    /***
+    /**
      * Full http link to the resource
      */
     @JsonProperty("url")
     private String url;
-    /***
+    /**
      * Collection of links relevant to resource
      */
     @JsonProperty("_links")

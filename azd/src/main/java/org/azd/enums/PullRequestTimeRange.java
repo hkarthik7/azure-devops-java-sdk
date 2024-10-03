@@ -11,7 +11,6 @@ public enum PullRequestTimeRange {
     @JsonProperty("closed")
     CLOSED,
     /**
-     *
      * The date when the pull request was created.
      */
     @JsonProperty("created")

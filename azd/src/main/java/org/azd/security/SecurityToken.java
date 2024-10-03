@@ -7,9 +7,9 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/***
+/**
  * refer to <A href="https://docs.microsoft.com/en-us/azure/devops/organizations/security/namespace-reference?view=azure-devops">Security Token Reference Documentation</A>
- *
+ * <p>
  * In order to reference and assign access control entries, scope must be specified via a token, which varies depending on the security namespace and resource.
  * For instance, git repositories security scope range from:
  * <ul>
@@ -17,21 +17,22 @@ import java.util.regex.Pattern;
  *     <LI>repoV2/[project_id] - applies to all repositories in a specific project</LI>
  *     <LI>repoV2 - applies to all repositories</LI>
  * </ul>
- *
+ * <p>
  * Not guaranteed to generate an acceptable token across all resources, as it does not appear to be implemented in an entirely consistent fashion
- *
+ * <p>
  * TODO: incomplete list. Scope items added as needed
  */
 public class SecurityToken {
-    /***
+    /**
      * matching regex pattern for token replacement in generate function
      */
     private final static Pattern tokenPattern = Pattern.compile("\\{([^{}]*?)\\}");
 
-    /***
+    /**
      * Based on the scope parameter, map replacement tokens in the token format string to values in the provided hashmap
+     *
      * @param scope pre-defined scope entry in enum set below
-     * @param keys hashmap containing replacement values for token string.
+     * @param keys  hashmap containing replacement values for token string.
      * @return String token reference path
      */
     public static String generate(SecurityToken.Scope scope, Map<String, String> keys) {
@@ -47,8 +48,9 @@ public class SecurityToken {
         return output.replaceAll("/*$", ""); // strip forward slash at end of string
     }
 
-    /***
+    /**
      * Extract set of keys required to populate token string fully
+     *
      * @param scope security scope entry in enum set
      * @return collection of unique strings (property key names)
      */
@@ -122,15 +124,14 @@ public class SecurityToken {
         ServiceHooks("cb594ebe-87dd-4fc9-ac2c-6a10a4c92046"),
         UtilizationPermissions("83abde3a-4593-424e-b45f-9898af99034d", "/"),
         WorkItemTrackingAdministration("445d2788-c5fb-4132-bbef-09c4045ad93f"),
-        WorkItemTrackingProvision("5a6cd233-6615-414d-9393-48dbb252bd23", "$/{PROJECT_ID}") // root token has the format "/$"
-        ;
+        WorkItemTrackingProvision("5a6cd233-6615-414d-9393-48dbb252bd23", "$/{PROJECT_ID}"); // root token has the format "/$"
 
-        private String namespace;
-        private String format;
+        private final String namespace;
+        private final String format;
 
-        /***
+        /**
          * For informational purposes, the following namespaces are deprecated and read-only:
-         *
+         * <p>
          * CrossProjectWidgetView
          * DataProvider
          * Favorites
@@ -144,7 +145,7 @@ public class SecurityToken {
          * Publish
          * Registry
          * Security
-         *
+         * <p>
          * ServicingOrchestration
          * SettingEntries
          * Social
@@ -157,7 +158,6 @@ public class SecurityToken {
          * WorkItemsHub
          * WorkItemTracking
          * WorkItemTrackingConfiguration
-         *
          */
 
 

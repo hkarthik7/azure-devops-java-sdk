@@ -11,7 +11,10 @@ import org.azd.oauth.types.AuthorizedToken;
  * mandatory. Setting these parameters as default helps to work with this library on ease.
  * </p>
  */
+@Deprecated(since = "v6.0; This is deprecated; Please use AzDClientApi which uses Personal access token and OAuth2.0 authentication.")
 public class Connection {
+    private static final TokenRefreshedHandler defaultTokenRefreshedHandler = newToken -> {
+    };
     private String organization;
     private String project;
     private String personalAccessToken;
@@ -19,15 +22,8 @@ public class Connection {
     private String appCallBackURL;
     private AuthorizedToken oauthToken = null;
     private TokenRefreshedHandler tokenRefreshedHandler = defaultTokenRefreshedHandler;
-    private static TokenRefreshedHandler defaultTokenRefreshedHandler = new TokenRefreshedHandler() {
 
-        @Override
-        public void tokenRefreshed(AuthorizedToken newToken) {
-            // nothing is done
-        }
-    };
-
-    /***
+    /**
      * default with no parameters
      */
     public Connection() {
@@ -165,8 +161,9 @@ public class Connection {
         this.project = project;
     }
 
-    /***
+    /**
      * Get the personal access token
+     *
      * @return the personal access token
      * @throws AzDException Default Api Exception handler.
      */

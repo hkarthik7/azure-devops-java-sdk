@@ -28,12 +28,12 @@ public interface WikiDetails {
     WikiPageMove createPageMove(String wikiIdentifier, String comment, String version,
                                 GitVersionType versionType, GitVersionOptions versionOptions, WikiPageMoveParameters pageMoveParameters) throws AzDException;
 
-    WikiPageDetail getPageStats(String wikiIdentifier, int pageId,  int pageViewsForDays) throws AzDException;
+    WikiPageDetail getPageStats(String wikiIdentifier, int pageId, int pageViewsForDays) throws AzDException;
 
     WikiPage createOrUpdateWikiPage(String wikiIdentifier, String path, String comment, String eTagVersion, String content) throws AzDException;
 
     WikiPage createOrUpdateWikiPage(String wikiIdentifier, String path, String comment, String eTagVersion, String version,
-                                GitVersionType versionType, GitVersionOptions versionOptions, String content) throws AzDException;
+                                    GitVersionType versionType, GitVersionOptions versionOptions, String content) throws AzDException;
 
     WikiPage deleteWikiPage(String wikiIdentifier, String path, String comment) throws AzDException;
 
@@ -41,7 +41,7 @@ public interface WikiDetails {
                             GitVersionType versionType, GitVersionOptions versionOptions) throws AzDException;
 
     WikiPage deleteWikiPageById(String id, String wikiIdentifier, String path, String comment, String version,
-                            GitVersionType versionType, GitVersionOptions versionOptions) throws AzDException;
+                                GitVersionType versionType, GitVersionOptions versionOptions) throws AzDException;
 
     WikiPage getWikiPage(String wikiIdentifier) throws AzDException;
 

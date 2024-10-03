@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.azd.enums.ApiExceptionTypes;
+import org.azd.exceptions.ApiException;
 import org.azd.exceptions.AzDException;
 
 import java.io.File;
@@ -12,9 +13,10 @@ import java.io.InputStream;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-/***
+/**
  * Helper class to transform json string to POJO and vice versa
  */
+@Deprecated(since = "v6.0")
 public class JsonMapper extends ObjectMapper {
 
     public JsonMapper() {
@@ -24,8 +26,9 @@ public class JsonMapper extends ObjectMapper {
         this.setSerializationInclusion(Include.NON_NULL);
     }
 
-    /***
+    /**
      * Converts the object to string
+     *
      * @param value any non null json object
      * @return a String
      * @throws AzDException Api exception handler
@@ -38,11 +41,12 @@ public class JsonMapper extends ObjectMapper {
         }
     }
 
-    /***
+    /**
      * Handles the deserialization of json string to object of given type.
-     * @param content json response from API
+     *
+     * @param content   json response from API
      * @param valueType class name to convert to POJO
-     * @param <T> Type name
+     * @param <T>       Type name
      * @return the given type
      * @throws AzDException Api exception handler
      */
@@ -60,11 +64,12 @@ public class JsonMapper extends ObjectMapper {
         }
     }
 
-    /***
+    /**
      * Handles the deserialization of json string to object of given type.
-     * @param content json response from API
+     *
+     * @param content   json response from API
      * @param valueType class name to convert to POJO
-     * @param <T> Type name
+     * @param <T>       Type name
      * @return the given type
      * @throws AzDException Api exception handler
      */
@@ -82,11 +87,12 @@ public class JsonMapper extends ObjectMapper {
         }
     }
 
-    /***
+    /**
      * Handles the deserialization of json string to object of given type.
-     * @param content input stream response from API
+     *
+     * @param content   input stream response from API
      * @param valueType class name to convert to POJO
-     * @param <T> Type name
+     * @param <T>       Type name
      * @return the given type
      * @throws AzDException Api exception handler
      */
@@ -98,11 +104,12 @@ public class JsonMapper extends ObjectMapper {
         }
     }
 
-    /***
+    /**
      * Handles the deserialization of json string to given object from a file.
-     * @param src file name
+     *
+     * @param src       file name
      * @param valueType class name to convert to POJO
-     * @param <T> Type name
+     * @param <T>       Type name
      * @return the given type
      * @throws AzDException Api exception handler
      */

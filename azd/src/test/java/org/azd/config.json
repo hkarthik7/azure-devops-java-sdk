@@ -1,0 +1,35 @@
+{
+  "name": "Unit tests configuration file.",
+  "description": "This file serves as input source for running tests. Specify all the configuration to run unit tests in the config file.",
+  "properties": {
+    "builds": {
+      "definitionId": 22,
+      "definitionName": "Test-Demo-CI",
+      "artifactAlias": "_Test-Demo-CI"
+    },
+    "core": {
+      "projectName": "my-awesome-project",
+      "teamName": "myNewTeam"
+    },
+    "distributedTask": {
+      "agentId": 8,
+      "poolId": 9,
+      "deploymentGroupName": "myDeploymentGroup",
+      "environmentName": "newEnvironment",
+      "variableGroupName": "testGroup"
+    },
+    "git": {
+      "repositoryName": "testRepository",
+      "branchName": "develop"
+    },
+    "pipelines": {
+      "id": 8,
+      "runId": 661,
+      "artifactName": "drop",
+      "previewPipelineId": 25
+    },
+    "release": {
+      "definitionId": 2
+    }
+  }
+}

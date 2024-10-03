@@ -2,10 +2,10 @@ package org.azd.graph.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.abstractions.InstanceFactory;
 import org.azd.exceptions.AzDException;
-import org.azd.helpers.JsonMapper;
 
-/***
+/**
  * Graph group entity
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -40,11 +40,12 @@ public class GraphGroup extends GraphEntity {
     @Override
     public String toString() {
         String res = null;
-        var mapper = new JsonMapper();
+        var serializer = InstanceFactory.createSerializerContext();
 
         try {
-            res = mapper.convertToString(this);
-        } catch (AzDException ignored) { }
+            res = serializer.serialize(this);
+        } catch (AzDException ignored) {
+        }
 
         return res;
     }

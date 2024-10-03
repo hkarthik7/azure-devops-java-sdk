@@ -2,13 +2,14 @@ package org.azd.common.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.abstractions.serializer.SerializableEntity;
 import org.azd.enums.PatchOperation;
 
 /**
  * Model for path operation.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class JsonPatchDocument extends BaseAbstractMethod{
+public class JsonPatchDocument extends SerializableEntity {
     /**
      * The path to copy from for the Move/Copy operation.
      */

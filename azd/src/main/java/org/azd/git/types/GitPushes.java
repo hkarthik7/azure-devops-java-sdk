@@ -2,7 +2,7 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  * Represents an array of GitPush
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitPushes extends BaseAbstractMethod {
+public class GitPushes extends SerializableCollectionEntity {
     @JsonProperty("value")
     private List<GitPush> pushes;
 

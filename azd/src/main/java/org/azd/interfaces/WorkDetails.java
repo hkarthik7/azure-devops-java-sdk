@@ -17,11 +17,15 @@ public interface WorkDetails {
     TeamSettingsIteration getTeamSettingsIteration(String teamName, String iterationId) throws AzDException;
 
     Void deleteTeamSettingsIteration(String teamName, String iterationId) throws AzDException;
+
     TeamCapacity getTotalTeamCapacity(String iterationId, String teamName) throws AzDException;
+
     TeamMemberCapacityIdentityRef getTeamMemberCapacity(String iterationId, String teamName, String teamMemberId)
             throws AzDException;
+
     TeamMemberCapacityIdentityRefs updateTeamMembersCapacity(String iterationId, String teamName,
-        List<TeamMemberCapacityIdentityRef> teamMembersCapacity) throws AzDException;
+                                                             List<TeamMemberCapacityIdentityRef> teamMembersCapacity) throws AzDException;
+
     TeamMemberCapacityIdentityRef updateTeamMemberCapacity(String iterationId, String teamName, String teamMemberId,
-        TeamMemberCapacityIdentityRef teamMemberCapacity) throws AzDException;
+                                                           TeamMemberCapacityIdentityRef teamMemberCapacity) throws AzDException;
 }

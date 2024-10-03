@@ -9,8 +9,8 @@ public enum PatchOperation {
     ADD,
     @JsonProperty("copy")
     COPY,
-    @JsonProperty("MOVE")
-    move,
+    @JsonProperty("move")
+    MOVE,
     @JsonProperty("remove")
     REMOVE,
     @JsonProperty("replace")

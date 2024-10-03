@@ -2,39 +2,39 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Represents the reference to a specific version of a comment on a Work Item.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemCommentVersionRef extends BaseAbstractMethod {
-    /***
+public class WorkItemCommentVersionRef extends SerializableEntity {
+    /**
      * The id assigned to the comment.
      */
     @JsonProperty("commentId")
     private int commentId;
-    /***
+    /**
      * The work item revision where this comment was originally added.
      */
     @JsonProperty("createdInRevision")
     private int createdInRevision;
-    /***
+    /**
      * Specifies whether comment was deleted.
      */
     @JsonProperty("isDeleted")
     private boolean isDeleted;
-    /***
+    /**
      * The text of the comment.
      */
     @JsonProperty("text")
     private String text;
-    /***
+    /**
      * Url
      */
     @JsonProperty("url")
     private String url;
-    /***
+    /**
      * The version number.
      */
     @JsonProperty("version")

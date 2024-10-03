@@ -7,15 +7,15 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 import org.azd.enums.DefinitionQueueStatus;
 import org.azd.enums.DefinitionType;
 
 /**
- * The type of the definition. 
+ * The type of the definition.
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DefinitionReference extends BaseAbstractMethod {
+public class DefinitionReference extends SerializableEntity {
     /**
      * The date this version of the definition was created.
      **/

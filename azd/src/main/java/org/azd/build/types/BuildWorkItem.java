@@ -2,19 +2,19 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Represents any workitems associated with a build
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildWorkItem extends BaseAbstractMethod {
-    /***
+public class BuildWorkItem extends SerializableEntity {
+    /**
      * Workitem Id
      */
     @JsonProperty("id")
     private String id;
-    /***
+    /**
      * Workitem url
      */
     @JsonProperty("url")

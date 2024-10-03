@@ -3,8 +3,8 @@
   "version": 1.0,
   "properties": {
     "notes": "\n/*\n----------------------------------------------------------\n\tGENERATED FILE, should be edited to suit the purpose.\n----------------------------------------------------------\n*/",
-    "imports": "\nimport com.fasterxml.jackson.annotation.JsonIgnoreProperties;\nimport com.fasterxml.jackson.annotation.JsonProperty;\nimport org.azd.common.types.BaseAbstractMethod;\n"
+    "imports": "\nimport com.fasterxml.jackson.annotation.JsonIgnoreProperties;\nimport com.fasterxml.jackson.annotation.JsonProperty;\nimport org.azd.abstractions.serializer.SerializableEntity;\n"
   },
-  "url": "https://learn.microsoft.com/en-us/rest/api/azure/devops/git/pull-requests/update?view=azure-devops-rest-7.1",
-  "commentOnly": true
+  "url": "https://learn.microsoft.com/en-us/rest/api/azure/devops/wit/work-item-types-field/get?view=azure-devops-rest-7.1&tabs=HTTP#workitemtypefieldwithreferences",
+  "commentOnly": false
 }

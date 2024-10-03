@@ -2,46 +2,46 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
 import java.util.List;
 
-/***
+/**
  * The result of a work item query.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemQueryResult extends BaseAbstractMethod {
-    /***
+public class WorkItemQueryResult extends SerializableEntity {
+    /**
      * The date the query was run in the context of.
      */
     @JsonProperty("asOf")
     private String asOf;
-    /***
+    /**
      * The columns of the query.
      */
     @JsonProperty("columns")
     private List<WorkItemFieldReference> columns;
-    /***
+    /**
      * The result type
      */
     @JsonProperty("queryResultType")
     private String queryResultType;
-    /***
+    /**
      * The type of the query
      */
     @JsonProperty("queryType")
     private String queryType;
-    /***
+    /**
      * The sort columns of the query.
      */
     @JsonProperty("sortColumns")
     private List<WorkItemQuerySortColumn> sortColumns;
-    /***
+    /**
      * The work item links returned by the query.
      */
     @JsonProperty("workItemRelations")
     private List<WorkItemLink> workItemRelations;
-    /***
+    /**
      * The work items returned by the query.
      */
     @JsonProperty("workItems")

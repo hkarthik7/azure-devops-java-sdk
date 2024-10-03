@@ -2,39 +2,46 @@ package org.azd.pipelines.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+import java.util.Objects;
+
+/**
  * Definition of a pipeline.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Pipeline extends BaseAbstractMethod {
-    /***
+public class Pipeline extends SerializableEntity {
+    /**
+     * The class to represent a collection of REST reference links.
+     */
+    @JsonProperty("_links")
+    private Object links;
+    /**
      * Pipeline configuration object
      */
     @JsonProperty("configuration")
     private PipelineConfiguration configuration;
-    /***
+    /**
      * Pipeline folder
      */
     @JsonProperty("folder")
     private String folder;
-    /***
+    /**
      * Pipeline ID
      */
     @JsonProperty("id")
     private int id;
-    /***
+    /**
      * Pipeline name
      */
     @JsonProperty("name")
     private String name;
-    /***
+    /**
      * Revision number
      */
     @JsonProperty("revision")
     private String revision;
-    /***
+    /**
      * URL of the pipeline
      */
     @JsonProperty("url")
@@ -88,4 +95,11 @@ public class Pipeline extends BaseAbstractMethod {
         this.url = url;
     }
 
+    public Object getLinks() {
+        return links;
+    }
+
+    public void setLinks(Object links) {
+        this.links = links;
+    }
 }

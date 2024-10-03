@@ -2,16 +2,16 @@ package org.azd.wiki.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * List of wiki pages
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WikiV2Pages extends BaseAbstractMethod {
-    /***
+public class WikiV2Pages extends SerializableCollectionEntity {
+    /**
      * List of wiki pages
      */
     @JsonProperty("value")
