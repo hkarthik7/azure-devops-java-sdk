@@ -241,7 +241,7 @@ public class Main {
         request.errorPolicy = QueryErrorPolicy.OMIT;
         request.ids = List.of(client.workItemTracking().queries().list().getQueryHierarchyItems().get(1).getId());
 
-        client.workItemTracking().queries().getBatch(request)
+        client.workItemTracking().queries().getBatch(request);
 
         // Search queries
         client.workItemTracking().queries().search(r ->
