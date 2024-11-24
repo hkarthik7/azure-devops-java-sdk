@@ -8,6 +8,9 @@ import org.azd.exceptions.AzDException;
 import java.net.URI;
 import java.net.http.HttpRequest;
 
+/**
+ * Factory class to create a new instance of HttpRequest.
+ */
 public class HttpRequestFactory {
     private final SerializerContext serializer = InstanceFactory.createSerializerContext();
     private final AccessTokenCredential accessTokenCredential;
@@ -18,11 +21,21 @@ public class HttpRequestFactory {
         this.requestInformation = requestInformation;
     }
 
+    /**
+     * Creates an instance of HttpRequest object.
+     * @param accessTokenCredential Pass the access token credential object to set the access token.
+     * @param requestInformation Request information to determine request url, request body.
+     * @return HttpRequest object {@link HttpRequest}.
+     */
     public static HttpRequest create(AccessTokenCredential accessTokenCredential, RequestInformation requestInformation) {
         var request = new HttpRequestFactory(accessTokenCredential, requestInformation);
         return request.newRequest();
     }
 
+    /**
+     * Creates an instance of HttpRequest.
+     * @return HttpRequest object {@link HttpRequest}.
+     */
     public HttpRequest newRequest() {
         try {
             var builder = HttpRequest.newBuilder(requestInformation.getRequestUri());

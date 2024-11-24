@@ -3,10 +3,18 @@ package org.azd.abstractions;
 import java.net.http.HttpClient;
 import java.util.Objects;
 
+/**
+ * Factory class to create an instance of HttpClient with request options.
+ */
 public class HttpClientFactory {
     private HttpClientFactory() {
     }
 
+    /**
+     * Creates a HttpClient object with passed request options.
+     * @param option Request options to configure.
+     * @return HttpClient {@link HttpClient}
+     */
     public static HttpClient create(final RequestOption option) {
         Objects.requireNonNull(option, "Request options cannot be null.");
         var client = HttpClient

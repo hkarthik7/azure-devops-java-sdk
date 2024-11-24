@@ -9,16 +9,34 @@ import java.net.http.HttpHeaders;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Container class that holds Api request and response information.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ApiResponse {
+    /**
+     * Specifies Http status code.
+     */
     @JsonProperty("statusCode")
     private final HttpStatusCode statusCode;
+    /**
+     * Map of response headers.
+     */
     @JsonProperty("responseHeadersMap")
     private final Map<String, List<String>> responseHeadersMap;
+    /**
+     * Response body.
+     */
     @JsonProperty("responseBody")
     private final Object responseBody;
+    /**
+     * Request url.
+     */
     @JsonProperty("requestUrl")
     private final String requestUrl;
+    /**
+     * Contains request information object.
+     */
     @JsonProperty("requestInformation")
     private final RequestInformation requestInformation;
 
@@ -31,27 +49,51 @@ public class ApiResponse {
         this.requestInformation = requestInformation;
     }
 
+    /**
+     * Get the status code.
+     * @return Http status code {@link HttpStatusCode}
+     */
     public HttpStatusCode getStatusCode() {
         return statusCode;
     }
 
+    /**
+     * Get the response headers.
+     * @return Http headers {@link HttpHeaders}.
+     */
     @JsonIgnore
     public HttpHeaders getResponseHeaders() {
         return HttpHeaders.of(responseHeadersMap, (name, value) -> true);
     }
 
+    /**
+     * Get the response headers map.
+     * @return Map of response headers.
+     */
     public Map<String, List<String>> getResponseHeadersMap() {
         return responseHeadersMap;
     }
 
+    /**
+     * Get the response body.
+     * @return Object of response body.
+     */
     public Object getResponseBody() {
         return responseBody;
     }
 
+    /**
+     * Get the request url.
+     * @return Request url.
+     */
     public String getRequestUrl() {
         return requestUrl;
     }
 
+    /**
+     * Get the request information object.
+     * @return RequestInformation object {@link RequestInformation}.
+     */
     public RequestInformation getRequestInformation() {
         return requestInformation;
     }

@@ -14,8 +14,16 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * Implementation of node equivalent proxy provider.
+ */
 public class ProxyProvider {
     private static final SerializerContext serializer = InstanceFactory.createSerializerContext();
+
+    /**
+     * Configure the proxy for given url.
+     * @param url URL string.
+     */
     public static void configure(String url) {
         ProxySelector proxy = null;
         Authenticator authenticator = null;
@@ -41,6 +49,10 @@ public class ProxyProvider {
         setRequestOption(proxy, authenticator);
     }
 
+    /**
+     * Configures proxy for given configuration.
+     * @param proxyConfiguration Proxy configuration object.
+     */
     public static void configure(ProxyConfiguration proxyConfiguration) {
         ProxySelector proxy = new DefaultProxySelector(proxyConfiguration);;
         Authenticator authenticator = null;
@@ -51,6 +63,11 @@ public class ProxyProvider {
         setRequestOption(proxy, authenticator);
     }
 
+    /**
+     * Determines if a given host is not proxy host or not.
+     * @param url Url to check.
+     * @return True if the given host is a no proxy host otherwise false.
+     */
     private static boolean isNoProxyHost(String url) {
         var noProxy = "no_proxy";
 
@@ -66,6 +83,11 @@ public class ProxyProvider {
         return noProxyDomains.contains(serverUrl);
     }
 
+    /**
+     * Determines the host name from given url string.
+     * @param urlString Url string to determine the host name from.
+     * @return Host name.
+     */
     private static String getHostFromUrl(String urlString) {
         try {
             URL url = new URL(urlString);
@@ -75,6 +97,11 @@ public class ProxyProvider {
         }
     }
 
+    /**
+     * Sets the request option for proxy authentication.
+     * @param proxy Proxy selector object.
+     * @param authenticator Implementation of authenticator object.
+     */
     private static void setRequestOption(ProxySelector proxy, Authenticator authenticator) {
         var reqOpt = RequestOption.getInstance();
         reqOpt.setProxySelector(proxy);

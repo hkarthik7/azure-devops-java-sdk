@@ -9,8 +9,6 @@ import org.azd.exceptions.AzDException;
 import java.util.concurrent.CompletableFuture;
 
 public class ResourceAreaRequestBuilder extends BaseRequestBuilder {
-    private final static String id = "e81700f7-3be2-46de-8624-2eb35882fcaa";
-    private final static String area = "location";
     private final String organizationUrl;
 
     public ResourceAreaRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {

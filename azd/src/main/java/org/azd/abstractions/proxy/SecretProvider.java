@@ -8,7 +8,16 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Base64;
 
+/**
+ * Java implementation of azure-devops-node-api sdk's task library secrets method.
+ */
 public class SecretProvider {
+    /**
+     * Determines the secrets for given lookup key.
+     * @param lookupKey base64encoded<keyFilePath>:base64encoded<encryptedContent>.
+     * @return Decrypted secret value.
+     * @throws Exception default.
+     */
     public static String readTaskLibSecrets(String lookupKey) throws Exception {
         // This is the java implementation of azure-devops-node-api sdk's `readTaskLibSecrets` method.
         // The lookupKey should have the following format:
@@ -33,6 +42,11 @@ public class SecretProvider {
         return null;
     }
 
+    /**
+     * Converts the given hex string to byte array.
+     * @param hex Hex string to convert.
+     * @return Byte array of converted hex string.
+     */
     private static byte[] hexStringToByteArray(String hex) {
         int len = hex.length();
         byte[] data = new byte[len / 2];

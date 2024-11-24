@@ -6,6 +6,9 @@ import org.azd.exceptions.AzDException;
 import java.net.http.HttpHeaders;
 import java.util.OptionalLong;
 
+/**
+ * Retries the Api call based on Retry-After header value.
+ */
 public class RetryHandler {
     private final int MAX_RETRIES = 6;
     private final long RETRY_IN_MILLISECONDS = 1000;
@@ -16,6 +19,13 @@ public class RetryHandler {
         this.executor = executor;
     }
 
+    /**
+     * Retries the Api call for the given Api response object. Determines the request information and
+     * retries the request for maximum of 6 times.
+     * @param response Api response object {@link ApiResponse}.
+     * @return Retries Api response. {@link ApiResponse}.
+     * @param <T> Type parameter.
+     */
     public <T> ApiResponse retry(ApiResponse response) {
         var executionCount = 1;
         while (executionCount < DEFAULT_MAX_RETRIES) {
@@ -36,10 +46,18 @@ public class RetryHandler {
         return response;
     }
 
+    /**
+     * Get the default max retry value.
+     * @return Default retry value which is 6.
+     */
     public int getDefaultMaxRetry() {
         return this.DEFAULT_MAX_RETRIES;
     }
 
+    /**
+     * Sets the default max retry value.
+     * @param defaultMaxRetry Default value to set. The value can't be more than 6.
+     */
     public void setDefaultMaxRetry(int defaultMaxRetry) {
         if (defaultMaxRetry > MAX_RETRIES || defaultMaxRetry < 0)
             throw new IllegalArgumentException("Max retry value cannot be less than 0 or greater than 6.");
