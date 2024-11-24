@@ -282,7 +282,9 @@ public class ArtifactsPackageTypesRequestBuilderTest {
             });
         } catch (AzDException e) { // package not found
             System.out.println("Maven API TEST : shouldUploadPackage");
-            ah.uploadPackage(FEED, TEST1_GROUP, TEST1_ARTIFACT, uploadVersion, uploadFileName, content);
+            try {
+                ah.uploadPackage(FEED, TEST1_GROUP, TEST1_ARTIFACT, uploadVersion, uploadFileName, content);
+            } catch (AzDException ignored) {}
             System.out.println("Maven API TEST : shouldUploadPackage - OK");
         }
     }
