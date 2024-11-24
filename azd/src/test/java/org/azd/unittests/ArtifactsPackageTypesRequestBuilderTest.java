@@ -44,7 +44,7 @@ public class ArtifactsPackageTypesRequestBuilderTest {
     private static final String FEED = "maven-feed";
     private static final String TEST1_GROUP = "org.jack.click";
     private static final String TEST1_ARTIFACT = "ClickJack";
-    private static final String TEST1_VERSION = "1.5.0";
+    private static final String TEST1_VERSION = "1.5.2";
     private static final String TEST2_GROUP = "org.tester.maven";
     private static final String TEST2_ARTIFACT = "MavenTester";
     private static final String TEST2_VERSION = "1.1.0";
