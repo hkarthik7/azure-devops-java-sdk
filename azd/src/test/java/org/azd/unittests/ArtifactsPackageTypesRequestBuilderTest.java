@@ -272,7 +272,6 @@ public class ArtifactsPackageTypesRequestBuilderTest {
             StreamHelper.download(uploadFileName, responseStream);
         } catch (AzDException ignored) {}
 
-        var content = StreamHelper.convertToStream(new File(uploadFileName));
         try {
             mvn.get(r -> {
                 r.feedId = FEED;
@@ -283,6 +282,7 @@ public class ArtifactsPackageTypesRequestBuilderTest {
         } catch (AzDException e) { // package not found
             System.out.println("Maven API TEST : shouldUploadPackage");
             try {
+                var content = StreamHelper.convertToStream(new File(uploadFileName));
                 ah.uploadPackage(FEED, TEST1_GROUP, TEST1_ARTIFACT, uploadVersion, uploadFileName, content);
             } catch (AzDException ignored) {}
             System.out.println("Maven API TEST : shouldUploadPackage - OK");
