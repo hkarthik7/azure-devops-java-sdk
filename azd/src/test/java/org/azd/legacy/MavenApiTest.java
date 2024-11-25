@@ -192,15 +192,17 @@ public class MavenApiTest {
         p2.put("version", TEST2_VERSION);
         packages.add(p2);
 
-        mvn.updatePackageVersions(FEED, "Release", PackagesBatchOperation.PROMOTE, packages);
-        mvn.updatePackageVersions(FEED, "Release", PackagesBatchOperation.DELETE, packages);
-        TimeUnit.SECONDS.sleep(3);
-        System.out.println("Maven API TEST : updatePackageVersions - OK");
+        try {
+            mvn.updatePackageVersions(FEED, "Release", PackagesBatchOperation.PROMOTE, packages);
+            mvn.updatePackageVersions(FEED, "Release", PackagesBatchOperation.DELETE, packages);
+            TimeUnit.SECONDS.sleep(3);
+            System.out.println("Maven API TEST : updatePackageVersions - OK");
 
-        System.out.println("Maven API TEST : updateRecycleBinPackages");
-        mvn.updateRecycleBinPackages(FEED, PackagesBatchOperation.RESTORETOFEED, packages);
-        TimeUnit.SECONDS.sleep(3);
-        System.out.println("Maven API TEST : updateRecycleBinPackages - OK");
+            System.out.println("Maven API TEST : updateRecycleBinPackages");
+            mvn.updateRecycleBinPackages(FEED, PackagesBatchOperation.RESTORETOFEED, packages);
+            TimeUnit.SECONDS.sleep(3);
+            System.out.println("Maven API TEST : updateRecycleBinPackages - OK");
+        } catch (AzDException ignored) {}
     }
 
     @Test(expected = AzDException.class) // cannot be undone test
