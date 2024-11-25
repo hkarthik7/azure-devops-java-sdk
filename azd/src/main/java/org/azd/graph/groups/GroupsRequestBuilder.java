@@ -30,18 +30,18 @@ public class GroupsRequestBuilder extends BaseRequestBuilder {
     /**
      * Create a new Azure DevOps group or materialize an existing AAD group.
      *
-     * <br/><br/>The body of the request must be a derived type of GraphGroupCreationContext:
+     * <br><br/>The body of the request must be a derived type of GraphGroupCreationContext:
      *
-     * <br/><br/>{@link GraphGroupVstsCreationContext} Create a new Azure DevOps group that is not backed by
+     * <br><br/>{@link GraphGroupVstsCreationContext} Create a new Azure DevOps group that is not backed by
      * an external provider.
      *
-     * <br/><br/>{@link GraphGroupMailAddressCreationContext} Create a new group using the mail address as a
+     * <br><br/>{@link GraphGroupMailAddressCreationContext} Create a new group using the mail address as a
      * reference to an existing group from an external AD or AAD backed provider.
      *
-     * <br/><br/>{@link GraphGroupOriginIdCreationContext} Create a new group using the OriginID as a reference
+     * <br><br/>{@link GraphGroupOriginIdCreationContext} Create a new group using the OriginID as a reference
      * to a group from an external AD or AAD backed provider.
      *
-     * <br/><br/>Optionally, you can add the newly created group as a member of an existing Azure DevOps group and/or specify
+     * <br><br/>Optionally, you can add the newly created group as a member of an existing Azure DevOps group and/or specify
      * a custom storage key for the group.
      *
      * @param groupCreationContext Request body to create a new group.
@@ -58,18 +58,18 @@ public class GroupsRequestBuilder extends BaseRequestBuilder {
     /**
      * Create a new Azure DevOps group or materialize an existing AAD group.
      *
-     * <br/><br/>The body of the request must be a derived type of GraphGroupCreationContext:
+     * <br><br/>The body of the request must be a derived type of GraphGroupCreationContext:
      *
-     * <br/><br/>{@link GraphGroupVstsCreationContext} Create a new Azure DevOps group that is not backed by
+     * <br><br/>{@link GraphGroupVstsCreationContext} Create a new Azure DevOps group that is not backed by
      * an external provider.
      *
-     * <br/><br/>{@link GraphGroupMailAddressCreationContext} Create a new group using the mail address as a
+     * <br><br/>{@link GraphGroupMailAddressCreationContext} Create a new group using the mail address as a
      * reference to an existing group from an external AD or AAD backed provider.
      *
-     * <br/><br/>{@link GraphGroupOriginIdCreationContext} Create a new group using the OriginID as a reference
+     * <br><br/>{@link GraphGroupOriginIdCreationContext} Create a new group using the OriginID as a reference
      * to a group from an external AD or AAD backed provider.
      *
-     * <br/><br/>Optionally, you can add the newly created group as a member of an existing Azure DevOps group and/or specify
+     * <br><br/>Optionally, you can add the newly created group as a member of an existing Azure DevOps group and/or specify
      * a custom storage key for the group.
      *
      * @param groupCreationContext Request body to create a new group.
@@ -180,18 +180,18 @@ public class GroupsRequestBuilder extends BaseRequestBuilder {
     /**
      * Create a new Azure DevOps group or materialize an existing AAD group.
      *
-     * <br/><br/>The body of the request must be a derived type of GraphGroupCreationContext:
+     * <br><br/>The body of the request must be a derived type of GraphGroupCreationContext:
      *
-     * <br/><br/>{@link GraphGroupVstsCreationContext} Create a new Azure DevOps group that is not backed by
+     * <br><br/>{@link GraphGroupVstsCreationContext} Create a new Azure DevOps group that is not backed by
      * an external provider.
      *
-     * <br/><br/>{@link GraphGroupMailAddressCreationContext} Create a new group using the mail address as a
+     * <br><br/>{@link GraphGroupMailAddressCreationContext} Create a new group using the mail address as a
      * reference to an existing group from an external AD or AAD backed provider.
      *
-     * <br/><br/>{@link GraphGroupOriginIdCreationContext} Create a new group using the OriginID as a reference
+     * <br><br/>{@link GraphGroupOriginIdCreationContext} Create a new group using the OriginID as a reference
      * to a group from an external AD or AAD backed provider.
      *
-     * <br/><br/>Optionally, you can add the newly created group as a member of an existing Azure DevOps group and/or specify
+     * <br><br/>Optionally, you can add the newly created group as a member of an existing Azure DevOps group and/or specify
      * a custom storage key for the group.
      *
      * @param groupCreationContext Request body to create a new group.
@@ -208,18 +208,18 @@ public class GroupsRequestBuilder extends BaseRequestBuilder {
     /**
      * Create a new Azure DevOps group or materialize an existing AAD group.
      *
-     * <br/><br/>The body of the request must be a derived type of GraphGroupCreationContext:
+     * <br><br/>The body of the request must be a derived type of GraphGroupCreationContext:
      *
-     * <br/><br/>{@link GraphGroupVstsCreationContext} Create a new Azure DevOps group that is not backed by
+     * <br><br/>{@link GraphGroupVstsCreationContext} Create a new Azure DevOps group that is not backed by
      * an external provider.
      *
-     * <br/><br/>{@link GraphGroupMailAddressCreationContext} Create a new group using the mail address as a
+     * <br><br/>{@link GraphGroupMailAddressCreationContext} Create a new group using the mail address as a
      * reference to an existing group from an external AD or AAD backed provider.
      *
-     * <br/><br/>{@link GraphGroupOriginIdCreationContext} Create a new group using the OriginID as a reference
+     * <br><br/>{@link GraphGroupOriginIdCreationContext} Create a new group using the OriginID as a reference
      * to a group from an external AD or AAD backed provider.
      *
-     * <br/><br/>Optionally, you can add the newly created group as a member of an existing Azure DevOps group and/or specify
+     * <br><br/>Optionally, you can add the newly created group as a member of an existing Azure DevOps group and/or specify
      * a custom storage key for the group.
      *
      * @param groupCreationContext Request body to create a new group.

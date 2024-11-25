@@ -97,7 +97,7 @@ public class UserEntitlementsRequestBuilder extends BaseRequestBuilder {
      *
      * @param requestConfiguration Consumer of request configuration that represents the query parameters.
      * @return Paged list of members {@link PagedGraphMemberList}
-     * * @throws AzDException Default Api exception handler.
+     * @throws AzDException Default Api exception handler.
      */
     public CompletableFuture<PagedGraphMemberList> searchAsync(Consumer<RequestConfiguration> requestConfiguration) throws AzDException {
         return builder()

@@ -16,7 +16,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
- * Request builder & executor that builds and executes the request for given parameters.
+ * Request builder and executor that builds and executes the request for given parameters.
  */
 public abstract class ClientRequest {
 
@@ -252,7 +252,7 @@ public abstract class ClientRequest {
          * @param key   Represents the path parameter of the url.
          * @param value Value for the path parameter.
          * @return ClientRequest.Builder. {@link ClientRequest.Builder}
-         * @apiNote Note that this method construct the endpoint in the order passed.
+         * <p>Note that this method construct the endpoint in the order passed.</p>
          */
         Builder serviceEndpoint(String key, Object value);
 

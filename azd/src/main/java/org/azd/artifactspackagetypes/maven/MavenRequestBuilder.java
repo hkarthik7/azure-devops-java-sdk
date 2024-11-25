@@ -155,7 +155,7 @@ public class MavenRequestBuilder extends BaseRequestBuilder {
      *
      * @param pathParameters Represents the path parameters to get artifact.
      * @param showDeleted    Specify to include the deleted packages.
-     *                       <br /><br /><strong>Example:</strong>
+     *                       <br></br><strong>Example:</strong>
      *                       <pre>{@code
      *                       client.artifactsPackageTypes().maven().getAsync(r -> {
      *                          r.artifactId = "MyPackage";
@@ -320,7 +320,7 @@ public class MavenRequestBuilder extends BaseRequestBuilder {
      *
      * @param pathParameters Represents the path parameters to get artifact.
      * @param showDeleted    Specify to include the deleted packages.
-     *                       <br /><br /><strong>Example:</strong>
+     *                       <br><br /><strong>Example:</strong>
      *                       <pre>{@code
      *                       client.artifactsPackageTypes().maven().get(r -> {
      *                          r.artifactId = "MyPackage";

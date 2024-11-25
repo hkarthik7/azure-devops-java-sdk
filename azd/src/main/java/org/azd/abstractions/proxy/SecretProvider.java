@@ -14,7 +14,7 @@ import java.util.Base64;
 public class SecretProvider {
     /**
      * Determines the secrets for given lookup key.
-     * @param lookupKey base64encoded<keyFilePath>:base64encoded<encryptedContent>.
+     * @param lookupKey base64encoded(keyFilePath):base64encoded(encryptedContent).
      * @return Decrypted secret value.
      * @throws Exception default.
      */
