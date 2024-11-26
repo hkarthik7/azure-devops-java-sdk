@@ -28,7 +28,7 @@ public class WorkItemTrackingAttachmentsRequestBuilder extends BaseRequestBuilde
     }
 
     /**
-     * Uploads an attachment. On accounts with higher attachment upload limits (>130MB), you will need to use chunked upload.
+     * Uploads an attachment. On accounts with higher attachment upload limits (greater than 130MB), you will need to use chunked upload.
      *
      * @param contents             Stream to upload. Payload to create the attachment.
      * @param requestConfiguration Represents the query parameters.
@@ -83,7 +83,7 @@ public class WorkItemTrackingAttachmentsRequestBuilder extends BaseRequestBuilde
     }
 
     /**
-     * Uploads an attachment. On accounts with higher attachment upload limits (>130MB), you will need to use chunked upload.
+     * Uploads an attachment. On accounts with higher attachment upload limits (greater than 130MB), you will need to use chunked upload.
      *
      * @param contents             Stream to upload. Payload to create the attachment.
      * @param requestConfiguration Represents the query parameters.
