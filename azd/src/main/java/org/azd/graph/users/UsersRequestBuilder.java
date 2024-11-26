@@ -27,22 +27,22 @@ public class UsersRequestBuilder extends BaseRequestBuilder {
     /**
      * Materialize an existing AAD or MSA user into the ADO account.
      * <p>
-     * <br><br/><strong>NOTE:</strong> Created users are not active in an account unless they have been explicitly assigned a parent group at
+     * <strong>NOTE:</strong> Created users are not active in an account unless they have been explicitly assigned a parent group at
      * creation time or have signed in and been autolicensed through AAD group memberships.
      * <p>
-     * <br><br/>Adding a user to an account is required before the user can be added to ADO groups or assigned an asset.
+     * Adding a user to an account is required before the user can be added to ADO groups or assigned an asset.
      * <p>
-     * <br><br/>The body of the request must be a derived type of GraphUserCreationContext:
+     * The body of the request must be a derived type of GraphUserCreationContext:
      * <p>
-     * <br><br/>GraphUserMailAddressCreationContext - Create a new user using the mail address as a reference to an existing user
+     * GraphUserMailAddressCreationContext - Create a new user using the mail address as a reference to an existing user
      * from an external AD or AAD backed provider.
-     * <br><br/>GraphUserOriginIdCreationContext - Create a new user using the OriginID as a reference to an existing user from
+     * GraphUserOriginIdCreationContext - Create a new user using the OriginID as a reference to an existing user from
      * an external AD or AAD backed provider.
-     * <br><br/>GraphUserPrincipalNameCreationContext - Create a new user using the principal name as a reference to an
+     * GraphUserPrincipalNameCreationContext - Create a new user using the principal name as a reference to an
      * existing user from an external AD or AAD backed provider.
-     * <br><br/>If the user to be added corresponds to a user that was previously deleted, then that user will be restored.
+     * If the user to be added corresponds to a user that was previously deleted, then that user will be restored.
      * <p>
-     * <br><br/>Optionally, you can add the newly created user as a member of an existing ADO group and/or specify a custom storage key for the user.
+     * Optionally, you can add the newly created user as a member of an existing ADO group and/or specify a custom storage key for the user.
      *
      * @param creationContext graph user creation context object to create a user.
      * @return Graph user object {@link GraphUser}
@@ -58,22 +58,22 @@ public class UsersRequestBuilder extends BaseRequestBuilder {
     /**
      * Materialize an existing AAD or MSA user into the ADO account.
      * <p>
-     * <br><br/><strong>NOTE:</strong> Created users are not active in an account unless they have been explicitly assigned a parent group at
+     * <strong>NOTE:</strong> Created users are not active in an account unless they have been explicitly assigned a parent group at
      * creation time or have signed in and been autolicensed through AAD group memberships.
      * <p>
-     * <br><br/>Adding a user to an account is required before the user can be added to ADO groups or assigned an asset.
+     * Adding a user to an account is required before the user can be added to ADO groups or assigned an asset.
      * <p>
-     * <br><br/>The body of the request must be a derived type of GraphUserCreationContext:
+     * The body of the request must be a derived type of GraphUserCreationContext:
      * <p>
-     * <br><br/>GraphUserMailAddressCreationContext - Create a new user using the mail address as a reference to an existing user
+     * GraphUserMailAddressCreationContext - Create a new user using the mail address as a reference to an existing user
      * from an external AD or AAD backed provider.
-     * <br><br/>GraphUserOriginIdCreationContext - Create a new user using the OriginID as a reference to an existing user from
+     * GraphUserOriginIdCreationContext - Create a new user using the OriginID as a reference to an existing user from
      * an external AD or AAD backed provider.
-     * <br><br/>GraphUserPrincipalNameCreationContext - Create a new user using the principal name as a reference to an
+     * GraphUserPrincipalNameCreationContext - Create a new user using the principal name as a reference to an
      * existing user from an external AD or AAD backed provider.
-     * <br><br/>If the user to be added corresponds to a user that was previously deleted, then that user will be restored.
+     * If the user to be added corresponds to a user that was previously deleted, then that user will be restored.
      * <p>
-     * <br><br/>Optionally, you can add the newly created user as a member of an existing ADO group and/or specify a custom storage key for the user.
+     * Optionally, you can add the newly created user as a member of an existing ADO group and/or specify a custom storage key for the user.
      *
      * @param creationContext      graph user creation context object to create a user.
      * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.
@@ -175,22 +175,22 @@ public class UsersRequestBuilder extends BaseRequestBuilder {
     /**
      * Materialize an existing AAD or MSA user into the ADO account.
      * <p>
-     * <br><br/><strong>NOTE:</strong> Created users are not active in an account unless they have been explicitly assigned a parent group at
+     * <strong>NOTE:</strong> Created users are not active in an account unless they have been explicitly assigned a parent group at
      * creation time or have signed in and been autolicensed through AAD group memberships.
      * <p>
-     * <br><br/>Adding a user to an account is required before the user can be added to ADO groups or assigned an asset.
+     * Adding a user to an account is required before the user can be added to ADO groups or assigned an asset.
      * <p>
-     * <br><br/>The body of the request must be a derived type of GraphUserCreationContext:
+     * The body of the request must be a derived type of GraphUserCreationContext:
      * <p>
-     * <br><br/>GraphUserMailAddressCreationContext - Create a new user using the mail address as a reference to an existing user
+     * GraphUserMailAddressCreationContext - Create a new user using the mail address as a reference to an existing user
      * from an external AD or AAD backed provider.
-     * <br><br/>GraphUserOriginIdCreationContext - Create a new user using the OriginID as a reference to an existing user from
+     * GraphUserOriginIdCreationContext - Create a new user using the OriginID as a reference to an existing user from
      * an external AD or AAD backed provider.
-     * <br><br/>GraphUserPrincipalNameCreationContext - Create a new user using the principal name as a reference to an
+     * GraphUserPrincipalNameCreationContext - Create a new user using the principal name as a reference to an
      * existing user from an external AD or AAD backed provider.
-     * <br><br/>If the user to be added corresponds to a user that was previously deleted, then that user will be restored.
+     * If the user to be added corresponds to a user that was previously deleted, then that user will be restored.
      * <p>
-     * <br><br/>Optionally, you can add the newly created user as a member of an existing ADO group and/or specify a custom storage key for the user.
+     * Optionally, you can add the newly created user as a member of an existing ADO group and/or specify a custom storage key for the user.
      *
      * @param creationContext graph user creation context object to create a user.
      * @return Graph user object {@link GraphUser}
@@ -206,22 +206,22 @@ public class UsersRequestBuilder extends BaseRequestBuilder {
     /**
      * Materialize an existing AAD or MSA user into the ADO account.
      * <p>
-     * <br><br/><strong>NOTE:</strong> Created users are not active in an account unless they have been explicitly assigned a parent group at
+     * <strong>NOTE:</strong> Created users are not active in an account unless they have been explicitly assigned a parent group at
      * creation time or have signed in and been autolicensed through AAD group memberships.
      * <p>
-     * <br><br/>Adding a user to an account is required before the user can be added to ADO groups or assigned an asset.
+     * Adding a user to an account is required before the user can be added to ADO groups or assigned an asset.
      * <p>
-     * <br><br/>The body of the request must be a derived type of GraphUserCreationContext:
+     * The body of the request must be a derived type of GraphUserCreationContext:
      * <p>
-     * <br><br/>GraphUserMailAddressCreationContext - Create a new user using the mail address as a reference to an existing user
+     * GraphUserMailAddressCreationContext - Create a new user using the mail address as a reference to an existing user
      * from an external AD or AAD backed provider.
-     * <br><br/>GraphUserOriginIdCreationContext - Create a new user using the OriginID as a reference to an existing user from
+     * GraphUserOriginIdCreationContext - Create a new user using the OriginID as a reference to an existing user from
      * an external AD or AAD backed provider.
-     * <br><br/>GraphUserPrincipalNameCreationContext - Create a new user using the principal name as a reference to an
+     * GraphUserPrincipalNameCreationContext - Create a new user using the principal name as a reference to an
      * existing user from an external AD or AAD backed provider.
-     * <br><br/>If the user to be added corresponds to a user that was previously deleted, then that user will be restored.
+     * If the user to be added corresponds to a user that was previously deleted, then that user will be restored.
      * <p>
-     * <br><br/>Optionally, you can add the newly created user as a member of an existing ADO group and/or specify a custom storage key for the user.
+     * Optionally, you can add the newly created user as a member of an existing ADO group and/or specify a custom storage key for the user.
      *
      * @param creationContext      graph user creation context object to create a user.
      * @param requestConfiguration Consumer of request configuration. This represents the query parameter for the request.

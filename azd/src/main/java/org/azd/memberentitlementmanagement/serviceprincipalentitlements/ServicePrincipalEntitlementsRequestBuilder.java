@@ -32,7 +32,7 @@ public class ServicePrincipalEntitlementsRequestBuilder extends BaseRequestBuild
     /**
      * Add a service principal, assign license and extensions and make them a member of a project group in an account.
      * <p>
-     * <br /><strong>NOTE:</strong> If you are working with AAD app registration, you can find service principal of your app in enterprise
+     * <strong>NOTE:</strong> If you are working with AAD app registration, you can find service principal of your app in enterprise
      * applications, and make sure to use service principal's object id as originId parameter in the request body
      *
      * @param servicePrincipalEntitlement Request body of service principal object {@link ServicePrincipalEntitlement}
@@ -51,7 +51,7 @@ public class ServicePrincipalEntitlementsRequestBuilder extends BaseRequestBuild
     /**
      * Delete a service principal from the account.
      * <p>
-     * <br />The delete operation includes un-assigning Extensions and Licenses and removing the service principal from
+     * The delete operation includes un-assigning Extensions and Licenses and removing the service principal from
      * all project memberships. The service principal would continue to have access to the account if it is member
      * of an AAD group, that is added directly to the account.
      *
@@ -120,7 +120,7 @@ public class ServicePrincipalEntitlementsRequestBuilder extends BaseRequestBuild
     /**
      * Add a service principal, assign license and extensions and make them a member of a project group in an account.
      * <p>
-     * <br /><strong>NOTE:</strong> If you are working with AAD app registration, you can find service principal of your app in enterprise
+     * <strong>NOTE:</strong> If you are working with AAD app registration, you can find service principal of your app in enterprise
      * applications, and make sure to use service principal's object id as originId parameter in the request body
      *
      * @param servicePrincipalEntitlement Request body of service principal object {@link ServicePrincipalEntitlement}
@@ -139,7 +139,7 @@ public class ServicePrincipalEntitlementsRequestBuilder extends BaseRequestBuild
     /**
      * Delete a service principal from the account.
      * <p>
-     * <br />The delete operation includes un-assigning Extensions and Licenses and removing the service principal from
+     * The delete operation includes un-assigning Extensions and Licenses and removing the service principal from
      * all project memberships. The service principal would continue to have access to the account if it is member
      * of an AAD group, that is added directly to the account.
      *

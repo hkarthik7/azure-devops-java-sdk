@@ -82,11 +82,11 @@ public class ConfigurationsRequestBuilder extends BaseRequestBuilder {
     /**
      * Get a list of policy configurations in a project.
      * <p>
-     * <br /><br />The 'scope' parameter for this API should not be used, except for legacy compatibility reasons.
+     * The 'scope' parameter for this API should not be used, except for legacy compatibility reasons.
      * It returns specifically scoped policies and does not support hierarchical nesting.
      * Instead, use the /_apis/git/policy/configurations API, which provides first class scope filtering support.
      * <p>
-     * <br /><br />The optional policyType parameter can be used to filter the set of policies returned from this method.
+     * The optional policyType parameter can be used to filter the set of policies returned from this method.
      *
      * @param requestConfiguration Represents the query parameters.
      * @return PolicyConfigurations object {@link PolicyConfigurations}
@@ -173,11 +173,11 @@ public class ConfigurationsRequestBuilder extends BaseRequestBuilder {
     /**
      * Get a list of policy configurations in a project.
      * <p>
-     * <br /><br />The 'scope' parameter for this API should not be used, except for legacy compatibility reasons.
+     * The 'scope' parameter for this API should not be used, except for legacy compatibility reasons.
      * It returns specifically scoped policies and does not support hierarchical nesting.
      * Instead, use the /_apis/git/policy/configurations API, which provides first class scope filtering support.
      * <p>
-     * <br /><br />The optional policyType parameter can be used to filter the set of policies returned from this method.
+     * The optional policyType parameter can be used to filter the set of policies returned from this method.
      *
      * @param requestConfiguration Represents the query parameters.
      * @return PolicyConfigurations object {@link PolicyConfigurations}

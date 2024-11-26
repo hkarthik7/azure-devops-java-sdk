@@ -49,7 +49,7 @@ public class UserEntitlementsRequestBuilder extends BaseRequestBuilder {
     /**
      * Delete a user from the account.
      * <p>
-     * <br />The delete operation includes un-assigning Extensions and Licenses and removing the user from all project
+     * The delete operation includes un-assigning Extensions and Licenses and removing the user from all project
      * memberships. The user would continue to have access to the account if she is member of an AAD group,
      * that is added directly to the account.
      *
@@ -159,7 +159,7 @@ public class UserEntitlementsRequestBuilder extends BaseRequestBuilder {
     /**
      * Delete a user from the account.
      * <p>
-     * <br />The delete operation includes un-assigning Extensions and Licenses and removing the user from all project
+     * The delete operation includes un-assigning Extensions and Licenses and removing the user from all project
      * memberships. The user would continue to have access to the account if she is member of an AAD group,
      * that is added directly to the account.
      *

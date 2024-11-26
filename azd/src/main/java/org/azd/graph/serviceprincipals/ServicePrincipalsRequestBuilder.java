@@ -30,20 +30,20 @@ public class ServicePrincipalsRequestBuilder extends BaseRequestBuilder {
     /**
      * Materialize an existing AAD service principal into the ADO account.
      *
-     * <br><br/><strong>NOTE:</strong> Created service principals are not active in an account.
+     * <strong>NOTE:</strong> Created service principals are not active in an account.
      *
-     * <br><br/>Adding a service principal to an account is required before the service principal can be added to ADO groups or
+     * Adding a service principal to an account is required before the service principal can be added to ADO groups or
      * assigned an asset.
      *
-     * <br><br/>The body of the request must be a derived type of {@link GraphServicePrincipalCreationContext}:
+     * The body of the request must be a derived type of {@link GraphServicePrincipalCreationContext}:
      *
-     * <br><br/>{@link GraphServicePrincipalOriginIdCreationContext} - Create a new service principal using the OriginID as a reference
+     * {@link GraphServicePrincipalOriginIdCreationContext} - Create a new service principal using the OriginID as a reference
      * to an existing service principal from AAD backed provider.
      *
-     *  <br><br/>If the service principal to be added corresponds to a
+     *  If the service principal to be added corresponds to a
      * service principal that was previously deleted, then that service principal will be restored.
      *
-     * <br><br/>Optionally, you can add the newly created service principal as a member of an existing ADO group and/or specify
+     * Optionally, you can add the newly created service principal as a member of an existing ADO group and/or specify
      * a custom storage key for the service principal.
      *
      * @param creationContext Graph origin id creation context. Pass the origin id to create service principal.
@@ -60,20 +60,20 @@ public class ServicePrincipalsRequestBuilder extends BaseRequestBuilder {
     /**
      * Materialize an existing AAD service principal into the ADO account.
      *
-     * <br><br/><strong>NOTE:</strong> Created service principals are not active in an account.
+     * <strong>NOTE:</strong> Created service principals are not active in an account.
      *
-     * <br><br/>Adding a service principal to an account is required before the service principal can be added to ADO groups or
+     * Adding a service principal to an account is required before the service principal can be added to ADO groups or
      * assigned an asset.
      *
-     * <br><br/>The body of the request must be a derived type of {@link GraphServicePrincipalCreationContext}:
+     * The body of the request must be a derived type of {@link GraphServicePrincipalCreationContext}:
      *
-     * <br><br/>{@link GraphServicePrincipalOriginIdCreationContext} - Create a new service principal using the OriginID as a reference
+     * {@link GraphServicePrincipalOriginIdCreationContext} - Create a new service principal using the OriginID as a reference
      * to an existing service principal from AAD backed provider.
      *
-     * <br><br/>If the service principal to be added corresponds to a service principal that was previously deleted,
+     * If the service principal to be added corresponds to a service principal that was previously deleted,
      * then that service principal will be restored.
      *
-     * <br><br/>Optionally, you can add the newly created service principal as a member of an existing ADO group and/or specify
+     * Optionally, you can add the newly created service principal as a member of an existing ADO group and/or specify
      * a custom storage key for the service principal.
      *
      * @param creationContext      Graph origin id creation context. Pass the origin id to create service principal.
@@ -156,20 +156,20 @@ public class ServicePrincipalsRequestBuilder extends BaseRequestBuilder {
     /**
      * Materialize an existing AAD service principal into the ADO account.
      *
-     * <br><br/><strong>NOTE:</strong> Created service principals are not active in an account.
+     * <strong>NOTE:</strong> Created service principals are not active in an account.
      *
-     * <br><br/>Adding a service principal to an account is required before the service principal can be added to ADO groups or
+     * Adding a service principal to an account is required before the service principal can be added to ADO groups or
      * assigned an asset.
      *
-     * <br><br/>The body of the request must be a derived type of GraphServicePrincipalCreationContext:
+     * The body of the request must be a derived type of GraphServicePrincipalCreationContext:
      *
-     * <br><br/>{@link GraphServicePrincipalOriginIdCreationContext} - Create a new service principal using the OriginID as a reference
+     * {@link GraphServicePrincipalOriginIdCreationContext} - Create a new service principal using the OriginID as a reference
      * to an existing service principal from AAD backed provider.
      *
-     * <br><br/>If the service principal to be added corresponds to a service principal that was previously deleted,
+     * If the service principal to be added corresponds to a service principal that was previously deleted,
      * then that service principal will be restored.
      *
-     * <br><br/>Optionally, you can add the newly created service principal as a member of an existing ADO group and/or specify
+     * Optionally, you can add the newly created service principal as a member of an existing ADO group and/or specify
      * a custom storage key for the service principal.
      *
      * @param creationContext Graph origin id creation context. Pass the origin id to create service principal.
@@ -186,20 +186,20 @@ public class ServicePrincipalsRequestBuilder extends BaseRequestBuilder {
     /**
      * Materialize an existing AAD service principal into the ADO account.
      *
-     * <br><br/><strong>NOTE:</strong> Created service principals are not active in an account.
+     * <strong>NOTE:</strong> Created service principals are not active in an account.
      *
-     * <br><br/>Adding a service principal to an account is required before the service principal can be added to ADO groups or
+     * Adding a service principal to an account is required before the service principal can be added to ADO groups or
      * assigned an asset.
      *
-     * <br><br/>The body of the request must be a derived type of GraphServicePrincipalCreationContext:
+     * The body of the request must be a derived type of GraphServicePrincipalCreationContext:
      *
-     * <br><br/>{@link GraphServicePrincipalOriginIdCreationContext} - Create a new service principal using the OriginID as a reference
+     * {@link GraphServicePrincipalOriginIdCreationContext} - Create a new service principal using the OriginID as a reference
      * to an existing service principal from AAD backed provider.
      *
-     * <br><br/>If the service principal to be added corresponds to a service principal that was previously deleted,
+     * If the service principal to be added corresponds to a service principal that was previously deleted,
      * then that service principal will be restored.
      *
-     * <br><br/>Optionally, you can add the newly created service principal as a member of an existing ADO group and/or specify
+     * Optionally, you can add the newly created service principal as a member of an existing ADO group and/or specify
      * a custom storage key for the service principal.
      *
      * @param creationContext      Graph origin id creation context. Pass the origin id to create service principal.

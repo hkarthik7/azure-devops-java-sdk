@@ -27,7 +27,7 @@ public class SubjectLookupRequestBuilder extends BaseRequestBuilder {
      * Resolve descriptors to users, groups or scopes (Subjects) in a batch.
      *
      * @param subjectLookup Subject lookup object that contains list of descriptor to look for.
-     * <br><br/><strong>Example:</strong>
+     * <strong>Example:</strong>
      * <pre>{@code
      * var subjectLookup = new GraphSubjectLookup();
      * var subjectLookupKeys = new ArrayList<GraphSubjectLookupKey>();
@@ -49,7 +49,7 @@ public class SubjectLookupRequestBuilder extends BaseRequestBuilder {
      * Resolve descriptors to users, groups or scopes (Subjects) in a batch.
      *
      * @param subjectLookup Subject lookup object that contains list of descriptor to look for.
-     * <br><br/><strong>Example:</strong>
+     * <strong>Example:</strong>
      * <pre>{@code
      * var subjectLookup = new GraphSubjectLookup();
      * var subjectLookupKeys = new ArrayList<GraphSubjectLookupKey>();
