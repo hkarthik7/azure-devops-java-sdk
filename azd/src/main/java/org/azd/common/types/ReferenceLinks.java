@@ -2,103 +2,104 @@ package org.azd.common.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Represents all reference links commonly used across the services
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReferenceLinks extends BaseAbstractMethod {
-    /***
+public class ReferenceLinks extends SerializableEntity {
+    /**
      * Service link
      */
     @JsonProperty("self")
     private Reference self;
-    /***
+    /**
      * Represents a work item update link
      */
     @JsonProperty("workItemUpdates")
     private Reference workItemUpdates;
-    /***
+    /**
      * Work item revision link
      */
     @JsonProperty("workItemRevisions")
     private Reference workItemRevisions;
-    /***
+    /**
      * Work item comments link
      */
     @JsonProperty("workItemComments")
     private Reference workItemComments;
-    /***
+    /**
      * Html reference link
      */
     @JsonProperty("html")
     private Reference html;
-    /***
+    /**
      * Work item type link
      */
     @JsonProperty("workItemType")
     private Reference workItemType;
-    /***
+    /**
      * Link to fields
      */
     @JsonProperty("fields")
     private Reference fields;
-    /***
+    /**
      * Avatar
      */
     @JsonProperty("avatar")
     private Reference avatar;
-    /***
+    /**
      * Project link
      */
     @JsonProperty("project")
     private Reference project;
-    /***
+    /**
      * Team project link
      */
     @JsonProperty("team")
     private Reference team;
-    /***
+    /**
      * Team iteration link
      */
     @JsonProperty("teamIteration")
     private Reference teamIteration;
-    /***
+    /**
      * Packages link
      */
     @JsonProperty("packages")
     private Reference packages;
-    /***
+    /**
      * Permissions
      */
     @JsonProperty("permissions")
     private Reference permissions;
-    /***
+    /**
      * Link to Artifacts feed
      */
     @JsonProperty("feed")
     private Reference feed;
-    /***
+    /**
      * Source version display uri link
      */
     @JsonProperty("sourceVersionDisplayUri")
     private Reference sourceVersionDisplayUri;
-    /***
+    /**
      * Time line link
      */
     @JsonProperty("timeline")
     private Reference timeline;
-    /***
+    /**
      * Badge
      */
     @JsonProperty("badge")
     private Reference badge;
-    /***
+    /**
      * Web
      */
     @JsonProperty("web")
     private Reference web;
-    /***
+    /**
      * Editor
      */
     @JsonProperty("editor")

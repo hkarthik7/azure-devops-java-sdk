@@ -2,16 +2,16 @@ package org.azd.feedmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * Array of feed views
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class FeedViews extends BaseAbstractMethod {
-    /***
+public class FeedViews extends SerializableCollectionEntity {
+    /**
      * Array of feed views
      */
     @JsonProperty("value")

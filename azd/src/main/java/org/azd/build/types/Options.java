@@ -2,24 +2,24 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Represents the application of an optional behavior to a build definition.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Options extends BaseAbstractMethod {
-    /***
+public class Options extends SerializableEntity {
+    /**
      * Indicates whether the behavior is enabled.
      */
     @JsonProperty("enabled")
     private boolean enabled;
-    /***
+    /**
      * Represents a reference to a build option definition.
      */
     @JsonProperty("definition")
     private DefinitionReference definition;
-    /***
+    /**
      * Build definition option inputs
      */
     @JsonProperty("inputs")

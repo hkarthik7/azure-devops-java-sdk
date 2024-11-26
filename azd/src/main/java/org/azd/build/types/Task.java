@@ -2,24 +2,24 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Represents a task in a step
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Task extends BaseAbstractMethod {
-    /***
+public class Task extends SerializableEntity {
+    /**
      * Task id
      */
     @JsonProperty("id")
     private String id;
-    /***
+    /**
      * Task version specification
      */
     @JsonProperty("versionSpec")
     private String versionSpec;
-    /***
+    /**
      * Definition type
      */
     @JsonProperty("definitionType")

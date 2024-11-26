@@ -1,45 +1,57 @@
 package org.azd.release.types;
 /**
-----------------------------------------------------------
-	GENERATED FILE, should be edited to suit the purpose.
-----------------------------------------------------------
-**/
+ * ----------------------------------------------------------
+ * GENERATED FILE, should be edited to suit the purpose.
+ * ----------------------------------------------------------
+ **/
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
 /**
- * None 
-**/
+ * None
+ **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class VariableGroupProjectReference extends BaseAbstractMethod {
-	/**
- 	* Gets or sets description of the variable group. 
-	**/
-	@JsonProperty("description")
-	private String description;
-	/**
- 	* Gets or sets name of the variable group. 
-	**/
-	@JsonProperty("name")
-	private String name;
-	/**
- 	* Gets or sets project reference of the variable group. 
-	**/
-	@JsonProperty("projectReference")
-	private ProjectReference projectReference;
+public class VariableGroupProjectReference extends SerializableEntity {
+    /**
+     * Gets or sets description of the variable group.
+     **/
+    @JsonProperty("description")
+    private String description;
+    /**
+     * Gets or sets name of the variable group.
+     **/
+    @JsonProperty("name")
+    private String name;
+    /**
+     * Gets or sets project reference of the variable group.
+     **/
+    @JsonProperty("projectReference")
+    private ProjectReference projectReference;
 
-	public String getDescription() { return description; }
+    public String getDescription() {
+        return description;
+    }
 
-	public void setDescription(String description) { this.description = description; }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) { this.name = name; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public ProjectReference getProjectReference() { return projectReference; }
+    public ProjectReference getProjectReference() {
+        return projectReference;
+    }
 
-	public void setProjectReference(ProjectReference projectReference) { this.projectReference = projectReference; }
+    public void setProjectReference(ProjectReference projectReference) {
+        this.projectReference = projectReference;
+    }
 
 }

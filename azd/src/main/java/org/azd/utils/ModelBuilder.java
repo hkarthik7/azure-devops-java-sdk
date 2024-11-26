@@ -11,6 +11,7 @@ import java.util.Map;
 /**
  * Helper class to construct the request body dynamically by removing non-assigned values in a type.
  */
+@Deprecated(since = "v6.0")
 public class ModelBuilder {
     /**
      * Instance of mapper for unmarshalling the request body.
@@ -19,19 +20,21 @@ public class ModelBuilder {
 
     /**
      * Build method to construct the request body based on given object.
-     * @param model request body.
+     *
+     * @param model          request body.
      * @param valuesToRemove Specify the values to remove from request body if it was assigned by default.
      * @return a Map.
      * @throws AzDException Default exception handler.
      */
     public static Map build(Object model, List<String> valuesToRemove) throws AzDException {
 
-        if (model == null) throw new AzDException(ApiExceptionTypes.InvalidArgumentException.name(), "Request body cannot be null");
+        if (model == null)
+            throw new AzDException(ApiExceptionTypes.InvalidArgumentException.name(), "Request body cannot be null");
         Map<String, Object> definedModel = MAPPER.mapJsonResponse(MAPPER.convertToString(model), Map.class);
 
         var result = new LinkedHashMap<String, Object>();
-        for (var key: definedModel.keySet()) {
-            if (definedModel.get(key) != null ) {
+        for (var key : definedModel.keySet()) {
+            if (definedModel.get(key) != null) {
                 result.put(key, definedModel.get(key));
             }
         }
@@ -40,7 +43,8 @@ public class ModelBuilder {
 
     /**
      * Internal method to remove the user specified keys and values from a map.
-     * @param map Input map object.
+     *
+     * @param map            Input map object.
      * @param valuesToRemove Specify the values to remove from the map.
      * @return a Map with removed default values.
      */

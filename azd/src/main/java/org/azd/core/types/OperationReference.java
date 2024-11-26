@@ -2,28 +2,34 @@ package org.azd.core.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
+import org.azd.enums.OperationStatus;
 
-/***
+/**
  * Reference for an async operation.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class OperationReference extends BaseAbstractMethod {
-    /***
+public class OperationReference extends SerializableEntity {
+    /**
      * Unique identifier for the operation.
      */
     @JsonProperty("id")
     private String id;
-    /***
+    /**
      * The current status of the operation.
      */
     @JsonProperty("status")
-    private String status;
-    /***
+    private OperationStatus status;
+    /**
      * URL to get the full operation object.
      */
     @JsonProperty("url")
     private String url;
+    /**
+     * Unique identifier for the plugin.
+     */
+    @JsonProperty("pluginId")
+    private String pluginId;
 
     public String getId() {
         return id;
@@ -33,11 +39,11 @@ public class OperationReference extends BaseAbstractMethod {
         this.id = id;
     }
 
-    public String getStatus() {
+    public OperationStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(OperationStatus status) {
         this.status = status;
     }
 

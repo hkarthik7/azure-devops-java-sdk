@@ -21,11 +21,11 @@ import java.util.Map;
 
 import static org.azd.utils.RestClient.send;
 
-/***
+/**
  * Wiki class to manage Wiki API
  */
 public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
-    /***
+    /**
      * Connection object
      */
     private final Connection CONNECTION;
@@ -33,18 +33,20 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
     private final String AREA = "wiki/wikis";
     private final String WIKI = "bf7d82a0-8aa5-4613-94ef-6172a5ea01f3";
 
-    /***
+    /**
      * Pass the connection object to work with Work Api
+     *
      * @param connection Connection object
      */
     public WikiApi(Connection connection) {
         this.CONNECTION = connection;
     }
 
-    /***
+    /**
      * Creates the wiki resource.
+     *
      * @param wikiCreateParameters {@link WikiCreateParameters} helps to create code wiki and project wiki. Use the constructor
-     * parameter to create respective wikis.
+     *                             parameter to create respective wikis.
      * @return WikiV2 object {@link WikiV2}
      * @throws AzDException Default Api Exception handler.
      */
@@ -58,8 +60,9 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
         return MAPPER.mapJsonResponse(r, WikiV2.class);
     }
 
-    /***
+    /**
      * Deletes the wiki corresponding to the wiki ID or wiki name provided.
+     *
      * @param wikiIdentifier Wiki ID or wiki name.
      * @return WikiV2 {@link WikiV2}
      * @throws AzDException Default Api Exception handler.
@@ -72,8 +75,9 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
         return MAPPER.mapJsonResponse(r, WikiV2.class);
     }
 
-    /***
+    /**
      * Gets the wiki corresponding to the wiki ID or wiki name provided.
+     *
      * @param wikiIdentifier Wiki ID or wiki name.
      * @return WikiV2 {@link WikiV2}
      * @throws AzDException Default Api Exception handler.
@@ -86,8 +90,9 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
         return MAPPER.mapJsonResponse(r, WikiV2.class);
     }
 
-    /***
+    /**
      * Gets all wikis in a project or collection.
+     *
      * @return WikiV2s {@link WikiV2Pages}
      * @throws AzDException Default Api Exception handler.
      */
@@ -103,13 +108,15 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
      * Creates an attachment in the wiki.
      *
      * @param wikiIdentifier Wiki ID or wiki name.
-     * @param name Wiki attachment name.
+     * @param name           Wiki attachment name.
      * @return WikiAttachment Object {@link WikiAttachment}
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public WikiAttachment createWikiAttachment(String wikiIdentifier, String name, InputStream content) throws AzDException {
-        var q = new HashMap<String, Object>(){{ put("name", name != null ? URLHelper.encodeSpecialWithSpace(name) :  null); }};
+        var q = new HashMap<String, Object>() {{
+            put("name", name != null ? URLHelper.encodeSpecialWithSpace(name) : null);
+        }};
 
         // Wiki attachment Api accepts only encoded String values.
         var body = StreamHelper.convertStreamToBase64(content);
@@ -131,18 +138,18 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
      * Creates an attachment in the wiki.
      *
      * @param wikiIdentifier Wiki ID or wiki name.
-     * @param name Wiki attachment name.
-     * @param version Version string identifier (name of tag/branch, SHA1 of commit)
+     * @param name           Wiki attachment name.
+     * @param version        Version string identifier (name of tag/branch, SHA1 of commit)
      * @param versionOptions Version options - Specify additional modifiers to version (e.g Previous)
-     * @param versionType Version type (branch, tag, or commit). Determines how Id is interpreted
+     * @param versionType    Version type (branch, tag, or commit). Determines how Id is interpreted
      * @return WikiAttachment Object {@link WikiAttachment}
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public WikiAttachment createWikiAttachment(String wikiIdentifier, String name, String version,
                                                GitVersionType versionType, GitVersionOptions versionOptions, InputStream content) throws AzDException {
-        var q = new HashMap<String, Object>(){{
-            put("name", name != null ? URLHelper.encodeSpecialWithSpace(name) :  null);
+        var q = new HashMap<String, Object>() {{
+            put("name", name != null ? URLHelper.encodeSpecialWithSpace(name) : null);
             put("version", version);
             put("versionType", versionType.name());
             put("versionOptions", versionOptions.name());
@@ -168,13 +175,15 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
      * Creates a page move operation that updates the path and order of the page as provided in the parameters.
      *
      * @param wikiIdentifier Wiki ID or wiki name.
-     * @param comment Comment that is to be associated with this page move.
+     * @param comment        Comment that is to be associated with this page move.
      * @return WikiPageMove Object {@link WikiPageMove}
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public WikiPageMove createPageMove(String wikiIdentifier, String comment, WikiPageMoveParameters pageMoveParameters) throws AzDException {
-        var q = new HashMap<String, Object>(){{ put("comment", comment != null ? URLHelper.encodeSpecialWithSpace(comment) :  null); }};
+        var q = new HashMap<String, Object>() {{
+            put("comment", comment != null ? URLHelper.encodeSpecialWithSpace(comment) : null);
+        }};
 
         var r = send(null, RequestMethod.POST, CONNECTION, WIKI, CONNECTION.getProject(),
                 AREA, wikiIdentifier, "pagemoves", ApiVersion.WIKI_ATTACHMENTS,
@@ -194,10 +203,10 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
      * Creates a page move operation that updates the path and order of the page as provided in the parameters.
      *
      * @param wikiIdentifier Wiki ID or wiki name.
-     * @param comment Comment that is to be associated with this page move.
-     * @param version Version string identifier (name of tag/branch, SHA1 of commit)
+     * @param comment        Comment that is to be associated with this page move.
+     * @param version        Version string identifier (name of tag/branch, SHA1 of commit)
      * @param versionOptions Version options - Specify additional modifiers to version (e.g Previous)
-     * @param versionType Version type (branch, tag, or commit). Determines how Id is interpreted
+     * @param versionType    Version type (branch, tag, or commit). Determines how Id is interpreted
      * @return WikiPageMove Object {@link WikiPageMove}
      * @throws AzDException Default Api Exception handler.
      **/
@@ -205,7 +214,7 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
     public WikiPageMove createPageMove(String wikiIdentifier, String comment, String version,
                                        GitVersionType versionType, GitVersionOptions versionOptions,
                                        WikiPageMoveParameters pageMoveParameters) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("comment", comment);
             put("version", version);
             put("versionType", versionType.name());
@@ -229,14 +238,16 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
     /**
      * Returns page detail corresponding to Page ID.
      *
-     * @param pageId Wiki page ID.
+     * @param pageId         Wiki page ID.
      * @param wikiIdentifier Wiki ID or wiki name.
      * @return WikiPageDetail Object {@link WikiPageDetail}
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public WikiPageDetail getPageStats(String wikiIdentifier, int pageId, int pageViewsForDays) throws AzDException {
-        var q = new HashMap<String, Integer>(){{ put("pageViewsForDays", pageViewsForDays); }};
+        var q = new HashMap<String, Integer>() {{
+            put("pageViewsForDays", pageViewsForDays);
+        }};
 
         var r = send(RequestMethod.POST, CONNECTION, WIKI, CONNECTION.getProject(),
                 AREA, wikiIdentifier, "pages/" + pageId + "/stats", ApiVersion.WIKI_ATTACHMENTS,
@@ -249,19 +260,19 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
      * Creates or edits a wiki page.
      *
      * @param wikiIdentifier Wiki ID or wiki name.
-     * @param path Wiki page path.
-     * @param comment Comment to be associated with the page operation.
+     * @param path           Wiki page path.
+     * @param comment        Comment to be associated with the page operation.
      * @return WikiPage Object {@link WikiPage}
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public WikiPage createOrUpdateWikiPage(String wikiIdentifier, String path, String comment, String eTagVersion, String content) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("path", path);
             put("comment", comment != null ? URLHelper.encodeSpecialWithSpace(comment) : null);
         }};
 
-        var headers = new HashMap<String, CustomHeader>(){{
+        var headers = new HashMap<String, CustomHeader>() {{
             put("Content-Type", CustomHeader.JSON_CONTENT_TYPE);
         }};
 
@@ -289,19 +300,19 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
      * Creates or edits a wiki page.
      *
      * @param wikiIdentifier Wiki ID or wiki name.
-     * @param path Wiki page path.
-     * @param comment Comment to be associated with the page operation.
-     * @param version Version string identifier (name of tag/branch, SHA1 of commit)
+     * @param path           Wiki page path.
+     * @param comment        Comment to be associated with the page operation.
+     * @param version        Version string identifier (name of tag/branch, SHA1 of commit)
      * @param versionOptions Version options - Specify additional modifiers to version (e.g Previous)
-     * @param versionType Version type (branch, tag, or commit). Determines how Id is interpreted
+     * @param versionType    Version type (branch, tag, or commit). Determines how Id is interpreted
      * @return WikiPage Object {@link WikiPage}
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public WikiPage createOrUpdateWikiPage(String wikiIdentifier, String path, String comment, String eTagVersion, String version,
-                                       GitVersionType versionType, GitVersionOptions versionOptions,
-                                       String content) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+                                           GitVersionType versionType, GitVersionOptions versionOptions,
+                                           String content) throws AzDException {
+        var q = new HashMap<String, Object>() {{
             put("path", path);
             put("comment", comment != null ? URLHelper.encodeSpecialWithSpace(comment) : null);
             put("version", version);
@@ -309,7 +320,7 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
             put("versionOptions", versionOptions.name());
         }};
 
-        var headers = new HashMap<String, CustomHeader>(){{
+        var headers = new HashMap<String, CustomHeader>() {{
             put("Content-Type", CustomHeader.JSON_CONTENT_TYPE);
         }};
 
@@ -337,14 +348,14 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
      * Deletes a wiki page.
      *
      * @param wikiIdentifier Wiki ID or wiki name.
-     * @param path Wiki page path.
-     * @param comment Comment to be associated with this page delete.
+     * @param path           Wiki page path.
+     * @param comment        Comment to be associated with this page delete.
      * @return WikiPage Object {@link WikiPage}
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public WikiPage deleteWikiPage(String wikiIdentifier, String path, String comment) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("path", path);
             put("comment", comment != null ? URLHelper.encodeSpecialWithSpace(comment) : null);
         }};
@@ -367,18 +378,18 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
      * Deletes a wiki page.
      *
      * @param wikiIdentifier Wiki ID or wiki name.
-     * @param path Wiki page path.
-     * @param comment Comment to be associated with this page delete.
-     * @param version Version string identifier (name of tag/branch, SHA1 of commit)
+     * @param path           Wiki page path.
+     * @param comment        Comment to be associated with this page delete.
+     * @param version        Version string identifier (name of tag/branch, SHA1 of commit)
      * @param versionOptions Version options - Specify additional modifiers to version (e.g Previous)
-     * @param versionType Version type (branch, tag, or commit). Determines how Id is interpreted
+     * @param versionType    Version type (branch, tag, or commit). Determines how Id is interpreted
      * @return WikiPage Object {@link WikiPage}
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public WikiPage deleteWikiPage(String wikiIdentifier, String path, String comment, String version,
                                    GitVersionType versionType, GitVersionOptions versionOptions) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("path", path);
             put("comment", comment != null ? URLHelper.encodeSpecialWithSpace(comment) : null);
             put("version", version);
@@ -403,16 +414,16 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
     /**
      * Deletes a wiki page.
      *
-     * @param id Wiki page ID.
+     * @param id             Wiki page ID.
      * @param wikiIdentifier Wiki ID or wiki name.
-     * @param comment Comment to be associated with this page delete.
+     * @param comment        Comment to be associated with this page delete.
      * @return WikiPage Object {@link WikiPage}
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public WikiPage deleteWikiPageById(String id, String wikiIdentifier, String path, String comment, String version,
                                        GitVersionType versionType, GitVersionOptions versionOptions) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("path", path);
             put("comment", comment != null ? URLHelper.encodeSpecialWithSpace(comment) : null);
         }};
@@ -460,11 +471,11 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
      *
      * @param wikiIdentifier Wiki ID or wiki name.
      * @param includeContent True to include the content of the page in the response for Json content type. Defaults to false (Optional)
-     * @param path Wiki page path.
+     * @param path           Wiki page path.
      * @param recursionLevel Recursion level for subpages retrieval. Defaults to None (Optional).
-     * @param version Version string identifier (name of tag/branch, SHA1 of commit)
+     * @param version        Version string identifier (name of tag/branch, SHA1 of commit)
      * @param versionOptions Version options - Specify additional modifiers to version (e.g Previous)
-     * @param versionType Version type (branch, tag, or commit). Determines how Id is interpreted
+     * @param versionType    Version type (branch, tag, or commit). Determines how Id is interpreted
      * @return WikiPage Object {@link WikiPage}
      * @throws AzDException Default Api Exception handler.
      **/
@@ -472,7 +483,7 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
     public WikiPage getWikiPage(String wikiIdentifier, boolean includeContent, String path,
                                 VersionControlRecursionType recursionLevel, String comment, String version,
                                 GitVersionType versionType, GitVersionOptions versionOptions) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("path", path);
             put("includeContent", includeContent);
             put("comment", comment != null ? URLHelper.encodeSpecialWithSpace(comment) : null);
@@ -501,7 +512,7 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
      *
      * @param wikiIdentifier Wiki ID or wiki name.
      * @param includeContent True to include the content of the page in the response for Json content type. Defaults to false (Optional)
-     * @param path Wiki page path.
+     * @param path           Wiki page path.
      * @param recursionLevel Recursion level for subpages retrieval. Defaults to None (Optional).
      * @return WikiPage Object {@link WikiPage}
      * @throws AzDException Default Api Exception handler.
@@ -529,7 +540,7 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
     /**
      * Gets metadata of the wiki page for the provided page id.
      *
-     * @param id Wiki page ID.
+     * @param id             Wiki page ID.
      * @param wikiIdentifier Wiki ID or wiki name..
      * @return WikiPage Object {@link WikiPage}
      * @throws AzDException Default Api Exception handler.
@@ -553,7 +564,7 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
     /**
      * Gets metadata of the wiki page for the provided page id.
      *
-     * @param id Wiki page ID.
+     * @param id             Wiki page ID.
      * @param wikiIdentifier Wiki ID or wiki name..
      * @param includeContent True to include the content of the page in the response for Json content type. Defaults to false (Optional)
      * @param recursionLevel Recursion level for subpages retrieval. Defaults to None (Optional).
@@ -563,7 +574,7 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
     @Override
     public WikiPage getWikiPageById(String id, String wikiIdentifier, boolean includeContent,
                                     VersionControlRecursionType recursionLevel) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("includeContent", includeContent);
             put("recursionLevel", recursionLevel.name());
         }};
@@ -585,7 +596,7 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
     /**
      * Gets content of the wiki page for the provided page id.
      *
-     * @param id Wiki page ID.
+     * @param id             Wiki page ID.
      * @param wikiIdentifier Wiki ID or wiki name..
      * @return WikiPage Object {@link WikiPage}
      * @throws AzDException Default Api Exception handler.
@@ -603,7 +614,7 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
     /**
      * Gets content of the wiki page as zip file for the provided page id.
      *
-     * @param id Wiki page ID.
+     * @param id             Wiki page ID.
      * @param wikiIdentifier Wiki ID or wiki name..
      * @return WikiPage Object {@link WikiPage}
      * @throws AzDException Default Api Exception handler.
@@ -620,23 +631,23 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
     /**
      * Edits a wiki page.
      *
-     * @param id Wiki page ID.
+     * @param id             Wiki page ID.
      * @param wikiIdentifier Wiki ID or wiki name.
-     * @param comment Comment to be associated with the page operation.
+     * @param comment        Comment to be associated with the page operation.
      * @return WikiPage Object {@link WikiPage}
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public WikiPage updateWikiPage(String id, String wikiIdentifier, String comment, String eTagVersion, String content) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("comment", comment != null ? URLHelper.encodeSpecialWithSpace(comment) : null);
         }};
 
         CustomHeader.CUSTOM_HEADER.setCustomHeaders("If-Match", eTagVersion);
 
-        var headers = new HashMap<String, CustomHeader>(){{
-           put("Content-Type", CustomHeader.JSON_CONTENT_TYPE);
-           put("If-Match", CustomHeader.CUSTOM_HEADER);
+        var headers = new HashMap<String, CustomHeader>() {{
+            put("Content-Type", CustomHeader.JSON_CONTENT_TYPE);
+            put("If-Match", CustomHeader.CUSTOM_HEADER);
         }};
 
         var r = send(null, RequestMethod.PATCH, CONNECTION, WIKI, CONNECTION.getProject(),
@@ -661,7 +672,7 @@ public class WikiApi extends AzDAsyncApi<WikiApi> implements WikiDetails {
      * @param keyName Name of the header value to inject
      */
     private String getValueFromHeader(HttpHeaders headers, String keyName) {
-        if(headers.firstValue(keyName).isPresent())
+        if (headers.firstValue(keyName).isPresent())
             return headers.firstValue(keyName).get().replaceAll("\"", "");
         return null;
     }

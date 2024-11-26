@@ -2,16 +2,16 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * Work item delete references
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemDeleteReferences extends BaseAbstractMethod {
-    /***
+public class WorkItemDeleteReferences extends SerializableCollectionEntity {
+    /**
      * Work item delete references
      */
     @JsonProperty("value")

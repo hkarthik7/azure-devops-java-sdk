@@ -2,24 +2,24 @@ package org.azd.accounts.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Represents an organization
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Organization extends BaseAbstractMethod {
-    /***
+public class Organization extends SerializableEntity {
+    /**
      * Id of the organization
      */
     @JsonProperty("id")
     private String id;
-    /***
+    /**
      * Name of the organization
      */
     @JsonProperty("name")
     private String name;
-    /***
+    /**
      * url of the organization
      */
     @JsonProperty("url")

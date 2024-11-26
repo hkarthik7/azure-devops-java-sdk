@@ -17,6 +17,7 @@ public abstract class ResourceId {
     public static final String FAVORITE = "67349c8b-6425-42f2-97b6-0843cb037473";
     public static final String GIT = "4e080c62-fa21-4fbc-8fef-2a10a2b38049";
     public static final String GRAPH = "bb1e7ec9-e901-4b68-999a-de7012b920f8";
+    public static final String IDENTITIES = "8a3d49b8-91f0-46ef-b33d-dda338c25db3";
     public static final String MAVEN = "6f7f8c07-ff36-473c-bcf3-bd6cc9b6c066";
     public static final String MEMBER_ENTITLEMENT_MANAGEMENT = "68ddce18-2501-45f1-a17b-7931a9922690";
     public static final String NUGET = "b3be7473-68ea-4a81-bfc7-9530baaa19ad";
@@ -29,7 +30,9 @@ public abstract class ResourceId {
     public static final String RELEASE = "efc2f575-36ef-48e9-b672-0c6fb4a48ac5";
     public static final String REPORTING = "57731fdf-7d72-4678-83de-f8b31266e429";
     public static final String SEARCH = "ea48a0a1-269c-42d8-b8ad-ddc8fcdcf578";
+    public static final String SERVICE_ENDPOINT = "1814ab31-2f4f-4a9f-8761-f4d77dc5a5d7";
     public static final String TEST = "3b95fb80-fdda-4218-b60e-1052d070ae6b";
+    public static final String TEST_ID = "c2aa639c-3ccc-4740-b3b6-ce2a1e1d984e";
     public static final String TEST_RESULTS = "c83eaf52-edf3-4034-ae11-17d38f25404c";
     public static final String TFVC = "8aa40520-446d-40e6-89f6-9c9f9ce44c48";
     public static final String TOKEN = "af68438b-ed04-4407-9eb6-f1dbae3f922e";

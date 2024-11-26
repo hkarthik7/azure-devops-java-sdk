@@ -1,8 +1,8 @@
 package org.azd.enums;
 /**
- ----------------------------------------------------------
- GENERATED FILE, should be edited to suit the purpose.
- ----------------------------------------------------------
+ * ----------------------------------------------------------
+ * GENERATED FILE, should be edited to suit the purpose.
+ * ----------------------------------------------------------
  **/
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

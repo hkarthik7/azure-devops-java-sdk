@@ -2,16 +2,16 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * List of build definition revisions
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildDefinitionRevisions extends BaseAbstractMethod {
-    /***
+public class BuildDefinitionRevisions extends SerializableCollectionEntity {
+    /**
      * List of build revisions
      */
     @JsonProperty("value")

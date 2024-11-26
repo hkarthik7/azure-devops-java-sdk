@@ -2,33 +2,34 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Describes a set of Git Ref operations
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitRefUpdate {
-    /***
+public class GitRefUpdate extends SerializableEntity {
+    /**
      * If the branch is locked or not
      */
     @JsonProperty("isLocked")
     private boolean isLocked;
-    /***
+    /**
      * Name of the ref
      */
     @JsonProperty("name")
     private String name;
-    /***
+    /**
      * new Object Id
      */
     @JsonProperty("newObjectId")
     private String newObjectId;
-    /***
+    /**
      * old Object Id
      */
     @JsonProperty("oldObjectId")
     private String oldObjectId;
-    /***
+    /**
      * repository id
      */
     @JsonProperty("repositoryId")
@@ -81,17 +82,6 @@ public class GitRefUpdate {
 
     public void setRepositoryId(String repositoryId) {
         this.repositoryId = repositoryId;
-    }
-
-    @Override
-    public String toString() {
-        return "GitRefUpdate{" +
-                "isLocked=" + isLocked +
-                ", name='" + name + '\'' +
-                ", newObjectId='" + newObjectId + '\'' +
-                ", oldObjectId='" + oldObjectId + '\'' +
-                ", repositoryId='" + repositoryId + '\'' +
-                '}';
     }
 
 }

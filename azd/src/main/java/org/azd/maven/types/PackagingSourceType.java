@@ -2,20 +2,20 @@ package org.azd.maven.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Source type, such as Public or Internal.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PackagingSourceType extends BaseAbstractMethod {
-    /***
+public class PackagingSourceType extends SerializableEntity {
+    /**
      * Azure DevOps upstream source.
      */
     @JsonProperty("internal")
     private String internal;
 
-    /***
+    /**
      * Publicly available source.
      */
     @JsonProperty("public")

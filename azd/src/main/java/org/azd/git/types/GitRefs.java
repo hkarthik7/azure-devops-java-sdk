@@ -2,17 +2,17 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * List of refs (branches).
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitRefs extends BaseAbstractMethod {
+public class GitRefs extends SerializableCollectionEntity {
 
-    /***
+    /**
      * List of refs (branches).
      */
     @JsonProperty("value")

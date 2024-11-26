@@ -9,7 +9,6 @@ import org.azd.git.types.*;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.GitDetails;
 import org.azd.utils.AzDAsyncApi;
-import org.azd.utils.ModelBuilder;
 
 import java.io.InputStream;
 import java.net.http.HttpRequest;
@@ -20,12 +19,12 @@ import java.util.concurrent.TimeUnit;
 
 import static org.azd.utils.RestClient.send;
 
-/***
+/**
  * GIT class to manage git API
  */
 public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
 
-    /***
+    /**
      * Connection object
      */
     private final Connection CONNECTION;
@@ -33,20 +32,22 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     private final String AREA = "git";
     private final String GIT = "4e080c62-fa21-4fbc-8fef-2a10a2b38049";
 
-    /***
+    /**
      * Pass the connection object to work with Git Api
+     *
      * @param connection Connection object
      */
     public GitApi(Connection connection) {
         CONNECTION = connection;
     }
 
-    /***
+    /**
      * Create a git repository in a team project.
+     *
      * @param repositoryName Name of the repository
-     * @param projectId id of the project
-     * @throws AzDException Default Api Exception handler.
+     * @param projectId      id of the project
      * @return git repository object {@link GitRepository}
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public GitRepository createRepository(String repositoryName, String projectId) throws AzDException {
@@ -61,8 +62,9 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, GitRepository.class);
     }
 
-    /***
+    /**
      * Delete a git repository
+     *
      * @param repositoryId pass the repository id
      * @throws AzDException Default Api Exception handler.
      */
@@ -78,8 +80,9 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return null;
     }
 
-    /***
+    /**
      * Destroy (hard delete) a soft-deleted Git repository.
+     *
      * @param repositoryId pass the repository id
      * @throws AzDException Default Api Exception handler.
      */
@@ -95,10 +98,11 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return null;
     }
 
-    /***
+    /**
      * Retrieve deleted git repositories.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return Git deleted repository object
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public GitDeletedRepositories getDeletedRepositories() throws AzDException {
@@ -108,10 +112,11 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, GitDeletedRepositories.class);
     }
 
-    /***
+    /**
      * Retrieve soft-deleted git repositories from the recycle bin.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return array of git deleted recycle bin repositories
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public GitDeletedRepositories getRecycleBinRepositories() throws AzDException {
@@ -121,11 +126,12 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, GitDeletedRepositories.class);
     }
 
-    /***
+    /**
      * Retrieve a git repository.
+     *
      * @param repositoryName pass the repository name
-     * @throws AzDException Default Api Exception handler.
      * @return git repository object
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public GitRepository getRepository(String repositoryName) throws AzDException {
@@ -135,10 +141,11 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, GitRepository.class);
     }
 
-    /***
+    /**
      * Retrieve git repositories.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return array of git repositories
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public Repositories getRepositories() throws AzDException {
@@ -148,11 +155,12 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, Repositories.class);
     }
 
-    /***
+    /**
      * Retrieve git repositories.
+     *
      * @param includeHidden If true then includes hidden repositories.
-     * @throws AzDException Default Api Exception handler.
      * @return array of git repositories
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public Repositories getRepositories(boolean includeHidden) throws AzDException {
@@ -162,12 +170,13 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, Repositories.class);
     }
 
-    /***
+    /**
      * Retrieve git repositories.
+     *
      * @param includeAllUrls If true then includes all remote URLs.
-     * @param includeLinks Set this value to true to include reference links.
-     * @throws AzDException Default Api Exception handler.
+     * @param includeLinks   Set this value to true to include reference links.
      * @return array of git repositories
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public Repositories getRepositories(boolean includeLinks, boolean includeAllUrls) throws AzDException {
@@ -177,17 +186,18 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, Repositories.class);
     }
 
-    /***
+    /**
      * Retrieve git repositories.
-     * @param includeHidden If true then includes hidden repositories.
+     *
+     * @param includeHidden  If true then includes hidden repositories.
      * @param includeAllUrls If true then includes all remote URLs.
-     * @param includeLinks Set this value to true to include reference links.
-     * @throws AzDException Default Api Exception handler.
+     * @param includeLinks   Set this value to true to include reference links.
      * @return array of git repositories
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public Repositories getRepositories(boolean includeAllUrls, boolean includeLinks, boolean includeHidden) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("includeAllUrls", includeAllUrls);
             put("includeLinks", includeLinks);
             put("includeHidden", includeHidden);
@@ -199,14 +209,15 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, Repositories.class);
     }
 
-    /***
+    /**
      * Recover a soft-deleted Git repository. Recently deleted repositories go
      * into a soft-delete state for a period of time before they are hard
      * deleted and become unrecoverable.
+     *
      * @param repositoryId pass the repository id
-     * @param deleted Setting to false will undo earlier deletion and restore the repository.
-     * @throws AzDException Default Api Exception handler.
+     * @param deleted      Setting to false will undo earlier deletion and restore the repository.
      * @return object of git repository {@link GitRepository}
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public GitRepository restoreRepositoryFromRecycleBin(String repositoryId, boolean deleted) throws AzDException {
@@ -220,13 +231,14 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, GitRepository.class);
     }
 
-    /***
+    /**
      * Updates the Git repository with either a new repo name or a new default branch.
-     * @param repositoryId provide the repository id
-     * @param repositoryName pass the repository name to rename
+     *
+     * @param repositoryId      provide the repository id
+     * @param repositoryName    pass the repository name to rename
      * @param defaultBranchName pass the default branch name to set
-     * @throws AzDException Default Api Exception handler.
      * @return repository object
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public GitRepository updateRepository(String repositoryId, String repositoryName, String defaultBranchName)
@@ -242,20 +254,21 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, GitRepository.class);
     }
 
-    /***
+    /**
      * Create a pull request.
-     * @param repositoryId The repository ID of the pull request's target branch.
+     *
+     * @param repositoryId  The repository ID of the pull request's target branch.
      * @param sourceRefName The name of the source branch of the pull request.
      * @param targetRefName The name of the target branch of the pull request.
-     * @param title The title of the pull request.
-     * @param description The description of the pull request.
-     * @param reviewers A list of reviewers on the pull request along with the state of their votes.
-     * @throws AzDException Default Api Exception handler.
+     * @param title         The title of the pull request.
+     * @param description   The description of the pull request.
+     * @param reviewers     A list of reviewers on the pull request along with the state of their votes.
      * @return an object of git pull request {@link GitPullRequest}
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public GitPullRequest createPullRequest(String repositoryId, String sourceRefName, String targetRefName, String title,
-                                         String description, String[] reviewers) throws AzDException {
+                                            String description, String[] reviewers) throws AzDException {
         List<Object> o = new ArrayList<>();
 
         for (String reviewer : reviewers) {
@@ -279,22 +292,23 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, GitPullRequest.class);
     }
 
-    /***
+    /**
      * Create a pull request and optionally make it a draft. You can specify
      * only the source branch name such as develop and target branch name such
      * as master.
-     * @param repositoryId The repository ID of the pull request's target branch.
+     *
+     * @param repositoryId  The repository ID of the pull request's target branch.
      * @param sourceRefName The name of the source branch of the pull request.
      * @param targetRefName The name of the target branch of the pull request.
-     * @param title The title of the pull request.
-     * @param description The description of the pull request.
-     * @param isDraft if set to true the pull request will be in draft mode.
+     * @param title         The title of the pull request.
+     * @param description   The description of the pull request.
+     * @param isDraft       if set to true the pull request will be in draft mode.
      * @return an object of git pull request {@link GitPullRequest}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
     public GitPullRequest createPullRequest(String repositoryId, String sourceRefName, String targetRefName, String title,
-                                         String description, boolean isDraft) throws AzDException {
+                                            String description, boolean isDraft) throws AzDException {
         String referenceHead = "refs/heads/";
         var sourceBranch = sourceRefName.contains(referenceHead) ? sourceRefName : referenceHead + sourceRefName;
         var targetBranch = targetRefName.contains(referenceHead) ? targetRefName : referenceHead + targetRefName;
@@ -315,6 +329,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
 
     /**
      * Create a pull request.
+     *
      * @param gitPullRequest a {@link GitPullRequest} object.
      * @return an object of git pull request {@link GitPullRequest}
      * @throws AzDException Default Api Exception handler.
@@ -337,12 +352,13 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, GitPullRequest.class);
     }
 
-    /***
+    /**
      * Retrieve a pull request.
+     *
      * @param repositoryName The repository name of the pull request's target branch.
-     * @param pullRequestId The ID of the pull request to retrieve.
-     * @throws AzDException Default Api Exception handler.
+     * @param pullRequestId  The ID of the pull request to retrieve.
      * @return {@link GitPullRequest} object
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public GitPullRequest getPullRequest(String repositoryName, int pullRequestId) throws AzDException {
@@ -352,13 +368,14 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, GitPullRequest.class);
     }
 
-    /***
+    /**
      * Retrieve a pull request.
+     *
      * @param repositoryName The repository name of the pull request's target branch.
-     * @param pullRequestId The ID of the pull request to retrieve.
+     * @param pullRequestId  The ID of the pull request to retrieve.
      * @param includeCommits If true, the pull request will be returned with the associated commits.
-     * @throws AzDException Default Api Exception handler.
      * @return {@link GitPullRequest} object
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public GitPullRequest getPullRequest(String repositoryName, int pullRequestId, boolean includeCommits) throws AzDException {
@@ -369,14 +386,15 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, GitPullRequest.class);
     }
 
-    /***
+    /**
      * Retrieve a pull request.
-     * @param repositoryName The repository name of the pull request's target branch.
-     * @param pullRequestId The ID of the pull request to retrieve.
-     * @param includeCommits If true, the pull request will be returned with the associated commits.
+     *
+     * @param repositoryName      The repository name of the pull request's target branch.
+     * @param pullRequestId       The ID of the pull request to retrieve.
+     * @param includeCommits      If true, the pull request will be returned with the associated commits.
      * @param includeWorkItemRefs If true, the pull request will be returned with the associated work item references.
-     * @throws AzDException Default Api Exception handler.
      * @return {@link GitPullRequest} object
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public GitPullRequest getPullRequest(String repositoryName, int pullRequestId, boolean includeCommits,
@@ -388,11 +406,12 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, GitPullRequest.class);
     }
 
-    /***
+    /**
      * Retrieve a pull request.
+     *
      * @param pullRequestId The ID of the pull request to retrieve.
-     * @throws AzDException Default Api Exception handler.
      * @return {@link GitPullRequest} object
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public GitPullRequest getPullRequestById(int pullRequestId) throws AzDException {
@@ -402,11 +421,12 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, GitPullRequest.class);
     }
 
-    /***
+    /**
      * Retrieve all pull requests from a repository
+     *
      * @param repositoryName specify the repository name
-     * @throws AzDException Default Api Exception handler.
      * @return {@link PullRequests} object
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public PullRequests getPullRequests(String repositoryName) throws AzDException {
@@ -416,12 +436,13 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, PullRequests.class);
     }
 
-    /***
+    /**
      * Retrieve all pull requests from a repository
+     *
      * @param repositoryName specify the repository name
-     * @param top The number of pull requests to retrieve.
-     * @throws AzDException Default Api Exception handler.
+     * @param top            The number of pull requests to retrieve.
      * @return {@link PullRequests} object
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public PullRequests getPullRequests(String repositoryName, int top) throws AzDException {
@@ -431,13 +452,14 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, PullRequests.class);
     }
 
-    /***
+    /**
      * Retrieve all pull requests from a repository
+     *
      * @param repositoryName specify the repository name
-     * @param top The number of pull requests to retrieve.
-     * @param skip The number of pull requests to ignore. For example, to retrieve results 101-150, set top to 50 and skip to 100.
-     * @throws AzDException Default Api Exception handler.
+     * @param top            The number of pull requests to retrieve.
+     * @param skip           The number of pull requests to ignore. For example, to retrieve results 101-150, set top to 50 and skip to 100.
      * @return {@link PullRequests} object
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public PullRequests getPullRequests(String repositoryName, int top, int skip) throws AzDException {
@@ -447,14 +469,15 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, PullRequests.class);
     }
 
-    /***
+    /**
      * Retrieve all pull requests from a repository
+     *
      * @param repositoryName specify the repository name
-     * @param top The number of pull requests to retrieve.
-     * @param skip The number of pull requests to ignore. For example, to retrieve results 101-150, set top to 50 and skip to 100.
-     * @param creatorId If set, search for pull requests that were created by this identity.
-     * @throws AzDException Default Api Exception handler.
+     * @param top            The number of pull requests to retrieve.
+     * @param skip           The number of pull requests to ignore. For example, to retrieve results 101-150, set top to 50 and skip to 100.
+     * @param creatorId      If set, search for pull requests that were created by this identity.
      * @return {@link PullRequests} object
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public PullRequests getPullRequests(String repositoryName, int top, int skip, String creatorId) throws AzDException {
@@ -465,12 +488,13 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, PullRequests.class);
     }
 
-    /***
+    /**
      * Retrieve all pull requests from a repository
+     *
      * @param repositoryName specify the repository name
-     * @param includeLinks Whether to include the _links field on the shallow references.
-     * @throws AzDException Default Api Exception handler.
+     * @param includeLinks   Whether to include the _links field on the shallow references.
      * @return {@link PullRequests} object
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public PullRequests getPullRequests(String repositoryName, boolean includeLinks) throws AzDException {
@@ -481,12 +505,13 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, PullRequests.class);
     }
 
-    /***
+    /**
      * Retrieve all pull requests from a repository
+     *
      * @param repositoryName specify the repository name
-     * @param status If set, search for pull requests that are in this state. Defaults to Active if unset.
-     * @throws AzDException Default Api Exception handler.
+     * @param status         If set, search for pull requests that are in this state. Defaults to Active if unset.
      * @return {@link PullRequests} object
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public PullRequests getPullRequests(String repositoryName, PullRequestStatus status) throws AzDException {
@@ -497,12 +522,13 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, PullRequests.class);
     }
 
-    /***
+    /**
      * Retrieve all pull requests from a repository
-     * @param repositoryName specify the repository name
+     *
+     * @param repositoryName                specify the repository name
      * @param gitPullRequestQueryParameters Property bag of query parameters pertaining to the pull requests.
-     * @throws AzDException Default Api Exception handler.
      * @return {@link PullRequests} object
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public PullRequests getPullRequests(String repositoryName, GitPullRequestQueryParameters gitPullRequestQueryParameters)
@@ -517,11 +543,12 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, PullRequests.class);
     }
 
-    /***
+    /**
      * Gets all pull requests from a project. To get the pull requests from
      * non-default project you have to call setProject method from {@link Connection}.
-     * @throws AzDException Default Api Exception handler.
+     *
      * @return {@link PullRequests} object
+     * @throws AzDException Default Api Exception handler.
      */
     @Override
     public PullRequests getPullRequestsByProject() throws AzDException {
@@ -531,7 +558,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, PullRequests.class);
     }
 
-    /***
+    /**
      * Gets all pull requests from a project. To get the pull requests from
      * non-default project you have to call setProject method from {@link Connection}.
      *
@@ -551,7 +578,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, PullRequests.class);
     }
 
-    /***
+    /**
      * Gets all pull requests from a project. To get the pull requests from
      * non-default project you have to call setProject method from {@link Connection}.
      *
@@ -574,19 +601,20 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     /**
      * Update a pull request
      * <p>
-     *      These are the properties that can be updated with the API:
-     *      Status
-     *      Title
-     *      Description (up to 4000 characters)
-     *      CompletionOptions
-     *      MergeOptions
-     *      AutoCompleteSetBy.Id
-     *      TargetRefName (when the PR retargeting feature is enabled)
-     *      Attempting to update other properties outside of this list will either cause the server
-     *      to throw an InvalidArgumentValueException, or to silently ignore the update.
+     * These are the properties that can be updated with the API:
+     * Status
+     * Title
+     * Description (up to 4000 characters)
+     * CompletionOptions
+     * MergeOptions
+     * AutoCompleteSetBy.Id
+     * TargetRefName (when the PR retargeting feature is enabled)
+     * Attempting to update other properties outside of this list will either cause the server
+     * to throw an InvalidArgumentValueException, or to silently ignore the update.
      * </p>
+     *
      * @param pullRequestId ID of the pull request to update.
-     * @param repositoryId The repository ID of the pull request's target branch.
+     * @param repositoryId  The repository ID of the pull request's target branch.
      * @return GitPullRequest Object {@link GitPullRequest}
      * @throws AzDException Default Api Exception handler.
      **/
@@ -598,20 +626,21 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, GitPullRequest.class);
     }
 
-    /***
+    /**
      * Gets all pull requests from a project. To get the pull requests from
      * non-default project you have to call setProject method from {@link Connection}.
-     * @param skip The number of pull requests to ignore. For example, to
-     * retrieve results 101-150, set top to 50 and skip to 100.
-     * @param top The number of pull requests to retrieve.
-     * @param creatorId If set, search for pull requests that were created by this identity.
-     * @param includeLinks Whether to include the _links field on the shallow references
-     * @param repositoryId If set, search for pull requests whose target branch is in this repository.
-     * @param reviewerId If set, search for pull requests that have this identity as a reviewer.
-     * @param sourceRefName If set, search for pull requests from this branch.
+     *
+     * @param skip               The number of pull requests to ignore. For example, to
+     *                           retrieve results 101-150, set top to 50 and skip to 100.
+     * @param top                The number of pull requests to retrieve.
+     * @param creatorId          If set, search for pull requests that were created by this identity.
+     * @param includeLinks       Whether to include the _links field on the shallow references
+     * @param repositoryId       If set, search for pull requests whose target branch is in this repository.
+     * @param reviewerId         If set, search for pull requests that have this identity as a reviewer.
+     * @param sourceRefName      If set, search for pull requests from this branch.
      * @param sourceRepositoryId If set, search for pull requests whose source branch is in this repository.
-     * @param status If set, search for pull requests that are in this state. Defaults to Active if unset.
-     * @param targetRefName If set, search for pull requests into this branch.
+     * @param status             If set, search for pull requests that are in this state. Defaults to Active if unset.
+     * @param targetRefName      If set, search for pull requests into this branch.
      * @return {@link PullRequests} PullRequest
      * @throws AzDException Default Api Exception handler.
      */
@@ -638,10 +667,11 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, PullRequests.class);
     }
 
-    /***
+    /**
      * Get a specific branch from a repository.
+     *
      * @param repositoryName The name of the repository.
-     * @param branchName The name of the branch.
+     * @param branchName     The name of the branch.
      * @return The branch as a {@link GitRef} object.
      * @throws AzDException Default Api Exception handler.
      */
@@ -659,8 +689,9 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return gitRefs != null && !gitRefs.isEmpty() ? gitRefs.get(0) : null;
     }
 
-    /***
+    /**
      * Get the branches from a repository.
+     *
      * @param repositoryName The name of the repository.
      * @return The {@link GitRefs} with the branches.
      * @throws AzDException Default Api Exception handler.
@@ -678,11 +709,12 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, GitRefs.class);
     }
 
-    /***
+    /**
      * Lock or Unlock a branch with repository name and branch name.
+     *
      * @param repositoryName The name or ID of the repository.
-     * @param branchName The name of the branch to lock/unlock
-     * @param isLocked true to lock the branch and false to unlock.
+     * @param branchName     The name of the branch to lock/unlock
+     * @param isLocked       true to lock the branch and false to unlock.
      * @return GitRef {@link GitRef}
      * @throws AzDException Default Api Exception handler.
      */
@@ -702,9 +734,10 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, GitRef.class);
     }
 
-    /***
+    /**
      * Retrieve a list of work items associated with a pull request.
-     * @param pullRequestId ID of the pull request.
+     *
+     * @param pullRequestId  ID of the pull request.
      * @param repositoryName ID or name of the repository.
      * @return ResourceRefs {@link ResourceRefs}
      * @throws AzDException Default Api Exception handler.
@@ -717,12 +750,13 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, ResourceRefs.class);
     }
 
-    /***
+    /**
      * Create a label for a specified pull request. The only required field is
      * the name of the new label.
+     *
      * @param repositoryName The repository name of the pull request’s target branch.
-     * @param pullRequestId ID of the pull request.
-     * @param labelName tag/label name
+     * @param pullRequestId  ID of the pull request.
+     * @param labelName      tag/label name
      * @return WebApi tag object {@link WebApiTagDefinition}
      * @throws AzDException Default Api Exception handler.
      */
@@ -739,11 +773,12 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, WebApiTagDefinition.class);
     }
 
-    /***
+    /**
      * Removes a label from the set of those assigned to the pull request.
+     *
      * @param repositoryName The repository name of the pull request’s target branch.
-     * @param pullRequestId ID of the pull request.
-     * @param labelName tag/label name
+     * @param pullRequestId  ID of the pull request.
+     * @param labelName      tag/label name
      * @throws AzDException Default Api Exception handler.
      */
     @Override
@@ -759,11 +794,12 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return null;
     }
 
-    /***
+    /**
      * Retrieves a single label that has been assigned to a pull request.
+     *
      * @param repositoryName The repository name of the pull request’s target branch.
-     * @param pullRequestId ID of the pull request.
-     * @param labelName tag/label name
+     * @param pullRequestId  ID of the pull request.
+     * @param labelName      tag/label name
      * @return WebApi tag object {@link WebApiTagDefinition}
      * @throws AzDException Default Api Exception handler.
      */
@@ -777,10 +813,11 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, WebApiTagDefinition.class);
     }
 
-    /***
+    /**
      * Get all the labels assigned to a pull request.
+     *
      * @param repositoryName The repository name of the pull request’s target branch.
-     * @param pullRequestId ID of the pull request.
+     * @param pullRequestId  ID of the pull request.
      * @return List of WebApi tag object {@link WebApiTagDefinitions}
      * @throws AzDException Default Api Exception handler.
      */
@@ -793,14 +830,15 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, WebApiTagDefinitions.class);
     }
 
-    /***
+    /**
      * Add a reviewer to a pull request or cast a vote.
-     * @param pullRequestId ID of the pull request.
+     *
+     * @param pullRequestId  ID of the pull request.
      * @param repositoryName The repository name of the pull request's target branch.
-     * @param reviewerId ID of the reviewer.
-     * @param vote Vote on a pull request: 10 - approved 5 - approved with
-     * suggestions 0 - no vote -5 - waiting for author -10 - rejected
-     * @param isRequired Indicates if this is a required reviewer for this pull request.
+     * @param reviewerId     ID of the reviewer.
+     * @param vote           Vote on a pull request: 10 - approved 5 - approved with
+     *                       suggestions 0 - no vote -5 - waiting for author -10 - rejected
+     * @param isRequired     Indicates if this is a required reviewer for this pull request.
      * @return PullRequestReviewer {@link IdentityRefWithVote}
      * @throws AzDException Default Api Exception handler.
      */
@@ -820,11 +858,12 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, IdentityRefWithVote.class);
     }
 
-    /***
+    /**
      * Remove a reviewer from a pull request.
-     * @param pullRequestId ID of the pull request.
+     *
+     * @param pullRequestId  ID of the pull request.
      * @param repositoryName The repository name of the pull request's target branch.
-     * @param reviewerId ID of the reviewer.
+     * @param reviewerId     ID of the reviewer.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
@@ -842,11 +881,12 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return null;
     }
 
-    /***
+    /**
      * Retrieve information about a particular reviewer on a pull request
-     * @param pullRequestId ID of the pull request.
+     *
+     * @param pullRequestId  ID of the pull request.
      * @param repositoryName The repository name of the pull request's target branch.
-     * @param reviewerId ID of the reviewer.
+     * @param reviewerId     ID of the reviewer.
      * @return PullRequestReviewer {@link IdentityRefWithVote}
      * @throws AzDException Default Api Exception handler.
      */
@@ -861,9 +901,10 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, IdentityRefWithVote.class);
     }
 
-    /***
+    /**
      * Retrieve the reviewers for a pull request
-     * @param pullRequestId ID of the pull request.
+     *
+     * @param pullRequestId  ID of the pull request.
      * @param repositoryName The repository name of the pull request's target branch.
      * @return List of PullRequestReviewer {@link PullRequestReviewers}
      * @throws AzDException Default Api Exception handler.
@@ -878,13 +919,14 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         return MAPPER.mapJsonResponse(r, PullRequestReviewers.class);
     }
 
-    /***
+    /**
      * Edit a reviewer entry. These fields are patchable: isFlagged, hasDeclined
-     * @param pullRequestId ID of the pull request.
+     *
+     * @param pullRequestId  ID of the pull request.
      * @param repositoryName The repository name of the pull request's target branch.
-     * @param reviewerId ID of the reviewer.
-     * @param isFlagged Indicates if this reviewer is flagged for attention on this pull request.
-     * @param hasDeclined Indicates if this reviewer has declined to review this pull request.
+     * @param reviewerId     ID of the reviewer.
+     * @param isFlagged      Indicates if this reviewer is flagged for attention on this pull request.
+     * @param hasDeclined    Indicates if this reviewer has declined to review this pull request.
      * @return PullRequestReviewer {@link IdentityRefWithVote}
      * @throws AzDException Default Api Exception handler.
      */
@@ -1211,22 +1253,23 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
 
     /**
      * Retrieve git commits for a project matching the search criteria.
-     * @param repositoryId The name or ID of the repository.
+     *
+     * @param repositoryId    The name or ID of the repository.
      * @param gitCommitsBatch request body {@link GitCommitsBatch}.
      * @return GitCommitRefs object {@link GitCommitRefs}.
      * @throws AzDException Default Api exception handler.
      */
     @Override
     public GitCommitRefs getCommitsBatch(String repositoryId, GitCommitsBatch gitCommitsBatch) throws AzDException {
-        var valuesToRemove = new ArrayList<String>();
-        if (gitCommitsBatch.getSkip() == 0) valuesToRemove.add("$skip");
-        if (gitCommitsBatch.getTop() == 0) valuesToRemove.add("$top");
-
-        var b = ModelBuilder.build(gitCommitsBatch, valuesToRemove);
+//        var valuesToRemove = new ArrayList<String>();
+//        if (gitCommitsBatch.getSkip() == 0) valuesToRemove.add("$skip");
+//        if (gitCommitsBatch.getTop() == 0) valuesToRemove.add("$top");
+//
+//        var b = ModelBuilder.build(gitCommitsBatch, valuesToRemove);
 
         String r = send(RequestMethod.POST, CONNECTION, GIT, CONNECTION.getProject(),
                 "git/repositories", repositoryId, "commitsbatch", ApiVersion.GIT, null,
-                b, CustomHeader.JSON_CONTENT_TYPE);
+                gitCommitsBatch, CustomHeader.JSON_CONTENT_TYPE);
         return MAPPER.mapJsonResponse(r, GitCommitRefs.class);
     }
 
@@ -1240,7 +1283,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     @Override
     public GitRefs getRefs(String repositoryName) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
-            AREA + "/repositories", repositoryName, "refs", ApiVersion.GIT, null, null, null);
+                AREA + "/repositories", repositoryName, "refs", ApiVersion.GIT, null, null, null);
 
         return MAPPER.mapJsonResponse(r, GitRefs.class);
     }
@@ -1260,8 +1303,8 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(),
-            AREA + "/repositories", repositoryName, "refs", ApiVersion.GIT, q, null, null);
-            
+                AREA + "/repositories", repositoryName, "refs", ApiVersion.GIT, q, null, null);
+
         return MAPPER.mapJsonResponse(r, GitRefs.class);
     }
 
@@ -1278,17 +1321,17 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     @Override
     public GitRefUpdateResult updateRef(String repositoryName, String refName, String oldObjectId, String newObjectId) throws AzDException {
         var b = new ArrayList<Map>();
-        var h = new HashMap<String, Object>(){{
+        var h = new HashMap<String, Object>() {{
             put("name", refName);
             put("oldObjectId", oldObjectId);
             put("newObjectId", newObjectId);
-        }}; 
+        }};
 
         b.add(h);
 
         String r = send(RequestMethod.POST, CONNECTION, GIT, CONNECTION.getProject(),
-            AREA + "/repositories", repositoryName, "refs", ApiVersion.GIT, null, b, CustomHeader.JSON_CONTENT_TYPE);    
-            
+                AREA + "/repositories", repositoryName, "refs", ApiVersion.GIT, null, b, CustomHeader.JSON_CONTENT_TYPE);
+
         return MAPPER.mapJsonResponse(r, GitRefUpdateResults.class).getGitRefUpdateResults().get(0);
     }
 
@@ -1302,25 +1345,25 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * @throws AzDException Default Api Exception handler.
      */
     @Override
-    public GitRefUpdateResult createTag(String repositoryName, String tagName, String ref) throws AzDException {        
+    public GitRefUpdateResult createTag(String repositoryName, String tagName, String ref) throws AzDException {
         if (ref.matches("^[a-fA-F0-9]{40}$")) {
-            return updateRef(repositoryName, "refs/tags/"+tagName, "0000000000000000000000000000000000000000", ref);
+            return updateRef(repositoryName, "refs/tags/" + tagName, "0000000000000000000000000000000000000000", ref);
         }
 
-        String objectId; 
-        GitRefs refs=getRefs(repositoryName, "tags/"+ref);
-        if(!refs.getRefs().isEmpty()){
-            objectId=refs.getRefs().get(0).getObjectId();
-            return updateRef(repositoryName, "refs/tags/"+tagName, "0000000000000000000000000000000000000000", objectId);
+        String objectId;
+        GitRefs refs = getRefs(repositoryName, "tags/" + ref);
+        if (!refs.getRefs().isEmpty()) {
+            objectId = refs.getRefs().get(0).getObjectId();
+            return updateRef(repositoryName, "refs/tags/" + tagName, "0000000000000000000000000000000000000000", objectId);
         }
 
-        refs=getRefs(repositoryName, "heads/"+ref);
-        if(!refs.getRefs().isEmpty()){
-            objectId=refs.getRefs().get(0).getObjectId();
-            return updateRef(repositoryName, "refs/tags/"+tagName, "0000000000000000000000000000000000000000", objectId);
+        refs = getRefs(repositoryName, "heads/" + ref);
+        if (!refs.getRefs().isEmpty()) {
+            objectId = refs.getRefs().get(0).getObjectId();
+            return updateRef(repositoryName, "refs/tags/" + tagName, "0000000000000000000000000000000000000000", objectId);
         }
 
-        throw new AzDException(ApiExceptionTypes.InvalidArgumentException.name(), MessageFormat.format("Could not find ref {0}", ref));        
+        throw new AzDException(ApiExceptionTypes.InvalidArgumentException.name(), MessageFormat.format("Could not find ref {0}", ref));
     }
 
     /**
@@ -1333,21 +1376,21 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      */
     @Override
     public GitRefUpdateResult deleteTag(String repositoryName, String tagName) throws AzDException {
-        GitRefs refs=getRefs(repositoryName, "tags/"+tagName);
-        if(refs.getRefs().isEmpty()){
+        GitRefs refs = getRefs(repositoryName, "tags/" + tagName);
+        if (refs.getRefs().isEmpty()) {
             throw new AzDException(ApiExceptionTypes.InvalidArgumentException.name(), MessageFormat.format(
-                "Tag {0} does not exist in repository {1}", tagName, repositoryName));
+                    "Tag {0} does not exist in repository {1}", tagName, repositoryName));
         }
-        String tagObjectId=refs.getRefs().get(0).getObjectId();
+        String tagObjectId = refs.getRefs().get(0).getObjectId();
 
-        return updateRef(repositoryName, "refs/tags/"+tagName, tagObjectId, "0000000000000000000000000000000000000000");
+        return updateRef(repositoryName, "refs/tags/" + tagName, tagObjectId, "0000000000000000000000000000000000000000");
     }
 
     /**
      * Get a single blob.
      *
      * @param repositoryId The name or ID of the repository.
-     * @param sha1 SHA1 hash of the file. You can get the SHA1 of a file using the "Git/Items/Get Item" endpoint.
+     * @param sha1         SHA1 hash of the file. You can get the SHA1 of a file using the "Git/Items/Get Item" endpoint.
      * @return GitBlobRef Object {@link GitBlobRef}
      * @throws AzDException Default Api Exception handler.
      **/
@@ -1364,15 +1407,15 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * Get a single blob.
      *
      * @param repositoryId The name or ID of the repository.
-     * @param sha1 SHA1 hash of the file. You can get the SHA1 of a file using the "Git/Items/Get Item" endpoint.
-     * @param fileName Provide a fileName to use for a download.
-     * @param resolveLfs If true, try to resolve a blob to its LFS contents, if it's an LFS pointer file. Only compatible with octet-stream Accept headers or $format types
+     * @param sha1         SHA1 hash of the file. You can get the SHA1 of a file using the "Git/Items/Get Item" endpoint.
+     * @param fileName     Provide a fileName to use for a download.
+     * @param resolveLfs   If true, try to resolve a blob to its LFS contents, if it's an LFS pointer file. Only compatible with octet-stream Accept headers or $format types
      * @return GitBlobRef Object {@link GitBlobRef}
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public GitBlobRef getBlob(String repositoryId, String sha1, String fileName, boolean resolveLfs) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$format", GitBlobRefFormat.JSON.name());
             put("fileName", fileName);
             put("resolveLfs", resolveLfs);
@@ -1388,16 +1431,16 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * Get a single blob content.
      *
      * @param repositoryId The name or ID of the repository.
-     * @param sha1 SHA1 hash of the file. You can get the SHA1 of a file using the getItems() method.
-     * @param download If true, download the text. You can use {@link org.azd.helpers.StreamHelper} to download the file.
-     * @param fileName Provide a fileName to use for a download.
-     * @param resolveLfs If true, try to resolve a blob to its LFS contents, if it's an LFS pointer file. Only compatible with octet-stream Accept headers or $format types
+     * @param sha1         SHA1 hash of the file. You can get the SHA1 of a file using the getItems() method.
+     * @param download     If true, download the text. You can use {@link org.azd.helpers.StreamHelper} to download the file.
+     * @param fileName     Provide a fileName to use for a download.
+     * @param resolveLfs   If true, try to resolve a blob to its LFS contents, if it's an LFS pointer file. Only compatible with octet-stream Accept headers or $format types
      * @return String contents of the file.
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public String getBlobContent(String repositoryId, String sha1, boolean download, String fileName, boolean resolveLfs) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$format", GitBlobRefFormat.TEXT.name());
             put("download", download);
             put("fileName", fileName);
@@ -1412,16 +1455,16 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * Get a single blob as zip of input stream. Use {@link org.azd.helpers.StreamHelper} to download the file.
      *
      * @param repositoryId The name or ID of the repository.
-     * @param sha1 SHA1 hash of the file. You can get the SHA1 of a file using the getItems() method.
-     * @param download If true, download the text. You can use {@link org.azd.helpers.StreamHelper} to download the file.
-     * @param fileName Provide a fileName to use for a download.
-     * @param resolveLfs If true, try to resolve a blob to its LFS contents, if it's an LFS pointer file. Only compatible with octet-stream Accept headers or $format types
+     * @param sha1         SHA1 hash of the file. You can get the SHA1 of a file using the getItems() method.
+     * @param download     If true, download the text. You can use {@link org.azd.helpers.StreamHelper} to download the file.
+     * @param fileName     Provide a fileName to use for a download.
+     * @param resolveLfs   If true, try to resolve a blob to its LFS contents, if it's an LFS pointer file. Only compatible with octet-stream Accept headers or $format types
      * @return Input stream for zip download. This gets the stream of a single file.
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public InputStream getBlobContentAsZip(String repositoryId, String sha1, boolean download, String fileName, boolean resolveLfs) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$format", GitBlobRefFormat.ZIP.name());
             put("download", download);
             put("fileName", fileName);
@@ -1436,17 +1479,17 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * Get a single blob content as input stream. Use {@link org.azd.helpers.StreamHelper} to download the file.
      *
      * @param repositoryId The name or ID of the repository.
-     * @param sha1 SHA1 hash of the file. You can get the SHA1 of a file using the getItems() method.
-     * @param download If true, download the text. You can use {@link org.azd.helpers.StreamHelper} to download the file.
-     * @param fileName Provide a fileName to use for a download.
-     * @param resolveLfs If true, try to resolve a blob to its LFS contents, if it's an LFS pointer file. Only compatible with octet-stream Accept headers or $format types
+     * @param sha1         SHA1 hash of the file. You can get the SHA1 of a file using the getItems() method.
+     * @param download     If true, download the text. You can use {@link org.azd.helpers.StreamHelper} to download the file.
+     * @param fileName     Provide a fileName to use for a download.
+     * @param resolveLfs   If true, try to resolve a blob to its LFS contents, if it's an LFS pointer file. Only compatible with octet-stream Accept headers or $format types
      * @return Input stream for zip download. This gets the stream of a single file.
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public InputStream getBlobContentAsStream(String repositoryId, String sha1, boolean download, String fileName, boolean resolveLfs) throws AzDException {
-        var q = new HashMap<String, Object>(){{
-            put("$format", GitBlobRefFormat.OCTETSTREAM.name());
+        var q = new HashMap<String, Object>() {{
+            put("$format", GitBlobRefFormat.OCTET_STREAM.name());
             put("download", download);
             put("fileName", fileName);
             put("resolveLfs", resolveLfs);
@@ -1478,7 +1521,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * Gets one or more blobs in a zip file download.
      *
      * @param repositoryId The name or ID of the repository.
-     * @param fileName Name of the file.
+     * @param fileName     Name of the file.
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
@@ -1512,13 +1555,15 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * Get Item Metadata and/or Content for a collection of items.
      *
      * @param repositoryName The name or ID of the repository.
-     * @param recursionType The recursion level of this request. The default is 'none', no recursion.
+     * @param recursionType  The recursion level of this request. The default is 'none', no recursion.
      * @return GitItem Object {@link GitItem}
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public GitItems getItems(String repositoryName, VersionControlRecursionType recursionType) throws AzDException {
-        var q = new HashMap<String, Object>(){{ put("recursionLevel", recursionType.name()); }};
+        var q = new HashMap<String, Object>() {{
+            put("recursionLevel", recursionType.name());
+        }};
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
                 repositoryName, "items", ApiVersion.GIT, q, null, null);
@@ -1529,12 +1574,12 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     /**
      * Get Item Metadata and/or Content for a collection of items.
      *
-     * @param repositoryName The name or ID of the repository.
+     * @param repositoryName         The name or ID of the repository.
      * @param includeContentMetadata Set to true to include content metadata.  Default is false.
-     * @param includeLinks Set to true to include links to items.  Default is false.
-     * @param latestProcessedChange Set to true to include the latest changes.  Default is false.
-     * @param recursionType The recursion level of this request. The default is 'none', no recursion.
-     * @param scopePath The path scope.  The default is null.
+     * @param includeLinks           Set to true to include links to items.  Default is false.
+     * @param latestProcessedChange  Set to true to include the latest changes.  Default is false.
+     * @param recursionType          The recursion level of this request. The default is 'none', no recursion.
+     * @param scopePath              The path scope.  The default is null.
      * @return GitItem Object {@link GitItem}
      * @throws AzDException Default Api Exception handler.
      **/
@@ -1542,7 +1587,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     public GitItems getItems(String repositoryName, boolean includeContentMetadata, boolean includeLinks,
                              boolean latestProcessedChange, VersionControlRecursionType recursionType,
                              String scopePath) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("recursionLevel", recursionType.getValue());
             put("includeContentMetadata", includeContentMetadata);
             put("includeLinks", includeLinks);
@@ -1560,15 +1605,15 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     /**
      * Get Item Metadata and/or Content for a collection of items.
      *
-     * @param repositoryName The name or ID of the repository.
+     * @param repositoryName         The name or ID of the repository.
      * @param includeContentMetadata Set to true to include content metadata.  Default is false.
-     * @param includeLinks Set to true to include links to items.  Default is false.
-     * @param latestProcessedChange Set to true to include the latest changes.  Default is false.
-     * @param recursionType The recursion level of this request. The default is 'none', no recursion.
-     * @param scopePath The path scope.  The default is null.
-     * @param version Version string identifier (name of tag/branch, SHA1 of commit)
-     * @param versionOptions Version options - Specify additional modifiers to version (e.g Previous)
-     * @param versionType Version type (branch, tag, or commit). Determines how Id is interpreted
+     * @param includeLinks           Set to true to include links to items.  Default is false.
+     * @param latestProcessedChange  Set to true to include the latest changes.  Default is false.
+     * @param recursionType          The recursion level of this request. The default is 'none', no recursion.
+     * @param scopePath              The path scope.  The default is null.
+     * @param version                Version string identifier (name of tag/branch, SHA1 of commit)
+     * @param versionOptions         Version options - Specify additional modifiers to version (e.g Previous)
+     * @param versionType            Version type (branch, tag, or commit). Determines how Id is interpreted
      * @return GitItem Object {@link GitItem}
      * @throws AzDException Default Api Exception handler.
      **/
@@ -1577,7 +1622,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
                              boolean latestProcessedChange, VersionControlRecursionType recursionType,
                              String scopePath, String version, GitVersionOptions versionOptions,
                              GitVersionType versionType) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("recursionLevel", recursionType.getValue());
             put("includeContentMetadata", includeContentMetadata);
             put("includeLinks", includeLinks);
@@ -1598,11 +1643,11 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     /**
      * Request that another repository's refs be fetched into this one. It syncs two existing forks.
      *
-     * @param repositoryName The name or ID of the repository.
+     * @param repositoryName     The name or ID of the repository.
      * @param sourceCollectionId Team Project Collection ID of the collection for the repository.
-     * @param sourceProjectId Team Project ID of the project for the repository.
+     * @param sourceProjectId    Team Project ID of the project for the repository.
      * @param sourceRepositoryId ID of the repository.
-     * @param includeLinks Set to true to include links to items.  Default is false.
+     * @param includeLinks       Set to true to include links to items.  Default is false.
      * @return GitForkSyncRequest Object {@link GitForkSyncRequest}
      * @throws AzDException Default Api Exception handler.
      **/
@@ -1622,8 +1667,8 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "forkSyncRequests", ApiVersion.GIT, null, b, CustomHeader.JSON_CONTENT_TYPE);
-        
+                repositoryName, "forkSyncRequests", ApiVersion.GIT, q, b, CustomHeader.JSON_CONTENT_TYPE);
+
         return MAPPER.mapJsonResponse(r, GitForkSyncRequest.class);
     }
 
@@ -1632,18 +1677,18 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * Request that another repository's refs be fetched into this one. It syncs two existing forks.
      *
      * @param repositoryName The name or ID of the repository.
-     * @param collectionId Team Project Collection ID of the collection for the repository.
-     * @param projectId Team Project ID of the project for the repository.
-     * @param repositoryId ID of the repository.
-     * @param sourceRef The source ref to copy. For example, refs/heads/main.
-     * @param targetRef The target ref to update. For example, refs/heads/main.
-     * @param includeLinks Set to true to include links to items.  Default is false.
+     * @param collectionId   Team Project Collection ID of the collection for the repository.
+     * @param projectId      Team Project ID of the project for the repository.
+     * @param repositoryId   ID of the repository.
+     * @param sourceRef      The source ref to copy. For example, refs/heads/main.
+     * @param targetRef      The target ref to update. For example, refs/heads/main.
+     * @param includeLinks   Set to true to include links to items.  Default is false.
      * @return GitForkSyncRequest Object {@link GitForkSyncRequest}
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public GitForkSyncRequest createForkSyncRequest(String repositoryName, String collectionId, String projectId,
-                                                    String repositoryId, String sourceRef, String targetRef, 
+                                                    String repositoryId, String sourceRef, String targetRef,
                                                     Boolean includeLinks) throws AzDException {
 
         var q = new HashMap<String, Object>() {{
@@ -1664,7 +1709,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
 
         String r = send(RequestMethod.POST, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
                 repositoryName, "forkSyncRequests", ApiVersion.GIT, q, b, CustomHeader.JSON_CONTENT_TYPE);
-        
+
         return MAPPER.mapJsonResponse(r, GitForkSyncRequest.class);
     }
 
@@ -1672,21 +1717,21 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * Get a specific fork sync operation's details.
      *
      * @param repositoryName The name or ID of the repository.
-     * @param OperationId OperationId of the sync request.
-     * @param includeLinks Set to true to include links to items.  Default is false.
+     * @param OperationId    OperationId of the sync request.
+     * @param includeLinks   Set to true to include links to items.  Default is false.
      * @return GitForkSyncRequest Object {@link GitForkSyncRequest}
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public GitForkSyncRequest getForkSyncRequest(String repositoryName, int OperationId, boolean includeLinks)
-                                                throws AzDException {
-        
+            throws AzDException {
+
         var q = new HashMap<String, Object>() {{
             put("includeLinks", includeLinks);
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "forkSyncRequests/"+OperationId, ApiVersion.GIT, q, CustomHeader.JSON_CONTENT_TYPE, null);
+                repositoryName, "forkSyncRequests/" + OperationId, ApiVersion.GIT, q, CustomHeader.JSON_CONTENT_TYPE, null);
 
         return MAPPER.mapJsonResponse(r, GitForkSyncRequest.class);
     }
@@ -1694,15 +1739,15 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     /**
      * Retrieve all requested fork sync operations on this repository.
      *
-     * @param repositoryName The name or ID of the repository.
-     * @param includeLinks Set to true to include links to items.  Default is false.
+     * @param repositoryName   The name or ID of the repository.
+     * @param includeLinks     Set to true to include links to items.  Default is false.
      * @param includeAbandoned Set to true to include abandoned requests.  Default is false.
      * @return GitForkSyncRequests Object {@link GitForkSyncRequests}
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public GitForkSyncRequests getForkSyncRequests(String repositoryName, boolean includeLinks, boolean includeAbandoned)
-                                                    throws AzDException {
+            throws AzDException {
         var q = new HashMap<String, Object>() {{
             put("includeLinks", includeLinks);
             put("includeAbandoned", includeAbandoned);
@@ -1718,8 +1763,8 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * Retrieve all forks of a repository in the collection.
      *
      * @param repositoryName The name or ID of the repository.
-     * @param collectionId Team project collection ID.
-     * @param includeLinks Set to true to include links to items.  Default is false.
+     * @param collectionId   Team project collection ID.
+     * @param includeLinks   Set to true to include links to items.  Default is false.
      * @return GitRepositoryRefs Object {@link GitRepositoryRefs}
      * @throws AzDException Default Api Exception handler.
      **/
@@ -1731,8 +1776,8 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                    repositoryName, "forks/"+collectionId, ApiVersion.GIT, q, null, CustomHeader.JSON_CONTENT_TYPE);
-        
+                repositoryName, "forks/" + collectionId, ApiVersion.GIT, q, null, CustomHeader.JSON_CONTENT_TYPE);
+
         return MAPPER.mapJsonResponse(r, GitRepositoryRefs.class);
     }
 
@@ -1754,7 +1799,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     /**
      * Retrieves a particular push.
      *
-     * @param pushId ID of the push.
+     * @param pushId       ID of the push.
      * @param repositoryId The name or ID of the repository.
      * @return GitPush Object {@link GitPush}
      * @throws AzDException Default Api Exception handler.
@@ -1770,8 +1815,8 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     /**
      * Retrieves a particular push.
      *
-     * @param pushId ID of the push.
-     * @param repositoryId The name or ID of the repository.
+     * @param pushId         ID of the push.
+     * @param repositoryId   The name or ID of the repository.
      * @param includeCommits The number of commits to include in the result.
      * @return GitPush Object {@link GitPush}
      * @throws AzDException Default Api Exception handler.
@@ -1787,8 +1832,8 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     /**
      * Retrieves a particular push.
      *
-     * @param pushId ID of the push.
-     * @param repositoryId The name or ID of the repository.
+     * @param pushId            ID of the push.
+     * @param repositoryId      The name or ID of the repository.
      * @param includeRefUpdates If true, include the list of refs that were updated by the push.
      * @return GitPush Object {@link GitPush}
      * @throws AzDException Default Api Exception handler.
@@ -1804,16 +1849,16 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     /**
      * Retrieves a particular push.
      *
-     * @param pushId ID of the push.
-     * @param repositoryId The name or ID of the repository.
-     * @param includeCommits The number of commits to include in the result.
+     * @param pushId            ID of the push.
+     * @param repositoryId      The name or ID of the repository.
+     * @param includeCommits    The number of commits to include in the result.
      * @param includeRefUpdates If true, include the list of refs that were updated by the push.
      * @return GitPush Object {@link GitPush}
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public GitPush getPush(String repositoryId, int pushId, int includeCommits, boolean includeRefUpdates) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("includeCommits", includeCommits);
             put("includeRefUpdates", includeRefUpdates);
         }};
@@ -1844,8 +1889,8 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * The only required field for the status is Context.Name that uniquely identifies the status.
      * Note that you can specify iterationId in the request body to post the status on the iteration.
      *
-     * @param pullRequestId ID of the pull request.
-     * @param repositoryId The repository ID of the pull request’s target branch.
+     * @param pullRequestId        ID of the pull request.
+     * @param repositoryId         The repository ID of the pull request’s target branch.
      * @param gitPullRequestStatus Request body to create a new pull request status.
      * @return GitStatus Object {@link GitStatus}
      * @throws AzDException Default Api Exception handler.
@@ -1863,17 +1908,17 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * Delete pull request status. You can remove multiple statuses in one call by using Update operation.
      *
      * @param pullRequestId ID of the pull request.
-     * @param repositoryId The repository ID of the pull request’s target branch.
-     * @param statusId ID of the pull request status.
+     * @param repositoryId  The repository ID of the pull request’s target branch.
+     * @param statusId      ID of the pull request status.
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public Void deletePullRequestStatus(int pullRequestId, String repositoryId, int statusId) throws AzDException {
         try {
-        var resource = "pullRequests/" + pullRequestId + "/statuses/" + statusId;
-        String r = send(RequestMethod.DELETE, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryId, resource, ApiVersion.GIT, null, null, null);
-        if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
+            var resource = "pullRequests/" + pullRequestId + "/statuses/" + statusId;
+            String r = send(RequestMethod.DELETE, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
+                    repositoryId, resource, ApiVersion.GIT, null, null, null);
+            if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
             throw e;
         }
@@ -1884,8 +1929,8 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * Get the specific pull request status by ID. The status ID is unique within the pull request across all iterations.
      *
      * @param pullRequestId ID of the pull request.
-     * @param repositoryId The repository ID of the pull request’s target branch.
-     * @param statusId ID of the pull request status.
+     * @param repositoryId  The repository ID of the pull request’s target branch.
+     * @param statusId      ID of the pull request status.
      * @return GitStatus Object {@link GitStatus}
      * @throws AzDException Default Api Exception handler.
      **/
@@ -1903,7 +1948,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * Get all the statuses associated with a pull request.
      *
      * @param pullRequestId ID of the pull request.
-     * @param repositoryId The repository ID of the pull request’s target branch.
+     * @param repositoryId  The repository ID of the pull request’s target branch.
      * @return GitStatuses Object {@link GitStatuses}
      * @throws AzDException Default Api Exception handler.
      **/
@@ -1923,23 +1968,23 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
      * The path of the remove operation should refer to the ID of the pull request status.
      * For example path="/1" refers to the pull request status with ID 1.
      *
-     * @param pullRequestId ID of the pull request.
-     * @param repositoryId The repository ID of the pull request’s target branch.
+     * @param pullRequestId      ID of the pull request.
+     * @param repositoryId       The repository ID of the pull request’s target branch.
      * @param propertiesToUpdate Collection of properties to update.
-     * E.g., [
-     *   {
-     *     "op": "remove",
-     *     "path": "/1",
-     *     "from": null,
-     *     "value": null
-     *   },
-     *   {
-     *     "op": "remove",
-     *     "path": "/2",
-     *     "from": null,
-     *     "value": null
-     *   }
-     * ]
+     *                           E.g., [
+     *                           {
+     *                           "op": "remove",
+     *                           "path": "/1",
+     *                           "from": null,
+     *                           "value": null
+     *                           },
+     *                           {
+     *                           "op": "remove",
+     *                           "path": "/2",
+     *                           "from": null,
+     *                           "value": null
+     *                           }
+     *                           ]
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
@@ -1958,16 +2003,16 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     /**
      * Create a fork of a parent repository
      *
-     * @param repositoryName The name or ID of the repository.
-     * @param projectId The project id of the target repository
-     * @param parentProjectId Project id of the parent repository from which the fork operation has to initiate.
+     * @param repositoryName     The name or ID of the repository.
+     * @param projectId          The project id of the target repository
+     * @param parentProjectId    Project id of the parent repository from which the fork operation has to initiate.
      * @param parentRepositoryId Id of the parent repository
      * @return GitRepository Object {@link GitRepository}
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public GitRepository createForkRepository(String repositoryName, String projectId, String parentProjectId,
-                                                   String parentRepositoryId) throws AzDException {
+                                              String parentRepositoryId) throws AzDException {
         Map<String, Object> b = new HashMap<>() {{
             put("name", repositoryName);
             put("project", new HashMap<String, String>() {{
@@ -1989,22 +2034,22 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     /**
      * Create a fork of a parent repository syncing only the provided refs
      *
-     * @param repositoryName The name or ID of the repository.
-     * @param projectId The project id of the target repository
-     * @param parentProjectId Project id of the parent repository from which the fork operation has to initiate.
+     * @param repositoryName     The name or ID of the repository.
+     * @param projectId          The project id of the target repository
+     * @param parentProjectId    Project id of the parent repository from which the fork operation has to initiate.
      * @param parentRepositoryId Id of the parent repository
-     * @param sourceBranch Provide the name of branch to create a fork request.
+     * @param sourceBranch       Provide the name of branch to create a fork request.
      * @return GitRepository Object {@link GitRepository}
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public GitRepository createForkRepository(String repositoryName, String projectId, String parentProjectId,
-                                                   String parentRepositoryId, String sourceBranch) throws AzDException {
+                                              String parentRepositoryId, String sourceBranch) throws AzDException {
 
         var q = new HashMap<String, Object>() {{
-            put("sourceRef", "refs/heads/"+sourceBranch);
-        }};                                                    
-                                                    
+            put("sourceRef", "refs/heads/" + sourceBranch);
+        }};
+
         Map<String, Object> b = new HashMap<>() {{
             put("name", repositoryName);
             put("project", new HashMap<String, String>() {{
@@ -2018,25 +2063,25 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
             }});
         }};
         String r = send(RequestMethod.POST, CONNECTION, GIT, projectId, AREA, null, "repositories", ApiVersion.GIT,
-                        q, b, CustomHeader.JSON_CONTENT_TYPE);
-                
+                q, b, CustomHeader.JSON_CONTENT_TYPE);
+
         return MAPPER.mapJsonResponse(r, GitRepository.class);
     }
 
     /**
      * Create a fork of a parent repository syncing only the provided refs with wait for operation completion
      *
-     * @param repositoryName The name or ID of the repository.
-     * @param projectId The project id of the target repository
-     * @param parentProjectId Project id of the parent repository from which the fork operation has to initiate.
+     * @param repositoryName     The name or ID of the repository.
+     * @param projectId          The project id of the target repository
+     * @param parentProjectId    Project id of the parent repository from which the fork operation has to initiate.
      * @param parentRepositoryId Id of the parent repository
-     * @param sourceBranch Provide the name of branch to create a fork request.
-     * @param checkTimes Polling interval to wait for operation to complete.
+     * @param sourceBranch       Provide the name of branch to create a fork request.
+     * @param checkTimes         Polling interval to wait for operation to complete.
      * @return GitRepository Object {@link GitRepository}
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
-    public GitRepository createForkRepositoryWithComplete(String repositoryName, String projectId, String parentProjectId, String parentRepositoryId, 
+    public GitRepository createForkRepositoryWithComplete(String repositoryName, String projectId, String parentProjectId, String parentRepositoryId,
                                                           String sourceBranch, int checkTimes) throws AzDException {
         GitRepository gitRepository = createForkRepository(repositoryName, projectId, parentProjectId, parentRepositoryId, sourceBranch);
         GitForkSyncRequest gitForkSyncRequest = getForkSyncRequests(repositoryName, true, true).getForkSyncRequest().get(0);

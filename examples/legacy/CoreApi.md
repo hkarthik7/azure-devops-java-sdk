@@ -5,7 +5,7 @@
 
 ## Example
 
-Before getting started you require personal access token to authenticate with **Azure DevOps** services REST API.
+Before getting started you require personal access token to authenticate to **Azure DevOps** services REST API.
 You can grab one by following the [documentation](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?WT.mc_id=docs-github-dbrown&view=azure-devops&tabs=preview-page).
 
 You are required to create a connection object before calling Core Api.

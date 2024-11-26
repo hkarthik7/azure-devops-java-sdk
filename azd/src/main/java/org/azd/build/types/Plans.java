@@ -2,14 +2,14 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Represents a plan
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Plans extends BaseAbstractMethod {
-    /***
+public class Plans extends SerializableEntity {
+    /**
      * Plan id
      */
     @JsonProperty("planId")

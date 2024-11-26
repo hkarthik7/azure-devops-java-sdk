@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * The class to represent a collection of REST reference links. 
+ * The class to represent a collection of REST reference links.
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public enum ProjectVisibility {

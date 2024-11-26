@@ -15,11 +15,11 @@ import java.util.*;
 
 import static org.azd.utils.RestClient.send;
 
-/***
+/**
  * DistributedTaskApi class to manage Agents, Deployment groups, Environments and Variable groups API
  */
 public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implements DistributedTaskDetails {
-    /***
+    /**
      * Connection object
      */
     private final Connection CONNECTION;
@@ -27,17 +27,19 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
     private final String AREA = "distributedtask";
     private final String DISTRIBUTEDTASK = "a85b8835-c1a1-4aac-ae97-1c3d0ba72dbd";
 
-    /***
+    /**
      * Pass the connection object
+     *
      * @param connection Connection object
      */
     public DistributedTaskApi(Connection connection) {
         this.CONNECTION = connection;
     }
 
-    /***
+    /**
      * Delete an agent.
-     * @param poolId The pool ID to remove the agent from
+     *
+     * @param poolId  The pool ID to remove the agent from
      * @param agentId The agent ID to remove
      * @throws AzDException Default Api Exception handler.
      */
@@ -55,9 +57,10 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return null;
     }
 
-    /***
+    /**
      * Get information about an agent.
-     * @param poolId The agent pool containing the agent
+     *
+     * @param poolId  The agent pool containing the agent
      * @param agentId The agent ID to get information about
      * @return A TaskAgent object {@link TaskAgent}
      * @throws AzDException Default Api Exception handler.
@@ -71,14 +74,15 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return MAPPER.mapJsonResponse(r, TaskAgent.class);
     }
 
-    /***
+    /**
      * Get information about an agent.
-     * @param poolId The agent pool containing the agent
-     * @param agentId The agent ID to get information about
-     * @param includeAssignedRequest Whether to include details about the agent's current work
-     * @param includeCapabilities Whether to include the agent's capabilities in the response
+     *
+     * @param poolId                      The agent pool containing the agent
+     * @param agentId                     The agent ID to get information about
+     * @param includeAssignedRequest      Whether to include details about the agent's current work
+     * @param includeCapabilities         Whether to include the agent's capabilities in the response
      * @param includeLastCompletedRequest Whether to include details about the agents' most recent completed work
-     * @param propertyFilters Filter which custom properties will be returned
+     * @param propertyFilters             Filter which custom properties will be returned
      * @return A TaskAgent object {@link TaskAgent}
      * @throws AzDException Default Api Exception handler.
      */
@@ -98,8 +102,9 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return MAPPER.mapJsonResponse(r, TaskAgent.class);
     }
 
-    /***
+    /**
      * Get a list of agents.
+     *
      * @param poolId The agent pool containing the agents
      * @return TaskAgents object {@link TaskAgents}
      * @throws AzDException Default Api Exception handler.
@@ -112,15 +117,16 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return MAPPER.mapJsonResponse(r, TaskAgents.class);
     }
 
-    /***
+    /**
      * Get a list of agents.
-     * @param poolId The agent pool containing the agents
-     * @param agentName Filter on agent name
-     * @param demands Filter by demands the agents can satisfy
-     * @param includeAssignedRequest Whether to include details about the agents' current work
-     * @param includeCapabilities Whether to include the agents' capabilities in the response
+     *
+     * @param poolId                      The agent pool containing the agents
+     * @param agentName                   Filter on agent name
+     * @param demands                     Filter by demands the agents can satisfy
+     * @param includeAssignedRequest      Whether to include details about the agents' current work
+     * @param includeCapabilities         Whether to include the agents' capabilities in the response
      * @param includeLastCompletedRequest Whether to include details about the agents' most recent completed work
-     * @param propertyFilters Filter which custom properties will be returned
+     * @param propertyFilters             Filter which custom properties will be returned
      * @return TaskAgents object {@link TaskAgents}
      * @throws AzDException Default Api Exception handler.
      */
@@ -143,14 +149,15 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return MAPPER.mapJsonResponse(r, TaskAgents.class);
     }
 
-    /***
+    /**
      * Update agent details.
-     * @param poolId The agent pool to use
-     * @param agentId The agent to update
+     *
+     * @param poolId      The agent pool to use
+     * @param agentId     The agent to update
      * @param requestBody Map of request body.
-     * <p>
-     *  Visit https://docs.microsoft.com/en-us/rest/api/azure/devops/distributedtask/agents/update?view=azure-devops-rest-7.1#request-body for more details.
-     * </p>
+     *                    <p>
+     *                    Visit https://docs.microsoft.com/en-us/rest/api/azure/devops/distributedtask/agents/update?view=azure-devops-rest-7.1#request-body for more details.
+     *                    </p>
      * @return A TaskAgent object {@link TaskAgent}
      * @throws AzDException Default Api Exception handler.
      */
@@ -163,9 +170,10 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return MAPPER.mapJsonResponse(r, TaskAgent.class);
     }
 
-    /***
+    /**
      * Create a deployment group.
-     * @param name Name of the deployment group.
+     *
+     * @param name        Name of the deployment group.
      * @param description Description of the deployment group.
      * @return Deployment group object {@link DeploymentGroup}
      * @throws AzDException Default Api Exception handler.
@@ -184,11 +192,12 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return MAPPER.mapJsonResponse(r, DeploymentGroup.class);
     }
 
-    /***
+    /**
      * Create a deployment group.
-     * @param name Name of the deployment group.
+     *
+     * @param name        Name of the deployment group.
      * @param description Description of the deployment group.
-     * @param poolId Identifier of the deployment pool in which deployment agents are registered.
+     * @param poolId      Identifier of the deployment pool in which deployment agents are registered.
      * @return Deployment group object {@link DeploymentGroup}
      * @throws AzDException Default Api Exception handler.
      */
@@ -207,8 +216,9 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return MAPPER.mapJsonResponse(r, DeploymentGroup.class);
     }
 
-    /***
+    /**
      * Delete a deployment group.
+     *
      * @param deploymentGroupId ID of the deployment group to be deleted.
      * @throws AzDException Default Api Exception handler.
      */
@@ -225,8 +235,9 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return null;
     }
 
-    /***
+    /**
      * Get a deployment group by its ID.
+     *
      * @param deploymentGroupId ID of the deployment group to be deleted.
      * @return Deployment group object {@link DeploymentGroup}
      * @throws AzDException Default Api Exception handler.
@@ -239,11 +250,12 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return MAPPER.mapJsonResponse(r, DeploymentGroup.class);
     }
 
-    /***
+    /**
      * Get a deployment group by its ID.
+     *
      * @param deploymentGroupId ID of the deployment group to be deleted.
-     * @param expand Include these additional details in the returned object.
-     * @param actionFilter Get the deployment group only if this action can be performed on it.
+     * @param expand            Include these additional details in the returned object.
+     * @param actionFilter      Get the deployment group only if this action can be performed on it.
      * @return Deployment group object {@link DeploymentGroup}
      * @throws AzDException Default Api Exception handler.
      */
@@ -261,8 +273,9 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return MAPPER.mapJsonResponse(r, DeploymentGroup.class);
     }
 
-    /***
+    /**
      * Get a list of deployment groups by name or IDs.
+     *
      * @return Deployment groups object {@link DeploymentGroups}
      * @throws AzDException Default Api Exception handler.
      */
@@ -274,8 +287,9 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return MAPPER.mapJsonResponse(r, DeploymentGroups.class);
     }
 
-    /***
+    /**
      * Get a list of deployment groups by name or IDs.
+     *
      * @param top Maximum number of deployment groups to return. Default is 1000.
      * @return Deployment groups object {@link DeploymentGroups}
      * @throws AzDException Default Api Exception handler.
@@ -292,8 +306,9 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return MAPPER.mapJsonResponse(r, DeploymentGroups.class);
     }
 
-    /***
+    /**
      * Get a list of deployment groups by name or IDs.
+     *
      * @param ids Array of Id of deployment groups.
      * @return Deployment groups object {@link DeploymentGroups}
      * @throws AzDException Default Api Exception handler.
@@ -310,8 +325,9 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return MAPPER.mapJsonResponse(r, DeploymentGroups.class);
     }
 
-    /***
+    /**
      * Get a list of deployment groups by name or IDs.
+     *
      * @param name Name of the deployment group.
      * @return Deployment groups object {@link DeploymentGroups}
      * @throws AzDException Default Api Exception handler.
@@ -328,8 +344,9 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return MAPPER.mapJsonResponse(r, DeploymentGroups.class);
     }
 
-    /***
+    /**
      * Get a list of deployment groups by name or IDs.
+     *
      * @param expand Include these additional details in the returned objects. {@link DeploymentGroupExpands}
      * @return Deployment groups object {@link DeploymentGroups}
      * @throws AzDException Default Api Exception handler.
@@ -346,14 +363,15 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return MAPPER.mapJsonResponse(r, DeploymentGroups.class);
     }
 
-    /***
+    /**
      * Get a list of deployment groups by name or IDs.
-     * @param expand Include these additional details in the returned objects. {@link DeploymentGroupExpands}
-     * @param top Maximum number of deployment groups to return. Default is 1000.
-     * @param actionFilter Get only deployment groups on which this action can be performed. {@link DeploymentGroupActionFilter}
+     *
+     * @param expand            Include these additional details in the returned objects. {@link DeploymentGroupExpands}
+     * @param top               Maximum number of deployment groups to return. Default is 1000.
+     * @param actionFilter      Get only deployment groups on which this action can be performed. {@link DeploymentGroupActionFilter}
      * @param continuationToken Get deployment groups with names greater than this continuationToken lexicographically.
-     * @param ids Comma separated list of IDs of the deployment groups.
-     * @param name Name of the deployment group.
+     * @param ids               Comma separated list of IDs of the deployment groups.
+     * @param name              Name of the deployment group.
      * @return Deployment groups object {@link DeploymentGroups}
      * @throws AzDException Default Api Exception handler.
      */
@@ -375,11 +393,12 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return MAPPER.mapJsonResponse(r, DeploymentGroups.class);
     }
 
-    /***
+    /**
      * Update a deployment group.
+     *
      * @param deploymentGroupId ID of the deployment group.
-     * @param name Name of the deployment group.
-     * @param description Description of the deployment group.
+     * @param name              Name of the deployment group.
+     * @param description       Description of the deployment group.
      * @return Deployment group object {@link DeploymentGroup}
      * @throws AzDException Default Api Exception handler.
      */
@@ -397,9 +416,10 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return MAPPER.mapJsonResponse(r, DeploymentGroup.class);
     }
 
-    /***
+    /**
      * Create an environment.
-     * @param name Name of the environment.
+     *
+     * @param name        Name of the environment.
      * @param description Description of the environment.
      * @return Environment instance {@link EnvironmentInstance}
      * @throws AzDException Default Api Exception handler.
@@ -417,8 +437,9 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return MAPPER.mapJsonResponse(r, EnvironmentInstance.class);
     }
 
-    /***
+    /**
      * Delete the specified environment.
+     *
      * @param environmentId ID of the environment.
      * @throws AzDException Default Api Exception handler.
      */
@@ -435,8 +456,9 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return null;
     }
 
-    /***
+    /**
      * Get an environment by its ID.
+     *
      * @param environmentId ID of the environment.
      * @return Environment instance {@link EnvironmentInstance}
      * @throws AzDException Default Api Exception handler.
@@ -450,10 +472,11 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return MAPPER.mapJsonResponse(r, EnvironmentInstance.class);
     }
 
-    /***
+    /**
      * Get an environment by its ID.
+     *
      * @param environmentId ID of the environment.
-     * @param expands Include these additional details in the returned objects. {@link EnvironmentExpands}
+     * @param expands       Include these additional details in the returned objects. {@link EnvironmentExpands}
      * @return Environment instance {@link EnvironmentInstance}
      * @throws AzDException Default Api Exception handler.
      */
@@ -469,8 +492,9 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return MAPPER.mapJsonResponse(r, EnvironmentInstance.class);
     }
 
-    /***
+    /**
      * Get all environments.
+     *
      * @return Environment instances array {@link EnvironmentInstances}
      * @throws AzDException Default Api Exception handler.
      */
@@ -482,8 +506,9 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return MAPPER.mapJsonResponse(r, EnvironmentInstances.class);
     }
 
-    /***
+    /**
      * Get all environments.
+     *
      * @param top Top environments to list
      * @return Environment instances array {@link EnvironmentInstances}
      * @throws AzDException Default Api Exception handler.
@@ -500,8 +525,9 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return MAPPER.mapJsonResponse(r, EnvironmentInstances.class);
     }
 
-    /***
+    /**
      * Get all environments.
+     *
      * @param name Name of the environment.
      * @return Environment instances array {@link EnvironmentInstances}
      * @throws AzDException Default Api Exception handler.
@@ -518,11 +544,12 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return MAPPER.mapJsonResponse(r, EnvironmentInstances.class);
     }
 
-    /***
+    /**
      * Get all environments.
-     * @param top Top environments to list.
+     *
+     * @param top               Top environments to list.
      * @param continuationToken Get the list of environments paginated.
-     * @param name Name of the environment.
+     * @param name              Name of the environment.
      * @return Environment instances array {@link EnvironmentInstances}
      * @throws AzDException Default Api Exception handler.
      */
@@ -540,11 +567,12 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return MAPPER.mapJsonResponse(r, EnvironmentInstances.class);
     }
 
-    /***
+    /**
      * Update the specified environment.
+     *
      * @param environmentId ID of the environment.
-     * @param name Name of the environment.
-     * @param description Description of the environment.
+     * @param name          Name of the environment.
+     * @param description   Description of the environment.
      * @return Environment instance {@link EnvironmentInstance}
      * @throws AzDException Default Api Exception handler.
      */
@@ -562,8 +590,9 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return MAPPER.mapJsonResponse(r, EnvironmentInstance.class);
     }
 
-    /***
+    /**
      * Add a variable group.
+     *
      * @param variableGroupDefinition Variable group definition {@link VariableGroupDefinition}
      * @return Variable group {@link VariableGroup}
      * @throws AzDException Default Api Exception handler.
@@ -594,11 +623,12 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return MAPPER.mapJsonResponse(r, VariableGroup.class);
     }
 
-    /***
+    /**
      * Add a variable group.
-     * @param name Name of the variable group.
+     *
+     * @param name        Name of the variable group.
      * @param description Description for the variable group.
-     * @param variables Map of variables to add.
+     * @param variables   Map of variables to add.
      * @return Variable group {@link VariableGroup}
      * @throws AzDException Default Api Exception handler.
      */
@@ -621,10 +651,11 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return addVariableGroup(definition);
     }
 
-    /***
+    /**
      * Delete a variable group
+     *
      * @param variableGroupId Id of the variable group.
-     * @param projectIds String array of project ids.
+     * @param projectIds      String array of project ids.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
@@ -644,8 +675,9 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return null;
     }
 
-    /***
+    /**
      * Get a variable group.
+     *
      * @param variableGroupId Id of the variable group.
      * @return Variable group {@link VariableGroup}
      * @throws AzDException Default Api Exception handler.
@@ -658,8 +690,9 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return MAPPER.mapJsonResponse(r, VariableGroup.class);
     }
 
-    /***
+    /**
      * Get variable groups.
+     *
      * @return Variable groups object {@link VariableGroups}
      * @throws AzDException Default Api Exception handler.
      */
@@ -671,8 +704,9 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return MAPPER.mapJsonResponse(r, VariableGroups.class);
     }
 
-    /***
+    /**
      * Get variable groups.
+     *
      * @param top Number of variable groups to get.
      * @return Variable groups object {@link VariableGroups}
      * @throws AzDException Default Api Exception handler.
@@ -689,8 +723,9 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return MAPPER.mapJsonResponse(r, VariableGroups.class);
     }
 
-    /***
+    /**
      * Get variable groups.
+     *
      * @param groupName Name of variable group.
      * @return Variable groups object {@link VariableGroups}
      * @throws AzDException Default Api Exception handler.
@@ -707,13 +742,14 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return MAPPER.mapJsonResponse(r, VariableGroups.class);
     }
 
-    /***
+    /**
      * Get variable groups.
-     * @param top Number of variable groups to get.
-     * @param actionFilter Action filter for the variable group. It specifies the action which can be performed on the variable groups. {@link VariableGroupActionFilter}
+     *
+     * @param top               Number of variable groups to get.
+     * @param actionFilter      Action filter for the variable group. It specifies the action which can be performed on the variable groups. {@link VariableGroupActionFilter}
      * @param continuationToken Gets the variable groups after the continuation token provided.
-     * @param groupName Name of variable group.
-     * @param queryOrder Gets the results in the defined order. Default is 'IdDescending'. {@link VariableGroupQueryOrder}
+     * @param groupName         Name of variable group.
+     * @param queryOrder        Gets the results in the defined order. Default is 'IdDescending'. {@link VariableGroupQueryOrder}
      * @return Variable groups object {@link VariableGroups}
      * @throws AzDException Default Api Exception handler.
      */
@@ -734,12 +770,13 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return MAPPER.mapJsonResponse(r, VariableGroups.class);
     }
 
-    /***
+    /**
      * Update a variable group.
-     * @param groupId Id of the variable group to update.
-     * @param name Sets name of the variable group.
+     *
+     * @param groupId     Id of the variable group to update.
+     * @param name        Sets name of the variable group.
      * @param description Sets description of the variable group.
-     * @param variables Sets variables contained in the variable group.
+     * @param variables   Sets variables contained in the variable group.
      * @return Variable group {@link VariableGroup}
      * @throws AzDException Default Api Exception handler.
      */
@@ -762,9 +799,10 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return updateVariableGroup(groupId, definition);
     }
 
-    /***
+    /**
      * Update a variable group.
-     * @param groupId Id of the variable group to update.
+     *
+     * @param groupId                 Id of the variable group to update.
      * @param variableGroupDefinition Variable group definition {@link VariableGroupDefinition}
      * @return Variable group {@link VariableGroup}
      * @throws AzDException Default Api Exception handler.
@@ -795,8 +833,9 @@ public class DistributedTaskApi extends AzDAsyncApi<DistributedTaskApi> implemen
         return MAPPER.mapJsonResponse(r, VariableGroup.class);
     }
 
-    /***
+    /**
      * Helper method to convert integer array to string.
+     *
      * @param i integer array
      * @return {@link String}
      */

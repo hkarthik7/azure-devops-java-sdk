@@ -7,15 +7,15 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
 import java.util.List;
 
 /**
- * A value that indicates whether builds can be queued against this definition. 
+ * A value that indicates whether builds can be queued against this definition.
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DataSourceBindingBase extends BaseAbstractMethod {
+public class DataSourceBindingBase extends SerializableEntity {
     /**
      * Pagination format supported by this data source(ContinuationToken/SkipTop).
      **/

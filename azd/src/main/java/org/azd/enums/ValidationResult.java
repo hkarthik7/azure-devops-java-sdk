@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * None 
+ * None
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public enum ValidationResult {

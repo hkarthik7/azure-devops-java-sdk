@@ -1,8 +1,7 @@
 package org.azd.interfaces;
 
 import org.azd.build.types.*;
-import org.azd.enums.SourceProviderResultSet;
-import org.azd.enums.StageUpdateType;
+import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
 
 import java.io.InputStream;
@@ -40,10 +39,10 @@ public interface BuildDetails {
 
     Builds getBuilds(
             int top, String branchName, String buildNumber, String continuationToken, int[] definitions,
-            String deletedFilter, int maxBuildsPerDefinition, String maxTime, String minTime,
-            String[] properties, String queryOrder, int[] queues, String reasonFilter,
-            String repositoryId, String repositoryType, String requestedFor, String resultFilter,
-            String statusFilter, String tagFilters) throws AzDException;
+            QueryDeletedOption deletedFilter, int maxBuildsPerDefinition, String maxTime, String minTime,
+            String[] properties, BuildQueryOrder queryOrder, int[] queues, BuildReason reasonFilter,
+            String repositoryId, String repositoryType, String requestedFor, BuildResult resultFilter,
+            BuildStatus statusFilter, String tagFilters) throws AzDException;
 
     Build queueBuild(int definitionId) throws AzDException;
 
@@ -60,6 +59,8 @@ public interface BuildDetails {
     BuildController getBuildController(int controllerId) throws AzDException;
 
     BuildDefinition createBuildDefinition(String buildDefinitionParameters) throws AzDException;
+
+    BuildDefinition createBuildDefinition(BuildDefinition buildDefinition, Number definitionToCloneId, Number definitionToCloneRevision) throws AzDException;
 
     BuildDefinition cloneBuildDefinition(String definitionName, String definitionCloneName) throws AzDException;
 
@@ -85,15 +86,15 @@ public interface BuildDetails {
     BuildDefinitions getBuildDefinitions(
             String builtAfter, String continuationToken, boolean includeAllProperties,
             boolean includeLatestBuilds, String minMetricsTime, String notBuiltAfter,
-            String path, int processType, String queryOrder, String repositoryId,
+            String path, int processType, DefinitionQueryOrder queryOrder, String repositoryId,
             String repositoryType, String taskIdFilter, String yamlFilename) throws AzDException;
 
     BuildDefinition restoreBuildDefinition(int definitionId, boolean deleted) throws AzDException;
 
     BuildDefinition updateBuildDefinition(BuildDefinition definition) throws AzDException;
 
-    BuildDefinition updateBuildDefinition(BuildDefinition definition, int secretsSourceDefinitionId,
-                                          int secretsSourceDefinitionRevision) throws AzDException;
+    BuildDefinition updateBuildDefinition(BuildDefinition definition, Number secretsSourceDefinitionId,
+                                          Number secretsSourceDefinitionRevision) throws AzDException;
 
     Folder createFolder(String path, Folder folder) throws AzDException;
 
@@ -101,15 +102,17 @@ public interface BuildDetails {
 
     Folders getFolders() throws AzDException;
 
+    Folders getFolders(String path, FolderQueryOrder queryOrder) throws AzDException;
+
     Folder updateFolder(String path, Folder folder) throws AzDException;
 
     BuildTags addBuildTag(int buildId, String tag) throws AzDException;
 
-    BuildTags addBuildTags(int buildId, String[] tags) throws AzDException;
+    BuildTags addBuildTags(int buildId, List<String> tags) throws AzDException;
 
     BuildTags addDefinitionTag(int definitionId, String tag) throws AzDException;
 
-    BuildTags addDefinitionTags(int definitionId, String[] tags) throws AzDException;
+    BuildTags addDefinitionTags(int definitionId, List<String> tags) throws AzDException;
 
     BuildTags deleteBuildTag(int buildId, String tag) throws AzDException;
 
@@ -125,14 +128,14 @@ public interface BuildDetails {
 
     BuildTags getTags() throws AzDException;
 
-    BuildTags updateBuildTags(int buildId, String[] tags, boolean toRemove) throws AzDException;
+    BuildTags updateBuildTags(int buildId, List<String> tags, boolean toRemove) throws AzDException;
 
-    BuildTags updateDefinitionTags(int definitionId, String[] tags, boolean toRemove) throws AzDException;
+    BuildTags updateDefinitionTags(int definitionId, List<String> tags, boolean toRemove) throws AzDException;
 
     YamlBuild getYaml(int definitionId) throws AzDException;
 
     YamlBuild getYaml(int definitionId, boolean includeLatestBuilds, String minMetricsTime,
-                      String[] propertyFilters, int revision) throws AzDException;
+                      String[] propertyFilters, Number revision) throws AzDException;
 
     Void updateBuildStage(int buildId, String stageReferenceName, boolean forceRetryAllJobs, StageUpdateType state) throws AzDException;
 
@@ -144,9 +147,9 @@ public interface BuildDetails {
 
     SourceProviderAttributes getSourceProviders() throws AzDException;
 
-    SourceProvideBranches getBranches(String providerName, String serviceEndpointId, String repositoryName) throws AzDException;
+    SourceProviderBranches getBranches(String providerName, String serviceEndpointId, String repositoryName) throws AzDException;
 
-    SourceProvideBranches getBranches(String providerName, String serviceEndpointId, String repositoryName, String branchName) throws AzDException;
+    SourceProviderBranches getBranches(String providerName, String serviceEndpointId, String repositoryName, String branchName) throws AzDException;
 
     SourceRepositories getRepositories(String providerName, String serviceEndpointId) throws AzDException;
 
@@ -175,5 +178,4 @@ public interface BuildDetails {
     BuildArtifacts getArtifacts(int buildId) throws AzDException;
 
     Attachments getAttachments(int buildId, String type) throws AzDException;
-
 }

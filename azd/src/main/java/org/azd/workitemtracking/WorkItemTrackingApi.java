@@ -20,12 +20,12 @@ import java.util.Map.Entry;
 import static org.azd.helpers.URLHelper.encodeSpace;
 import static org.azd.utils.RestClient.send;
 
-/***
+/**
  * WorkItem Tracking class to manage work items API
  */
 public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implements WorkItemTrackingDetails {
 
-    /***
+    /**
      * Connection object
      */
     private final Connection CONNECTION;
@@ -33,19 +33,21 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
     private final String AREA = "wit";
     private final String WIT = "5264459e-e5e0-4bd8-b118-0985e68a4ec5";
 
-    /***
+    /**
      * Pass the connection object to work with WorkItem Tracking Api
+     *
      * @param connection Connection object
      */
     public WorkItemTrackingApi(Connection connection) {
         this.CONNECTION = connection;
     }
 
-    /***
+    /**
      * Creates a single work item.
+     *
      * @param workItemType The work item type of the work item to create. e.g., "user story", "bug", "task"
-     * @param operation The patch operation {@link WorkItemOperation}
-     * @param title The title for the work item
+     * @param operation    The patch operation {@link WorkItemOperation}
+     * @param title        The title for the work item
      * @return {@link WorkItem}
      * @throws AzDException Default Api Exception handler.
      */
@@ -67,13 +69,14 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return MAPPER.mapJsonResponse(r, WorkItem.class);
     }
 
-    /***
+    /**
      * Creates a single work item.
+     *
      * @param workItemType The work item type of the work item to create. e.g., "user story", "bug", "task"
-     * @param operation The patch operation {@link WorkItemOperation}
-     * @param title The title for the work item
-     * @param description Description for the work item
-     * @param tags Tags for the work item
+     * @param operation    The patch operation {@link WorkItemOperation}
+     * @param title        The title for the work item
+     * @param description  Description for the work item
+     * @param tags         Tags for the work item
      * @return {@link WorkItem}
      * @throws AzDException Default Api Exception handler.
      */
@@ -114,13 +117,14 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return MAPPER.mapJsonResponse(r, WorkItem.class);
     }
 
-    /***
+    /**
      * Creates a single work item optionally with additional fields.
-     * @param workItemType The work item type of the work item to create. e.g., "user story", "bug", "task"
-     * @param title The title for the work item
-     * @param description Description for the work item
+     *
+     * @param workItemType     The work item type of the work item to create. e.g., "user story", "bug", "task"
+     * @param title            The title for the work item
+     * @param description      Description for the work item
      * @param additionalFields Provide the additional fields as a HashMap to create the work item.
-     * This requires the internal fields to be specified. E.g., System.Tags, System.AreaPath, System.State, System.Reason etc.,
+     *                         This requires the internal fields to be specified. E.g., System.Tags, System.AreaPath, System.State, System.Reason etc.,
      * @return {@link WorkItem}
      * @throws AzDException Default Api Exception handler.
      */
@@ -164,8 +168,9 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return MAPPER.mapJsonResponse(r, WorkItem.class);
     }
 
-    /***
+    /**
      * Deletes the specified work item and sends it to the Recycle Bin, so that it can be restored back, if required.
+     *
      * @param id ID of the work item to be deleted
      * @return {@link WorkItemDelete}
      * @throws AzDException Default Api Exception handler.
@@ -178,14 +183,15 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return MAPPER.mapJsonResponse(r, WorkItemDelete.class);
     }
 
-    /***
+    /**
      * Deletes the specified work item permanently if the destroy parameter has been set to true,
      * WARNING: If the destroy parameter is set to true, work items deleted by this command will
      * NOT go to recycle-bin and there is no way to restore/recover them after deletion.
      * It is recommended NOT to use this parameter. If you do, please use this parameter with extreme caution.
-     * @param id ID of the work item to be deleted
+     *
+     * @param id      ID of the work item to be deleted
      * @param destroy Optional parameter, if set to true, the work item is deleted permanently.
-     * Please note: the destroy action is PERMANENT and cannot be undone.
+     *                Please note: the destroy action is PERMANENT and cannot be undone.
      * @throws AzDException Default Api Exception handler.
      */
     @Override
@@ -205,8 +211,9 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return null;
     }
 
-    /***
+    /**
      * Returns a single work item.
+     *
      * @param id The work item id
      * @return WorkItem {@link WorkItem}
      * @throws AzDException Default Api Exception handler.
@@ -219,11 +226,12 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return MAPPER.mapJsonResponse(r, WorkItem.class);
     }
 
-    /***
+    /**
      * Returns a single work item.
-     * @param id The work item id
+     *
+     * @param id     The work item id
      * @param expand The expand parameters for work item attributes.
-     * Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
+     *               Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
      * @return WorkItem {@link WorkItem}
      * @throws AzDException Default Api Exception handler.
      */
@@ -239,12 +247,13 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return MAPPER.mapJsonResponse(r, WorkItem.class);
     }
 
-    /***
+    /**
      * Returns a single work item.
-     * @param id The work item id
+     *
+     * @param id     The work item id
      * @param expand The expand parameters for work item attributes.
-     * Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
-     * @param asOf AsOf UTC date time string
+     *               Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
+     * @param asOf   AsOf UTC date time string
      * @return WorkItem {@link WorkItem}
      * @throws AzDException Default Api Exception handler.
      */
@@ -261,11 +270,12 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return MAPPER.mapJsonResponse(r, WorkItem.class);
     }
 
-    /***
+    /**
      * Returns a single work item.
-     * @param id The work item id
+     *
+     * @param id     The work item id
      * @param expand The expand parameters for work item attributes.
-     * Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
+     *               Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
      * @param fields Comma-separated list of requested fields
      * @return WorkItem {@link WorkItem}
      * @throws AzDException Default Api Exception handler.
@@ -283,13 +293,14 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return MAPPER.mapJsonResponse(r, WorkItem.class);
     }
 
-    /***
+    /**
      * Returns a single work item.
-     * @param id The work item id
+     *
+     * @param id     The work item id
      * @param expand The expand parameters for work item attributes.
-     * Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
+     *               Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
      * @param fields Comma-separated list of requested fields
-     * @param asOf AsOf UTC date time string
+     * @param asOf   AsOf UTC date time string
      * @return WorkItem {@link WorkItem}
      * @throws AzDException Default Api Exception handler.
      */
@@ -307,8 +318,9 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return MAPPER.mapJsonResponse(r, WorkItem.class);
     }
 
-    /***
+    /**
      * Returns a list of work items (Maximum 200)
+     *
      * @param ids Integer array of requested work item ids. (Maximum 200 ids allowed).
      * @return {@link WorkItemList}
      * @throws AzDException Default Api Exception handler.
@@ -325,11 +337,12 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return MAPPER.mapJsonResponse(r, WorkItemList.class);
     }
 
-    /***
+    /**
      * Returns a list of work items (Maximum 200)
-     * @param ids Integer array of requested work item ids. (Maximum 200 ids allowed).
+     *
+     * @param ids    Integer array of requested work item ids. (Maximum 200 ids allowed).
      * @param expand The expand parameters for work item attributes.
-     * Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
+     *               Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
      * @return {@link WorkItemList}
      * @throws AzDException Default Api Exception handler.
      */
@@ -346,12 +359,13 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return MAPPER.mapJsonResponse(r, WorkItemList.class);
     }
 
-    /***
+    /**
      * Returns a list of work items (Maximum 200)
-     * @param ids Integer array of requested work item ids. (Maximum 200 ids allowed).
+     *
+     * @param ids    Integer array of requested work item ids. (Maximum 200 ids allowed).
      * @param expand The expand parameters for work item attributes.
-     * Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
-     * @param asOf AsOf UTC date time string
+     *               Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
+     * @param asOf   AsOf UTC date time string
      * @return {@link WorkItemList}
      * @throws AzDException Default Api Exception handler.
      */
@@ -369,11 +383,12 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return MAPPER.mapJsonResponse(r, WorkItemList.class);
     }
 
-    /***
+    /**
      * Returns a list of work items (Maximum 200)
-     * @param ids Integer array of requested work item ids. (Maximum 200 ids allowed).
+     *
+     * @param ids    Integer array of requested work item ids. (Maximum 200 ids allowed).
      * @param expand The expand parameters for work item attributes.
-     * Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
+     *               Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
      * @param fields Comma-separated list of requested fields
      * @return {@link WorkItemList}
      * @throws AzDException Default Api Exception handler.
@@ -392,15 +407,16 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return MAPPER.mapJsonResponse(r, WorkItemList.class);
     }
 
-    /***
+    /**
      * Returns a list of work items (Maximum 200)
-     * @param ids Integer array of requested work item ids. (Maximum 200 ids allowed).
-     * @param expand The expand parameters for work item attributes.
-     * Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
-     * @param fields Comma-separated list of requested fields
-     * @param asOf AsOf UTC date time string
+     *
+     * @param ids         Integer array of requested work item ids. (Maximum 200 ids allowed).
+     * @param expand      The expand parameters for work item attributes.
+     *                    Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
+     * @param fields      Comma-separated list of requested fields
+     * @param asOf        AsOf UTC date time string
      * @param errorPolicy The flag to control error policy in a bulk get work items request.
-     * Possible options are {Fail, Omit}. {@link WorkItemErrorPolicy}
+     *                    Possible options are {Fail, Omit}. {@link WorkItemErrorPolicy}
      * @return {@link WorkItemList}
      * @throws AzDException Default Api Exception handler.
      */
@@ -421,8 +437,9 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return MAPPER.mapJsonResponse(r, WorkItemList.class);
     }
 
-    /***
+    /**
      * Returns the list of fully hydrated work item revisions.
+     *
      * @param workItemId The id of the work item
      * @return {@link WorkItemList}
      * @throws AzDException Default Api Exception handler.
@@ -435,11 +452,12 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return MAPPER.mapJsonResponse(r, WorkItemList.class);
     }
 
-    /***
+    /**
      * Returns the list of fully hydrated work item revisions.
+     *
      * @param workItemId The id of the work item
-     * @param expand The expand parameters for work item attributes.
-     * Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
+     * @param expand     The expand parameters for work item attributes.
+     *                   Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
      * @return {@link WorkItemList}
      * @throws AzDException Default Api Exception handler.
      */
@@ -455,14 +473,14 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return MAPPER.mapJsonResponse(r, WorkItemList.class);
     }
 
-    /***
-     *
+    /**
      * Returns the list of fully hydrated work item revisions, paged.
+     *
      * @param workItemId The id of the work item
-     * @param expand The expand parameters for work item attributes.
-     * Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
-     * @param top Specify top pages to list
-     * @param skip Specify to skip pages
+     * @param expand     The expand parameters for work item attributes.
+     *                   Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
+     * @param top        Specify top pages to list
+     * @param skip       Specify to skip pages
      * @return {@link WorkItemList}
      * @throws AzDException Default Api Exception handler.
      */
@@ -480,9 +498,10 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return MAPPER.mapJsonResponse(r, WorkItemList.class);
     }
 
-    /***
+    /**
      * Returns a fully hydrated work item for the requested revision
-     * @param workItemId The id of the work item
+     *
+     * @param workItemId     The id of the work item
      * @param revisionNumber The work item revision number
      * @return {@link WorkItem}
      * @throws AzDException Default Api Exception handler.
@@ -496,12 +515,13 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return MAPPER.mapJsonResponse(r, WorkItem.class);
     }
 
-    /***
+    /**
      * Returns a fully hydrated work item for the requested revision
-     * @param workItemId The id of the work item
+     *
+     * @param workItemId     The id of the work item
      * @param revisionNumber The work item revision number
-     * @param expand The expand parameters for work item attributes.
-     * Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
+     * @param expand         The expand parameters for work item attributes.
+     *                       Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
      * @return {@link WorkItem}
      * @throws AzDException Default Api Exception handler.
      */
@@ -518,9 +538,10 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return MAPPER.mapJsonResponse(r, WorkItem.class);
     }
 
-    /***
+    /**
      * Gets the results of the query given its WIQL.
-     * @param team Team ID or team name
+     *
+     * @param team  Team ID or team name
      * @param query Specify the query to list the work items. E.g., "Select * From WorkItems Where [System.WorkItemType] = 'User Story'"
      * @return WorkItemQueryResult {@link WorkItemQueryResult}
      * @throws AzDException Handles errors from REST API and validates passed arguments
@@ -537,11 +558,12 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return MAPPER.mapJsonResponse(r, WorkItemQueryResult.class);
     }
 
-    /***
+    /**
      * Gets the results of the query given its WIQL.
-     * @param team Team ID or team name
-     * @param query Specify the query to list the work items. E.g., "Select * From WorkItems Where [System.WorkItemType] = 'User Story'"
-     * @param top The max number of results to return.
+     *
+     * @param team          Team ID or team name
+     * @param query         Specify the query to list the work items. E.g., "Select * From WorkItems Where [System.WorkItemType] = 'User Story'"
+     * @param top           The max number of results to return.
      * @param timePrecision The max number of results to return.
      * @return WorkItemQueryResult {@link WorkItemQueryResult}
      * @throws AzDException Handles errors from REST API and validates passed arguments
@@ -563,8 +585,9 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return MAPPER.mapJsonResponse(r, WorkItemQueryResult.class);
     }
 
-    /***
+    /**
      * Destroys the specified work item permanently from the Recycle Bin. This action can not be undone.
+     *
      * @param id ID of the work item to be destroyed permanently
      * @throws AzDException Handles errors from REST API and validates passed arguments
      */
@@ -580,8 +603,9 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return null;
     }
 
-    /***
+    /**
      * Gets a deleted work item from Recycle Bin.
+     *
      * @param id ID of the work item to be returned
      * @return WorkItemDeleteReference {@link WorkItemDeleteReference}
      * @throws AzDException Handles errors from REST API and validates passed arguments
@@ -594,8 +618,9 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return MAPPER.mapJsonResponse(r, WorkItemDeleteReference.class);
     }
 
-    /***
+    /**
      * Gets a list of the IDs and the URLs of the deleted the work items in the Recycle Bin.
+     *
      * @return WorkItemDeleteShallowReferences {@link WorkItemDeleteShallowReferences}
      * @throws AzDException Handles errors from REST API and validates passed arguments
      */
@@ -607,8 +632,9 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return MAPPER.mapJsonResponse(r, WorkItemDeleteShallowReferences.class);
     }
 
-    /***
+    /**
      * Gets the work items from the recycle bin, whose IDs have been specified in the parameters
+     *
      * @param ids array of workitem ids
      * @return WorkItemDeleteReferences {@link WorkItemDeleteReferences}
      * @throws AzDException Handles errors from REST API and validates passed arguments
@@ -625,8 +651,9 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return MAPPER.mapJsonResponse(r, WorkItemDeleteReferences.class);
     }
 
-    /***
+    /**
      * Restores the deleted work item from Recycle Bin.
+     *
      * @param id ID of the work item to be restored
      * @return WorkItemDeleteReference {@link WorkItemDeleteReference}
      * @throws AzDException Handles errors from REST API and validates passed arguments
@@ -643,9 +670,10 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return MAPPER.mapJsonResponse(r, WorkItemDeleteReference.class);
     }
 
-    /***
+    /**
      * Update a single work item with the internal field names.
-     * @param workItemId The id of the work item to update
+     *
+     * @param workItemId     The id of the work item to update
      * @param fieldsToUpdate HashMap of internal field names to update. E.g., System.Title, System.Description etc and it's associated values.
      * @return The updated {@link WorkItem}.
      * @throws AzDException Handles errors from REST API and validates passed arguments.
@@ -656,11 +684,12 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return updateWorkItem(workItemId, fieldsToUpdate, WorkItemOperation.ADD);
     }
 
-    /***
+    /**
      * Update a single work item with the internal field names.
-     * @param workItemId The id of the work item to update
+     *
+     * @param workItemId     The id of the work item to update
      * @param fieldsToUpdate HashMap of internal field names to update. E.g., System.Title, System.Description etc and it's associated values.
-     * @param operation The {@link WorkItemOperation}.
+     * @param operation      The {@link WorkItemOperation}.
      * @return WorkItem {@link WorkItem}
      * @throws AzDException Handles errors from REST API and validates passed arguments.
      */
@@ -689,14 +718,15 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return MAPPER.mapJsonResponse(r, WorkItem.class);
     }
 
-    /***
+    /**
      * Update a single work item with the internal field names. The operation type that will be used is {@link WorkItemOperation#ADD}.
-     * @param workItemId The id of the work item to update
-     * @param expand  The expand parameters for work item attributes. Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
-     * @param bypassRules Do not enforce the work item type rules on this update
+     *
+     * @param workItemId            The id of the work item to update
+     * @param expand                The expand parameters for work item attributes. Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
+     * @param bypassRules           Do not enforce the work item type rules on this update
      * @param suppressNotifications Do not fire any notifications for this change
-     * @param validateOnly Indicate if you only want to validate the changes without saving the work item
-     * @param fieldsToUpdate HashMap of internal field names to update. E.g., System.Title, System.Description etc and it's associated values.
+     * @param validateOnly          Indicate if you only want to validate the changes without saving the work item
+     * @param fieldsToUpdate        HashMap of internal field names to update. E.g., System.Title, System.Description etc and it's associated values.
      * @return WorkItemDeleteReference {@link WorkItemDeleteReference}
      * @throws AzDException Handles errors from REST API and validates passed arguments.
      */
@@ -709,15 +739,16 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
                 WorkItemOperation.ADD);
     }
 
-    /***
+    /**
      * Update a single work item with the internal field names.
-     * @param workItemId The id of the work item to update
-     * @param expand The expand parameters for work item attributes. Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
-     * @param bypassRules Do not enforce the work item type rules on this update
+     *
+     * @param workItemId            The id of the work item to update
+     * @param expand                The expand parameters for work item attributes. Possible options are { None, Relations, Fields, Links, All }. {@link WorkItemExpand}
+     * @param bypassRules           Do not enforce the work item type rules on this update
      * @param suppressNotifications Do not fire any notifications for this change
-     * @param validateOnly Indicate if you only want to validate the changes without saving the work item
-     * @param fieldsToUpdate HashMap of internal field names to update. E.g., System.Title, System.Description etc and it's associated values.
-     * @param operation The {@link WorkItemOperation}.
+     * @param validateOnly          Indicate if you only want to validate the changes without saving the work item
+     * @param fieldsToUpdate        HashMap of internal field names to update. E.g., System.Title, System.Description etc and it's associated values.
+     * @param operation             The {@link WorkItemOperation}.
      * @return WorkItem {@link WorkItem}
      * @throws AzDException Handles errors from REST API and validates passed arguments.
      */
@@ -852,8 +883,9 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return MAPPER.mapJsonResponse(reply, WorkItem.class);
     }
 
-    /***
+    /**
      * Returns the list of work item types
+     *
      * @return list of Work Item type {@link WorkItemTypes}
      * @throws AzDException Handles errors from REST API and validates passed arguments
      */
@@ -865,8 +897,9 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return MAPPER.mapJsonResponse(r, WorkItemTypes.class);
     }
 
-    /***
+    /**
      * Returns a work item type definition.
+     *
      * @param workItemTypeName provide the work item type name. e.g., Bug or user story etc.
      * @return work item type {@link WorkItemType}
      * @throws AzDException Handles errors from REST API and validates passed arguments
@@ -990,12 +1023,12 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      * that the attachment should already be created using createAttachment method.
      *
      * @param workItemId     Id of the work item.
-     * @param fieldsToUpdate Map of url and comments.
-     *                       {@code}
-     *                       E.g., var attachments = new HashMap&#60;String, Object&#62;(){{
-     *                       put("https://url/of/attachment", "This is a comment");
+     * @param fieldsToUpdate Map of url and comments. 
+     *                       {@code
+     *                       var attachments = new HashMap<String, Object>() {{
+     *                          put("https://url/of/attachment", "This is a comment");
      *                       }};
-     *                       {@code}
+     *                       }
      * @return The work item object. WorkItem {@link WorkItem}
      * @throws AzDException Handles errors from REST API and validates passed arguments.
      */
@@ -1045,7 +1078,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      */
     @Override
     public WorkItem removeWorkItemAttachment(int workItemId, List<String> attachmentUrl) throws AzDException {
-        if (attachmentUrl.size() <= 0) {
+        if (attachmentUrl.size() == 0) {
             throw new AzDException("The attachment url list cannot be null. Please validate the argument before passing");
         }
 
@@ -1114,7 +1147,9 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      **/
     @Override
     public WorkItemFieldTypes getWorkItemFields(GetFieldsExpand expand) throws AzDException {
-        var q = new HashMap<String, String>(){{ put("$expand", expand.name().toLowerCase()); }};
+        var q = new HashMap<String, String>() {{
+            put("$expand", expand.name().toLowerCase());
+        }};
 
         String res = send(RequestMethod.GET, CONNECTION, null, null, AREA,
                 null, "fields", ApiVersion.WORK_ITEM_TYPES, q, null, null);
@@ -1181,7 +1216,9 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      **/
     @Override
     public WorkItemField updateWorkItemField(String fieldNameOrRefName, boolean isDeleted) throws AzDException {
-        var b = new UpdateWorkItemField(){{ setDeleted(isDeleted); }};
+        var b = new UpdateWorkItemField() {{
+            setDeleted(isDeleted);
+        }};
 
         String res = send(RequestMethod.PATCH, CONNECTION, null, null, AREA,
                 null, "fields/" + URLHelper.encodeSpecialWithSpace(fieldNameOrRefName), ApiVersion.WORK_ITEM_TYPES, null, b, CustomHeader.JSON_CONTENT_TYPE);
@@ -1198,7 +1235,9 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      **/
     @Override
     public ProcessMigrationResultModel migrateProjectProcess(String processId) throws AzDException {
-        var b = new ProcessIdModel(){{ setTypeId(processId); }};
+        var b = new ProcessIdModel() {{
+            setTypeId(processId);
+        }};
 
         String res = send(RequestMethod.POST, CONNECTION, WIT, CONNECTION.getProject(), AREA,
                 null, "projectprocessmigration", ApiVersion.WORK_ITEM_MIGRATE, null, b, CustomHeader.JSON_CONTENT_TYPE);
@@ -1240,15 +1279,15 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
     /**
      * Gets the root queries and their children
      *
-     * @param depth In the folder of queries, return child queries and folders to this depth.
-     * @param expand Include the query string (wiql), clauses, query result columns, and sort options in the results.
+     * @param depth          In the folder of queries, return child queries and folders to this depth.
+     * @param expand         Include the query string (wiql), clauses, query result columns, and sort options in the results.
      * @param includeDeleted Include deleted queries and folders
      * @return A list of QueryHierarchyItem Object {@link QueryHierarchyItems}
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public QueryHierarchyItems getQueries(int depth, QueryExpand expand, boolean includeDeleted) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$depth", depth);
             put("$expand", expand.name().toLowerCase());
             put("$includeDeleted", includeDeleted);
@@ -1278,17 +1317,17 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
     /**
      * Retrieves an individual query and its children
      *
-     * @param query ID or path of the query.
-     * @param depth In the folder of queries, return child queries and folders to this depth.
-     * @param expand Include the query string (wiql), clauses, query result columns, and sort options in the results.
-     * @param includeDeleted Include deleted queries and folders
+     * @param query            ID or path of the query.
+     * @param depth            In the folder of queries, return child queries and folders to this depth.
+     * @param expand           Include the query string (wiql), clauses, query result columns, and sort options in the results.
+     * @param includeDeleted   Include deleted queries and folders
      * @param useIsoDateFormat DateTime query clauses will be formatted using a ISO 8601 compliant format
      * @return QueryHierarchyItem Object {@link QueryHierarchyItem}
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public QueryHierarchyItem getQuery(String query, int depth, QueryExpand expand, boolean includeDeleted, boolean useIsoDateFormat) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$depth", depth);
             put("$expand", expand.name().toLowerCase());
             put("$includeDeleted", includeDeleted);
@@ -1326,14 +1365,14 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
      * Gets a list of queries by ids (Maximum 1000)
      *
      * @param errorPolicy The flag to control error policy in a query batch request. Possible options are { Fail, Omit }.
-     * @param expand The expand parameters for queries. Possible options are { None, Wiql, Clauses, All, Minimal }
-     * @param ids The requested query ids
+     * @param expand      The expand parameters for queries. Possible options are { None, Wiql, Clauses, All, Minimal }
+     * @param ids         The requested query ids
      * @return QueryHierarchyItem Object {@link QueryHierarchyItem}
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public QueryHierarchyItems getQueryBatches(QueryErrorPolicy errorPolicy, QueryExpand expand, String[] ids) throws AzDException {
-        var b = new HashMap<String, Object>(){{
+        var b = new HashMap<String, Object>() {{
             put("errorPolicy", errorPolicy.name().toLowerCase());
             put("$expand", expand.name().toLowerCase());
             put("ids", ids);
@@ -1347,7 +1386,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
 
     @Override
     public QueryHierarchyItemsResult searchQuery(String filter) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$filter", filter);
         }};
 
@@ -1359,7 +1398,7 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
 
     @Override
     public QueryHierarchyItemsResult searchQuery(String filter, QueryExpand expand, boolean includeDeleted, int top) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$filter", filter);
             put("$includeDeleted", includeDeleted);
             put("$top", top);
@@ -1371,8 +1410,9 @@ public class WorkItemTrackingApi extends AzDAsyncApi<WorkItemTrackingApi> implem
         return MAPPER.mapJsonResponse(res, QueryHierarchyItemsResult.class);
     }
 
-    /***
+    /**
      * Helper method to convert integer array to string.
+     *
      * @param i integer array
      * @return {@link String}
      */

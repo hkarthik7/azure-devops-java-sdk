@@ -2,39 +2,39 @@ package org.azd.core.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Represents process
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Process extends BaseAbstractMethod {
-    /***
+public class Process extends SerializableEntity {
+    /**
      * Process id
      */
     @JsonProperty("id")
     private String id;
-    /***
+    /**
      * Description of a process
      */
     @JsonProperty("description")
     private String description;
-    /***
+    /**
      * If process is set as default or not
      */
     @JsonProperty("isDefault")
     private boolean isDefault;
-    /***
+    /**
      * Type of process
      */
     @JsonProperty("type")
     private String type;
-    /***
+    /**
      * Process url
      */
     @JsonProperty("url")
     private String url;
-    /***
+    /**
      * Name of the process
      */
     @JsonProperty("name")

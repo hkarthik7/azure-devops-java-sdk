@@ -1,5 +1,17 @@
 # Changelog
 
+# 6.0.0
+
+**Major release**
+**Breaking changes**
+
+- Pagination
+- Proxy configuration
+- Automatic retry
+- Fluent Api syntax
+- Issue: [#69](https://github.com/hkarthik7/azure-devops-java-sdk/issues/69)
+- PR: [Feature/v6.0 #75](https://github.com/hkarthik7/azure-devops-java-sdk/pull/75)
+
 # 5.0.13
 
 **Minor Incremental Release**

@@ -3,64 +3,64 @@ package org.azd.pipelines.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Pipeline Run object
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PipelineRun extends BaseAbstractMethod {
-    /***
+public class PipelineRun extends SerializableEntity {
+    /**
      * Pipeline created date
      */
     @JsonProperty("createdDate")
     private String createdDate;
-    /***
+    /**
      * YAML string
      */
     @JsonProperty("finalYaml")
     private String finalYaml;
-    /***
+    /**
      * Pipeline finished date
      */
     @JsonProperty("finishedDate")
     private String finishedDate;
-    /***
+    /**
      * Pipeline Id
      */
     @JsonProperty("id")
     private int id;
-    /***
+    /**
      * Name of the pipeline
      */
     @JsonProperty("name")
     private String name;
-    /***
+    /**
      * A reference to a Pipeline.
      */
     @JsonProperty("pipeline")
     private PipelineReference pipeline;
-    /***
+    /**
      * Pipeline resources
      */
     @JsonProperty("resources")
     private JsonNode resources;
-    /***
+    /**
      * Result
      */
     @JsonProperty("result")
     private String result;
-    /***
+    /**
      * State of the pipeline. E.g., Running
      */
     @JsonProperty("state")
     private String state;
-    /***
+    /**
      * URL of the pipeline
      */
     @JsonProperty("url")
     private String url;
-    /***
+    /**
      * Pipeline variables
      */
     @JsonProperty("variables")

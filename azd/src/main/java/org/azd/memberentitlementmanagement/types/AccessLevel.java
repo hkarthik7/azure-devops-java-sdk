@@ -2,44 +2,44 @@ package org.azd.memberentitlementmanagement.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * License assigned to a user
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AccessLevel extends BaseAbstractMethod {
-    /***
+public class AccessLevel extends SerializableEntity {
+    /**
      * Type of Account License (e.g. Express, Stakeholder etc.)
      */
     @JsonProperty("accountLicenseType")
     private String accountLicenseType;
-    /***
+    /**
      * Assignment Source of the License (e.g. Group, Unknown etc.
      */
     @JsonProperty("assignmentSource")
     private String assignmentSource;
-    /***
+    /**
      * Display name of the License
      */
     @JsonProperty("licenseDisplayName")
     private String licenseDisplayName;
-    /***
+    /**
      * Licensing Source (e.g. Account. MSDN etc.)
      */
     @JsonProperty("licensingSource")
     private String licensingSource;
-    /***
+    /**
      * Type of MSDN License (e.g. Visual Studio Professional, Visual Studio Enterprise etc.)
      */
     @JsonProperty("msdnLicenseType")
     private String msdnLicenseType;
-    /***
+    /**
      * User status in the account
      */
     @JsonProperty("status")
     private String status;
-    /***
+    /**
      * Status message.
      */
     @JsonProperty("statusMessage")

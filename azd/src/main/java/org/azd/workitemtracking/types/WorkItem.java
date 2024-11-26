@@ -2,41 +2,41 @@ package org.azd.workitemtracking.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
 import java.util.List;
 
-/***
+/**
  * Describes a work item.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItem extends BaseAbstractMethod {
-    /***
+public class WorkItem extends SerializableEntity {
+    /**
      * The work item ID.
      */
     @JsonProperty("id")
     private int id;
-    /***
+    /**
      * Revision number of the work item.
      */
     @JsonProperty("rev")
     private int rev;
-    /***
+    /**
      * Map of field and values for the work item.
      */
     @JsonProperty("fields")
     private WorkItemFields fields;
-    /***
+    /**
      * Relations of the work item.
      */
     @JsonProperty("relations")
     private List<WorkItemRelations> relations;
-    /***
+    /**
      * Link references to related REST resources.
      */
     @JsonProperty("_links")
     private Object _links;
-    /***
+    /**
      * Url of the work item.
      */
     @JsonProperty("url")

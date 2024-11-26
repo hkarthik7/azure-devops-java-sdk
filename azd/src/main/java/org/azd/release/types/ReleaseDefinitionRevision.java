@@ -2,50 +2,50 @@ package org.azd.release.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.abstractions.serializer.SerializableEntity;
 import org.azd.common.types.Author;
-import org.azd.common.types.BaseAbstractMethod;
 
-/***
+/**
  * Release definition revision
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReleaseDefinitionRevision extends BaseAbstractMethod {
-    /***
+public class ReleaseDefinitionRevision extends SerializableEntity {
+    /**
      * Gets api-version for revision object.
      */
     @JsonProperty("apiVersion")
     private String apiVersion;
-    /***
+    /**
      * Gets type of change.
      */
     @JsonProperty("changeType")
     private String changeType;
-    /***
+    /**
      * Gets the identity who did change.
      */
     @JsonProperty("changedBy")
     private Author changedBy;
-    /***
+    /**
      * Gets date on which ReleaseDefinition changed.
      */
     @JsonProperty("changedDate")
     private String changedDate;
-    /***
+    /**
      * Gets comments for revision.
      */
     @JsonProperty("comment")
     private String comment;
-    /***
+    /**
      * Get id of the definition.
      */
     @JsonProperty("definitionId")
     private int definitionId;
-    /***
+    /**
      * Gets definition URL.
      */
     @JsonProperty("definitionUrl")
     private String definitionUrl;
-    /***
+    /**
      * Get revision number of the definition.
      */
     @JsonProperty("revision")

@@ -1,36 +1,44 @@
 package org.azd.release.types;
 /**
-----------------------------------------------------------
-	GENERATED FILE, should be edited to suit the purpose.
-----------------------------------------------------------
-**/
+ * ----------------------------------------------------------
+ * GENERATED FILE, should be edited to suit the purpose.
+ * ----------------------------------------------------------
+ **/
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
 /**
- * None 
-**/
+ * None
+ **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class EnvironmentExecutionPolicy extends BaseAbstractMethod {
-	/**
- 	* This policy decides, how many environments would be with Environment Runner. 
-	**/
-	@JsonProperty("concurrencyCount")
-	private Integer concurrencyCount;
-	/**
- 	* Queue depth in the EnvironmentQueue table, this table keeps the environment entries till Environment Runner is free [as per it's policy] to take another environment for running. 
-	**/
-	@JsonProperty("queueDepthCount")
-	private Integer queueDepthCount;
+public class EnvironmentExecutionPolicy extends SerializableEntity {
+    /**
+     * This policy decides, how many environments would be with Environment Runner.
+     **/
+    @JsonProperty("concurrencyCount")
+    private Integer concurrencyCount;
+    /**
+     * Queue depth in the EnvironmentQueue table, this table keeps the environment entries till Environment Runner is free [as per it's policy] to take another environment for running.
+     **/
+    @JsonProperty("queueDepthCount")
+    private Integer queueDepthCount;
 
-	public Integer getConcurrencyCount() { return concurrencyCount; }
+    public Integer getConcurrencyCount() {
+        return concurrencyCount;
+    }
 
-	public void setConcurrencyCount(Integer concurrencyCount) { this.concurrencyCount = concurrencyCount; }
+    public void setConcurrencyCount(Integer concurrencyCount) {
+        this.concurrencyCount = concurrencyCount;
+    }
 
-	public Integer getQueueDepthCount() { return queueDepthCount; }
+    public Integer getQueueDepthCount() {
+        return queueDepthCount;
+    }
 
-	public void setQueueDepthCount(Integer queueDepthCount) { this.queueDepthCount = queueDepthCount; }
+    public void setQueueDepthCount(Integer queueDepthCount) {
+        this.queueDepthCount = queueDepthCount;
+    }
 
 }

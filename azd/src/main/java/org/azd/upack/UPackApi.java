@@ -17,11 +17,11 @@ import java.util.Map;
 
 import static org.azd.utils.RestClient.send;
 
-/***
+/**
  * UpackApi class to manage Universal Package artifact package api
  */
 public class UPackApi extends AzDAsyncApi<UPackApi> implements UpackDetails {
-    /***
+    /**
      * Connection object
      */
     private final Connection CONNECTION;
@@ -29,7 +29,7 @@ public class UPackApi extends AzDAsyncApi<UPackApi> implements UpackDetails {
     private final String AREA = "packaging";
     private final String UPACK = "d397749b-f115-4027-b6dd-77a65dd10d21";
 
-    /***
+    /**
      * Pass the connection object to work with Universal Package Api
      *
      * @param connection Connection object
@@ -38,7 +38,7 @@ public class UPackApi extends AzDAsyncApi<UPackApi> implements UpackDetails {
         this.CONNECTION = connection;
     }
 
-    /***
+    /**
      * Show information about a package version.
      *
      * @param feedId      Name or ID of the feed. Example: "ufeed".
@@ -55,7 +55,7 @@ public class UPackApi extends AzDAsyncApi<UPackApi> implements UpackDetails {
         return MAPPER.mapJsonResponse(r, Package.class);
     }
 
-    /***
+    /**
      * Show information about a package version.
      *
      * @param feedId      Name or ID of the feed. Example: "ufeed".
@@ -79,14 +79,14 @@ public class UPackApi extends AzDAsyncApi<UPackApi> implements UpackDetails {
         return MAPPER.mapJsonResponse(r, Package.class);
     }
 
-    /***
+    /**
      * Get information about a package version in the recycle bin.
      *
      * @param feedId      Name or ID of the feed. Example: "ufeed".
      * @param packageName Name of the package. Example: "upackage".
      * @param version     Version of the package. Example: "1.0.0".
      * @return UPackPackageVersionDeletionState
-     *         {@link UPackPackageVersionDeletionState}
+     * {@link UPackPackageVersionDeletionState}
      * @throws AzDException Default Api Exception handler.
      */
     @Override
@@ -99,7 +99,7 @@ public class UPackApi extends AzDAsyncApi<UPackApi> implements UpackDetails {
     }
 
 
-    /***
+    /**
      * Delete a package version from the feed and move it to the feed's recycle
      * bin.
      *
@@ -121,7 +121,7 @@ public class UPackApi extends AzDAsyncApi<UPackApi> implements UpackDetails {
 
     }
 
-    /***
+    /**
      * Permanently delete a package from a feed's recycle bin.
      *
      * @param feedId      Name or ID of the feed. Example: "ufeed".
@@ -142,7 +142,7 @@ public class UPackApi extends AzDAsyncApi<UPackApi> implements UpackDetails {
         }
     }
 
-    /***
+    /**
      * Update information for a package version. (eg. prelease, release)
      *
      * @param feedId      Name or ID of the feed. Example: "ufeed".
@@ -158,7 +158,7 @@ public class UPackApi extends AzDAsyncApi<UPackApi> implements UpackDetails {
         updatePackageVersion(feedId, packageName, version, promote.toString().toLowerCase());
     }
 
-    /***
+    /**
      * Update information for a package version. (eg. prelease, release)
      *
      * @param feedId      Name or ID of the feed. Example: "ufeed".
@@ -171,13 +171,15 @@ public class UPackApi extends AzDAsyncApi<UPackApi> implements UpackDetails {
     public void updatePackageVersion(String feedId, String packageName, String version, String promote)
             throws AzDException {
 
-        var req = new HashMap<String, Object>(){{
+        var req = new HashMap<String, Object>() {{
             put("op", PackageOperation.ADD.toString());
             put("path", "/views/-");
             put("value", promote.toString()); // "prmote package type"
         }};
 
-        var body = new HashMap<String, Object>(){{ put("views", req); }};
+        var body = new HashMap<String, Object>() {{
+            put("views", req);
+        }};
 
         try {
             String r = send(RequestMethod.PATCH, CONNECTION, UPACK, CONNECTION.getProject(), AREA + "/feeds", feedId,
@@ -189,7 +191,7 @@ public class UPackApi extends AzDAsyncApi<UPackApi> implements UpackDetails {
         }
     }
 
-    /***
+    /**
      * Update several packages from a single feed in a single request. The updates
      * to the packages do not happen atomically.
      *
@@ -227,7 +229,7 @@ public class UPackApi extends AzDAsyncApi<UPackApi> implements UpackDetails {
         }
     }
 
-    /***
+    /**
      * Restore a package version from the recycle bin to its associated feed.
      *
      * @param feedId      Name or ID of the feed. Example: "ufeed".
@@ -249,7 +251,7 @@ public class UPackApi extends AzDAsyncApi<UPackApi> implements UpackDetails {
         }
     }
 
-    /***
+    /**
      * Delete or restore several package versions from the recycle bin.
      *
      * @param feedId    Name or ID of the feed. Example: "upack".

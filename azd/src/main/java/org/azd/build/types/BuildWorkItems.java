@@ -2,16 +2,16 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * Represents an array of workitems
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildWorkItems extends BaseAbstractMethod {
-    /***
+public class BuildWorkItems extends SerializableCollectionEntity {
+    /**
      * Represents an array of workitems
      */
     @JsonProperty("value")
@@ -24,7 +24,6 @@ public class BuildWorkItems extends BaseAbstractMethod {
     public void setBuildWorkItems(List<BuildWorkItem> value) {
         this.value = value;
     }
-
 
 
 }

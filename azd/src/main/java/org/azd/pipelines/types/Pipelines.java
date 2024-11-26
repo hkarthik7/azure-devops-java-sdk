@@ -2,16 +2,16 @@ package org.azd.pipelines.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableCollectionEntity;
 
 import java.util.List;
 
-/***
+/**
  * Defines a list of Pipeline object
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Pipelines extends BaseAbstractMethod {
-    /***
+public class Pipelines extends SerializableCollectionEntity {
+    /**
      * Defines a list of Pipeline object
      */
     @JsonProperty("value")

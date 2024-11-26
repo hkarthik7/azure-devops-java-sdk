@@ -1,37 +1,53 @@
 package org.azd.core.types;
+/*
+----------------------------------------------------------
+	GENERATED FILE, should be edited to suit the purpose.
+----------------------------------------------------------
+*/
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
- * Represents a team
- */
+/**
+ * Represents WebApiTeam
+ **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WebApiTeam extends BaseAbstractMethod {
-    /***
+public class WebApiTeam extends SerializableEntity {
+    /**
      * Team description
-     */
+     **/
     @JsonProperty("description")
     private String description;
-    /***
+    /**
      * Team (Identity) Guid. A Team Foundation ID.
-     */
+     **/
     @JsonProperty("id")
     private String id;
-    /***
-     * Team name
-     */
-    @JsonProperty("name")
-    private String name;
-    /***
+    /**
+     * Team identity.
+     **/
+    @JsonProperty("identity")
+    private Identity identity;
+    /**
      * Identity REST API Url to this team
-     */
+     **/
     @JsonProperty("identityUrl")
     private String identityUrl;
-    /***
+    /**
+     * Team name
+     **/
+    @JsonProperty("name")
+    private String name;
+
+    @JsonProperty("projectId")
+    private String projectId;
+
+    @JsonProperty("projectName")
+    private String projectName;
+    /**
      * Team REST API Url
-     */
+     **/
     @JsonProperty("url")
     private String url;
 
@@ -51,12 +67,12 @@ public class WebApiTeam extends BaseAbstractMethod {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Identity getIdentity() {
+        return identity;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setIdentity(Identity identity) {
+        this.identity = identity;
     }
 
     public String getIdentityUrl() {
@@ -65,6 +81,30 @@ public class WebApiTeam extends BaseAbstractMethod {
 
     public void setIdentityUrl(String identityUrl) {
         this.identityUrl = identityUrl;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
     public String getUrl() {

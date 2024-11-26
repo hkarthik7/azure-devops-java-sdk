@@ -17,7 +17,7 @@ class DocumentId(Enum):
     COMMENT = 'uri-parameters'
     RESPONSE = 'response'
     ATTRIBUTE = 'table'
-    DEFINITIONS_CLASS = 'nameValue'
+    DEFINITIONS_CLASS = 'table'
     COMMENTS_CLASS = 'parameters'
     RESPONSE_TYPE_CLASS = 'parameters definitions'
     TAG_PARA = 'p'
@@ -39,7 +39,6 @@ class ScrapeVsTsDocument(object):
     def __init__(self, url: str) -> None:
         self._url = url
 
-    @property
     def get_response(self) -> requests.Response:
         return requests.get(self._url)
 
@@ -105,7 +104,7 @@ class ScrapeVsTsDocument(object):
             return result
 
     def get_definitions(self) -> dict:
-        res = self.strip_content(self.get_response.text, f'id="{DocumentId.EXAMPLES.value}"',
+        res = self.strip_content(self.get_response().text, f'id="{DocumentId.EXAMPLES.value}"',
                                  f'id="{DocumentId.DEFINITIONS.value}"')
         if res != None:
             return self.get_attributes(
@@ -117,7 +116,7 @@ class ScrapeVsTsDocument(object):
                 DocumentId.DEFINITIONS_CLASS.value, [DocumentId.TAG_A.value, DocumentId.TAG_PARA.value])
 
     def get_comments(self) -> dict:
-        res = self.strip_content(self.get_response.text, f'id="{DocumentId.EXAMPLES.value}"',
+        res = self.strip_content(self.get_response().text, f'id="{DocumentId.EXAMPLES.value}"',
                                  f'id="{DocumentId.DEFINITIONS.value}"')
         if res != None:
             return self.get_attributes(
@@ -129,7 +128,7 @@ class ScrapeVsTsDocument(object):
                 DocumentId.COMMENTS_CLASS.value, [DocumentId.TAG_DIV.value, DocumentId.TAG_PARA.value])
 
     def get_response_type(self) -> dict:
-        res = self.strip_content(self.get_response.text, f'id="{DocumentId.EXAMPLES.value}"',
+        res = self.strip_content(self.get_response().text, f'id="{DocumentId.EXAMPLES.value}"',
                                  f'id="{DocumentId.DEFINITIONS.value}"')
         if res != None:
             return self.get_attributes(
@@ -196,7 +195,7 @@ if __name__ == "__main__":
         os.mkdir("types")
 
     scrape = ScrapeVsTsDocument(_url)
-    response = scrape.get_response
+    response = scrape.get_response()
 
     value_result = scrape.get_definitions()
     comments = scrape.get_comments()['URI Parameters']
@@ -255,7 +254,7 @@ if __name__ == "__main__":
                 f.write(f"\n/**\n * {value_result['Definitions'][key]} \n**/")
                 f.write("\n@JsonIgnoreProperties(ignoreUnknown = true)")
                 f.write(
-                    f"\npublic class {key} extends BaseAbstractMethod {{\n")
+                    f"\npublic class {key} extends SerializableEntity {{\n")
 
                 for v in value_result['SubDefinitions'].get(key):
                     if '[]' in str(v['Type']) and str(v['Type']) != 'string[]':

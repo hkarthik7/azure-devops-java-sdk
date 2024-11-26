@@ -2,13 +2,14 @@ package org.azd.common.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Common class to represent self reference link
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReferenceLink extends BaseAbstractMethod {
-    /***
+public class ReferenceLink extends SerializableEntity {
+    /**
      * Common class to represent self reference link
      */
     @JsonProperty("self")

@@ -36,10 +36,10 @@ public interface GitDetails {
             throws AzDException;
 
     GitPullRequest createPullRequest(String repositoryId, String sourceRefName, String targetRefName, String title,
-                                  String description, String[] reviewers) throws AzDException;
+                                     String description, String[] reviewers) throws AzDException;
 
     GitPullRequest createPullRequest(String repositoryId, String sourceRefName, String targetRefName, String title,
-                                  String description, boolean isDraft) throws AzDException;
+                                     String description, boolean isDraft) throws AzDException;
 
     GitPullRequest createPullRequest(GitPullRequest gitPullRequest) throws AzDException;
 
@@ -147,11 +147,11 @@ public interface GitDetails {
     GitRefs getRefs(String repositoryName) throws AzDException;
 
     GitRefs getRefs(String repositoryName, String filter) throws AzDException;
-    
+
     GitRefUpdateResult updateRef(String repositoryName, String refName, String oldObjectId, String newObjectId) throws AzDException;
-    
+
     GitRefUpdateResult createTag(String repositoryName, String tagName, String ref) throws AzDException;
-    
+
     GitRefUpdateResult deleteTag(String repositoryName, String tagName) throws AzDException;
 
 
@@ -180,10 +180,10 @@ public interface GitDetails {
                       VersionControlRecursionType recursionType, String scopePath, String version,
                       GitVersionOptions versionOptions, GitVersionType versionType) throws AzDException;
 
-    GitForkSyncRequest createForkSyncRequest(String repositoryName, String sourceCollectionId, String sourceProjectId, String sourceRepositoryId, 
+    GitForkSyncRequest createForkSyncRequest(String repositoryName, String sourceCollectionId, String sourceProjectId, String sourceRepositoryId,
                                              Boolean includeLinks) throws AzDException;
 
-    GitForkSyncRequest createForkSyncRequest(String repositoryName, String collectionId, String projectId, String repositoryId, 
+    GitForkSyncRequest createForkSyncRequest(String repositoryName, String collectionId, String projectId, String repositoryId,
                                              String sourceRef, String targetRef, Boolean includeLinks) throws AzDException;
 
     GitRepository createForkRepository(String repositoryName, String projectId, String parentProjectId, String parentRepositoryId) throws AzDException;
@@ -211,8 +211,12 @@ public interface GitDetails {
     GitPushes getPushes(String repositoryId) throws AzDException;
 
     GitStatus createPullRequestStatus(int pullRequestId, String repositoryId, GitStatus gitPullRequestStatus) throws AzDException;
+
     Void deletePullRequestStatus(int pullRequestId, String repositoryId, int statusId) throws AzDException;
+
     GitStatus getPullRequestStatus(int pullRequestId, String repositoryId, int statusId) throws AzDException;
+
     GitStatuses getPullRequestStatuses(int pullRequestId, String repositoryId) throws AzDException;
+
     Void updatePullRequestStatuses(int pullRequestId, String repositoryId, List<JsonPatchDocument> propertiesToUpdate) throws AzDException;
 }

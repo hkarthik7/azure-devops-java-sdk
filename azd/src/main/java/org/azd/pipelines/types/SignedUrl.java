@@ -2,19 +2,19 @@ package org.azd.pipelines.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * Signed url for downloading this artifact
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SignedUrl extends BaseAbstractMethod {
-    /***
+public class SignedUrl extends SerializableEntity {
+    /**
      * Timestamp when access expires.
      */
     @JsonProperty("signatureExpires")
     private String signatureExpires;
-    /***
+    /**
      * The URL to allow access to.
      */
     @JsonProperty("url")

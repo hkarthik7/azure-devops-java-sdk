@@ -2,19 +2,19 @@ package org.azd.core.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
-/***
+/**
  * A named value associated with a project.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ProjectProperty extends BaseAbstractMethod {
-    /***
+public class ProjectProperty extends SerializableEntity {
+    /**
      * The name of the property.
      */
     @JsonProperty("name")
     private String name;
-    /***
+    /**
      * The value of the property.
      */
     @JsonProperty("value")

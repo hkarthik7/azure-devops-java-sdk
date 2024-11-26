@@ -2,90 +2,90 @@ package org.azd.serviceendpoint.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonNode;
+import java.lang.Object;
+import org.azd.abstractions.serializer.SerializableEntity;
 import org.azd.common.types.Author;
-import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.List;
 
-/***
+/**
  * Represents an endpoint which may be used by an orchestration job.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ServiceEndpoint extends BaseAbstractMethod {
-    /***
+public class ServiceEndpoint extends SerializableEntity {
+    /**
      * Gets or sets the authorization data for talking to the endpoint.
      */
     @JsonProperty("authorization")
-    private JsonNode authorization;
-    /***
+    private EndpointAuthorization authorization;
+    /**
      * Gets or sets the identity reference for the user who created the Service endpoint.
      */
     @JsonProperty("createdBy")
     private Author createdBy;
     @JsonProperty("data")
-    private JsonNode data;
-    /***
+    private Object data;
+    /**
      * Gets or sets the description of endpoint.
      */
     @JsonProperty("description")
     private String description;
-    /***
+    /**
      * Gets or sets the identifier of this endpoint.
      */
     @JsonProperty("id")
     private String id;
-    /***
+    /**
      * EndPoint state indicator
      */
     @JsonProperty("isReady")
-    private boolean isReady;
-    /***
+    private Boolean isReady;
+    /**
      * Indicates whether service endpoint is shared with other projects or not.
      */
     @JsonProperty("isShared")
-    private boolean isShared;
-    /***
+    private Boolean isShared;
+    /**
      * Gets or sets the friendly name of the endpoint.
      */
     @JsonProperty("name")
     private String name;
-    /***
+    /**
      * Error message during creation/deletion of endpoint
      */
     @JsonProperty("operationStatus")
-    private JsonNode operationStatus;
-    /***
+    private Object operationStatus;
+    /**
      * Owner of the endpoint Supported values are "library", "agentcloud"
      */
     @JsonProperty("owner")
     private String owner;
-    /***
+    /**
      * Gets or sets the identity reference for the readers group of the service endpoint.
      */
     @JsonProperty("readersGroup")
     private Author readersGroup;
-    /***
+    /**
      * All other project references where the service endpoint is shared.
      */
     @JsonProperty("serviceEndpointProjectReferences")
     private List<ServiceEndpointProjectReference> serviceEndpointProjectReferences;
-    /***
+    /**
      * Gets or sets the type of the endpoint.
      */
     @JsonProperty("type")
     private String type;
-    /***
+    /**
      * Gets or sets the url of the endpoint.
      */
     @JsonProperty("url")
     private String url;
 
-    public JsonNode getAuthorization() {
+    public EndpointAuthorization getAuthorization() {
         return authorization;
     }
 
-    public void setAuthorization(JsonNode authorization) {
+    public void setAuthorization(EndpointAuthorization authorization) {
         this.authorization = authorization;
     }
 
@@ -97,11 +97,11 @@ public class ServiceEndpoint extends BaseAbstractMethod {
         this.createdBy = createdBy;
     }
 
-    public JsonNode getData() {
+    public Object getData() {
         return data;
     }
 
-    public void setData(JsonNode data) {
+    public void setData(Object data) {
         this.data = data;
     }
 
@@ -121,20 +121,22 @@ public class ServiceEndpoint extends BaseAbstractMethod {
         this.id = id;
     }
 
-    public boolean isReady() {
+    @JsonProperty("isReady")
+    public Boolean isReady() {
         return isReady;
     }
 
-    public void setReady(boolean ready) {
-        isReady = ready;
+    public void setIsReady(Boolean isReady) {
+        this.isReady = isReady;
     }
 
-    public boolean isShared() {
+    @JsonProperty("isShared")
+    public Boolean isShared() {
         return isShared;
     }
 
-    public void setShared(boolean shared) {
-        isShared = shared;
+    public void setIsShared(Boolean isShared) {
+        this.isShared = isShared;
     }
 
     public String getName() {
@@ -145,11 +147,11 @@ public class ServiceEndpoint extends BaseAbstractMethod {
         this.name = name;
     }
 
-    public JsonNode getOperationStatus() {
+    public Object getOperationStatus() {
         return operationStatus;
     }
 
-    public void setOperationStatus(JsonNode operationStatus) {
+    public void setOperationStatus(Object operationStatus) {
         this.operationStatus = operationStatus;
     }
 
@@ -192,6 +194,4 @@ public class ServiceEndpoint extends BaseAbstractMethod {
     public void setUrl(String url) {
         this.url = url;
     }
-
-
 }

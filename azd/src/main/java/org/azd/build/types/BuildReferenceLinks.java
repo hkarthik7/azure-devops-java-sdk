@@ -2,30 +2,30 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 import org.azd.common.types.Reference;
 
-/***
+/**
  * The class to represent a collection of REST reference links.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BuildReferenceLinks extends BaseAbstractMethod {
-    /***
+public class BuildReferenceLinks extends SerializableEntity {
+    /**
      * REST url of web service
      */
     @JsonProperty("web")
     private Reference web;
-    /***
+    /**
      * REST url pf source version
      */
     @JsonProperty("sourceVersionDisplayUri")
     private Reference sourceVersionDisplayUri;
-    /***
+    /**
      * REST url of build timeline
      */
     @JsonProperty("timeline")
     private Reference timeline;
-    /***
+    /**
      * REST url of build badge
      */
     @JsonProperty("badge")

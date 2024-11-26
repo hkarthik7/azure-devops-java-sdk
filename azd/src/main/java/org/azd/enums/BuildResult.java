@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Represents a trigger for a buld definition. 
+ * Represents a trigger for a buld definition.
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public enum BuildResult {

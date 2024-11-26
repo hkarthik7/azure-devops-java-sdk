@@ -2,27 +2,27 @@ package org.azd.core.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
 import java.util.Optional;
 
-/***
+/**
  * data object representing project feature
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ProjectFeature extends BaseAbstractMethod {
-    /***
+public class ProjectFeature extends SerializableEntity {
+    /**
      * string identifier for feature. See {@link org.azd.enums.FeatureManagement} for in-library usage
      */
     @JsonProperty("featureId")
     String featureId;
-    /***
+    /**
      * current state of feature in project. This is one of 'enabled', 'disabled', or 'undefined'
      * Call to set feature state in a '0' or '1' instead
      */
     @JsonProperty("state")
     String state;
-    /***
+    /**
      * presumably the applicable scope of feature. Not documented so ignore
      */
     @JsonProperty("scope")
@@ -65,13 +65,13 @@ public class ProjectFeature extends BaseAbstractMethod {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public class Scope extends BaseAbstractMethod {
-        /***
+    public static class Scope extends SerializableEntity {
+        /**
          * scope value. Undocumented in Azdo api
          */
         @JsonProperty("userScoped")
         boolean userScoped;
-        /***
+        /**
          * scope setting. Undocumented in Azdo api
          */
         @JsonProperty("settingScope")

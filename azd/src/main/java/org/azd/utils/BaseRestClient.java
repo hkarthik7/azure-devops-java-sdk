@@ -14,11 +14,12 @@ import java.util.concurrent.CompletableFuture;
 /**
  * BaseRestClient that encapsulates the logic for managing request and response for REST API.
  */
+@Deprecated(since = "v6.0")
 public abstract class BaseRestClient {
     private static final String AUTHORIZATION = "Authorization";
+    private static final HttpClient HTTP_CLIENT = HttpClient.newHttpClient();
     private static HttpClient.Redirect REDIRECT_POLICY = HttpClient.Redirect.NORMAL;
     private static final HttpClient CLIENT = HttpClient.newBuilder().followRedirects(REDIRECT_POLICY).build();
-    private static final HttpClient HTTP_CLIENT = HttpClient.newHttpClient();
 
     /**
      * Encodes the personal access token to base 64
@@ -31,35 +32,35 @@ public abstract class BaseRestClient {
                 Base64.getEncoder().encodeToString(("" + ":" + token).getBytes());
     }
 
-    /***
+    /**
      * Http request builder
      *
      * @param requestUrl request url
-     * @param token personal access token
+     * @param token      personal access token
      * @return HttpRequest object to build
      */
     private static HttpRequest.Builder build(String requestUrl, String token) {
-        if (token == null)
-            return HttpRequest
-                    .newBuilder()
-                    .uri(URI.create(requestUrl));
-
-        return HttpRequest
+        var req = HttpRequest
                 .newBuilder()
-                .uri(URI.create(requestUrl))
-                .setHeader(AUTHORIZATION, encodePersonalAccessToken(token));
+                .uri(URI.create(requestUrl));
+
+        if (token == null)
+            return req;
+
+        return req.setHeader(AUTHORIZATION, encodePersonalAccessToken(token));
     }
 
-    /***
+    /**
      * Response from API for the given request
-     * @param r pass the Http request object
-     * @param handler HttpResponse body handler
+     *
+     * @param r        pass the Http request object
+     * @param handler  HttpResponse body handler
      * @param callback If true client will be built with redirect policy
      * @return String response from API
      */
     private static <T> CompletableFuture<HttpResponse<T>> request(HttpRequest r, HttpResponse.BodyHandler<T> handler,
                                                                   boolean callback) {
-        if (callback)  return CLIENT.sendAsync(r, handler);
+        if (callback) return CLIENT.sendAsync(r, handler);
         return HTTP_CLIENT.sendAsync(r, handler);
     }
 
@@ -86,26 +87,26 @@ public abstract class BaseRestClient {
      *
      * @param requestUrl  pass the request url
      * @param token       pass the personal access token
-     * @param handler HttpResponse body handler
+     * @param handler     HttpResponse body handler
      * @param contentType specify the content type
-     * @param callback If true client will be built with redirect policy
+     * @param callback    If true client will be built with redirect policy
      * @return response string from the API
      */
     public static <T> CompletableFuture<HttpResponse<T>> get(String requestUrl, String token, HttpResponse.BodyHandler<T> handler,
-                                                         CustomHeader contentType, boolean callback) {
+                                                             CustomHeader contentType, boolean callback) {
         return request(build(requestUrl, token).GET().header(contentType.getName(), contentType.getValue()).build(),
                 handler, callback);
     }
 
-    /***
+    /**
      * Sends a POST request to REST API with oauth authentication, content length of the request and request body
      *
-     * @param requestUrl pass the request url
-     * @param token pass the personal access token
-     * @param publisher BodyPublisher with request body
-     * @param handler HttpResponse body handlers
+     * @param requestUrl  pass the request url
+     * @param token       pass the personal access token
+     * @param publisher   BodyPublisher with request body
+     * @param handler     HttpResponse body handlers
      * @param contentType Content type for setting headers
-     * @param callback If true client will be built with redirect policy
+     * @param callback    If true client will be built with redirect policy
      * @return response string from the API if any
      * @throws AzDException throws user friendly error message with error code from API
      */
@@ -122,18 +123,18 @@ public abstract class BaseRestClient {
     /**
      * Sends a PATCH request to REST API with basic authentication and request body
      *
-     * @param requestUrl pass the request url
-     * @param token      pass the personal access token
-     * @param publisher BodyPublisher with request body
-     * @param handler HttpResponse body handlers
+     * @param requestUrl  pass the request url
+     * @param token       pass the personal access token
+     * @param publisher   BodyPublisher with request body
+     * @param handler     HttpResponse body handlers
      * @param contentType Content type for setting headers
-     * @param callback If true client will be built with redirect policy
+     * @param callback    If true client will be built with redirect policy
      * @return response string from the API if any
      * @throws AzDException throws user friendly error message with error code from API
      */
     public static <T> CompletableFuture<HttpResponse<T>> patch(String requestUrl, String token, HttpRequest.BodyPublisher publisher,
-                               HttpResponse.BodyHandler<T> handler, CustomHeader contentType,
-                               boolean callback) throws AzDException {
+                                                               HttpResponse.BodyHandler<T> handler, CustomHeader contentType,
+                                                               boolean callback) throws AzDException {
         return request(
                 build(requestUrl, token)
                         .method(RequestMethod.PATCH.name(), publisher)
@@ -141,21 +142,21 @@ public abstract class BaseRestClient {
                         .build(), handler, callback);
     }
 
-    /***
+    /**
      * Sends a PUT request to REST API with basic authentication and request body
      *
-     * @param requestUrl pass the request url
-     * @param token pass the personal access token
-     * @param publisher BodyPublisher with request body
-     * @param handler HttpResponse body handlers
+     * @param requestUrl  pass the request url
+     * @param token       pass the personal access token
+     * @param publisher   BodyPublisher with request body
+     * @param handler     HttpResponse body handlers
      * @param contentType Content type for setting headers
-     * @param callback If true client will be built with redirect policy
+     * @param callback    If true client will be built with redirect policy
      * @return response string from the API if any
      * @throws AzDException throws user friendly error message with error code from API
      */
     public static <T> CompletableFuture<HttpResponse<T>> put(String requestUrl, String token, HttpRequest.BodyPublisher publisher,
-                             HttpResponse.BodyHandler<T> handler, CustomHeader contentType,
-                             boolean callback) throws AzDException {
+                                                             HttpResponse.BodyHandler<T> handler, CustomHeader contentType,
+                                                             boolean callback) throws AzDException {
         return request(
                 build(requestUrl, token)
                         .PUT(publisher)
@@ -188,35 +189,33 @@ public abstract class BaseRestClient {
      * @throws AzDException Default Api exception handler.
      */
     public static <T> CompletableFuture<HttpResponse<T>> response(RequestMethod requestMethod, String requestUrl,
-                                                                   String token, HttpRequest.BodyPublisher publisher,
+                                                                  String token, HttpRequest.BodyPublisher publisher,
                                                                   HttpResponse.BodyHandler<T> handler,
                                                                   CustomHeader contentType,
-                                                                   boolean callback) throws AzDException {
-        if (contentType == null) contentType = CustomHeader.JSON;
+                                                                  boolean callback) throws AzDException {
+        contentType = contentType == null ? CustomHeader.JSON : contentType;
 
-        if (requestMethod == RequestMethod.GET)
-            return get(requestUrl, token, handler, contentType, callback);
-
-        if (requestMethod == RequestMethod.POST)
-            return post(requestUrl, token, publisher, handler, contentType, callback);
-
-        if (requestMethod == RequestMethod.PATCH)
-            return patch(requestUrl, token, publisher, handler, contentType, callback);
-
-        if (requestMethod == RequestMethod.PUT)
-            return put(requestUrl, token, publisher, handler, contentType, callback);
-
-        if (requestMethod == RequestMethod.DELETE)
-            return delete(requestUrl, token, handler);
-
-        return null;
+        switch (requestMethod) {
+            case GET:
+                return get(requestUrl, token, handler, contentType, callback);
+            case POST:
+                return post(requestUrl, token, publisher, handler, contentType, callback);
+            case PATCH:
+                return patch(requestUrl, token, publisher, handler, contentType, callback);
+            case PUT:
+                return put(requestUrl, token, publisher, handler, contentType, callback);
+            case DELETE:
+                return delete(requestUrl, token, handler);
+            default:
+                return null;
+        }
     }
 
     /**
      * Helper method to create the request with request url and access token.
      *
      * @param requestUrl Pass the request url.
-     * @param token Pass the access token. Base64 encoding will be taken care when building the request.
+     * @param token      Pass the access token. Base64 encoding will be taken care when building the request.
      * @return HttpRequest builder object.
      */
     protected static HttpRequest.Builder getBuilder(String requestUrl, String token) {
@@ -226,15 +225,15 @@ public abstract class BaseRestClient {
     /**
      * Helper method to get the response based on built http request.
      *
-     * @param r Http request object.
-     * @param handler Handlers for accepting the response content as. Example string or input stream etc.
+     * @param r        Http request object.
+     * @param handler  Handlers for accepting the response content as. Example string or input stream etc.
      * @param callback If true follows redirects.
-     * @param <T> Generic response type object.
+     * @param <T>      Generic response type object.
      * @return generic type of future of http response.
      */
     protected static <T> CompletableFuture<HttpResponse<T>> getResponse(HttpRequest r, HttpResponse.BodyHandler<T> handler,
-                                                                 boolean callback) {
-        if (callback)  return CLIENT.sendAsync(r, handler);
+                                                                        boolean callback) {
+        if (callback) return CLIENT.sendAsync(r, handler);
         return HTTP_CLIENT.sendAsync(r, handler);
     }
 

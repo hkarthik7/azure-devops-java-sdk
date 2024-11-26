@@ -10,11 +10,11 @@ public class GitPullRequestQueryParameters {
     /**
      * The number of pull requests to retrieve.
      */
-    public Number top;
+    public Integer top;
     /**
      * The number of pull requests to ignore. For example, to retrieve results 101-150, set top to 50 and skip to 100.
      */
-    public Number skip;
+    public Integer skip;
     /**
      * If set, search for pull requests that were created by this identity.
      */

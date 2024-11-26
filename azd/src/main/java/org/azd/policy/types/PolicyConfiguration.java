@@ -3,65 +3,65 @@ package org.azd.policy.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.azd.abstractions.serializer.SerializableEntity;
 import org.azd.common.types.Author;
-import org.azd.common.types.BaseAbstractMethod;
 
-/***
+/**
  * The full policy configuration with settings.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PolicyConfiguration extends BaseAbstractMethod {
-    /***
+public class PolicyConfiguration extends SerializableEntity {
+    /**
      * A reference to the identity that created the policy.
      */
     @JsonProperty("createdBy")
     private Author createdBy;
-    /***
+    /**
      * The date and time when the policy was created.
      */
     @JsonProperty("createdDate")
     private String createdDate;
-    /***
+    /**
      * The policy configuration ID.
      */
     @JsonProperty("id")
-    private int id;
-    /***
+    private Integer id;
+    /**
      * Indicates whether the policy is blocking.
      */
     @JsonProperty("isBlocking")
-    private boolean isBlocking;
-    /***
+    private Boolean isBlocking;
+    /**
      * Indicates whether the policy has been (soft) deleted.
      */
     @JsonProperty("isDeleted")
-    private boolean isDeleted;
-    /***
+    private Boolean isDeleted;
+    /**
      * Indicates whether the policy is enabled.
      */
     @JsonProperty("isEnabled")
-    private boolean isEnabled;
-    /***
+    private Boolean isEnabled;
+    /**
      * If set, this policy requires "Manage Enterprise Policies" permission to create, edit, or delete.
      */
     @JsonProperty("isEnterpriseManaged")
-    private boolean isEnterpriseManaged;
-    /***
+    private Boolean isEnterpriseManaged;
+    /**
      * The policy configuration revision ID.
      */
     @JsonProperty("revision")
-    private int revision;
-    /***
+    private Integer revision;
+    /**
      * The policy configuration settings.
      */
     @JsonProperty("settings")
-    private JsonNode settings;
-    /***
+    private Object settings;
+    /**
      * The policy configuration type.
      */
     @JsonProperty("type")
     private PolicyTypeRef type;
-    /***
+    /**
      * The URL where the policy configuration can be retrieved.
      */
     @JsonProperty("url")
@@ -83,59 +83,59 @@ public class PolicyConfiguration extends BaseAbstractMethod {
         this.createdDate = createdDate;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public boolean isBlocking() {
+    public Boolean isBlocking() {
         return isBlocking;
     }
 
-    public void setBlocking(boolean blocking) {
+    public void setBlocking(Boolean blocking) {
         isBlocking = blocking;
     }
 
-    public boolean isDeleted() {
+    public Boolean isDeleted() {
         return isDeleted;
     }
 
-    public void setDeleted(boolean deleted) {
+    public void setDeleted(Boolean deleted) {
         isDeleted = deleted;
     }
 
-    public boolean isEnabled() {
+    public Boolean isEnabled() {
         return isEnabled;
     }
 
-    public void setEnabled(boolean enabled) {
+    public void setEnabled(Boolean enabled) {
         isEnabled = enabled;
     }
 
-    public boolean isEnterpriseManaged() {
+    public Boolean isEnterpriseManaged() {
         return isEnterpriseManaged;
     }
 
-    public void setEnterpriseManaged(boolean enterpriseManaged) {
+    public void setEnterpriseManaged(Boolean enterpriseManaged) {
         isEnterpriseManaged = enterpriseManaged;
     }
 
-    public int getRevision() {
+    public Integer getRevision() {
         return revision;
     }
 
-    public void setRevision(int revision) {
+    public void setRevision(Integer revision) {
         this.revision = revision;
     }
 
-    public JsonNode getSettings() {
+    public Object getSettings() {
         return settings;
     }
 
-    public void setSettings(JsonNode settings) {
+    public void setSettings(Object settings) {
         this.settings = settings;
     }
 

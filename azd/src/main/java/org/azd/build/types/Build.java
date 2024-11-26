@@ -7,8 +7,8 @@ package org.azd.build.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.abstractions.serializer.SerializableEntity;
 import org.azd.common.types.Author;
-import org.azd.common.types.BaseAbstractMethod;
 import org.azd.enums.BuildReason;
 import org.azd.enums.BuildResult;
 import org.azd.enums.BuildStatus;
@@ -17,10 +17,10 @@ import org.azd.enums.QueuePriority;
 import java.util.List;
 
 /**
- * The job authorization scope for builds queued against this definition. 
+ * The job authorization scope for builds queued against this definition.
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Build extends BaseAbstractMethod {
+public class Build extends SerializableEntity {
     /**
      * The class to represent a collection of REST reference links.
      **/

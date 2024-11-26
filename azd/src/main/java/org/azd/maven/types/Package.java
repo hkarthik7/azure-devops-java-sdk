@@ -2,47 +2,47 @@ package org.azd.maven.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.common.types.BaseAbstractMethod;
+import org.azd.abstractions.serializer.SerializableEntity;
 
 import java.util.List;
 
-/***
+/**
  * Package version metadata for a Maven package
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Package extends BaseAbstractMethod {
-    /***
+public class Package extends SerializableEntity {
+    /**
      * Related REST links.
      */
     @JsonProperty("_links")
     private ReferenceLinks _links;
-    /***
+    /**
      * If and when the package was deleted.
      */
     @JsonProperty("deletedDate")
     private String deletedDate;
-    /***
+    /**
      * Package Id.
      */
     @JsonProperty("id")
     private String id;
-    /***
+    /**
      * The display name of the package.
      */
     @JsonProperty("name")
     private String name;
-    /***
+    /**
      * If and when the package was permanently deleted.
      */
     @JsonProperty("permanentlyDeletedDate")
     private String permanentlyDeletedDate;
-    /***
+    /**
      * The history of upstream sources for this package. The first source in the
      * list is the immediate source from which this package was saved.
      */
     @JsonProperty("sourceChain")
     private List<UpstreamSourceInfo> sourceChain;
-    /***
+    /**
      * The version of the package.
      */
     @JsonProperty("version")

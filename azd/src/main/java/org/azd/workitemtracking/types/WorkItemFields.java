@@ -4,17 +4,17 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.azd.abstractions.serializer.SerializableEntity;
 import org.azd.common.types.Author;
-import org.azd.common.types.BaseAbstractMethod;
 
 import java.util.HashMap;
 import java.util.Map;
 
-/***
+/**
  * Represents a Work item internal field elements
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkItemFields extends BaseAbstractMethod {
+public class WorkItemFields extends SerializableEntity {
     // for non-system (custom) fields
     Map<String, Object> otherFields = new HashMap<>();
     @JsonProperty("System.Id")

@@ -2,14 +2,13 @@ package org.azd.helpers;
 
 import org.azd.enums.ApiExceptionTypes;
 import org.azd.enums.CustomHeader;
-import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
-import org.azd.utils.RestClient;
+import org.azd.http.ClientRequest;
 
 import java.io.*;
-import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.Objects;
 
 public class StreamHelper {
     /**
@@ -43,12 +42,13 @@ public class StreamHelper {
      * @throws AzDException Default exception handler
      */
     public static void download(String fileName, InputStream responseStream) throws AzDException {
+        Objects.requireNonNull(fileName, "Filename cannot be empty");
+
         try (FileOutputStream outputStream = new FileOutputStream(fileName, false)) {
             int read;
             byte[] bytes = new byte[DEFAULT_BYTE_ARRAY_SIZE];
-            while ((read = responseStream.read(bytes)) != -1) {
+            while ((read = responseStream.read(bytes)) != -1)
                 outputStream.write(bytes, 0, read);
-            }
         } catch (Exception e) {
             throw new AzDException(ApiExceptionTypes.InvalidArgumentException.name(), e.getMessage());
         }
@@ -62,16 +62,15 @@ public class StreamHelper {
      * @throws AzDException Default Api exception handler.
      */
     public static void downloadFromUrl(String url, String fileName) throws AzDException {
-        if (!url.isEmpty()) {
-            var res = RestClient.send(url, RequestMethod.GET, null, null, null, null,
-                    null, null, null, null, null, CustomHeader.STREAM_ACCEPT, false)
-                    .thenApplyAsync(HttpResponse::body)
-                    .join();
-            download(fileName, res);
-        }
-        else {
-            throw new AzDException(ApiExceptionTypes.InvalidArgumentException.name(), "Url cannot be null or empty.");
-        }
+        Objects.requireNonNull(url, "Url cannot be null or empty.");
+
+        var res = ClientRequest.builder()
+                .URI(url)
+                .header(CustomHeader.STREAM_ACCEPT)
+                .build()
+                .executeStream();
+
+        download(fileName, res);
     }
 
     /**

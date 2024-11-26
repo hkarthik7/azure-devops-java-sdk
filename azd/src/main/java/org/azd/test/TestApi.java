@@ -29,8 +29,9 @@ public class TestApi implements TestDetails {
     private final String AREA = "test";
 
 
-    /***
+    /**
      * Pass the connection object to work with Service hooks Api
+     *
      * @param connection Connection object
      */
     public TestApi(Connection connection) {
@@ -113,21 +114,21 @@ public class TestApi implements TestDetails {
     /**
      * Get a list of test runs.
      *
-     * @param skip Number of test runs to skip.
-     * @param top Number of test runs to return.
-     * @param automated If true, only returns automated runs.
-     * @param buildUri URI of the build that the runs used.
+     * @param skip              Number of test runs to skip.
+     * @param top               Number of test runs to return.
+     * @param automated         If true, only returns automated runs.
+     * @param buildUri          URI of the build that the runs used.
      * @param includeRunDetails If true, include all the properties of the runs.
-     * @param owner Team foundation ID of the owner of the runs.
-     * @param planId ID of the test plan that the runs are a part of.
-     * @param tmiRunId None
+     * @param owner             Team foundation ID of the owner of the runs.
+     * @param planId            ID of the test plan that the runs are a part of.
+     * @param tmiRunId          None
      * @return TestRun Object {@link TestRun}
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public TestRuns getTestRuns(int skip, int top, boolean automated, String buildUri, boolean includeRunDetails,
                                 String owner, int planId, String tmiRunId) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("$skip", skip);
             put("$top", top);
             put("automated", automated);
@@ -187,7 +188,7 @@ public class TestApi implements TestDetails {
      **/
     @Override
     public TestRuns queryTestRuns(String maxLastUpdatedDate, String minLastUpdatedDate) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("maxLastUpdatedDate", maxLastUpdatedDate);
             put("minLastUpdatedDate", minLastUpdatedDate);
         }};
@@ -203,13 +204,13 @@ public class TestApi implements TestDetails {
      *
      * @param maxLastUpdatedDate Maximum Last Modified Date of run to be queried (Mandatory, difference between min and max date can be atmost 7 days).
      * @param minLastUpdatedDate Minimum Last Modified Date of run to be queried (Mandatory).
-     * @param top Number of runs to be queried. Limit is 100.
+     * @param top                Number of runs to be queried. Limit is 100.
      * @return TestRuns Object {@link TestRuns}
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public TestRuns queryTestRuns(String maxLastUpdatedDate, String minLastUpdatedDate, int top) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("maxLastUpdatedDate", maxLastUpdatedDate);
             put("minLastUpdatedDate", minLastUpdatedDate);
             put("$top", top);
@@ -226,13 +227,13 @@ public class TestApi implements TestDetails {
      *
      * @param maxLastUpdatedDate Maximum Last Modified Date of run to be queried (Mandatory, difference between min and max date can be atmost 7 days).
      * @param minLastUpdatedDate Minimum Last Modified Date of run to be queried (Mandatory).
-     * @param buildIds Build Ids of the Runs to be queried, comma separated list of valid ids (limit no. of ids 10).
+     * @param buildIds           Build Ids of the Runs to be queried, comma separated list of valid ids (limit no. of ids 10).
      * @return TestRuns Object {@link TestRuns}
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public TestRuns queryTestRuns(String maxLastUpdatedDate, String minLastUpdatedDate, String[] buildIds) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("maxLastUpdatedDate", maxLastUpdatedDate);
             put("minLastUpdatedDate", minLastUpdatedDate);
         }};
@@ -250,13 +251,13 @@ public class TestApi implements TestDetails {
      *
      * @param maxLastUpdatedDate Maximum Last Modified Date of run to be queried (Mandatory, difference between min and max date can be atmost 7 days).
      * @param minLastUpdatedDate Minimum Last Modified Date of run to be queried (Mandatory).
-     * @param testRunState Current state of the Runs to be queried.
+     * @param testRunState       Current state of the Runs to be queried.
      * @return TestRuns Object {@link TestRuns}
      * @throws AzDException Default Api Exception handler.
      **/
     @Override
     public TestRuns queryTestRuns(String maxLastUpdatedDate, String minLastUpdatedDate, TestRunState testRunState) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("maxLastUpdatedDate", maxLastUpdatedDate);
             put("minLastUpdatedDate", minLastUpdatedDate);
             put("state", testRunState);
@@ -273,18 +274,18 @@ public class TestApi implements TestDetails {
      *
      * @param maxLastUpdatedDate Maximum Last Modified Date of run to be queried (Mandatory, difference between min and max date can be atmost 7 days).
      * @param minLastUpdatedDate Minimum Last Modified Date of run to be queried (Mandatory).
-     * @param branchName Source Branch name of the Runs to be queried.
-     * @param buildDefIds Build Definition Ids of the Runs to be queried, comma separated list of valid ids (limit no. of ids 10).
-     * @param continuationToken continuationToken received from previous batch or null for first batch.
-     *                          It is not supposed to be created (or altered, if received from last batch) by user.
-     * @param isAutomated Automation type of the Runs to be queried.
-     * @param planIds Plan Ids of the Runs to be queried, comma separated list of valid ids (limit no. of ids 10).
-     * @param publishContext PublishContext of the Runs to be queried.
-     * @param releaseDefIds Release Definition Ids of the Runs to be queried, comma separated list of valid ids (limit no. of ids 10).
-     * @param releaseEnvDefIds Release Environment Definition Ids of the Runs to be queried, comma separated list of valid ids (limit no. of ids 10).
-     * @param releaseEnvIds Release Environment Ids of the Runs to be queried, comma separated list of valid ids (limit no. of ids 10).
-     * @param releaseIds Release Ids of the Runs to be queried, comma separated list of valid ids (limit no. of ids 10).
-     * @param runTitle Run Title of the Runs to be queried.
+     * @param branchName         Source Branch name of the Runs to be queried.
+     * @param buildDefIds        Build Definition Ids of the Runs to be queried, comma separated list of valid ids (limit no. of ids 10).
+     * @param continuationToken  continuationToken received from previous batch or null for first batch.
+     *                           It is not supposed to be created (or altered, if received from last batch) by user.
+     * @param isAutomated        Automation type of the Runs to be queried.
+     * @param planIds            Plan Ids of the Runs to be queried, comma separated list of valid ids (limit no. of ids 10).
+     * @param publishContext     PublishContext of the Runs to be queried.
+     * @param releaseDefIds      Release Definition Ids of the Runs to be queried, comma separated list of valid ids (limit no. of ids 10).
+     * @param releaseEnvDefIds   Release Environment Definition Ids of the Runs to be queried, comma separated list of valid ids (limit no. of ids 10).
+     * @param releaseEnvIds      Release Environment Ids of the Runs to be queried, comma separated list of valid ids (limit no. of ids 10).
+     * @param releaseIds         Release Ids of the Runs to be queried, comma separated list of valid ids (limit no. of ids 10).
+     * @param runTitle           Run Title of the Runs to be queried.
      * @return TestRuns Object {@link TestRuns}
      * @throws AzDException Default Api Exception handler.
      **/
@@ -294,7 +295,7 @@ public class TestApi implements TestDetails {
                                   String[] planIds, TestRunPublishContext publishContext, String[] releaseDefIds,
                                   String[] releaseEnvDefIds, String[] releaseEnvIds, String[] releaseIds,
                                   String runTitle) throws AzDException {
-        var q = new HashMap<String, Object>(){{
+        var q = new HashMap<String, Object>() {{
             put("maxLastUpdatedDate", maxLastUpdatedDate);
             put("minLastUpdatedDate", minLastUpdatedDate);
             put("isAutomated", isAutomated);
@@ -320,7 +321,8 @@ public class TestApi implements TestDetails {
 
     /**
      * Update test run by its ID.
-     * @param runId ID of the run to update.
+     *
+     * @param runId   ID of the run to update.
      * @param testRun {@link TestRun} object.
      * @return TestRun Object {@link TestRun}
      * @throws AzDException Default Api exception handler.
