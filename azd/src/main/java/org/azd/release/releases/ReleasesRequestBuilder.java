@@ -58,8 +58,8 @@ public class ReleasesRequestBuilder extends BaseRequestBuilder {
     /**
      * Create a release.
      * <p>
-     * <br /><br />Example:
-     * <br />
+     * Example:
+     *
      * <pre>{@code
      *         var releaseMetadata = new ReleaseStartMetadata();
      *         var artifacts = new ArtifactMetadata();
@@ -211,8 +211,8 @@ public class ReleasesRequestBuilder extends BaseRequestBuilder {
     /**
      * Create a release.
      * <p>
-     * <br /><br />Example:
-     * <br />
+     * Example:
+     *
      * <pre>{@code
      *         var releaseMetadata = new ReleaseStartMetadata();
      *         var artifacts = new ArtifactMetadata();

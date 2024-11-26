@@ -26,8 +26,8 @@ public class ReleaseLogsRequestBuilder extends BaseRequestBuilder {
     /**
      * Get logs for a release Id.
      *
-     * <br /><br />Example:
-     * <br />
+     * Example:
+     * 
      * <pre>{@code
      *          // Create AzDServiceClient object first.
      *          var logs = client.release().releases().logs().getAsync(1234).join(); // release Id
@@ -48,8 +48,8 @@ public class ReleaseLogsRequestBuilder extends BaseRequestBuilder {
     /**
      * Get logs for a release Id.
      *
-     * <br /><br />Example:
-     * <br />
+     * Example:
+     * 
      * <pre>{@code
      *          // Create AzDServiceClient object first.
      *          var logs = client.release().releases().logs().get(1234); // release Id

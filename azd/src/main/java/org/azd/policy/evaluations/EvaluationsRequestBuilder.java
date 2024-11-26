@@ -28,7 +28,7 @@ public class EvaluationsRequestBuilder extends BaseRequestBuilder {
     /**
      * Gets the present evaluation state of a policy.
      * <p>
-     * <br />Each policy which applies to a pull request will have an evaluation state which is specific to that
+     * Each policy which applies to a pull request will have an evaluation state which is specific to that
      * policy running in the context of that pull request. Each evaluation is uniquely identified via a Guid. You can
      * find all the policy evaluations for a specific pull request using the List operation of this controller.
      *
@@ -46,7 +46,7 @@ public class EvaluationsRequestBuilder extends BaseRequestBuilder {
     /**
      * Retrieves a list of all the policy evaluation statuses for a specific pull request.
      * <p>
-     * <br />Evaluations are retrieved using an artifact ID which uniquely identifies the pull request.
+     * Evaluations are retrieved using an artifact ID which uniquely identifies the pull request.
      * To generate an artifact ID for a pull request, use this template:
      * <pre>{@code
      * vstfs:///CodeReview/CodeReviewId/{projectId}/{pullRequestId}
@@ -67,7 +67,7 @@ public class EvaluationsRequestBuilder extends BaseRequestBuilder {
     /**
      * Requeue the policy evaluation.
      * <p>
-     * <br />Some policies define a "requeue" action which performs some policy-specific operation. You can trigger this
+     * Some policies define a "requeue" action which performs some policy-specific operation. You can trigger this
      * operation by updating an existing policy evaluation and setting the PolicyEvaluationRecord.Status field to Queued.
      * Although any policy evaluation can be requeued, at present only build policies perform any action in response.
      * Requeueing a build policy will queue a new build to run (cancelling any existing build which is running).
@@ -87,7 +87,7 @@ public class EvaluationsRequestBuilder extends BaseRequestBuilder {
     /**
      * Gets the present evaluation state of a policy.
      * <p>
-     * <br />Each policy which applies to a pull request will have an evaluation state which is specific to that
+     * Each policy which applies to a pull request will have an evaluation state which is specific to that
      * policy running in the context of that pull request. Each evaluation is uniquely identified via a Guid. You can
      * find all the policy evaluations for a specific pull request using the List operation of this controller.
      *
@@ -105,7 +105,7 @@ public class EvaluationsRequestBuilder extends BaseRequestBuilder {
     /**
      * Retrieves a list of all the policy evaluation statuses for a specific pull request.
      * <p>
-     * <br />Evaluations are retrieved using an artifact ID which uniquely identifies the pull request.
+     * Evaluations are retrieved using an artifact ID which uniquely identifies the pull request.
      * To generate an artifact ID for a pull request, use this template:
      * <pre>{@code
      * vstfs:///CodeReview/CodeReviewId/{projectId}/{pullRequestId}
@@ -126,7 +126,7 @@ public class EvaluationsRequestBuilder extends BaseRequestBuilder {
     /**
      * Requeue the policy evaluation.
      * <p>
-     * <br />Some policies define a "requeue" action which performs some policy-specific operation. You can trigger this
+     * Some policies define a "requeue" action which performs some policy-specific operation. You can trigger this
      * operation by updating an existing policy evaluation and setting the PolicyEvaluationRecord.Status field to Queued.
      * Although any policy evaluation can be requeued, at present only build policies perform any action in response.
      * Requeueing a build policy will queue a new build to run (cancelling any existing build which is running).

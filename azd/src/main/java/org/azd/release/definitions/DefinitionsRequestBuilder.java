@@ -327,10 +327,10 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
         public Integer top;
         /**
          * Release definitions with given artifactSourceId will be returned.
-         * <br /><br />e.g. For build it would be
+         * e.g. For build it would be
          * {projectGuid}:{BuildDefinitionId}, for Jenkins it would be {JenkinsConnectionId}:{JenkinsDefinitionId},
-         * <br /><br />for TfsOnPrem it would be {TfsOnPremConnectionId}:{ProjectName}:{TfsOnPremDefinitionId}.
-         * <br /><br />For third-party artifacts e.g. TeamCity, BitBucket you may refer 'uniqueSourceIdentifier' inside vss-extension.json at
+         * for TfsOnPrem it would be {TfsOnPremConnectionId}:{ProjectName}:{TfsOnPremDefinitionId}.
+         * For third-party artifacts e.g. TeamCity, BitBucket you may refer 'uniqueSourceIdentifier' inside vss-extension.json at
          * <a href="https://github.com/Microsoft/vsts-rm-extensions/blob/master/Extensions">Extensions</a>.
          */
         @QueryParameter(name = "artifactSourceId")

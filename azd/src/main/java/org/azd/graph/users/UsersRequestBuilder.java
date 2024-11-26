@@ -154,9 +154,9 @@ public class UsersRequestBuilder extends BaseRequestBuilder {
     /**
      * Map an existing user to a different user.
      *
-     * <br />The body of the request must be a derived type of {@link GraphUserUpdateContext}:
+     * The body of the request must be a derived type of {@link GraphUserUpdateContext}:
      *
-     * <br /><br />{@link GraphUserOriginIdUpdateContext} - Map an existing user in an account, to an existing user from an external
+     * {@link GraphUserOriginIdUpdateContext} - Map an existing user in an account, to an existing user from an external
      * AD or AAD backed provider using the OriginId as a reference.
      *
      * @param updateContext origin id and optionally storage key to update.
@@ -302,9 +302,9 @@ public class UsersRequestBuilder extends BaseRequestBuilder {
     /**
      * Map an existing user to a different user.
      *
-     * <br />The body of the request must be a derived type of {@link GraphUserUpdateContext}:
+     * The body of the request must be a derived type of {@link GraphUserUpdateContext}:
      *
-     * <br /><br />{@link GraphUserOriginIdUpdateContext} - Map an existing user in an account, to an existing user from an external
+     * {@link GraphUserOriginIdUpdateContext} - Map an existing user in an account, to an existing user from an external
      * AD or AAD backed provider using the OriginId as a reference.
      *
      * @param updateContext origin id and optionally storage key to update.
