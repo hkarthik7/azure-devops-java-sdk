@@ -1,5 +1,6 @@
 package org.azd.core.types;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.serializer.SerializableEntity;
@@ -44,6 +45,7 @@ public class ProjectFeature extends SerializableEntity {
         this.state = state;
     }
 
+    @JsonIgnore
     public Optional<Boolean> getStateAsBoolean() {
         if (state == null) {
             return Optional.empty();

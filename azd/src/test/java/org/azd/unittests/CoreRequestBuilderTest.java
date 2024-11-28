@@ -199,7 +199,8 @@ public class CoreRequestBuilderTest {
     public void shouldToggleFeature() throws AzDException {
         var project = client.core().projects().get(testConfiguration.properties.core.projectName);
         Assume.assumeNotNull(project);
-        client.helpers().featureManagement()
+        var resp = client.helpers().featureManagement()
                 .featureToggle(project.getId(), FeatureManagement.TEST_PLANS, false);
+        assert !resp.getStateAsBoolean().get();
     }
 }
