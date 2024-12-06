@@ -2,6 +2,7 @@ package org.azd.test;
 
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.test.results.ResultsRequestBuilder;
 import org.azd.test.runs.RunsRequestBuilder;
 
 /**
@@ -25,5 +26,14 @@ public class TestRequestBuilder extends BaseRequestBuilder {
      */
     public RunsRequestBuilder runs() {
         return new RunsRequestBuilder(organizationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Provides functionality to work with Test results Api.
+     *
+     * @return ResultsRequestBuilder {@link ResultsRequestBuilder}
+     */
+    public ResultsRequestBuilder results() {
+        return new ResultsRequestBuilder(organizationUrl, accessTokenCredential);
     }
 }

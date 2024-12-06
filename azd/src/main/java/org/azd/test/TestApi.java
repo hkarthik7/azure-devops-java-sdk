@@ -9,10 +9,7 @@ import org.azd.enums.TestRunState;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.TestDetails;
-import org.azd.test.types.RunCreateModel;
-import org.azd.test.types.TestRun;
-import org.azd.test.types.TestRunStatistic;
-import org.azd.test.types.TestRuns;
+import org.azd.test.types.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -334,5 +331,22 @@ public class TestApi implements TestDetails {
                 CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, TestRun.class);
+    }
+
+    /**
+     * Update test case results by run ID.
+     *
+     * @param runId             ID of the run to update.
+     * @param testCaseResults   {@link TestCaseResults} object.
+     * @return TestCaseResults Object {@link TestCaseResults}
+     * @throws AzDException Default Api exception handler.
+     */
+    @Override
+    public TestCaseResults updateTestResults(int runId, TestCaseResults testCaseResults) throws AzDException {
+        String r = send(RequestMethod.PATCH, CONNECTION, TEST, CONNECTION.getProject(),
+                AREA + "/runs", String.valueOf(runId), "results", ApiVersion.TEST_RUNS, null, testCaseResults.getResults(),
+                CustomHeader.JSON_CONTENT_TYPE);
+
+        return MAPPER.mapJsonResponse(r, TestCaseResults.class);
     }
 }

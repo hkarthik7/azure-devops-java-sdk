@@ -5,6 +5,7 @@ import org.azd.helpers.JsonMapper;
 import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.TestDetails;
 import org.azd.test.TestApi;
+import org.azd.test.types.TestCaseResults;
 import org.azd.utils.AzDClientApi;
 import org.junit.Before;
 import org.junit.Test;
@@ -46,5 +47,10 @@ public class TestApiTest {
     @Test(expected = AzDException.class)
     public void shouldDeleteATestRun() throws AzDException {
         t.deleteTestRun(222334);
+    }
+
+    @Test
+    public void shouldUpdateATestResults() throws AzDException {
+        t.updateTestResults(424, new TestCaseResults());
     }
 }

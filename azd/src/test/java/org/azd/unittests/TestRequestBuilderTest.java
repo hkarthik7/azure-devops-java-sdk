@@ -10,10 +10,14 @@ import org.azd.legacy.MockParameters;
 import org.azd.serviceclient.AzDService;
 import org.azd.serviceclient.AzDServiceClient;
 import org.azd.test.TestRequestBuilder;
+import org.azd.test.types.TestCaseResult;
+import org.azd.test.types.TestCaseResults;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class TestRequestBuilderTest {
     private static final SerializerContext serializer = InstanceFactory.createSerializerContext();
@@ -61,5 +65,40 @@ public class TestRequestBuilderTest {
     @Test(expected = AzDException.class)
     public void shouldDeleteATestRun() throws AzDException {
         t.runs().delete(222334);
+    }
+
+    @Test
+    public void shouldUpdateATestResults() throws AzDException {
+        var testCaseResults = new TestCaseResults();
+        testCaseResults.setResults(new ArrayList<>());
+        var testCaseResult = new TestCaseResult();
+        testCaseResult.setId(100000);
+        testCaseResult.setOutcome("Passed");
+        testCaseResults.getResults().add(testCaseResult);
+        t.results().update(4206, testCaseResults);
+    }
+
+    @Test
+    public void shouldGetListOfTestResults() throws AzDException {
+        var results = t.results().list(4206);
+        Assert.assertNotNull(results);
+    }
+
+    @Test
+    public void shouldGetTestResult() throws AzDException {
+        var result = t.results().get(4206, 100000);
+        Assert.assertNotNull(result);
+    }
+
+    @Test
+    public void shouldCreateTestResult() throws AzDException {
+        var testCaseResults = new TestCaseResults();
+        testCaseResults.setResults(new ArrayList<>());
+        var testCaseResult = new TestCaseResult();
+        testCaseResult.setId(100001);
+        testCaseResult.setOutcome("Passed");
+        testCaseResults.getResults().add(testCaseResult);
+        var result = t.results().create(4206, testCaseResults);
+        Assert.assertNotNull(result);
     }
 }

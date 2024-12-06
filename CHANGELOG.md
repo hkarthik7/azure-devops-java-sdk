@@ -1,5 +1,9 @@
 # Changelog
 
+# 6.0.1
+
+- Added support for TestCaseResult in **TestApi**.
+
 # 6.0.0
 
 **Major release**

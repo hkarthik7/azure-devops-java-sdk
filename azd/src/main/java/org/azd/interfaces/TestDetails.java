@@ -3,10 +3,7 @@ package org.azd.interfaces;
 import org.azd.enums.TestRunPublishContext;
 import org.azd.enums.TestRunState;
 import org.azd.exceptions.AzDException;
-import org.azd.test.types.RunCreateModel;
-import org.azd.test.types.TestRun;
-import org.azd.test.types.TestRunStatistic;
-import org.azd.test.types.TestRuns;
+import org.azd.test.types.*;
 
 public interface TestDetails {
     TestRun createTestRun(RunCreateModel runCreateModel) throws AzDException;
@@ -41,4 +38,6 @@ public interface TestDetails {
                            String runTitle) throws AzDException;
 
     TestRun updateTestRun(int runId, TestRun testRun) throws AzDException;
+
+    TestCaseResults updateTestResults(int runId, TestCaseResults testCaseResults) throws AzDException;
 }
