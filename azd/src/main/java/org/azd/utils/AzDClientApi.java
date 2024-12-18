@@ -9,6 +9,7 @@ import org.azd.extensionmanagement.ExtensionManagementApi;
 import org.azd.feedmanagement.FeedManagementApi;
 import org.azd.git.GitApi;
 import org.azd.graph.GraphApi;
+import org.azd.helpers.URLHelper;
 import org.azd.interfaces.*;
 import org.azd.maven.MavenApi;
 import org.azd.memberentitlementmanagement.MemberEntitlementManagementApi;
@@ -68,7 +69,7 @@ public class AzDClientApi implements AzDClient {
 
     public void setProject(String project) {
         if (this.CONNECTION != null) {
-            this.CONNECTION.setProject(project);
+            this.CONNECTION.setProject(URLHelper.encodeSpace(project));
         }
     }
 
