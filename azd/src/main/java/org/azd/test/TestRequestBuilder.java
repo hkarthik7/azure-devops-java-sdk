@@ -2,6 +2,7 @@ package org.azd.test;
 
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.test.attachments.AttachmentsRequestBuilder;
 import org.azd.test.results.ResultsRequestBuilder;
 import org.azd.test.runs.RunsRequestBuilder;
 
@@ -17,6 +18,15 @@ public class TestRequestBuilder extends BaseRequestBuilder {
      */
     public TestRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
         super(organizationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Provides functionality to work with Test attachments Api.
+     *
+     * @return AttachmentsRequestBuilder {@link AttachmentsRequestBuilder}
+     */
+    public AttachmentsRequestBuilder attachments() {
+        return new AttachmentsRequestBuilder(organizationUrl, accessTokenCredential);
     }
 
     /**
