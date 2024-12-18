@@ -227,7 +227,14 @@ if __name__ == "__main__":
 
             table = s.find_all(DocumentId.ATTRIBUTE.value, {
                                'class': DocumentId.RESPONSE_TYPE_CLASS.value})
-            type_name = s.find('h3').get_text()
+            element = s.find('h3')
+
+            if element is not None:
+                type_name = element.get_text()
+            else:
+                type_name = "UnknownType"
+                print("[WARNING]: <h3> tag not found in the current soup object.")
+
 
             sub_types_array = []
             for t in table:

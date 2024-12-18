@@ -3,6 +3,11 @@
 # 6.0.1
 
 - Added support for TestCaseResult in **TestApi**.
+- PR: [feat: added test results endpoints #78](https://github.com/hkarthik7/azure-devops-java-sdk/pull/78)
+- Added support for Test attachments.
+- Fixed issues:
+  - Issue: [Mapping error on empty response from client.helpers().featureManagement().featureToggle #76](https://github.com/hkarthik7/azure-devops-java-sdk/issues/76)
+  - Issue: [Get repository from project won't work if project name has space in it #79](https://github.com/hkarthik7/azure-devops-java-sdk/issues/79)
 
 # 6.0.0
 

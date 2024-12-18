@@ -1,6 +1,7 @@
 package org.azd.connection;
 
 import org.azd.exceptions.AzDException;
+import org.azd.helpers.URLHelper;
 import org.azd.oauth.OAuthApi;
 import org.azd.oauth.types.AuthorizedToken;
 
@@ -38,7 +39,7 @@ public class Connection {
      */
     private Connection(String organization, String project, String personalAccessToken, AuthorizedToken oauthToken, String appSecret, String appCallBackURL, TokenRefreshedHandler tokenRefreshedHandler) {
         this.organization = organization;
-        this.project = project;
+        this.project = URLHelper.encodeSpace(project);
         this.personalAccessToken = personalAccessToken;
         this.oauthToken = oauthToken;
         this.appSecret = appSecret;
@@ -158,7 +159,7 @@ public class Connection {
      * @param project pass the project name
      */
     public void setProject(String project) {
-        this.project = project;
+        this.project = URLHelper.encodeSpace(project);
     }
 
     /**

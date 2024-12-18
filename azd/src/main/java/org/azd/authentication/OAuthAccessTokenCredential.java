@@ -1,6 +1,7 @@
 package org.azd.authentication;
 
 import org.azd.exceptions.AzDException;
+import org.azd.helpers.URLHelper;
 import org.azd.oauth.OAuthAccessTokenBuilder;
 import org.azd.oauth.types.AuthorizedToken;
 
@@ -75,7 +76,7 @@ public class OAuthAccessTokenCredential implements AccessTokenCredential {
         Objects.requireNonNull(authCode, "Auth code cannot be null.");
 
         this.organizationUrl = organizationUrl;
-        this.projectName = projectName;
+        this.projectName = URLHelper.encodeSpace(projectName);
         this.appSecret = appSecret;
         this.authCode = authCode;
         this.callbackUrl = callbackUrl;
@@ -119,7 +120,7 @@ public class OAuthAccessTokenCredential implements AccessTokenCredential {
      */
     @Override
     public void setProjectName(String projectName) {
-        this.projectName = projectName;
+        this.projectName = URLHelper.encodeSpace(projectName);
     }
 
     /**
@@ -150,12 +151,12 @@ public class OAuthAccessTokenCredential implements AccessTokenCredential {
     private void authenticate() {
         var oauthBuilder = new OAuthAccessTokenBuilder();
         try {
-            if (authorizedToken != null)
-                if (oauthBuilder.hasTokenExpired(authorizedToken))
-                    authorizedToken = oauthBuilder.getRefreshToken(appSecret, authorizedToken.getRefreshToken(), callbackUrl);
-                else authorizedToken = oauthBuilder.getAccessToken(appSecret, authCode, callbackUrl);
-            if (authorizedToken != null)
+            if (authorizedToken != null) {
+                authorizedToken = oauthBuilder.hasTokenExpired(authorizedToken) ?
+                        oauthBuilder.getRefreshToken(appSecret, authorizedToken.getRefreshToken(), callbackUrl) :
+                        oauthBuilder.getAccessToken(appSecret, authCode, callbackUrl);
                 setAccessToken(authorizedToken.getAccessToken());
+            }
         } catch (AzDException e) {
             throw new RuntimeException(e);
         }

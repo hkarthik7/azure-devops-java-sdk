@@ -17,6 +17,7 @@ public class URLHelper {
      * @return the encoded string value
      */
     public static String encodeSpace(String s) {
+        if (Utils.isNullOrEmpty(s)) return s;
         if (s.contains(" ")) return s.replace(" ", "%20");
         return s;
     }

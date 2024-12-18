@@ -1,5 +1,7 @@
 package org.azd.authentication;
 
+import org.azd.helpers.URLHelper;
+
 import java.util.Base64;
 import java.util.Objects;
 
@@ -45,7 +47,7 @@ public class PersonalAccessTokenCredential implements AccessTokenCredential {
         Objects.requireNonNull(personalAccessToken, "Access token cannot be null.");
 
         this.organizationUrl = organizationUrl;
-        this.projectName = projectName;
+        this.projectName = URLHelper.encodeSpace(projectName);
         setAccessToken(personalAccessToken);
     }
 
@@ -117,6 +119,6 @@ public class PersonalAccessTokenCredential implements AccessTokenCredential {
      */
     @Override
     public void setProjectName(String projectName) {
-        this.projectName = projectName;
+        this.projectName = URLHelper.encodeSpace(projectName);
     }
 }

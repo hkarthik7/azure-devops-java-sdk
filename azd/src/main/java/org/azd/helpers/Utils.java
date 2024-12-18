@@ -1,6 +1,10 @@
 package org.azd.helpers;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.util.Arrays;
+import java.util.Base64;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public final class Utils extends URLHelper {
@@ -48,5 +52,20 @@ public final class Utils extends URLHelper {
         if (value == null) return isNullOrEmpty;
         if (value.isEmpty() || value.isBlank()) return isNullOrEmpty;
         return false;
+    }
+
+    public static String toBase64String(InputStream inputStream) throws Exception {
+        Objects.requireNonNull(inputStream, "Input stream cannot be null or empty.");
+
+        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+            var buffer = new byte[8192];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+
+            var encodedBytes = Base64.getEncoder().encode(outputStream.toByteArray());
+            return new String(encodedBytes);
+        }
     }
 }
