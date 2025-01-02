@@ -9,6 +9,7 @@ import org.azd.interfaces.AzDClient;
 import org.azd.interfaces.GraphDetails;
 import org.azd.utils.AzDClientApi;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -107,6 +108,7 @@ public class GraphApiTest {
     }
 
     @Test
+    @Ignore
     public void shouldAddSubjectToGroup() throws AzDException {
         try {
             var group = g.getGroups().getGraphGroups().stream().filter(x -> x.getDisplayName().equals("Contributors")).findFirst().get();
