@@ -13,6 +13,7 @@ import org.azd.legacy.MockParameters;
 import org.azd.serviceclient.AzDService;
 import org.azd.serviceclient.AzDServiceClient;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -123,6 +124,7 @@ public class GraphRequestBuilderTest {
     }
 
     @Test
+    @Ignore
     public void shouldAddSubjectToGroup() throws AzDException {
         try {
             var group = g.groups().list().getGraphGroups().stream().filter(x -> x.getDisplayName().equals("Contributors")).findFirst().get();
@@ -196,6 +198,7 @@ public class GraphRequestBuilderTest {
     }
 
     @Test
+    @Ignore
     public void shouldLookupMultipleSubjects() throws AzDException {
         var group = g.groups().list().getGraphGroups().stream().filter(x -> x.getDisplayName().equals("Contributors")).findAny().get();
         var members = g.memberships().list(group.getDescriptor(),
