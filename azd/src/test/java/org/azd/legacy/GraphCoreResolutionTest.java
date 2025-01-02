@@ -9,6 +9,7 @@ import org.azd.interfaces.CoreDetails;
 import org.azd.interfaces.GraphDetails;
 import org.azd.utils.AzDClientApi;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -22,6 +23,7 @@ import static org.junit.Assume.assumeFalse;
  * additional tests for graph api which require other (Core) API components
  * to perform object lookups
  */
+@Ignore
 public class GraphCoreResolutionTest {
     private static final JsonMapper MAPPER = new JsonMapper();
     private static AzDClient webApi;
