@@ -1,7 +1,9 @@
 package org.azd.unittests;
 
 import org.azd.UnitTestConfiguration;
+import org.azd.abstractions.ApiResponse;
 import org.azd.abstractions.InstanceFactory;
+import org.azd.abstractions.ResponseHandler;
 import org.azd.abstractions.serializer.SerializerContext;
 import org.azd.authentication.PersonalAccessTokenCredential;
 import org.azd.enums.Instance;
@@ -108,5 +110,24 @@ public class TestRequestBuilderTest {
             var result = t.results().create(4206, testCaseResults);
             Assert.assertNotNull(result);
         } catch (AzDException ignored) {}
+    }
+
+    @Test
+    public void shouldGetBuildCodeCoverage() {
+        try {
+            t.codeCoverage().getBuildCodeCoverage(24, 1);
+        } catch (AzDException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    public void shouldGetTestRunCodeCoverage() {
+        try {
+            t.codeCoverage().getTestRunCodeCoverage(4206, 1);
+        } catch (AzDException e) {
+            System.out.println(ResponseHandler.getResponse().getResponseBody());
+
+        }
     }
 }
