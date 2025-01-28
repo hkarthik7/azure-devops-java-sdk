@@ -3,6 +3,7 @@ package org.azd.artifacts.feedmanagement;
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.abstractions.QueryParameter;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
 import org.azd.feedmanagement.types.FeedPermissions;
 
@@ -21,7 +22,7 @@ public class FeedPermissionsRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public FeedPermissionsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "packaging", "be8c1476-86a7-44ed-b19d-aec0e9275cd8");
+        super(organizationUrl, accessTokenCredential, "packaging", "be8c1476-86a7-44ed-b19d-aec0e9275cd8", ApiVersion.FEEDS);
     }
 
     /**
