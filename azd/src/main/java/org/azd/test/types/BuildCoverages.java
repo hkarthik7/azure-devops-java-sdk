@@ -8,7 +8,7 @@ import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BuildCoverages extends SerializableCollectionEntity {
-    @JsonProperty("values")
+    @JsonProperty("value")
     private List<BuildCoverage> buildCoverages;
 
     public List<BuildCoverage> getBuildCoverages() {

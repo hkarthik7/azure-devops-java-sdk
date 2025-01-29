@@ -9,7 +9,16 @@ import org.azd.test.types.TestRunCoverages;
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Provides functionality to work with Test code coverage Api.
+ */
 public class CodeCoverageRequestBuilder extends BaseRequestBuilder {
+    /**
+     * Instantiates a new RequestBuilder instance and sets the default values.
+     *
+     * @param organizationUrl       Represents organization location request url.
+     * @param accessTokenCredential Access token credential object.
+     */
     public CodeCoverageRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
         super(organizationUrl, accessTokenCredential, "test", "77560e8a-4e8c-4d59-894e-a5f264c24444", ApiVersion.TEST_CODE_COVERAGE);
     }
