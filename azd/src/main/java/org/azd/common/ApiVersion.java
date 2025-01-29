@@ -53,6 +53,7 @@ public abstract class ApiVersion {
     public static final String SERVICE_HOOKS = "7.2-preview.1";
     public static final String TEST_ATTACHMENTS = "7.2";
     public static final String TEST_RUNS = "7.2-preview.3";
+    public static final String TEST_ITERATIONS = "7.2-preview.3";
     public static final String TEST_CODE_COVERAGE = "7.2-preview.1";
     public static final String TEST_RESULTS = "7.2-preview.6";
     public static final String VARIABLE_GROUPS = "7.2-preview.2";

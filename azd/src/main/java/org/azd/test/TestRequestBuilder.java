@@ -4,6 +4,7 @@ import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.test.attachments.AttachmentsRequestBuilder;
 import org.azd.test.codecoverage.CodeCoverageRequestBuilder;
+import org.azd.test.iterations.IterationsRequestBuilder;
 import org.azd.test.results.ResultsRequestBuilder;
 import org.azd.test.runs.RunsRequestBuilder;
 
@@ -55,5 +56,14 @@ public class TestRequestBuilder extends BaseRequestBuilder {
      */
     public CodeCoverageRequestBuilder codeCoverage() {
         return new CodeCoverageRequestBuilder(organizationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Provides functionality to work with Test iterations Api.
+     *
+     * @return IterationsRequestBuilder {@link IterationsRequestBuilder}
+     */
+    public IterationsRequestBuilder iterations() {
+        return new IterationsRequestBuilder(organizationUrl, accessTokenCredential);
     }
 }

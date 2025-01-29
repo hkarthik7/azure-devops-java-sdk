@@ -126,8 +126,15 @@ public class TestRequestBuilderTest {
         try {
             t.codeCoverage().getTestRunCodeCoverage(4206, 1);
         } catch (AzDException e) {
-            System.out.println(ResponseHandler.getResponse().getResponseBody());
+            ResponseHandler.getResponse().getResponseBody();
 
         }
+    }
+
+    @Test
+    public void shouldGetTestIterationsForARun() {
+        try {
+            t.iterations().list(4206, 100000);
+        } catch (AzDException ignored) { }
     }
 }
