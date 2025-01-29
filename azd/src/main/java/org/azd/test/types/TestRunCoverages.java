@@ -8,7 +8,7 @@ import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TestRunCoverages extends SerializableEntity {
-    @JsonProperty("values")
+    @JsonProperty("value")
     private List<TestRunCoverage> testRunCoverages;
 
     public List<TestRunCoverage> getTestRunCoverages() {
