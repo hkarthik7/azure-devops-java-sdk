@@ -8,6 +8,8 @@ import org.azd.test.iterations.IterationsRequestBuilder;
 import org.azd.test.results.ResultsRequestBuilder;
 import org.azd.test.runs.RunsRequestBuilder;
 import org.azd.test.session.SessionRequestBuilder;
+import org.azd.test.testcases.TestCasesRequestBuilder;
+import org.azd.test.testhistory.TestHistoryRequestBuilder;
 import org.azd.test.testsuites.TestSuitesRequestBuilder;
 
 /**
@@ -85,5 +87,23 @@ public class TestRequestBuilder extends BaseRequestBuilder {
      */
     public TestSuitesRequestBuilder testSuites() {
         return new TestSuitesRequestBuilder(organizationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Provides functionality to work with Test cases Api.
+     *
+     * @return TestCasesRequestBuilder {@link TestCasesRequestBuilder}
+     */
+    public TestCasesRequestBuilder testCases() {
+        return new TestCasesRequestBuilder(organizationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Provides functionality to work with Test history Api.
+     *
+     * @return TestHistoryRequestBuilder {@link TestHistoryRequestBuilder}
+     */
+    public TestHistoryRequestBuilder testHistory() {
+        return new TestHistoryRequestBuilder(organizationUrl, accessTokenCredential);
     }
 }
