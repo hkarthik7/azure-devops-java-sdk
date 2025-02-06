@@ -7,6 +7,8 @@ import org.azd.test.codecoverage.CodeCoverageRequestBuilder;
 import org.azd.test.iterations.IterationsRequestBuilder;
 import org.azd.test.results.ResultsRequestBuilder;
 import org.azd.test.runs.RunsRequestBuilder;
+import org.azd.test.session.SessionRequestBuilder;
+import org.azd.test.testsuites.TestSuitesRequestBuilder;
 
 /**
  * Provides functionality to work with Test Api.
@@ -65,5 +67,23 @@ public class TestRequestBuilder extends BaseRequestBuilder {
      */
     public IterationsRequestBuilder iterations() {
         return new IterationsRequestBuilder(organizationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Provides functionality to work with Test session Api.
+     *
+     * @return SessionRequestBuilder {@link SessionRequestBuilder}
+     */
+    public SessionRequestBuilder session() {
+        return new SessionRequestBuilder(organizationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Provides functionality to work with Test suites Api.
+     *
+     * @return TestSuitesRequestBuilder {@link TestSuitesRequestBuilder}
+     */
+    public TestSuitesRequestBuilder testSuites() {
+        return new TestSuitesRequestBuilder(organizationUrl, accessTokenCredential);
     }
 }
