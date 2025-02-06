@@ -6,9 +6,6 @@ import org.azd.authentication.AccessTokenCredential;
 import org.azd.common.ApiVersion;
 import org.azd.enums.TestSessionSource;
 import org.azd.exceptions.AzDException;
-import org.azd.test.runs.RunsRequestBuilder;
-import org.azd.test.types.RunCreateModel;
-import org.azd.test.types.TestRun;
 import org.azd.test.types.TestSession;
 import org.azd.test.types.TestSessions;
 
