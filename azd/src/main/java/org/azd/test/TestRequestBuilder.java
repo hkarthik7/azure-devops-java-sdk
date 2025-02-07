@@ -5,6 +5,7 @@ import org.azd.authentication.AccessTokenCredential;
 import org.azd.test.attachments.AttachmentsRequestBuilder;
 import org.azd.test.codecoverage.CodeCoverageRequestBuilder;
 import org.azd.test.iterations.IterationsRequestBuilder;
+import org.azd.test.points.PointsRequestBuilder;
 import org.azd.test.results.ResultsRequestBuilder;
 import org.azd.test.runs.RunsRequestBuilder;
 import org.azd.test.session.SessionRequestBuilder;
@@ -105,5 +106,14 @@ public class TestRequestBuilder extends BaseRequestBuilder {
      */
     public TestHistoryRequestBuilder testHistory() {
         return new TestHistoryRequestBuilder(organizationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Provides functionality to work with Test points Api.
+     *
+     * @return PointsRequestBuilder {@link PointsRequestBuilder}
+     */
+    public PointsRequestBuilder points() {
+        return new PointsRequestBuilder(organizationUrl, accessTokenCredential);
     }
 }
