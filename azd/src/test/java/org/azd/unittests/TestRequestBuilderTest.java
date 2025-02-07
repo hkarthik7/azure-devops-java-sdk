@@ -1,6 +1,7 @@
 package org.azd.unittests;
 
 import org.azd.UnitTestConfiguration;
+import org.azd.abstractions.ApiResponse;
 import org.azd.abstractions.InstanceFactory;
 import org.azd.abstractions.ResponseHandler;
 import org.azd.abstractions.serializer.SerializerContext;
