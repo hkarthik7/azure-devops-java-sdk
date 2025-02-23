@@ -104,7 +104,7 @@ class ScrapeVsTsDocument(object):
             return result
 
     def get_definitions(self) -> dict:
-        res = self.strip_content(self.get_response().text, f'id="{DocumentId.EXAMPLES.value}"',
+        res = self.strip_content(self.get_page_content, f'id="{DocumentId.EXAMPLES.value}"',
                                  f'id="{DocumentId.DEFINITIONS.value}"')
         if res != None:
             return self.get_attributes(
@@ -116,7 +116,7 @@ class ScrapeVsTsDocument(object):
                 DocumentId.DEFINITIONS_CLASS.value, [DocumentId.TAG_A.value, DocumentId.TAG_PARA.value])
 
     def get_comments(self) -> dict:
-        res = self.strip_content(self.get_response().text, f'id="{DocumentId.EXAMPLES.value}"',
+        res = self.strip_content(self.get_page_content, f'id="{DocumentId.EXAMPLES.value}"',
                                  f'id="{DocumentId.DEFINITIONS.value}"')
         if res != None:
             return self.get_attributes(
@@ -128,7 +128,7 @@ class ScrapeVsTsDocument(object):
                 DocumentId.COMMENTS_CLASS.value, [DocumentId.TAG_DIV.value, DocumentId.TAG_PARA.value])
 
     def get_response_type(self) -> dict:
-        res = self.strip_content(self.get_response().text, f'id="{DocumentId.EXAMPLES.value}"',
+        res = self.strip_content(self.get_page_content, f'id="{DocumentId.EXAMPLES.value}"',
                                  f'id="{DocumentId.DEFINITIONS.value}"')
         if res != None:
             return self.get_attributes(
