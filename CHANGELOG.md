@@ -1,5 +1,9 @@
 # Changelog
 
+# 6.0.2
+
+- Added support for Test suites, results, points, cases and history APIs.
+
 # 6.0.1
 
 - Added support for TestCaseResult in **TestApi**.

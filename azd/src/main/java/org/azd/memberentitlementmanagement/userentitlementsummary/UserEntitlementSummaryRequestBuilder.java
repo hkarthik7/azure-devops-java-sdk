@@ -2,6 +2,7 @@ package org.azd.memberentitlementmanagement.userentitlementsummary;
 
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.Utils;
 import org.azd.memberentitlementmanagement.types.UsersSummary;
@@ -19,7 +20,8 @@ public class UserEntitlementSummaryRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public UserEntitlementSummaryRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "memberEntitlementManagement", "5ae55b13-c9dd-49d1-957e-6e76c152e3d9");
+        super(organizationUrl, accessTokenCredential, "memberEntitlementManagement", "5ae55b13-c9dd-49d1-957e-6e76c152e3d9",
+                ApiVersion.MEMBERSHIP_ENTITLEMENT_MANAGEMENT);
     }
 
     /**

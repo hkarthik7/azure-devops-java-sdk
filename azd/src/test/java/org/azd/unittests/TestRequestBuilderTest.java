@@ -1,7 +1,6 @@
 package org.azd.unittests;
 
 import org.azd.UnitTestConfiguration;
-import org.azd.abstractions.ApiResponse;
 import org.azd.abstractions.InstanceFactory;
 import org.azd.abstractions.ResponseHandler;
 import org.azd.abstractions.serializer.SerializerContext;
@@ -135,6 +134,14 @@ public class TestRequestBuilderTest {
     public void shouldGetTestIterationsForARun() {
         try {
             t.iterations().list(4206, 100000);
+        } catch (AzDException ignored) { }
+    }
+
+    @Test
+    public void shouldGetAListOfTestSession() {
+        try {
+            var team = client.core().teams().get(client.core().projects().get().getId()).getTeams().get(0).getId();
+            t.session().list(team);
         } catch (AzDException ignored) { }
     }
 }
