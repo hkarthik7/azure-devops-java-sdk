@@ -294,37 +294,37 @@ public class PointsRequestBuilder extends BaseRequestBuilder {
          * Number of test points to skip.
          */
         @QueryParameter(name = "$skip")
-        private Integer skip;
+        public Integer skip;
         /**
          * Number of test points to return.
          */
         @QueryParameter(name = "$top")
-        private Integer top;
+        public Integer top;
         /**
          * Get test points for specific configuration.
          */
         @QueryParameter(name = "configurationId")
-        private String configurationId;
+        public String configurationId;
         /**
          * Include all properties for the test point.
          */
         @QueryParameter(name = "includePointDetails")
-        private Boolean includePointDetails;
+        public Boolean includePointDetails;
         /**
          * Get test points for a specific test case, valid when configurationId is not set.
          */
         @QueryParameter(name = "testCaseId")
-        private String testCaseId;
+        public String testCaseId;
         /**
          * Get test points for comma-separated list of test point IDs, valid only when configurationId and testCaseId are not set.
          */
         @QueryParameter(name = "testPointIds")
-        private String testPointIds;
+        public String testPointIds;
         /**
          * Comma-separated list of work item field names.
          */
         @QueryParameter(name = "witFields")
-        private String witFields;
+        public String witFields;
     }
 
     /**
