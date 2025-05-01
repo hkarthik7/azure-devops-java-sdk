@@ -2,6 +2,7 @@ package org.azd.git.pullrequest;
 
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.common.types.Author;
 import org.azd.exceptions.AzDException;
 import org.azd.git.types.IdentityRefWithVote;
@@ -21,7 +22,7 @@ public class PullRequestReviewersRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public PullRequestReviewersRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "git", "4b6702c7-aa35-4b89-9c96-b9abf6d3e540");
+        super(organizationUrl, accessTokenCredential, "git", "4b6702c7-aa35-4b89-9c96-b9abf6d3e540", ApiVersion.GIT_PULL_REQUEST_REVIEWERS);
     }
 
     /**

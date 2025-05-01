@@ -2,6 +2,7 @@ package org.azd.workitemtracking.tags;
 
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
 import org.azd.workitemtracking.types.WorkItemTagDefinition;
 import org.azd.workitemtracking.types.WorkItemTagDefinitions;
@@ -19,7 +20,7 @@ public class WorkItemTagsRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public WorkItemTagsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "wit", "bc15bc60-e7a8-43cb-ab01-2106be3983a1");
+        super(organizationUrl, accessTokenCredential, "wit", "bc15bc60-e7a8-43cb-ab01-2106be3983a1", ApiVersion.WORK_ITEM_TAGS);
     }
 
     /**

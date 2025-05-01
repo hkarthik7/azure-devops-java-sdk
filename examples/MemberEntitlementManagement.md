@@ -72,7 +72,7 @@ public class Main {
                 .memberEntitlementManagement()
                 .userEntitlements()
                 .search()
-                .getMembers()
+                .getUsers()
                 .stream()
                 .findFirst()
                 .get()

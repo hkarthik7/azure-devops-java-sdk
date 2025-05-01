@@ -2,6 +2,7 @@ package org.azd.core.processes;
 
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.core.types.Process;
 import org.azd.core.types.Processes;
 import org.azd.exceptions.AzDException;
@@ -19,7 +20,7 @@ public class ProcessesRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public ProcessesRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "core", "93878975-88c5-4e6a-8abb-7ddd77a8a7d8");
+        super(organizationUrl, accessTokenCredential, "core", "93878975-88c5-4e6a-8abb-7ddd77a8a7d8", ApiVersion.CORE);
     }
 
     /**

@@ -3,6 +3,7 @@ package org.azd.git.repositories;
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.abstractions.QueryParameter;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
 import org.azd.git.types.GitDeletedRepositories;
 import org.azd.git.types.GitRepository;
@@ -23,7 +24,7 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public RepositoriesRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "git", "225f7195-f9c7-4d14-ab28-a83f7ff77e1f");
+        super(organizationUrl, accessTokenCredential, "git", "225f7195-f9c7-4d14-ab28-a83f7ff77e1f", ApiVersion.GIT);
 
 
     }
@@ -90,6 +91,7 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
     public CompletableFuture<GitDeletedRepositories> listDeletedAsync() throws AzDException {
         return builder()
                 .location("2b6869c4-cb25-42b5-b7a3-0d3e6be0a11a")
+                .apiVersion(ApiVersion.GIT_RECYCLE_BIN_REPOSITORIES)
                 .build()
                 .executeAsync(GitDeletedRepositories.class);
     }
@@ -219,6 +221,7 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
     public GitDeletedRepositories listDeleted() throws AzDException {
         return builder()
                 .location("2b6869c4-cb25-42b5-b7a3-0d3e6be0a11a")
+                .apiVersion(ApiVersion.GIT_RECYCLE_BIN_REPOSITORIES)
                 .build()
                 .execute(GitDeletedRepositories.class);
     }

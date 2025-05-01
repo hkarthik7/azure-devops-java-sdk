@@ -2,6 +2,7 @@ package org.azd.pipelines.logs;
 
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.enums.GetLogExpandOptions;
 import org.azd.exceptions.AzDException;
 import org.azd.pipelines.types.LogCollection;
@@ -20,7 +21,7 @@ public class LogsRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public LogsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "pipelines", "fb1b6d27-3957-43d5-a14b-a2d70403e545");
+        super(organizationUrl, accessTokenCredential, "pipelines", "fb1b6d27-3957-43d5-a14b-a2d70403e545", ApiVersion.PIPELINES);
     }
 
     /**

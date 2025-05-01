@@ -6,6 +6,7 @@ import org.azd.authentication.AccessTokenCredential;
 import org.azd.build.types.BuildDefinition;
 import org.azd.build.types.BuildDefinitionRevisions;
 import org.azd.build.types.BuildDefinitions;
+import org.azd.common.ApiVersion;
 import org.azd.enums.DefinitionQueryOrder;
 import org.azd.exceptions.AzDException;
 
@@ -23,7 +24,7 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public DefinitionsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "build", "dbeaf647-6167-421a-bda9-c9327b25e2e6");
+        super(organizationUrl, accessTokenCredential, "build", "dbeaf647-6167-421a-bda9-c9327b25e2e6", ApiVersion.BUILD_DEFINITIONS);
     }
 
     /**
@@ -98,6 +99,7 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
         return builder()
                 .serviceEndpoint("definitionId", definitionId)
                 .location("7c116775-52e5-453e-8c5d-914d9762d8c4")
+                .apiVersion(ApiVersion.BUILD_DEFINITION_REVISIONS)
                 .build()
                 .executeAsync(BuildDefinitionRevisions.class);
     }
@@ -239,6 +241,7 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
         return builder()
                 .serviceEndpoint("definitionId", definitionId)
                 .location("7c116775-52e5-453e-8c5d-914d9762d8c4")
+                .apiVersion(ApiVersion.BUILD_DEFINITION_REVISIONS)
                 .build()
                 .execute(BuildDefinitionRevisions.class);
     }

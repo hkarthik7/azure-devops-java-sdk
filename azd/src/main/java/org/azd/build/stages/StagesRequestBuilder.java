@@ -2,6 +2,7 @@ package org.azd.build.stages;
 
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.enums.StageUpdateType;
 import org.azd.exceptions.AzDException;
 
@@ -20,7 +21,7 @@ public class StagesRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public StagesRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "build", "b8aac6c9-744b-46e1-88fc-3550969f9313");
+        super(organizationUrl, accessTokenCredential, "build", "b8aac6c9-744b-46e1-88fc-3550969f9313", ApiVersion.BUILD_STAGE);
     }
 
     /**

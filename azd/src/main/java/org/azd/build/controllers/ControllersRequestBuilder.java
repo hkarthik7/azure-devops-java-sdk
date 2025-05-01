@@ -4,6 +4,7 @@ import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.build.types.BuildController;
 import org.azd.build.types.BuildControllers;
+import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
 
 import java.util.concurrent.CompletableFuture;
@@ -19,7 +20,7 @@ public class ControllersRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public ControllersRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "build", "fcac1932-2ee1-437f-9b6f-7f696be858f6");
+        super(organizationUrl, accessTokenCredential, "build", "fcac1932-2ee1-437f-9b6f-7f696be858f6", ApiVersion.BUILD_CONTROLLERS);
     }
 
     /**

@@ -21,7 +21,7 @@ public class UserEntitlementSummaryRequestBuilder extends BaseRequestBuilder {
      */
     public UserEntitlementSummaryRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
         super(organizationUrl, accessTokenCredential, "memberEntitlementManagement", "5ae55b13-c9dd-49d1-957e-6e76c152e3d9",
-                ApiVersion.MEMBERSHIP_ENTITLEMENT_MANAGEMENT);
+                ApiVersion.USER_ENTITLEMENT_SUMMARY);
     }
 
     /**

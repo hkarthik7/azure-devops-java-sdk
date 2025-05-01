@@ -1,5 +1,11 @@
 # Changelog
 
+# 6.0.3
+
+- Fixes issues:
+  - Issue: [Can't get pipeline approvals when using DeploymentsRequestBuilder #84](https://github.com/hkarthik7/azure-devops-java-sdk/issues/84)
+  - Issue: [Wrong Api version in AzDServiceClient v6.0.2 #85](https://github.com/hkarthik7/azure-devops-java-sdk/issues/85)
+
 # 6.0.2
 
 - Added support for Test suites, results, points, cases and history APIs.

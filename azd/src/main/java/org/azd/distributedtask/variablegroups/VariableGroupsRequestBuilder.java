@@ -3,6 +3,7 @@ package org.azd.distributedtask.variablegroups;
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.abstractions.QueryParameter;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.distributedtask.types.VariableGroup;
 import org.azd.distributedtask.types.VariableGroupLibrary;
 import org.azd.distributedtask.types.VariableGroupProjectReference;
@@ -29,7 +30,7 @@ public class VariableGroupsRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public VariableGroupsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "distributedtask", "ef5b7057-ffc3-4c77-bbad-c10b4a4abcc7");
+        super(organizationUrl, accessTokenCredential, "distributedtask", "ef5b7057-ffc3-4c77-bbad-c10b4a4abcc7", ApiVersion.VARIABLE_GROUPS);
     }
 
     /**

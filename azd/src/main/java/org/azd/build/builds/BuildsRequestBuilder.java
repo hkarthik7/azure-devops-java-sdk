@@ -25,7 +25,7 @@ public class BuildsRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public BuildsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "build", "0cd358e1-9217-4d94-8269-1c1ee6f93dcf");
+        super(organizationUrl, accessTokenCredential, "build", "0cd358e1-9217-4d94-8269-1c1ee6f93dcf", ApiVersion.BUILD);
 
     }
 

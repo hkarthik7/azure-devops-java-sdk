@@ -23,7 +23,7 @@ public class RunAttachmentRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public RunAttachmentRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "test", "4f004af4-a507-489c-9b13-cb62060beb11", ApiVersion.TEST_RUNS);
+        super(organizationUrl, accessTokenCredential, "test", "4f004af4-a507-489c-9b13-cb62060beb11", ApiVersion.TEST_ATTACHMENTS);
     }
 
     /**

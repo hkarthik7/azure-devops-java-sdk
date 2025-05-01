@@ -3,6 +3,7 @@ package org.azd.extensionmanagement;
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.abstractions.QueryParameter;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
 import org.azd.extensionmanagement.types.*;
 import org.azd.helpers.URLHelper;
@@ -23,7 +24,7 @@ public class ExtensionManagementRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public ExtensionManagementRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "extensionmanagement", "fb0da285-f23e-4b56-8b53-3ef5f9f6de66");
+        super(organizationUrl, accessTokenCredential, "extensionmanagement", "fb0da285-f23e-4b56-8b53-3ef5f9f6de66", ApiVersion.EXTENSION_MANAGEMENT);
     }
 
     /**

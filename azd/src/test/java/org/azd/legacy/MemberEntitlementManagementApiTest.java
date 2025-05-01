@@ -62,7 +62,7 @@ public class MemberEntitlementManagementApiTest {
 
     @Test
     public void shouldUpdateUsersEntitlement() throws AzDException {
-        var userId = mem.getUserEntitlements().getMembers().stream()
+        var userId = mem.getUserEntitlements().getUsers().stream()
                 .filter(x -> x.getUser().getDisplayName().equals("test@xmail.com"))
                 .findFirst().get().getId();
 

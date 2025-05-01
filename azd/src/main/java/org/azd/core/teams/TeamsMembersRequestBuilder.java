@@ -3,6 +3,7 @@ package org.azd.core.teams;
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.abstractions.QueryParameter;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.core.types.TeamMembers;
 import org.azd.exceptions.AzDException;
 
@@ -20,7 +21,7 @@ public class TeamsMembersRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public TeamsMembersRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "core", "294c494c-2600-4d7e-b76c-3dd50c3c95be");
+        super(organizationUrl, accessTokenCredential, "core", "294c494c-2600-4d7e-b76c-3dd50c3c95be", ApiVersion.PROJECT_TEAMS_MEMBERS);
     }
 
     /**

@@ -4,6 +4,7 @@ import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.abstractions.QueryParameter;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.build.types.*;
+import org.azd.common.ApiVersion;
 import org.azd.enums.SourceProviderResultSet;
 import org.azd.exceptions.AzDException;
 
@@ -22,7 +23,7 @@ public class SourceProvidersRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public SourceProvidersRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "build");
+        super(organizationUrl, accessTokenCredential, "build", null, ApiVersion.BUILD_SOURCE_PROVIDERS);
     }
 
     /**

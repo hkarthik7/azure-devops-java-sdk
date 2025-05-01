@@ -4,6 +4,7 @@ import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.abstractions.QueryParameter;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.build.types.BuildWorkItems;
+import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class BuildWorkItemsRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public BuildWorkItemsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "build", "5a21f5d2-5642-47e4-a0bd-1356e6731bee");
+        super(organizationUrl, accessTokenCredential, "build", "5a21f5d2-5642-47e4-a0bd-1356e6731bee", ApiVersion.BUILD_WORK_ITEMS);
     }
 
     /**

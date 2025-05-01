@@ -3,6 +3,7 @@ package org.azd.pipelines.pipelines;
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.abstractions.QueryParameter;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
 import org.azd.pipelines.types.CreatePipelineParameters;
 import org.azd.pipelines.types.Pipeline;
@@ -22,7 +23,7 @@ public class PipelinesRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public PipelinesRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "pipelines", "28e1305e-2afe-47bf-abaf-cbb0e6a91988");
+        super(organizationUrl, accessTokenCredential, "pipelines", "28e1305e-2afe-47bf-abaf-cbb0e6a91988", ApiVersion.PIPELINES);
     }
 
     /**

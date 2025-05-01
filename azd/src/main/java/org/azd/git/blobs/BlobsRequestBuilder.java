@@ -3,6 +3,7 @@ package org.azd.git.blobs;
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.abstractions.QueryParameter;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.enums.CustomHeader;
 import org.azd.enums.GitBlobRefFormat;
 import org.azd.exceptions.AzDException;
@@ -24,7 +25,7 @@ public class BlobsRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public BlobsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "git", "7b28e929-2c99-405d-9c5c-6167a06e6816");
+        super(organizationUrl, accessTokenCredential, "git", "7b28e929-2c99-405d-9c5c-6167a06e6816", ApiVersion.GIT_BLOBS);
     }
 
     /**

@@ -3,6 +3,7 @@ package org.azd.git.items;
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.abstractions.QueryParameter;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.enums.CustomHeader;
 import org.azd.enums.GitVersionOptions;
 import org.azd.enums.GitVersionType;
@@ -28,7 +29,7 @@ public class ItemsRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public ItemsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "git", "fb93c0db-47ed-4a31-8c20-47552878fb44");
+        super(organizationUrl, accessTokenCredential, "git", "fb93c0db-47ed-4a31-8c20-47552878fb44", ApiVersion.GIT_ITEMS);
     }
 
     /**

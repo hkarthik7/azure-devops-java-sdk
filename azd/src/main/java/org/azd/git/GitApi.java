@@ -90,7 +90,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     public Void deleteRepositoryFromRecycleBin(String repositoryId) throws AzDException {
         try {
             String r = send(RequestMethod.DELETE, CONNECTION, GIT, CONNECTION.getProject(),
-                    AREA + "/recycleBin/repositories", repositoryId, null, ApiVersion.GIT, null, null, null);
+                    AREA + "/recycleBin/repositories", repositoryId, null, ApiVersion.GIT_RECYCLE_BIN_REPOSITORIES, null, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
             throw e;
@@ -107,7 +107,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     @Override
     public GitDeletedRepositories getDeletedRepositories() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA, null, "deletedrepositories",
-                ApiVersion.GIT, null, null, null);
+                ApiVersion.GIT_RECYCLE_BIN_REPOSITORIES, null, null, null);
 
         return MAPPER.mapJsonResponse(r, GitDeletedRepositories.class);
     }
@@ -121,7 +121,8 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     @Override
     public GitDeletedRepositories getRecycleBinRepositories() throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA, null,
-                "recycleBin/repositories", ApiVersion.GIT, null, null, null);
+                "recycleBin/repositories", ApiVersion.GIT_RECYCLE_BIN_REPOSITORIES
+                , null, null, null);
 
         return MAPPER.mapJsonResponse(r, GitDeletedRepositories.class);
     }
@@ -226,7 +227,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.PATCH, CONNECTION, GIT, CONNECTION.getProject(),
-                AREA + "/recycleBin/repositories", repositoryId, null, ApiVersion.GIT, null, h, null);
+                AREA + "/recycleBin/repositories", repositoryId, null, ApiVersion.GIT_RECYCLE_BIN_REPOSITORIES, null, h, null);
 
         return MAPPER.mapJsonResponse(r, GitRepository.class);
     }
@@ -745,7 +746,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     @Override
     public ResourceRefs getPullRequestWorkItems(int pullRequestId, String repositoryName) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "pullRequests/" + pullRequestId + "/workitems", ApiVersion.GIT, null, null, null);
+                repositoryName, "pullRequests/" + pullRequestId + "/workitems", ApiVersion.GIT_WORK_ITEMS, null, null, null);
 
         return MAPPER.mapJsonResponse(r, ResourceRefs.class);
     }
@@ -768,7 +769,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "pullrequests/" + pullRequestId + "/labels", ApiVersion.GIT, null, b, CustomHeader.JSON_CONTENT_TYPE);
+                repositoryName, "pullrequests/" + pullRequestId + "/labels", ApiVersion.GIT_PULL_REQUEST_LABELS, null, b, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, WebApiTagDefinition.class);
     }
@@ -786,7 +787,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         try {
             String resource = "pullrequests/" + pullRequestId + "/labels/" + labelName;
             String r = send(RequestMethod.DELETE, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                    repositoryName, resource, ApiVersion.GIT, null, null, null);
+                    repositoryName, resource, ApiVersion.GIT_PULL_REQUEST_LABELS, null, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
             throw e;
@@ -808,7 +809,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
             throws AzDException {
         String resource = "pullrequests/" + pullRequestId + "/labels/" + labelName;
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, resource, ApiVersion.GIT, null, null, null);
+                repositoryName, resource, ApiVersion.GIT_PULL_REQUEST_LABELS, null, null, null);
 
         return MAPPER.mapJsonResponse(r, WebApiTagDefinition.class);
     }
@@ -825,7 +826,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     public WebApiTagDefinitions getPullRequestLabels(String repositoryName, int pullRequestId) throws AzDException {
         String resource = "pullrequests/" + pullRequestId + "/labels";
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, resource, ApiVersion.GIT, null, null, null);
+                repositoryName, resource, ApiVersion.GIT_PULL_REQUEST_LABELS, null, null, null);
 
         return MAPPER.mapJsonResponse(r, WebApiTagDefinitions.class);
     }
@@ -853,7 +854,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         String id = repositoryName + "/pullrequests/" + pullRequestId + "/reviewers/" + reviewerId;
 
         String r = send(RequestMethod.PUT, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories", id, null,
-                ApiVersion.GIT, null, b, CustomHeader.JSON_CONTENT_TYPE);
+                ApiVersion.GIT_PULL_REQUEST_REVIEWERS, null, b, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, IdentityRefWithVote.class);
     }
@@ -873,7 +874,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
             String id = repositoryName + "/pullrequests/" + pullRequestId + "/reviewers/" + reviewerId;
 
             String r = send(RequestMethod.DELETE, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories", id,
-                    null, ApiVersion.GIT, null, null, null);
+                    null, ApiVersion.GIT_PULL_REQUEST_REVIEWERS, null, null, null);
             if (!r.isEmpty()) MAPPER.mapJsonResponse(r, Map.class);
         } catch (AzDException e) {
             throw e;
@@ -896,7 +897,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         String id = repositoryName + "/pullrequests/" + pullRequestId + "/reviewers/" + reviewerId;
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories", id, null,
-                ApiVersion.GIT, null, null, null);
+                ApiVersion.GIT_PULL_REQUEST_REVIEWERS, null, null, null);
 
         return MAPPER.mapJsonResponse(r, IdentityRefWithVote.class);
     }
@@ -914,7 +915,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         String id = repositoryName + "/pullrequests/" + pullRequestId + "/reviewers";
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories", id, null,
-                ApiVersion.GIT, null, null, null);
+                ApiVersion.GIT_PULL_REQUEST_REVIEWERS, null, null, null);
 
         return MAPPER.mapJsonResponse(r, PullRequestReviewers.class);
     }
@@ -941,7 +942,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         String id = repositoryName + "/pullrequests/" + pullRequestId + "/reviewers/" + reviewerId;
 
         String r = send(RequestMethod.PATCH, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories", id, null,
-                ApiVersion.GIT, null, b, CustomHeader.JSON_CONTENT_TYPE);
+                ApiVersion.GIT_PULL_REQUEST_REVIEWERS, null, b, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, IdentityRefWithVote.class);
     }
@@ -968,7 +969,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "annotatedtags", ApiVersion.GIT, null, b, CustomHeader.JSON_CONTENT_TYPE);
+                repositoryName, "annotatedtags", ApiVersion.GIT_ANNOTATED_TAGS, null, b, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, GitAnnotatedTag.class);
     }
@@ -984,7 +985,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     @Override
     public GitAnnotatedTag getAnnotatedTag(String repositoryName, String objectId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "annotatedtags/" + objectId, ApiVersion.GIT, null, null, null);
+                repositoryName, "annotatedtags/" + objectId, ApiVersion.GIT_ANNOTATED_TAGS, null, null, null);
 
         return MAPPER.mapJsonResponse(r, GitAnnotatedTag.class);
     }
@@ -1037,7 +1038,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     @Override
     public GitCommitChanges getChanges(String repositoryName, String commitId) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "commits/" + commitId + "/changes", ApiVersion.GIT, null, null, null);
+                repositoryName, "commits/" + commitId + "/changes", ApiVersion.GIT_COMMIT_CHANGES, null, null, null);
 
         return MAPPER.mapJsonResponse(r, GitCommitChanges.class);
     }
@@ -1060,7 +1061,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "commits/" + commitId + "/changes", ApiVersion.GIT, q, null, null);
+                repositoryName, "commits/" + commitId + "/changes", ApiVersion.GIT_COMMIT_CHANGES, q, null, null);
 
         return MAPPER.mapJsonResponse(r, GitCommitChanges.class);
     }
@@ -1398,7 +1399,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     public GitBlobRef getBlob(String repositoryId, String sha1) throws AzDException {
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryId, "blobs/" + sha1, ApiVersion.GIT, null, null, null);
+                repositoryId, "blobs/" + sha1, ApiVersion.GIT_BLOBS, null, null, null);
 
         return MAPPER.mapJsonResponse(r, GitBlobRef.class);
     }
@@ -1422,7 +1423,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryId, "blobs/" + sha1, ApiVersion.GIT, q, null, null);
+                repositoryId, "blobs/" + sha1, ApiVersion.GIT_BLOBS, q, null, null);
 
         return MAPPER.mapJsonResponse(r, GitBlobRef.class);
     }
@@ -1448,7 +1449,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         return send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryId, "blobs/" + sha1, ApiVersion.GIT, q, null, null);
+                repositoryId, "blobs/" + sha1, ApiVersion.GIT_BLOBS, q, null, null);
     }
 
     /**
@@ -1472,7 +1473,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         return send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryId, "blobs/" + sha1, ApiVersion.GIT, q, null, null, false);
+                repositoryId, "blobs/" + sha1, ApiVersion.GIT_BLOBS, q, null, null, false);
     }
 
     /**
@@ -1496,7 +1497,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         return send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryId, "blobs/" + sha1, ApiVersion.GIT, q, null, null, false);
+                repositoryId, "blobs/" + sha1, ApiVersion.GIT_BLOBS, q, null, null, false);
     }
 
     /**
@@ -1508,7 +1509,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     @Override
     public InputStream getBlobsZip(String repositoryId, List<String> sha1) throws AzDException {
         return send(null, RequestMethod.POST, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryId, "blobs", ApiVersion.GIT, null,
+                repositoryId, "blobs", ApiVersion.GIT_BLOBS, null,
                 HttpRequest.BodyPublishers.ofString(MAPPER.convertToString(sha1)),
                 HttpResponse.BodyHandlers.ofInputStream(),
                 Map.of("Stream_Zip", CustomHeader.STREAM_ZIP_ACCEPT, "Content_Type", CustomHeader.JSON_CONTENT_TYPE),
@@ -1527,7 +1528,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     @Override
     public InputStream getBlobsZip(String repositoryId, String fileName, List<String> sha1) throws AzDException {
         return send(null, RequestMethod.POST, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryId, "blobs", ApiVersion.GIT, Map.of("filename", fileName),
+                repositoryId, "blobs", ApiVersion.GIT_BLOBS, Map.of("filename", fileName),
                 HttpRequest.BodyPublishers.ofString(MAPPER.convertToString(sha1)),
                 HttpResponse.BodyHandlers.ofInputStream(),
                 Map.of("Stream_Zip", CustomHeader.STREAM_ZIP_ACCEPT, "Content_Type", CustomHeader.JSON_CONTENT_TYPE),
@@ -1546,7 +1547,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
     @Override
     public GitItems getItems(String repositoryName) throws AzDException {
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "items", ApiVersion.GIT, null, null, null);
+                repositoryName, "items", ApiVersion.GIT_ITEMS, null, null, null);
 
         return MAPPER.mapJsonResponse(r, GitItems.class);
     }
@@ -1566,7 +1567,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "items", ApiVersion.GIT, q, null, null);
+                repositoryName, "items", ApiVersion.GIT_ITEMS, q, null, null);
 
         return MAPPER.mapJsonResponse(r, GitItems.class);
     }
@@ -1597,7 +1598,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         if (scopePath != null) q.put("scopePath", scopePath);
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "items", ApiVersion.GIT, q, null, null);
+                repositoryName, "items", ApiVersion.GIT_ITEMS, q, null, null);
 
         return MAPPER.mapJsonResponse(r, GitItems.class);
     }
@@ -1635,7 +1636,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         if (scopePath != null) q.put("scopePath", scopePath);
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "items", ApiVersion.GIT, q, null, null);
+                repositoryName, "items", ApiVersion.GIT_ITEMS, q, null, null);
 
         return MAPPER.mapJsonResponse(r, GitItems.class);
     }
@@ -1667,7 +1668,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "forkSyncRequests", ApiVersion.GIT, q, b, CustomHeader.JSON_CONTENT_TYPE);
+                repositoryName, "forkSyncRequests", ApiVersion.GIT_FORK, q, b, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, GitForkSyncRequest.class);
     }
@@ -1708,7 +1709,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.POST, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "forkSyncRequests", ApiVersion.GIT, q, b, CustomHeader.JSON_CONTENT_TYPE);
+                repositoryName, "forkSyncRequests", ApiVersion.GIT_FORK, q, b, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, GitForkSyncRequest.class);
     }
@@ -1731,7 +1732,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "forkSyncRequests/" + OperationId, ApiVersion.GIT, q, CustomHeader.JSON_CONTENT_TYPE, null);
+                repositoryName, "forkSyncRequests/" + OperationId, ApiVersion.GIT_FORK, q, CustomHeader.JSON_CONTENT_TYPE, null);
 
         return MAPPER.mapJsonResponse(r, GitForkSyncRequest.class);
     }
@@ -1754,7 +1755,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "forkSyncRequests", ApiVersion.GIT, q, null, CustomHeader.JSON_CONTENT_TYPE);
+                repositoryName, "forkSyncRequests", ApiVersion.GIT_FORK, q, null, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, GitForkSyncRequests.class);
     }
@@ -1776,7 +1777,7 @@ public class GitApi extends AzDAsyncApi<GitApi> implements GitDetails {
         }};
 
         String r = send(RequestMethod.GET, CONNECTION, GIT, CONNECTION.getProject(), AREA + "/repositories",
-                repositoryName, "forks/" + collectionId, ApiVersion.GIT, q, null, CustomHeader.JSON_CONTENT_TYPE);
+                repositoryName, "forks/" + collectionId, ApiVersion.GIT_FORK, q, null, CustomHeader.JSON_CONTENT_TYPE);
 
         return MAPPER.mapJsonResponse(r, GitRepositoryRefs.class);
     }

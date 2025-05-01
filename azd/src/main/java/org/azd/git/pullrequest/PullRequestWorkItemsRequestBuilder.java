@@ -19,7 +19,7 @@ public class PullRequestWorkItemsRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public PullRequestWorkItemsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "git", "0a637fcc-5370-4ce8-b0e8-98091f5f9482", ApiVersion.GIT);
+        super(organizationUrl, accessTokenCredential, "git", "0a637fcc-5370-4ce8-b0e8-98091f5f9482", ApiVersion.GIT_WORK_ITEMS);
     }
 
     /**
