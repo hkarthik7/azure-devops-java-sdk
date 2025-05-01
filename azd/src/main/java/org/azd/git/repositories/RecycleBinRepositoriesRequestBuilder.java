@@ -2,6 +2,7 @@ package org.azd.git.repositories;
 
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
 import org.azd.git.types.GitDeletedRepositories;
 import org.azd.git.types.GitRepository;
@@ -20,7 +21,7 @@ public class RecycleBinRepositoriesRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public RecycleBinRepositoriesRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "git", "a663da97-81db-4eb3-8b83-287670f63073");
+        super(organizationUrl, accessTokenCredential, "git", "a663da97-81db-4eb3-8b83-287670f63073", ApiVersion.GIT_RECYCLE_BIN_REPOSITORIES);
     }
 
     /**

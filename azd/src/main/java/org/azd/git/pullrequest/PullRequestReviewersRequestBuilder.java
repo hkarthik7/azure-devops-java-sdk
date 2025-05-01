@@ -22,7 +22,7 @@ public class PullRequestReviewersRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public PullRequestReviewersRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "git", "4b6702c7-aa35-4b89-9c96-b9abf6d3e540", ApiVersion.GIT);
+        super(organizationUrl, accessTokenCredential, "git", "4b6702c7-aa35-4b89-9c96-b9abf6d3e540", ApiVersion.GIT_PULL_REQUEST_REVIEWERS);
     }
 
     /**

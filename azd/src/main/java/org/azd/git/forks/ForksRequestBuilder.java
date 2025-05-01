@@ -24,7 +24,7 @@ public class ForksRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public ForksRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "git", "1703f858-b9d1-46af-ab62-483e9e1055b5", ApiVersion.GIT);
+        super(organizationUrl, accessTokenCredential, "git", "1703f858-b9d1-46af-ab62-483e9e1055b5", ApiVersion.GIT_FORK);
     }
 
     /**

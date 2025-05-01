@@ -21,7 +21,7 @@ public class PullRequestLabelsRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public PullRequestLabelsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "git", "f22387e3-984e-4c52-9c6d-fbb8f14c812d", ApiVersion.GIT);
+        super(organizationUrl, accessTokenCredential, "git", "f22387e3-984e-4c52-9c6d-fbb8f14c812d", ApiVersion.GIT_PULL_REQUEST_LABELS);
     }
 
     /**

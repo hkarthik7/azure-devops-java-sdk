@@ -25,7 +25,7 @@ public class BlobsRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public BlobsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "git", "7b28e929-2c99-405d-9c5c-6167a06e6816", ApiVersion.GIT);
+        super(organizationUrl, accessTokenCredential, "git", "7b28e929-2c99-405d-9c5c-6167a06e6816", ApiVersion.GIT_BLOBS);
     }
 
     /**

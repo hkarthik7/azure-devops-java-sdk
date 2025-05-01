@@ -29,7 +29,7 @@ public class ItemsRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public ItemsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "git", "fb93c0db-47ed-4a31-8c20-47552878fb44", ApiVersion.GIT);
+        super(organizationUrl, accessTokenCredential, "git", "fb93c0db-47ed-4a31-8c20-47552878fb44", ApiVersion.GIT_ITEMS);
     }
 
     /**

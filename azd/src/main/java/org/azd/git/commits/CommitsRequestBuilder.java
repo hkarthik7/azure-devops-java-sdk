@@ -74,6 +74,7 @@ public class CommitsRequestBuilder extends BaseRequestBuilder {
                 .location("5bf884f5-3e07-42e9-afb8-1b872267bf16")
                 .serviceEndpoint("repositoryId", repositoryId)
                 .serviceEndpoint("commitId", commitId)
+                .apiVersion(ApiVersion.GIT_COMMIT_CHANGES)
                 .build()
                 .executeAsync(GitCommitChanges.class);
     }
@@ -95,6 +96,7 @@ public class CommitsRequestBuilder extends BaseRequestBuilder {
                 .serviceEndpoint("repositoryId", repositoryId)
                 .serviceEndpoint("commitId", commitId)
                 .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .apiVersion(ApiVersion.GIT_COMMIT_CHANGES)
                 .build()
                 .executeAsync(GitCommitChanges.class);
     }
@@ -234,6 +236,7 @@ public class CommitsRequestBuilder extends BaseRequestBuilder {
                 .location("5bf884f5-3e07-42e9-afb8-1b872267bf16")
                 .serviceEndpoint("repositoryId", repositoryId)
                 .serviceEndpoint("commitId", commitId)
+                .apiVersion(ApiVersion.GIT_COMMIT_CHANGES)
                 .build()
                 .execute(GitCommitChanges.class);
     }
@@ -255,6 +258,7 @@ public class CommitsRequestBuilder extends BaseRequestBuilder {
                 .serviceEndpoint("repositoryId", repositoryId)
                 .serviceEndpoint("commitId", commitId)
                 .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .apiVersion(ApiVersion.GIT_COMMIT_CHANGES)
                 .build()
                 .execute(GitCommitChanges.class);
     }

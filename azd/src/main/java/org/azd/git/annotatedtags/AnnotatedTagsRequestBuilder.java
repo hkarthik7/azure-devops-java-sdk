@@ -19,7 +19,7 @@ public class AnnotatedTagsRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public AnnotatedTagsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "git", "5e8a8081-3851-4626-b677-9891cc04102e", ApiVersion.GIT);
+        super(organizationUrl, accessTokenCredential, "git", "5e8a8081-3851-4626-b677-9891cc04102e", ApiVersion.GIT_ANNOTATED_TAGS);
     }
 
     /**
