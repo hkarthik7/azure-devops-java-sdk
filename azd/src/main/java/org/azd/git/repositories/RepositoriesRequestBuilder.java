@@ -91,6 +91,7 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
     public CompletableFuture<GitDeletedRepositories> listDeletedAsync() throws AzDException {
         return builder()
                 .location("2b6869c4-cb25-42b5-b7a3-0d3e6be0a11a")
+                .apiVersion(ApiVersion.GIT_RECYCLE_BIN_REPOSITORIES)
                 .build()
                 .executeAsync(GitDeletedRepositories.class);
     }
@@ -220,6 +221,7 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
     public GitDeletedRepositories listDeleted() throws AzDException {
         return builder()
                 .location("2b6869c4-cb25-42b5-b7a3-0d3e6be0a11a")
+                .apiVersion(ApiVersion.GIT_RECYCLE_BIN_REPOSITORIES)
                 .build()
                 .execute(GitDeletedRepositories.class);
     }
