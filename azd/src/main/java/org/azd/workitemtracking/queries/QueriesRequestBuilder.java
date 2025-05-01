@@ -121,6 +121,7 @@ public class QueriesRequestBuilder extends BaseRequestBuilder {
         return builder()
                 .location("549816f9-09b0-4e75-9e81-01fbfcd07426")
                 .POST(queryBatchGetRequest)
+                .apiVersion(ApiVersion.WORK_ITEM_QUERIES_BATCH)
                 .build()
                 .executeAsync(QueryHierarchyItems.class);
     }
@@ -296,6 +297,7 @@ public class QueriesRequestBuilder extends BaseRequestBuilder {
         return builder()
                 .location("549816f9-09b0-4e75-9e81-01fbfcd07426")
                 .POST(queryBatchGetRequest)
+                .apiVersion(ApiVersion.WORK_ITEM_QUERIES_BATCH)
                 .build()
                 .execute(QueryHierarchyItems.class);
     }

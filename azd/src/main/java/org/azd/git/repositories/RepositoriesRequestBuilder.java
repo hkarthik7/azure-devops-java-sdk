@@ -3,6 +3,7 @@ package org.azd.git.repositories;
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.abstractions.QueryParameter;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
 import org.azd.git.types.GitDeletedRepositories;
 import org.azd.git.types.GitRepository;
@@ -23,7 +24,7 @@ public class RepositoriesRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public RepositoriesRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "git", "225f7195-f9c7-4d14-ab28-a83f7ff77e1f");
+        super(organizationUrl, accessTokenCredential, "git", "225f7195-f9c7-4d14-ab28-a83f7ff77e1f", ApiVersion.GIT);
 
 
     }

@@ -99,6 +99,7 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
         return builder()
                 .serviceEndpoint("definitionId", definitionId)
                 .location("7c116775-52e5-453e-8c5d-914d9762d8c4")
+                .apiVersion(ApiVersion.BUILD_DEFINITION_REVISIONS)
                 .build()
                 .executeAsync(BuildDefinitionRevisions.class);
     }
@@ -240,6 +241,7 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
         return builder()
                 .serviceEndpoint("definitionId", definitionId)
                 .location("7c116775-52e5-453e-8c5d-914d9762d8c4")
+                .apiVersion(ApiVersion.BUILD_DEFINITION_REVISIONS)
                 .build()
                 .execute(BuildDefinitionRevisions.class);
     }
