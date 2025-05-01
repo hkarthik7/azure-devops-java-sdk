@@ -23,7 +23,7 @@ public class WiqlRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public WiqlRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "wit");
+        super(organizationUrl, accessTokenCredential, "wit", ApiVersion.WORK_ITEM_WIQL);
     }
 
     /**

@@ -5,6 +5,7 @@ import org.azd.abstractions.QueryParameter;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.build.types.BuildArtifact;
 import org.azd.build.types.BuildArtifacts;
+import org.azd.common.ApiVersion;
 import org.azd.enums.CustomHeader;
 import org.azd.exceptions.AzDException;
 import org.azd.http.ClientRequest;
@@ -24,7 +25,7 @@ public class ArtifactsRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public ArtifactsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "build", "1db06c96-014e-44e1-ac91-90b2d4b3e984");
+        super(organizationUrl, accessTokenCredential, "build", "1db06c96-014e-44e1-ac91-90b2d4b3e984", ApiVersion.BUILD_ARTIFACTS);
     }
 
     /**

@@ -3,6 +3,7 @@ package org.azd.distributedtask.agents;
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.abstractions.QueryParameter;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.distributedtask.types.TaskAgent;
 import org.azd.distributedtask.types.TaskAgents;
 import org.azd.exceptions.AzDException;
@@ -21,7 +22,7 @@ public class AgentsRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public AgentsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "distributedtask", "e298ef32-5878-4cab-993c-043836571f42");
+        super(organizationUrl, accessTokenCredential, "distributedtask", "e298ef32-5878-4cab-993c-043836571f42", ApiVersion.DISTRIBUTED_TASK);
     }
 
     /**

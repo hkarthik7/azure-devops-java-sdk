@@ -3,6 +3,7 @@ package org.azd.wiki.pagemoves;
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.abstractions.QueryParameter;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.enums.GitVersionOptions;
 import org.azd.enums.GitVersionType;
 import org.azd.exceptions.AzDException;
@@ -24,7 +25,7 @@ public class PageMovesRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public PageMovesRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "wiki", "e37bbe71-cbae-49e5-9a4e-949143b9d910");
+        super(organizationUrl, accessTokenCredential, "wiki", "e37bbe71-cbae-49e5-9a4e-949143b9d910", ApiVersion.WIKI_PAGES);
     }
 
     /**

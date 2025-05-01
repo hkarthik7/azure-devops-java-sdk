@@ -2,6 +2,7 @@ package org.azd.workitemtracking.workitemtypesfield;
 
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.enums.WorkItemTypeFieldsExpandLevel;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.URLHelper;
@@ -21,7 +22,7 @@ public class WorkItemTypesFieldRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public WorkItemTypesFieldRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "wit", "bd293ce5-3d25-4192-8e67-e8092e879efb");
+        super(organizationUrl, accessTokenCredential, "wit", "bd293ce5-3d25-4192-8e67-e8092e879efb", ApiVersion.WORK_ITEM_TYPES_FIELD);
     }
 
     /**

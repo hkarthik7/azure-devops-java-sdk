@@ -2,6 +2,7 @@ package org.azd.git.annotatedtags;
 
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
 import org.azd.git.types.GitAnnotatedTag;
 
@@ -18,7 +19,7 @@ public class AnnotatedTagsRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public AnnotatedTagsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "git", "5e8a8081-3851-4626-b677-9891cc04102e");
+        super(organizationUrl, accessTokenCredential, "git", "5e8a8081-3851-4626-b677-9891cc04102e", ApiVersion.GIT);
     }
 
     /**

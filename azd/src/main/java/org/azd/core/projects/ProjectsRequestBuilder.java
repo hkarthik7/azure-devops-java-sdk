@@ -3,6 +3,7 @@ package org.azd.core.projects;
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.abstractions.QueryParameter;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.core.types.OperationReference;
 import org.azd.core.types.Project;
 import org.azd.core.types.ProjectCreationParameters;
@@ -27,7 +28,7 @@ public class ProjectsRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public ProjectsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "core", "603fe2ac-9723-48b9-88ad-09305aa6c6e1");
+        super(organizationUrl, accessTokenCredential, "core", "603fe2ac-9723-48b9-88ad-09305aa6c6e1", ApiVersion.PROJECT);
 
     }
 

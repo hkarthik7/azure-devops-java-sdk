@@ -3,6 +3,7 @@ package org.azd.workitemtracking.queries;
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.abstractions.QueryParameter;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.enums.QueryExpand;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.URLHelper;
@@ -25,7 +26,7 @@ public class QueriesRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public QueriesRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "wit", "a67d190c-c41f-424b-814d-0e906f659301");
+        super(organizationUrl, accessTokenCredential, "wit", "a67d190c-c41f-424b-814d-0e906f659301", ApiVersion.WORK_ITEM_QUERIES);
     }
 
     /**

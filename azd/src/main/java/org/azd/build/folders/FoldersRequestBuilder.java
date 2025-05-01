@@ -4,6 +4,7 @@ import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.build.types.Folder;
 import org.azd.build.types.Folders;
+import org.azd.common.ApiVersion;
 import org.azd.enums.FolderQueryOrder;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.URLHelper;
@@ -21,7 +22,7 @@ public class FoldersRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public FoldersRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "build", "a906531b-d2da-4f55-bda7-f3e676cc50d9");
+        super(organizationUrl, accessTokenCredential, "build", "a906531b-d2da-4f55-bda7-f3e676cc50d9", ApiVersion.BUILD_FOLDER);
     }
 
     /**

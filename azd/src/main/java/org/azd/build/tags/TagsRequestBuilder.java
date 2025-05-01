@@ -3,6 +3,7 @@ package org.azd.build.tags;
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.build.types.BuildTags;
+import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
 
 import java.util.concurrent.CompletableFuture;
@@ -18,7 +19,7 @@ public class TagsRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public TagsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "build", "d84ac5c6-edc7-43d5-adc9-1b34be5dea09");
+        super(organizationUrl, accessTokenCredential, "build", "d84ac5c6-edc7-43d5-adc9-1b34be5dea09", ApiVersion.BUILD_TAGS);
 
     }
 

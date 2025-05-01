@@ -3,6 +3,7 @@ package org.azd.build.attachments;
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.build.types.Attachments;
+import org.azd.common.ApiVersion;
 import org.azd.enums.CustomHeader;
 import org.azd.exceptions.AzDException;
 
@@ -47,6 +48,7 @@ public class AttachmentsRequestBuilder extends BaseRequestBuilder {
                 .serviceEndpoint("type", params.type)
                 .serviceEndpoint("name", params.attachmentName)
                 .header(CustomHeader.STREAM_ACCEPT)
+                .apiVersion(ApiVersion.BUILD_ATTACHMENTS)
                 .build()
                 .executeStreamAsync();
     }
@@ -65,6 +67,7 @@ public class AttachmentsRequestBuilder extends BaseRequestBuilder {
                 .location("f2192269-89fa-4f94-baf6-8fb128c55159")
                 .serviceEndpoint("buildId", buildId)
                 .serviceEndpoint("type", type)
+                .apiVersion(ApiVersion.BUILD_ATTACHMENTS)
                 .build()
                 .executeAsync(Attachments.class);
     }
@@ -91,6 +94,7 @@ public class AttachmentsRequestBuilder extends BaseRequestBuilder {
                 .serviceEndpoint("type", params.type)
                 .serviceEndpoint("name", params.attachmentName)
                 .header(CustomHeader.STREAM_ACCEPT)
+                .apiVersion(ApiVersion.BUILD_ATTACHMENTS)
                 .build()
                 .executeStream();
     }
@@ -109,6 +113,7 @@ public class AttachmentsRequestBuilder extends BaseRequestBuilder {
                 .location("f2192269-89fa-4f94-baf6-8fb128c55159")
                 .serviceEndpoint("buildId", buildId)
                 .serviceEndpoint("type", type)
+                .apiVersion(ApiVersion.BUILD_ATTACHMENTS)
                 .build()
                 .execute(Attachments.class);
     }

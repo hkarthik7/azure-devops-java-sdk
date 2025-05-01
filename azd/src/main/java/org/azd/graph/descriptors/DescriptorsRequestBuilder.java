@@ -2,6 +2,7 @@ package org.azd.graph.descriptors;
 
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
 import org.azd.graph.types.GraphDescriptor;
 
@@ -18,7 +19,7 @@ public class DescriptorsRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public DescriptorsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "graph", "048aee0a-7072-4cde-ab73-7af77b1e0b4e");
+        super(organizationUrl, accessTokenCredential, "graph", "048aee0a-7072-4cde-ab73-7af77b1e0b4e", ApiVersion.GRAPH);
     }
 
     /**

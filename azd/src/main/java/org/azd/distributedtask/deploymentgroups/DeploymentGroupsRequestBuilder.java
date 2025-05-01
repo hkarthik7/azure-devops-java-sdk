@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.abstractions.QueryParameter;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.distributedtask.types.DeploymentGroup;
 import org.azd.distributedtask.types.DeploymentGroups;
 import org.azd.enums.DeploymentGroupActionFilter;
@@ -26,7 +27,7 @@ public class DeploymentGroupsRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public DeploymentGroupsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "distributedtask", "083c4d89-ab35-45af-aa11-7cf66895c53e");
+        super(organizationUrl, accessTokenCredential, "distributedtask", "083c4d89-ab35-45af-aa11-7cf66895c53e", ApiVersion.DISTRIBUTED_TASK);
     }
 
     /**

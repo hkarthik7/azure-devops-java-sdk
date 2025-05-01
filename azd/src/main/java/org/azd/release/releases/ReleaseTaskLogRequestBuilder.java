@@ -3,6 +3,7 @@ package org.azd.release.releases;
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.abstractions.QueryParameter;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.enums.CustomHeader;
 import org.azd.exceptions.AzDException;
 
@@ -43,6 +44,7 @@ public class ReleaseTaskLogRequestBuilder extends BaseRequestBuilder {
                 .serviceEndpoint("releaseDeployPhaseId", pathParams.releaseDeployPhaseId)
                 .serviceEndpoint("taskId", pathParams.taskId)
                 .header(CustomHeader.TEXT_CONTENT)
+                .apiVersion(ApiVersion.RELEASE_LOGS)
                 .build()
                 .executeStringAsync();
     }
@@ -69,6 +71,7 @@ public class ReleaseTaskLogRequestBuilder extends BaseRequestBuilder {
                 .serviceEndpoint("taskId", pathParams.taskId)
                 .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
                 .header(CustomHeader.TEXT_CONTENT)
+                .apiVersion(ApiVersion.RELEASE_LOGS)
                 .build()
                 .executeStringAsync();
     }
@@ -92,6 +95,7 @@ public class ReleaseTaskLogRequestBuilder extends BaseRequestBuilder {
                 .serviceEndpoint("releaseDeployPhaseId", pathParams.releaseDeployPhaseId)
                 .serviceEndpoint("taskId", pathParams.taskId)
                 .header(CustomHeader.TEXT_CONTENT)
+                .apiVersion(ApiVersion.RELEASE_LOGS)
                 .build()
                 .executeString();
     }
@@ -118,6 +122,7 @@ public class ReleaseTaskLogRequestBuilder extends BaseRequestBuilder {
                 .serviceEndpoint("taskId", pathParams.taskId)
                 .query(RequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
                 .header(CustomHeader.TEXT_CONTENT)
+                .apiVersion(ApiVersion.RELEASE_LOGS)
                 .build()
                 .executeString();
     }

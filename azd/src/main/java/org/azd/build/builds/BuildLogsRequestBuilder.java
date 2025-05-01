@@ -4,6 +4,7 @@ import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.abstractions.QueryParameter;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.build.types.BuildLogs;
+import org.azd.common.ApiVersion;
 import org.azd.enums.CustomHeader;
 import org.azd.exceptions.AzDException;
 
@@ -22,7 +23,7 @@ public class BuildLogsRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public BuildLogsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "build", "35a80daf-7f30-45fc-86e8-6b813d9c90df");
+        super(organizationUrl, accessTokenCredential, "build", "35a80daf-7f30-45fc-86e8-6b813d9c90df", ApiVersion.BUILD_LOGS);
     }
 
     /**

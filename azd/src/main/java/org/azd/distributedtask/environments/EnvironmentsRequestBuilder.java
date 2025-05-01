@@ -3,6 +3,7 @@ package org.azd.distributedtask.environments;
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.abstractions.QueryParameter;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.distributedtask.types.EnvironmentInstance;
 import org.azd.distributedtask.types.EnvironmentInstances;
 import org.azd.enums.EnvironmentExpands;
@@ -23,7 +24,7 @@ public class EnvironmentsRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public EnvironmentsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "distributedtask", "8572b1fc-2482-47fa-8f74-7e3ed53ee54b");
+        super(organizationUrl, accessTokenCredential, "distributedtask", "8572b1fc-2482-47fa-8f74-7e3ed53ee54b", ApiVersion.DISTRIBUTED_TASK);
     }
 
     /**

@@ -3,6 +3,7 @@ package org.azd.git.forks;
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.abstractions.QueryParameter;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
 import org.azd.git.types.GitForkSyncRequest;
 import org.azd.git.types.GitForkSyncRequestParameters;
@@ -23,7 +24,7 @@ public class ForksRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public ForksRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "git", "1703f858-b9d1-46af-ab62-483e9e1055b5");
+        super(organizationUrl, accessTokenCredential, "git", "1703f858-b9d1-46af-ab62-483e9e1055b5", ApiVersion.GIT);
     }
 
     /**

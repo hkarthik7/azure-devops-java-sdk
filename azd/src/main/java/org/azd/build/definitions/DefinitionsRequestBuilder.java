@@ -6,6 +6,7 @@ import org.azd.authentication.AccessTokenCredential;
 import org.azd.build.types.BuildDefinition;
 import org.azd.build.types.BuildDefinitionRevisions;
 import org.azd.build.types.BuildDefinitions;
+import org.azd.common.ApiVersion;
 import org.azd.enums.DefinitionQueryOrder;
 import org.azd.exceptions.AzDException;
 
@@ -23,7 +24,7 @@ public class DefinitionsRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public DefinitionsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "build", "dbeaf647-6167-421a-bda9-c9327b25e2e6");
+        super(organizationUrl, accessTokenCredential, "build", "dbeaf647-6167-421a-bda9-c9327b25e2e6", ApiVersion.BUILD_DEFINITIONS);
     }
 
     /**

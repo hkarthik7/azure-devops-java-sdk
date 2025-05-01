@@ -5,6 +5,7 @@ import org.azd.abstractions.QueryParameter;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.build.types.DefinitionResourceReference;
 import org.azd.build.types.DefinitionResourceReferences;
+import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class AuthorizedResourcesRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public AuthorizedResourcesRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "build", "398c85bc-81aa-4822-947c-a194a05f0fef");
+        super(organizationUrl, accessTokenCredential, "build", "398c85bc-81aa-4822-947c-a194a05f0fef", ApiVersion.BUILD_AUTHORIZED_RESOURCES);
     }
 
     /**

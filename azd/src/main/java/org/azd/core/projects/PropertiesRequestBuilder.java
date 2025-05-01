@@ -2,6 +2,7 @@ package org.azd.core.projects;
 
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.common.types.JsonPatchDocument;
 import org.azd.core.types.ProjectProperties;
 import org.azd.enums.CustomHeader;
@@ -21,7 +22,7 @@ public class PropertiesRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public PropertiesRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "core", "4976a71a-4487-49aa-8aab-a1eda469037a");
+        super(organizationUrl, accessTokenCredential, "core", "4976a71a-4487-49aa-8aab-a1eda469037a", ApiVersion.PROJECT_PROPERTIES);
     }
 
     /**

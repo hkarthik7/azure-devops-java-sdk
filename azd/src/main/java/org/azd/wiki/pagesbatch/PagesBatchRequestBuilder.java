@@ -3,6 +3,7 @@ package org.azd.wiki.pagesbatch;
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.abstractions.QueryParameter;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.enums.GitVersionOptions;
 import org.azd.enums.GitVersionType;
 import org.azd.exceptions.AzDException;
@@ -22,7 +23,7 @@ public class PagesBatchRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public PagesBatchRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "wiki", "71323c46-2592-4398-8771-ced73dd87207");
+        super(organizationUrl, accessTokenCredential, "wiki", "71323c46-2592-4398-8771-ced73dd87207", ApiVersion.WIKI_PAGES);
     }
 
     /**

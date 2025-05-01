@@ -2,6 +2,7 @@ package org.azd.git.pullrequest;
 
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
 import org.azd.git.types.WebApiTagDefinition;
 import org.azd.git.types.WebApiTagDefinitions;
@@ -20,7 +21,7 @@ public class PullRequestLabelsRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public PullRequestLabelsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "git", "f22387e3-984e-4c52-9c6d-fbb8f14c812d");
+        super(organizationUrl, accessTokenCredential, "git", "f22387e3-984e-4c52-9c6d-fbb8f14c812d", ApiVersion.GIT);
     }
 
     /**

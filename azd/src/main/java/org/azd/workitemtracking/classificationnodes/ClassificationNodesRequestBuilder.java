@@ -3,6 +3,7 @@ package org.azd.workitemtracking.classificationnodes;
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.abstractions.QueryParameter;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.enums.ClassificationNodesErrorPolicy;
 import org.azd.enums.TreeStructureGroup;
 import org.azd.exceptions.AzDException;
@@ -23,7 +24,7 @@ public class ClassificationNodesRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public ClassificationNodesRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "wit", "5a172953-1b41-49d3-840a-33f79c3ce89f");
+        super(organizationUrl, accessTokenCredential, "wit", "5a172953-1b41-49d3-840a-33f79c3ce89f", ApiVersion.WORK_ITEM_CLASSIFICATION_NODES);
     }
 
     /**

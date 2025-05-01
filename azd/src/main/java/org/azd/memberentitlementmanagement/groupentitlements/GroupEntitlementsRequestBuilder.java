@@ -2,6 +2,7 @@ package org.azd.memberentitlementmanagement.groupentitlements;
 
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.common.types.JsonPatchDocument;
 import org.azd.enums.CustomHeader;
 import org.azd.enums.RuleOption;
@@ -23,7 +24,8 @@ public class GroupEntitlementsRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public GroupEntitlementsRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "memberEntitlementManagement", "2280bffa-58a2-49da-822e-0764a1bb44f7");
+        super(organizationUrl, accessTokenCredential, "memberEntitlementManagement", "2280bffa-58a2-49da-822e-0764a1bb44f7",
+                ApiVersion.MEMBERSHIP_ENTITLEMENT_MANAGEMENT);
     }
 
     /**

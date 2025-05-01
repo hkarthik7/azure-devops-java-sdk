@@ -4,6 +4,7 @@ import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.abstractions.QueryParameter;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.build.types.YamlBuild;
+import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
 
 import java.util.concurrent.CompletableFuture;
@@ -20,7 +21,7 @@ public class YamlRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public YamlRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "build", "7c3df3a1-7e51-4150-8cf7-540347f8697f");
+        super(organizationUrl, accessTokenCredential, "build", "7c3df3a1-7e51-4150-8cf7-540347f8697f", ApiVersion.BUILD_YAML);
     }
 
     /**

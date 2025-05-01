@@ -3,6 +3,7 @@ package org.azd.memberentitlementmanagement.members;
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.abstractions.QueryParameter;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
 import org.azd.memberentitlementmanagement.types.PagedGraphMemberList;
 
@@ -20,7 +21,8 @@ public class MembersRequestBuilder extends BaseRequestBuilder {
      * @param accessTokenCredential Access token credential object.
      */
     public MembersRequestBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "memberEntitlementManagement", "45a36e53-5286-4518-aa72-2d29f7acc5d8");
+        super(organizationUrl, accessTokenCredential, "memberEntitlementManagement", "45a36e53-5286-4518-aa72-2d29f7acc5d8",
+                ApiVersion.MEMBERSHIP_ENTITLEMENT_MANAGEMENT_MEMBERS);
     }
 
     /**
