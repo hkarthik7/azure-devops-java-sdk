@@ -4,6 +4,7 @@ import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.pipelines.artifacts.ArtifactsRequestBuilder;
 import org.azd.pipelines.logs.LogsRequestBuilder;
+import org.azd.pipelines.permissions.PermissionsRequestBuilder;
 import org.azd.pipelines.pipelines.PipelinesRequestBuilder;
 import org.azd.pipelines.preview.PreviewRequestBuilder;
 import org.azd.pipelines.runs.RunsRequestBuilder;
@@ -47,6 +48,15 @@ public class PipelinesBaseRequestBuilder extends BaseRequestBuilder {
      */
     public PipelinesRequestBuilder pipelines() {
         return new PipelinesRequestBuilder(organizationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Provides functionality to Pipelines permissions Api.
+     *
+     * @return PermissionsRequestBuilder {@link PermissionsRequestBuilder}
+     */
+    public PermissionsRequestBuilder permissions() {
+        return new PermissionsRequestBuilder(organizationUrl, accessTokenCredential);
     }
 
     /**

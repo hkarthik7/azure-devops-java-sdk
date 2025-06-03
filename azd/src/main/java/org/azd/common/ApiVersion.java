@@ -29,6 +29,7 @@ public abstract class ApiVersion {
     public static final String PROJECT_TEAMS = "7.2-preview.3";
     public static final String PROJECT_TEAMS_MEMBERS = "7.2-preview.2";
     public static final String PIPELINES = "7.2-preview.1";
+    public static final String PIPELINE_PERMISSIONS = "7.2-preview.1";
     public static final String FEEDS = "7.2-preview.1";
     public static final String GIT = "7.2-preview.2";
     public static final String GIT_WORK_ITEMS = "7.2-preview.1";
@@ -41,6 +42,7 @@ public abstract class ApiVersion {
     public static final String GIT_ANNOTATED_TAGS = "7.2-preview.1";
     public static final String GIT_PULL_REQUEST_REVIEWERS = "7.2-preview.1";
     public static final String GIT_PUSH = "7.2-preview.3";
+    public static final String GIT_POLICY_CONFIGURATIONS = "7.2-preview.1";
     public static final String GRAPH = "7.2-preview.1";
     public static final String MEMBERSHIP_ENTITLEMENT_MANAGEMENT = "7.2-preview.1";
     public static final String MEMBERSHIP_ENTITLEMENT_MANAGEMENT_MEMBERS = "7.2-preview.2";

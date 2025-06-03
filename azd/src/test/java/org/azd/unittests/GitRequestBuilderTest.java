@@ -11,6 +11,9 @@ import org.azd.git.types.*;
 import org.azd.helpers.StreamHelper;
 import org.azd.helpers.Utils;
 import org.azd.legacy.MockParameters;
+import org.azd.pipelines.types.PipelinePermission;
+import org.azd.pipelines.types.Resource;
+import org.azd.pipelines.types.ResourcePipelinePermission;
 import org.azd.serviceclient.AzDService;
 import org.azd.serviceclient.AzDServiceClient;
 import org.azd.wiki.types.GitVersionDescriptor;
@@ -78,6 +81,14 @@ public class GitRequestBuilderTest {
     @Test
     public void shouldGetRepository() throws AzDException {
         client.git().repositories().get(testConfiguration.properties.git.repositoryName);
+    }
+
+    @Test
+    public void shouldGetGitPolicyConfigurations() throws AzDException {
+        var repo = client.git().repositories().get(testConfiguration.properties.git.repositoryName);
+        client.git().policyConfigurations().get(repo.getId(), r -> {
+            r.queryParameters.top = 10;
+        });
     }
 
     @Test
