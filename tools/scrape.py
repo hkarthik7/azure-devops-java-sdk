@@ -6,10 +6,8 @@ import requests
 import json
 import os
 
-
 # This is an incomplete list of ids
 # TODO: Add specifics if required
-
 
 class DocumentId(Enum):
     DEFINITIONS = 'definitions'
@@ -23,7 +21,6 @@ class DocumentId(Enum):
     TAG_PARA = 'p'
     TAG_A = 'a'
     TAG_DIV = 'div'
-
 
 class ScrapeVsTsDocument(object):
     '''
@@ -159,20 +156,22 @@ def capitalize(word: str):
 
 
 def create_getter(name: str, type_value: str):
-    if '[]' in type_value and type_value != 'string[]':
-        type_value = f"List<{type_value.strip('[]')}>"
-    if str(v['Type']) != 'boolean':
-        type_value = capitalize(type_value)
-    val = f"public {type_value} get{capitalize(name)}() {{ return {name}; }}"
+    java_type = type_value
+    if '[]' in java_type and java_type != 'string[]':
+        java_type = f"List<{capitalize(java_type.strip('[]'))}>"
+    elif java_type != 'boolean':
+        java_type = capitalize(java_type)
+    val = f"public {java_type} get{capitalize(name)}() {{ return {name}; }}"
     return val
 
 
 def create_setter(name: str, type_value: str):
-    if '[]' in type_value and type_value != 'string[]':
-        type_value = f"List<{type_value.strip('[]')}>"
-    if str(v['Type']) != 'boolean':
-        type_value = capitalize(type_value)
-    val = f"public void set{capitalize(name)}({type_value} {name}) {{ this.{name} = {name}; }}"
+    java_type = type_value
+    if '[]' in java_type and java_type != 'string[]':
+        java_type = f"List<{capitalize(java_type.strip('[]'))}>"
+    elif java_type != 'boolean':
+        java_type = capitalize(java_type)
+    val = f"public void set{capitalize(name)}({java_type} {name}) {{ this.{name} = {name}; }}"
     return val
 
 
@@ -202,93 +201,109 @@ if __name__ == "__main__":
     res_type = scrape.get_response_type()['Responses']
 
     if value_result is not None and not comment_only:
-
-        for definition in value_result['Definitions']:
-            if definition == list(value_result['Definitions'])[-1]:
-                last_val = scrape.get_index(
-                    str(scrape._soup_object.find(id=definition.lower())))
-            current_val = scrape.get_index(
-                str(scrape._soup_object.find(id=definition.lower())))
-
-            if (current_val == last_val):
-                sub_type_collector.append(f"{last_val}:")
-            if prev != 0:
-                sub_type_collector.append(f"{prev}:{current_val}")
-
-            prev = current_val
-
-        for sub_set in sub_type_collector:
-            sub_type = sub_set.split(':')
-            if sub_type[1] == '':
-                def_value = response.text[int(sub_type[0]):]
-            else:
-                def_value = response.text[int(sub_type[0]):int(sub_type[1])]
-            s = scrape.get_soup_object(def_value)
-
-            table = s.find_all(DocumentId.ATTRIBUTE.value, {
-                               'class': DocumentId.RESPONSE_TYPE_CLASS.value})
-            element = s.find('h3')
-
-            if element is not None:
-                type_name = element.get_text()
-            else:
-                type_name = "UnknownType"
-                print("[WARNING]: <h3> tag not found in the current soup object.")
-
-
-            sub_types_array = []
-            for t in table:
-                th = t.find_all('th')
-                for row in t.find_all('tr'):
-                    td = row.find_all('td')
-                    if (len(td) != 0):
-                        temp = {
-                            th[0].get_text().strip(): td[0].get_text().strip(),
-                            th[1].get_text().strip(): td[1].get_text().strip(),
-                            th[2].get_text().strip(): td[2].get_text().strip()
-                        }
-                        sub_types_array.append(temp)
-                        d_value[type_name] = sub_types_array
-
-        value_result['SubDefinitions'] = d_value
-
-        for key in value_result['SubDefinitions'].keys():
-            try:
-                f = open(f"types/{key}.java", 'w+', encoding='utf-8')
-                f.write(f"{package_name}")
-                f.write(f"\n{notes.strip()}")
-                f.write(f"\n{import_statements}")
-                f.write(f"\n/**\n * {value_result['Definitions'][key]} \n**/")
-                f.write("\n@JsonIgnoreProperties(ignoreUnknown = true)")
-                f.write(
-                    f"\npublic class {key} extends SerializableEntity {{\n")
-
-                for v in value_result['SubDefinitions'].get(key):
-                    if '[]' in str(v['Type']) and str(v['Type']) != 'string[]':
-                        new_type_val = f"List<{capitalize(str(v['Type']).strip('[]'))}>"
-                    else:
-                        if str(v['Type']) != 'boolean':
-                            new_type_val = capitalize(str(v['Type']))
-                        else:
-                            new_type_val = str(v['Type'])
-
-                    if v['Description'] != '':
-                        f.write(f"\t/**\n \t* {v['Description']} \n\t**/")
-
-                    f.write(f'\n\t@JsonProperty("{v["Name"]}")\n')
-                    f.write(f"\tprivate {new_type_val} {v['Name']};\n")
-
-                for v in value_result['SubDefinitions'].get(key):
-                    f.write(
-                        f"\n\t{create_getter(v['Name'], str(v['Type']))}\n")
-                    f.write(
-                        f"\n\t{create_setter(v['Name'], str(v['Type']))}\n")
-
-                f.write("\n}")
-
-            finally:
-                f.close()
-
+        soup = scrape._soup_object
+        # Find the Definitions section
+        definitions_h2 = soup.find(lambda tag: tag.name == "h2" and (tag.get("id") == "definitions" or "Definitions" in tag.text))
+        if definitions_h2:
+            # The next table after the Definitions h2 contains the list of definitions
+            definitions_table = definitions_h2.find_next("table")
+            if definitions_table:
+                for row in definitions_table.find_all("tr")[1:]:  # skip header
+                    cols = row.find_all("td")
+                    if len(cols) >= 1:
+                        link = cols[0].find("a")
+                        if link and link.has_attr("href"):
+                            anchor = link["href"].lstrip("#")
+                            class_name = link.text.replace("\u200b", "").replace("\n", "").replace(" ", "")
+                            class_desc = cols[1].get_text(strip=True) if len(cols) > 1 else ""
+                            # Find the heading with id=anchor (could be h3, h4, etc.)
+                            class_heading = soup.find(lambda tag: tag.name in ["h3", "h4", "h2"] and tag.get("id") == anchor)
+                            if not class_heading:
+                                print(f"[WARNING]: Heading for definition '{class_name}' (anchor '{anchor}') not found. Using anchor as class name.")
+                            # Find the .metadata div after the heading
+                            metadata = None
+                            if class_heading:
+                                next_tag = class_heading.find_next_sibling()
+                                while next_tag and (getattr(next_tag, 'name', None) != 'div' or 'metadata' not in next_tag.get('class', [])):
+                                    next_tag = next_tag.find_next_sibling()
+                                metadata = next_tag
+                            # Determine type: Object or Enumeration
+                            type_kind = None
+                            if metadata:
+                                type_kind = metadata.get_text(strip=True)
+                            # Find the next table after metadata (fields or enum values)
+                            fields_table = None
+                            if metadata:
+                                fields_table = metadata.find_next_sibling("table")
+                            elif class_heading:
+                                # fallback: look for table after heading
+                                fields_table = class_heading.find_next("table")
+                            # Parse fields or enum values
+                            fields = []
+                            enum_values = []
+                            if type_kind and "Enumeration" in type_kind:
+                                # Enumeration: parse values
+                                if fields_table:
+                                    for frow in fields_table.find_all("tr")[1:]:
+                                        fcols = frow.find_all("td")
+                                        if len(fcols) >= 1:
+                                            value = fcols[0].get_text(strip=True)
+                                            desc = fcols[1].get_text(strip=True) if len(fcols) > 1 else ""
+                                            enum_values.append((value, desc))
+                                # Write Java enum
+                                try:
+                                    with open(f"types/{class_name}.java", 'w+', encoding='utf-8') as f:
+                                        f.write(f"{package_name}\n")
+                                        f.write(f"\n{notes.strip()}\n")
+                                        f.write(f"\n{import_statements}\n")
+                                        f.write(f"\n/**\n * {class_desc}\n**/\n")
+                                        f.write(f"public enum {class_name} {{\n")
+                                        for idx, (val, desc) in enumerate(enum_values):
+                                            if desc:
+                                                f.write(f"\t/** {desc} */\n")
+                                            f.write(f"\t{val}{',' if idx < len(enum_values)-1 else ''}\n")
+                                        if not enum_values:
+                                            f.write("\n")
+                                        f.write("}\n")
+                                except Exception as e:
+                                    print(f"[ERROR]: Failed to write enum {class_name}: {e}")
+                            else:
+                                # Object: parse fields
+                                if fields_table:
+                                    for frow in fields_table.find_all("tr")[1:]:
+                                        fcols = frow.find_all("td")
+                                        if len(fcols) >= 3:
+                                            field_name = fcols[0].get_text(strip=True)
+                                            field_type = fcols[1].get_text(strip=True)
+                                            field_desc = fcols[2].get_text(strip=True)
+                                            fields.append((field_name, field_type, field_desc))
+                                # Write Java class
+                                try:
+                                    with open(f"types/{class_name}.java", 'w+', encoding='utf-8') as f:
+                                        f.write(f"{package_name}\n")
+                                        f.write(f"\n{notes.strip()}\n")
+                                        f.write(f"\n{import_statements}\n")
+                                        f.write(f"\n/**\n * {class_desc}\n**/\n")
+                                        f.write("@JsonIgnoreProperties(ignoreUnknown = true)\n")
+                                        f.write(f"public class {class_name} extends SerializableEntity {{\n")
+                                        for field_name, field_type, field_desc in fields:
+                                            java_type = field_type
+                                            if '[]' in java_type and java_type != 'string[]':
+                                                java_type = f"List<{capitalize(java_type.strip('[]'))}>"
+                                            elif java_type != 'boolean':
+                                                java_type = capitalize(java_type)
+                                            if field_desc:
+                                                f.write(f"\t/**\n \t* {field_desc} \n\t**/\n")
+                                            f.write(f'\t@JsonProperty("{field_name}")\n')
+                                            f.write(f"\tprivate {java_type} {field_name};\n")
+                                        for field_name, field_type, _ in fields:
+                                            f.write(f"\n\tpublic {capitalize(field_type)} get{capitalize(field_name)}() {{ return {field_name}; }}\n")
+                                            f.write(f"\n\tpublic void set{capitalize(field_name)}({capitalize(field_type)} {field_name}) {{ this.{field_name} = {field_name}; }}\n")
+                                        if not fields:
+                                            f.write("\n")
+                                        f.write("}\n")
+                                except Exception as e:
+                                    print(f"[ERROR]: Failed to write class {class_name}: {e}")
     else:
         if not comment_only:
             print("[INFO]: Couldn't find any definitions.")
