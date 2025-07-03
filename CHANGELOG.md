@@ -1,5 +1,8 @@
 # Changelog
 
+#6.0.4
+- Added support for Pull Request Iterations in **GitApi**.
+
 # 6.0.3
 
 - Fixes issues:
