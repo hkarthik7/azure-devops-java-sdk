@@ -46,6 +46,13 @@ public class GitStatus extends SerializableEntity {
      **/
     @JsonProperty("id")
     private int id;
+
+    /**
+     * ID of the iteration to associate status with. Minimum value is 1.
+     */
+    @JsonProperty("iterationId")
+    private int iterationId;
+
     /**
      * Custom properties of the status.
      */
@@ -145,5 +152,13 @@ public class GitStatus extends SerializableEntity {
 
     public void setProperties(PropertiesCollection properties) {
         this.properties = properties;
+    }
+
+    public int getIterationId() {
+        return iterationId;
+    }
+
+    public void setIterationId(int iterationId) {
+        this.iterationId = iterationId;
     }
 }
