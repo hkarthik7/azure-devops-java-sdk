@@ -1,0 +1,24 @@
+parameters:
+  - name: stageName
+    type: string
+  - name: displayName
+    type: string
+  - name: vmImage
+    type: string
+  - name: javaVersion
+    type: string
+    default: '11'
+  - name: mavenGoals
+    type: string
+    default: 'test'
+
+stages:
+  - stage: ${{ parameters.stageName }}
+    displayName: ${{ parameters.displayName }}
+    jobs:
+      - template: build-test-job.yml
+        parameters:
+          jobName: ${{ parameters.stageName }}
+          vmImage: ${{ parameters.vmImage }}
+          javaVersion: ${{ parameters.javaVersion }}
+          mavenGoals: ${{ parameters.mavenGoals }}

@@ -1,0 +1,4 @@
+variables:
+  javaVersion: '11'
+  mavenPomFile: 'azd/pom.xml'
+  testResultsPattern: '**/surefire-reports/TEST-*.xml'

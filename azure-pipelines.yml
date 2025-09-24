@@ -1,146 +1,28 @@
 name: $(Build.BuildID)
 
 trigger:
-- main
+  - main
+  - feature/*
 
 resources:
-- repo: self
+  - repo: self
+
+variables:
+  - template: templates/variables.yml
 
 stages:
-- stage: Build_Test_Linux
+  - template: templates/build-test-stage.yml
+    parameters:
+      stageName: 'Build_Test_Linux'
+      displayName: 'Build and Test on Linux'
+      vmImage: 'ubuntu-latest'
 
-  jobs:
-  - job: Linux
+  - template: templates/build-test-stage.yml
+    parameters:
+      stageName: 'Build_Test_Windows'
+      displayName: 'Build and Test on Windows'
+      vmImage: 'windows-latest'
 
-    pool:
-      vmImage: ubuntu-latest
-      demands: maven
-
-    steps:
-      - task: JavaToolInstaller@0
-        inputs:
-          versionSpec: '11'
-          jdkArchitectureOption: 'x64'
-          jdkSourceOption: 'PreInstalled'
-
-      - powershell: |
-          $s = @{
-              "o" = "$(system.teamOrganization)"
-              "t" = "$(system.teamToken)"
-              "p" = "$(system.teamProject)"
-          } | ConvertTo-Json
-
-          $f = Get-ChildItem -Path $PWD.Path -Filter "_unitTest.json" -Recurse
-          $pom = Get-ChildItem -Path $PWD.Path -Filter "pom.xml" -Recurse
-
-          $s| Set-Content -Path $f.FullName -Encoding UTF8
-
-        displayName: 'PowerShell Script'
-        enabled: true
-
-      - task: Maven@4
-        inputs:
-          mavenPomFile: 'azd/pom.xml'
-          goals: 'test'
-          publishJUnitResults: true
-          testResultsFiles: '**/surefire-reports/TEST-*.xml'
-          javaHomeOption: 'JDKVersion'
-          mavenVersionOption: 'Default'
-          mavenAuthenticateFeed: false
-          effectivePomSkip: false
-          sonarQubeRunAnalysis: false
-
-- stage: Build_Test_Windows
-
-  jobs:
-  - job: Windows
-
-    pool:
-      vmImage: windows-latest
-      demands: maven
-
-    steps:
-      - task: JavaToolInstaller@0
-        inputs:
-          versionSpec: '11'
-          jdkArchitectureOption: 'x64'
-          jdkSourceOption: 'PreInstalled'
-
-      - powershell: |
-          $s = @{
-              "o" = "$(system.teamOrganization)"
-              "t" = "$(system.teamToken)"
-              "p" = "$(system.teamProject)"
-          } | ConvertTo-Json
-
-          $f = Get-ChildItem -Path $PWD.Path -Filter "_unitTest.json" -Recurse
-          $pom = Get-ChildItem -Path $PWD.Path -Filter "pom.xml" -Recurse
-
-          $s| Set-Content -Path $f.FullName -Encoding UTF8
-
-        displayName: 'PowerShell Script'
-        enabled: true
-
-      - task: Maven@4
-        inputs:
-          mavenPomFile: 'azd/pom.xml'
-          goals: 'test'
-          publishJUnitResults: true
-          testResultsFiles: '**/surefire-reports/TEST-*.xml'
-          javaHomeOption: 'JDKVersion'
-          mavenVersionOption: 'Default'
-          mavenAuthenticateFeed: false
-          effectivePomSkip: false
-          sonarQubeRunAnalysis: false
-  
-- stage: Publish_Artifact
-
-  jobs:
-  - job: Publish_Artifact
-
-    pool:
-        vmImage: windows-latest
-        demands: maven
-
-    steps:
-    - task: JavaToolInstaller@0
-      inputs:
-        versionSpec: '11'
-        jdkArchitectureOption: 'x64'
-        jdkSourceOption: 'PreInstalled'
-
-    - powershell: |
-        $s = @{
-            "o" = "$(system.teamOrganization)"
-            "t" = "$(system.teamToken)"
-            "p" = "$(system.teamProject)"
-        } | ConvertTo-Json
-
-        $f = Get-ChildItem -Path $PWD.Path -Filter "_unitTest.json" -Recurse
-        $pom = Get-ChildItem -Path $PWD.Path -Filter "pom.xml" -Recurse
-
-        $s| Set-Content -Path $f.FullName -Encoding UTF8
-
-      displayName: 'PowerShell Script'
-      enabled: true
-
-    - task: Maven@4
-      inputs:
-        mavenPomFile: 'azd/pom.xml'
-        goals: 'package'
-        publishJUnitResults: true
-        testResultsFiles: '**/surefire-reports/TEST-*.xml'
-        javaHomeOption: 'JDKVersion'
-        mavenVersionOption: 'Default'
-        mavenAuthenticateFeed: false
-        effectivePomSkip: false
-        sonarQubeRunAnalysis: false
-
-    - task: CopyFiles@2
-      displayName: 'Copy jar file'
-      inputs:
-        Contents: '**/*.jar'
-        TargetFolder: '$(Build.ArtifactStagingDirectory)'
-
-    - task: PublishBuildArtifacts@1
-      displayName: 'Publish Artifact'
+  - template: templates/publish-stage.yml
+    parameters:
+      dependsOn: ['Build_Test_Linux', 'Build_Test_Windows']

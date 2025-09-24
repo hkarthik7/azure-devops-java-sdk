@@ -1,0 +1,22 @@
+parameters:
+  - name: mavenGoals
+    type: string
+    default: 'test'
+  - name: mavenPomFile
+    type: string
+    default: 'azd/pom.xml'
+
+steps:
+  - task: Maven@4
+    displayName: 'Run Maven ${{ parameters.mavenGoals }}'
+    inputs:
+      mavenPomFile: '${{ parameters.mavenPomFile }}'
+      goals: '${{ parameters.mavenGoals }}'
+      publishJUnitResults: true
+      testResultsFiles: '$(testResultsPattern)'
+      javaHomeOption: 'JDKVersion'
+      mavenVersionOption: 'Default'
+      mavenAuthenticateFeed: false
+      effectivePomSkip: false
+      sonarQubeRunAnalysis: false
+    continueOnError: false
