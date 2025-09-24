@@ -1,0 +1,28 @@
+parameters:
+  - name: jobName
+    type: string
+  - name: vmImage
+    type: string
+  - name: javaVersion
+    type: string
+    default: '11'
+  - name: mavenGoals
+    type: string
+    default: 'test'
+
+jobs:
+  - job: ${{ parameters.jobName }}
+    pool:
+      vmImage: ${{ parameters.vmImage }}
+      demands: maven
+
+    steps:
+      - template: setup-java-step.yml
+        parameters:
+          javaVersion: ${{ parameters.javaVersion }}
+
+      - template: setup-test-config-step.yml
+
+      - template: maven-test-step.yml
+        parameters:
+          mavenGoals: ${{ parameters.mavenGoals }}

@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture;
 public class PullRequestIterationsBuilder extends BaseRequestBuilder {
 
     public PullRequestIterationsBuilder(String organizationUrl, AccessTokenCredential accessTokenCredential) {
-        super(organizationUrl, accessTokenCredential, "git", "4e080c62-fa21-4fbc-8fef-2a10a2b38049", ApiVersion.GIT);
+        super(organizationUrl, accessTokenCredential, "git", "d43911ee-6958-46b0-a42b-8445b8a0d004", ApiVersion.GIT);
     }
 
     public CompletableFuture<GitPullRequestIteration> getAsync(String repositoryId, int pullRequestId, int iterationId) throws AzDException {

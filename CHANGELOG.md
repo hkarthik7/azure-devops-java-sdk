@@ -1,7 +1,15 @@
 # Changelog
 
-# 6.0.4
+# 6.1.3
+
 - Added support for Pull Request Iterations in **GitApi**.
+  - PR: [Bug/91 fix VersionControlChangeType deserialization (#91) #92](https://github.com/hkarthik7/azure-devops-java-sdk/pull/92)
+- Fixes issues:
+  - [CommitsRequestBuilder#getChanges(String repositoryId, String commitId) fails to deserialize commits with renamed files #91](https://github.com/hkarthik7/azure-devops-java-sdk/issues/91)
+  - [JAR contains/re-distributes com.fasterxml.jackson classes #93](https://github.com/hkarthik7/azure-devops-java-sdk/issues/93)
+  - [Cannot invoke "org.azd.common.types.LocationUrl.getLocationUrl()" because the return value of "java.util.Map.get(Object)" is null #90](https://github.com/hkarthik7/azure-devops-java-sdk/issues/90)
+- Added support for Pipeline permissions.
+- Added support for Git policy configurations.
 
 # 6.0.3
 

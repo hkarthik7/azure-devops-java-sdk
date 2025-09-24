@@ -1,0 +1,12 @@
+parameters:
+  - name: javaVersion
+    type: string
+    default: '11'
+
+steps:
+  - task: JavaToolInstaller@0
+    displayName: 'Setup Java ${{ parameters.javaVersion }}'
+    inputs:
+      versionSpec: '${{ parameters.javaVersion }}'
+      jdkArchitectureOption: 'x64'
+      jdkSourceOption: 'PreInstalled'
