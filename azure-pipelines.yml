@@ -2,7 +2,6 @@ name: $(Build.BuildID)
 
 trigger:
   - main
-  - feature/*
 
 resources:
   - repo: self
