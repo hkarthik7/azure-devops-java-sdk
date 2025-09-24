@@ -7,10 +7,12 @@ package org.azd.enums;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * None
  **/
+@JsonFormat(shape = JsonFormat.Shape.STRING)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public enum VersionControlChangeType {
     @JsonProperty("add")
