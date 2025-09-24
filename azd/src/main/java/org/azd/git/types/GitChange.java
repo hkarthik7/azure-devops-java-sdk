@@ -7,8 +7,12 @@ package org.azd.git.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.azd.abstractions.serializer.SerializableEntity;
+import org.azd.abstractions.serializer.VersionControlChangeTypeDeserializer;
 import org.azd.enums.VersionControlChangeType;
+
+import java.util.List;
 
 /**
  * None
@@ -24,7 +28,8 @@ public class GitChange extends SerializableEntity {
      * The type of change that was made to the item.
      **/
     @JsonProperty("changeType")
-    private VersionControlChangeType changeType;
+    @JsonDeserialize(using = VersionControlChangeTypeDeserializer.class)
+    private List<VersionControlChangeType> changeType;
     /**
      * Current version.
      **/
@@ -64,12 +69,12 @@ public class GitChange extends SerializableEntity {
         this.changeId = changeId;
     }
 
-    public VersionControlChangeType getChangeType() {
+    public List<VersionControlChangeType> getChangeType() {
         return changeType;
     }
 
-    public void setChangeType(VersionControlChangeType changeType) {
-        this.changeType = changeType;
+    public void setChangeType(List<VersionControlChangeType> changeType) {
+        this.changeType = List.copyOf(changeType);
     }
 
     public GitItem getItem() {

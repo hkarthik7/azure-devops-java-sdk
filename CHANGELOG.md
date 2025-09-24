@@ -1,5 +1,13 @@
 # Changelog
 
+# 6.0.4
+- Added support for Pull Request Iterations in **GitApi**.
+
+# 6.1.3
+
+- Added support for Pipeline permissions.
+- Added support for Git policy configurations.
+
 # 6.0.3
 
 - Fixes issues:
