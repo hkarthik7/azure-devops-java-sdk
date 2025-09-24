@@ -11,7 +11,6 @@ import org.azd.utils.UrlBuilder;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.http.HttpRequest;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -87,6 +86,7 @@ public class RequestInformation {
 
     /**
      * Sets the base url.
+     *
      * @param baseInstance Pass the base instance. e.g., dev.azure.com.
      */
     public void setBaseInstance(final String baseInstance) {
@@ -95,6 +95,7 @@ public class RequestInformation {
 
     /**
      * Sets the query parameters.
+     *
      * @param parameters Query parameters.
      */
     public void setQueryParameters(Object parameters) {
@@ -114,8 +115,7 @@ public class RequestInformation {
                         if (value.getClass().isEnum()) {
                             queryParameters.put(name,
                                     value.toString().toLowerCase().replaceAll("_", ""));
-                        }
-                        else if (value.getClass().isArray()) {
+                        } else if (value.getClass().isArray()) {
                             queryParameters.put(name, Utils.toString((Object[]) value));
                         } else if (!value.toString().isEmpty()) {
                             queryParameters.put(name, value.toString());
@@ -130,7 +130,8 @@ public class RequestInformation {
 
     /**
      * Sets the query parameters.
-     * @param name Name or key of the parameter.
+     *
+     * @param name  Name or key of the parameter.
      * @param value Value for the Name or key.
      */
     public void setQueryParameter(String name, Object value) {
@@ -142,6 +143,7 @@ public class RequestInformation {
 
     /**
      * Sets the query parameters from given map.
+     *
      * @param queryParameters Map of query parameters.
      */
     public void setQueryParameters(Map<String, Object> queryParameters) {
@@ -152,6 +154,7 @@ public class RequestInformation {
 
     /**
      * Returns the fully constructed request URL.
+     *
      * @return Request URI. {@link URI}
      */
     public URI getRequestUri() {
@@ -170,6 +173,7 @@ public class RequestInformation {
 
     /**
      * Sets the request URL.
+     *
      * @param requestUrl Request url string to set.
      */
     public void setRequestUrl(final String requestUrl) {
@@ -178,6 +182,7 @@ public class RequestInformation {
 
     /**
      * Replaces path parameters in the route template and constructs a complete path value.
+     *
      * @return Path parameters.
      */
     private String replacePathParameters() {
@@ -208,6 +213,7 @@ public class RequestInformation {
 
     /**
      * Returns the location object with base URL details.
+     *
      * @return ApiLocation object {@link ApiLocation}
      */
     private ApiLocation getLocation() {
@@ -218,6 +224,7 @@ public class RequestInformation {
 
     /**
      * Returns the route template from ApiLocation.
+     *
      * @return Route template.
      */
     private String getRouteTemplate() {
@@ -234,19 +241,71 @@ public class RequestInformation {
     /**
      * Helper method to automatically identify the latest version of the API.
      * Use this with caution because not all the APIs return correct version.
+     *
      * @return Api version.
      */
     private String getApiVersion() {
         if (apiVersion != null) return apiVersion;
         var apiLocation = getLocation();
+
         if (apiLocation != null) {
-            var releasedVersion = Double.parseDouble(apiLocation.releasedVersion);
-            String apiVersion;
-            if (releasedVersion == 0.0)
-                apiVersion = apiLocation.maxVersion + Constants.PREVIEW_INDICATOR + apiLocation.resourceVersion;
-            else apiVersion = apiLocation.releasedVersion + Constants.PREVIEW_INDICATOR + apiLocation.resourceVersion;
-            return apiVersion;
+            return negotiateApiVersion(apiVersion, apiLocation);
         }
         return null;
     }
+
+    /**
+     * Auto negotiates API version to support older versions for Azure DevOps server.
+     *
+     * @param requestedVersion Requested Api version.
+     * @param apiLocation      Api location object to retrieve maximum and release version.
+     * @return Api version string.
+     */
+    private String negotiateApiVersion(String requestedVersion, ApiLocation apiLocation) {
+        String negotiatedVersion = null;
+        Double requestedApi = null;
+        Integer resourceVersion = null;
+        boolean isPreview = false;
+
+        if (requestedVersion != null) {
+            // Regex to parse versions like "2.1-preview.1", "2.1-preview", "2.1"
+            var pattern = Pattern.compile("(\\d+(\\.\\d+)?)(-preview(\\.(\\d+))?)?");
+            var matcher = pattern.matcher(requestedVersion);
+
+            if (matcher.matches()) {
+                requestedApi = Double.parseDouble(matcher.group(1)); // "2.1"
+                if (matcher.group(3) != null) {
+                    isPreview = true;
+                    if (matcher.group(5) != null) {
+                        resourceVersion = Integer.parseInt(matcher.group(5)); // ".1"
+                    }
+                }
+
+                var releasedVersion = Double.parseDouble(apiLocation.releasedVersion);
+                var maxVersion = Double.parseDouble(apiLocation.maxVersion);
+
+                if (requestedApi <= releasedVersion
+                        || (resourceVersion == null && requestedApi <= maxVersion && isPreview)
+                        || (resourceVersion != null && requestedApi <= maxVersion && resourceVersion <= apiLocation.resourceVersion)) {
+                    negotiatedVersion = requestedVersion;
+                }
+            }
+        }
+
+        if (negotiatedVersion == null) {
+            var maxVersion = Double.parseDouble(apiLocation.maxVersion);
+            var releasedVersion = Double.parseDouble(apiLocation.releasedVersion);
+
+            if (requestedApi != null && requestedApi < maxVersion) {
+                negotiatedVersion = requestedApi + Constants.PREVIEW_INDICATOR;
+            } else if (maxVersion == releasedVersion) {
+                negotiatedVersion = apiLocation.maxVersion;
+            } else {
+                negotiatedVersion = apiLocation.maxVersion + Constants.PREVIEW_INDICATOR + apiLocation.resourceVersion;
+            }
+        }
+
+        return negotiatedVersion;
+    }
+
 }
