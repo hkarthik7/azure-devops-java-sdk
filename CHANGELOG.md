@@ -1,6 +1,6 @@
 # Changelog
 
-# 6.0.4
+# 6.1.3
 
 - Added support for Pull Request Iterations in **GitApi**.
   - PR: [Bug/91 fix VersionControlChangeType deserialization (#91) #92](https://github.com/hkarthik7/azure-devops-java-sdk/pull/92)
