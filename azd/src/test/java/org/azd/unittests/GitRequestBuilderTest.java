@@ -533,16 +533,24 @@ public class GitRequestBuilderTest {
         client.git().pullRequest().statuses().list(testConfiguration.properties.git.repositoryName, pr.getPullRequestId());
     }
 
-    @Test(expected = AzDException.class)
+    @Test
     public void shouldCreateAGitPullRequestStatus() throws AzDException {
         var repo = client.git().repositories().get(testConfiguration.properties.git.repositoryName);
-        var pullRequestId = 0;
+        var pullRequest = client.git().pullRequests().list(testConfiguration.properties.git.repositoryName)
+                .getPullRequests()
+                .get(0);
+        var iterationId = client.git().pullRequest().iterations()
+                .list(repo.getId(), pullRequest.getPullRequestId())
+                .getIterations()
+                .get(0).getId();
+
+        // Create a new status
         var gitPullRequestStatus = new GitStatus();
+        gitPullRequestStatus.setIterationId(iterationId);
         gitPullRequestStatus.setContext(new GitStatusContext() {{
             setName("testStatus");
         }});
-
-        client.git().pullRequest().statuses().create(repo.getId(), pullRequestId, gitPullRequestStatus);
+        client.git().pullRequest().statuses().create(repo.getId(), pullRequest.getPullRequestId(), gitPullRequestStatus);
     }
 
     @Test
@@ -561,34 +569,44 @@ public class GitRequestBuilderTest {
     @Test
     public void shouldDeleteGitPullRequestStatus() throws AzDException {
         var repo = client.git().repositories().get(testConfiguration.properties.git.repositoryName);
-        var pullRequestId = client.git().pullRequests().list(testConfiguration.properties.git.repositoryName)
+        var pullRequest = client.git().pullRequests().list(testConfiguration.properties.git.repositoryName)
                 .getPullRequests()
-                .get(0)
-                .getPullRequestId();
+                .get(0);
+        var iterationId = client.git().pullRequest().iterations()
+                .list(repo.getId(), pullRequest.getPullRequestId())
+                .getIterations()
+                .get(0).getId();
+
         // Create a new status
         var gitPullRequestStatus = new GitStatus();
+        gitPullRequestStatus.setIterationId(iterationId);
         gitPullRequestStatus.setContext(new GitStatusContext() {{
             setName("testStatus");
         }});
-        var newStatus = client.git().pullRequest().statuses().create(repo.getId(), pullRequestId, gitPullRequestStatus);
+        var newStatus = client.git().pullRequest().statuses().create(repo.getId(), pullRequest.getPullRequestId(), gitPullRequestStatus);
 
         // remove
-        client.git().pullRequest().statuses().delete(repo.getId(), pullRequestId, newStatus.getId());
+        client.git().pullRequest().statuses().delete(repo.getId(), pullRequest.getPullRequestId(), newStatus.getId());
     }
 
     @Test
     public void shouldUpdateGitPullRequestStatus() throws AzDException {
         var repo = client.git().repositories().get(testConfiguration.properties.git.repositoryName);
-        var pullRequestId = client.git().pullRequests().list(testConfiguration.properties.git.repositoryName)
+        var pullRequest = client.git().pullRequests().list(testConfiguration.properties.git.repositoryName)
                 .getPullRequests()
-                .get(0)
-                .getPullRequestId();
+                .get(0);
+        var iterationId = client.git().pullRequest().iterations()
+                .list(repo.getId(), pullRequest.getPullRequestId())
+                .getIterations()
+                .get(0).getId();
+
         // Create a new status
         var gitPullRequestStatus = new GitStatus();
+        gitPullRequestStatus.setIterationId(iterationId);
         gitPullRequestStatus.setContext(new GitStatusContext() {{
             setName("testStatus");
         }});
-        var newStatus = client.git().pullRequest().statuses().create(repo.getId(), pullRequestId, gitPullRequestStatus);
+        var newStatus = client.git().pullRequest().statuses().create(repo.getId(), pullRequest.getPullRequestId(), gitPullRequestStatus);
 
         // update (Update operation only supports removal of the pull request statuses)
         var propertiesToUpdate = new JsonPatchDocument() {{
@@ -598,6 +616,6 @@ public class GitRequestBuilderTest {
             setPath("/" + newStatus.getId());
         }};
 
-        client.git().pullRequest().statuses().update(repo.getId(), pullRequestId, List.of(propertiesToUpdate));
+        client.git().pullRequest().statuses().update(repo.getId(), pullRequest.getPullRequestId(), List.of(propertiesToUpdate));
     }
 }
