@@ -370,6 +370,8 @@ public class BaseServiceClient implements AzDServiceClient {
      * @return Location url.
      */
     private String getLocationUrl(String resourceId) {
+        if (resourceId == null || resourceId.isEmpty())
+            throw new IllegalArgumentException("Resource Id cannot be empty.");
         return locations().getUrl(resourceId);
     }
 }
