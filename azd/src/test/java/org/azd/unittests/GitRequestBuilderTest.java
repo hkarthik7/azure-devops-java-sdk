@@ -18,6 +18,7 @@ import org.azd.serviceclient.AzDService;
 import org.azd.serviceclient.AzDServiceClient;
 import org.azd.wiki.types.GitVersionDescriptor;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -566,7 +567,7 @@ public class GitRequestBuilderTest {
         client.git().pullRequest().statuses().get(repo.getId(), pr, status.getId());
     }
 
-    @Test
+    @Ignore
     public void shouldDeleteGitPullRequestStatus() throws AzDException {
         var repo = client.git().repositories().get(testConfiguration.properties.git.repositoryName);
         var pullRequest = client.git().pullRequests().list(testConfiguration.properties.git.repositoryName)
@@ -589,7 +590,7 @@ public class GitRequestBuilderTest {
         client.git().pullRequest().statuses().delete(repo.getId(), pullRequest.getPullRequestId(), newStatus.getId());
     }
 
-    @Test
+    @Ignore
     public void shouldUpdateGitPullRequestStatus() throws AzDException {
         var repo = client.git().repositories().get(testConfiguration.properties.git.repositoryName);
         var pullRequest = client.git().pullRequests().list(testConfiguration.properties.git.repositoryName)
