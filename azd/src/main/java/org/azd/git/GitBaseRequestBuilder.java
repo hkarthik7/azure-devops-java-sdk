@@ -7,6 +7,7 @@ import org.azd.git.blobs.BlobsRequestBuilder;
 import org.azd.git.commits.CommitsRequestBuilder;
 import org.azd.git.forks.ForksRequestBuilder;
 import org.azd.git.items.ItemsRequestBuilder;
+import org.azd.git.policyconfigurations.PolicyConfigurationsRequestBuilder;
 import org.azd.git.pullrequest.PullRequestBaseRequestBuilder;
 import org.azd.git.pullrequests.PullRequestsRequestBuilder;
 import org.azd.git.pushes.PushesRequestBuilder;
@@ -43,6 +44,15 @@ public class GitBaseRequestBuilder extends BaseRequestBuilder {
      */
     public PullRequestsRequestBuilder pullRequests() {
         return new PullRequestsRequestBuilder(organizationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Provides functionality to manage Git policy configurations Api.
+     *
+     * @return PolicyConfigurationsRequestBuilder {@link PolicyConfigurationsRequestBuilder}
+     */
+    public PolicyConfigurationsRequestBuilder policyConfigurations() {
+        return new PolicyConfigurationsRequestBuilder(organizationUrl, accessTokenCredential);
     }
 
     /**

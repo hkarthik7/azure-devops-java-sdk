@@ -1,0 +1,40 @@
+parameters:
+  - name: dependsOn
+    type: object
+    default: []
+  - name: vmImage
+    type: string
+    default: 'ubuntu-latest'
+
+stages:
+  - stage: PublishArtifact
+    displayName: 'Publish Artifact'
+    dependsOn: ${{ parameters.dependsOn }}
+    condition: succeeded()
+
+    jobs:
+      - job: PublishJob
+        displayName: 'Publish Artifacts'
+        pool:
+          vmImage: ${{ parameters.vmImage }}
+          demands: maven
+
+        steps:
+          - template: setup-java-step.yml
+
+          - template: setup-test-config-step.yml
+
+          - task: Maven@4
+            displayName: 'Build and Package'
+            inputs:
+              mavenPomFile: '$(mavenPomFile)'
+              goals: 'clean package -DskipTests'
+              javaHomeOption: 'JDKVersion'
+              mavenVersionOption: 'Default'
+
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish Build Artifacts'
+            inputs:
+              pathToPublish: '$(Build.SourcesDirectory)/azd/target'
+              artifactName: 'azure-devops-java-sdk'
+              publishLocation: 'Container'

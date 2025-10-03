@@ -1,0 +1,18 @@
+steps:
+  - powershell: |
+      $config = @{
+          "o" = "$(system.teamOrganization)"
+          "t" = "$(system.teamToken)"
+          "p" = "$(system.teamProject)"
+      } | ConvertTo-Json
+      
+      $testConfigFile = Get-ChildItem -Path $PWD.Path -Filter "_unitTest.json" -Recurse
+      
+      if ($testConfigFile) {
+          $config | Set-Content -Path $testConfigFile.FullName -Encoding UTF8
+          Write-Host "Test configuration updated: $($testConfigFile.FullName)"
+      } else {
+          Write-Warning "Test configuration file '_unitTest.json' not found"
+      }
+    displayName: 'Setup Test Configuration'
+    errorActionPreference: 'continue'

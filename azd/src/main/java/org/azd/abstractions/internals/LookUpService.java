@@ -77,6 +77,7 @@ public class LookUpService {
     public String locationUrl(String organizationUrl, String resourceId) {
         if (resourceId == null) return organizationUrl;
         if (!resourceAreasCache.containsKey(resourceId)) resourceAreas(organizationUrl);
-        return resourceAreasCache.get(resourceId).getLocationUrl();
+        var locationUrl = resourceAreasCache.get(resourceId);
+        return locationUrl == null ? organizationUrl : locationUrl.getLocationUrl();
     }
 }
