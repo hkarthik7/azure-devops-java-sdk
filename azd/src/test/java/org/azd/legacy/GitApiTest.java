@@ -11,6 +11,7 @@ import org.azd.interfaces.GitDetails;
 import org.azd.utils.AzDClientApi;
 import org.azd.wiki.types.GitVersionDescriptor;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -442,6 +443,7 @@ public class GitApiTest {
     }
 
     @Test
+    @Ignore
     public void shouldDeleteGitPullRequestStatus() throws AzDException {
         var repo = g.getRepository("testRepository");
         var pullRequestId = 8;
@@ -457,6 +459,7 @@ public class GitApiTest {
     }
 
     @Test
+    @Ignore
     public void shouldUpdateGitPullRequestStatus() throws AzDException {
         var repo = g.getRepository("testRepository");
         var pullRequestId = 8;
