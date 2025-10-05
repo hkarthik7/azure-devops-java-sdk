@@ -567,6 +567,7 @@ public class GitRequestBuilderTest {
         client.git().pullRequest().statuses().get(repo.getId(), pr, status.getId());
     }
 
+    @Test
     @Ignore
     public void shouldDeleteGitPullRequestStatus() throws AzDException {
         var repo = client.git().repositories().get(testConfiguration.properties.git.repositoryName);
@@ -590,6 +591,7 @@ public class GitRequestBuilderTest {
         client.git().pullRequest().statuses().delete(repo.getId(), pullRequest.getPullRequestId(), newStatus.getId());
     }
 
+    @Test
     @Ignore
     public void shouldUpdateGitPullRequestStatus() throws AzDException {
         var repo = client.git().repositories().get(testConfiguration.properties.git.repositoryName);
