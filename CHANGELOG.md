@@ -11,11 +11,6 @@
 - Added support for Pipeline permissions.
 - Added support for Git policy configurations.
 
-# 6.1.3
-
-- Added support for Pipeline permissions.
-- Added support for Git policy configurations.
-
 # 6.0.3
 
 - Fixes issues:
