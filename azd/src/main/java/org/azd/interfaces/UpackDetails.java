@@ -3,8 +3,8 @@ package org.azd.interfaces;
 import org.azd.enums.PackagePromote;
 import org.azd.enums.PackagesBatchOperation;
 import org.azd.exceptions.AzDException;
-import org.azd.upack.types.Package;
-import org.azd.upack.types.UPackPackageVersionDeletionState;
+import org.azd.artifactspackagetypes.types.Package;
+import org.azd.artifactspackagetypes.types.UPackPackageVersionDeletionState;
 
 import java.util.List;
 import java.util.Map;

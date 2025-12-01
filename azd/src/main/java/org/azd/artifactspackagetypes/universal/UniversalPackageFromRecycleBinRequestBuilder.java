@@ -6,7 +6,7 @@ import org.azd.artifactspackagetypes.types.UPackRecycleBinPackageVersionDetails;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
-import org.azd.upack.types.UPackPackageVersionDeletionState;
+import org.azd.artifactspackagetypes.types.UPackPackageVersionDeletionState;
 
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
