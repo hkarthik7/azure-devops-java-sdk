@@ -1,9 +1,14 @@
 package org.azd.authentication;
 
+import org.azd.abstractions.RequestInformation;
 import org.azd.common.types.AccessToken;
 import org.azd.enums.CustomHeader;
+import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.http.ClientRequest;
+
+import java.net.http.HttpRequest;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Represents service principal access token modal.
@@ -101,20 +106,23 @@ public class ServicePrincipalAccessTokenCredential implements AccessTokenCredent
      * Authenticate with given client id, tenant id & client secret and generates the access token.
      */
     private void authenticate() {
-        var body = new StringBuilder()
-                .append("client_id=" + this.clientId)
-                .append("scope=" + "499b84ac-1321-427f-aa17-267ca6975798/.default")
-                .append("client_secret=" + this.clientSecret)
-                .append("grant_type=client_credentials")
-                .toString();
+        var body = "client_id=" + this.clientId +
+                "&scope=" + "499b84ac-1321-427f-aa17-267ca6975798/.default" +
+                "&client_secret=" + this.clientSecret +
+                "&grant_type=client_credentials";
 
         try {
+            var reqInfo = new RequestInformation();
+            reqInfo.requestMethod = RequestMethod.POST;
+            reqInfo.setRequestUrl("https://login.microsoftonline.com/" + this.tenantId + "/oauth2/v2.0/token");
+            reqInfo.requestHeaders.add(CustomHeader.URL_ENCODED);
+            reqInfo.body = HttpRequest.BodyPublishers.ofString(body, StandardCharsets.UTF_8);
+
             var res = ClientRequest.builder()
-                    .URI("https://login.microsoftonline.com/" + this.tenantId + "/oauth2/v2.0/token")
-                    .POST(body)
-                    .header(CustomHeader.URL_ENCODED)
+                    .request(reqInfo)
                     .build()
                     .execute(AccessToken.class);
+
             setAccessToken(res.Token);
         } catch (AzDException e) {
             throw new RuntimeException(e);
