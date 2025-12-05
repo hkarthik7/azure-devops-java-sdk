@@ -1,4 +1,4 @@
-package org.azd.abstractions.serializer;
+package org.azd.git.types;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Custom deserializer for multi value Git change type
+ */
 public class VersionControlChangeTypeDeserializer extends JsonDeserializer<List<VersionControlChangeType>> {
 
     @Override
