@@ -8,7 +8,7 @@ import org.azd.core.types.ProjectCreationParameters;
 import org.azd.enums.FeatureManagement;
 import org.azd.enums.Instance;
 import org.azd.exceptions.AzDException;
-import org.azd.legacy.MockParameters;
+import org.azd.MockParameters;
 import org.azd.serviceclient.AzDService;
 import org.azd.serviceclient.AzDServiceClient;
 import org.junit.Assume;

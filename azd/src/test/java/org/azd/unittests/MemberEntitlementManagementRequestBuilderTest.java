@@ -7,7 +7,7 @@ import org.azd.authentication.PersonalAccessTokenCredential;
 import org.azd.common.types.JsonPatchDocument;
 import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
-import org.azd.legacy.MockParameters;
+import org.azd.MockParameters;
 import org.azd.memberentitlementmanagement.MemberEntitlementManagementRequestBuilder;
 import org.azd.memberentitlementmanagement.types.*;
 import org.azd.serviceclient.AzDService;

@@ -6,7 +6,7 @@ import org.azd.abstractions.serializer.SerializerContext;
 import org.azd.authentication.PersonalAccessTokenCredential;
 import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
-import org.azd.legacy.MockParameters;
+import org.azd.MockParameters;
 import org.azd.release.ReleaseBaseRequestBuilder;
 import org.azd.release.types.*;
 import org.azd.serviceclient.AzDService;

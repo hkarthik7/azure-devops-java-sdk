@@ -1,5 +1,6 @@
 package org.azd.unittests;
 
+import org.azd.MockParameters;
 import org.azd.UnitTestConfiguration;
 import org.azd.abstractions.InstanceFactory;
 import org.azd.abstractions.serializer.SerializerContext;
@@ -10,10 +11,6 @@ import org.azd.exceptions.AzDException;
 import org.azd.git.types.*;
 import org.azd.helpers.StreamHelper;
 import org.azd.helpers.Utils;
-import org.azd.legacy.MockParameters;
-import org.azd.pipelines.types.PipelinePermission;
-import org.azd.pipelines.types.Resource;
-import org.azd.pipelines.types.ResourcePipelinePermission;
 import org.azd.serviceclient.AzDService;
 import org.azd.serviceclient.AzDServiceClient;
 import org.azd.wiki.types.GitVersionDescriptor;
@@ -23,8 +20,6 @@ import org.junit.Test;
 
 import java.io.File;
 import java.util.List;
-
-import static org.junit.Assert.assertTrue;
 
 public class GitRequestBuilderTest {
     private static final SerializerContext serializer = InstanceFactory.createSerializerContext();

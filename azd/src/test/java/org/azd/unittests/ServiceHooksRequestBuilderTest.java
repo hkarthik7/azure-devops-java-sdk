@@ -6,7 +6,7 @@ import org.azd.abstractions.serializer.SerializerContext;
 import org.azd.authentication.PersonalAccessTokenCredential;
 import org.azd.enums.Instance;
 import org.azd.exceptions.AzDException;
-import org.azd.legacy.MockParameters;
+import org.azd.MockParameters;
 import org.azd.serviceclient.AzDService;
 import org.azd.serviceclient.AzDServiceClient;
 import org.azd.servicehooks.ServiceHooksRequestBuilder;
@@ -16,8 +16,6 @@ import org.junit.Test;
 
 import java.io.File;
 import java.util.LinkedHashMap;
-
-import static org.junit.Assert.assertSame;
 
 public class ServiceHooksRequestBuilderTest {
     private static final SerializerContext serializer = InstanceFactory.createSerializerContext();

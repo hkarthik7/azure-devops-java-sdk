@@ -1,5 +1,6 @@
 package org.azd.unittests;
 
+import org.azd.MockParameters;
 import org.azd.UnitTestConfiguration;
 import org.azd.abstractions.InstanceFactory;
 import org.azd.abstractions.serializer.SerializerContext;
@@ -16,7 +17,6 @@ import org.azd.exceptions.AzDException;
 import org.azd.helpers.StreamHelper;
 import org.azd.helpers.Utils;
 import org.azd.http.ClientRequest;
-import org.azd.legacy.MockParameters;
 import org.azd.serviceclient.AzDService;
 import org.azd.serviceclient.AzDServiceClient;
 import org.junit.Before;

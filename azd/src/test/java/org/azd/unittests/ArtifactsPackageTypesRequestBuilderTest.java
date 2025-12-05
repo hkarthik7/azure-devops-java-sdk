@@ -18,7 +18,7 @@ import org.azd.enums.PatchOperation;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.StreamHelper;
 import org.azd.helpers.artifactspackagetypes.ArtifactsPackageTypesHelpersRequestBuilder;
-import org.azd.legacy.MockParameters;
+import org.azd.MockParameters;
 import org.azd.maven.types.MavenPackageVersionDeletionState;
 import org.azd.maven.types.Package;
 import org.azd.maven.types.UpstreamingBehavior;
@@ -30,8 +30,6 @@ import org.junit.Test;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 

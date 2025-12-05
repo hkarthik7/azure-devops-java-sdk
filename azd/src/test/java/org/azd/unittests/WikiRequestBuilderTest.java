@@ -7,7 +7,7 @@ import org.azd.authentication.PersonalAccessTokenCredential;
 import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.StreamHelper;
-import org.azd.legacy.MockParameters;
+import org.azd.MockParameters;
 import org.azd.serviceclient.AzDService;
 import org.azd.serviceclient.AzDServiceClient;
 import org.azd.utils.StringUtils;
