@@ -8,14 +8,14 @@ package org.azd.git.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.azd.abstractions.serializer.SerializableEntity;
-import org.azd.abstractions.serializer.VersionControlChangeTypeDeserializer;
 import org.azd.enums.VersionControlChangeType;
 
 import java.util.List;
 
 /**
- * None
+ * Represents GitChange object
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GitChange extends SerializableEntity {
@@ -29,6 +29,7 @@ public class GitChange extends SerializableEntity {
      **/
     @JsonProperty("changeType")
     @JsonDeserialize(using = VersionControlChangeTypeDeserializer.class)
+    @JsonSerialize(using = VersionControlChangeTypeSerializer.class)
     private List<VersionControlChangeType> changeType;
     /**
      * Current version.
