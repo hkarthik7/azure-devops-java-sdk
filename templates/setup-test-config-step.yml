@@ -1,9 +1,12 @@
 steps:
   - powershell: |
       $config = @{
-          "o" = "$(system.teamOrganization)"
-          "t" = "$(system.teamToken)"
-          "p" = "$(system.teamProject)"
+          "o"  = "$(system.teamOrganization)"
+          "t"  = "$(system.teamToken)"
+          "p"  = "$(system.teamProject)"
+          "ti" = "$(tenantId)"
+          "c"  = "$(clientId)"
+          "cs" = "$(secret)"
       } | ConvertTo-Json
       
       $testConfigFile = Get-ChildItem -Path $PWD.Path -Filter "_unitTest.json" -Recurse
