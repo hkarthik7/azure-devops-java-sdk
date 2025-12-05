@@ -1,21 +1,11 @@
 package org.azd.helpers.artifactspackagetypes;
 
-import org.azd.abstractions.internals.LocationService;
 import org.azd.artifactspackagetypes.ArtifactsPackageTypesRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
-import org.azd.common.ApiVersion;
-import org.azd.common.Constants;
-import org.azd.enums.Instance;
-import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.utils.PathBuilder;
 
 import java.io.InputStream;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.util.Map;
-
-import static org.azd.utils.RestClient.send;
 
 /**
  * Helper request builder that combines multiple Apis to create logical helper methods for ease of use.
