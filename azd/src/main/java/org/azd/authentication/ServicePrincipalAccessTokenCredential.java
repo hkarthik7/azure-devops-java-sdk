@@ -17,6 +17,23 @@ import java.nio.charset.StandardCharsets;
  */
 public class ServicePrincipalAccessTokenCredential implements AccessTokenCredential{
     /**
+     * Access token request base URL
+     */
+    private static final String BASEURL = "https://login.microsoftonline.com/";
+    /**
+     * Access token request endpoint v2.0
+     */
+    private static final String TOKEN_ENDPOINT = "/oauth2/v2.0/token";
+    /**
+     * Default resource for requesting access token
+     */
+    private static final String SCOPES = "499b84ac-1321-427f-aa17-267ca6975798/.default";
+    /**
+     * Authentication grant type when using service principal.
+     */
+    private static final String GRANT_TYPE = "&grant_type=client_credentials";
+
+    /**
      * Azure DevOps organization or TFS collection url.
      */
     private String organizationUrl;
@@ -27,15 +44,15 @@ public class ServicePrincipalAccessTokenCredential implements AccessTokenCredent
     /**
      * Client Id.
      */
-    private String clientId;
+    private final String clientId;
     /**
      * Client Secret.
      */
-    private String clientSecret;
+    private final String clientSecret;
     /**
      * Tenant Id.
      */
-    private String tenantId;
+    private final String tenantId;
     /**
      * Represents the bearer access token
      */
@@ -107,14 +124,14 @@ public class ServicePrincipalAccessTokenCredential implements AccessTokenCredent
      */
     private void authenticate() {
         var body = "client_id=" + this.clientId +
-                "&scope=" + "499b84ac-1321-427f-aa17-267ca6975798/.default" +
+                "&scope=" + SCOPES +
                 "&client_secret=" + this.clientSecret +
-                "&grant_type=client_credentials";
+                GRANT_TYPE;
 
         try {
             var reqInfo = new RequestInformation();
             reqInfo.requestMethod = RequestMethod.POST;
-            reqInfo.setRequestUrl("https://login.microsoftonline.com/" + this.tenantId + "/oauth2/v2.0/token");
+            reqInfo.setRequestUrl(BASEURL + this.tenantId + TOKEN_ENDPOINT);
             reqInfo.requestHeaders.add(CustomHeader.URL_ENCODED);
             reqInfo.body = HttpRequest.BodyPublishers.ofString(body, StandardCharsets.UTF_8);
 
