@@ -1,5 +1,15 @@
 # Changelog
 
+# 7.0.0
+
+**Major release**
+**Breaking changes**
+
+- Fixed issues:
+  - Issue: [GitChange.changeType: InvalidArgumentValueException: The body of the request contains invalid Json. #96](https://github.com/hkarthik7/azure-devops-java-sdk/issues/96)
+- Removed support for legacy API
+- Changes in types packages
+
 # 6.1.3
 
 - Added support for Pull Request Iterations in **GitApi**.
