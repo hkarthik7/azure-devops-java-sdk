@@ -5,7 +5,7 @@
 [![Build Status](https://dev.azure.com/harishkarthic/azure-devops-java-sdk/_apis/build/status/hkarthik7.azure-devops-java-sdk?branchName=main)](https://dev.azure.com/harishkarthic/azure-devops-java-sdk/_build/latest?definitionId=8&branchName=main)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/hkarthik7/azure-devops-java-sdk/blob/main/LICENSE)
 [![Documentation Status](https://readthedocs.org/projects/azure-devops-java-sdk-docs/badge/?version=latest)](https://azure-devops-java-sdk-docs.readthedocs.io/en/latest/?badge=latest)
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.hkarthik7/azd.svg)](https://search.maven.org/artifact/io.github.hkarthik7/azd/6.1.3/jar)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.hkarthik7/azd.svg)](https://search.maven.org/artifact/io.github.hkarthik7/azd/7.0.0/jar)
 
 **azd** library provides a convenient way to manage and interact with **Azure DevOps Services** REST API with ease. This SDK offers a set of APIs and utilities
 with declarative syntax and provide functionalities to the significant services.
@@ -35,7 +35,7 @@ To download the library and use it in your project, just add below in your pom.x
 <dependency>
   <groupId>io.github.hkarthik7</groupId>
   <artifactId>azd</artifactId>
-  <version>6.1.3</version>
+  <version>7.0.0</version>
 </dependency>
 ```
 
@@ -45,7 +45,7 @@ To download the library and use it in your project, just add below in your pom.x
 <dependency>
     <groupId>io.github.hkarthik7</groupId>
     <artifactId>azd</artifactId>
-    <version>6.1.3</version>
+    <version>7.0.0</version>
     <classifier>javadoc</classifier>
 </dependency>
 ```
@@ -56,7 +56,7 @@ To download the library and use it in your project, just add below in your pom.x
 <dependency>
     <groupId>io.github.hkarthik7</groupId>
     <artifactId>azd</artifactId>
-    <version>6.1.3</version>
+    <version>7.0.0</version>
     <classifier>sources</classifier>
 </dependency>
 ```
@@ -102,6 +102,31 @@ public class Main {
 }
 ```
 
+**Authentication using service principal**
+
+To use spn authentication you should create a new app registration in Entra ID, grant Api permissions on Azure DevOps, select right scope 
+and grant admin consent.
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        String project = "myProject";
+        String baseUrl = "https://dev.azure.com/{organization}";
+        // or TFS URL
+        String baseUrl = "https://{server:port}/tfs/{collection}";
+
+        String tenantId = "tenantId";
+        String clientId = "clientId";
+        String clientSecret = "clientSecret";
+
+        AccessTokenCredential spn = new ServicePrincipalAccessTokenCredential(
+                baseUrl,
+                project, tenantId,
+                clientId, clientSecret);
+    }
+}
+```
+
 - Sample usage
 
 ```java
@@ -112,6 +137,8 @@ public class Main {
         AzDServiceClient client = AzDService.builder().authentication(pat).buildClient();
         // or
         AzDServiceClient client = AzDService.builder().authentication(oauth).buildClient();
+        // or
+        AzDServiceClient client = AzDService.builder().authentication(spn).buildClient();
 
         try {
             // Get the list of projects. This return a future object.
