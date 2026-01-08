@@ -1,4 +1,4 @@
-package org.azd.maven.types;
+package org.azd.artifactspackagetypes.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

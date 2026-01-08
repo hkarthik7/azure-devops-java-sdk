@@ -4,6 +4,7 @@ import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.abstractions.ResponseHandler;
 import org.azd.artifactspackagetypes.ArtifactsPackageTypesRequestBuilder;
 import org.azd.artifactspackagetypes.types.MavenPackagesBatchRequest;
+import org.azd.artifactspackagetypes.types.Package;
 import org.azd.artifactspackagetypes.types.PackageVersionDetails;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.common.ApiVersion;
@@ -12,7 +13,6 @@ import org.azd.enums.HttpStatusCode;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.StreamHelper;
 import org.azd.http.ClientRequest;
-import org.azd.maven.types.Package;
 
 import java.io.InputStream;
 import java.util.Map;

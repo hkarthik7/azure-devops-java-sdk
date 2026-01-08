@@ -6,7 +6,7 @@ import org.azd.artifactspackagetypes.types.MavenRecycleBinPackageVersionDetails;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
-import org.azd.maven.types.MavenPackageVersionDeletionState;
+import org.azd.artifactspackagetypes.types.MavenPackageVersionDeletionState;
 
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;

@@ -4,7 +4,7 @@ import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
-import org.azd.maven.types.UpstreamingBehavior;
+import org.azd.artifactspackagetypes.types.UpstreamingBehavior;
 
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
