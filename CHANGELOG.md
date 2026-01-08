@@ -9,6 +9,7 @@
   - Issue: [GitChange.changeType: InvalidArgumentValueException: The body of the request contains invalid Json. #96](https://github.com/hkarthik7/azure-devops-java-sdk/issues/96)
 - Removed support for legacy API
 - Changes in types packages
+- Added support for authentication via service principal client id and secret
 
 # 6.1.3
 
