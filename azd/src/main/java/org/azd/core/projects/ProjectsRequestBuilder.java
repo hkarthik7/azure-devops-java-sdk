@@ -127,6 +127,9 @@ public class ProjectsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public CompletableFuture<Project> getAsync() throws AzDException {
+        if(accessTokenCredential.getProjectName() == null || accessTokenCredential.getProjectName().isEmpty()) {
+            throw new AzDException("Project name is null or empty.");
+        }
         return builder()
                 .serviceEndpoint("projectId", accessTokenCredential.getProjectName())
                 .build()
@@ -261,6 +264,10 @@ public class ProjectsRequestBuilder extends BaseRequestBuilder {
      * @throws AzDException Default Api Exception handler.
      */
     public Project get() throws AzDException {
+        if(accessTokenCredential.getProjectName() == null || accessTokenCredential.getProjectName().isEmpty()) {
+            throw new AzDException("Project name is null or empty.");
+        }
+
         return builder()
                 .serviceEndpoint("projectId", accessTokenCredential.getProjectName())
                 .build()
