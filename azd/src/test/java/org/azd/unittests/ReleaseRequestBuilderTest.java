@@ -17,6 +17,8 @@ import org.junit.Test;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Timer;
+import java.util.concurrent.TimeUnit;
 
 public class ReleaseRequestBuilderTest {
     private static final SerializerContext serializer = InstanceFactory.createSerializerContext();
@@ -102,7 +104,7 @@ public class ReleaseRequestBuilderTest {
     }
 
     @Test
-    public void shouldDeleteARelease() throws AzDException {
+    public void shouldDeleteARelease() throws AzDException, InterruptedException {
         var build = client.build().builds().list(r ->
                 r.queryParameters.definitions = new String[]{Integer.toString(testConfiguration.properties.builds.definitionId)}
         ).getBuildResults().get(0).getBuildNumber();
@@ -125,6 +127,7 @@ public class ReleaseRequestBuilderTest {
         releaseStartMetadata.setArtifacts(List.of(artifactMetadata));
 
         var release = r.releases().create(releaseStartMetadata);
+        TimeUnit.SECONDS.sleep(5);
         r.releases().delete(release.getId());
     }
 

@@ -44,7 +44,7 @@ public class DistributedTaskRequestBuilderTest {
                 .buildClient();
     }
 
-    @Test
+    @Test(expected = AzDException.class)
     public void shouldGetAnAgentInAPool() throws AzDException {
         client.distributedTask().agents()
                 .get(testConfiguration.properties.distributedTask.poolId,

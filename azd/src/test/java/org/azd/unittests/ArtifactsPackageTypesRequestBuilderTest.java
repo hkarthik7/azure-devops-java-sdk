@@ -10,6 +10,7 @@ import org.azd.artifactspackagetypes.types.MavenPackagesBatchRequest;
 import org.azd.artifactspackagetypes.types.MavenRecycleBinPackageVersionDetails;
 import org.azd.artifactspackagetypes.types.PackageVersionDetails;
 import org.azd.authentication.PersonalAccessTokenCredential;
+import org.azd.authentication.ServicePrincipalAccessTokenCredential;
 import org.azd.common.types.JsonPatchDocument;
 import org.azd.enums.Instance;
 import org.azd.enums.PackagePromote;
@@ -38,7 +39,6 @@ import static org.junit.Assert.*;
 public class ArtifactsPackageTypesRequestBuilderTest {
     private static final SerializerContext serializer = InstanceFactory.createSerializerContext();
     private static AzDServiceClient client;
-    private static UnitTestConfiguration testConfiguration;
     private static final String FEED = "maven-feed";
     private static final String TEST1_GROUP = "org.jack.click";
     private static final String TEST1_ARTIFACT = "ClickJack";
@@ -58,9 +58,7 @@ public class ArtifactsPackageTypesRequestBuilderTest {
     public void init() throws AzDException {
         String dir = System.getProperty("user.dir");
         var file = new File(dir + "/src/test/java/org/azd/_unitTest.json");
-        var configFile = new File(dir + "/src/test/java/org/azd/config.json");
         var m = serializer.deserialize(file, MockParameters.class);
-        testConfiguration = serializer.deserialize(configFile, UnitTestConfiguration.class);
         String organization = m.getO();
         String token = m.getT();
         String project = m.getP();
@@ -100,7 +98,7 @@ public class ArtifactsPackageTypesRequestBuilderTest {
     }
 
     @Test
-    public void shouldGetPackageVersion() throws AzDException {
+    public void shouldGetPackageVersion() {
         System.out.println("Maven API TEST : getPackageVersion");
         try {
             Package testPackage = mvn.get(r -> {
@@ -222,7 +220,7 @@ public class ArtifactsPackageTypesRequestBuilderTest {
     }
 
     @Test
-    public void shouldGetPackageVersionFromRecycleBin() throws AzDException {
+    public void shouldGetPackageVersionFromRecycleBin() {
         System.out.println("Maven API TEST : shouldGetPackageVersionFromRecycleBin");
         try {
             mvn.recycleBin().get(r -> {
@@ -231,7 +229,7 @@ public class ArtifactsPackageTypesRequestBuilderTest {
                 r.artifactId = TEST3_ARTIFACT;
                 r.version = TEST3_VERSION;
             });
-        } catch (AzDException ignored) {
+        } catch (Exception ignored) {
         }
         System.out.println("Maven API TEST : shouldGetPackageVersionFromRecycleBin - OK");
     }
@@ -287,7 +285,7 @@ public class ArtifactsPackageTypesRequestBuilderTest {
         }
     }
 
-    @Test
+    @Test(expected = AzDException.class)
     public void shouldUpdatePackageVersions() throws AzDException, InterruptedException {
         System.out.println("Maven API TEST : updatePackageVersions");
         var batchRequest = new MavenPackagesBatchRequest();

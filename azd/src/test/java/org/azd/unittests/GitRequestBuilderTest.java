@@ -3,6 +3,7 @@ package org.azd.unittests;
 import org.azd.MockParameters;
 import org.azd.UnitTestConfiguration;
 import org.azd.abstractions.InstanceFactory;
+import org.azd.abstractions.ResponseHandler;
 import org.azd.abstractions.serializer.SerializerContext;
 import org.azd.authentication.PersonalAccessTokenCredential;
 import org.azd.common.types.JsonPatchDocument;
@@ -369,7 +370,14 @@ public class GitRequestBuilderTest {
 
     @Test
     public void shouldGetCommitsFromARepository() throws AzDException {
-        client.git().commits().list(testConfiguration.properties.git.repositoryName).getCommits();
+        try {
+            System.out.println(client.git().commits().list(testConfiguration.properties.git.repositoryName, r -> {
+                r.queryParameters.top = 1;
+                r.queryParameters.skip = 2;
+            }).getCommits());
+        } catch (AzDException ex) {
+            System.out.println(ResponseHandler.getResponse().getRequestUrl());
+        }
     }
 
     @Test

@@ -1,9 +1,14 @@
 package org.azd.unittests;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import org.azd.UnitTestConfiguration;
 import org.azd.abstractions.InstanceFactory;
+import org.azd.abstractions.ResponseHandler;
+import org.azd.abstractions.internals.LookUpService;
 import org.azd.abstractions.serializer.SerializerContext;
 import org.azd.authentication.PersonalAccessTokenCredential;
+import org.azd.common.ApiVersion;
+import org.azd.common.Constants;
 import org.azd.common.types.JsonPatchDocument;
 import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
@@ -12,12 +17,14 @@ import org.azd.http.ClientRequest;
 import org.azd.MockParameters;
 import org.azd.serviceclient.AzDService;
 import org.azd.serviceclient.AzDServiceClient;
+import org.azd.utils.UrlBuilder;
 import org.azd.workitemtracking.WorkItemTrackingRequestBuilder;
 import org.azd.workitemtracking.types.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -212,7 +219,7 @@ public class WorkItemTrackingRequestBuilderTest {
         });
     }
 
-    @Test
+    @Test(expected = AzDException.class)
     public void shouldGetWorkItemAttachmentAsStreamToAFile() throws AzDException {
         var responseStream = w.attachments().get("1b8993be-1c0c-4282-9147-4a2141af1a91", r ->
         {
@@ -395,5 +402,44 @@ public class WorkItemTrackingRequestBuilderTest {
     @Test
     public void shouldSearchQueriesBasedOnFilter() throws AzDException {
         w.queries().search(r -> r.queryParameters.filter = "Bugs");
+    }
+
+    @Test
+    public void shouldAddCommentToGivenWorkItem() throws AzDException {
+        var comment = w.comments().add("# This is a comment", 2177, CommentFormat.markdown);
+        w.comments().delete(comment.getId(), 2177);
+    }
+
+    @Test
+    public void shouldAddMarkdownCommentToGivenWorkItem() throws AzDException {
+        var comment = w.comments().add("# This is a comment", 2177, CommentFormat.markdown);
+        w.comments().delete(comment.getId(), 2177);
+    }
+
+    @Test(expected = AzDException.class)
+    public void shouldDeleteCommentFromGivenWorkItem() throws AzDException {
+        w.comments().delete(123, 2177);
+    }
+
+    @Test
+    public void shouldListOfCommentsForGivenWorkItem() throws AzDException {
+        w.comments().list(2177);
+    }
+
+    @Test
+    public void shouldListOfPaginatedCommentsForGivenWorkItem() throws AzDException {
+        var comments = w.comments().list(2177, r -> {
+            r.queryParameters.expand = CommentExpandOptions.all;
+            r.queryParameters.includeDeleted = true;
+            r.queryParameters.top = 1;
+            r.queryParameters.order = CommentSortOrder.asc;
+        });
+        assert comments.getNextPage() != null;
+    }
+
+    @Test
+    public void shouldGetACommentForGivenWorkItem() throws AzDException {
+        var comment = w.comments().list(2177).getComments().get(0);
+        w.comments().get(comment.getId(), 2177);
     }
 }

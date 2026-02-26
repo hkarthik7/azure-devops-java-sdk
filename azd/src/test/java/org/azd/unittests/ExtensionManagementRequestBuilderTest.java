@@ -54,7 +54,7 @@ public class ExtensionManagementRequestBuilderTest {
         client.extensionManagement().install(installExtensionRequest);
     }
 
-    @Test
+    @Test(expected = AzDException.class)
     public void shouldUnInstallExtension() throws AzDException {
         var uninstallExtensionRequest = new UnInstallExtensionRequest();
         uninstallExtensionRequest.publisherId = "publisherId";

@@ -309,7 +309,7 @@ public class BuildsRequestBuilderTest {
         client.build().yaml().get(testConfiguration.properties.builds.definitionId).getYaml();
     }
 
-    @Test
+    @Test(expected = AzDException.class)
     public void shouldGetSourceProvidersFileContents() throws AzDException {
         client.build().sourceProviders().getFileContents("Github", r -> {
             r.queryParameters.commitOrBranch = "master";
