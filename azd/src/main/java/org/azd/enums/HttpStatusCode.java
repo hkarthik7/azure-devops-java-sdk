@@ -78,13 +78,13 @@ public enum HttpStatusCode {
         return message;
     }
 
-    public static HttpStatusCode getByCode(int code) {
+    public static HttpStatusCode from(int code) {
         for (HttpStatusCode status : values()) {
             if (status.getCode() == code) {
                 return status;
             }
         }
-        return null;
+        return HttpStatusCode.INTERNAL_SERVER_ERROR;
     }
 }
 
