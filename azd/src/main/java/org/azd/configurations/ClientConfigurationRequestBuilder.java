@@ -28,15 +28,4 @@ public class ClientConfigurationRequestBuilder {
         Objects.requireNonNull(proxyConfiguration, "Proxy configuration cannot be null.");
         ProxyProvider.configure(proxyConfiguration);
     }
-
-    /**
-     * Sets the maximum retries for retrying the request if "Retry-After" header is found in the response headers.
-     * Default retries is set to 3 and maximum value can be set to 6.
-     *
-     * @param maxRetry Maximum retry value.
-     */
-    public void setMaxRetry(int maxRetry) {
-        var retryHandler = ClientConfiguration.getInstance().getRetryHandler();
-        retryHandler.setDefaultMaxRetry(maxRetry);
-    }
 }

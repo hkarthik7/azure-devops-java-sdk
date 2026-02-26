@@ -59,35 +59,31 @@ public abstract class ClientRequest {
      *
      * @param model Represents the entity or model for which the response should be deserialized to.
      * @return Deserialized POJO model of future object.
-     * @throws AzDException Default Api exception handler.
      */
-    public abstract <T extends SerializableEntity> CompletableFuture<T> executeAsync(Class<T> model) throws AzDException;
+    public abstract <T extends SerializableEntity> CompletableFuture<T> executeAsync(Class<T> model);
 
     /**
      * Executes the request built by ClientRequest.Builder and returns the response.
      *
      * @return Future string object.
-     * @throws AzDException Default Api exception handler.
      */
-    public abstract CompletableFuture<String> executeStringAsync() throws AzDException;
+    public abstract CompletableFuture<String> executeStringAsync();
 
     /**
      * Executes the request built by ClientRequest.Builder and return the input stream of object. If this is meant to be
      * a zip file or any kind of stream, use {@link org.azd.helpers.StreamHelper} to download or convert the contents.
      *
      * @return Input stream object.
-     * @throws AzDException Default Api exception handler.
      */
-    public abstract CompletableFuture<InputStream> executeStreamAsync() throws AzDException;
+    public abstract CompletableFuture<InputStream> executeStreamAsync();
 
     /**
      * Executes the request built by ClientRequest.Builder and doesn't return any response. This is mainly used for Api calls
      * that returns 201 or any operation that doesn't return response.
      *
      * @return Future void.
-     * @throws AzDException Default Api exception handler.
      */
-    public abstract CompletableFuture<Void> executePrimitiveAsync() throws AzDException;
+    public abstract CompletableFuture<Void> executePrimitiveAsync();
 
     /**
      * Executes the request built by ClientRequest.Builder and returns the response.
