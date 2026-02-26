@@ -1,7 +1,8 @@
 package org.azd.abstractions;
 
-import org.azd.abstractions.handlers.RequestExecutor;
-import org.azd.abstractions.handlers.RetryHandler;
+import org.azd.abstractions.handlers.*;
+import org.azd.abstractions.pipelines.ResponsePipeline;
+import org.azd.abstractions.pipelines.ResponsePipelineBuilder;
 import org.azd.abstractions.serializer.JsonSerializer;
 import org.azd.abstractions.serializer.SerializerContext;
 import org.azd.authentication.AccessTokenCredential;
@@ -22,6 +23,10 @@ public final class InstanceFactory {
      */
     public static SerializerContext createSerializerContext() {
         return new JsonSerializer();
+    }
+
+    public static RetryHandler createRetryHandler() {
+        return new DefaultRetryHandler();
     }
 
     /**
@@ -46,16 +51,15 @@ public final class InstanceFactory {
     }
 
     /**
-     * Creates an instance of response handler object.
-     * @param accessTokenCredential Access token credential object.
-     * @param requestInformation Request information object to set the request url, request body.
-     * @return ResponseHandler {@link ResponseHandler}.
+     * Creates the response pipeline with all handlers.
+     * @return ResponsePipeline with default response handlers.
      */
-    public static ResponseHandler createResponseHandler(AccessTokenCredential accessTokenCredential,
-                                                        RequestInformation requestInformation) {
-        var retryHandler = ClientConfiguration.getInstance().getRetryHandler();
-        retryHandler = retryHandler == null ? new RetryHandler(
-                new RequestExecutor(accessTokenCredential, requestInformation)) : retryHandler;
-        return ResponseHandler.create(retryHandler);
+    public static ResponsePipeline createResponsePipeline() {
+        return ResponsePipelineBuilder.create()
+                .add(ApiResponseHandler::new)
+                .add(RedirectResponseHandler::new)
+                .add(() -> new ErrorResponseHandler(createSerializerContext()))
+                .add(() -> new SerializerHandler(createSerializerContext()))
+                .build();
     }
 }
