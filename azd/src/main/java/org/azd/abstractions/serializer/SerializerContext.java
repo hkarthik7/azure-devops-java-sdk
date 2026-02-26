@@ -58,6 +58,15 @@ public interface SerializerContext {
     <T> T deserialize(InputStream content, Class<T> valueType) throws AzDException;
 
     /**
+     * Deserializes the json string to object of given type.
+     *
+     * @param content input stream response from API
+     * @return Object
+     * @throws AzDException Default exception handler.
+     */
+    Object deserialize(String content) throws AzDException;
+
+    /**
      * Deserialize JSON string to a specified type.
      * @param src File that contains JSON string.
      * @param valueType Type to convert to.
