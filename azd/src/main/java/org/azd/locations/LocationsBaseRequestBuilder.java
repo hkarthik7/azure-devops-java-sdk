@@ -40,7 +40,7 @@ public class LocationsBaseRequestBuilder extends BaseRequestBuilder {
      * @param resourceId Pass the resource id. E.g., ResourceId.BUILD
      * @return Location URL for specific Api.
      */
-    public String getUrl(String resourceId) {
+    public String getUrl(String resourceId) throws AzDException {
         return LookUpService.getInstance(accessTokenCredential)
                 .locationUrl(organizationUrl, resourceId);
     }
@@ -50,7 +50,7 @@ public class LocationsBaseRequestBuilder extends BaseRequestBuilder {
      * @param resourceId Pass the resource id. E.g., ResourceId.BUILD
      * @return Location URL for specific Api.
      */
-    public CompletableFuture<String> getUrlAsync(String resourceId) {
+    public CompletableFuture<String> getUrlAsync(String resourceId) throws AzDException {
         return CompletableFuture.completedFuture(getUrl(resourceId));
     }
 
