@@ -2,6 +2,7 @@ package org.azd.security;
 
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
+import org.azd.exceptions.AzDException;
 import org.azd.locations.LocationsBaseRequestBuilder;
 import org.azd.security.accesscontrolentries.AccessControlEntriesRequestBuilder;
 import org.azd.security.accesscontrollists.AccessControlListsRequestBuilder;
@@ -56,7 +57,12 @@ public class SecurityRequestBuilder extends BaseRequestBuilder {
      */
     public IdentitiesRequestBuilder identities() {
         var location = new LocationsBaseRequestBuilder(organizationUrl, accessTokenCredential);
-        var url = location.getUrl("fc3682be-3d6c-427a-87c8-e527b16a1d05");
+        String url;
+        try {
+            url = location.getUrl("fc3682be-3d6c-427a-87c8-e527b16a1d05");
+        } catch (AzDException e) {
+            throw new RuntimeException(e);
+        }
         return new IdentitiesRequestBuilder(url, accessTokenCredential);
     }
 }
