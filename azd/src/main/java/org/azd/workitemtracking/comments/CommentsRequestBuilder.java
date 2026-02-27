@@ -115,6 +115,22 @@ public class CommentsRequestBuilder extends BaseRequestBuilder {
     }
 
     /**
+     * Returns a list of work item comments by ids.
+     * @param workItemId Id of a work item.
+     * @param requestConfiguration Represents the query parameters.
+     * @return List of Comment Object {@link CommentList}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    public CompletableFuture<CommentList> listBatchAsync(int workItemId,
+                                                    Consumer<ListBatchRequestConfiguration> requestConfiguration) throws AzDException {
+        return builder()
+                .serviceEndpoint("workItemId", workItemId)
+                .query(ListBatchRequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .executeAsync(CommentList.class);
+    }
+
+    /**
      * Delete a comment on a work item.
      * @param commentId Id of the comment.
      * @param workItemId Id of a work item.
@@ -127,6 +143,38 @@ public class CommentsRequestBuilder extends BaseRequestBuilder {
                 .serviceEndpoint("workItemId", workItemId)
                 .build()
                 .executePrimitiveAsync();
+    }
+
+    /**
+     * Update a comment on a work item.
+     * @param comment Text of the comment.
+     * @param workItemId Id of a work item.
+     * @return Comment Object {@link Comment}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    public CompletableFuture<Comment> updateAsync(String comment, int workItemId) throws AzDException {
+        return builder()
+                .PATCH(Map.of("text", comment))
+                .serviceEndpoint("workItemId", workItemId)
+                .build()
+                .executeAsync(Comment.class);
+    }
+
+    /**
+     * Update a comment on a work item.
+     * @param comment Text of the comment.
+     * @param workItemId Id of a work item.
+     * @param format Format of a work item comment (Markdown or Html).
+     * @return Comment Object {@link Comment}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    public CompletableFuture<Comment> updateAsync(String comment, int workItemId, CommentFormat format) throws AzDException {
+        return builder()
+                .PATCH(Map.of("text", comment))
+                .serviceEndpoint("workItemId", workItemId)
+                .query("format", format)
+                .build()
+                .executeAsync(Comment.class);
     }
 
     /**
@@ -224,6 +272,22 @@ public class CommentsRequestBuilder extends BaseRequestBuilder {
     }
 
     /**
+     * Returns a list of work item comments by ids.
+     * @param workItemId Id of a work item.
+     * @param requestConfiguration Represents the query parameters.
+     * @return List of Comment Object {@link CommentList}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    public CommentList listBatch(int workItemId,
+                                 Consumer<ListBatchRequestConfiguration> requestConfiguration) throws AzDException {
+        return builder()
+                .serviceEndpoint("workItemId", workItemId)
+                .query(ListBatchRequestConfiguration::new, requestConfiguration, q -> q.queryParameters)
+                .build()
+                .execute(CommentList.class);
+    }
+
+    /**
      * Delete a comment on a work item.
      * @param commentId Id of the comment.
      * @param workItemId Id of a work item.
@@ -236,6 +300,42 @@ public class CommentsRequestBuilder extends BaseRequestBuilder {
                 .serviceEndpoint("workItemId", workItemId)
                 .build()
                 .executePrimitive();
+    }
+
+    /**
+     * Update a comment on a work item.
+     * @param comment Text of the comment.
+     * @param commentId Id of the comment.
+     * @param workItemId Id of a work item.
+     * @return Comment Object {@link Comment}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    public Comment update(String comment, int commentId, int workItemId) throws AzDException {
+        return builder()
+                .PATCH(Map.of("text", comment))
+                .serviceEndpoint("commentId", commentId)
+                .serviceEndpoint("workItemId", workItemId)
+                .build()
+                .execute(Comment.class);
+    }
+
+    /**
+     * Update a comment on a work item.
+     * @param comment Text of the comment.
+     * @param commentId Id of the comment.
+     * @param workItemId Id of a work item.
+     * @param format Format of a work item comment (Markdown or Html).
+     * @return Comment Object {@link Comment}
+     * @throws AzDException Default Api Exception handler.
+     **/
+    public Comment update(String comment, int commentId, int workItemId, CommentFormat format) throws AzDException {
+        return builder()
+                .PATCH(Map.of("text", comment))
+                .serviceEndpoint("commentId", commentId)
+                .serviceEndpoint("workItemId", workItemId)
+                .query("format", format)
+                .build()
+                .execute(Comment.class);
     }
 
     /**
@@ -297,5 +397,33 @@ public class CommentsRequestBuilder extends BaseRequestBuilder {
      */
     public static class ListRequestConfiguration {
         public ListQueryParameters queryParameters = new ListQueryParameters();
+    }
+
+    /**
+     * Represents the list query parameters.
+     */
+    public static class ListBatchQueryParameters {
+        /**
+         * Specifies the additional data retrieval options for work item comments.
+         */
+        @QueryParameter(name = "$expand")
+        public CommentExpandOptions expand;
+        /**
+         * Comma-separated list of comment ids to return.
+         */
+        @QueryParameter(name = "ids")
+        public Integer[] ids;
+        /**
+         * Specify if the deleted comment should be retrieved.
+         */
+        @QueryParameter(name = "includeDeleted")
+        public Boolean includeDeleted;
+    }
+
+    /**
+     * Request configuration object for the query parameters.
+     */
+    public static class ListBatchRequestConfiguration {
+        public ListBatchQueryParameters queryParameters = new ListBatchQueryParameters();
     }
 }
