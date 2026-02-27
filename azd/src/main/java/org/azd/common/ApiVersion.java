@@ -80,6 +80,7 @@ public abstract class ApiVersion {
     public static final String WIKI_PAGES = "7.2-preview.1";
     public static final String WORK = "7.2-preview.1";
     public static final String WORK_CAPACITY = "7.2-preview.3";
+    public static final String WORK_ITEM_TRACKING_COMMENTS = "7.2-preview.4";
     public static final String WORK_ITEM_MIGRATE = "7.2-preview.1";
     public static final String WORK_ITEM_TAGS = "7.2-preview.1";
     public static final String WORK_ITEM_TRACKING = "7.2-preview.3";

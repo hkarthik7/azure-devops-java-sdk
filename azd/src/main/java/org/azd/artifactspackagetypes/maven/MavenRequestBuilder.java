@@ -1,21 +1,17 @@
 package org.azd.artifactspackagetypes.maven;
 
 import org.azd.abstractions.BaseRequestBuilder;
-import org.azd.abstractions.ResponseHandler;
 import org.azd.artifactspackagetypes.ArtifactsPackageTypesRequestBuilder;
 import org.azd.artifactspackagetypes.types.MavenPackagesBatchRequest;
+import org.azd.artifactspackagetypes.types.Package;
 import org.azd.artifactspackagetypes.types.PackageVersionDetails;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.common.ApiVersion;
 import org.azd.enums.CustomHeader;
-import org.azd.enums.HttpStatusCode;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.StreamHelper;
-import org.azd.http.ClientRequest;
-import org.azd.maven.types.Package;
 
 import java.io.InputStream;
-import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
@@ -75,37 +71,7 @@ public class MavenRequestBuilder extends BaseRequestBuilder {
                 .serviceEndpoint("fileName", Objects.requireNonNull(values.fileName, "File name cannot be null."))
                 .header(CustomHeader.STREAM)
                 .build()
-                .executeStreamAsync()
-                .thenApplyAsync(x -> {
-                    try {
-                        var res = ResponseHandler.getResponse();
-                        var statusCode = res.getStatusCode();
-                        var headers = res.getResponseHeaders().firstValue("Content-Type");
-
-                        if (headers.isPresent()) {
-                            // Error scenarios.
-                            if (headers.get().equals(CustomHeader.JSON_CONTENT_TYPE_UTF_8.getValue()) && statusCode != HttpStatusCode.OK)
-                                serializer.deserialize(StreamHelper.convertToString(x), Map.class);
-
-                            // Obviously VSTS server doesn't return callback URL.
-                            if (headers.get().equals(CustomHeader.STREAM.getValue()) && statusCode == HttpStatusCode.OK)
-                                return x;
-
-                            // Azure DevOps Services successful redirection
-                            return ClientRequest.builder()
-                                    .URI(res.getRequestUrl())
-                                    .header(CustomHeader.STREAM)
-                                    .build()
-                                    .executeStreamAsync()
-                                    .join();
-                        }
-
-                        throw new AzDException("An error occurred while trying to download artifact. " + StreamHelper.convertToString(x));
-
-                    } catch (AzDException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
+                .executeStreamAsync();
     }
 
     /**
@@ -238,39 +204,15 @@ public class MavenRequestBuilder extends BaseRequestBuilder {
         final var values = new MavenPathParameters();
         pathParameters.accept(values);
 
-        var stream = builder()
+        return builder()
                 .location("c338d4b5-d30a-47e2-95b7-f157ef558833")
                 .serviceEndpoint("artifactId", Objects.requireNonNull(values.artifactId, "Artifact ID cannot be null."))
                 .serviceEndpoint("feedId", Objects.requireNonNull(values.feedId, "Feed ID cannot be null."))
                 .serviceEndpoint("groupId", Objects.requireNonNull(values.groupId, "Group ID cannot be null."))
                 .serviceEndpoint("version", Objects.requireNonNull(values.version, "Version of the artifact is mandatory."))
                 .serviceEndpoint("fileName", Objects.requireNonNull(values.fileName, "File name cannot be null."))
-                .header(CustomHeader.STREAM)
                 .build()
                 .executeStream();
-
-        var res = ResponseHandler.getResponse();
-        var statusCode = res.getStatusCode();
-        var headers = res.getResponseHeaders().firstValue("Content-Type");
-
-        if (headers.isPresent()) {
-            // Error scenarios.
-            if (headers.get().equals(CustomHeader.JSON_CONTENT_TYPE_UTF_8.getValue()) && statusCode != HttpStatusCode.OK)
-                serializer.deserialize(StreamHelper.convertToString(stream), Map.class);
-
-            // VSTS server doesn't return callback URL.
-            if (headers.get().equals(CustomHeader.STREAM.getValue()) && statusCode == HttpStatusCode.OK)
-                return stream;
-
-            // Azure DevOps Services successful redirection
-            return ClientRequest.builder()
-                    .URI(res.getRequestUrl())
-                    .header(CustomHeader.STREAM)
-                    .build()
-                    .executeStream();
-        }
-
-        throw new AzDException("An error occurred while trying to download artifact. " + StreamHelper.convertToString(stream));
     }
 
     /**

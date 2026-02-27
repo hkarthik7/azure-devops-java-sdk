@@ -13,8 +13,6 @@ import org.azd.abstractions.serializer.SerializableEntity;
 import org.azd.common.types.Author;
 import org.azd.policy.types.PolicyTypeRef;
 
-import java.util.Objects;
-
 
 /**
  * The full policy configuration with settings.

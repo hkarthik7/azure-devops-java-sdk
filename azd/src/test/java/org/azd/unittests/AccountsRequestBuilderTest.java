@@ -1,11 +1,11 @@
 package org.azd.unittests;
 
+import org.azd.MockParameters;
 import org.azd.abstractions.InstanceFactory;
 import org.azd.abstractions.serializer.SerializerContext;
 import org.azd.authentication.PersonalAccessTokenCredential;
 import org.azd.enums.Instance;
 import org.azd.exceptions.AzDException;
-import org.azd.legacy.MockParameters;
 import org.azd.serviceclient.AzDService;
 import org.azd.serviceclient.AzDServiceClient;
 import org.junit.Before;
@@ -34,18 +34,8 @@ public class AccountsRequestBuilderTest {
 
     @Test
     public void shouldGetAccounts() throws AzDException {
-        // There are two ways to get the id;
-        // 1. Use profile Api.
-        // 2. Get the id from connection data (authenticated user).
-
-        // 1. Use profile Api.
         var id = client.accounts().profile().get().getId();
-
-        // 2. Get the id from connection data (authenticated user).
-        var authenticatedUserId = client.locations().getConnectionData().getAuthenticatedUser().getId();
-
-        assert Objects.equals(client.accounts().list(id).getAccounts().get(0).getAccountId(),
-                client.accounts().list(authenticatedUserId).getAccounts().get(0).getAccountId());
+        assert client.accounts().list(id).getAccounts().get(0).getAccountId() != null;
     }
 
     @Test

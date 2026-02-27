@@ -1,14 +1,9 @@
 package org.azd.abstractions.serializer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.azd.authentication.AccessTokenCredential;
-import org.azd.exceptions.AzDException;
-import org.azd.http.ClientRequest;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
-import static org.azd.helpers.Utils.isNullOrEmpty;
 
 /**
  * Collection entity that provides additional functionalities such as next page, continuation token.

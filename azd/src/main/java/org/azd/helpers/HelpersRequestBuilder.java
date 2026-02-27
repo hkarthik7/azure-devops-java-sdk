@@ -3,6 +3,7 @@ package org.azd.helpers;
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.common.ResourceId;
+import org.azd.exceptions.AzDException;
 import org.azd.helpers.artifactspackagetypes.ArtifactsPackageTypesHelpersRequestBuilder;
 import org.azd.helpers.build.BuildHelpersRequestBuilder;
 import org.azd.helpers.featuremanagement.FeatureManagementHelpersRequestBuilder;
@@ -123,6 +124,10 @@ public class HelpersRequestBuilder extends BaseRequestBuilder {
      */
     private String getLocationUrl(String resourceId) {
         var builder = new LocationsBaseRequestBuilder(organizationUrl, accessTokenCredential);
-        return builder.getUrl(resourceId);
+        try {
+            return builder.getUrl(resourceId);
+        } catch (AzDException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -30,6 +30,11 @@ public enum CustomHeader {
      */
     TEXT_CONTENT(CustomHeader.JSON.name, "text/plain"),
     /**
+     * To accept the plain text response
+     * "Accept", "text/plain"
+     */
+    HTML_CONTENT(CustomHeader.JSON_CONTENT_TYPE.name, "text/html"),
+    /**
      * Json content type applicable for most of the post request.
      * "Content-Type", "application/json"
      */

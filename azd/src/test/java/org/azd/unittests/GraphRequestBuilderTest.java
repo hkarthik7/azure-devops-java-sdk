@@ -1,5 +1,6 @@
 package org.azd.unittests;
 
+import org.azd.MockParameters;
 import org.azd.UnitTestConfiguration;
 import org.azd.abstractions.InstanceFactory;
 import org.azd.abstractions.serializer.SerializerContext;
@@ -9,7 +10,6 @@ import org.azd.enums.Instance;
 import org.azd.exceptions.AzDException;
 import org.azd.graph.GraphRequestBuilder;
 import org.azd.graph.types.*;
-import org.azd.legacy.MockParameters;
 import org.azd.serviceclient.AzDService;
 import org.azd.serviceclient.AzDServiceClient;
 import org.junit.Before;
@@ -18,7 +18,6 @@ import org.junit.Test;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;

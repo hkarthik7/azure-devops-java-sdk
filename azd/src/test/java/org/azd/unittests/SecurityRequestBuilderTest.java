@@ -1,5 +1,6 @@
 package org.azd.unittests;
 
+import org.azd.MockParameters;
 import org.azd.UnitTestConfiguration;
 import org.azd.abstractions.InstanceFactory;
 import org.azd.abstractions.serializer.SerializerContext;
@@ -11,7 +12,6 @@ import org.azd.git.types.GitRepository;
 import org.azd.graph.types.GraphGroup;
 import org.azd.graph.types.GraphGroupVstsCreationContext;
 import org.azd.graph.types.GraphUser;
-import org.azd.legacy.MockParameters;
 import org.azd.pipelines.types.Pipeline;
 import org.azd.security.SecurityRequestBuilder;
 import org.azd.security.SecurityToken;

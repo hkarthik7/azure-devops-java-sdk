@@ -1,5 +1,6 @@
 package org.azd.unittests;
 
+import org.azd.MockParameters;
 import org.azd.UnitTestConfiguration;
 import org.azd.abstractions.InstanceFactory;
 import org.azd.abstractions.serializer.SerializerContext;
@@ -9,7 +10,6 @@ import org.azd.enums.GetArtifactExpandOptions;
 import org.azd.enums.GetLogExpandOptions;
 import org.azd.enums.Instance;
 import org.azd.exceptions.AzDException;
-import org.azd.legacy.MockParameters;
 import org.azd.pipelines.PipelinesBaseRequestBuilder;
 import org.azd.pipelines.types.*;
 import org.azd.serviceclient.AzDService;

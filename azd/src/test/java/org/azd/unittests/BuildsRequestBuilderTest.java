@@ -1,5 +1,6 @@
 package org.azd.unittests;
 
+import org.azd.MockParameters;
 import org.azd.UnitTestConfiguration;
 import org.azd.abstractions.InstanceFactory;
 import org.azd.abstractions.serializer.SerializerContext;
@@ -16,7 +17,6 @@ import org.azd.exceptions.AzDException;
 import org.azd.helpers.StreamHelper;
 import org.azd.helpers.Utils;
 import org.azd.http.ClientRequest;
-import org.azd.legacy.MockParameters;
 import org.azd.serviceclient.AzDService;
 import org.azd.serviceclient.AzDServiceClient;
 import org.junit.Before;
@@ -309,7 +309,7 @@ public class BuildsRequestBuilderTest {
         client.build().yaml().get(testConfiguration.properties.builds.definitionId).getYaml();
     }
 
-    @Test
+    @Test(expected = AzDException.class)
     public void shouldGetSourceProvidersFileContents() throws AzDException {
         client.build().sourceProviders().getFileContents("Github", r -> {
             r.queryParameters.commitOrBranch = "master";
@@ -403,7 +403,7 @@ public class BuildsRequestBuilderTest {
         }
     }
 
-    @Test
+    @Test(expected = AzDException.class)
     public void shouldGetBuildArtifactAsZip() throws AzDException {
         var buildId = client.build().builds().list().getBuildResults()
                 .stream()

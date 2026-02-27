@@ -6,7 +6,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.azd.enums.ApiExceptionTypes;
-import org.azd.exceptions.ApiException;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.StreamHelper;
 
@@ -66,13 +65,6 @@ public final class JsonSerializer extends ObjectMapper implements SerializerCont
     @Override
     public <T> T deserialize(final String content, Class<T> valueType) throws AzDException {
         try {
-            if (content.contains("innerException"))
-                throw new AzDException(this.readValue(content, ApiException.class).getTypeKey(), this.readValue(content, ApiException.class).getMessage());
-            if (content.contains("The request is invalid."))
-                throw new AzDException();
-            if (content.contains("Object moved"))
-                throw new AzDException(ApiExceptionTypes.InvalidPersonalAccessTokenException.toString(),
-                        "Personal access token passed is invalid; Pass the valid token and try again.");
             return this.readValue(content, valueType);
         } catch (JsonProcessingException e) {
             throw new AzDException(ApiExceptionTypes.ApiResponseParsingException.toString(), e.getMessage());
@@ -91,12 +83,6 @@ public final class JsonSerializer extends ObjectMapper implements SerializerCont
     @Override
     public <T> T deserialize(final String content, TypeReference<T> valueType) throws AzDException {
         try {
-            if (content.contains("innerException"))
-                throw new AzDException(this.readValue(content, ApiException.class).getTypeKey(), this.readValue(content, ApiException.class).getMessage());
-            if (content.contains("The request is invalid."))
-                throw new AzDException();
-            if (content.contains("Object moved"))
-                throw new AzDException(ApiExceptionTypes.InvalidPersonalAccessTokenException.toString(), "Personal access token passed is invalid; Pass the valid token and try again.");
             return this.readValue(content, valueType);
         } catch (JsonProcessingException e) {
             throw new AzDException(ApiExceptionTypes.ApiResponseParsingException.toString(), e.getMessage());
@@ -118,6 +104,22 @@ public final class JsonSerializer extends ObjectMapper implements SerializerCont
             return deserialize(StreamHelper.convertToString(content), valueType);
         } catch (AzDException e) {
             throw new AzDException(ApiExceptionTypes.ApiResponseParsingException.toString(), e.getMessage());
+        }
+    }
+
+    /**
+     * Deserializes the json string to object of given type.
+     *
+     * @param content input stream response from API
+     * @return Object
+     * @throws AzDException Default exception handler.
+     */
+    @Override
+    public Object deserialize(String content) throws AzDException {
+        try {
+            return readTree(content);
+        } catch (Exception e) {
+            throw new AzDException(ApiExceptionTypes.StringValueParsingException.name(), e.getMessage());
         }
     }
 

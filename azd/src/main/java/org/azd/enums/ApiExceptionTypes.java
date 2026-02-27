@@ -28,5 +28,13 @@ public enum ApiExceptionTypes {
     /**
      * This type will be thrown if the given argument is invalid.
      */
-    InvalidArgumentException
+    InvalidArgumentException,
+    /**
+     * This type will be thrown if the given token doesn't have access to requested resource.
+     */
+    UnAuthorizedException,
+    /**
+     * This type is for unhandled responses.
+     */
+    UnknownError,
 }

@@ -1,28 +1,36 @@
 package org.azd.abstractions;
 
-import org.azd.abstractions.handlers.DefaultResponseHandler;
-import org.azd.abstractions.handlers.RetryHandler;
+import org.azd.abstractions.handlers.ResponseContext;
 
-import java.net.http.HttpResponse;
+import java.util.concurrent.CompletableFuture;
 
 /**
- * Handler the Api response.
+ * Handles the Api response.
  */
 public abstract class ResponseHandler {
-    protected static ApiResponse apiResponse;
-    protected final RetryHandler retryHandler;
+    protected ResponseHandler next;
+    private static ApiResponse apiResponse;
 
-    protected ResponseHandler(RetryHandler retryHandler) {
-        this.retryHandler = retryHandler;
+    /**
+     * Sets the next handler in pipeline.
+     * @param next Next handler to invoke
+     * @return ResponseHandler handler.
+     */
+    public ResponseHandler setNext(ResponseHandler next) {
+        this.next = next;
+        return next;
     }
 
     /**
-     * Creates an instance of Response handler.
-     * @param retryHandler Retry handler to retry the request.
-     * @return Response handler object.
+     * Invokes the next handler in the pipeline
+     * @param context Response context object container.
+     * @return Result of invocation.
      */
-    public static ResponseHandler create(RetryHandler retryHandler) {
-        return new DefaultResponseHandler(retryHandler);
+    protected CompletableFuture<Void> nextAsync(ResponseContext context) {
+        if (next == null) {
+            return CompletableFuture.completedFuture(null);
+        }
+        return next.handleAsync(context);
     }
 
     /**
@@ -35,11 +43,16 @@ public abstract class ResponseHandler {
 
     /**
      * Handles the Api response.
-     * @param response Http response object.
-     * @param requestInformation Request information object. {@link RequestInformation}.
+     * @param context ResponseContext object {@link ResponseContext}
      * @return Java type value that is passed.
-     * @param <T> Type parameter.
      */
-    public abstract <T> T handle(HttpResponse<T> response, RequestInformation requestInformation);
+    public abstract CompletableFuture<Void> handleAsync(ResponseContext context);
 
+    /**
+     * Sets the Api response object.
+     * @param response ApiResponse object to set {@link ApiResponse}
+     */
+    public static void setResponse(ApiResponse response) {
+        apiResponse = response;
+    }
 }

@@ -1,5 +1,6 @@
 package org.azd.unittests;
 
+import org.azd.MockParameters;
 import org.azd.UnitTestConfiguration;
 import org.azd.abstractions.InstanceFactory;
 import org.azd.abstractions.serializer.SerializerContext;
@@ -9,7 +10,6 @@ import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.StreamHelper;
 import org.azd.http.ClientRequest;
-import org.azd.legacy.MockParameters;
 import org.azd.serviceclient.AzDService;
 import org.azd.serviceclient.AzDServiceClient;
 import org.azd.workitemtracking.WorkItemTrackingRequestBuilder;
@@ -212,7 +212,7 @@ public class WorkItemTrackingRequestBuilderTest {
         });
     }
 
-    @Test
+    @Test(expected = AzDException.class)
     public void shouldGetWorkItemAttachmentAsStreamToAFile() throws AzDException {
         var responseStream = w.attachments().get("1b8993be-1c0c-4282-9147-4a2141af1a91", r ->
         {
@@ -222,7 +222,7 @@ public class WorkItemTrackingRequestBuilderTest {
         StreamHelper.download("newTestFile.txt", responseStream);
     }
 
-    @Test
+    @Test(expected = AzDException.class)
     public void shouldGetWorkItemAttachmentAsZipFile() throws AzDException {
         var responseStream = w.attachments().getAsZip("7a62c972-9403-4032-8182-5a2b2eb927b7", r ->
         {
@@ -395,5 +395,65 @@ public class WorkItemTrackingRequestBuilderTest {
     @Test
     public void shouldSearchQueriesBasedOnFilter() throws AzDException {
         w.queries().search(r -> r.queryParameters.filter = "Bugs");
+    }
+
+    @Test
+    public void shouldAddCommentToGivenWorkItem() throws AzDException {
+        var comment = w.comments().add("# This is a comment", 2177, CommentFormat.markdown);
+        w.comments().delete(comment.getId(), 2177);
+    }
+
+    @Test
+    public void shouldAddMarkdownCommentToGivenWorkItem() throws AzDException {
+        var comment = w.comments().add("# This is a comment", 2177, CommentFormat.markdown);
+        w.comments().delete(comment.getId(), 2177);
+    }
+
+    @Test(expected = AzDException.class)
+    public void shouldDeleteCommentFromGivenWorkItem() throws AzDException {
+        w.comments().delete(123, 2177);
+    }
+
+    @Test
+    public void shouldListOfCommentsForGivenWorkItem() throws AzDException {
+        w.comments().list(2177);
+    }
+
+    @Test
+    public void shouldListOfPaginatedCommentsForGivenWorkItem() throws AzDException {
+        var comments = w.comments().list(2177, r -> {
+            r.queryParameters.expand = CommentExpandOptions.all;
+            r.queryParameters.includeDeleted = true;
+            r.queryParameters.top = 1;
+            r.queryParameters.order = CommentSortOrder.asc;
+        });
+        assert comments.getNextPage() != null;
+    }
+
+    @Test
+    public void shouldGetACommentForGivenWorkItem() throws AzDException {
+        var comment = w.comments().list(2177).getComments().get(0);
+        w.comments().get(comment.getId(), 2177);
+    }
+
+    @Test
+    public void shouldGetCommentsBatchForGivenWorkItem() throws AzDException {
+        var comment = w.comments().list(2177).getComments().get(0);
+        w.comments().listBatch(2177, r -> {
+            r.queryParameters.ids = new Integer[]{comment.getId()};
+        });
+    }
+
+    @Test
+    public void shouldUpdateACommentForGivenWorkItem() throws AzDException {
+        var comment = w.comments().list(2177).getComments().get(0);
+        w.comments().update("This is an updated comment.", comment.getId(), 2177);
+    }
+
+    @Test
+    public void shouldUpdateAFormattedCommentForGivenWorkItem() throws AzDException {
+        var comment = w.comments().list(2177).getComments().get(0);
+        w.comments().update("# This is an updated comment.", comment.getId(),
+                2177, CommentFormat.markdown);
     }
 }

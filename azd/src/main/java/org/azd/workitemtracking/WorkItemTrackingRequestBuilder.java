@@ -4,6 +4,7 @@ import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.workitemtracking.attachments.WorkItemTrackingAttachmentsRequestBuilder;
 import org.azd.workitemtracking.classificationnodes.ClassificationNodesRequestBuilder;
+import org.azd.workitemtracking.comments.CommentsRequestBuilder;
 import org.azd.workitemtracking.fields.FieldsRequestBuilder;
 import org.azd.workitemtracking.projectprocessmigration.ProjectProcessMigrationBuilder;
 import org.azd.workitemtracking.queries.QueriesRequestBuilder;
@@ -54,6 +55,15 @@ public class WorkItemTrackingRequestBuilder extends BaseRequestBuilder {
      */
     public ClassificationNodesRequestBuilder classificationNodes() {
         return new ClassificationNodesRequestBuilder(organizationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Provides functionality to work with Work item comments Api.
+     *
+     * @return CommentsRequestBuilder {@link CommentsRequestBuilder}
+     */
+    public CommentsRequestBuilder comments() {
+        return new CommentsRequestBuilder(organizationUrl, accessTokenCredential);
     }
 
     /**

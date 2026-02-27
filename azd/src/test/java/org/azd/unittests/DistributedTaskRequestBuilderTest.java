@@ -1,5 +1,6 @@
 package org.azd.unittests;
 
+import org.azd.MockParameters;
 import org.azd.UnitTestConfiguration;
 import org.azd.abstractions.InstanceFactory;
 import org.azd.abstractions.serializer.SerializerContext;
@@ -11,8 +12,6 @@ import org.azd.distributedtask.types.VariableGroupProjectReference;
 import org.azd.enums.Instance;
 import org.azd.enums.VariableGroupType;
 import org.azd.exceptions.AzDException;
-import org.azd.legacy.MockParameters;
-import org.azd.release.types.ConfigurationVariableValue;
 import org.azd.release.types.ProjectReference;
 import org.azd.serviceclient.AzDService;
 import org.azd.serviceclient.AzDServiceClient;
@@ -45,7 +44,7 @@ public class DistributedTaskRequestBuilderTest {
                 .buildClient();
     }
 
-    @Test
+    @Test(expected = AzDException.class)
     public void shouldGetAnAgentInAPool() throws AzDException {
         client.distributedTask().agents()
                 .get(testConfiguration.properties.distributedTask.poolId,

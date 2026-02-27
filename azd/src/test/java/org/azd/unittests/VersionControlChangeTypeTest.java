@@ -1,16 +1,14 @@
 package org.azd.unittests;
 
+import org.azd.abstractions.serializer.JsonSerializer;
 import org.azd.enums.VersionControlChangeType;
 import org.azd.exceptions.AzDException;
 import org.azd.git.types.GitCommitChanges;
-import org.azd.abstractions.serializer.JsonSerializer;
 import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class VersionControlChangeTypeTest {
 
@@ -66,5 +64,54 @@ public class VersionControlChangeTypeTest {
         assertNotNull(singleTypes);
         assertEquals(1, singleTypes.size());
         assertTrue(singleTypes.contains(VersionControlChangeType.EDIT));
+    }
+
+    @Test
+    public void shouldSerialiseSingleAndMultiValueChangeTypes() throws AzDException {
+        String mockJson =
+                "{\n" +
+                        "  \"changeCounts\": {\n" +
+                        "    \"Edit\": 1,\n" +
+                        "    \"Delete, SourceRename\": 1\n" +
+                        "  },\n" +
+                        "  \"changes\": [\n" +
+                        "    {\n" +
+                        "      \"item\": {\n" +
+                        "        \"objectId\": \"abc123\",\n" +
+                        "        \"originalObjectId\": \"abc123\",\n" +
+                        "        \"gitObjectType\": \"blob\",\n" +
+                        "        \"commitId\": \"deadbeef\",\n" +
+                        "        \"path\": \"../deleted-file.xml\",\n" +
+                        "        \"url\": \"http://example.com\"\n" +
+                        "      },\n" +
+                        "      \"changeType\": \"delete, sourceRename\"\n" +
+                        "    },\n" +
+                        "    {\n" +
+                        "      \"item\": {\n" +
+                        "        \"objectId\": \"def456\",\n" +
+                        "        \"originalObjectId\": \"def456\",\n" +
+                        "        \"gitObjectType\": \"blob\",\n" +
+                        "        \"commitId\": \"cafebabe\",\n" +
+                        "        \"path\": \"../edited-file.xml\",\n" +
+                        "        \"url\": \"http://example.com\"\n" +
+                        "      },\n" +
+                        "      \"changeType\": \"edit\"\n" +
+                        "    }\n" +
+                        "  ]\n" +
+                        "}";
+
+        JsonSerializer serializer = new JsonSerializer();
+        GitCommitChanges changes = serializer.deserialize(mockJson, GitCommitChanges.class);
+        assertNotNull(changes);
+
+        String jsonOut = serializer.serialize(changes);
+
+        System.out.println(jsonOut);
+
+        assertTrue(jsonOut.contains("\"changeType\":\"delete, sourceRename\"")
+                || jsonOut.contains("\"changeType\": \"delete, sourceRename\""));
+
+        assertTrue(jsonOut.contains("\"changeType\":\"edit\"")
+                || jsonOut.contains("\"changeType\": \"edit\""));
     }
 }

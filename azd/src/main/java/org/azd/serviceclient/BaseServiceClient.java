@@ -10,6 +10,7 @@ import org.azd.common.ResourceId;
 import org.azd.configurations.ClientConfigurationRequestBuilder;
 import org.azd.core.CoreRequestBuilder;
 import org.azd.distributedtask.DistributedTaskRequestBuilder;
+import org.azd.exceptions.AzDException;
 import org.azd.extensionmanagement.ExtensionManagementRequestBuilder;
 import org.azd.featuremanagement.FeatureManagementRequestBuilder;
 import org.azd.git.GitBaseRequestBuilder;
@@ -372,6 +373,10 @@ public class BaseServiceClient implements AzDServiceClient {
     private String getLocationUrl(String resourceId) {
         if (resourceId == null || resourceId.isEmpty())
             throw new IllegalArgumentException("Resource Id cannot be empty.");
-        return locations().getUrl(resourceId);
+        try {
+            return locations().getUrl(resourceId);
+        } catch (AzDException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -2,13 +2,12 @@ package org.azd.artifactspackagetypes.universal;
 
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.artifactspackagetypes.ArtifactsPackageTypesRequestBuilder;
-import org.azd.artifactspackagetypes.maven.PackageFromRecycleBinRequestBuilder;
+import org.azd.artifactspackagetypes.types.Package;
 import org.azd.artifactspackagetypes.types.PackageVersionDetails;
 import org.azd.artifactspackagetypes.types.UPackPackagesBatchRequest;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
-import org.azd.upack.types.Package;
 
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;

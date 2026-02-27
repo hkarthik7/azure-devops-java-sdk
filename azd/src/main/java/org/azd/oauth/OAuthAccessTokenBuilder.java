@@ -1,13 +1,17 @@
 package org.azd.oauth;
 
+import org.azd.abstractions.RequestInformation;
 import org.azd.enums.CustomHeader;
 import org.azd.enums.Instance;
+import org.azd.enums.RequestMethod;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.URLHelper;
 import org.azd.http.ClientRequest;
 import org.azd.oauth.types.AuthorizationEndpoint;
 import org.azd.oauth.types.AuthorizedToken;
 
+import java.net.http.HttpRequest;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
@@ -125,10 +129,14 @@ public class OAuthAccessTokenBuilder {
     }
 
     private ClientRequest builder(String requestUrl, String body) {
+        var reqInfo = new RequestInformation();
+        reqInfo.requestMethod = RequestMethod.POST;
+        reqInfo.setRequestUrl(requestUrl);
+        reqInfo.requestHeaders.add(CustomHeader.URL_ENCODED);
+        reqInfo.body = HttpRequest.BodyPublishers.ofString(body, StandardCharsets.UTF_8);
+
         return ClientRequest.builder()
-                .URI(requestUrl)
-                .header(CustomHeader.URL_ENCODED)
-                .POST(body)
+                .request(reqInfo)
                 .build();
     }
 }

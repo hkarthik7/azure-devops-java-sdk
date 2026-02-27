@@ -8,10 +8,8 @@ import org.azd.enums.ApprovalStatus;
 import org.azd.enums.ApprovalType;
 import org.azd.enums.ReleaseQueryOrder;
 import org.azd.exceptions.AzDException;
-import org.azd.release.definitions.DefinitionsRequestBuilder;
 import org.azd.release.types.ReleaseApproval;
 import org.azd.release.types.ReleaseApprovals;
-import org.azd.release.types.ReleaseEnvironment;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
