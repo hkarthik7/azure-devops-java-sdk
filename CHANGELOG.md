@@ -7,9 +7,13 @@
 
 - Fixed issues:
   - Issue: [GitChange.changeType: InvalidArgumentValueException: The body of the request contains invalid Json. #96](https://github.com/hkarthik7/azure-devops-java-sdk/issues/96)
+  - Issue: [is there a way to add comments? #103](https://github.com/hkarthik7/azure-devops-java-sdk/issues/103)
+  - Issue: [client attempts to always deserlilize the response regardless if there's an error #102](https://github.com/hkarthik7/azure-devops-java-sdk/issues/102)
+  - Issue: [LookupService keeps the first credentails of the first succesffull call and ignores credentials from subsequent calls #101](https://github.com/hkarthik7/azure-devops-java-sdk/issues/101)
 - Removed support for legacy API
 - Changes in types packages
 - Added support for authentication via service principal client id and secret
+- Added `Comments Api`
 
 # 6.1.3
 
