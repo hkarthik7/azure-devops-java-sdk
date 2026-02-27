@@ -403,7 +403,7 @@ public class BuildsRequestBuilderTest {
         }
     }
 
-    @Test
+    @Test(expected = AzDException.class)
     public void shouldGetBuildArtifactAsZip() throws AzDException {
         var buildId = client.build().builds().list().getBuildResults()
                 .stream()

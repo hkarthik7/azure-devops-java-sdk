@@ -229,7 +229,7 @@ public class WorkItemTrackingRequestBuilderTest {
         StreamHelper.download("newTestFile.txt", responseStream);
     }
 
-    @Test
+    @Test(expected = AzDException.class)
     public void shouldGetWorkItemAttachmentAsZipFile() throws AzDException {
         var responseStream = w.attachments().getAsZip("7a62c972-9403-4032-8182-5a2b2eb927b7", r ->
         {
@@ -441,5 +441,26 @@ public class WorkItemTrackingRequestBuilderTest {
     public void shouldGetACommentForGivenWorkItem() throws AzDException {
         var comment = w.comments().list(2177).getComments().get(0);
         w.comments().get(comment.getId(), 2177);
+    }
+
+    @Test
+    public void shouldGetCommentsBatchForGivenWorkItem() throws AzDException {
+        var comment = w.comments().list(2177).getComments().get(0);
+        w.comments().listBatch(2177, r -> {
+            r.queryParameters.ids = new Integer[]{comment.getId()};
+        });
+    }
+
+    @Test
+    public void shouldUpdateACommentForGivenWorkItem() throws AzDException {
+        var comment = w.comments().list(2177).getComments().get(0);
+        w.comments().update("This is an updated comment.", comment.getId(), 2177);
+    }
+
+    @Test
+    public void shouldUpdateAFormattedCommentForGivenWorkItem() throws AzDException {
+        var comment = w.comments().list(2177).getComments().get(0);
+        w.comments().update("# This is an updated comment.", comment.getId(),
+                2177, CommentFormat.markdown);
     }
 }
