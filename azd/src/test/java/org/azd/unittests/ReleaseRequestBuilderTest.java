@@ -1,12 +1,12 @@
 package org.azd.unittests;
 
+import org.azd.MockParameters;
 import org.azd.UnitTestConfiguration;
 import org.azd.abstractions.InstanceFactory;
 import org.azd.abstractions.serializer.SerializerContext;
 import org.azd.authentication.PersonalAccessTokenCredential;
 import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
-import org.azd.MockParameters;
 import org.azd.release.ReleaseBaseRequestBuilder;
 import org.azd.release.types.*;
 import org.azd.serviceclient.AzDService;
@@ -17,7 +17,6 @@ import org.junit.Test;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Timer;
 import java.util.concurrent.TimeUnit;
 
 public class ReleaseRequestBuilderTest {

@@ -2,7 +2,6 @@ package org.azd.unittests;
 
 import org.azd.MockParameters;
 import org.azd.abstractions.InstanceFactory;
-import org.azd.abstractions.ResponseHandler;
 import org.azd.abstractions.serializer.SerializerContext;
 import org.azd.authentication.ServicePrincipalAccessTokenCredential;
 import org.azd.build.types.Builds;

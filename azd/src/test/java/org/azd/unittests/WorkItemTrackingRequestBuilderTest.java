@@ -1,30 +1,23 @@
 package org.azd.unittests;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import org.azd.MockParameters;
 import org.azd.UnitTestConfiguration;
 import org.azd.abstractions.InstanceFactory;
-import org.azd.abstractions.ResponseHandler;
-import org.azd.abstractions.internals.LookUpService;
 import org.azd.abstractions.serializer.SerializerContext;
 import org.azd.authentication.PersonalAccessTokenCredential;
-import org.azd.common.ApiVersion;
-import org.azd.common.Constants;
 import org.azd.common.types.JsonPatchDocument;
 import org.azd.enums.*;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.StreamHelper;
 import org.azd.http.ClientRequest;
-import org.azd.MockParameters;
 import org.azd.serviceclient.AzDService;
 import org.azd.serviceclient.AzDServiceClient;
-import org.azd.utils.UrlBuilder;
 import org.azd.workitemtracking.WorkItemTrackingRequestBuilder;
 import org.azd.workitemtracking.types.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

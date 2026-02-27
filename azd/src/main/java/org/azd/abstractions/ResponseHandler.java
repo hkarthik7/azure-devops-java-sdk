@@ -1,7 +1,6 @@
 package org.azd.abstractions;
 
 import org.azd.abstractions.handlers.ResponseContext;
-import org.azd.exceptions.AzDException;
 
 import java.util.concurrent.CompletableFuture;
 

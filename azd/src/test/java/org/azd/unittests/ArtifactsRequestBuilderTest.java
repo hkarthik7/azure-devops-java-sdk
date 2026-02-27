@@ -1,16 +1,16 @@
 package org.azd.unittests;
 
+import org.azd.MockParameters;
 import org.azd.abstractions.InstanceFactory;
 import org.azd.abstractions.serializer.SerializerContext;
+import org.azd.artifacts.types.Feed;
+import org.azd.artifacts.types.FeedView;
 import org.azd.authentication.PersonalAccessTokenCredential;
 import org.azd.enums.FeedRole;
 import org.azd.enums.FeedViewType;
 import org.azd.enums.FeedVisibility;
 import org.azd.enums.Instance;
 import org.azd.exceptions.AzDException;
-import org.azd.feedmanagement.types.Feed;
-import org.azd.feedmanagement.types.FeedView;
-import org.azd.MockParameters;
 import org.azd.serviceclient.AzDService;
 import org.azd.serviceclient.AzDServiceClient;
 import org.junit.Before;

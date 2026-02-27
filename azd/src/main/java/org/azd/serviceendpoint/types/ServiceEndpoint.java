@@ -2,7 +2,6 @@ package org.azd.serviceendpoint.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.lang.Object;
 import org.azd.abstractions.serializer.SerializableEntity;
 import org.azd.common.types.Author;
 

@@ -1,6 +1,5 @@
 package org.azd.configurations;
 
-import org.azd.abstractions.ClientConfiguration;
 import org.azd.abstractions.proxy.ProxyConfiguration;
 import org.azd.abstractions.proxy.ProxyProvider;
 

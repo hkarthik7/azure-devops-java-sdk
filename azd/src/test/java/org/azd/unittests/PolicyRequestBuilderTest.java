@@ -1,12 +1,12 @@
 package org.azd.unittests;
 
+import org.azd.MockParameters;
 import org.azd.UnitTestConfiguration;
 import org.azd.abstractions.InstanceFactory;
 import org.azd.abstractions.serializer.SerializerContext;
 import org.azd.authentication.PersonalAccessTokenCredential;
 import org.azd.enums.Instance;
 import org.azd.exceptions.AzDException;
-import org.azd.MockParameters;
 import org.azd.policy.PolicyRequestBuilder;
 import org.azd.policy.types.PolicyConfiguration;
 import org.azd.policy.types.PolicyTypeRef;

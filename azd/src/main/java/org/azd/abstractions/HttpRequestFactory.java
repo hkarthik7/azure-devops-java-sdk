@@ -5,7 +5,6 @@ import org.azd.authentication.AccessTokenCredential;
 import org.azd.common.Constants;
 import org.azd.exceptions.AzDException;
 
-import java.net.URI;
 import java.net.http.HttpRequest;
 
 /**

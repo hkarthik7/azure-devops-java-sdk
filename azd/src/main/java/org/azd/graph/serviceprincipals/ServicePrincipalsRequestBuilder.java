@@ -5,8 +5,8 @@ import org.azd.abstractions.QueryParameter;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
-import org.azd.graph.types.GraphServicePrincipalCreationContext;
 import org.azd.graph.types.GraphServicePrincipal;
+import org.azd.graph.types.GraphServicePrincipalCreationContext;
 import org.azd.graph.types.GraphServicePrincipalOriginIdCreationContext;
 import org.azd.graph.types.GraphServicePrincipals;
 

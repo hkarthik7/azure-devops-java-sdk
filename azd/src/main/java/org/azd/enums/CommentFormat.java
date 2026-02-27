@@ -7,11 +7,6 @@ package org.azd.enums;
 */
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.abstractions.serializer.SerializableEntity;
-
-
 /**
  * Represents the possible types for the comment format.
 **/

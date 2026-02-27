@@ -1,7 +1,6 @@
 package org.azd.oauth;
 
 import org.azd.abstractions.RequestInformation;
-import org.azd.common.types.AccessToken;
 import org.azd.enums.CustomHeader;
 import org.azd.enums.Instance;
 import org.azd.enums.RequestMethod;

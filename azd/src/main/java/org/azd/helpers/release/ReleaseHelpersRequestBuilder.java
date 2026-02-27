@@ -2,7 +2,6 @@ package org.azd.helpers.release;
 
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.enums.EnvironmentStatus;
-import org.azd.enums.ReleaseEnvironmentStatus;
 import org.azd.exceptions.AzDException;
 import org.azd.release.ReleaseBaseRequestBuilder;
 import org.azd.release.types.ReleaseEnvironment;

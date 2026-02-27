@@ -1,12 +1,12 @@
 package org.azd.artifactspackagetypes.maven;
 
 import org.azd.abstractions.BaseRequestBuilder;
+import org.azd.artifactspackagetypes.types.MavenPackageVersionDeletionState;
 import org.azd.artifactspackagetypes.types.MavenPackagesBatchRequest;
 import org.azd.artifactspackagetypes.types.MavenRecycleBinPackageVersionDetails;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
-import org.azd.artifactspackagetypes.types.MavenPackageVersionDeletionState;
 
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;

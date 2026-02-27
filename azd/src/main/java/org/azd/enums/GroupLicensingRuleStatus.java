@@ -7,7 +7,6 @@ package org.azd.enums;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.azd.abstractions.serializer.SerializableEntity;
 
 /**
  * Licensing Source (e.g. Account. MSDN etc.) 
