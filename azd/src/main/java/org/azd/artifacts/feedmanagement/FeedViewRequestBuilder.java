@@ -1,11 +1,11 @@
 package org.azd.artifacts.feedmanagement;
 
 import org.azd.abstractions.BaseRequestBuilder;
+import org.azd.artifacts.types.FeedView;
+import org.azd.artifacts.types.FeedViews;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
-import org.azd.feedmanagement.types.FeedView;
-import org.azd.feedmanagement.types.FeedViews;
 
 import java.util.concurrent.CompletableFuture;
 

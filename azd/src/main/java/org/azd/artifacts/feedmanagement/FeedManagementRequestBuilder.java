@@ -2,12 +2,12 @@ package org.azd.artifacts.feedmanagement;
 
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.abstractions.QueryParameter;
+import org.azd.artifacts.types.Feed;
+import org.azd.artifacts.types.Feeds;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.common.ApiVersion;
 import org.azd.enums.FeedRole;
 import org.azd.exceptions.AzDException;
-import org.azd.feedmanagement.types.Feed;
-import org.azd.feedmanagement.types.Feeds;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;

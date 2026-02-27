@@ -2,10 +2,10 @@ package org.azd.artifacts.feedmanagement;
 
 import org.azd.abstractions.BaseRequestBuilder;
 import org.azd.abstractions.QueryParameter;
+import org.azd.artifacts.types.FeedPermissions;
 import org.azd.authentication.AccessTokenCredential;
 import org.azd.common.ApiVersion;
 import org.azd.exceptions.AzDException;
-import org.azd.feedmanagement.types.FeedPermissions;
 
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
