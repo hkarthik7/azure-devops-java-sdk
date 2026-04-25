@@ -63,7 +63,7 @@ public class WidgetMetadata extends SerializableEntity {
     @JsonProperty("description")
     private String description;
     /**
-     * Indicates that the widget requires being hosted as lightbox.
+     * Indicates whether the widget is enabled.
      */
     @JsonProperty("isEnabled")
     private Boolean isEnabled;

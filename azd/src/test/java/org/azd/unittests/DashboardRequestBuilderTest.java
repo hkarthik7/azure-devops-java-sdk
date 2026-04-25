@@ -7,21 +7,20 @@ import org.azd.abstractions.serializer.SerializerContext;
 import org.azd.authentication.PersonalAccessTokenCredential;
 import org.azd.dashboard.DashboardRequestBuilder;
 import org.azd.dashboard.types.Dashboard;
+import org.azd.dashboard.types.DashboardGroup;
 import org.azd.dashboard.types.Widget;
+import org.azd.dashboard.types.WidgetSize;
 import org.azd.enums.Instance;
 import org.azd.exceptions.AzDException;
 import org.azd.serviceclient.AzDService;
 import org.azd.serviceclient.AzDServiceClient;
 import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.runners.MethodSorters;
 
 import java.io.File;
 
 import static org.junit.Assert.*;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DashboardRequestBuilderTest {
     private static final SerializerContext serializer = InstanceFactory.createSerializerContext();
     private static AzDServiceClient client;
@@ -107,5 +106,61 @@ public class DashboardRequestBuilderTest {
         assertNotNull(widgetTypes);
         assertNotNull(widgetTypes.getWidgetTypes());
         assertTrue(widgetTypes.getWidgetTypes().size() > 0);
+    }
+
+    @Test
+    public void shouldListWidgets() throws AzDException {
+        var dashboardList = d.dashboards().list(teamName);
+        assertNotNull(dashboardList);
+        if (dashboardList.getDashboards() == null || dashboardList.getDashboards().isEmpty()) return;
+        var dashboardId = dashboardList.getDashboards().get(0).getId();
+        var widgets = d.widgets().list(teamName, dashboardId);
+        assertNotNull(widgets);
+    }
+
+    @Test
+    public void shouldCreateAndDeleteWidget() throws AzDException {
+        var dashboardList = d.dashboards().list(teamName);
+        assertNotNull(dashboardList);
+        if (dashboardList.getDashboards() == null || dashboardList.getDashboards().isEmpty()) return;
+        var dashboardId = dashboardList.getDashboards().get(0).getId();
+
+        var widgetTypes = d.widgetTypes().list("project_team");
+        assertNotNull(widgetTypes);
+        if (widgetTypes.getWidgetTypes() == null || widgetTypes.getWidgetTypes().isEmpty()) return;
+        var contributionId = widgetTypes.getWidgetTypes().get(0).getContributionId();
+        var allowedSizes = widgetTypes.getWidgetTypes().get(0).getAllowedSizes();
+
+        var widget = new Widget();
+        widget.setName("TestWidget-JavaSDK");
+        widget.setContributionId(contributionId);
+        if (allowedSizes != null && !allowedSizes.isEmpty()) {
+            widget.setSize(allowedSizes.get(0));
+        } else {
+            var size = new WidgetSize();
+            size.setColumnSpan(2);
+            size.setRowSpan(1);
+            widget.setSize(size);
+        }
+
+        var created = d.widgets().create(teamName, dashboardId, widget);
+        assertNotNull(created);
+        assertNotNull(created.getId());
+
+        // Clean up
+        d.widgets().delete(teamName, dashboardId, created.getId());
+    }
+
+    @Test
+    public void shouldReplaceDashboards() throws AzDException {
+        var dashboardList = d.dashboards().list(teamName);
+        assertNotNull(dashboardList);
+        if (dashboardList.getDashboards() == null || dashboardList.getDashboards().isEmpty()) return;
+
+        var group = new DashboardGroup();
+        group.setDashboardEntries(dashboardList.getDashboards());
+
+        var result = d.dashboards().replaceDashboards(teamName, group);
+        assertNotNull(result);
     }
 }

@@ -21,6 +21,6 @@
       ]
     }
   },
-  "postCreateCommand": "bash .devcontainer/import-certs.sh && cd azd && mvn dependency:resolve && pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org -r ../tools/requirements.txt",
+  "postCreateCommand": "bash .devcontainer/import-certs.sh; cd azd && mvn dependency:resolve && pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org -r ../tools/requirements.txt || echo 'pip install failed - on restricted networks run manually: pip install -r tools/requirements.txt'",
   "remoteUser": "vscode"
 }
