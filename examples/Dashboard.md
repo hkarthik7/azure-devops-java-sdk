@@ -97,9 +97,10 @@ public class Main {
         client.dashboard().widgets().replace(teamName, "dashboardId", createdWidget.getId(), createdWidget);
 
         // partially update a widget (PATCH)
-        Widget patch = new Widget();
-        patch.setName("Renamed Widget");
-        client.dashboard().widgets().update(teamName, "dashboardId", createdWidget.getId(), patch);
+        // Fetch first so existing fields (size, contributionId) are preserved — the API rejects size=0
+        Widget existing = client.dashboard().widgets().get(teamName, "dashboardId", createdWidget.getId());
+        existing.setName("Renamed Widget");
+        client.dashboard().widgets().update(teamName, "dashboardId", existing.getId(), existing);
 
         // delete a widget
         client.dashboard().widgets().delete(teamName, "dashboardId", createdWidget.getId());
