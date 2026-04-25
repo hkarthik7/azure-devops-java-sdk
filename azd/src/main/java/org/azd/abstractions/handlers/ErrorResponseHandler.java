@@ -36,11 +36,15 @@ public final class ErrorResponseHandler extends ResponseHandler {
         }
 
         if (status == 401) {
+            // Use the URI from the already-sent HttpResponse rather than calling
+            // context.request().getRequestUri(), which triggers a fresh LocationService
+            // lookup (OPTIONS request) that overwrites ResponseHandler.apiResponse with
+            // 200 OK — hiding the real 401 from callers of ResponseHandler.getResponse().
             return CompletableFuture.failedFuture(
                     new AzDException(
                             ApiExceptionTypes.UnAuthorizedException.toString(),
                             "Given token doesn't have access to resource '"
-                                    + context.request().getRequestUri() + "'."
+                                    + context.response().request().uri() + "'."
                     )
             );
         }

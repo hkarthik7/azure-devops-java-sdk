@@ -7,6 +7,8 @@ import org.azd.abstractions.serializer.SerializerContext;
 import org.azd.authentication.PersonalAccessTokenCredential;
 import org.azd.common.types.JsonPatchDocument;
 import org.azd.enums.*;
+import org.azd.abstractions.ResponseHandler;
+import org.azd.enums.HttpStatusCode;
 import org.azd.exceptions.AzDException;
 import org.azd.helpers.StreamHelper;
 import org.azd.http.ClientRequest;
@@ -24,6 +26,8 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class WorkItemTrackingRequestBuilderTest {
     private static final SerializerContext serializer = InstanceFactory.createSerializerContext();
@@ -455,5 +459,43 @@ public class WorkItemTrackingRequestBuilderTest {
         var comment = w.comments().list(2177).getComments().get(0);
         w.comments().update("# This is an updated comment.", comment.getId(),
                 2177, CommentFormat.markdown);
+    }
+
+    /**
+     * Regression test for issue #107.
+     *
+     * When a 401 is returned (e.g. calling workItemTypes().list() without a project),
+     * ResponseHandler.getResponse() must still reflect the 401 status after the exception
+     * is thrown. Previously, ErrorResponseHandler called context.request().getRequestUri()
+     * to build the error message, which triggered a fresh LocationService OPTIONS call that
+     * overwrote ResponseHandler.apiResponse with 200 OK before the exception reached the
+     * caller.
+     */
+    @Test
+    public void shouldRetainUnauthorizedStatusInResponseHandlerWhenProjectIsAbsent() {
+        String dir = System.getProperty("user.dir");
+        var file = new File(dir + "/src/test/java/org/azd/_unitTest.json");
+        MockParameters m;
+        try {
+            m = InstanceFactory.createSerializerContext().deserialize(file, MockParameters.class);
+        } catch (AzDException e) {
+            return; // skip if config not available
+        }
+        // Build a client WITHOUT project — mirrors the reporter's code in issue #107.
+        var pat = new PersonalAccessTokenCredential(
+                Instance.BASE_INSTANCE.append(m.getO()), m.getT());
+        var noProjectClient = AzDService.builder().authentication(pat).buildClient();
+
+        try {
+            noProjectClient.workItemTracking().workItemTypes().list();
+        } catch (AzDException e) {
+            // Exception is expected. The key assertion: ResponseHandler must NOT have
+            // been overwritten with 200 OK by the internal location-discovery request.
+            var response = ResponseHandler.getResponse();
+            assertNotNull("ResponseHandler.getResponse() must not be null after a failed call", response);
+            assertNotEquals(
+                    "ResponseHandler.getResponse() must not be OK after a 401 — issue #107",
+                    HttpStatusCode.OK, response.getStatusCode());
+        }
     }
 }

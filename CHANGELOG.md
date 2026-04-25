@@ -1,5 +1,11 @@
 # Changelog
 
+# 7.0.1
+
+- Fixed issues:
+  - Issue: [attempting to get WorkItemItemTypes without a project causes an UnAuthorizedException but the http code is OK #107](https://github.com/hkarthik7/azure-devops-java-sdk/issues/107)
+    - `ErrorResponseHandler` was calling `context.request().getRequestUri()` to build the 401 error message. This triggered a fresh `LocationService` OPTIONS lookup that overwrote `ResponseHandler.apiResponse` with 200 OK, hiding the real 401 from callers of `ResponseHandler.getResponse()`. Fixed by using `context.response().request().uri()` (the URI from the already-sent `HttpResponse`) instead.
+
 # 7.0.0
 
 **Major release**
