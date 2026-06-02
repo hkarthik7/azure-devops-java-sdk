@@ -41,3 +41,6 @@ __pycache__/
 # Don't upload the types folder under tools/
 tools/types/
 tools/env/
+
+# Personal utility scripts (not part of the SDK)
+push_via_api.py

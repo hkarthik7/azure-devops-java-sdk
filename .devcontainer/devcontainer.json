@@ -1,0 +1,26 @@
+{
+  "name": "Azure DevOps Java SDK",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "java.configuration.updateBuildConfiguration": "automatic",
+        "java.compile.nullAnalysis.mode": "automatic",
+        "maven.executable.path": "/usr/bin/mvn",
+        "java.jdt.ls.java.home": "/usr/local/sdkman/candidates/java/current"
+      },
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "vscjava.vscode-maven",
+        "vscjava.vscode-java-debug",
+        "vscjava.vscode-java-test",
+        "redhat.java",
+        "ms-python.python"
+      ]
+    }
+  },
+  "postCreateCommand": "bash .devcontainer/import-certs.sh; cd azd && mvn dependency:resolve && pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org -r ../tools/requirements.txt || echo 'pip install failed - on restricted networks run manually: pip install -r tools/requirements.txt'",
+  "remoteUser": "vscode"
+}
