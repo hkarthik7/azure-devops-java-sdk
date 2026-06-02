@@ -20,6 +20,9 @@ public abstract class ApiVersion {
     public static final String BUILD_YAML = "7.2-preview.1";
     public static final String BUILD_SOURCE_PROVIDERS = "7.2-preview.1";
     public static final String CORE = "7.2-preview.1";
+    public static final String DASHBOARD = "7.2-preview.3";
+    public static final String DASHBOARD_WIDGET = "7.2-preview.2";
+    public static final String DASHBOARD_WIDGET_TYPES = "7.2-preview.1";
     public static final String DISTRIBUTED_TASK = "7.2-preview.1";
     public static final String EXTENSION_MANAGEMENT = "7.2-preview.2";
     public static final String FEATURE_MANAGEMENT = "7.2-preview.1";

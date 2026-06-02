@@ -7,6 +7,7 @@ import org.azd.authentication.AccessTokenCredential;
 import org.azd.build.BuildBaseRequestBuilder;
 import org.azd.configurations.ClientConfigurationRequestBuilder;
 import org.azd.core.CoreRequestBuilder;
+import org.azd.dashboard.DashboardRequestBuilder;
 import org.azd.distributedtask.DistributedTaskRequestBuilder;
 import org.azd.extensionmanagement.ExtensionManagementRequestBuilder;
 import org.azd.featuremanagement.FeatureManagementRequestBuilder;
@@ -85,6 +86,14 @@ public interface AzDServiceClient {
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/core/?view=azure-devops-rest-7.1">Core</a>
      */
     CoreRequestBuilder core();
+
+    /**
+     * Request builder for Dashboard Api.
+     *
+     * @return Dashboard request builder. {@link DashboardRequestBuilder}
+     * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/dashboard/?view=azure-devops-rest-7.2">Dashboard</a>
+     */
+    DashboardRequestBuilder dashboard();
 
     /**
      * Request builder for distributed task Api.

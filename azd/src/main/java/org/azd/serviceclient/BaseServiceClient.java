@@ -9,6 +9,7 @@ import org.azd.build.BuildBaseRequestBuilder;
 import org.azd.common.ResourceId;
 import org.azd.configurations.ClientConfigurationRequestBuilder;
 import org.azd.core.CoreRequestBuilder;
+import org.azd.dashboard.DashboardRequestBuilder;
 import org.azd.distributedtask.DistributedTaskRequestBuilder;
 import org.azd.exceptions.AzDException;
 import org.azd.extensionmanagement.ExtensionManagementRequestBuilder;
@@ -130,6 +131,18 @@ public class BaseServiceClient implements AzDServiceClient {
     public CoreRequestBuilder core() {
         var locationUrl = getLocationUrl(ResourceId.CORE);
         return new CoreRequestBuilder(locationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Request builder for Dashboard Api.
+     *
+     * @return Dashboard request builder. {@link DashboardRequestBuilder}
+     * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/dashboard/?view=azure-devops-rest-7.2">Dashboard</a>
+     */
+    @Override
+    public DashboardRequestBuilder dashboard() {
+        var locationUrl = getLocationUrl(ResourceId.DASHBOARD);
+        return new DashboardRequestBuilder(locationUrl, accessTokenCredential);
     }
 
     /**

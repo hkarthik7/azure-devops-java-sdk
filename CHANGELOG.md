@@ -5,6 +5,18 @@
 - Fixed issues:
   - Issue: [attempting to get WorkItemItemTypes without a project causes an UnAuthorizedException but the http code is OK #107](https://github.com/hkarthik7/azure-devops-java-sdk/issues/107)
     - `ErrorResponseHandler` was calling `context.request().getRequestUri()` to build the 401 error message. This triggered a fresh `LocationService` OPTIONS lookup that overwrote `ResponseHandler.apiResponse` with 200 OK, hiding the real 401 from callers of `ResponseHandler.getResponse()`. Fixed by using `context.response().request().uri()` (the URI from the already-sent `HttpResponse`) instead.
+# 7.1.0
+
+- Added support for **Dashboard API**.
+  - `DashboardRequestBuilder` — entry point wired into `AzDServiceClient` via `client.dashboard()`
+  - `DashboardsRequestBuilder` — full CRUD for dashboards (create, get, list, replace, replaceDashboards, delete) with async variants
+  - `WidgetsRequestBuilder` — full CRUD for widgets (create, get, list, replace, update, delete) with async variants
+  - `WidgetTypesRequestBuilder` — list widget types by scope, get widget metadata by contribution ID, with async variants
+  - 11 type classes: `Dashboard`, `DashboardGroup`, `DashboardList`, `Widget`, `WidgetList`, `WidgetMetadata`, `WidgetMetadataResponse`, `WidgetTypesResponse`, `WidgetPosition`, `WidgetSize`, `LightboxOptions`, `SemanticVersion`
+  - Added `ApiVersion` constants: `DASHBOARD`, `DASHBOARD_WIDGET`, `DASHBOARD_WIDGET_TYPES`
+  - Added `examples/Dashboard.md` with usage examples
+  - Added devcontainer support (`.devcontainer/`) for Java 11 development environment
+  - 8 integration tests covering dashboards CRUD, widget lifecycle, widget types and bulk dashboard replacement
 
 # 7.0.0
 
