@@ -37,7 +37,7 @@ public class DashboardRequestBuilderTest {
         testConfiguration = serializer.deserialize(configFile, UnitTestConfiguration.class);
         String organization = m.getO();
         String token = m.getT();
-        String project = m.getP();
+        String project = testConfiguration.properties.core.projectName;
         var pat = new PersonalAccessTokenCredential(Instance.BASE_INSTANCE.append(organization), project, token);
         client = AzDService.builder()
                 .authentication(pat)
