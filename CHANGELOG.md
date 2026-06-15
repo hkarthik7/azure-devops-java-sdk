@@ -1,12 +1,13 @@
 # Changelog
 
-# 7.0.1
+# 7.1.0
+
+**Minor incremental release**
 
 - Fixed issues:
   - Issue: [attempting to get WorkItemItemTypes without a project causes an UnAuthorizedException but the http code is OK #107](https://github.com/hkarthik7/azure-devops-java-sdk/issues/107)
     - `ErrorResponseHandler` was calling `context.request().getRequestUri()` to build the 401 error message. This triggered a fresh `LocationService` OPTIONS lookup that overwrote `ResponseHandler.apiResponse` with 200 OK, hiding the real 401 from callers of `ResponseHandler.getResponse()`. Fixed by using `context.response().request().uri()` (the URI from the already-sent `HttpResponse`) instead.
-# 7.1.0
-
+  - Issue: [atttempting to create a Bug gets me http error 203 #105](https://github.com/hkarthik7/azure-devops-java-sdk/issues/105)
 - Added support for **Dashboard API**.
   - `DashboardRequestBuilder` — entry point wired into `AzDServiceClient` via `client.dashboard()`
   - `DashboardsRequestBuilder` — full CRUD for dashboards (create, get, list, replace, replaceDashboards, delete) with async variants
@@ -17,6 +18,9 @@
   - Added `examples/Dashboard.md` with usage examples
   - Added devcontainer support (`.devcontainer/`) for Java 11 development environment
   - 8 integration tests covering dashboards CRUD, widget lifecycle, widget types and bulk dashboard replacement
+- Feature:
+  - [Feature request add api to get workItemType categories #106](https://github.com/hkarthik7/azure-devops-java-sdk/issues/106) - Added support for Work item categories Api.
+  - [is there a way to add comments? #103](https://github.com/hkarthik7/azure-devops-java-sdk/issues/103) - Added concurrent cache in `LocationService`.
 
 # 7.0.0
 
