@@ -7,15 +7,20 @@ import org.azd.common.types.ApiLocations;
 import org.azd.http.ClientRequest;
 import org.azd.utils.UrlBuilder;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * Determines the Api location based on location url, area and resource id.
  */
 public final class LocationService {
-    private final Map<String, Map<String, ApiLocation>> locations = new HashMap<>();
+
+    private static final ConcurrentMap<String, LocationService> instances = new ConcurrentHashMap<>();
+    private static volatile boolean cacheEnabled = true;
+
+    private final ConcurrentMap<String, Map<String, ApiLocation>> locations = new ConcurrentHashMap<>();
     private final AccessTokenCredential accessTokenCredential;
 
     /**
@@ -33,9 +38,49 @@ public final class LocationService {
      * @param accessTokenCredential Access token credential object.
      * @return LocationService object {@link LocationService}.
      */
-    public static LocationService getInstance(AccessTokenCredential accessTokenCredential) {
-        Objects.requireNonNull(accessTokenCredential, "Access token cannot be null.");
-        return new LocationService(accessTokenCredential);
+    public static LocationService getInstance(
+            AccessTokenCredential accessTokenCredential
+    ) {
+        Objects.requireNonNull(
+                accessTokenCredential,
+                "Access token cannot be null."
+        );
+        if (!cacheEnabled) {
+            return new LocationService(accessTokenCredential);
+        }
+
+        var key = cacheKey(accessTokenCredential);
+        return instances.computeIfAbsent(
+                key,
+                k -> new LocationService(accessTokenCredential)
+        );
+    }
+
+    public static void setCacheEnabled(boolean enabled) {
+        cacheEnabled = enabled;
+    }
+
+    public static boolean isCacheEnabled() {
+        return cacheEnabled;
+    }
+
+    public static void clearCache() {
+        instances.clear();
+    }
+
+    public static void clearCache(AccessTokenCredential credential) {
+        if (credential == null) {
+            return;
+        }
+        instances.remove(cacheKey(credential));
+    }
+
+    private static String cacheKey(AccessTokenCredential credential) {
+        Objects.requireNonNull(
+                credential.getOrganizationUrl(),
+                "Organization URL cannot be null."
+        );
+        return credential.getOrganizationUrl() + "|" + credential.getAccessToken();
     }
 
     /**
@@ -73,8 +118,10 @@ public final class LocationService {
                     .build()
                     .executeAsync(ApiLocations.class)
                     .thenAcceptAsync(results -> {
-                        var resourceAreas = new HashMap<String, ApiLocation>();
-                        results.locations.forEach(result -> resourceAreas.put(result.id.toLowerCase(), result));
+                        var resourceAreas = new ConcurrentHashMap<String, ApiLocation>();
+                        results.locations.forEach(result ->
+                                resourceAreas.put(result.id.toLowerCase(), result)
+                        );
                         locations.put(area, resourceAreas);
                     })
                     .join();
