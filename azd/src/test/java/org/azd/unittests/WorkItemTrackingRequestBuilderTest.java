@@ -208,27 +208,7 @@ public class WorkItemTrackingRequestBuilderTest {
 
     @Test
     public void shouldGetWorkItemTypeCategories() throws AzDException {
-//        w.workItemTypeCategories().list();
-        var docCollection = new ArrayList<JsonPatchDocument>();
-        var title = new JsonPatchDocument();
-        title.setOperation(PatchOperation.ADD);
-        title.setPath("/fields/System.Title");
-        title.setValue("Sample bug");
-
-//        var tags = new JsonPatchDocument();
-//        title.setOperation(PatchOperation.ADD);
-//        title.setPath("/fields/System.Tags");
-//        title.setValue("demo,bug");
-
-        docCollection.add(title);
-//        docCollection.add(tags);
-
-        try {
-            System.out.println(w.workItems().create("bug", docCollection));
-        } catch (AzDException ex) {
-            System.out.println(ResponseHandler.getResponse().getResponseBody());
-            System.out.println(ResponseHandler.getResponse().getStatusCode().getCode());
-        }
+        w.workItemTypeCategories().list();
     }
 
     @Test
