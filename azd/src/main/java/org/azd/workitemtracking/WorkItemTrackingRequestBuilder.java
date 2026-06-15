@@ -13,6 +13,7 @@ import org.azd.workitemtracking.revisions.WorkItemRevisionsRequestBuilder;
 import org.azd.workitemtracking.tags.WorkItemTagsRequestBuilder;
 import org.azd.workitemtracking.wiql.WiqlRequestBuilder;
 import org.azd.workitemtracking.workitems.WorkItemsRequestBuilder;
+import org.azd.workitemtracking.workitemtypecategories.WorkItemTypeCategoriesRequestBuilder;
 import org.azd.workitemtracking.workitemtypes.WorkItemTypesRequestBuilder;
 import org.azd.workitemtracking.workitemtypesfield.WorkItemTypesFieldRequestBuilder;
 
@@ -136,6 +137,15 @@ public class WorkItemTrackingRequestBuilder extends BaseRequestBuilder {
      */
     public WorkItemTypesRequestBuilder workItemTypes() {
         return new WorkItemTypesRequestBuilder(organizationUrl, accessTokenCredential);
+    }
+
+    /**
+     * Provides functionality to work with Work item type categories Api.
+     *
+     * @return WorkItemTypeCategoriesRequestBuilder {@link WorkItemTypeCategoriesRequestBuilder}
+     */
+    public WorkItemTypeCategoriesRequestBuilder workItemTypeCategories() {
+        return new WorkItemTypeCategoriesRequestBuilder(organizationUrl, accessTokenCredential);
     }
 
     /**

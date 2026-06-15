@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -203,6 +204,36 @@ public class WorkItemTrackingRequestBuilderTest {
     @Test
     public void shouldGetAWorkItemType() throws AzDException {
         w.workItemTypes().get("Bug");
+    }
+
+    @Test
+    public void shouldGetWorkItemTypeCategories() throws AzDException {
+//        w.workItemTypeCategories().list();
+        var docCollection = new ArrayList<JsonPatchDocument>();
+        var title = new JsonPatchDocument();
+        title.setOperation(PatchOperation.ADD);
+        title.setPath("/fields/System.Title");
+        title.setValue("Sample bug");
+
+//        var tags = new JsonPatchDocument();
+//        title.setOperation(PatchOperation.ADD);
+//        title.setPath("/fields/System.Tags");
+//        title.setValue("demo,bug");
+
+        docCollection.add(title);
+//        docCollection.add(tags);
+
+        try {
+            System.out.println(w.workItems().create("bug", docCollection));
+        } catch (AzDException ex) {
+            System.out.println(ResponseHandler.getResponse().getResponseBody());
+            System.out.println(ResponseHandler.getResponse().getStatusCode().getCode());
+        }
+    }
+
+    @Test
+    public void shouldGetAWorkItemTypeCategories() throws AzDException {
+        w.workItemTypeCategories().get("Bug Category");
     }
 
     @Test

@@ -91,6 +91,7 @@ public abstract class ApiVersion {
     public static final String WIT_WIQL = "7.2-preview.2";
     public static final String WIT_RECYCLE_BIN = "7.2-preview.2";
     public static final String WORK_ITEM_TYPES = "7.2-preview.2";
+    public static final String WORK_ITEM_TYPE_CATEGORIES = "7.2-preview.2";
     public static final String WORK_ITEM_TYPES_FIELD = "7.2-preview.3";
     public static final String WORK_ITEM_QUERIES = "7.2-preview.2";
     public static final String WORK_ITEM_QUERIES_BATCH = "7.2-preview.1";
