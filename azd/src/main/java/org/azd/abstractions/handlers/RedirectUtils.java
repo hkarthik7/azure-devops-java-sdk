@@ -20,10 +20,6 @@ public final class RedirectUtils {
             return false;
         }
 
-        if (context.response().uri() != null && status == 403) {
-            return true;
-        }
-
         if (context.header("Location").isPresent()) {
             return true;
         }
@@ -37,15 +33,10 @@ public final class RedirectUtils {
     }
 
     public static Optional<URI> extractCallback(ResponseContext context) {
-
         try {
             var location = context.header("Location");
             if (location.isPresent()) {
                 return Optional.of(URI.create(location.get()));
-            }
-
-            if (context.response() != null && context.response().uri() != null) {
-                return Optional.of(context.response().uri());
             }
 
             if (context.contentType().isJson() && context.body() instanceof String) {
@@ -63,7 +54,6 @@ public final class RedirectUtils {
             }
 
             return Optional.empty();
-
         } catch (Exception e) {
             return Optional.empty();
         }
