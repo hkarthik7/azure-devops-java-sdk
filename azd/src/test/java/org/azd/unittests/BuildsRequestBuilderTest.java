@@ -70,13 +70,11 @@ public class BuildsRequestBuilderTest {
     }
 
     @Test
-    public void shouldDeleteABuild() throws AzDException {
+    public void shouldDeleteABuild() throws AzDException, InterruptedException {
         var newBuild = client.build().builds().queue(testConfiguration.properties.builds.definitionId);
-        try {
-            client.build().builds().delete(newBuild.getId());
-        } catch (AzDException ignored) {
-            // ignore CannotDeleteRunningBuildException
-        }
+        Thread.sleep(5000);
+        // Build will be deleted immediately.
+        client.build().builds().delete(newBuild.getId());
     }
 
     @Test
