@@ -14,6 +14,7 @@ import org.azd.enums.Instance;
 import org.azd.exceptions.AzDException;
 import org.azd.serviceclient.AzDService;
 import org.azd.serviceclient.AzDServiceClient;
+import org.azd.utils.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -44,6 +45,7 @@ public class DashboardRequestBuilderTest {
                 .buildClient();
         d = client.dashboard();
         teamName = testConfiguration.properties.core.teamName;
+        createTeamIfNotExists();
     }
 
     @Test
@@ -162,5 +164,18 @@ public class DashboardRequestBuilderTest {
 
         var result = d.dashboards().replaceDashboards(teamName, group);
         assertNotNull(result);
+    }
+
+    private void createTeamIfNotExists() throws AzDException {
+        var projectId = client.core().projects().get().getId();
+        try {
+            client.core().teams().get(projectId, teamName);
+        } catch (AzDException ex) {
+            if (ex.getMessage().contains("TeamNotFoundException")) {
+                System.out.println("========= Team " + teamName + " doesn't exits. =========");
+                System.out.println("========= Creating " + teamName + " =========");
+                client.core().teams().create(projectId, teamName);
+            }
+        }
     }
 }

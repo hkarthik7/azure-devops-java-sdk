@@ -68,7 +68,7 @@ public class SecurityRequestBuilderTest {
                 .query(StringUtils.EMPTY, false)
                 .getSecurityNamespaces()
                 .stream()
-                .filter(x -> x.getDisplayName().equals(namespace))
+                .filter(x -> !StringUtils.isEmpty(x.getDisplayName()) && x.getDisplayName().equals(namespace))
                 .findFirst()
                 .get();
         SecurityNamespace securityNamespace1 = s.securityNamespaces()
@@ -85,7 +85,7 @@ public class SecurityRequestBuilderTest {
                 .query(StringUtils.EMPTY, false)
                 .getSecurityNamespaces()
                 .stream()
-                .filter(x -> x.getDisplayName().equals(namespace))
+                .filter(x -> !StringUtils.isEmpty(x.getDisplayName()) && x.getDisplayName().equals(namespace))
                 .findFirst()
                 .get();
         ACLs acLs = s.accessControlLists().query(securityNamespace.getNamespaceId(), r -> {
@@ -113,7 +113,7 @@ public class SecurityRequestBuilderTest {
                 .query(StringUtils.EMPTY, false)
                 .getSecurityNamespaces()
                 .stream()
-                .filter(x -> x.getDisplayName().equals(namespace))
+                .filter(x -> !StringUtils.isEmpty(x.getDisplayName()) && x.getDisplayName().equals(namespace))
                 .findFirst()
                 .get();
         String token = SecurityToken.generate(SecurityToken.Scope.Collection, Map.of());
@@ -178,7 +178,7 @@ public class SecurityRequestBuilderTest {
                 query(StringUtils.EMPTY, false)
                 .getSecurityNamespaces()
                 .stream()
-                .filter(x -> x.getDisplayName().equals(namespace))
+                .filter(x -> !StringUtils.isEmpty(x.getDisplayName()) && x.getDisplayName().equals(namespace))
                 .findFirst()
                 .get();
 
