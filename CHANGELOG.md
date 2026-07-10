@@ -1,5 +1,15 @@
 # Changelog
 
+# 8.0.0
+
+**Major breaking change**
+- Fixed issue:
+  - Issue: [invoking at any of the builders with the wrong organization causes an AzException #110](https://github.com/hkarthik7/azure-devops-java-sdk/issues/110)
+- The above change introduces `AzDException` in [AzDServiceClient.java](https://github.com/hkarthik7/azure-devops-java-sdk/blob/main/azd/src/main/java/org/azd/serviceclient/AzDServiceClient.java) 
+and it's implementation class [BaseServiceClient.java](https://github.com/hkarthik7/azure-devops-java-sdk/blob/main/azd/src/main/java/org/azd/serviceclient/BaseServiceClient.java). 
+Thanks to @[emaayan](https://github.com/emaayan) for flagging this as it is very significant and allows users to handle the exception while 
+building Api specific builders and makes it obvious that networks are made when the builder objects are returned.
+
 # 7.1.0
 
 **Minor incremental release**

@@ -66,7 +66,7 @@ public class BaseServiceClient implements AzDServiceClient {
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/account/accounts?view=azure-devops-rest-7.1">Accounts</a>
      */
     @Override
-    public AccountsRequestBuilder accounts() {
+    public AccountsRequestBuilder accounts() throws AzDException {
         var locationUrl = getLocationUrl(ResourceId.ACCOUNT);
         // Remove the organization name from the request url.
         var pathToRemove = URI.create(locationUrl).getPath();
@@ -82,7 +82,7 @@ public class BaseServiceClient implements AzDServiceClient {
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/artifacts/feed-management?view=azure-devops-rest-7.1">Artifacts</a>
      */
     @Override
-    public ArtifactsRequestBuilder artifacts() {
+    public ArtifactsRequestBuilder artifacts() throws AzDException {
         var locationUrl = getLocationUrl(ResourceId.PACKAGING);
         return new ArtifactsRequestBuilder(locationUrl, accessTokenCredential);
     }
@@ -94,7 +94,7 @@ public class BaseServiceClient implements AzDServiceClient {
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/artifactspackagetypes/maven?view=azure-devops-rest-7.1">Artifacts Package Types</a>
      */
     @Override
-    public ArtifactsPackageTypesRequestBuilder artifactsPackageTypes() {
+    public ArtifactsPackageTypesRequestBuilder artifactsPackageTypes() throws AzDException {
         var locationUrl = getLocationUrl(ResourceId.MAVEN);
         return new ArtifactsPackageTypesRequestBuilder(locationUrl, accessTokenCredential);
     }
@@ -106,7 +106,7 @@ public class BaseServiceClient implements AzDServiceClient {
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/build/?view=azure-devops-rest-7.1">Build</a>
      */
     @Override
-    public BuildBaseRequestBuilder build() {
+    public BuildBaseRequestBuilder build() throws AzDException {
         var locationUrl = getLocationUrl(ResourceId.BUILD);
         return new BuildBaseRequestBuilder(locationUrl, accessTokenCredential);
     }
@@ -128,7 +128,7 @@ public class BaseServiceClient implements AzDServiceClient {
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/core/?view=azure-devops-rest-7.1">Core</a>
      */
     @Override
-    public CoreRequestBuilder core() {
+    public CoreRequestBuilder core() throws AzDException {
         var locationUrl = getLocationUrl(ResourceId.CORE);
         return new CoreRequestBuilder(locationUrl, accessTokenCredential);
     }
@@ -140,7 +140,7 @@ public class BaseServiceClient implements AzDServiceClient {
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/dashboard/?view=azure-devops-rest-7.2">Dashboard</a>
      */
     @Override
-    public DashboardRequestBuilder dashboard() {
+    public DashboardRequestBuilder dashboard() throws AzDException {
         var locationUrl = getLocationUrl(ResourceId.DASHBOARD);
         return new DashboardRequestBuilder(locationUrl, accessTokenCredential);
     }
@@ -152,7 +152,7 @@ public class BaseServiceClient implements AzDServiceClient {
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/distributedtask/?view=azure-devops-rest-7.1">Distributed Task</a>
      */
     @Override
-    public DistributedTaskRequestBuilder distributedTask() {
+    public DistributedTaskRequestBuilder distributedTask() throws AzDException {
         var locationUrl = getLocationUrl(ResourceId.DISTRIBUTED_TASK);
         return new DistributedTaskRequestBuilder(locationUrl, accessTokenCredential);
     }
@@ -164,7 +164,7 @@ public class BaseServiceClient implements AzDServiceClient {
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/extensionmanagement/installed-extensions?view=azure-devops-rest-7.1">Extension Management</a>
      */
     @Override
-    public ExtensionManagementRequestBuilder extensionManagement() {
+    public ExtensionManagementRequestBuilder extensionManagement() throws AzDException {
         var locationUrl = getLocationUrl(ResourceId.EXTENSION_MANAGEMENT);
         return new ExtensionManagementRequestBuilder(locationUrl, accessTokenCredential);
     }
@@ -176,7 +176,7 @@ public class BaseServiceClient implements AzDServiceClient {
      * @return Feature management request builder. {@link FeatureManagementRequestBuilder}
      */
     @Override
-    public FeatureManagementRequestBuilder featureManagement() {
+    public FeatureManagementRequestBuilder featureManagement() throws AzDException {
         return new FeatureManagementRequestBuilder(organizationUrl, accessTokenCredential);
     }
 
@@ -197,7 +197,7 @@ public class BaseServiceClient implements AzDServiceClient {
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/git/?view=azure-devops-rest-7.1">Git</a>
      */
     @Override
-    public GitBaseRequestBuilder git() {
+    public GitBaseRequestBuilder git() throws AzDException {
         var locationUrl = getLocationUrl(ResourceId.GIT);
         return new GitBaseRequestBuilder(locationUrl, accessTokenCredential);
     }
@@ -209,7 +209,7 @@ public class BaseServiceClient implements AzDServiceClient {
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/graph/?view=azure-devops-rest-7.1">Graph</a>
      */
     @Override
-    public GraphRequestBuilder graph() {
+    public GraphRequestBuilder graph() throws AzDException {
         var locationUrl = getLocationUrl(ResourceId.GRAPH);
         return new GraphRequestBuilder(locationUrl, accessTokenCredential);
     }
@@ -230,7 +230,7 @@ public class BaseServiceClient implements AzDServiceClient {
      * @return Location base request builder. {@link LocationsBaseRequestBuilder}
      */
     @Override
-    public LocationsBaseRequestBuilder locations() {
+    public LocationsBaseRequestBuilder locations() throws AzDException {
         return new LocationsBaseRequestBuilder(organizationUrl, accessTokenCredential);
     }
 
@@ -241,7 +241,7 @@ public class BaseServiceClient implements AzDServiceClient {
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/memberentitlementmanagement/?view=azure-devops-rest-7.1">Member Entitlement Management</a>
      */
     @Override
-    public MemberEntitlementManagementRequestBuilder memberEntitlementManagement() {
+    public MemberEntitlementManagementRequestBuilder memberEntitlementManagement() throws AzDException {
         var locationUrl = getLocationUrl(ResourceId.MEMBER_ENTITLEMENT_MANAGEMENT);
         return new MemberEntitlementManagementRequestBuilder(locationUrl, accessTokenCredential);
     }
@@ -264,7 +264,7 @@ public class BaseServiceClient implements AzDServiceClient {
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/pipelines/?view=azure-devops-rest-7.1">Pipelines</a>
      */
     @Override
-    public PipelinesBaseRequestBuilder pipelines() {
+    public PipelinesBaseRequestBuilder pipelines() throws AzDException {
         var locationUrl = getLocationUrl(ResourceId.PIPELINES);
         return new PipelinesBaseRequestBuilder(locationUrl, accessTokenCredential);
     }
@@ -276,7 +276,7 @@ public class BaseServiceClient implements AzDServiceClient {
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/policy/?view=azure-devops-rest-7.1">Policy</a>
      */
     @Override
-    public PolicyRequestBuilder policy() {
+    public PolicyRequestBuilder policy() throws AzDException {
         var locationUrl = getLocationUrl(ResourceId.POLICY);
         return new PolicyRequestBuilder(locationUrl, accessTokenCredential);
     }
@@ -287,7 +287,7 @@ public class BaseServiceClient implements AzDServiceClient {
      * @return Release Request builder {@link ReleaseBaseRequestBuilder}
      */
     @Override
-    public ReleaseBaseRequestBuilder release() {
+    public ReleaseBaseRequestBuilder release() throws AzDException {
         var locationUrl = getLocationUrl(ResourceId.RELEASE);
         return new ReleaseBaseRequestBuilder(locationUrl, accessTokenCredential);
     }
@@ -298,7 +298,7 @@ public class BaseServiceClient implements AzDServiceClient {
      * @return Security Request builder {@link SecurityRequestBuilder}
      */
     @Override
-    public SecurityRequestBuilder security() {
+    public SecurityRequestBuilder security() throws AzDException {
         return new SecurityRequestBuilder(organizationUrl, accessTokenCredential);
     }
 
@@ -308,7 +308,7 @@ public class BaseServiceClient implements AzDServiceClient {
      * @return Service endpoint Request builder {@link ServiceEndpointRequestBuilder}
      */
     @Override
-    public ServiceEndpointRequestBuilder serviceEndpoint() {
+    public ServiceEndpointRequestBuilder serviceEndpoint() throws AzDException {
         var locationUrl = getLocationUrl(ResourceId.SERVICE_ENDPOINT);
         return new ServiceEndpointRequestBuilder(locationUrl, accessTokenCredential);
     }
@@ -329,7 +329,7 @@ public class BaseServiceClient implements AzDServiceClient {
      * @return Test Request builder {@link TestRequestBuilder}
      */
     @Override
-    public TestRequestBuilder test() {
+    public TestRequestBuilder test() throws AzDException {
         var locationUrl = getLocationUrl(ResourceId.TEST_ID);
         return new TestRequestBuilder(locationUrl, accessTokenCredential);
     }
@@ -340,7 +340,7 @@ public class BaseServiceClient implements AzDServiceClient {
      * @return Wiki Request builder {@link WikiRequestBuilder}
      */
     @Override
-    public WikiRequestBuilder wiki() {
+    public WikiRequestBuilder wiki() throws AzDException {
         var locationUrl = getLocationUrl(ResourceId.WIKI);
         return new WikiRequestBuilder(locationUrl, accessTokenCredential);
     }
@@ -351,7 +351,7 @@ public class BaseServiceClient implements AzDServiceClient {
      * @return Work Request builder {@link WorkRequestBuilder}
      */
     @Override
-    public WorkRequestBuilder work() {
+    public WorkRequestBuilder work() throws AzDException {
         var locationUrl = getLocationUrl(ResourceId.WORK);
         return new WorkRequestBuilder(locationUrl, accessTokenCredential);
     }
@@ -362,7 +362,7 @@ public class BaseServiceClient implements AzDServiceClient {
      * @return Work item tracking Request builder {@link WorkItemTrackingRequestBuilder}
      */
     @Override
-    public WorkItemTrackingRequestBuilder workItemTracking() {
+    public WorkItemTrackingRequestBuilder workItemTracking() throws AzDException {
         var locationUrl = getLocationUrl(ResourceId.WIT);
         return new WorkItemTrackingRequestBuilder(locationUrl, accessTokenCredential);
     }
@@ -383,13 +383,9 @@ public class BaseServiceClient implements AzDServiceClient {
      * @param resourceId Pass the resource id. {@link ResourceId}
      * @return Location url.
      */
-    private String getLocationUrl(String resourceId) {
+    private String getLocationUrl(String resourceId) throws AzDException {
         if (resourceId == null || resourceId.isEmpty())
             throw new IllegalArgumentException("Resource Id cannot be empty.");
-        try {
-            return locations().getUrl(resourceId);
-        } catch (AzDException e) {
-            throw new RuntimeException(e);
-        }
+        return locations().getUrl(resourceId);
     }
 }

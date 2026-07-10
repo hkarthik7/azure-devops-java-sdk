@@ -9,6 +9,7 @@ import org.azd.configurations.ClientConfigurationRequestBuilder;
 import org.azd.core.CoreRequestBuilder;
 import org.azd.dashboard.DashboardRequestBuilder;
 import org.azd.distributedtask.DistributedTaskRequestBuilder;
+import org.azd.exceptions.AzDException;
 import org.azd.extensionmanagement.ExtensionManagementRequestBuilder;
 import org.azd.featuremanagement.FeatureManagementRequestBuilder;
 import org.azd.git.GitBaseRequestBuilder;
@@ -45,7 +46,7 @@ public interface AzDServiceClient {
      * @return Accounts base request builder. {@link AccountsRequestBuilder}
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/account/accounts?view=azure-devops-rest-7.1">Accounts</a>
      */
-    AccountsRequestBuilder accounts();
+    AccountsRequestBuilder accounts() throws AzDException;
 
     /**
      * Request builder for artifacts Api.
@@ -54,7 +55,7 @@ public interface AzDServiceClient {
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/artifacts/feed-management?view=azure-devops-rest-7.1">Artifacts</a>
      */
 
-    ArtifactsRequestBuilder artifacts();
+    ArtifactsRequestBuilder artifacts() throws AzDException;
 
     /**
      * Request builder for artifacts package types Api.
@@ -62,7 +63,7 @@ public interface AzDServiceClient {
      * @return Artifacts Package Types base request builder. {@link ArtifactsPackageTypesRequestBuilder}
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/artifactspackagetypes/maven?view=azure-devops-rest-7.1">Artifacts Package Types</a>
      */
-    ArtifactsPackageTypesRequestBuilder artifactsPackageTypes();
+    ArtifactsPackageTypesRequestBuilder artifactsPackageTypes() throws AzDException;
 
     /**
      * Request builder for build Api.
@@ -70,14 +71,14 @@ public interface AzDServiceClient {
      * @return Builds base request builder. {@link BuildBaseRequestBuilder}
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/build/?view=azure-devops-rest-7.1">Build</a>
      */
-    BuildBaseRequestBuilder build();
+    BuildBaseRequestBuilder build() throws AzDException;
 
     /**
      * Request builder for configuring the AzD service client.
      *
      * @return Configuration request builder. {@link ClientConfigurationRequestBuilder}
      */
-    ClientConfigurationRequestBuilder configuration();
+    ClientConfigurationRequestBuilder configuration() throws AzDException;
 
     /**
      * Request builder for core Api.
@@ -85,7 +86,7 @@ public interface AzDServiceClient {
      * @return Core request builder. {@link CoreRequestBuilder}
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/core/?view=azure-devops-rest-7.1">Core</a>
      */
-    CoreRequestBuilder core();
+    CoreRequestBuilder core() throws AzDException;
 
     /**
      * Request builder for Dashboard Api.
@@ -93,7 +94,7 @@ public interface AzDServiceClient {
      * @return Dashboard request builder. {@link DashboardRequestBuilder}
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/dashboard/?view=azure-devops-rest-7.2">Dashboard</a>
      */
-    DashboardRequestBuilder dashboard();
+    DashboardRequestBuilder dashboard() throws AzDException;
 
     /**
      * Request builder for distributed task Api.
@@ -101,7 +102,7 @@ public interface AzDServiceClient {
      * @return Distributed task request builder. {@link DistributedTaskRequestBuilder}
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/distributedtask/?view=azure-devops-rest-7.1">Distributed Task</a>
      */
-    DistributedTaskRequestBuilder distributedTask();
+    DistributedTaskRequestBuilder distributedTask() throws AzDException;
 
     /**
      * Request builder for extension management Api.
@@ -109,7 +110,7 @@ public interface AzDServiceClient {
      * @return Extension management request builder. {@link ExtensionManagementRequestBuilder}
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/extensionmanagement/installed-extensions?view=azure-devops-rest-7.1">Extension Management</a>
      */
-    ExtensionManagementRequestBuilder extensionManagement();
+    ExtensionManagementRequestBuilder extensionManagement() throws AzDException;
 
     /**
      * Request builder for feature management Api.
@@ -117,14 +118,14 @@ public interface AzDServiceClient {
      *
      * @return Feature management request builder. {@link FeatureManagementRequestBuilder}
      */
-    FeatureManagementRequestBuilder featureManagement();
+    FeatureManagementRequestBuilder featureManagement() throws AzDException;
 
     /**
      * Organization url.
      *
      * @return Returns the organization url.
      */
-    String getOrganizationUrl();
+    String getOrganizationUrl() throws AzDException;
 
     /**
      * Request builder for Git Api.
@@ -132,7 +133,7 @@ public interface AzDServiceClient {
      * @return Git base request builder. {@link GitBaseRequestBuilder}
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/git/?view=azure-devops-rest-7.1">Git</a>
      */
-    GitBaseRequestBuilder git();
+    GitBaseRequestBuilder git() throws AzDException;
 
     /**
      * Request builder for Graph Api.
@@ -140,21 +141,21 @@ public interface AzDServiceClient {
      * @return Graph request builder. {@link GraphRequestBuilder}
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/graph/?view=azure-devops-rest-7.1">Graph</a>
      */
-    GraphRequestBuilder graph();
+    GraphRequestBuilder graph() throws AzDException;
 
     /**
      * Helper class request builder.
      *
      * @return HelpersRequestBuilder {@link HelpersRequestBuilder}
      */
-    HelpersRequestBuilder helpers();
+    HelpersRequestBuilder helpers() throws AzDException;
 
     /**
      * Request builder for locations Api.
      *
      * @return Location base request builder. {@link LocationsBaseRequestBuilder}
      */
-    LocationsBaseRequestBuilder locations();
+    LocationsBaseRequestBuilder locations() throws AzDException;
 
     /**
      * Request builder for Member entitlement management Api.
@@ -162,7 +163,7 @@ public interface AzDServiceClient {
      * @return Member entitlement management request builder. {@link MemberEntitlementManagementRequestBuilder}
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/memberentitlementmanagement/?view=azure-devops-rest-7.1">Member Entitlement Management</a>
      */
-    MemberEntitlementManagementRequestBuilder memberEntitlementManagement();
+    MemberEntitlementManagementRequestBuilder memberEntitlementManagement() throws AzDException;
 
     /**
      * Request builder for OAuth access token creation.
@@ -178,7 +179,7 @@ public interface AzDServiceClient {
      * @return Pipelines request builder. {@link PipelinesBaseRequestBuilder}
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/pipelines/?view=azure-devops-rest-7.1">Pipelines</a>
      */
-    PipelinesBaseRequestBuilder pipelines();
+    PipelinesBaseRequestBuilder pipelines() throws AzDException;
 
     /**
      * Request builder for Policy Api.
@@ -186,61 +187,61 @@ public interface AzDServiceClient {
      * @return Policy request builder {@link PolicyRequestBuilder}
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/policy/?view=azure-devops-rest-7.1">Policy</a>
      */
-    PolicyRequestBuilder policy();
+    PolicyRequestBuilder policy() throws AzDException;
 
     /**
      * Request builder for Release Api.
      *
      * @return Release Request builder {@link ReleaseBaseRequestBuilder}
      */
-    ReleaseBaseRequestBuilder release();
+    ReleaseBaseRequestBuilder release() throws AzDException;
 
     /**
      * Request builder for Security Api.
      *
      * @return Security Request builder {@link SecurityRequestBuilder}
      */
-    SecurityRequestBuilder security();
+    SecurityRequestBuilder security() throws AzDException;
 
     /**
      * Request builder for Service endpoint Api.
      *
      * @return Service endpoint Request builder {@link ServiceEndpointRequestBuilder}
      */
-    ServiceEndpointRequestBuilder serviceEndpoint();
+    ServiceEndpointRequestBuilder serviceEndpoint() throws AzDException;
 
     /**
      * Request builder for Service hooks Api.
      *
      * @return Service hooks Request builder {@link ServiceHooksRequestBuilder}
      */
-    ServiceHooksRequestBuilder serviceHooks();
+    ServiceHooksRequestBuilder serviceHooks() throws AzDException;
 
     /**
      * Request builder for Test Api.
      *
      * @return Test Request builder {@link TestRequestBuilder}
      */
-    TestRequestBuilder test();
+    TestRequestBuilder test() throws AzDException;
 
     /**
      * Request builder for Wiki Api.
      *
      * @return Wiki Request builder {@link WikiRequestBuilder}
      */
-    WikiRequestBuilder wiki();
+    WikiRequestBuilder wiki() throws AzDException;
 
     /**
      * Request builder for Work Api.
      *
      * @return Work Request builder {@link WorkRequestBuilder}
      */
-    WorkRequestBuilder work();
+    WorkRequestBuilder work() throws AzDException;
 
     /**
      * Request builder for Work item tracking Api.
      *
      * @return Work item tracking Request builder {@link WorkItemTrackingRequestBuilder}
      */
-    WorkItemTrackingRequestBuilder workItemTracking();
+    WorkItemTrackingRequestBuilder workItemTracking() throws AzDException;
 }
