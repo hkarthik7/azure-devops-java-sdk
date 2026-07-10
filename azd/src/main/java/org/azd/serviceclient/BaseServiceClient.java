@@ -64,6 +64,7 @@ public class BaseServiceClient implements AzDServiceClient {
      *
      * @return Accounts base request builder. {@link AccountsRequestBuilder}
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/account/accounts?view=azure-devops-rest-7.1">Accounts</a>
+     * @throws AzDException Default Api exception handler
      */
     @Override
     public AccountsRequestBuilder accounts() throws AzDException {
@@ -80,6 +81,7 @@ public class BaseServiceClient implements AzDServiceClient {
      *
      * @return Artifacts base request builder. {@link ArtifactsRequestBuilder}
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/artifacts/feed-management?view=azure-devops-rest-7.1">Artifacts</a>
+     * @throws AzDException Default Api exception handler
      */
     @Override
     public ArtifactsRequestBuilder artifacts() throws AzDException {
@@ -92,6 +94,7 @@ public class BaseServiceClient implements AzDServiceClient {
      *
      * @return Artifacts Package Types base request builder. {@link ArtifactsPackageTypesRequestBuilder}
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/artifactspackagetypes/maven?view=azure-devops-rest-7.1">Artifacts Package Types</a>
+     * @throws AzDException Default Api exception handler
      */
     @Override
     public ArtifactsPackageTypesRequestBuilder artifactsPackageTypes() throws AzDException {
@@ -104,6 +107,7 @@ public class BaseServiceClient implements AzDServiceClient {
      *
      * @return Builds base request builder. {@link BuildBaseRequestBuilder}
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/build/?view=azure-devops-rest-7.1">Build</a>
+     * @throws AzDException Default Api exception handler
      */
     @Override
     public BuildBaseRequestBuilder build() throws AzDException {
@@ -126,6 +130,7 @@ public class BaseServiceClient implements AzDServiceClient {
      *
      * @return Core request builder. {@link CoreRequestBuilder}
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/core/?view=azure-devops-rest-7.1">Core</a>
+     * @throws AzDException Default Api exception handler
      */
     @Override
     public CoreRequestBuilder core() throws AzDException {
@@ -138,6 +143,7 @@ public class BaseServiceClient implements AzDServiceClient {
      *
      * @return Dashboard request builder. {@link DashboardRequestBuilder}
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/dashboard/?view=azure-devops-rest-7.2">Dashboard</a>
+     * @throws AzDException Default Api exception handler
      */
     @Override
     public DashboardRequestBuilder dashboard() throws AzDException {
@@ -150,6 +156,7 @@ public class BaseServiceClient implements AzDServiceClient {
      *
      * @return Distributed task request builder. {@link DistributedTaskRequestBuilder}
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/distributedtask/?view=azure-devops-rest-7.1">Distributed Task</a>
+     * @throws AzDException Default Api exception handler
      */
     @Override
     public DistributedTaskRequestBuilder distributedTask() throws AzDException {
@@ -162,6 +169,7 @@ public class BaseServiceClient implements AzDServiceClient {
      *
      * @return Extension management request builder. {@link ExtensionManagementRequestBuilder}
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/extensionmanagement/installed-extensions?view=azure-devops-rest-7.1">Extension Management</a>
+     * @throws AzDException Default Api exception handler
      */
     @Override
     public ExtensionManagementRequestBuilder extensionManagement() throws AzDException {
@@ -174,6 +182,7 @@ public class BaseServiceClient implements AzDServiceClient {
      * NOTE: This is an unpublished Api.
      *
      * @return Feature management request builder. {@link FeatureManagementRequestBuilder}
+     * @throws AzDException Default Api exception handler
      */
     @Override
     public FeatureManagementRequestBuilder featureManagement() throws AzDException {
@@ -195,6 +204,7 @@ public class BaseServiceClient implements AzDServiceClient {
      *
      * @return Git base request builder. {@link GitBaseRequestBuilder}
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/git/?view=azure-devops-rest-7.1">Git</a>
+     * @throws AzDException Default Api exception handler
      */
     @Override
     public GitBaseRequestBuilder git() throws AzDException {
@@ -207,6 +217,7 @@ public class BaseServiceClient implements AzDServiceClient {
      *
      * @return Graph request builder. {@link GraphRequestBuilder}
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/graph/?view=azure-devops-rest-7.1">Graph</a>
+     * @throws AzDException Default Api exception handler
      */
     @Override
     public GraphRequestBuilder graph() throws AzDException {
@@ -228,6 +239,7 @@ public class BaseServiceClient implements AzDServiceClient {
      * Request builder for locations Api.
      *
      * @return Location base request builder. {@link LocationsBaseRequestBuilder}
+     * @throws AzDException Default Api exception handler
      */
     @Override
     public LocationsBaseRequestBuilder locations() throws AzDException {
@@ -239,6 +251,7 @@ public class BaseServiceClient implements AzDServiceClient {
      *
      * @return Member entitlement management request builder. {@link MemberEntitlementManagementRequestBuilder}
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/memberentitlementmanagement/?view=azure-devops-rest-7.1">Member Entitlement Management</a>
+     * @throws AzDException Default Api exception handler
      */
     @Override
     public MemberEntitlementManagementRequestBuilder memberEntitlementManagement() throws AzDException {
@@ -262,6 +275,7 @@ public class BaseServiceClient implements AzDServiceClient {
      *
      * @return Pipelines request builder. {@link PipelinesBaseRequestBuilder}
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/pipelines/?view=azure-devops-rest-7.1">Pipelines</a>
+     * @throws AzDException Default Api exception handler
      */
     @Override
     public PipelinesBaseRequestBuilder pipelines() throws AzDException {
@@ -274,6 +288,7 @@ public class BaseServiceClient implements AzDServiceClient {
      *
      * @return Policy request builder {@link PolicyRequestBuilder}
      * @see <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/policy/?view=azure-devops-rest-7.1">Policy</a>
+     * @throws AzDException Default Api exception handler
      */
     @Override
     public PolicyRequestBuilder policy() throws AzDException {
@@ -296,6 +311,7 @@ public class BaseServiceClient implements AzDServiceClient {
      * Request builder for Security Api.
      *
      * @return Security Request builder {@link SecurityRequestBuilder}
+     * @throws AzDException Default Api exception handler
      */
     @Override
     public SecurityRequestBuilder security() throws AzDException {
@@ -306,6 +322,7 @@ public class BaseServiceClient implements AzDServiceClient {
      * Request builder for Service endpoint Api.
      *
      * @return Service endpoint Request builder {@link ServiceEndpointRequestBuilder}
+     * @throws AzDException Default Api exception handler
      */
     @Override
     public ServiceEndpointRequestBuilder serviceEndpoint() throws AzDException {
@@ -317,6 +334,7 @@ public class BaseServiceClient implements AzDServiceClient {
      * Request builder for Service hooks Api.
      *
      * @return Service hooks Request builder {@link ServiceHooksRequestBuilder}
+     * @throws AzDException Default Api exception handler
      */
     @Override
     public ServiceHooksRequestBuilder serviceHooks() {
@@ -327,6 +345,7 @@ public class BaseServiceClient implements AzDServiceClient {
      * Request builder for Test Api.
      *
      * @return Test Request builder {@link TestRequestBuilder}
+     * @throws AzDException Default Api exception handler
      */
     @Override
     public TestRequestBuilder test() throws AzDException {
@@ -338,6 +357,7 @@ public class BaseServiceClient implements AzDServiceClient {
      * Request builder for Wiki Api.
      *
      * @return Wiki Request builder {@link WikiRequestBuilder}
+     * @throws AzDException Default Api exception handler
      */
     @Override
     public WikiRequestBuilder wiki() throws AzDException {
@@ -349,6 +369,7 @@ public class BaseServiceClient implements AzDServiceClient {
      * Request builder for Work Api.
      *
      * @return Work Request builder {@link WorkRequestBuilder}
+     * @throws AzDException Default Api exception handler
      */
     @Override
     public WorkRequestBuilder work() throws AzDException {
@@ -360,6 +381,7 @@ public class BaseServiceClient implements AzDServiceClient {
      * Request builder for Work item tracking Api.
      *
      * @return Work item tracking Request builder {@link WorkItemTrackingRequestBuilder}
+     * @throws AzDException Default Api exception handler
      */
     @Override
     public WorkItemTrackingRequestBuilder workItemTracking() throws AzDException {
@@ -382,6 +404,7 @@ public class BaseServiceClient implements AzDServiceClient {
      *
      * @param resourceId Pass the resource id. {@link ResourceId}
      * @return Location url.
+     * @throws AzDException Default Api exception handler
      */
     private String getLocationUrl(String resourceId) throws AzDException {
         if (resourceId == null || resourceId.isEmpty())
