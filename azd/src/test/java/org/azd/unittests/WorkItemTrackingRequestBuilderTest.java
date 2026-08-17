@@ -509,4 +509,11 @@ public class WorkItemTrackingRequestBuilderTest {
                     HttpStatusCode.OK, response.getStatusCode());
         }
     }
+
+    @Test
+    public void shouldGetItemsViaBatch() throws AzDException{
+        WorkItemBatchGetRequest batchRequest = new WorkItemBatchGetRequest();
+        batchRequest.ids = List.of(1);
+        w.workItems().getBatch(batchRequest);
+    }
 }

@@ -98,6 +98,7 @@ public abstract class ApiVersion {
     public static final String WORK_ITEM_WIQL = "7.2-preview.2";
     public static final String WORK_ITEM_CLASSIFICATION_NODES = "7.2-preview.2";
     public static final String WORK_ITEM_ATTACHMENT = "7.2-preview.4";
+    public static final String WORK_ITEM_BATCH = "7.2-preview.1";
     public static final String MAVEN = "7.2-preview.1";
     public static final String UPACK = "7.2-preview.1";
 }

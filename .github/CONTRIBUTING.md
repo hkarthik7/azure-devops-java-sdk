@@ -73,7 +73,7 @@ You can then clone the repository to your development environment and start work
 - You should write unit test before you start writing the function/method/class. This way you can decide on how
 the functionality of your code should be.
 - You can use the existing class as template to create your own. This way we maintain consistent across the library.
-- Maintain the versions of different endpoints in Versions.java class
+- Maintain the versions of different endpoints in the [ApiVersions.java](../azd/src/main/java/org/azd/common/ApiVersion.java) class
 - Manage all the types under `types` package and define your own if necessary
 - Code your function and write help.
 - Update `_unitTest.json` file under `test` package with your own organisation name, project and personal access token
