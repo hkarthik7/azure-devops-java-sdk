@@ -3,7 +3,8 @@
 # 8.0.0
 
 **Major breaking change**
-- Fixed issue:
+- Fixed issues:
+  - workitemsbatch used the wrong api version. 
   - Issue: [invoking at any of the builders with the wrong organization causes an AzException #110](https://github.com/hkarthik7/azure-devops-java-sdk/issues/110)
 - The above change introduces `AzDException` in [AzDServiceClient.java](https://github.com/hkarthik7/azure-devops-java-sdk/blob/main/azd/src/main/java/org/azd/serviceclient/AzDServiceClient.java) 
 and it's implementation class [BaseServiceClient.java](https://github.com/hkarthik7/azure-devops-java-sdk/blob/main/azd/src/main/java/org/azd/serviceclient/BaseServiceClient.java). 
