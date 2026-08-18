@@ -416,6 +416,7 @@ public class WorkItemsRequestBuilder extends BaseRequestBuilder {
      */
     public WorkItemList getBatch(WorkItemBatchGetRequest workItemBatchGetRequest) throws AzDException {
         return builder()
+                .apiVersion(ApiVersion.WORK_ITEM_BATCH)
                 .location("908509b6-4248-4475-a1cd-829139ba419f")
                 .POST(workItemBatchGetRequest)
                 .build()
